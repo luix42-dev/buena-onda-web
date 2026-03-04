@@ -8,23 +8,22 @@
 /* ── CSS Custom Properties ────────────────────────────────────────────────── */
 :root {
   --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:    'DM Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
 
-  /* Brand colours (mirrors tailwind.config) */
-  --warm-sand:    #C0A880;
-  --terracotta:   #A88860;
-  --burnished:    #786048;
-  --dusty-rose:   #906060;
-  --deep-umber:   #604830;
-  --sky-steel:    #90A8C0;
-  --rose-magenta: #BE5582;
-  --near-black:   #202020;
-  --charcoal:     #606060;
-  --stone-grey:   #A0A0A0;
-  --cream:        #FAF6F0;
-  --sand-bg:      #F2ECE2;
-  --linen-white:  #F5F0E8;
+  --warm-sand:    #FF2084;
+  --terracotta:   #E01070;
+  --burnished:    #CC0066;
+  --dusty-rose:   #FF2084;
+  --deep-umber:   #AA0055;
+  --sky-steel:    #FF80BC;
+  --rose-magenta: #FF2084;
+  --near-black:   #0A0A0A;
+  --charcoal:     #1A1A1A;
+  --stone-grey:   #888888;
+  --cream:        #FFFFFF;
+  --sand-bg:      #F0F0F0;
+  --linen-white:  #FFFFFF;
 }
 
 /* ── Base Reset ────────────────────────────────────────────────────────────── */
@@ -37,9 +36,10 @@ html {
 }
 
 body {
+  body {
   font-family: var(--font-body);
-  background-color: #FAF6F0;
-  color: #202020;
+  background-color: #FFFFFF;
+  color: #0A0A0A;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--stone-grey);
+  color: var(--warm-sand);
   margin-bottom: 0.75rem;
 }
 
@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
   .text-balance { text-wrap: balance; }
 
   .bg-warm-gradient {
-    background: linear-gradient(135deg, #FAF6F0 0%, #F2ECE2 100%);
+    background: #0A0A0A;
   }
 
   .border-warm {
