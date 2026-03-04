@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .paper-hover:hover {
   transform: translate(-2px, -3px) rotate(-0.3deg);
-  box-shadow: 4px 6px 20px rgba(32, 32, 32, 0.12);
+  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.18);
 }
 
 /* ── Archive Label ────────────────────────────────────────────────────────── */
@@ -115,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 2.2vw, 1.4rem);
   font-style: italic;
-  color: var(--burnished);
+  color: var(--near-black);
   line-height: 1.5;
 }
 
@@ -124,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 0;
-  background: #1a1a1a;
+  background: #0A0A0A;
   padding: 1px;
 }
 .contact-sheet-cell {
@@ -143,13 +143,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Scrollbar Styling ────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-track { background: #0A0A0A; }
 ::-webkit-scrollbar-thumb { background: var(--warm-sand); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--terracotta); }
+::-webkit-scrollbar-thumb:hover { background: var(--burnished); }
 
 /* ── Selection ────────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(190, 85, 130, 0.2);
+  background: rgba(255, 32, 132, 0.25);
   color: var(--near-black);
 }
 
@@ -164,15 +164,9 @@ h1, h2, h3, h4, h5, h6 {
 @layer utilities {
   .font-display { font-family: var(--font-display); }
   .font-mono    { font-family: var(--font-mono); }
-
   .text-balance { text-wrap: balance; }
-
-  .bg-warm-gradient {
-  background: #0A0A0A;
-}
-  .border-warm {
-    border-color: rgba(192, 168, 128, 0.3);
-  }
+  .bg-warm-gradient { background: #0A0A0A; }
+  .border-warm { border-color: rgba(255, 32, 132, 0.3); }
 }
 
 /* ── Animations ───────────────────────────────────────────────────────────── */
@@ -180,12 +174,10 @@ h1, h2, h3, h4, h5, h6 {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 @keyframes slowPan {
   from { transform: scale(1.04) translateX(0); }
   to   { transform: scale(1.04) translateX(-2%); }
@@ -206,28 +198,24 @@ h1, h2, h3, h4, h5, h6 {
 .prose-brand h2, .prose-brand h3 { color: var(--near-black); margin-top: 2rem; margin-bottom: 0.75rem; }
 
 /* ── Editorial catalog ────────────────────────────────────────────────────── */
-
-/* Museum-style field row (key : value) */
 .catalog-field {
   display: grid;
   grid-template-columns: 7.5rem 1fr;
   gap: 1.25rem;
   padding: 0.875rem 0;
-  border-bottom: 1px solid rgba(192, 168, 128, 0.18);
+  border-bottom: 1px solid rgba(255, 32, 132, 0.15);
   align-items: baseline;
 }
 @media (min-width: 768px) {
   .catalog-field { grid-template-columns: 10rem 1fr; }
 }
 
-/* Full-bleed thin rule */
 .editorial-rule {
   width: 100%;
   height: 1px;
-  background: rgba(192, 168, 128, 0.22);
+  background: rgba(255, 32, 132, 0.2);
 }
 
-/* Large ordinal / catalog number used as design element */
 .catalog-ordinal {
   font-family: var(--font-mono);
   font-size: clamp(0.6rem, 1vw, 0.75rem);
@@ -236,7 +224,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--stone-grey);
 }
 
-/* Editorial text — long-form body in catalog context */
 .editorial-body {
   font-family: var(--font-body);
   font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
@@ -244,19 +231,18 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--charcoal);
 }
 
-/* Subtle underline CTA — no button shape */
 .text-cta {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--burnished);
-  border-bottom: 1px solid var(--burnished);
+  color: var(--warm-sand);
+  border-bottom: 1px solid var(--warm-sand);
   padding-bottom: 1px;
   transition: color 0.2s, border-color 0.2s;
   display: inline-block;
 }
-.text-cta:hover { color: var(--rose-magenta); border-color: var(--rose-magenta); }
+.text-cta:hover { color: var(--burnished); border-color: var(--burnished); }
 
 /* ── Admin ────────────────────────────────────────────────────────────────── */
 .admin-sidebar-link {
