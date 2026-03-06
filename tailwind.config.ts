@@ -9,30 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary — hot pink / magenta
-        'warm-sand':    '#FF2084',
-        'terracotta':   '#E01070',
-        'burnished':    '#CC0066',
-        'dusty-rose':   '#FF2084',
-        'deep-umber':   '#AA0055',
-        // Secondary — light pink accents
-        'sky-steel':    '#FF80BC',
-        'hazy-blue':    '#FFB3D1',
-        'slate-blue':   '#E05090',
-        'pale-sky':     '#FFD6E8',
-        // Accent
-        'rose-magenta': '#FF2084',
-        'warm-blush':   '#FF80BC',
-        'linen-peach':  '#FFD6E8',
-        // Neutrals — black / white system
-        'near-black':   '#0A0A0A',
-        'charcoal':     '#1A1A1A',
-        'stone-grey':   '#888888',
-        'pale-stone':   '#CCCCCC',
-        'off-white':    '#F5F5F5',
-        'linen-white':  '#FFFFFF',
-        'cream':        '#FFFFFF',
-        'sand-bg':      '#F0F0F0',
+        // Primary accent — warm analog
+        'warm-sand':    '#C4A87C',
+        'terracotta':   '#C4724A',
+        'burnished':    '#8B6848',
+        'dusty-rose':   '#C85A7C',
+        'deep-umber':   '#3D2B1F',
+        // Neutrals — warm
+        'near-black':   '#1A1A18',
+        'charcoal':     '#4A4A48',
+        'stone-grey':   '#9A9590',
+        'pale-stone':   '#D8D2C8',
+        // Backgrounds — cream / sand
+        'cream':        '#FAF6F0',
+        'sand-bg':      '#F2ECE2',
+        'linen-white':  '#F5F0E8',
+        'off-white':    '#FFFDF8',
+        'linen-peach':  '#EDE0D0',
+        // Legacy aliases (keep for admin pages)
+        'rose-magenta': '#C4724A',
       },
       fontFamily: {
         display: ['var(--font-display)', 'Georgia', 'Times New Roman', 'serif'],

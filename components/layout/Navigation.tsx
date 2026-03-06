@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const links = [
@@ -48,26 +49,28 @@ export default function Navigation() {
         className={[
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-cream/90 backdrop-blur-sm shadow-[0_1px_0_rgba(192,168,128,0.2)]'
+            ? 'bg-cream/95 backdrop-blur-sm shadow-[0_1px_0_rgba(216,210,200,0.6)]'
             : 'bg-transparent',
         ].join(' ')}
       >
         <div className="max-w-site mx-auto px-5 md:px-10 h-[64px] flex items-center justify-between">
 
-          {/* Logo */}
+          {/* Logo — PNG */}
           <Link
             href="/"
             className="flex flex-col leading-none group"
             aria-label="Buena Onda — Home"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo.svg"
+            <Image
+              src="/NEW LOGO BUENA ONDA revectorized OG COLOR.png"
               alt="Buena Onda"
-              style={{ height: '36px', width: 'auto' }}
+              width={160}
+              height={40}
+              style={{ height: '40px', width: 'auto' }}
               className="block"
+              priority
             />
-            <span className="archive-label text-[0.55rem] tracking-[0.2em] mt-1">
+            <span className="archive-label text-[0.55rem] tracking-[0.2em] mt-1 text-stone-grey">
               AN ANALOG CULTURE HOUSE
             </span>
           </Link>
@@ -82,12 +85,12 @@ export default function Navigation() {
                   'font-mono text-[0.7rem] tracking-[0.18em] uppercase transition-colors duration-200',
                   isActive(href)
                     ? 'text-near-black'
-                    : 'text-stone-grey hover:text-burnished',
+                    : 'text-charcoal hover:text-terracotta',
                 ].join(' ')}
               >
                 {label}
                 {isActive(href) && (
-                  <span className="block h-px bg-warm-sand mt-0.5 w-full" />
+                  <span className="block h-px bg-terracotta mt-0.5 w-full" />
                 )}
               </Link>
             ))}
@@ -138,7 +141,7 @@ export default function Navigation() {
               href={href}
               className={[
                 'font-display text-[2.2rem] leading-none transition-colors duration-200',
-                isActive(href) ? 'text-burnished' : 'text-near-black hover:text-terracotta',
+                isActive(href) ? 'text-terracotta' : 'text-near-black hover:text-terracotta',
                 open ? 'animate-fade-up' : 'opacity-0',
               ].join(' ')}
               style={{ animationDelay: `${i * 60}ms` }}
@@ -149,7 +152,7 @@ export default function Navigation() {
         </nav>
 
         <div className="mt-12">
-          <p className="archive-label text-[0.6rem]">Miami · Est. 2019</p>
+          <p className="archive-label text-[0.6rem] text-stone-grey">Miami · Est. 2014</p>
         </div>
       </div>
     </>

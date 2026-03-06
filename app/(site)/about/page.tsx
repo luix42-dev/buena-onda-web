@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const timeline = [
   {
-    year:  '2019',
+    year:  '2014',
     title: 'The First Session',
     body:  'A borrowed turntable, a Brickell rooftop, twelve friends. What started as a Sunday ritual became a community before anyone gave it a name.',
   },

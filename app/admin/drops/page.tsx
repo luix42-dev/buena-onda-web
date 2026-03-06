@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { Drop } from '@/types'
+import { getDropsClient } from '@/lib/api/client'
 
 export default function AdminDrops() {
   const [drops,   setDrops]   = useState<Drop[]>([])
@@ -14,9 +15,9 @@ export default function AdminDrops() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('/api/drops')
-      .then(r => r.json())
+    getDropsClient()
       .then(d => setDrops(d.drops ?? []))
+      .catch(() => setDrops([]))
       .finally(() => setLoading(false))
   }, [])
 

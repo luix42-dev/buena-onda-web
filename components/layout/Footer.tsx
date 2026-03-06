@@ -13,7 +13,7 @@ const navLinks = [
 const socialLinks = [
   { href: 'https://instagram.com/buenaondalifestyle', label: 'Instagram' },
   { href: '#',                                        label: 'Mixcloud'  },
-  { href: '#',                                        label: 'Spotify'   },
+  { href: '#',                                        label: 'SoundCloud' },
 ]
 
 export default function Footer() {
@@ -27,7 +27,7 @@ export default function Footer() {
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <Link href="/" className="inline-block group">
-            <span className="font-display text-[1.5rem] text-linen-peach leading-none tracking-[-0.03em] group-hover:text-warm-sand transition-colors">
+            <span className="font-display text-[1.5rem] text-cream leading-none tracking-[-0.03em] group-hover:text-warm-sand transition-colors">
               Buena Onda
             </span>
             <br />

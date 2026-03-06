@@ -1,27 +1,21 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createServiceClient } from '@/lib/supabase/server'
 import type { Theme } from '@/types'
+import { getAdminThemes } from '@/lib/api/admin'
 
-export const metadata: Metadata = { title: 'Themes' }
+export default function AdminThemesPage() {
+  const [themes, setThemes] = useState<Theme[]>([])
+  const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
-export default async function AdminThemesPage() {
-  let themes: Theme[] = []
-  let fetchError: string | null = null
-
-  try {
-    const supabase = await createServiceClient()
-    const { data, error } = await supabase
-      .from('themes')
-      .select('*')
-      .order('sort_order', { ascending: true })
-      .order('created_at', { ascending: false })
-
-    if (error) throw error
-    themes = data ?? []
-  } catch {
-    fetchError = 'Could not load themes — check Supabase config.'
-  }
+  useEffect(() => {
+    getAdminThemes()
+      .then(setThemes)
+      .catch(() => setFetchError('Could not load themes — check API connection.'))
+      .finally(() => setLoading(false))
+  }, [])
 
   return (
     <div>
@@ -45,7 +39,9 @@ export default async function AdminThemesPage() {
         </div>
       )}
 
-      {themes.length === 0 && !fetchError ? (
+      {loading ? (
+        <p className="font-mono text-sm text-stone-grey">Loading themes...</p>
+      ) : themes.length === 0 && !fetchError ? (
         <div className="py-20 text-center border border-pale-stone border-dashed">
           <p className="font-mono text-sm text-stone-grey">No themes yet.</p>
           <Link href="/admin/themes/new"

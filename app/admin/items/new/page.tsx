@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { getAdminThemes, createAdminItem, adminUpload } from '@/lib/api/admin'
 
 interface ThemeOption { id: string; title: string; code: string }
 
@@ -42,9 +43,8 @@ export default function NewItemPage() {
   const [createdId, setCreatedId] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/admin/themes')
-      .then(r => r.json())
-      .then((data: ThemeOption[]) => setThemes(data))
+    getAdminThemes()
+      .then((data) => setThemes(data as unknown as ThemeOption[]))
       .catch(() => {})
   }, [])
 
@@ -81,36 +81,22 @@ export default function NewItemPage() {
       setStep('uploading')
       setProgress(10)
 
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('folder', 'catalog')
-
-      const uploadRes = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body:   formData,
-      })
-
-      setProgress(70)
-
-      if (!uploadRes.ok) {
-        const { error: msg } = await uploadRes.json().catch(() => ({ error: 'Upload failed' }))
-        setError(msg ?? 'Image upload failed. Check Supabase Storage config.')
+      try {
+        const uploadData = await adminUpload(file, 'catalog')
+        imageUrl = uploadData.url
+        setProgress(90)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Image upload failed.')
         setStep('form')
         return
       }
-
-      const { url } = await uploadRes.json()
-      imageUrl = url
-      setProgress(90)
     }
 
     // ── Step 2: Create draft item ──────────────────────────────────────────
     setStep('saving')
 
-    const res = await fetch('/api/admin/items', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
+    try {
+      const data = await createAdminItem({
         title,
         slug,
         theme_id:        themeId || null,
@@ -120,20 +106,14 @@ export default function NewItemPage() {
         tags:            tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : [],
         cover_image_url: imageUrl,
         status:          'draft',
-      }),
-    })
-
-    if (!res.ok) {
-      const { error: msg } = await res.json().catch(() => ({ error: 'Save failed' }))
-      setError(msg ?? 'Failed to save item.')
+      })
+      setCreatedId(data.id)
+      setProgress(100)
+      setStep('done')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save item.')
       setStep('form')
-      return
     }
-
-    const data = await res.json()
-    setCreatedId(data.id)
-    setProgress(100)
-    setStep('done')
   }
 
   // ── Done state ──────────────────────────────────────────────────────────────

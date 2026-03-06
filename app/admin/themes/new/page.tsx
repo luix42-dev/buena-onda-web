@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { createAdminTheme } from '@/lib/api/admin'
 
 function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -31,25 +32,18 @@ export default function NewThemePage() {
     setError(null)
     setLoading(true)
 
-    const res = await fetch('/api/admin/themes', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
+    try {
+      await createAdminTheme({
         title, slug, code: code.toUpperCase(),
         description, editorial_text: editorialText,
         featured, published, sort_order: sortOrder,
-      }),
-    })
-
-    if (!res.ok) {
-      const { error: msg } = await res.json().catch(() => ({ error: 'Unknown error' }))
-      setError(msg ?? 'Failed to create theme')
+      })
+      router.push('/admin/themes')
+      router.refresh()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create theme')
       setLoading(false)
-      return
     }
-
-    router.push('/admin/themes')
-    router.refresh()
   }
 
   const inputCls = `w-full border border-pale-stone bg-transparent px-4 py-3

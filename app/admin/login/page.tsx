@@ -3,12 +3,14 @@
 import { useState, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { adminLogin } from '@/lib/api/admin'
 
 function LoginForm() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const from         = searchParams.get('from') ?? '/admin'
-  const inputRef     = useRef<HTMLInputElement>(null)
+  const emailRef     = useRef<HTMLInputElement>(null)
+  const passwordRef  = useRef<HTMLInputElement>(null)
   const [error, setError]     = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -17,19 +19,15 @@ function LoginForm() {
     setError(null)
     setLoading(true)
 
-    const password = inputRef.current?.value ?? ''
+    const email    = emailRef.current?.value ?? ''
+    const password = passwordRef.current?.value ?? ''
 
-    const res = await fetch('/api/admin/auth', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ password }),
-    })
-
-    if (res.ok) {
+    try {
+      await adminLogin(email, password)
       router.push(from)
       router.refresh()
-    } else {
-      setError('Incorrect password.')
+    } catch {
+      setError('Invalid credentials.')
       setLoading(false)
     }
   }
@@ -45,14 +43,30 @@ function LoginForm() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
+            <label className="archive-label text-[0.62rem] block mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              ref={emailRef}
+              id="email"
+              type="email"
+              autoFocus
+              required
+              placeholder="admin@buenaonda.com"
+              className="w-full border border-pale-stone bg-transparent px-4 py-3
+                         font-mono text-sm text-near-black placeholder:text-stone-grey
+                         focus:border-warm-sand focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div>
             <label className="archive-label text-[0.62rem] block mb-2" htmlFor="password">
               Password
             </label>
             <input
-              ref={inputRef}
+              ref={passwordRef}
               id="password"
               type="password"
-              autoFocus
               required
               placeholder="••••••••"
               className="w-full border border-pale-stone bg-transparent px-4 py-3

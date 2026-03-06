@@ -21,7 +21,7 @@ export default function NewsletterForm({ className = '', layout = 'row' }: Newsl
 
   if (status === 'done') {
     return (
-      <p className={`font-mono text-xs text-burnished ${className}`}>
+      <p className={`font-mono text-xs text-terracotta ${className}`}>
         ✓ You&apos;re on the list.
       </p>
     )
@@ -45,12 +45,12 @@ export default function NewsletterForm({ className = '', layout = 'row' }: Newsl
         required
         className="flex-1 border border-pale-stone bg-cream px-4 py-3
                    font-mono text-sm text-near-black placeholder:text-stone-grey
-                   focus:border-warm-sand focus:outline-none transition-colors"
+                   focus:border-terracotta focus:outline-none transition-colors"
       />
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="px-6 py-3 bg-near-black text-linen-peach font-mono text-xs
+        className="px-6 py-3 bg-terracotta text-cream font-mono text-xs
                    tracking-[0.2em] uppercase hover:bg-burnished
                    disabled:opacity-50 transition-colors whitespace-nowrap"
       >

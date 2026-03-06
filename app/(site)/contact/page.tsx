@@ -64,7 +64,7 @@ export default function ContactPage() {
                     {[
                       { label: 'Instagram', href: 'https://instagram.com/buenaondalifestyle' },
                       { label: 'Mixcloud',  href: '#' },
-                      { label: 'Spotify',   href: '#' },
+                      { label: 'SoundCloud', href: '#' },
                     ].map(({ label, href }) => (
                       <a
                         key={label}

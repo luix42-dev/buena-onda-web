@@ -1,9 +1,11 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { createServiceClient } from '@/lib/supabase/server'
-import type { Item, Theme } from '@/types'
+'use client'
 
-export const metadata: Metadata = { title: 'Catalog Items' }
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import type { Item, Theme } from '@/types'
+import { getAdminItems, getAdminThemes } from '@/lib/api/admin'
 
 const STATUS_COLORS: Record<string, string> = {
   draft:     'bg-pale-stone text-stone-grey',
@@ -11,41 +13,29 @@ const STATUS_COLORS: Record<string, string> = {
   archived:  'bg-rose-magenta/10 text-rose-magenta',
 }
 
-export default async function AdminItemsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ status?: string; theme?: string }>
-}) {
-  const { status: filterStatus, theme: filterTheme } = await searchParams
+function AdminItemsList() {
+  const searchParams = useSearchParams()
+  const filterStatus = searchParams.get('status') ?? ''
+  const filterTheme  = searchParams.get('theme') ?? ''
 
-  let items:  Item[]  = []
-  let themes: Theme[] = []
-  let fetchError: string | null = null
+  const [items,  setItems]  = useState<Item[]>([])
+  const [themes, setThemes] = useState<Theme[]>([])
+  const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
-  try {
-    const supabase = await createServiceClient()
-
-    const [itemsRes, themesRes] = await Promise.all([
-      supabase
-        .from('items')
-        .select('*, theme:themes(id, title, code)')
-        .order('created_at', { ascending: false }),
-      supabase
-        .from('themes')
-        .select('id, title, code, slug')
-        .order('title'),
+  useEffect(() => {
+    Promise.all([
+      getAdminItems(),
+      getAdminThemes(),
     ])
+      .then(([itemsData, themesData]) => {
+        setItems(Array.isArray(itemsData) ? itemsData : [])
+        setThemes(Array.isArray(themesData) ? themesData : [])
+      })
+      .catch(() => setFetchError('Could not load items — check API connection.'))
+      .finally(() => setLoading(false))
+  }, [])
 
-    if (itemsRes.error)  throw itemsRes.error
-    if (themesRes.error) throw themesRes.error
-
-    items  = (itemsRes.data  ?? []) as Item[]
-    themes = (themesRes.data ?? []) as Theme[]
-  } catch {
-    fetchError = 'Could not load items — check Supabase config.'
-  }
-
-  // Client-side filter (no rerender needed at this scale)
   const filtered = items.filter(item => {
     if (filterStatus && item.status !== filterStatus) return false
     if (filterTheme  && item.theme_id !== filterTheme)  return false
@@ -105,7 +95,9 @@ export default async function AdminItemsPage({
         </div>
       )}
 
-      {filtered.length === 0 && !fetchError ? (
+      {loading ? (
+        <p className="font-mono text-sm text-stone-grey">Loading items...</p>
+      ) : filtered.length === 0 && !fetchError ? (
         <div className="py-20 text-center border border-pale-stone border-dashed">
           <p className="font-mono text-sm text-stone-grey">No items found.</p>
           <Link href="/admin/items/new"
@@ -169,5 +161,13 @@ export default async function AdminItemsPage({
         </div>
       )}
     </div>
+  )
+}
+
+export default function AdminItemsPage() {
+  return (
+    <Suspense fallback={<p className="font-mono text-sm text-stone-grey">Loading...</p>}>
+      <AdminItemsList />
+    </Suspense>
   )
 }

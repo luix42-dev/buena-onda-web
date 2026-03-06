@@ -183,7 +183,7 @@ export default function RadioPage() {
           {/* Note about streaming */}
           <ScanReveal delay={200}>
             <p className="archive-label text-[0.6rem] text-charcoal text-center mt-8">
-              Full episodes available on Mixcloud and Spotify ·
+              Full episodes available on Mixcloud and SoundCloud ·
               {' '}
               <a href="#" className="text-stone-grey hover:text-warm-sand transition-colors">
                 Subscribe to the feed ↗

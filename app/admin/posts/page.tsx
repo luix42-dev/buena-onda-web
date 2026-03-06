@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { Post } from '@/types'
+import { getPostsClient } from '@/lib/api/client'
 
 export default function AdminPosts() {
   const [posts,   setPosts]   = useState<Post[]>([])
@@ -13,9 +14,9 @@ export default function AdminPosts() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('/api/posts')
-      .then(r => r.json())
+    getPostsClient()
       .then(d => setPosts(d.posts ?? []))
+      .catch(() => setPosts([]))
       .finally(() => setLoading(false))
   }, [])
 

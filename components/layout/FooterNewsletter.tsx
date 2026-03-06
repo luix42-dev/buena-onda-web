@@ -37,7 +37,7 @@ export default function FooterNewsletter() {
         type="submit"
         disabled={status === 'loading'}
         className="px-4 py-2 bg-warm-sand text-near-black font-mono text-xs tracking-wider
-                   uppercase hover:bg-terracotta disabled:opacity-50 transition-colors rounded-sm"
+                   uppercase hover:bg-burnished disabled:opacity-50 transition-colors rounded-sm"
       >
         {status === 'loading' ? '...' : 'Join'}
       </button>

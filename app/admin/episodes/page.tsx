@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { Episode } from '@/types'
+import { getEpisodesClient } from '@/lib/api/client'
 
 export default function AdminEpisodes() {
   const [episodes, setEpisodes] = useState<Episode[]>([])
@@ -14,9 +15,9 @@ export default function AdminEpisodes() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('/api/episodes')
-      .then(r => r.json())
+    getEpisodesClient()
       .then(d => setEpisodes(d.episodes ?? []))
+      .catch(() => setEpisodes([]))
       .finally(() => setLoading(false))
   }, [])
 
