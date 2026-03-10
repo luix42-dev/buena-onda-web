@@ -75,9 +75,9 @@ const drops: Drop[] = [
 ]
 
 const statusLabel: Record<DropStatus, { label: string; color: string }> = {
-  live:     { label: 'Available Now',  color: 'text-terracotta' },
+  live:     { label: 'Available Now',  color: 'text-coral'      },
   sold_out: { label: 'Sold Out',       color: 'text-stone-grey' },
-  upcoming: { label: 'Coming Soon',    color: 'text-sky-steel'  },
+  upcoming: { label: 'Coming Soon',    color: 'text-teal'       },
 }
 
 export default function ObjectsPage() {
@@ -88,7 +88,7 @@ export default function ObjectsPage() {
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="pt-32 pb-16 bg-sand-bg">
+      <div className="pt-32 pb-16 bg-warm-page">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label">Objects / Drops</span>
@@ -187,7 +187,7 @@ export default function ObjectsPage() {
       )}
 
       {/* ── Archive ────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-sand-bg">
+      <section className="py-20 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label mb-10 block">Archive</span>
@@ -207,7 +207,7 @@ export default function ObjectsPage() {
                       <span className="font-mono text-xs text-stone-grey">Sold Out</span>
                     </div>
                     <h3 className="font-display text-near-black text-lg mb-2">{drop.name}</h3>
-                    <p className="archive-label text-[0.6rem] text-warm-sand mt-2">{drop.price}</p>
+                    <p className="archive-label text-[0.6rem] text-teal mt-2">{drop.price}</p>
                   </div>
                 </div>
               </ScanReveal>

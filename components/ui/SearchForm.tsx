@@ -30,15 +30,15 @@ export default function SearchForm({ defaultValue = '' }: SearchFormProps) {
         defaultValue={defaultValue}
         placeholder="Search objects, tags, themes..."
         aria-label="Search catalog"
-        className="flex-1 border border-pale-stone border-r-0 bg-transparent px-4 py-3
+        className="flex-1 border border-gray-muted border-r-0 bg-transparent px-4 py-3
                    font-mono text-sm text-near-black placeholder:text-stone-grey
-                   focus:border-warm-sand focus:outline-none transition-colors"
+                   focus:border-teal focus:outline-none transition-colors"
       />
       <button
         type="submit"
-        className="px-5 py-3 bg-near-black text-linen-peach font-mono text-xs
-                   tracking-[0.15em] uppercase hover:bg-burnished transition-colors
-                   border border-near-black"
+        className="px-5 py-3 bg-charcoal text-warm-white font-mono text-xs
+                   tracking-[0.15em] uppercase hover:bg-teal transition-colors
+                   border border-charcoal"
       >
         Search
       </button>

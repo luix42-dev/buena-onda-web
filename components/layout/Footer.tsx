@@ -16,39 +16,74 @@ const socialLinks = [
   { href: '#',                                        label: 'SoundCloud' },
 ]
 
+const swatches = [
+  { color: '#2A9D9D', label: 'teal'      },
+  { color: '#D9685A', label: 'coral'     },
+  { color: '#2E2E2E', label: 'charcoal'  },
+  { color: '#FF3C8E', label: 'neon-pink' },
+  { color: '#00D4FF', label: 'neon-blue' },
+]
+
 export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-near-black text-pale-stone">
-      {/* Top band */}
+    <footer style={{ background: 'var(--warm-page)' }}>
+      {/* Editorial rule top */}
+      <div className="editorial-rule" />
+
+      {/* Main band */}
       <div className="max-w-site mx-auto px-5 md:px-10 pt-16 pb-12 grid grid-cols-1 md:grid-cols-3 gap-10">
 
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <Link href="/" className="inline-block group">
-            <span className="font-display text-[1.5rem] text-cream leading-none tracking-[-0.03em] group-hover:text-warm-sand transition-colors">
+            <span
+              className="text-[1.5rem] leading-none tracking-[-0.03em] transition-colors"
+              style={{ fontFamily: 'var(--font-display)', color: 'var(--charcoal)' }}
+            >
               Buena Onda
             </span>
             <br />
-            <span className="archive-label text-[0.55rem] tracking-[0.2em] text-stone-grey mt-0.5 block">
+            <span
+              className="text-[0.55rem] tracking-[0.2em] mt-0.5 block uppercase"
+              style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray-muted)' }}
+            >
               An Analog Culture House
             </span>
           </Link>
-          <p className="text-stone-grey text-sm leading-relaxed max-w-[22ch]">
+          <p className="text-sm leading-relaxed max-w-[22ch]" style={{ color: 'var(--gray)' }}>
             Music, objects, and a lifestyle built to last. Based in Miami.
           </p>
+
+          {/* Palette swatches */}
+          <div className="flex gap-2 mt-2" aria-label="Brand palette">
+            {swatches.map(({ color, label }) => (
+              <span
+                key={label}
+                title={label}
+                style={{ background: color, width: 14, height: 14, display: 'block', flexShrink: 0 }}
+                aria-label={label}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Nav column */}
         <div>
-          <p className="archive-label mb-4">Navigate</p>
+          <p
+            className="text-[0.65rem] font-semibold tracking-[0.2em] uppercase mb-4"
+            style={{ fontFamily: 'var(--font-sans)', color: 'var(--teal)' }}
+          >
+            Navigate
+          </p>
           <ul className="flex flex-col gap-2">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="font-mono text-xs tracking-wider text-stone-grey hover:text-warm-sand transition-colors uppercase"
+                  className="text-xs tracking-wider uppercase transition-colors hover:text-coral"
+                  style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray)' }}
                 >
                   {label}
                 </Link>
@@ -60,7 +95,12 @@ export default function Footer() {
         {/* Social + newsletter column */}
         <div className="flex flex-col gap-6">
           <div>
-            <p className="archive-label mb-4">Follow</p>
+            <p
+              className="text-[0.65rem] font-semibold tracking-[0.2em] uppercase mb-4"
+              style={{ fontFamily: 'var(--font-sans)', color: 'var(--teal)' }}
+            >
+              Follow
+            </p>
             <ul className="flex flex-col gap-2">
               {socialLinks.map(({ href, label }) => (
                 <li key={label}>
@@ -68,7 +108,8 @@ export default function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-xs tracking-wider text-stone-grey hover:text-warm-sand transition-colors uppercase"
+                    className="text-xs tracking-wider uppercase transition-colors hover:text-coral"
+                    style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray)' }}
                   >
                     {label} ↗
                   </a>
@@ -78,23 +119,39 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="archive-label mb-3">Newsletter</p>
+            <p
+              className="text-[0.65rem] font-semibold tracking-[0.2em] uppercase mb-3"
+              style={{ fontFamily: 'var(--font-sans)', color: 'var(--teal)' }}
+            >
+              Newsletter
+            </p>
             <FooterNewsletter />
           </div>
         </div>
       </div>
 
       {/* Bottom band */}
-      <div className="border-t border-charcoal/40">
+      <div className="border-t" style={{ borderColor: 'rgba(42,157,157,0.2)' }}>
         <div className="max-w-site mx-auto px-5 md:px-10 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="archive-label text-[0.6rem] text-charcoal">
+          <p
+            className="text-[0.6rem] tracking-[0.15em] uppercase"
+            style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray-dark)' }}
+          >
             © {year} Buena Onda · Miami, FL · All rights reserved
           </p>
           <div className="flex gap-5">
-            <Link href="/privacy" className="archive-label text-[0.6rem] text-charcoal hover:text-stone-grey transition-colors">
+            <Link
+              href="/privacy"
+              className="text-[0.6rem] tracking-[0.15em] uppercase transition-colors hover:text-gray"
+              style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray-dark)' }}
+            >
               Privacy
             </Link>
-            <Link href="/terms" className="archive-label text-[0.6rem] text-charcoal hover:text-stone-grey transition-colors">
+            <Link
+              href="/terms"
+              className="text-[0.6rem] tracking-[0.15em] uppercase transition-colors hover:text-gray"
+              style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray-dark)' }}
+            >
               Terms
             </Link>
           </div>

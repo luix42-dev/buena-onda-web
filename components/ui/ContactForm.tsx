@@ -38,7 +38,7 @@ export default function ContactForm() {
   if (submitted) {
     return (
       <div className="flex flex-col items-start gap-4 py-12">
-        <span className="font-mono text-2xl text-warm-sand">✓</span>
+        <span className="font-mono text-2xl text-teal">✓</span>
         <h2 className="font-display text-near-black text-2xl">
           Message received.
         </h2>
@@ -66,9 +66,9 @@ export default function ContactForm() {
           placeholder="Your name"
           autoComplete="name"
           {...register('name', { required: 'Name is required' })}
-          className="w-full border border-pale-stone bg-transparent px-4 py-3
+          className="w-full border border-gray-muted bg-transparent px-4 py-3
                      font-mono text-sm text-near-black placeholder:text-stone-grey
-                     focus:border-warm-sand focus:outline-none transition-colors"
+                     focus:border-teal focus:outline-none transition-colors"
         />
         {errors.name && (
           <p className="archive-label text-[0.6rem] text-rose-magenta mt-1">
@@ -94,9 +94,9 @@ export default function ContactForm() {
               message: 'Enter a valid email address',
             },
           })}
-          className="w-full border border-pale-stone bg-transparent px-4 py-3
+          className="w-full border border-gray-muted bg-transparent px-4 py-3
                      font-mono text-sm text-near-black placeholder:text-stone-grey
-                     focus:border-warm-sand focus:outline-none transition-colors"
+                     focus:border-teal focus:outline-none transition-colors"
         />
         {errors.email && (
           <p className="archive-label text-[0.6rem] text-rose-magenta mt-1">
@@ -113,9 +113,9 @@ export default function ContactForm() {
         <select
           id="subject"
           {...register('subject', { required: 'Please select a subject' })}
-          className="w-full border border-pale-stone bg-cream px-4 py-3
+          className="w-full border border-gray-muted bg-warm-page px-4 py-3
                      font-mono text-sm text-near-black
-                     focus:border-warm-sand focus:outline-none transition-colors
+                     focus:border-teal focus:outline-none transition-colors
                      appearance-none cursor-pointer"
         >
           <option value="">Select a topic</option>
@@ -164,9 +164,9 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="self-start px-8 py-3.5 bg-near-black text-linen-peach
+        className="self-start px-8 py-3.5 bg-teal text-white
                    font-mono text-xs tracking-[0.2em] uppercase
-                   hover:bg-burnished disabled:opacity-50 disabled:cursor-not-allowed
+                   hover:bg-teal-deep disabled:opacity-50 disabled:cursor-not-allowed
                    transition-colors paper-hover"
       >
         {isSubmitting ? 'Sending...' : 'Send message →'}

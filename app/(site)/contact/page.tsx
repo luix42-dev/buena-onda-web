@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="pt-32 pb-16 bg-sand-bg">
+      <div className="pt-32 pb-16 bg-warm-page">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label">Contact</span>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                       <p className="archive-label text-[0.6rem] mb-1">{label}</p>
                       <a
                         href={href}
-                        className="font-mono text-sm text-burnished hover:text-rose-magenta transition-colors"
+                        className="font-mono text-sm text-teal hover:text-neon-pink transition-colors"
                       >
                         {value}
                       </a>
@@ -72,7 +72,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-xs tracking-wider uppercase text-stone-grey
-                                   hover:text-burnished transition-colors"
+                                   hover:text-teal transition-colors"
                       >
                         {label} ↗
                       </a>

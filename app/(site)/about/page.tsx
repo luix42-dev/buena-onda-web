@@ -48,7 +48,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="pt-32 pb-16 bg-sand-bg">
+      <div className="pt-32 pb-16 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label">About</span>
@@ -94,7 +94,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Timeline ───────────────────────────────────────────────────── */}
-      <section className="py-24 bg-sand-bg">
+      <section className="py-24 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label mb-12 block">Timeline</span>
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 <ScanReveal key={year} delay={i * 80}>
                   <div className="flex flex-col md:flex-row gap-4 md:gap-12">
                     <div className="flex-shrink-0 w-full md:w-[4.5rem] pt-0.5">
-                      <span className="font-mono text-xs tracking-wider text-warm-sand">
+                      <span className="font-mono text-xs tracking-wider text-teal">
                         {year}
                       </span>
                     </div>
@@ -158,7 +158,7 @@ export default function AboutPage() {
               },
             ].map(({ title, body }, i) => (
               <ScanReveal key={title} delay={i * 100}>
-                <div className="paper-hover bg-sand-bg p-7 h-full">
+                <div className="paper-hover bg-warm-white p-7 h-full">
                   <p className="archive-label text-[0.6rem] mb-4">
                     {String(i + 1).padStart(2, '0')}
                   </p>

@@ -21,7 +21,7 @@ export default function NotifyForm({ dropDate }: NotifyFormProps) {
 
   if (status === 'done') {
     return (
-      <p className="font-mono text-xs text-burnished">
+      <p className="font-mono text-xs text-teal">
         ✓ We&apos;ll notify you when it drops.
       </p>
     )
@@ -45,15 +45,13 @@ export default function NotifyForm({ dropDate }: NotifyFormProps) {
           onChange={e => setEmail(e.target.value)}
           placeholder="your@email.com"
           required
-          className="flex-1 border border-pale-stone bg-transparent px-3 py-2
-                     font-mono text-xs focus:border-warm-sand focus:outline-none"
+          className="flex-1 border border-gray-muted bg-transparent px-3 py-2
+                     font-mono text-xs focus:border-teal focus:outline-none"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-4 py-2 bg-warm-sand text-near-black font-mono text-xs
-                     tracking-wider uppercase hover:bg-terracotta
-                     disabled:opacity-50 transition-colors"
+          className="btn-hollow-coral disabled:opacity-50 py-2 px-4 text-[0.65rem]"
         >
           {status === 'loading' ? '...' : 'Notify'}
         </button>

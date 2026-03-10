@@ -78,7 +78,7 @@ export default function CulturePage() {
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="pt-32 pb-16 bg-sand-bg">
+      <div className="pt-32 pb-16 bg-warm-page">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label">Culture</span>
@@ -108,11 +108,11 @@ export default function CulturePage() {
 
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
-                  <span className="archive-label text-[0.6rem] text-rose-magenta">Featured</span>
+                  <span className="archive-label text-[0.6rem] text-coral">Featured</span>
                   <span className="archive-label text-[0.6rem]">{featured.issue}</span>
                 </div>
                 <h2
-                  className="font-display text-near-black group-hover:text-burnished transition-colors"
+                  className="font-display text-near-black group-hover:text-teal transition-colors"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)' }}
                 >
                   {featured.title}
@@ -132,8 +132,8 @@ export default function CulturePage() {
                   <span className="archive-label text-[0.6rem]">{featured.date}</span>
                   <span className="archive-label text-[0.6rem]">{featured.readTime} read</span>
                 </div>
-                <p className="font-mono text-xs tracking-wider text-burnished
-                               group-hover:text-rose-magenta transition-colors mt-2">
+                <p className="font-mono text-xs tracking-wider text-coral
+                               group-hover:text-neon-pink transition-colors mt-2">
                   Read essay →
                 </p>
               </div>
@@ -163,14 +163,14 @@ export default function CulturePage() {
                       {tags.slice(0, 2).map(tag => (
                         <span
                           key={tag}
-                          className="archive-label text-[0.58rem] text-warm-sand"
+                          className="archive-label text-[0.58rem] text-teal-light"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                     <h3
-                      className="font-display text-near-black group-hover:text-burnished
+                      className="font-display text-near-black group-hover:text-teal
                                  transition-colors"
                       style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}
                     >
@@ -179,7 +179,7 @@ export default function CulturePage() {
                     <p className="text-charcoal text-sm leading-relaxed flex-1">{excerpt}</p>
                     <div className="flex items-center justify-between mt-2 pt-3 border-t border-pale-stone">
                       <span className="archive-label text-[0.58rem]">{date}</span>
-                      <span className="font-mono text-xs text-warm-sand group-hover:text-burnished transition-colors">
+                      <span className="font-mono text-xs text-teal-light group-hover:text-teal transition-colors">
                         {readTime} →
                       </span>
                     </div>

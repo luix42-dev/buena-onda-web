@@ -57,7 +57,7 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <>
       {/* Header */}
-      <div className="pt-32 pb-12 bg-sand-bg">
+      <div className="pt-32 pb-12 bg-warm-page">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <span className="section-label">Search</span>
@@ -84,8 +84,8 @@ export default async function SearchPage({ searchParams }: Props) {
                 <Link href="/search"
                   className={`font-mono text-xs px-3 py-1.5 border transition-colors ${
                     !themeFilter
-                      ? 'border-near-black bg-near-black text-linen-peach'
-                      : 'border-pale-stone text-stone-grey hover:border-burnished'
+                      ? 'border-charcoal bg-charcoal text-warm-white'
+                      : 'border-pale-stone text-stone-grey hover:border-teal'
                   }`}>
                   All
                 </Link>
@@ -94,8 +94,8 @@ export default async function SearchPage({ searchParams }: Props) {
                     href={`/search?${q ? `q=${encodeURIComponent(q)}&` : ''}theme=${t.id}`}
                     className={`font-mono text-xs px-3 py-1.5 border transition-colors ${
                       themeFilter === t.id
-                        ? 'border-burnished bg-burnished text-linen-peach'
-                        : 'border-pale-stone text-stone-grey hover:border-burnished'
+                        ? 'border-teal bg-teal text-white'
+                        : 'border-pale-stone text-stone-grey hover:border-teal'
                     }`}>
                     {t.code} — {t.title}
                   </Link>
@@ -127,7 +127,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 </p>
                 {query && (
                   <Link href="/themes"
-                    className="inline-block mt-4 font-mono text-xs text-burnished hover:text-rose-magenta transition-colors">
+                    className="inline-block mt-4 font-mono text-xs text-teal hover:text-neon-pink transition-colors">
                     Browse all themes →
                   </Link>
                 )}
@@ -163,13 +163,13 @@ export default async function SearchPage({ searchParams }: Props) {
                             {item.catalog_number}
                           </span>
                         )}
-                        <p className="font-mono text-sm text-near-black group-hover:text-burnished
+                        <p className="font-mono text-sm text-near-black group-hover:text-teal
                                      transition-colors truncate">
                           {item.title}
                         </p>
                       </div>
                       {item.theme && (
-                        <p className="archive-label text-[0.55rem] text-warm-sand mt-0.5">
+                        <p className="archive-label text-[0.55rem] text-teal-light mt-0.5">
                           {(item.theme as unknown as Theme).title}
                         </p>
                       )}
@@ -181,7 +181,7 @@ export default async function SearchPage({ searchParams }: Props) {
                       </span>
                     )}
 
-                    <span className="font-mono text-xs text-stone-grey group-hover:text-burnished
+                    <span className="font-mono text-xs text-stone-grey group-hover:text-teal
                                    transition-colors flex-shrink-0">
                       →
                     </span>

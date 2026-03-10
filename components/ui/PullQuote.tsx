@@ -12,7 +12,7 @@ export default function PullQuote({ children, attribution, className = '' }: Pul
       <p>{children}</p>
       {attribution && (
         <footer className="mt-3">
-          <cite className="font-mono text-xs tracking-wider text-stone-grey not-italic">
+          <cite className="font-sans text-xs tracking-wider text-gray not-italic">
             — {attribution}
           </cite>
         </footer>

@@ -2,29 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Google Fonts ─────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+/* next/font handles font loading — no @import needed */
 
 :root {
-  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-body:    'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:    'Space Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
+  /* Miami Synthesis font vars */
+  --font-display: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  --font-sans:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif:   'Instrument Serif', Georgia, serif;
 
-  /* Brand colours (mirrors tailwind.config) */
+  /* Legacy mono alias → sans */
+  --font-body:    var(--font-sans);
+  --font-mono:    var(--font-sans);
+
+  /* Miami Synthesis colour tokens */
+  --coral:        #D9685A;
+  --coral-light:  #E8927F;
+  --coral-pale:   #F2C4BB;
+  --coral-dark:   #B84E41;
+  --teal:         #2A9D9D;
+  --teal-light:   #5ABFBF;
+  --teal-deep:    #1A7070;
+  --black:        #0D0D0D;
+  --black-warm:   #161416;
+  --charcoal:     #2E2E2E;
+  --charcoal-dark:#1C1C1C;
+  --gray:         #6B6B6B;
+  --gray-dark:    #4A4A4A;
+  --gray-muted:   #9A9A9A;
+  --gray-light:   #C8C8C8;
+  --warm-page:    #FAF8F5;
+  --warm-white:   #F5F2ED;
+  --neon-pink:    #FF3C8E;
+  --neon-blue:    #00D4FF;
+
+  /* Legacy aliases for any admin references */
   --warm-sand:    #C4A87C;
-  --terracotta:   #C4724A;
-  --burnished:    #8B6848;
-  --dusty-rose:   #C85A7C;
-  --deep-umber:   #3D2B1F;
-  --near-black:   #1A1A18;
-  --charcoal:     #4A4A48;
-  --stone-grey:   #9A9590;
-  --pale-stone:   #D8D2C8;
-  --cream:        #FAF6F0;
-  --sand-bg:      #F2ECE2;
-  --linen-white:  #F5F0E8;
-  --off-white:    #FFFDF8;
-  --rose-magenta: #C4724A;
+  --terracotta:   #D9685A;
+  --burnished:    #1A7070;
+  --dusty-rose:   #FF3C8E;
+  --deep-umber:   #1C1C1C;
+  --near-black:   #0D0D0D;
+  --stone-grey:   #6B6B6B;
+  --pale-stone:   #C8C8C8;
+  --cream:        #FAF8F5;
+  --sand-bg:      #F5F2ED;
+  --linen-white:  #F5F2ED;
+  --off-white:    #FAF8F5;
+  --linen-peach:  #F2C4BB;
+  --rose-magenta: #FF3C8E;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,23 +61,22 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: #FAF6F0;
-  color: #1A1A18;
+  font-family: var(--font-sans);
+  background-color: #FAF8F5;
+  color: #2E2E2E;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 img, video { max-width: 100%; display: block; }
-h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; }
 
-/* ── Typography ───────────────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
 }
 
 /* ── Film Grain Overlay ───────────────────────────────────────────────────── */
@@ -61,7 +85,7 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.028;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
   mix-blend-mode: multiply;
@@ -86,44 +110,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 .paper-hover:hover {
   transform: translate(-2px, -3px) rotate(-0.3deg);
-  box-shadow: 4px 6px 20px rgba(196, 168, 124, 0.15);
+  box-shadow: 4px 6px 20px rgba(42, 157, 157, 0.12);
 }
 
-/* ── Component classes (in @layer so Tailwind utilities can override) ───── */
+/* ── Component classes ──────────────────────────────────────────────────── */
 @layer components {
   .archive-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.65rem;
+    font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--stone-grey);
+    color: var(--gray);
     line-height: 1;
   }
   .section-label {
     display: inline-block;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.7rem;
+    font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--stone-grey);
+    color: var(--teal);
     margin-bottom: 0.75rem;
   }
   .pull-quote {
-    border-left: 2px solid var(--terracotta);
+    border-left: 2px solid var(--coral);
     padding: 1.25rem 0 1.25rem 1.5rem;
   }
   .pull-quote p {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     font-style: italic;
-    color: var(--burnished);
+    color: var(--charcoal);
     line-height: 1.5;
   }
   .contact-sheet {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 0;
-    background: #1a1a18;
+    background: #0D0D0D;
     padding: 1px;
   }
   .contact-sheet-cell {
@@ -140,80 +166,84 @@ h1, h2, h3, h4, h5, h6 {
     pointer-events: none;
   }
   .prose-brand {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
+    font-weight: 300;
     font-size: 1.0625rem;
     line-height: 1.75;
     color: var(--charcoal);
   }
   .prose-brand p + p { margin-top: 1.25rem; }
-  .prose-brand h2, .prose-brand h3 { color: var(--near-black); margin-top: 2rem; margin-bottom: 0.75rem; }
+  .prose-brand h2, .prose-brand h3 { color: var(--charcoal); margin-top: 2rem; margin-bottom: 0.75rem; }
   .catalog-field {
     display: grid;
     grid-template-columns: 7.5rem 1fr;
     gap: 1.25rem;
     padding: 0.875rem 0;
-    border-bottom: 1px solid var(--pale-stone);
+    border-bottom: 1px solid rgba(42, 157, 157, 0.3);
     align-items: baseline;
   }
   .editorial-rule {
     width: 100%;
     height: 1px;
-    background: var(--pale-stone);
+    background: var(--teal);
   }
   .catalog-ordinal {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: clamp(0.6rem, 1vw, 0.75rem);
+    font-weight: 600;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--stone-grey);
+    color: var(--gray);
   }
   .editorial-body {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
     line-height: 1.85;
     color: var(--charcoal);
   }
   .text-cta {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.72rem;
+    font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--terracotta);
-    border-bottom: 1px solid var(--terracotta);
+    color: var(--teal);
+    border-bottom: 1px solid var(--teal);
     padding-bottom: 1px;
     transition: color 0.2s, border-color 0.2s;
     display: inline-block;
   }
-  .text-cta:hover { color: var(--dusty-rose); border-color: var(--dusty-rose); }
+  .text-cta:hover { color: var(--coral); border-color: var(--coral); }
   .admin-sidebar-link {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-mono tracking-wide
-           text-charcoal hover:bg-sand-bg hover:text-near-black transition-colors;
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-md text-sm tracking-wide
+           text-charcoal hover:bg-warm-white hover:text-charcoal-dark transition-colors;
+    font-family: var(--font-sans);
   }
   .admin-sidebar-link.active {
-    @apply bg-sand-bg text-near-black;
+    @apply bg-warm-white text-charcoal-dark;
   }
 }
 
-/* ── Media queries for components (outside @layer for PostCSS compat) ───── */
+/* ── Media queries ────────────────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .catalog-field { grid-template-columns: 10rem 1fr; }
 }
 
-/* ── Scrollbar Styling ────────────────────────────────────────────────────── */
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #FAF6F0; }
-::-webkit-scrollbar-thumb { background: #C4724A; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #8B6848; }
+::-webkit-scrollbar-track { background: #FAF8F5; }
+::-webkit-scrollbar-thumb { background: #2A9D9D; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #1A7070; }
 
 /* ── Selection ────────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(200, 90, 124, 0.2);
-  color: #1A1A18;
+  background: rgba(217, 104, 90, 0.2);
+  color: #2E2E2E;
 }
 
 /* ── Focus ────────────────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--terracotta);
+  outline: 2px solid var(--teal);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -221,19 +251,107 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Utilities ────────────────────────────────────────────────────────────── */
 @layer utilities {
   .font-display { font-family: var(--font-display); }
-  .font-mono    { font-family: var(--font-mono); }
+  .font-sans    { font-family: var(--font-sans); }
+  .font-serif   { font-family: var(--font-serif); }
+  .font-mono    { font-family: var(--font-sans); }
   .text-balance { text-wrap: balance; }
+
   .bg-warm-gradient {
-    background: linear-gradient(135deg, #FAF6F0 0%, #F2ECE2 100%);
+    background: linear-gradient(135deg, #FAF8F5 0%, #F5F2ED 100%);
   }
   .border-warm {
-    border-color: var(--pale-stone);
+    border-color: var(--teal);
+  }
+
+  /* ── Neon effects (outline-only, use on dark backgrounds) ── */
+  .neon-border-pink {
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 8px rgba(255, 60, 142, 0.4), 0 0 20px rgba(255, 60, 142, 0.15);
+  }
+  .neon-border-blue {
+    border: 1px solid var(--neon-blue);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4), 0 0 20px rgba(0, 212, 255, 0.15);
+  }
+  .neon-text-pink {
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255, 60, 142, 0.6), 0 0 20px rgba(255, 60, 142, 0.3);
+  }
+  .neon-text-blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.6), 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  .vice-strip {
+    height: 3px;
+    background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
+    box-shadow: 0 0 8px rgba(255, 60, 142, 0.4), 0 0 16px rgba(0, 212, 255, 0.2);
   }
 }
 
+/* ── Animations ───────────────────────────────────────────────────────────── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes slowPan { from { transform:scale(1.04) translateX(0); } to { transform:scale(1.04) translateX(-2%); } }
-.animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-.animate-fade-in { animation: fadeIn 0.8s ease both; }
+@keyframes equalize {
+  0%, 100% { transform: scaleY(0.4); }
+  50%       { transform: scaleY(1.0); }
+}
+.animate-fade-up  { animation: fadeUp 0.6s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+.animate-fade-in  { animation: fadeIn 0.8s ease both; }
 .animate-slow-pan { animation: slowPan 12s ease-in-out infinite alternate; }
+
+/* ── Pillar card hover — alternating neon ─────────────────────────────── */
+.pillar-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.pillar-card.pillar-odd:hover {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 12px rgba(0,212,255,0.25), 0 0 30px rgba(0,212,255,0.08);
+}
+.pillar-card.pillar-even:hover {
+  border-color: var(--neon-pink) !important;
+  box-shadow: 0 0 12px rgba(255,60,142,0.25), 0 0 30px rgba(255,60,142,0.08);
+}
+.pillar-card.pillar-odd:hover .pillar-read {
+  color: var(--neon-blue);
+}
+.pillar-card.pillar-even:hover .pillar-read {
+  color: var(--neon-pink);
+}
+
+/* ── Catalog card hover — alternating neon ────────────────────────────── */
+.catalog-card-odd:hover .catalog-inner {
+  outline: 1px solid var(--neon-blue);
+  box-shadow: 0 0 12px rgba(0,212,255,0.2);
+}
+.catalog-card-even:hover .catalog-inner {
+  outline: 1px solid var(--neon-pink);
+  box-shadow: 0 0 12px rgba(255,60,142,0.2);
+}
+
+/* ── Hollow coral CTA → neon-pink on hover ────────────────────────────── */
+.btn-hollow-coral {
+  background: transparent;
+  border: 1px solid var(--coral);
+  color: var(--coral);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-hollow-coral:hover {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: 0 0 12px rgba(255,60,142,0.25);
+}
+
+/* ── Newsletter input neon focus ─────────────────────────────────────── */
+.input-neon-focus:focus {
+  border-color: var(--neon-pink) !important;
+  box-shadow: 0 0 8px rgba(255,60,142,0.25), 0 0 20px rgba(255,60,142,0.08);
+  outline: none;
+}

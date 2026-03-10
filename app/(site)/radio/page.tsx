@@ -33,7 +33,7 @@ function EpisodeRow({ ep, isActive, onPlay }: {
       className={[
         'group flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5',
         'border-b border-charcoal/30 last:border-0 cursor-pointer transition-colors duration-200',
-        isActive ? 'bg-warm-sand/10' : 'hover:bg-charcoal/20',
+        isActive ? 'bg-teal/10' : 'hover:bg-charcoal/20',
       ].join(' ')}
       onClick={onPlay}
       role="button"
@@ -46,9 +46,9 @@ function EpisodeRow({ ep, isActive, onPlay }: {
                       group-hover:border-warm-sand/60 transition-colors">
         {isActive ? (
           <span className="w-2.5 h-2.5 flex gap-0.5">
-            <span className="block w-0.5 h-full bg-rose-magenta animate-[equalize_0.8s_ease-in-out_infinite]" />
-            <span className="block w-0.5 h-full bg-rose-magenta animate-[equalize_0.8s_ease-in-out_0.2s_infinite]" />
-            <span className="block w-0.5 h-full bg-rose-magenta animate-[equalize_0.8s_ease-in-out_0.4s_infinite]" />
+            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
+            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_0.2s_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
+            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_0.4s_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
           </span>
         ) : (
           <span className="font-mono text-[0.65rem] text-stone-grey group-hover:text-warm-sand transition-colors">
@@ -71,7 +71,7 @@ function EpisodeRow({ ep, isActive, onPlay }: {
         </div>
         <h3 className={[
           'font-display text-base leading-snug transition-colors',
-          isActive ? 'text-linen-peach' : 'text-pale-stone group-hover:text-linen-peach',
+          isActive ? 'text-warm-white' : 'text-pale-stone group-hover:text-warm-white',
         ].join(' ')}>
           {ep.title}
         </h3>
@@ -97,12 +97,12 @@ export default function RadioPage() {
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="pt-32 pb-16 bg-near-black text-pale-stone">
+      <div className="pt-32 pb-16 bg-black text-pale-stone">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
-            <span className="section-label text-stone-grey">Radio / Sound</span>
+            <span className="section-label text-teal">Radio / Sound</span>
             <h1
-              className="font-display text-linen-peach mt-2"
+              className="font-display text-warm-white mt-2"
               style={{ fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
             >
               The Archive
@@ -121,13 +121,13 @@ export default function RadioPage() {
                         shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
           <div className="max-w-site mx-auto px-5 md:px-10 py-4 flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-magenta animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-neon-pink animate-pulse" style={{ boxShadow: '0 0 6px rgba(255,60,142,0.5)' }} />
               <span className="font-mono text-[0.65rem] text-stone-grey tracking-wider uppercase">
                 Now Playing
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-display text-linen-peach text-sm truncate">
+              <p className="font-display text-warm-white text-sm truncate">
                 EP·{String(activeEpisode.episodeNumber).padStart(2, '0')} — {activeEpisode.title}
               </p>
             </div>
@@ -137,8 +137,8 @@ export default function RadioPage() {
                 {Array.from({length: 20}).map((_, i) => (
                   <div
                     key={i}
-                    className="w-0.5 bg-warm-sand/40 rounded-full"
-                    style={{ height: `${Math.random() * 16 + 4}px` }}
+                    className="w-0.5 bg-neon-pink rounded-full"
+                    style={{ height: `${Math.random() * 16 + 4}px`, opacity: 0.7 }}
                   />
                 ))}
               </div>
@@ -154,7 +154,7 @@ export default function RadioPage() {
       )}
 
       {/* ── Episode List ───────────────────────────────────────────────── */}
-      <section className="bg-near-black min-h-screen">
+      <section className="bg-black min-h-screen">
         <div className="max-w-site mx-auto px-5 md:px-10 py-12">
           <ScanReveal>
             <div className="border border-charcoal/40">

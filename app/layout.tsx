@@ -1,7 +1,30 @@
 import type { Metadata, Viewport } from 'next'
+import { Bebas_Neue, Outfit, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
+
+const bebasNeue = Bebas_Neue({
+  weight:   ['400'],
+  subsets:  ['latin'],
+  variable: '--font-display',
+  display:  'swap',
+})
+
+const outfit = Outfit({
+  weight:   ['300', '400', '500', '600', '700'],
+  subsets:  ['latin'],
+  variable: '--font-sans',
+  display:  'swap',
+})
+
+const instrumentSerif = Instrument_Serif({
+  weight:   ['400'],
+  style:    ['normal', 'italic'],
+  subsets:  ['latin'],
+  variable: '--font-serif',
+  display:  'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +56,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FAF6F0',
+  themeColor:  '#FAF8F5',
   colorScheme: 'light',
 }
 
@@ -45,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body>
+      <body className={`${bebasNeue.variable} ${outfit.variable} ${instrumentSerif.variable}`}>
         <FilmGrain />
         <ClickSound />
         {children}

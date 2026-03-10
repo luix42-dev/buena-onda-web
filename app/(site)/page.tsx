@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import ScanReveal from '@/components/ui/ScanReveal'
 import ContactSheet from '@/components/ui/ContactSheet'
-import PullQuote from '@/components/ui/PullQuote'
+import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 
 export const metadata: Metadata = {
@@ -10,298 +9,583 @@ export const metadata: Metadata = {
 }
 
 const heroFrames = [
-  { src: '/images/hero/01.jpg', alt: 'Buena Onda — Miami', frame: '01A', date: '2017', caption: 'Miami' },
-  { src: '/images/hero/02.jpg', alt: 'Buena Onda — Studio', frame: '02A', date: '2017', caption: 'Studio' },
+  { src: '/images/hero/01.jpg', alt: 'Buena Onda — Miami',   frame: '01A', date: '2017', caption: 'Miami'   },
+  { src: '/images/hero/02.jpg', alt: 'Buena Onda — Studio',  frame: '02A', date: '2017', caption: 'Studio'  },
   { src: '/images/hero/05.jpg', alt: 'Buena Onda — Culture', frame: '05A', date: '2019', caption: 'Culture' },
-  { src: '/images/hero/06.jpg', alt: 'Buena Onda — Night', frame: '06A', date: '2019', caption: 'Night' },
-  { src: '/images/hero/07.jpg', alt: 'Buena Onda — Day', frame: '07A', date: '2019', caption: 'Day' },
-  { src: '/images/hero/08.jpg', alt: 'Buena Onda — Life', frame: '08A', date: '2019', caption: 'Life' },
+  { src: '/images/hero/06.jpg', alt: 'Buena Onda — Night',   frame: '06A', date: '2019', caption: 'Night'   },
+  { src: '/images/hero/07.jpg', alt: 'Buena Onda — Day',     frame: '07A', date: '2019', caption: 'Day'     },
+  { src: '/images/hero/08.jpg', alt: 'Buena Onda — Life',    frame: '08A', date: '2019', caption: 'Life'    },
 ]
 
-const featuredObjects = [
-  { code: 'DROP·04', name: 'The Buena Onda Field Bag', desc: 'Waxed canvas and brass hardware. Made to be used.', img: '/images/products/power-suit.jpg' },
-  { code: 'DROP·03', name: 'The Guayabera Edit', desc: 'A modern take on the classic Cuban shirt.', img: '/images/products/vogue-blazer.jpg' },
-  { code: 'DROP·02', name: 'The Record Crate', desc: 'Solid walnut, felt-lined. Holds 80 records.', img: '/images/products/street-suit.jpg' },
+const pillars = [
+  {
+    name:     'Sound',
+    headline: 'Music the way it was meant to be heard.',
+    text:     'Curated mixes and live sessions. No shuffle, no algorithm — just a sequence you can trust.',
+    href:     '/radio',
+  },
+  {
+    name:     'Objects',
+    headline: 'Things built to outlive their moment.',
+    text:     'Limited drops of durable goods. Waxed canvas, brass hardware, aged leather. Made in Miami.',
+    href:     '/objects',
+  },
+  {
+    name:     'Culture',
+    headline: 'Essays from the analog world.',
+    text:     'Dispatches on music, craft, and intentional living. Long reads for slow afternoons.',
+    href:     '/culture',
+  },
+  {
+    name:     'Radio',
+    headline: 'The signal is always on.',
+    text:     'Field recordings and vinyl sessions broadcast from Little Havana and Wynwood.',
+    href:     '/radio',
+  },
 ]
 
-const cultureTeaser = [
+const catalogCards = [
   {
-    label: 'Culture',
-    issue: '001',
-    title: 'The Record as Object',
-    excerpt: 'Why the 12-inch still matters in an era of algorithmic playlists.',
-    href: '/culture',
+    code:       'DROP·04',
+    name:       'Field Bag',
+    price:      '$285',
+    gradient:   'linear-gradient(160deg, #2A9D9D 0%, #1A7070 100%)',
+    priceColor: '#5ABFBF',
+    neonClass:  'catalog-card-odd',
   },
   {
-    label: 'Radio',
-    issue: 'EP·18',
-    title: 'Afro-Cuban Jazz at the Source',
-    excerpt: 'A two-hour journey through the streets of Havana and Miami.',
-    href: '/radio',
+    code:       'DROP·03',
+    name:       'Guayabera Edit',
+    price:      '$195',
+    gradient:   'linear-gradient(160deg, #2E2E2E 0%, #0D0D0D 100%)',
+    priceColor: '#FF3C8E',
+    neonClass:  'catalog-card-even',
   },
   {
-    label: 'Objects',
-    issue: 'DROP·04',
-    title: 'The Buena Onda Field Bag',
-    excerpt: 'Waxed canvas and brass hardware. Made to be used.',
-    href: '/objects',
+    code:       'DROP·02',
+    name:       'Record Crate',
+    price:      '$140',
+    gradient:   'linear-gradient(160deg, #D9685A 0%, #E8927F 100%)',
+    priceColor: '#F2C4BB',
+    neonClass:  'catalog-card-odd',
   },
 ]
 
 export default function HomePage() {
   return (
     <>
-      {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-near-black">
-        {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/hero/08.jpg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-top opacity-50"
-        />
-        {/* Warm overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(to bottom, rgba(35,30,25,0.5) 0%, rgba(35,30,25,0.3) 50%, rgba(35,30,25,0.7) 100%),' +
-              'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(196,168,124,0.08) 0%, transparent 70%)',
-          }}
-        />
+      {/* ── 1. HERO ──────────────────────────────────────────────────────────── */}
+      <section
+        className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%]"
+        style={{ background: '#FAF8F5' }}
+      >
+        {/* Left panel */}
+        <div className="relative flex flex-col justify-center pl-10 md:pl-20 pr-8 md:pr-10 py-24 md:py-32">
+          {/* Teal vertical bar */}
+          <div
+            className="absolute left-0 top-0 bottom-0"
+            style={{ width: '5px', background: '#2A9D9D' }}
+            aria-hidden="true"
+          />
 
-        <div className="relative z-10 text-center px-6 max-w-4xl">
-          <h1
-            className="font-display text-cream leading-[0.88] tracking-[-0.045em] mb-8 animate-fade-up drop-shadow-sm"
-            style={{
-              fontSize: 'clamp(4rem, 14vw, 9rem)',
-              animationDelay: '200ms',
-            }}
+          <span
+            className="font-display block mb-5 animate-fade-up"
+            style={{ color: '#2A9D9D', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
           >
-            Buena<br />Onda
+            AN ANALOG CULTURE HOUSE
+          </span>
+
+          <h1
+            className="font-display leading-none mb-6 animate-fade-up"
+            style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', animationDelay: '250ms' }}
+          >
+            <span style={{ color: '#2E2E2E', display: 'block' }}>BUENA</span>
+            <span style={{ color: '#D9685A', display: 'block' }}>ONDA</span>
           </h1>
 
           <p
-            className="font-mono text-[0.65rem] tracking-[0.35em] uppercase text-warm-sand/70 mb-14 animate-fade-up"
-            style={{ animationDelay: '400ms' }}
+            className="font-serif italic animate-fade-up mb-10"
+            style={{
+              fontSize:      'clamp(1rem, 1.4vw, 1.15rem)',
+              color:         '#777',
+              maxWidth:      '30ch',
+              lineHeight:    1.65,
+              animationDelay: '400ms',
+            }}
           >
-            An Analog Culture House · Miami · Est. 2014
+            Rooted in Miami. Built for the long run.<br />
+            Music, objects, and culture — done slowly.
           </p>
 
-          <div className="animate-fade-up" style={{ animationDelay: '600ms' }}>
-            <a
-              href="#house"
-              className="font-mono text-[0.65rem] tracking-[0.3em] uppercase text-warm-sand
-                         hover:text-cream transition-colors duration-200 inline-block
-                         border-b border-warm-sand/30 hover:border-warm-sand pb-1"
-            >
+          <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
+            <Link href="#pillars" className="btn-hollow-coral">
               Explore the house ↓
-            </a>
+            </Link>
           </div>
+
+          <p
+            className="font-sans text-[0.6rem] tracking-[0.3em] uppercase mt-16 animate-fade-up"
+            style={{ color: '#AAA', animationDelay: '700ms' }}
+          >
+            Miami, FL · Est. 2014
+          </p>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-pulse-slow">
-          <p className="archive-label text-[0.6rem] text-warm-sand/50">↓ scroll</p>
+        {/* Right panel — Arq-Grid */}
+        <div className="relative hidden md:flex items-center justify-center py-16 px-8">
+          <div
+            className="w-full"
+            style={{
+              display:             'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows:    '1fr 1fr 1fr',
+              gap:                 '3px',
+              height:              'min(600px, 80vh)',
+            }}
+          >
+            {/* Cell 1 — teal */}
+            <div className="animate-fade-up" style={{ background: '#2A9D9D', animationDelay: '200ms' }} />
+
+            {/* Cell 2 — coral, spans 2 rows */}
+            <div
+              className="animate-fade-up"
+              style={{ background: '#D9685A', gridRow: 'span 2', animationDelay: '300ms' }}
+            />
+
+            {/* Cell 3 — charcoal + EST. 2014 */}
+            <div
+              className="animate-fade-up flex items-center justify-center"
+              style={{ background: '#2E2E2E', animationDelay: '350ms' }}
+            >
+              <span
+                className="font-display"
+                style={{ color: 'white', fontSize: '0.85rem', letterSpacing: '0.15em' }}
+              >
+                EST. 2014
+              </span>
+            </div>
+
+            {/* Cell 4 — coral-pale */}
+            <div className="animate-fade-up" style={{ background: '#F2C4BB', animationDelay: '400ms' }} />
+
+            {/* Cell 5 — teal-deep + MIAMI, FL */}
+            <div
+              className="animate-fade-up flex items-center justify-center"
+              style={{ background: '#1A7070', animationDelay: '450ms' }}
+            >
+              <span
+                className="font-display"
+                style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.7rem', letterSpacing: '0.2em' }}
+              >
+                MIAMI, FL
+              </span>
+            </div>
+          </div>
+
+          {/* Coral arq-steps — bottom-right */}
+          <div
+            className="absolute bottom-8 right-8 animate-fade-up"
+            style={{ animationDelay: '650ms' }}
+            aria-hidden="true"
+          >
+            <div style={{ width: '60px', height: '8px', background: '#D9685A', marginBottom: '4px' }} />
+            <div style={{ width: '40px', height: '8px', background: '#E8927F', marginBottom: '4px', marginLeft: '20px' }} />
+            <div style={{ width: '20px', height: '8px', background: '#F2C4BB', marginLeft: '40px' }} />
+          </div>
         </div>
       </section>
 
-      {/* ── 2. PHOTO STRIP ──────────────────────────────────────────────── */}
+      {/* ── 2. PHOTO STRIP ───────────────────────────────────────────────────── */}
       <section aria-label="Photo archive strip">
         <ContactSheet images={heroFrames} columns={3} className="w-full" />
       </section>
 
-      {/* ── 3. FROM THE HOUSE ──────────────────────────────────────────── */}
-      <section id="house" className="py-28 bg-cream">
-        <div className="max-w-site mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <span className="section-label text-terracotta">Latest</span>
-              <h2
-                className="font-display text-near-black"
-                style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
-              >
-                From the house
-              </h2>
-            </div>
-            <Link
-              href="/culture"
-              className="font-mono text-xs tracking-[0.18em] uppercase text-stone-grey
-                         hover:text-terracotta transition-colors hidden sm:block"
-            >
-              All →
-            </Link>
-          </div>
+      {/* ── 3. PILLARS ───────────────────────────────────────────────────────── */}
+      <section id="pillars" style={{ background: '#2E2E2E' }}>
+        {/* 4-color bar */}
+        <div className="flex" style={{ height: '8px' }}>
+          <div className="flex-1" style={{ background: '#2A9D9D' }} />
+          <div className="flex-1" style={{ background: '#D9685A' }} />
+          <div className="flex-1" style={{ background: '#1A7070' }} />
+          <div className="flex-1" style={{ background: '#E8927F' }} />
+        </div>
 
+        <div className="max-w-site mx-auto px-5 md:px-10 py-24">
           <ScanReveal>
-            <div className="grid md:grid-cols-3 gap-16">
-              {cultureTeaser.map(({ label, issue, title, excerpt, href }) => (
-                <Link key={title} href={href} className="group block">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="archive-label text-[0.6rem]">{label}</span>
-                    <span className="archive-label text-[0.6rem] text-dusty-rose">{issue}</span>
-                  </div>
-                  <h3
-                    className="font-display text-near-black mb-3 group-hover:text-terracotta transition-colors"
-                    style={{ fontSize: 'clamp(1.1rem, 2vw, 1.35rem)' }}
-                  >
-                    {title}
-                  </h3>
-                  <p className="text-charcoal text-sm leading-relaxed">{excerpt}</p>
-                  <p className="font-mono text-xs tracking-wider text-terracotta mt-6 group-hover:text-dusty-rose transition-colors">
-                    Read →
-                  </p>
-                </Link>
-              ))}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              <div>
+                <span
+                  className="font-display block mb-3"
+                  style={{ color: '#7DC8C8', fontSize: '0.75rem', letterSpacing: '0.25em' }}
+                >
+                  THE HOUSE
+                </span>
+                <h2 className="font-display text-white" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
+                  Four Pillars
+                </h2>
+              </div>
+              <div className="flex items-center">
+                <p className="font-sans leading-relaxed" style={{ color: '#AAA', fontWeight: 300, fontSize: '0.95rem' }}>
+                  Everything we do lives inside four disciplines.
+                  Each one slow, intentional, and analog-first.
+                </p>
+              </div>
             </div>
           </ScanReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {pillars.map(({ name, headline, text, href }, i) => (
+              <ScanReveal key={name} delay={i * 80}>
+                <Link
+                  href={href}
+                  className={`pillar-card ${i % 2 === 0 ? 'pillar-odd' : 'pillar-even'} block p-7 h-full`}
+                  style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+                >
+                  <p
+                    className="font-display text-white uppercase mb-4"
+                    style={{ fontSize: '1.4rem', letterSpacing: '0.05em' }}
+                  >
+                    {name}
+                  </p>
+                  <h3
+                    className="font-serif italic mb-4"
+                    style={{ color: 'white', fontSize: '1rem', lineHeight: 1.5 }}
+                  >
+                    {headline}
+                  </h3>
+                  <p
+                    className="font-sans text-sm leading-relaxed mb-6"
+                    style={{ color: '#AAA', fontWeight: 300 }}
+                  >
+                    {text}
+                  </p>
+                  <span
+                    className="pillar-read font-sans text-xs tracking-[0.15em] uppercase transition-colors duration-200"
+                    style={{ color: '#AAA' }}
+                  >
+                    Read →
+                  </span>
+                </Link>
+              </ScanReveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── 4. RADIO ───────────────────────────────────────────────────── */}
-      <section className="relative py-32 bg-near-black text-off-white overflow-hidden">
-        {/* Neon atmosphere background */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/radio-neon.jpg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(to right, rgba(25,22,20,0.85) 0%, rgba(25,22,20,0.6) 50%, rgba(25,22,20,0.85) 100%)',
-          }}
-        />
-        <div className="max-w-site mx-auto px-5 md:px-10 relative z-10">
+      {/* Vice strip */}
+      <div className="vice-strip" />
+
+      {/* ── 4. SOUND STRIP ───────────────────────────────────────────────────── */}
+      <section style={{ background: '#0D0D0D' }}>
+        <div className="max-w-site mx-auto px-5 md:px-10 py-20">
           <ScanReveal>
-            <div className="grid md:grid-cols-[1fr_auto] gap-12 md:gap-20 items-center">
+            <div className="grid md:grid-cols-[1fr_auto] gap-12 items-center">
               <div>
-                <span className="section-label text-warm-sand">Club Jolt Radio · 80s Sessions</span>
+                <p
+                  className="font-display mb-6"
+                  style={{
+                    color:         '#FF3C8E',
+                    fontSize:      '0.75rem',
+                    letterSpacing: '0.3em',
+                    textShadow:    '0 0 8px rgba(255,60,142,0.25)',
+                  }}
+                >
+                  NOW PLAYING
+                </p>
                 <h2
-                  className="font-display text-cream mt-2 mb-6"
+                  className="font-display text-white mb-4"
                   style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
                 >
                   The signal is always on.
                 </h2>
-                <p className="text-stone-grey text-base leading-relaxed mb-10 max-w-xl">
+                <p
+                  className="font-sans text-sm leading-relaxed mb-10 max-w-xl"
+                  style={{ color: '#777', fontWeight: 300 }}
+                >
                   Curated mixes, live sessions, and field recordings.
                   Music the way it was meant to be heard — in sequence, without shuffle.
                 </p>
-                <Link
-                  href="/radio"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-warm-sand/40
-                             text-warm-sand font-mono text-xs tracking-[0.2em] uppercase
-                             hover:bg-warm-sand/10 hover:border-warm-sand transition-all duration-200 group"
-                >
+                <Link href="/radio" className="btn-hollow-coral group">
                   Enter the archive
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               </div>
+
               {/* Episode card */}
-              <div className="hidden md:block w-72 border border-warm-sand/20 p-8">
-                <p className="font-mono text-[0.55rem] tracking-[0.2em] uppercase text-warm-sand/50 mb-4">Now Playing</p>
-                <p className="font-display text-cream text-lg mb-2">Onda Tropical Vol. 1</p>
-                <p className="text-stone-grey text-xs leading-relaxed mb-6">Afro-Cuban rhythms, Miami bass, and sunset soul.</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-terracotta animate-pulse" />
-                  <p className="font-mono text-[0.55rem] tracking-[0.15em] uppercase text-warm-sand/40">Live</p>
+              <div
+                className="hidden md:block w-72 p-8"
+                style={{
+                  border:    '1px solid #FF3C8E',
+                  boxShadow: '0 0 12px rgba(255,60,142,0.25), 0 0 30px rgba(255,60,142,0.08)',
+                }}
+              >
+                <p
+                  className="font-sans mb-4"
+                  style={{
+                    color:         'rgba(255,60,142,0.6)',
+                    fontSize:      '0.55rem',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Now Playing
+                </p>
+                <p className="font-display text-white text-lg mb-2">Onda Tropical Vol. 1</p>
+                <p className="font-sans text-xs leading-relaxed mb-6" style={{ color: '#777' }}>
+                  Afro-Cuban rhythms, Miami bass, and sunset soul.
+                </p>
+                {/* Animated waveform bars */}
+                <div className="flex items-end gap-0.5 mb-4" style={{ height: '32px' }}>
+                  {Array.from({ length: 16 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="w-1 rounded-sm"
+                      style={{
+                        background: '#FF3C8E',
+                        boxShadow:  '0 0 4px rgba(255,60,142,0.5)',
+                        height:     '40%',
+                        animation:  `equalize ${0.6 + (idx % 4) * 0.15}s ease-in-out ${idx * 0.05}s infinite`,
+                      }}
+                    />
+                  ))}
                 </div>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-2 h-2 rounded-full animate-pulse"
+                    style={{ background: '#FF3C8E', boxShadow: '0 0 6px rgba(255,60,142,0.5)' }}
+                  />
+                  <p
+                    className="font-sans"
+                    style={{
+                      color:         'rgba(255,60,142,0.5)',
+                      fontSize:      '0.55rem',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Live
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ScanReveal>
+        </div>
+
+        {/* Bottom gradient line */}
+        <div
+          className="h-px opacity-40"
+          style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF, #FF3C8E)' }}
+        />
+      </section>
+
+      {/* ── 5. CATALOG ───────────────────────────────────────────────────────── */}
+      <section id="catalog" style={{ background: '#F5F2ED' }}>
+        <div className="max-w-site mx-auto px-5 md:px-10 py-24">
+          <ScanReveal>
+            <div className="flex items-end justify-between mb-12">
+              <h2
+                className="font-display"
+                style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#2E2E2E' }}
+              >
+                Objects &amp; Editions
+              </h2>
+              <Link
+                href="/objects"
+                className="font-sans text-xs tracking-[0.18em] uppercase transition-colors"
+                style={{ color: '#2A9D9D' }}
+              >
+                View all →
+              </Link>
+            </div>
+          </ScanReveal>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {catalogCards.map(({ code, name, price, gradient, priceColor, neonClass }, i) => (
+              <ScanReveal key={code} delay={i * 80}>
+                <Link href="/objects" className={`group block overflow-hidden ${neonClass}`}>
+                  <div
+                    className="catalog-inner aspect-[3/4] flex flex-col justify-end p-8 transition-transform duration-300 group-hover:scale-[1.04]"
+                    style={{ background: gradient }}
+                  >
+                    <p
+                      className="font-sans mb-3"
+                      style={{
+                        color:         'rgba(255,255,255,0.5)',
+                        fontSize:      '0.55rem',
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {code}
+                    </p>
+                    <h3
+                      className="font-display text-white uppercase mb-2"
+                      style={{ fontSize: '1.4rem' }}
+                    >
+                      {name}
+                    </h3>
+                    <p className="font-display text-lg" style={{ color: priceColor }}>
+                      {price}
+                    </p>
+                  </div>
+                </Link>
+              </ScanReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. MANIFESTO ─────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-32" style={{ background: '#0D0D0D' }}>
+        {/* Ambient radial glows */}
+        <div
+          className="absolute pointer-events-none"
+          aria-hidden="true"
+          style={{
+            bottom: '-10%', left: '-10%',
+            width: '50vw', height: '50vw',
+            background: 'radial-gradient(ellipse, rgba(255,60,142,0.08) 0%, transparent 70%)',
+          }}
+        />
+        <div
+          className="absolute pointer-events-none"
+          aria-hidden="true"
+          style={{
+            top: '-10%', right: '-10%',
+            width: '50vw', height: '50vw',
+            background: 'radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Film grain overlay */}
+        <div className="grain-overlay" aria-hidden="true" />
+
+        {/* Bauhaus circles — top-right decorative */}
+        <div
+          className="absolute pointer-events-none"
+          aria-hidden="true"
+          style={{ top: '5%', right: '-5%' }}
+        >
+          <div
+            style={{
+              width:        '28vw',
+              height:       '28vw',
+              border:       '1px solid rgba(0,212,255,0.15)',
+              boxShadow:    '0 0 20px rgba(0,212,255,0.05)',
+              borderRadius: '50%',
+              position:     'relative',
+            }}
+          >
+            <div
+              style={{
+                position:     'absolute',
+                top:          '20%',
+                left:         '20%',
+                width:        '18vw',
+                height:       '18vw',
+                border:       '1px solid rgba(255,179,71,0.15)',
+                boxShadow:    '0 0 15px rgba(255,179,71,0.05)',
+                borderRadius: '50%',
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="max-w-site mx-auto px-5 md:px-10 relative z-10">
+          <ScanReveal>
+            <span
+              className="font-sans block mb-10"
+              style={{ color: '#5ABFBF', fontSize: '0.7rem', letterSpacing: '0.3em', textTransform: 'uppercase' }}
+            >
+              Manifesto
+            </span>
+
+            <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-16">
+              {/* Left col — blockquote */}
+              <div>
+                <blockquote
+                  className="font-display uppercase"
+                  style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'white', lineHeight: 1.1 }}
+                >
+                  The analog world is not nostalgic.
+                  <br />It is{' '}
+                  <span
+                    style={{
+                      color:      '#FFB347',
+                      textShadow: '0 0 10px rgba(255,179,71,0.3)',
+                    }}
+                  >
+                    INEVITABLE.
+                  </span>
+                </blockquote>
+              </div>
+
+              {/* Right col — body + attribution */}
+              <div className="flex flex-col justify-center">
+                <p
+                  className="font-sans mb-8"
+                  style={{ color: '#777', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
+                >
+                  We are not chasing the past. We are building a present that is slower, more considered, and built to last.
+                  Every object, every mix, every essay is a wager against disposability.
+                </p>
+                <cite
+                  className="font-display not-italic block"
+                  style={{
+                    fontSize:      '0.9rem',
+                    color:         '#00D4FF',
+                    letterSpacing: '0.2em',
+                    textShadow:    '0 0 8px rgba(0,212,255,0.4)',
+                  }}
+                >
+                  — Buena Onda, Miami, 2014
+                </cite>
               </div>
             </div>
           </ScanReveal>
         </div>
       </section>
 
-      {/* ── 5. OBJECTS & EDITIONS ──────────────────────────────────────── */}
-      <section className="py-32 bg-sand-bg">
-        <div className="max-w-site mx-auto px-5 md:px-10">
-          <ScanReveal>
-            <div className="mb-12">
-              <h2 className="font-display text-near-black" style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}>
-                <span className="font-black">Objects</span> &amp; Editions
-              </h2>
-            </div>
-          </ScanReveal>
+      {/* ── 7. TRANSMISSION ──────────────────────────────────────────────────── */}
+      <section className="relative" style={{ background: '#161416' }}>
+        {/* Top gradient border */}
+        <div
+          className="h-px opacity-30"
+          style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF)' }}
+        />
 
+        <div className="max-w-site mx-auto px-5 md:px-10 py-24">
           <ScanReveal>
-            <div className="grid md:grid-cols-3 gap-16">
-              {featuredObjects.map(({ code, name, desc, img }) => (
-                <div key={code} className="group">
-                  <div className="aspect-[3/4] overflow-hidden bg-linen-peach mb-8">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={img}
-                      alt={name}
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <p className="font-mono text-[0.55rem] tracking-[0.2em] uppercase text-stone-grey/60 mb-3">{code}</p>
-                  <h3 className="font-display text-near-black mb-2" style={{ fontSize: 'clamp(1.15rem, 2vw, 1.45rem)' }}>{name}</h3>
-                  <p className="text-charcoal/70 text-xs leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </ScanReveal>
-        </div>
-      </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+              {/* Left col */}
+              <div>
+                <span
+                  className="font-display block mb-4"
+                  style={{
+                    color:         '#FF3C8E',
+                    fontSize:      '0.75rem',
+                    letterSpacing: '0.3em',
+                    textShadow:    '0 0 8px rgba(255,60,142,0.25)',
+                  }}
+                >
+                  STAY CLOSE
+                </span>
+                <h2
+                  className="font-display text-white uppercase mb-4"
+                  style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
+                >
+                  Slow mail. Good content.
+                </h2>
+                <p className="font-sans text-sm" style={{ color: '#777', fontWeight: 300 }}>
+                  No algorithms. Just culture, drops, and what&apos;s playing in the house.
+                </p>
+              </div>
 
-      {/* ── 6. PHILOSOPHY ──────────────────────────────────────────────── */}
-      <section className="py-32 bg-cream">
-        <div className="max-w-xl mx-auto px-5 md:px-10 text-center">
-          <ScanReveal>
-            <span className="section-label text-terracotta">Our Philosophy</span>
-            <h2
-              className="font-display text-near-black mt-2 mb-6"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}
-            >
-              Built for the long run.
-            </h2>
-            <div className="prose-brand text-charcoal">
-              <p>
-                We believe that culture lives in objects. In the weight of a record,
-                the grain of aged leather, the warmth of a room where people actually listen.
-              </p>
-              <p>
-                Buena Onda is not a brand — it&apos;s a practice. We make things that last
-                because fast doesn&apos;t interest us. The analog world is not nostalgic.
-                It&apos;s just honest.
-              </p>
+              {/* Right col — form */}
+              <div className="border-l border-white/5 pl-8 md:pl-16 flex flex-col justify-center">
+                <NewsletterForm layout="stack" variant="dark" />
+              </div>
             </div>
-            <PullQuote>
-              The analog world is not nostalgic. It&apos;s just honest.
-            </PullQuote>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em]
-                         uppercase text-terracotta hover:text-dusty-rose transition-colors mt-8 group"
-            >
-              Read our story
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
-          </ScanReveal>
-        </div>
-      </section>
-
-      {/* ── 7. NEWSLETTER ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-linen-white border-t border-pale-stone">
-        <div className="max-w-md mx-auto px-5 text-center">
-          <ScanReveal>
-            <span className="section-label text-terracotta">Stay close</span>
-            <h2
-              className="font-display text-near-black mt-2 mb-4"
-              style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
-            >
-              Slow mail. Good content.
-            </h2>
-            <p className="text-charcoal text-sm mb-8">
-              No algorithms. Just culture, drops, and what&apos;s playing in the house.
-            </p>
-            <NewsletterForm layout="stack" className="max-w-md mx-auto" />
           </ScanReveal>
         </div>
       </section>

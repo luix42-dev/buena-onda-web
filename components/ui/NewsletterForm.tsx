@@ -5,11 +5,12 @@ import { useState } from 'react'
 interface NewsletterFormProps {
   className?: string
   layout?: 'row' | 'stack'
+  variant?: 'light' | 'dark'
 }
 
-export default function NewsletterForm({ className = '', layout = 'row' }: NewsletterFormProps) {
-  const [email,     setEmail]     = useState('')
-  const [status,    setStatus]    = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
+export default function NewsletterForm({ className = '', layout = 'row', variant = 'light' }: NewsletterFormProps) {
+  const [email,  setEmail]  = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,11 +22,15 @@ export default function NewsletterForm({ className = '', layout = 'row' }: Newsl
 
   if (status === 'done') {
     return (
-      <p className={`font-mono text-xs text-terracotta ${className}`}>
+      <p className={`font-mono text-xs text-teal ${className}`}>
         ✓ You&apos;re on the list.
       </p>
     )
   }
+
+  const inputClass = variant === 'dark'
+    ? 'flex-1 border-0 border-b border-white/10 bg-transparent px-0 py-3 font-mono text-sm text-white placeholder:text-white/30 focus:border-neon-pink focus:shadow-[0_2px_8px_rgba(255,60,142,0.25)] focus:outline-none transition-colors'
+    : 'flex-1 border border-gray-muted bg-transparent px-4 py-3 font-mono text-sm text-near-black placeholder:text-stone-grey input-neon-focus transition-colors'
 
   return (
     <form
@@ -43,16 +48,12 @@ export default function NewsletterForm({ className = '', layout = 'row' }: Newsl
         onChange={e => setEmail(e.target.value)}
         placeholder="your@email.com"
         required
-        className="flex-1 border border-pale-stone bg-cream px-4 py-3
-                   font-mono text-sm text-near-black placeholder:text-stone-grey
-                   focus:border-terracotta focus:outline-none transition-colors"
+        className={inputClass}
       />
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="px-6 py-3 bg-terracotta text-cream font-mono text-xs
-                   tracking-[0.2em] uppercase hover:bg-burnished
-                   disabled:opacity-50 transition-colors whitespace-nowrap"
+        className="btn-hollow-coral disabled:opacity-50 whitespace-nowrap"
       >
         {status === 'loading' ? '...' : 'Subscribe'}
       </button>
