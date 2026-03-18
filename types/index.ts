@@ -94,7 +94,7 @@ export interface Item {
   price: number | null
   buy_url: string | null
   tags: string[] | null
-  status: 'draft' | 'published' | 'archived'
+  status: 'draft' | 'published' | 'archived' | 'sold_out'
   featured: boolean
   cover_image_url: string | null
   published_at: string | null
@@ -111,5 +111,12 @@ export interface ItemImage {
   storage_path: string | null
   alt_text: string | null
   sort_order: number
+  created_at: string
+}
+
+export interface ItemNotifyRequest {
+  id:         string
+  item_id:    string
+  email:      string
   created_at: string
 }

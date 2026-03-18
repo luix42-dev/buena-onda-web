@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json()
   const {
     title, slug, theme_id, price, buy_url,
-    description, tags, cover_image_url, status = 'draft',
+    description, tags, cover_image_url, status = 'draft', details,
   } = body
 
   if (!title || !slug) {
@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
       description:     description || null,
       tags:            tags ?? [],
       cover_image_url: cover_image_url || null,
+      details:         details ?? null,
       status,
       published_at:    status === 'published' ? new Date().toISOString() : null,
     })

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getAdminThemes, createAdminItem, adminUpload } from '@/lib/api/admin'
+import { getAdminThemes, adminUpload } from '@/lib/api/admin'
 
 interface ThemeOption { id: string; title: string; code: string }
 
@@ -20,9 +20,9 @@ export default function NewItemPage() {
   const router = useRouter()
 
   // Themes
-  const [themes, setThemes]   = useState<ThemeOption[]>([])
+  const [themes, setThemes] = useState<ThemeOption[]>([])
 
-  // Form fields
+  // Core fields
   const [title,   setTitle]   = useState('')
   const [slug,    setSlug]    = useState('')
   const [themeId, setThemeId] = useState('')
@@ -30,16 +30,24 @@ export default function NewItemPage() {
   const [buyUrl,  setBuyUrl]  = useState('')
   const [desc,    setDesc]    = useState('')
   const [tags,    setTags]    = useState('')
+  const [status,  setStatus]  = useState('draft')
+
+  // Detail fields (saved in details JSONB)
+  const [why,        setWhy]       = useState('')
+  const [era,        setEra]       = useState('')
+  const [dimensions, setDimensions] = useState('')
+  const [condition,  setCondition] = useState('')
+  const [origin,     setOrigin]    = useState('')
 
   // Image upload
-  const fileRef              = useRef<HTMLInputElement>(null)
-  const [file,     setFile]  = useState<File | null>(null)
-  const [preview,  setPreview] = useState<string | null>(null)
+  const fileRef                  = useRef<HTMLInputElement>(null)
+  const [file,    setFile]       = useState<File | null>(null)
+  const [preview, setPreview]    = useState<string | null>(null)
 
   // State
-  const [step,     setStep]    = useState<'form' | 'uploading' | 'saving' | 'done'>('form')
-  const [error,    setError]   = useState<string | null>(null)
-  const [progress, setProgress] = useState(0)
+  const [step,      setStep]      = useState<'form' | 'uploading' | 'saving' | 'done'>('form')
+  const [error,     setError]     = useState<string | null>(null)
+  const [progress,  setProgress]  = useState(0)
   const [createdId, setCreatedId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -57,8 +65,7 @@ export default function NewItemPage() {
     const f = e.target.files?.[0]
     if (!f) return
     setFile(f)
-    const url = URL.createObjectURL(f)
-    setPreview(url)
+    setPreview(URL.createObjectURL(f))
   }
 
   const handleDrop = (e: React.DragEvent) => {
@@ -80,7 +87,6 @@ export default function NewItemPage() {
     if (file) {
       setStep('uploading')
       setProgress(10)
-
       try {
         const uploadData = await adminUpload(file, 'catalog')
         imageUrl = uploadData.url
@@ -92,11 +98,19 @@ export default function NewItemPage() {
       }
     }
 
-    // ── Step 2: Create draft item ──────────────────────────────────────────
+    // ── Step 2: Build details object ───────────────────────────────────────
+    const details: Record<string, string> = {}
+    if (why)        details.why_we_chose_this = why
+    if (era)        details.era               = era
+    if (dimensions) details.dimensions        = dimensions
+    if (condition)  details.condition         = condition
+    if (origin)     details.origin            = origin
+
+    // ── Step 3: Create item ────────────────────────────────────────────────
     setStep('saving')
 
     try {
-      const data = await createAdminItem({
+      const payload = {
         title,
         slug,
         theme_id:        themeId || null,
@@ -105,8 +119,22 @@ export default function NewItemPage() {
         description:     desc || null,
         tags:            tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : [],
         cover_image_url: imageUrl,
-        status:          'draft',
+        status,
+        details:         Object.keys(details).length > 0 ? details : null,
+      }
+
+      const res = await fetch('/api/admin/items', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
       })
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error((err as Record<string, string>).error ?? 'Failed to save item.')
+      }
+
+      const data = await res.json()
       setCreatedId(data.id)
       setProgress(100)
       setStep('done')
@@ -121,9 +149,9 @@ export default function NewItemPage() {
     return (
       <div className="max-w-lg py-16">
         <span className="font-mono text-2xl text-warm-sand">✓</span>
-        <h2 className="font-display text-near-black text-2xl mt-3">Draft created.</h2>
+        <h2 className="font-display text-near-black text-2xl mt-3">Item created.</h2>
         <p className="font-mono text-sm text-charcoal mt-2">
-          The item has been saved as a draft.
+          The item has been saved.
         </p>
         <div className="flex gap-4 mt-8">
           <button
@@ -160,7 +188,7 @@ export default function NewItemPage() {
         <p className="archive-label text-[0.65rem] text-stone-grey">Admin · Catalog</p>
         <h1 className="font-display text-near-black text-3xl mt-1">New Item</h1>
         <p className="font-mono text-xs text-stone-grey mt-1">
-          Upload a photo and fill in the basics. You can add more detail later.
+          Upload a photo and fill in the details.
         </p>
       </div>
 
@@ -169,8 +197,6 @@ export default function NewItemPage() {
         {/* ── Photo upload ─────────────────────────────────────────────── */}
         <div>
           <label className={labelCls}>Photo</label>
-
-          {/* Drop zone */}
           <div
             onDrop={handleDrop}
             onDragOver={e => e.preventDefault()}
@@ -185,8 +211,7 @@ export default function NewItemPage() {
                   className="w-full max-h-72 object-contain grayscale group-hover:grayscale-0
                              transition-all duration-500" />
                 <div className="absolute inset-0 flex items-end justify-end p-3">
-                  <span className="archive-label text-[0.55rem] bg-near-black/80 text-linen-peach
-                                   px-2 py-1">
+                  <span className="archive-label text-[0.55rem] bg-near-black/80 text-linen-peach px-2 py-1">
                     {file ? formatBytes(file.size) : ''}
                   </span>
                 </div>
@@ -199,10 +224,7 @@ export default function NewItemPage() {
               </div>
             )}
           </div>
-
-          <input ref={fileRef} type="file" accept="image/*" className="hidden"
-            onChange={handleFileChange} />
-
+          <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
           {preview && (
             <button type="button"
               onClick={e => { e.stopPropagation(); setFile(null); setPreview(null) }}
@@ -240,12 +262,23 @@ export default function NewItemPage() {
           </select>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           <div>
             <label className={labelCls} htmlFor="price">Price (USD)</label>
             <input id="price" type="number" step="0.01" min="0" placeholder="0.00"
               value={price} onChange={e => setPrice(e.target.value)}
               className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls} htmlFor="status">Status</label>
+            <select id="status" value={status} onChange={e => setStatus(e.target.value)}
+              className={`${inputCls} appearance-none cursor-pointer`}
+              style={{ backgroundColor: 'transparent' }}>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="sold_out">Sold Out</option>
+              <option value="archived">Archived</option>
+            </select>
           </div>
           <div>
             <label className={labelCls} htmlFor="buy_url">Buy URL (optional)</label>
@@ -269,6 +302,57 @@ export default function NewItemPage() {
             className={inputCls} />
         </div>
 
+        {/* ── Detail fields ─────────────────────────────────────────────── */}
+        <div className="border-t border-pale-stone pt-6">
+          <p className="archive-label text-[0.65rem] text-stone-grey mb-4">Object Details</p>
+
+          <div className="flex flex-col gap-5">
+            <div>
+              <label className={labelCls} htmlFor="why">Why We Chose This</label>
+              <textarea id="why" rows={3}
+                placeholder="The cultural and design significance of this piece..."
+                value={why} onChange={e => setWhy(e.target.value)}
+                className={`${inputCls} resize-none`} />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              <div>
+                <label className={labelCls} htmlFor="era">Era</label>
+                <input id="era" type="text" placeholder="e.g. 1990s, Miami Modern"
+                  value={era} onChange={e => setEra(e.target.value)}
+                  className={inputCls} />
+              </div>
+              <div>
+                <label className={labelCls} htmlFor="origin">Origin</label>
+                <input id="origin" type="text" placeholder="e.g. Miami, FL"
+                  value={origin} onChange={e => setOrigin(e.target.value)}
+                  className={inputCls} />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              <div>
+                <label className={labelCls} htmlFor="dimensions">Dimensions</label>
+                <input id="dimensions" type="text" placeholder={`e.g. 13" × 40" × 69"`}
+                  value={dimensions} onChange={e => setDimensions(e.target.value)}
+                  className={inputCls} />
+              </div>
+              <div>
+                <label className={labelCls} htmlFor="condition">Condition</label>
+                <select id="condition" value={condition} onChange={e => setCondition(e.target.value)}
+                  className={`${inputCls} appearance-none cursor-pointer`}
+                  style={{ backgroundColor: 'transparent' }}>
+                  <option value="">Select condition</option>
+                  <option value="Excellent">Excellent</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Good">Good</option>
+                  <option value="Fair">Fair</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Progress bar */}
         {isLoading && (
           <div className="w-full bg-pale-stone h-0.5">
@@ -290,7 +374,7 @@ export default function NewItemPage() {
                        hover:bg-burnished disabled:opacity-50 transition-colors">
             {step === 'uploading' ? 'Uploading...'
               : step === 'saving' ? 'Saving...'
-              : 'Save as draft →'}
+              : 'Save item →'}
           </button>
           <button type="button" disabled={isLoading} onClick={() => router.back()}
             className="px-6 py-3.5 border border-pale-stone font-mono text-xs
