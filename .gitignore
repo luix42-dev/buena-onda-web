@@ -33,3 +33,7 @@ Thumbs.db
 next-env.d.ts
 
 .vercel
+
+# Sync script state
+scripts/.sync-state.json
+scripts/.sync-log.txt

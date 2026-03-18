@@ -32,7 +32,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: 'Catalog Item' }
 }
 
-// Ordered detail fields to display
 const DETAIL_FIELDS: { key: string; label: string }[] = [
   { key: 'era',        label: 'Era'        },
   { key: 'dimensions', label: 'Dimensions' },
@@ -45,7 +44,6 @@ export default async function ItemPage({ params }: Props) {
   const { slug } = await params
   const supabase = await createClient()
 
-  // Fetch item — visible in all non-draft states
   const { data: itemData } = await supabase
     .from('items')
     .select('*, theme:themes(*), images:item_images(*)')
@@ -55,14 +53,15 @@ export default async function ItemPage({ params }: Props) {
 
   if (!itemData) notFound()
 
-  const item   = itemData as Item
-  const theme  = itemData.theme  as Theme | null
-  const images = (itemData.images as ItemImage[] | null) ?? []
+  const item    = itemData as Item
+  const theme   = itemData.theme  as Theme | null
+  const images  = (itemData.images as ItemImage[] | null) ?? []
   const details = (item.details as Record<string, string> | null) ?? {}
+  const isSold  = item.status === 'sold_out' || item.status === 'archived'
 
-  const isSold = item.status === 'sold_out' || item.status === 'archived'
+  const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 
-  // "From the Catalog" — up to 3 other published items, same theme first
+  // "From the Catalog" — up to 4 other published items, same theme first
   let related: Item[] = []
   if (theme) {
     const { data: sameTheme } = await supabase
@@ -72,12 +71,10 @@ export default async function ItemPage({ params }: Props) {
       .eq('theme_id', theme.id)
       .neq('id', item.id)
       .order('published_at', { ascending: false })
-      .limit(3)
+      .limit(4)
     related = (sameTheme ?? []) as Item[]
   }
-
-  // Fill up to 3 with other recent published items if needed
-  if (related.length < 3) {
+  if (related.length < 4) {
     const exclude = [item.id, ...related.map(r => r.id)]
     const { data: others } = await supabase
       .from('items')
@@ -85,13 +82,13 @@ export default async function ItemPage({ params }: Props) {
       .eq('status', 'published')
       .not('id', 'in', `(${exclude.join(',')})`)
       .order('published_at', { ascending: false })
-      .limit(3 - related.length)
+      .limit(4 - related.length)
     related = [...related, ...((others ?? []) as Item[])]
   }
 
   return (
     <>
-      {/* ── Museum record ────────────────────────────────────────────────────── */}
+      {/* ── Museum record ──────────────────────────────────────────────── */}
       <div className="pt-32 pb-32 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
 
@@ -102,8 +99,7 @@ export default async function ItemPage({ params }: Props) {
               {theme && (
                 <>
                   <span>/</span>
-                  <Link href={`/themes/${theme.slug}`}
-                    className="hover:text-burnished transition-colors">
+                  <Link href={`/themes/${theme.slug}`} className="hover:text-burnished transition-colors">
                     {theme.title}
                   </Link>
                 </>
@@ -113,27 +109,27 @@ export default async function ItemPage({ params }: Props) {
             </div>
           </ScanReveal>
 
-          {/* ── Main two-column layout ──────────────────────────────────────── */}
-          <div className="grid md:grid-cols-[1fr_1fr] gap-16 lg:gap-24 items-start">
+          {/* ── Two-column layout ──────────────────────────────────────── */}
+          <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-start">
 
-            {/* ── Left: Image gallery ──────────────────────────────────────── */}
+            {/* ── Left: Image gallery ──────────────────────────────────── */}
             <ScanReveal>
               <ImageGallery
                 images={images}
-                coverUrl={item.cover_image_url}
+                fallbackCoverUrl={item.cover_image_url}
                 title={item.title}
                 isSold={isSold}
               />
             </ScanReveal>
 
-            {/* ── Right: Archive record ────────────────────────────────────── */}
-            <div>
+            {/* ── Right: Product info ───────────────────────────────────── */}
+            <div className="lg:sticky lg:top-8">
 
               {/* Catalog number */}
               {item.catalog_number && (
                 <ScanReveal>
                   <p
-                    className="font-mono text-warm-sand/60 tracking-[0.3em] mb-8 select-none"
+                    className="font-mono text-warm-sand/60 tracking-[0.3em] mb-6 select-none"
                     style={{ fontSize: 'clamp(0.65rem, 1.2vw, 0.85rem)' }}
                   >
                     {item.catalog_number}
@@ -141,12 +137,12 @@ export default async function ItemPage({ params }: Props) {
                 </ScanReveal>
               )}
 
-              {/* Theme link */}
+              {/* Category label */}
               {theme && (
                 <ScanReveal>
                   <Link
                     href={`/themes/${theme.slug}`}
-                    className="catalog-ordinal text-warm-sand hover:text-burnished transition-colors block mb-4"
+                    className="catalog-ordinal text-warm-sand hover:text-burnished transition-colors block mb-3"
                   >
                     {theme.title}
                   </Link>
@@ -156,14 +152,14 @@ export default async function ItemPage({ params }: Props) {
               {/* Title */}
               <ScanReveal delay={80}>
                 <h1
-                  className="font-display text-near-black mb-6 text-balance"
+                  className="font-display text-near-black mb-5 text-balance"
                   style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', lineHeight: 1.05 }}
                 >
                   {item.title}
                 </h1>
               </ScanReveal>
 
-              {/* Price + shipping badge */}
+              {/* Price + delivery */}
               {item.price && (
                 <ScanReveal delay={100}>
                   <div className="mb-8">
@@ -177,43 +173,42 @@ export default async function ItemPage({ params }: Props) {
                 </ScanReveal>
               )}
 
-              <div className="editorial-rule mb-0" />
-
-              {/* Description */}
+              {/* ── Description ─────────────────────────────────────────── */}
               {item.description && (
-                <ScanReveal delay={120}>
-                  <div className="py-8">
+                <ScanReveal delay={110}>
+                  <div className="mb-8 pt-8 border-t border-pale-stone">
                     <p className="editorial-body">{item.description}</p>
                   </div>
-                  <div className="editorial-rule" />
                 </ScanReveal>
               )}
 
-              {/* Structured details block */}
-              <ScanReveal delay={140}>
-                <div className="py-2">
-                  {DETAIL_FIELDS.map(({ key, label }) =>
-                    details[key] ? (
-                      <div key={key} className="catalog-field">
-                        <span className="archive-label text-[0.6rem] text-stone-grey">{label}</span>
-                        <span className="font-mono text-xs text-near-black">{details[key]}</span>
+              {/* ── Details table ───────────────────────────────────────── */}
+              {hasDetails && (
+                <ScanReveal delay={130}>
+                  <div className="mb-8 border-t border-pale-stone">
+                    {DETAIL_FIELDS.map(({ key, label }) =>
+                      details[key] ? (
+                        <div key={key} className="flex justify-between items-baseline py-3 border-b border-pale-stone/60">
+                          <span className="archive-label text-[0.6rem] text-stone-grey uppercase tracking-widest">{label}</span>
+                          <span className="font-mono text-xs text-near-black text-right">{details[key]}</span>
+                        </div>
+                      ) : null
+                    )}
+                    {item.catalog_number && (
+                      <div className="flex justify-between items-baseline py-3 border-b border-pale-stone/60">
+                        <span className="archive-label text-[0.6rem] text-stone-grey uppercase tracking-widest">Catalog No.</span>
+                        <span className="font-mono text-xs text-near-black">{item.catalog_number}</span>
                       </div>
-                    ) : null
-                  )}
-                  {item.catalog_number && (
-                    <div className="catalog-field">
-                      <span className="archive-label text-[0.6rem] text-stone-grey">Catalog No.</span>
-                      <span className="font-mono text-xs text-near-black">{item.catalog_number}</span>
-                    </div>
-                  )}
-                </div>
-              </ScanReveal>
+                    )}
+                  </div>
+                </ScanReveal>
+              )}
 
-              {/* "Why We Chose This" */}
+              {/* ── Why We Chose This ────────────────────────────────────── */}
               {details.why_we_chose_this && (
-                <ScanReveal delay={160}>
-                  <div className="py-8 border-t border-pale-stone">
-                    <p className="archive-label text-[0.58rem] text-stone-grey mb-3">
+                <ScanReveal delay={150}>
+                  <div className="mb-8 pt-2">
+                    <p className="font-serif italic text-near-black mb-3" style={{ fontSize: '1rem' }}>
                       Why We Chose This
                     </p>
                     <p className="editorial-body text-sm leading-relaxed">
@@ -223,10 +218,10 @@ export default async function ItemPage({ params }: Props) {
                 </ScanReveal>
               )}
 
-              {/* Tags */}
+              {/* ── Tags ────────────────────────────────────────────────── */}
               {item.tags && item.tags.length > 0 && (
-                <ScanReveal delay={170}>
-                  <div className="py-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-pale-stone">
+                <ScanReveal delay={160}>
+                  <div className="mb-8 flex flex-wrap gap-x-5 gap-y-2">
                     {item.tags.map(tag => (
                       <Link key={tag} href={`/search?q=${encodeURIComponent(tag)}`}
                         className="catalog-ordinal text-stone-grey hover:text-burnished transition-colors">
@@ -237,29 +232,24 @@ export default async function ItemPage({ params }: Props) {
                 </ScanReveal>
               )}
 
-              {/* CTA section */}
-              <ScanReveal delay={200}>
+              {/* ── Reservation form ─────────────────────────────────────── */}
+              <ScanReveal delay={180}>
                 <div className="pt-8 border-t border-pale-stone">
-
-                  {/* Guarantee line */}
                   <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
                     Every object is personally sourced, condition-verified, and delivered by our team in Miami.
                   </p>
 
-                  {/* Reserve / Sold notify */}
                   {isSold ? (
                     <SoldNotifyForm itemId={item.id} />
                   ) : (
                     <>
                       <ReserveForm itemId={item.id} itemTitle={item.title} />
-                      {/* Return policy */}
                       <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
                         7-day return policy. No questions asked.
                       </p>
                     </>
                   )}
 
-                  {/* View theme link */}
                   {theme && (
                     <div className="mt-6">
                       <Link href={`/themes/${theme.slug}`}
@@ -277,15 +267,14 @@ export default async function ItemPage({ params }: Props) {
         </div>
       </div>
 
-      {/* ── From the Catalog ──────────────────────────────────────────────────── */}
+      {/* ── From the Catalog ──────────────────────────────────────────── */}
       {related.length > 0 && (
         <section className="py-20 bg-warm-page border-t border-pale-stone">
           <div className="max-w-site mx-auto px-5 md:px-10">
             <ScanReveal>
               <p className="archive-label text-[0.6rem] mb-10">From the Catalog</p>
             </ScanReveal>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {related.map((rel, i) => (
                 <ScanReveal key={rel.id} delay={i * 60}>
                   <Link href={`/items/${rel.slug}`} className="group block">
