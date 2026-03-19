@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { createServiceClient } from '@/lib/supabase/server'
 
 const ReserveSchema = z.object({
-  itemId:    z.string(),
+  itemId:    z.string().uuid(),
   itemTitle: z.string(),
-  name:      z.string().min(1).max(100),
+  name:      z.string().max(100).optional(),
   email:     z.string().email(),
   phone:     z.string().optional(),
   message:   z.string().optional(),
@@ -20,12 +21,29 @@ export async function POST(request: NextRequest) {
 
   const { itemId, itemTitle, name, email, phone, message } = parsed.data
 
+  const supabase = await createServiceClient()
+
+  // Duplicate check
+  const { data: existing } = await supabase
+    .from('item_notify_requests')
+    .select('id')
+    .eq('item_id', itemId)
+    .eq('email', email)
+    .maybeSingle()
+
+  if (existing) {
+    return NextResponse.json({ error: 'already_reserved' }, { status: 409 })
+  }
+
+  // Persist reservation
+  await supabase.from('item_notify_requests').insert({ item_id: itemId, email })
+
   if (process.env.RESEND_API_KEY) {
     const { Resend } = await import('resend')
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     await resend.emails.send({
-      from:    'Buena Onda <contact@buenaonda.com>',
+      from:    'Buena Onda <onboarding@resend.dev>',
       to:      [process.env.CONTACT_EMAIL ?? 'hello@buenaonda.com'],
       replyTo: email,
       subject: `Reserve request: ${itemTitle}`,
