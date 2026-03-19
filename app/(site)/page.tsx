@@ -1,21 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import ContactSheet from '@/components/ui/ContactSheet'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
+import HeroGrid from '@/components/HeroGrid'
+import { getHeroImages } from '@/lib/getHeroImages'
 
 export const metadata: Metadata = {
   title: 'Buena Onda — Analog Culture House',
 }
-
-const heroFrames = [
-  { src: '/images/hero/01.jpg', alt: 'Buena Onda — Miami',   frame: '01A', date: '2017', caption: 'Miami'   },
-  { src: '/images/hero/02.jpg', alt: 'Buena Onda — Studio',  frame: '02A', date: '2017', caption: 'Studio'  },
-  { src: '/images/hero/05.jpg', alt: 'Buena Onda — Culture', frame: '05A', date: '2019', caption: 'Culture' },
-  { src: '/images/hero/06.jpg', alt: 'Buena Onda — Night',   frame: '06A', date: '2019', caption: 'Night'   },
-  { src: '/images/hero/07.jpg', alt: 'Buena Onda — Day',     frame: '07A', date: '2019', caption: 'Day'     },
-  { src: '/images/hero/08.jpg', alt: 'Buena Onda — Life',    frame: '08A', date: '2019', caption: 'Life'    },
-]
 
 const pillars = [
   {
@@ -46,6 +38,8 @@ const pillars = [
 
 
 export default function HomePage() {
+  const heroPool = getHeroImages()
+
   return (
     <>
       {/* ── 1. HERO ──────────────────────────────────────────────────────────── */}
@@ -108,66 +102,10 @@ export default function HomePage() {
 
         {/* Right panel — Arq-Grid */}
         <div className="relative hidden md:flex items-center justify-center py-16 px-8">
-          <div
-            className="w-full"
-            style={{
-              display:             'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows:    '1fr 1fr 1fr',
-              gap:                 '3px',
-              height:              'min(600px, 80vh)',
-            }}
-          >
-            {/* Cell 1 — teal */}
-            <div className="animate-fade-up relative overflow-hidden" style={{ background: '#2A9D9D', animationDelay: '200ms' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/hero/01.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
-              <div className="absolute inset-0" style={{ background: 'rgba(42,157,157,0.55)' }} />
-            </div>
-
-            {/* Cell 2 — coral, spans 2 rows */}
-            <div
-              className="animate-fade-up relative overflow-hidden"
-              style={{ background: '#D9685A', gridRow: 'span 2', animationDelay: '300ms' }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/hero/02.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
-              <div className="absolute inset-0" style={{ background: 'rgba(217,104,90,0.45)' }} />
-            </div>
-
-            {/* Cell 3 — charcoal + EST. 2014 */}
-            <div
-              className="animate-fade-up flex items-center justify-center"
-              style={{ background: '#2E2E2E', animationDelay: '350ms' }}
-            >
-              <span
-                className="font-display"
-                style={{ color: 'white', fontSize: '0.85rem', letterSpacing: '0.15em' }}
-              >
-                EST. 2014
-              </span>
-            </div>
-
-            {/* Cell 4 — coral-pale */}
-            <div className="animate-fade-up relative overflow-hidden" style={{ background: '#F2C4BB', animationDelay: '400ms' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/hero/06.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
-              <div className="absolute inset-0" style={{ background: 'rgba(242,196,187,0.55)' }} />
-            </div>
-
-            {/* Cell 5 — teal-deep + MIAMI, FL */}
-            <div
-              className="animate-fade-up flex items-center justify-center"
-              style={{ background: '#1A7070', animationDelay: '450ms' }}
-            >
-              <span
-                className="font-display"
-                style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.7rem', letterSpacing: '0.2em' }}
-              >
-                MIAMI, FL
-              </span>
-            </div>
-          </div>
+          <HeroGrid
+            images={heroPool}
+            fallback={['/images/hero/01.jpg', '/images/hero/02.jpg', '/images/hero/06.jpg']}
+          />
 
           {/* Coral arq-steps — bottom-right */}
           <div
@@ -180,11 +118,6 @@ export default function HomePage() {
             <div style={{ width: '20px', height: '8px', background: '#F2C4BB', marginLeft: '40px' }} />
           </div>
         </div>
-      </section>
-
-      {/* ── 2. PHOTO STRIP ───────────────────────────────────────────────────── */}
-      <section aria-label="Photo archive strip">
-        <ContactSheet images={heroFrames} columns={3} className="w-full" />
       </section>
 
       {/* ── 3. PILLARS ───────────────────────────────────────────────────────── */}
