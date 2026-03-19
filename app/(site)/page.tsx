@@ -27,13 +27,13 @@ const pillars = [
   {
     name:     'Sound',
     headline: 'Music the way it was meant to be heard.',
-    text:     'Curated mixes and live sessions. No shuffle, no algorithm — just a sequence you can trust.',
+    text:     'Curated mixes and live sessions. No shuffle, no algorithm. Play it front to back.',
     href:     '/radio',
   },
   {
     name:     'Culture',
     headline: 'Essays from the analog world.',
-    text:     'Dispatches on music, craft, and intentional living. Long reads for slow afternoons.',
+    text:     'Dispatches on music, objects, and analog culture. Long reads. Take your time.',
     href:     '/culture',
   },
   {
@@ -73,22 +73,23 @@ export default function HomePage() {
             className="font-display leading-none mb-6 animate-fade-up"
             style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', animationDelay: '250ms' }}
           >
-            <span style={{ color: '#2E2E2E', display: 'block' }}>BUENA</span>
+            <span style={{ color: '#2A9D9D', display: 'block' }}>BUENA</span>
             <span style={{ color: '#D9685A', display: 'block' }}>ONDA</span>
           </h1>
 
           <p
             className="font-serif italic animate-fade-up mb-10"
             style={{
-              fontSize:      'clamp(1rem, 1.4vw, 1.15rem)',
-              color:         '#777',
-              maxWidth:      '30ch',
-              lineHeight:    1.65,
+              fontSize:       'clamp(1.2rem, 2vw, 1.6rem)',
+              color:          '#555',
+              maxWidth:       '26ch',
+              lineHeight:     1.45,
+              letterSpacing:  '0.03em',
               animationDelay: '400ms',
             }}
           >
             Rooted in Miami. Built for the long run.<br />
-            Music, objects, and culture — done slowly.
+            Music, objects, and culture. Done slowly.
           </p>
 
           <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
@@ -212,8 +213,7 @@ export default function HomePage() {
               </div>
               <div className="flex items-center">
                 <p className="font-sans leading-relaxed" style={{ color: '#AAA', fontWeight: 300, fontSize: '0.95rem' }}>
-                  Everything we do lives inside four disciplines.
-                  Each one slow, intentional, and analog-first.
+                  Four disciplines. None of them are trends.
                 </p>
               </div>
             </div>
@@ -289,7 +289,7 @@ export default function HomePage() {
                   style={{ color: '#777', fontWeight: 300 }}
                 >
                   Curated mixes, live sessions, and field recordings.
-                  Music the way it was meant to be heard — in sequence, without shuffle.
+                  Front to back, without skipping.
                 </p>
                 <Link href="/radio" className="btn-hollow-coral group">
                   Enter the archive
@@ -415,7 +415,7 @@ export default function HomePage() {
                   className="font-sans mb-8"
                   style={{ color: '#777', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
                 >
-                  We are not chasing the past. We are building a present that is slower, more considered, and built to last.
+                  We are not chasing the past. We are building a present that is slower and built to last.
                   Every object, every mix, every essay is a wager against disposability.
                 </p>
                 <cite
@@ -466,7 +466,7 @@ export default function HomePage() {
                   Slow mail. Good content.
                 </h2>
                 <p className="font-sans text-sm" style={{ color: '#777', fontWeight: 300 }}>
-                  No algorithms. Just culture, drops, and what&apos;s playing in the house.
+                  No algorithm. Drops, mixes, and what&apos;s happening in the house.
                 </p>
               </div>
 

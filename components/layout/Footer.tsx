@@ -51,7 +51,7 @@ export default function Footer() {
             </span>
           </Link>
           <p className="text-sm leading-relaxed max-w-[22ch]" style={{ color: 'var(--gray)' }}>
-            Music, objects, and a lifestyle built to last. Based in Miami.
+            Music, objects, and analog culture. Based in Miami since 2014.
           </p>
 
           {/* Palette swatches */}
