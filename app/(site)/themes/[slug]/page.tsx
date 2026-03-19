@@ -55,39 +55,35 @@ export default async function ThemeSpreadPage({ params }: Props) {
 
   return (
     <>
-      {/* ── Editorial header — dark ground ─────────────────────────────────── */}
-      <div className="pt-32 bg-near-black overflow-hidden">
+      {/* ── Page header — light ground ──────────────────────────────────────── */}
+      <div className="pt-28 pb-10 bg-warm-page border-b border-black/5">
         <div className="max-w-site mx-auto px-5 md:px-10">
 
           {/* Breadcrumb */}
           <ScanReveal>
-            <div className="flex gap-2 items-center mb-10 font-mono text-xs text-stone-grey/60">
-              <Link href="/themes" className="hover:text-stone-grey transition-colors">Catalog</Link>
+            <div className="flex gap-2 items-center mb-8 font-mono text-xs text-stone-grey/60">
+              <Link href="/themes" className="hover:text-teal transition-colors">Catalog</Link>
               <span>/</span>
               <span>{theme.title}</span>
             </div>
           </ScanReveal>
 
-          {/* Hero layout: huge title left + portrait image right */}
-          <div className="grid md:grid-cols-2 gap-0 items-end">
+          {/* Title + optional cover image */}
+          <div className="grid md:grid-cols-2 gap-10 items-end">
             <ScanReveal>
-              {/* Archive ordinal */}
-              <span className="catalog-ordinal text-stone-grey/50 block mb-8">
+              <span className="catalog-ordinal text-stone-grey/50 block mb-6">
                 {theme.code} — Catalog Theme
               </span>
 
               <h1
-                className="font-display leading-[0.92]"
-                style={{
-                  fontSize: 'clamp(3rem, 9vw, 7rem)',
-                  color: '#F5F0E8',
-                }}
+                className="font-display text-near-black leading-[0.92]"
+                style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}
               >
                 {theme.title}
               </h1>
 
               {theme.description && (
-                <p className="font-mono text-sm text-stone-grey mt-8 pb-16 max-w-sm leading-relaxed">
+                <p className="font-mono text-sm text-gray mt-6 max-w-sm leading-relaxed">
                   {theme.description}
                 </p>
               )}
@@ -95,7 +91,7 @@ export default async function ThemeSpreadPage({ params }: Props) {
 
             {theme.cover_image && (
               <ScanReveal delay={200}>
-                <div className="aspect-[3/4] overflow-hidden">
+                <div className="aspect-[3/4] overflow-hidden max-w-xs">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={theme.cover_image}
