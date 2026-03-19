@@ -101,7 +101,7 @@ export default function HomePage() {
         </div>
 
         {/* Right panel — Arq-Grid */}
-        <div className="relative hidden md:flex items-center justify-center py-16 px-8">
+        <div className="relative hidden md:block overflow-hidden">
           <HeroGrid
             images={heroPool}
             fallback={['/images/hero/01.jpg', '/images/hero/02.jpg', '/images/hero/06.jpg']}
