@@ -28,7 +28,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default:  'Buena Onda — An Analog Culture House',
+    default:  'Buena Onda — Analog Culture House',
     template: '%s | Buena Onda',
   },
   description:
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
     type:        'website',
     locale:      'en_US',
     siteName:    'Buena Onda',
-    title:       'Buena Onda — An Analog Culture House',
+    title:       'Buena Onda — Analog Culture House',
     description: 'Music, objects, and a lifestyle built to last.',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Buena Onda — An Analog Culture House',
+    title:       'Buena Onda — Analog Culture House',
     description: 'Music, objects, and a lifestyle built to last.',
   },
   icons: {

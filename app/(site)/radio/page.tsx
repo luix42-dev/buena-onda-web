@@ -18,43 +18,28 @@ const episodes: Episode[] = [
   { id: 'ep18', episodeNumber: 18, title: 'Afro-Cuban Jazz at the Source',    description: 'Two hours tracing the DNA of Afro-Cuban jazz from Havana street rhythms to Miami cocktail bars. Featuring rare 1970s Cuban pressings.',                duration: '2h 04m', date: 'Mar 2024', tags: ['Jazz', 'Cuba', 'Archive'],     audioUrl: null },
   { id: 'ep17', episodeNumber: 17, title: 'Saudade — A Brazilian Journey',    description: 'Bossa nova, tropicália, and the melancholy longing that defines the Brazilian sound. Curated from original vinyl.',                                    duration: '1h 48m', date: 'Feb 2024', tags: ['Brazil', 'Bossa', 'Vinyl'],    audioUrl: null },
   { id: 'ep16', episodeNumber: 16, title: 'Funk Carioca',                     description: 'Rio de Janeiro\'s street sound — raw, percussive, and impossible to sit still through.',                                                                  duration: '1h 22m', date: 'Jan 2024', tags: ['Brazil', 'Funk', 'Dance'],    audioUrl: null },
-  { id: 'ep15', episodeNumber: 15, title: 'Miami Bass: A Retrospective',      description: 'The genre that put Miami on the global music map. A love letter in three acts.',                                                                             duration: '1h 55m', date: 'Dec 2023', tags: ['Miami', 'Bass', 'History'],  audioUrl: null },
+  { id: 'ep15', episodeNumber: 15, title: 'Miami Bass: A Retrospective',      description: 'Three acts tracing how Miami bass went from a local phenomenon to a global blueprint.',                                                                        duration: '1h 55m', date: 'Dec 2023', tags: ['Miami', 'Bass', 'History'],  audioUrl: null },
   { id: 'ep14', episodeNumber: 14, title: 'Slow Burners Vol. II',             description: 'Late-night music for people who don\'t want the night to end. No explanations needed.',                                                                      duration: '2h 12m', date: 'Nov 2023', tags: ['Ambient', 'Deep', 'Night'],  audioUrl: null },
   { id: 'ep13', episodeNumber: 13, title: 'Havana Club Session',              description: 'Live recording from a sunset session in Little Havana. The room was full, the rum was cold.',                                                                duration: '1h 38m', date: 'Oct 2023', tags: ['Live', 'Havana', 'Session'], audioUrl: null },
 ]
 
-function EpisodeRow({ ep, isActive, onPlay }: {
+function EpisodeRow({ ep, isActive }: {
   ep:       Episode
   isActive: boolean
-  onPlay:   () => void
 }) {
   return (
     <div
       className={[
-        'group flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5',
-        'border-b border-charcoal/30 last:border-0 cursor-pointer transition-colors duration-200',
-        isActive ? 'bg-teal/10' : 'hover:bg-charcoal/20',
+        'flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5',
+        'border-b border-charcoal/30 last:border-0 transition-colors duration-200',
+        isActive ? 'bg-teal/10' : '',
       ].join(' ')}
-      onClick={onPlay}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onPlay()}
-      aria-label={`Play ${ep.title}`}
     >
-      {/* Play indicator */}
-      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-charcoal/40
-                      group-hover:border-warm-sand/60 transition-colors">
-        {isActive ? (
-          <span className="w-2.5 h-2.5 flex gap-0.5">
-            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
-            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_0.2s_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
-            <span className="block w-0.5 h-full bg-neon-pink animate-[equalize_0.8s_ease-in-out_0.4s_infinite]" style={{ boxShadow: '0 0 4px rgba(255,60,142,0.5)' }} />
-          </span>
-        ) : (
-          <span className="font-mono text-[0.65rem] text-stone-grey group-hover:text-warm-sand transition-colors">
-            ▶
-          </span>
-        )}
+      {/* Play indicator — disabled */}
+      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-charcoal/40">
+        <span className="font-mono text-[0.65rem] text-charcoal/40">
+          —
+        </span>
       </div>
 
       {/* Meta */}
@@ -112,6 +97,15 @@ export default function RadioPage() {
               Listen front to back. No shuffle.
             </p>
           </ScanReveal>
+        </div>
+      </div>
+
+      {/* ── Coming Soon Banner ─────────────────────────────────────────── */}
+      <div className="bg-near-black border-b border-charcoal/40 py-4">
+        <div className="max-w-site mx-auto px-5 md:px-10">
+          <p className="font-mono text-xs text-stone-grey/60 text-center tracking-wide">
+            The archive is being prepared. Episodes launching soon.
+          </p>
         </div>
       </div>
 
@@ -174,22 +168,11 @@ export default function RadioPage() {
                   key={ep.id}
                   ep={ep}
                   isActive={activeId === ep.id}
-                  onPlay={() => setActiveId(activeId === ep.id ? null : ep.id)}
                 />
               ))}
             </div>
           </ScanReveal>
 
-          {/* Note about streaming */}
-          <ScanReveal delay={200}>
-            <p className="archive-label text-[0.6rem] text-charcoal text-center mt-8">
-              Full episodes available on Mixcloud and SoundCloud ·
-              {' '}
-              <a href="#" className="text-stone-grey hover:text-warm-sand transition-colors">
-                Subscribe to the feed ↗
-              </a>
-            </p>
-          </ScanReveal>
         </div>
       </section>
     </>

@@ -72,7 +72,7 @@ export default function Navigation() {
               className="text-[0.55rem] tracking-[0.2em] mt-1 uppercase"
               style={{ fontFamily: 'var(--font-display)', color: 'var(--teal)' }}
             >
-              AN ANALOG CULTURE HOUSE
+              ANALOG CULTURE HOUSE
             </span>
           </Link>
 

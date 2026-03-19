@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
 import PullQuote from '@/components/ui/PullQuote'
-import ContactSheet from '@/components/ui/ContactSheet'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,37 +11,30 @@ export const metadata: Metadata = {
 const timeline = [
   {
     year:  '2014',
-    title: 'The First Session',
-    body:  'A borrowed turntable, a Brickell rooftop, twelve friends. What started as a Sunday ritual became a community before anyone gave it a name.',
+    title: 'Founded in Miami',
+    body:  'What started as a personal practice in music curation and analog culture became something with a name.',
+  },
+  {
+    year:  '2017',
+    title: 'First Open Decks',
+    body:  'A turntable, a room, and an open invitation. Participatory music culture, not a DJ showcase.',
+  },
+  {
+    year:  '2019',
+    title: 'Onda Tropical at Cerveceria La Tropical',
+    body:  'Latin American, Caribbean, and Afro-rooted dance music at one of Miami\'s landmark venues.',
   },
   {
     year:  '2021',
-    title: 'Radio Begins',
-    body:  'Episode 001 — recorded live on a Marantz PMD and posted with zero promotion. Three thousand listens in the first week told us what we needed to know.',
+    title: '80s Club on Jolt Radio',
+    body:  'A monthly show dedicated to the sounds of 1980s global pop, synth, and electronic music.',
   },
   {
-    year:  '2022',
-    title: 'First Object Drop',
-    body:  'A waxed-canvas field bag. Forty units. Sold in nine hours. We realized that the people who love the sound also want to hold something.',
-  },
-  {
-    year:  '2023',
-    title: 'The House Grows',
-    body:  'Pop-ups in Wynwood, Coral Gables, and New York. The idea scales when the intent stays clear.',
-  },
-  {
-    year:  '2024',
-    title: 'Still Here',
-    body:  'Five years in. Nothing has changed. Everything has deepened.',
+    year:  '2026',
+    title: 'The Catalog Opens',
+    body:  'Buena Onda begins curating and selling objects, furniture, garments, and vinyl through a new digital home.',
   },
 ]
-
-const teamFrames = Array.from({ length: 6 }, (_, i) => ({
-  src:     '',
-  alt:     `Team — frame ${i + 1}`,
-  frame:   `T${String(i + 1).padStart(2, '0')}`,
-  caption: ['Founder', 'Sound Director', 'Creative', 'Objects', 'Radio', 'Archive'][i],
-}))
 
 export default function AboutPage() {
   return (
@@ -69,16 +61,15 @@ export default function AboutPage() {
             <ScanReveal>
               <div className="prose-brand">
                 <p>
-                  Buena Onda is an analog culture house rooted in Miami. We exist
-                  at the intersection of music, material craft, and intentional living.
+                  Buena Onda is an analog culture house rooted in Miami.
+                  We curate objects, music, and cultural events through a single lens: does this reward attention over time?
                 </p>
                 <p>
                   We don&apos;t make things for the algorithm. We make things for the
-                  room — the physical, felt, alive room where culture actually happens.
+                  room — the physical, present room where culture actually happens.
                 </p>
                 <p>
                   Our practice is slow. Our objects are heavy. Our mixes run long.
-                  That&apos;s the point.
                 </p>
               </div>
             </ScanReveal>
@@ -122,16 +113,6 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── Team Contact Sheet ─────────────────────────────────────────── */}
-      <section className="py-24 bg-near-black">
-        <div className="max-w-site mx-auto px-5 md:px-10">
-          <ScanReveal>
-            <span className="section-label text-stone-grey mb-8 block">The People</span>
-          </ScanReveal>
-          <ContactSheet images={teamFrames} columns={6} />
         </div>
       </section>
 

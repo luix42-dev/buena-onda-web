@@ -5,7 +5,7 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 
 export const metadata: Metadata = {
-  title: 'Buena Onda — An Analog Culture House',
+  title: 'Buena Onda — Analog Culture House',
 }
 
 const heroFrames = [
@@ -19,16 +19,16 @@ const heroFrames = [
 
 const pillars = [
   {
+    name:     'Objects',
+    headline: 'Things built to outlive their moment.',
+    text:     'Curated objects, garments, and furniture selected for design integrity and cultural weight. Every piece in the catalog earned its place.',
+    href:     '/themes',
+  },
+  {
     name:     'Sound',
     headline: 'Music the way it was meant to be heard.',
     text:     'Curated mixes and live sessions. No shuffle, no algorithm — just a sequence you can trust.',
     href:     '/radio',
-  },
-  {
-    name:     'Objects',
-    headline: 'Things built to outlive their moment.',
-    text:     'Limited drops of durable goods. Waxed canvas, brass hardware, aged leather. Made in Miami.',
-    href:     '/objects',
   },
   {
     name:     'Culture',
@@ -44,32 +44,6 @@ const pillars = [
   },
 ]
 
-const catalogCards = [
-  {
-    code:       'DROP·04',
-    name:       'Field Bag',
-    price:      '$285',
-    gradient:   'linear-gradient(160deg, #2A9D9D 0%, #1A7070 100%)',
-    priceColor: '#5ABFBF',
-    neonClass:  'catalog-card-odd',
-  },
-  {
-    code:       'DROP·03',
-    name:       'Guayabera Edit',
-    price:      '$195',
-    gradient:   'linear-gradient(160deg, #2E2E2E 0%, #0D0D0D 100%)',
-    priceColor: '#FF3C8E',
-    neonClass:  'catalog-card-even',
-  },
-  {
-    code:       'DROP·02',
-    name:       'Record Crate',
-    price:      '$140',
-    gradient:   'linear-gradient(160deg, #D9685A 0%, #E8927F 100%)',
-    priceColor: '#F2C4BB',
-    neonClass:  'catalog-card-odd',
-  },
-]
 
 export default function HomePage() {
   return (
@@ -92,7 +66,7 @@ export default function HomePage() {
             className="font-display block mb-5 animate-fade-up"
             style={{ color: '#2A9D9D', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
           >
-            AN ANALOG CULTURE HOUSE
+            ANALOG CULTURE HOUSE
           </span>
 
           <h1
@@ -144,13 +118,21 @@ export default function HomePage() {
             }}
           >
             {/* Cell 1 — teal */}
-            <div className="animate-fade-up" style={{ background: '#2A9D9D', animationDelay: '200ms' }} />
+            <div className="animate-fade-up relative overflow-hidden" style={{ background: '#2A9D9D', animationDelay: '200ms' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/hero/01.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: 'rgba(42,157,157,0.55)' }} />
+            </div>
 
             {/* Cell 2 — coral, spans 2 rows */}
             <div
-              className="animate-fade-up"
+              className="animate-fade-up relative overflow-hidden"
               style={{ background: '#D9685A', gridRow: 'span 2', animationDelay: '300ms' }}
-            />
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/hero/02.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: 'rgba(217,104,90,0.45)' }} />
+            </div>
 
             {/* Cell 3 — charcoal + EST. 2014 */}
             <div
@@ -166,7 +148,11 @@ export default function HomePage() {
             </div>
 
             {/* Cell 4 — coral-pale */}
-            <div className="animate-fade-up" style={{ background: '#F2C4BB', animationDelay: '400ms' }} />
+            <div className="animate-fade-up relative overflow-hidden" style={{ background: '#F2C4BB', animationDelay: '400ms' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/hero/06.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+              <div className="absolute inset-0" style={{ background: 'rgba(242,196,187,0.55)' }} />
+            </div>
 
             {/* Cell 5 — teal-deep + MIAMI, FL */}
             <div
@@ -311,61 +297,21 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Episode card */}
+              {/* Episode card — coming soon */}
               <div
                 className="hidden md:block w-72 p-8"
-                style={{
-                  border:    '1px solid #FF3C8E',
-                  boxShadow: '0 0 12px rgba(255,60,142,0.25), 0 0 30px rgba(255,60,142,0.08)',
-                }}
+                style={{ border: '1px solid rgba(255,255,255,0.1)' }}
               >
                 <p
-                  className="font-sans mb-4"
-                  style={{
-                    color:         'rgba(255,60,142,0.6)',
-                    fontSize:      '0.55rem',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                  }}
+                  className="font-mono mb-3"
+                  style={{ color: 'rgba(255,60,142,0.4)', fontSize: '0.55rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 >
-                  Now Playing
+                  Coming Soon
                 </p>
                 <p className="font-display text-white text-lg mb-2">Onda Tropical Vol. 1</p>
-                <p className="font-sans text-xs leading-relaxed mb-6" style={{ color: '#777' }}>
-                  Afro-Cuban rhythms, Miami bass, and sunset soul.
+                <p className="font-sans text-xs leading-relaxed" style={{ color: '#555' }}>
+                  First episode dropping soon.
                 </p>
-                {/* Animated waveform bars */}
-                <div className="flex items-end gap-0.5 mb-4" style={{ height: '32px' }}>
-                  {Array.from({ length: 16 }).map((_, idx) => (
-                    <div
-                      key={idx}
-                      className="w-1 rounded-sm"
-                      style={{
-                        background: '#FF3C8E',
-                        boxShadow:  '0 0 4px rgba(255,60,142,0.5)',
-                        height:     '40%',
-                        animation:  `equalize ${0.6 + (idx % 4) * 0.15}s ease-in-out ${idx * 0.05}s infinite`,
-                      }}
-                    />
-                  ))}
-                </div>
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-2 h-2 rounded-full animate-pulse"
-                    style={{ background: '#FF3C8E', boxShadow: '0 0 6px rgba(255,60,142,0.5)' }}
-                  />
-                  <p
-                    className="font-sans"
-                    style={{
-                      color:         'rgba(255,60,142,0.5)',
-                      fontSize:      '0.55rem',
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    Live
-                  </p>
-                </div>
               </div>
             </div>
           </ScanReveal>
@@ -378,64 +324,7 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── 5. CATALOG ───────────────────────────────────────────────────────── */}
-      <section id="catalog" style={{ background: '#F5F2ED' }}>
-        <div className="max-w-site mx-auto px-5 md:px-10 py-24">
-          <ScanReveal>
-            <div className="flex items-end justify-between mb-12">
-              <h2
-                className="font-display"
-                style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#2E2E2E' }}
-              >
-                Objects &amp; Editions
-              </h2>
-              <Link
-                href="/objects"
-                className="font-sans text-xs tracking-[0.18em] uppercase transition-colors"
-                style={{ color: '#2A9D9D' }}
-              >
-                View all →
-              </Link>
-            </div>
-          </ScanReveal>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {catalogCards.map(({ code, name, price, gradient, priceColor, neonClass }, i) => (
-              <ScanReveal key={code} delay={i * 80}>
-                <Link href="/objects" className={`group block overflow-hidden ${neonClass}`}>
-                  <div
-                    className="catalog-inner aspect-[3/4] flex flex-col justify-end p-8 transition-transform duration-300 group-hover:scale-[1.04]"
-                    style={{ background: gradient }}
-                  >
-                    <p
-                      className="font-sans mb-3"
-                      style={{
-                        color:         'rgba(255,255,255,0.5)',
-                        fontSize:      '0.55rem',
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {code}
-                    </p>
-                    <h3
-                      className="font-display text-white uppercase mb-2"
-                      style={{ fontSize: '1.4rem' }}
-                    >
-                      {name}
-                    </h3>
-                    <p className="font-display text-lg" style={{ color: priceColor }}>
-                      {price}
-                    </p>
-                  </div>
-                </Link>
-              </ScanReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. MANIFESTO ─────────────────────────────────────────────────────── */}
+      {/* ── 5. MANIFESTO ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-32" style={{ background: '#0D0D0D' }}>
         {/* Ambient radial glows */}
         <div

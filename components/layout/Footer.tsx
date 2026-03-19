@@ -12,16 +12,14 @@ const navLinks = [
 
 const socialLinks = [
   { href: 'https://instagram.com/buenaondalifestyle', label: 'Instagram' },
-  { href: '#',                                        label: 'Mixcloud'  },
-  { href: '#',                                        label: 'SoundCloud' },
 ]
 
 const swatches = [
-  { color: '#2A9D9D', label: 'teal'      },
-  { color: '#D9685A', label: 'coral'     },
-  { color: '#2E2E2E', label: 'charcoal'  },
-  { color: '#FF3C8E', label: 'neon-pink' },
-  { color: '#00D4FF', label: 'neon-blue' },
+  { color: '#2A9D9D', label: 'teal',      href: '/themes',  title: 'Catalog'  },
+  { color: '#D9685A', label: 'coral',     href: '/radio',   title: 'Radio'    },
+  { color: '#2E2E2E', label: 'charcoal',  href: '/culture', title: 'Culture'  },
+  { color: '#FF3C8E', label: 'neon-pink', href: '/about',   title: 'About'    },
+  { color: '#00D4FF', label: 'neon-blue', href: '/contact', title: 'Contact'  },
 ]
 
 export default function Footer() {
@@ -49,7 +47,7 @@ export default function Footer() {
               className="text-[0.55rem] tracking-[0.2em] mt-0.5 block uppercase"
               style={{ fontFamily: 'var(--font-sans)', color: 'var(--gray-muted)' }}
             >
-              An Analog Culture House
+              Analog Culture House
             </span>
           </Link>
           <p className="text-sm leading-relaxed max-w-[22ch]" style={{ color: 'var(--gray)' }}>
@@ -58,12 +56,14 @@ export default function Footer() {
 
           {/* Palette swatches */}
           <div className="flex gap-2 mt-2" aria-label="Brand palette">
-            {swatches.map(({ color, label }) => (
-              <span
+            {swatches.map(({ color, label, href, title }) => (
+              <Link
                 key={label}
-                title={label}
+                href={href}
+                title={title}
+                aria-label={title}
                 style={{ background: color, width: 14, height: 14, display: 'block', flexShrink: 0 }}
-                aria-label={label}
+                className="hover:scale-125 transition-transform duration-200"
               />
             ))}
           </div>

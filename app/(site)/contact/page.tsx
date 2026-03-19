@@ -53,6 +53,9 @@ export default function ContactPage() {
                       </a>
                     </div>
                   ))}
+                  <p className="font-mono text-xs text-stone-grey/70 mt-2">
+                    Or use the form below — we&apos;ll reply to your email directly.
+                  </p>
                 </div>
 
                 <div>
@@ -61,22 +64,15 @@ export default function ContactPage() {
                     Miami, FL — Wynwood &amp; Little Havana
                   </p>
                   <div className="flex gap-5 mt-5">
-                    {[
-                      { label: 'Instagram', href: 'https://instagram.com/buenaondalifestyle' },
-                      { label: 'Mixcloud',  href: '#' },
-                      { label: 'SoundCloud', href: '#' },
-                    ].map(({ label, href }) => (
-                      <a
-                        key={label}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-xs tracking-wider uppercase text-stone-grey
-                                   hover:text-teal transition-colors"
-                      >
-                        {label} ↗
-                      </a>
-                    ))}
+                    <a
+                      href="https://instagram.com/buenaondalifestyle"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs tracking-wider uppercase text-stone-grey
+                                 hover:text-teal transition-colors"
+                    >
+                      Instagram ↗
+                    </a>
                   </div>
                 </div>
               </div>

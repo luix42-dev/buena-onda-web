@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 
 export const metadata: Metadata = {
@@ -92,14 +91,23 @@ export default function CulturePage() {
         </div>
       </div>
 
+      {/* ── Coming Soon Banner ─────────────────────────────────────────── */}
+      <div className="bg-sand-bg border-y border-pale-stone py-4">
+        <div className="max-w-site mx-auto px-5 md:px-10">
+          <p className="font-mono text-xs text-stone-grey text-center tracking-wide">
+            Essays and dispatches launching soon.{' '}
+            <a href="/#transmission" className="text-teal hover:text-burnished transition-colors underline underline-offset-2">
+              Join The Transmission to read first.
+            </a>
+          </p>
+        </div>
+      </div>
+
       {/* ── Featured Post ──────────────────────────────────────────────── */}
       <section className="py-16 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
-            <Link
-              href={`/culture/${featured.slug}`}
-              className="group grid md:grid-cols-[1fr_2fr] gap-8 items-start paper-hover bg-linen-white p-8"
-            >
+            <div className="opacity-70 grid md:grid-cols-[1fr_2fr] gap-8 items-start bg-linen-white p-8">
               {/* Image placeholder */}
               <div className="aspect-[4/5] bg-gradient-to-br from-sand-bg to-pale-stone
                               flex items-end p-4">
@@ -112,7 +120,7 @@ export default function CulturePage() {
                   <span className="archive-label text-[0.6rem]">{featured.issue}</span>
                 </div>
                 <h2
-                  className="font-display text-near-black group-hover:text-teal transition-colors"
+                  className="font-display text-near-black"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)' }}
                 >
                   {featured.title}
@@ -132,12 +140,8 @@ export default function CulturePage() {
                   <span className="archive-label text-[0.6rem]">{featured.date}</span>
                   <span className="archive-label text-[0.6rem]">{featured.readTime} read</span>
                 </div>
-                <p className="font-mono text-xs tracking-wider text-coral
-                               group-hover:text-neon-pink transition-colors mt-2">
-                  Read essay →
-                </p>
               </div>
-            </Link>
+            </div>
           </ScanReveal>
         </div>
       </section>
@@ -145,48 +149,46 @@ export default function CulturePage() {
       {/* ── Post Grid ──────────────────────────────────────────────────── */}
       <section className="py-16 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
-          <div className="grid md:grid-cols-3 gap-8">
-            {rest.map(({ slug, issue, title, excerpt, tags, date, readTime }, i) => (
-              <ScanReveal key={slug} delay={i * 80}>
-                <Link
-                  href={`/culture/${slug}`}
-                  className="group block bg-sand-bg paper-hover h-full flex flex-col"
-                >
-                  {/* Image placeholder */}
-                  <div className="aspect-[4/3] bg-gradient-to-br from-linen-white to-pale-stone
-                                  flex items-end p-3">
-                    <span className="archive-label text-[0.55rem]">{issue}</span>
-                  </div>
+          <div className="opacity-70">
+            <div className="grid md:grid-cols-3 gap-8">
+              {rest.map(({ slug, issue, title, excerpt, tags, date, readTime }, i) => (
+                <ScanReveal key={slug} delay={i * 80}>
+                  <div className="block bg-sand-bg h-full flex flex-col">
+                    {/* Image placeholder */}
+                    <div className="aspect-[4/3] bg-gradient-to-br from-linen-white to-pale-stone
+                                    flex items-end p-3">
+                      <span className="archive-label text-[0.55rem]">{issue}</span>
+                    </div>
 
-                  <div className="p-5 flex flex-col gap-3 flex-1">
-                    <div className="flex flex-wrap gap-1.5">
-                      {tags.slice(0, 2).map(tag => (
-                        <span
-                          key={tag}
-                          className="archive-label text-[0.58rem] text-teal-light"
-                        >
-                          {tag}
+                    <div className="p-5 flex flex-col gap-3 flex-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        {tags.slice(0, 2).map(tag => (
+                          <span
+                            key={tag}
+                            className="archive-label text-[0.58rem] text-teal-light"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <h3
+                        className="font-display text-near-black"
+                        style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}
+                      >
+                        {title}
+                      </h3>
+                      <p className="text-charcoal text-sm leading-relaxed flex-1">{excerpt}</p>
+                      <div className="flex items-center justify-between mt-2 pt-3 border-t border-pale-stone">
+                        <span className="archive-label text-[0.58rem]">{date}</span>
+                        <span className="font-mono text-xs text-teal-light">
+                          {readTime}
                         </span>
-                      ))}
-                    </div>
-                    <h3
-                      className="font-display text-near-black group-hover:text-teal
-                                 transition-colors"
-                      style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}
-                    >
-                      {title}
-                    </h3>
-                    <p className="text-charcoal text-sm leading-relaxed flex-1">{excerpt}</p>
-                    <div className="flex items-center justify-between mt-2 pt-3 border-t border-pale-stone">
-                      <span className="archive-label text-[0.58rem]">{date}</span>
-                      <span className="font-mono text-xs text-teal-light group-hover:text-teal transition-colors">
-                        {readTime} →
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </Link>
-              </ScanReveal>
-            ))}
+                </ScanReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

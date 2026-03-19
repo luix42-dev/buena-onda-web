@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { error } = await resend.emails.send({
-      from:    'Buena Onda Contact Form <contact@buenaonda.com>',
-      to:      [process.env.CONTACT_EMAIL ?? 'hello@buenaonda.com'],
+      from:    'Buena Onda Contact Form <onboarding@resend.dev>',
+      to:      [process.env.CONTACT_EMAIL ?? 'luix42@gmail.com'],
       replyTo: email,
       subject: `[Contact] ${subject} — from ${name}`,
       html: `
