@@ -51,14 +51,13 @@ export default function HeroGrid({ images, fallback }: HeroGridProps) {
   return (
     <div
       style={{
+        width:               '100%',
+        height:              '100%',
+        minHeight:           '560px',
         display:             'grid',
         gridTemplateColumns: '1fr 1fr',
         gridTemplateRows:    '1fr 1fr 1fr',
         gap:                 '3px',
-        width:               '100%',
-        height:              '100%',
-        position:            'absolute',
-        inset:               0,
       }}
     >
       {/* Cell 1 — teal */}

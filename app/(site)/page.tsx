@@ -44,7 +44,7 @@ export default function HomePage() {
     <>
       {/* ── 1. HERO ──────────────────────────────────────────────────────────── */}
       <section
-        className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%]"
+        className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%] pt-16"
         style={{ background: '#FAF8F5' }}
       >
         {/* Left panel */}
@@ -101,7 +101,7 @@ export default function HomePage() {
         </div>
 
         {/* Right panel — Arq-Grid */}
-        <div className="relative hidden md:block overflow-hidden">
+        <div className="relative hidden md:flex items-center justify-center overflow-hidden">
           <HeroGrid
             images={heroPool}
             fallback={['/images/hero/01.jpg', '/images/hero/02.jpg', '/images/hero/06.jpg']}
