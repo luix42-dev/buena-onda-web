@@ -146,8 +146,7 @@ export default async function SearchPage({ searchParams }: Props) {
                       {item.cover_image_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.cover_image_url} alt={item.title}
-                          className="w-full h-full object-cover grayscale group-hover:grayscale-0
-                                     transition-all duration-300" />
+                          className="w-full h-full object-cover transition-all duration-300" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <span className="archive-label text-[0.45rem] text-stone-grey">IMG</span>

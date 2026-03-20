@@ -38,8 +38,7 @@ export default function ContactSheet({
                 alt={img.alt}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                className="object-cover grayscale-[0.2] group-hover:grayscale-0
-                           transition-all duration-500 ease-analog"
+                className="object-cover transition-all duration-500 ease-analog"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-[#2a2a2a] to-[#111]

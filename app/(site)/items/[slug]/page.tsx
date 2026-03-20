@@ -285,7 +285,7 @@ export default async function ItemPage({ params }: Props) {
                           src={rel.cover_image_url}
                           alt={rel.title}
                           className="w-full h-full object-cover group-hover:scale-105
-                                     transition-transform duration-500 grayscale group-hover:grayscale-0"
+                                     transition-transform duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-sand-bg to-linen-white

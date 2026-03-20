@@ -131,7 +131,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 3. PILLARS ───────────────────────────────────────────────────────── */}
-      <section id="pillars" style={{ background: '#2E2E2E' }}>
+      <section id="pillars" style={{ background: '#1A7070' }}>
         {/* 4-color bar */}
         <div className="flex" style={{ height: '8px' }}>
           <div className="flex-1" style={{ background: '#2A9D9D' }} />
