@@ -70,7 +70,7 @@ export default function Navigation() {
             />
             <span
               className="text-[0.55rem] tracking-[0.2em] mt-1 uppercase"
-              style={{ fontFamily: 'var(--font-display)', color: 'var(--teal)' }}
+              style={{ fontFamily: 'var(--font-display)', color: 'var(--teal-light)' }}
             >
               ANALOG CULTURE HOUSE
             </span>
@@ -93,10 +93,11 @@ export default function Navigation() {
                 {label}
                 {isActive(href) && (
                   <span
-                    className="block h-px mt-0.5 w-full"
+                    className="block mt-1 w-full"
                     style={{
+                      height: '2px',
                       background: 'var(--neon-pink)',
-                      boxShadow: '0 0 6px rgba(255,60,142,0.25)',
+                      boxShadow: '0 0 8px rgba(255,60,142,0.5), 0 0 16px rgba(255,60,142,0.2)',
                     }}
                   />
                 )}
