@@ -69,12 +69,16 @@ export default function ClickSound() {
         break
       }
       case 'neonBuzz': {
-        // Electric neon buzz — sawtooth hum + distortion + noise burst
-        const duration = 0.18
+        // Electric neon buzz — sawtooth hum + distortion + noise burst, ~0.4s sustain
+        const duration = 0.42
         const osc = ctx.createOscillator()
         osc.type = 'sawtooth'
+        // Slight frequency flutter for realism, then drops off
         osc.frequency.setValueAtTime(120, ctx.currentTime)
-        osc.frequency.exponentialRampToValueAtTime(75, ctx.currentTime + duration)
+        osc.frequency.setValueAtTime(117, ctx.currentTime + 0.06)
+        osc.frequency.setValueAtTime(121, ctx.currentTime + 0.14)
+        osc.frequency.setValueAtTime(118, ctx.currentTime + 0.24)
+        osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + duration)
 
         const wave = ctx.createWaveShaper()
         const curve = new Float32Array(256)
@@ -84,25 +88,27 @@ export default function ClickSound() {
         }
         wave.curve = curve
 
-        // Noise burst layer
-        const noiseLen = ctx.sampleRate * 0.04
+        // Noise burst layer — longer initial crackle
+        const noiseLen = ctx.sampleRate * 0.07
         const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate)
         const nd = noiseBuf.getChannelData(0)
         for (let i = 0; i < noiseLen; i++) {
-          nd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / noiseLen, 3)
+          nd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / noiseLen, 2)
         }
         const noiseSrc = ctx.createBufferSource()
         noiseSrc.buffer = noiseBuf
         const noiseGain = ctx.createGain()
-        noiseGain.gain.setValueAtTime(0.08, ctx.currentTime)
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04)
+        noiseGain.gain.setValueAtTime(0.07, ctx.currentTime)
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07)
         noiseSrc.connect(noiseGain)
         noiseGain.connect(ctx.destination)
         noiseSrc.start()
 
         const gain = ctx.createGain()
         gain.gain.setValueAtTime(0, ctx.currentTime)
-        gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.005)
+        gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.008)
+        // Hold sustain then decay
+        gain.gain.setValueAtTime(0.14, ctx.currentTime + 0.26)
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
 
         osc.connect(wave)
