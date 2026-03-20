@@ -98,6 +98,14 @@ export default function HomePage() {
           >
             Miami, FL · Est. 2014
           </p>
+
+          {/* Mobile-only 4-color accent bar — brand palette anchor on small viewports */}
+          <div className="md:hidden flex h-2 mt-10 -ml-10 -mr-8" aria-hidden="true">
+            <div className="flex-1" style={{ background: '#2A9D9D' }} />
+            <div className="flex-1" style={{ background: '#D9685A' }} />
+            <div className="flex-1" style={{ background: '#1A7070' }} />
+            <div className="flex-1" style={{ background: '#E8927F' }} />
+          </div>
         </div>
 
         {/* Right panel — Arq-Grid */}
