@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 
-type SoundType = 'pageTurn' | 'typewriter' | 'click'
+type SoundType = 'pageTurn' | 'typewriter' | 'click' | 'neonBuzz'
 
 /**
  * Plays procedurally-generated analog sounds via Web Audio API.
@@ -68,6 +68,50 @@ export default function ClickSound() {
         src.start()
         break
       }
+      case 'neonBuzz': {
+        // Electric neon buzz — sawtooth hum + distortion + noise burst
+        const duration = 0.18
+        const osc = ctx.createOscillator()
+        osc.type = 'sawtooth'
+        osc.frequency.setValueAtTime(120, ctx.currentTime)
+        osc.frequency.exponentialRampToValueAtTime(75, ctx.currentTime + duration)
+
+        const wave = ctx.createWaveShaper()
+        const curve = new Float32Array(256)
+        for (let i = 0; i < 256; i++) {
+          const x = (i * 2) / 256 - 1
+          curve[i] = Math.sign(x) * (1 - Math.exp(-Math.abs(x) * 10))
+        }
+        wave.curve = curve
+
+        // Noise burst layer
+        const noiseLen = ctx.sampleRate * 0.04
+        const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate)
+        const nd = noiseBuf.getChannelData(0)
+        for (let i = 0; i < noiseLen; i++) {
+          nd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / noiseLen, 3)
+        }
+        const noiseSrc = ctx.createBufferSource()
+        noiseSrc.buffer = noiseBuf
+        const noiseGain = ctx.createGain()
+        noiseGain.gain.setValueAtTime(0.08, ctx.currentTime)
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04)
+        noiseSrc.connect(noiseGain)
+        noiseGain.connect(ctx.destination)
+        noiseSrc.start()
+
+        const gain = ctx.createGain()
+        gain.gain.setValueAtTime(0, ctx.currentTime)
+        gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.005)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
+
+        osc.connect(wave)
+        wave.connect(gain)
+        gain.connect(ctx.destination)
+        osc.start()
+        osc.stop(ctx.currentTime + duration)
+        break
+      }
       case 'click':
       default: {
         // Original mechanical click
@@ -117,11 +161,15 @@ export default function ClickSound() {
   // Typewriter on link/button clicks, soft click on card hover
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      const el = (e.target as HTMLElement).closest('a, button')
-      if (el) playSound('typewriter')
+      const target = e.target as Element
+      if (typeof target?.closest !== 'function') return
+      const el = target.closest('a, button')
+      if (el) { playSound('typewriter'); playSound('neonBuzz') }
     }
     const onHover = (e: MouseEvent) => {
-      const el = (e.target as HTMLElement).closest('.paper-hover, [class*="group"]')
+      const target = e.target as Element
+      if (typeof target?.closest !== 'function') return
+      const el = target.closest('.paper-hover, [class*="group"]')
       if (el) playSound('click')
     }
     document.addEventListener('click', onClick)

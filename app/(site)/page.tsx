@@ -155,7 +155,7 @@ export default function HomePage() {
                 </h2>
               </div>
               <div className="flex items-center">
-                <p className="font-sans leading-relaxed" style={{ color: '#AAA', fontWeight: 300, fontSize: '0.95rem' }}>
+                <p className="font-sans leading-relaxed" style={{ color: 'white', fontWeight: 400, fontSize: '0.95rem' }}>
                   Four disciplines. Built to last.
                 </p>
               </div>
@@ -170,27 +170,30 @@ export default function HomePage() {
                   className={`pillar-card ${i % 2 === 0 ? 'pillar-odd' : 'pillar-even'} block p-7 h-full`}
                   style={{ border: '1px solid rgba(255,255,255,0.1)' }}
                 >
-                  <p
-                    className="font-display text-white uppercase mb-4"
-                    style={{ fontSize: '1.4rem', letterSpacing: '0.05em' }}
-                  >
-                    {name}
-                  </p>
+                  <div className="inline-block mb-4">
+                    <p
+                      className="font-display text-white uppercase"
+                      style={{ fontSize: '1.4rem', letterSpacing: '0.05em' }}
+                    >
+                      {name}
+                    </p>
+                    <div style={{ width: '100%', height: '2px', marginTop: '6px', background: '#FF3C8E', boxShadow: '0 0 6px #FF3C8E, 0 0 12px rgba(255,60,142,0.6), 0 0 24px rgba(255,60,142,0.3)' }} />
+                  </div>
                   <h3
                     className="font-serif italic mb-4"
-                    style={{ color: 'white', fontSize: '1rem', lineHeight: 1.5 }}
+                    style={{ color: 'white', fontSize: '1rem', lineHeight: 1.5, fontWeight: 600 }}
                   >
                     {headline}
                   </h3>
                   <p
                     className="font-sans text-sm leading-relaxed mb-6"
-                    style={{ color: '#AAA', fontWeight: 300 }}
+                    style={{ color: 'white', fontWeight: 400 }}
                   >
                     {text}
                   </p>
                   <span
                     className="pillar-read font-sans text-xs tracking-[0.15em] uppercase transition-colors duration-200"
-                    style={{ color: '#AAA' }}
+                    style={{ color: 'white' }}
                   >
                     Read →
                   </span>
