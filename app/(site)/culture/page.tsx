@@ -109,9 +109,20 @@ export default function CulturePage() {
           <ScanReveal>
             <div className="opacity-70 grid md:grid-cols-[1fr_2fr] gap-8 items-start bg-linen-white p-8">
               {/* Image placeholder */}
-              <div className="aspect-[4/5] bg-gradient-to-br from-sand-bg to-pale-stone
-                              flex items-end p-4">
-                <span className="archive-label text-[0.6rem]">F{featured.issue}</span>
+              <div
+                className="aspect-[4/5] flex flex-col items-center justify-center p-4 relative overflow-hidden"
+                style={{ background: 'linear-gradient(135deg, #e8f4f4 0%, #f5f2ed 100%)' }}
+              >
+                <span
+                  className="font-display text-teal/20 select-none"
+                  style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', lineHeight: 1 }}
+                  aria-hidden="true"
+                >
+                  {featured.issue}
+                </span>
+                <span className="archive-label text-[0.6rem] text-teal absolute bottom-4 left-4">
+                  F{featured.issue}
+                </span>
               </div>
 
               <div className="flex flex-col gap-4">
@@ -155,9 +166,20 @@ export default function CulturePage() {
                 <ScanReveal key={slug} delay={i * 80}>
                   <div className="block bg-sand-bg h-full flex flex-col">
                     {/* Image placeholder */}
-                    <div className="aspect-[4/3] bg-gradient-to-br from-linen-white to-pale-stone
-                                    flex items-end p-3">
-                      <span className="archive-label text-[0.55rem]">{issue}</span>
+                    <div
+                      className="aspect-[4/3] flex flex-col items-center justify-center p-3 relative overflow-hidden"
+                      style={{ background: 'linear-gradient(135deg, #e8f4f4 0%, #f5f2ed 100%)' }}
+                    >
+                      <span
+                        className="font-display text-teal/15 select-none"
+                        style={{ fontSize: '4rem', lineHeight: 1 }}
+                        aria-hidden="true"
+                      >
+                        {issue}
+                      </span>
+                      <span className="archive-label text-[0.55rem] text-teal absolute bottom-3 left-3">
+                        {issue}
+                      </span>
                     </div>
 
                     <div className="p-5 flex flex-col gap-3 flex-1">
