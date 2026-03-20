@@ -17,12 +17,6 @@ const pillars = [
     href:     '/themes',
   },
   {
-    name:     'Sound',
-    headline: 'Music the way it was meant to be heard.',
-    text:     'Curated mixes and live sessions. No shuffle, no algorithm. Play it front to back.',
-    href:     '/radio',
-  },
-  {
     name:     'Culture',
     headline: 'Essays from the analog world.',
     text:     'Dispatches on music, objects, and analog culture. Long reads. Take your time.',
@@ -31,7 +25,13 @@ const pillars = [
   {
     name:     'Radio',
     headline: 'The signal is always on.',
-    text:     'Field recordings and vinyl sessions broadcast from Little Havana and Wynwood.',
+    text:     'Curated mixes, live sessions, and field recordings broadcast from Little Havana and Wynwood.',
+    href:     '/radio',
+  },
+  {
+    name:     'Drops',
+    headline: 'Limited objects. No restock.',
+    text:     "Seasonal releases announced without warning. When it's gone, it's gone.",
     href:     '/radio',
   },
 ]
