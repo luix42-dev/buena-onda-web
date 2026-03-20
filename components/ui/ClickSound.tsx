@@ -3,13 +3,12 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 
-type SoundType = 'pageTurn' | 'typewriter' | 'click' | 'neonBuzz'
+type SoundType = 'pageTurn' | 'click'
 
 /**
  * Plays procedurally-generated analog sounds via Web Audio API.
  * - Route changes → page turn (papery swoosh)
- * - Button/link clicks → typewriter strike
- * - Hover on interactive cards → soft mechanical click
+ * - Button/link clicks + card hover → soft mechanical click
  */
 export default function ClickSound() {
   const pathname   = usePathname()
@@ -43,79 +42,6 @@ export default function ClickSound() {
         filt.connect(gain)
         gain.connect(ctx.destination)
         src.start()
-        break
-      }
-      case 'typewriter': {
-        // Sharp, metallic tick — higher freq, very short
-        const len = ctx.sampleRate * 0.02
-        const buf = ctx.createBuffer(1, len, ctx.sampleRate)
-        const d   = buf.getChannelData(0)
-        for (let i = 0; i < len; i++) {
-          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 12)
-        }
-        const src = ctx.createBufferSource()
-        src.buffer = buf
-        const filt = ctx.createBiquadFilter()
-        filt.type = 'bandpass'
-        filt.frequency.value = 2400
-        filt.Q.value = 1.2
-        const gain = ctx.createGain()
-        gain.gain.setValueAtTime(0.10, ctx.currentTime)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02)
-        src.connect(filt)
-        filt.connect(gain)
-        gain.connect(ctx.destination)
-        src.start()
-        break
-      }
-      case 'neonBuzz': {
-        // Electric neon buzz — sawtooth hum + distortion + noise burst, ~0.4s sustain
-        const duration = 0.42
-        const osc = ctx.createOscillator()
-        osc.type = 'sawtooth'
-        // Slight frequency flutter for realism, then drops off
-        osc.frequency.setValueAtTime(120, ctx.currentTime)
-        osc.frequency.setValueAtTime(117, ctx.currentTime + 0.06)
-        osc.frequency.setValueAtTime(121, ctx.currentTime + 0.14)
-        osc.frequency.setValueAtTime(118, ctx.currentTime + 0.24)
-        osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + duration)
-
-        const wave = ctx.createWaveShaper()
-        const curve = new Float32Array(256)
-        for (let i = 0; i < 256; i++) {
-          const x = (i * 2) / 256 - 1
-          curve[i] = Math.sign(x) * (1 - Math.exp(-Math.abs(x) * 10))
-        }
-        wave.curve = curve
-
-        // Noise burst layer — longer initial crackle
-        const noiseLen = ctx.sampleRate * 0.07
-        const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate)
-        const nd = noiseBuf.getChannelData(0)
-        for (let i = 0; i < noiseLen; i++) {
-          nd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / noiseLen, 2)
-        }
-        const noiseSrc = ctx.createBufferSource()
-        noiseSrc.buffer = noiseBuf
-        const noiseGain = ctx.createGain()
-        noiseGain.gain.setValueAtTime(0.07, ctx.currentTime)
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07)
-        noiseSrc.connect(noiseGain)
-        noiseGain.connect(ctx.destination)
-        noiseSrc.start()
-
-        const gain = ctx.createGain()
-        gain.gain.setValueAtTime(0, ctx.currentTime)
-        gain.gain.linearRampToValueAtTime(0.14, ctx.currentTime + 0.008)
-        // Hold sustain then decay
-        gain.gain.setValueAtTime(0.14, ctx.currentTime + 0.26)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
-
-        osc.connect(wave)
-        wave.connect(gain)
-        gain.connect(ctx.destination)
-        osc.start()
-        osc.stop(ctx.currentTime + duration)
         break
       }
       case 'click':
@@ -164,13 +90,13 @@ export default function ClickSound() {
     playSound('pageTurn')
   }, [pathname, playSound])
 
-  // Typewriter on link/button clicks, soft click on card hover
+  // Mechanical click on link/button clicks and card hover
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const target = e.target as Element
       if (typeof target?.closest !== 'function') return
       const el = target.closest('a, button')
-      if (el) { playSound('typewriter'); playSound('neonBuzz') }
+      if (el) playSound('click')
     }
     const onHover = (e: MouseEvent) => {
       const target = e.target as Element
