@@ -24,7 +24,17 @@ export default function PersistentPlayer() {
   useEffect(() => {
     fetch('/api/radio/tracks')
       .then(r => r.json())
-      .then(data => { if (Array.isArray(data)) setTracks(data) })
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setTracks(data)
+          // Attempt autoplay — browsers may block it; player stays paused if so
+          setTimeout(() => {
+            audioRef.current?.play()
+              .then(() => setPlaying(true))
+              .catch(() => {})
+          }, 900) // after slide-in animation (800ms)
+        }
+      })
       .catch(() => {})
   }, [])
 
@@ -104,7 +114,7 @@ export default function PersistentPlayer() {
         <audio
           ref={audioRef}
           src={track.src}
-          preload="metadata"
+          preload="auto"
         />
       )}
 
