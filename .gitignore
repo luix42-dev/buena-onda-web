@@ -37,3 +37,6 @@ next-env.d.ts
 # Sync script state
 scripts/.sync-state.json
 scripts/.sync-log.txt
+
+# Local audio files — served from Cloudflare R2 in production
+public/audio/
