@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import type { Item, Theme } from '@/types'
 import CatalogGrid from './CatalogGrid'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'The Catalog — Buena Onda',
   description: 'Selected works from the Buena Onda catalog — objects, apparel, and editions.',
@@ -18,7 +20,7 @@ export default async function ThemesPage() {
     supabase
       .from('items')
       .select('*, theme:themes(id, title, code, slug)')
-      .eq('status', 'published')
+      .in('status', ['published', 'sold_out'])
       .order('published_at', { ascending: false }),
     supabase
       .from('themes')
