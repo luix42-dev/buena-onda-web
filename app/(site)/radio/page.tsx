@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import ScanReveal from '@/components/ui/ScanReveal'
 
+// Static waveform heights — avoids SSR hydration mismatch from Math.random()
+const WAVEFORM_HEIGHTS = [8, 14, 6, 18, 10, 20, 12, 16, 8, 14, 10, 20, 6, 18, 12, 14, 8, 16, 10, 14]
+
 interface Episode {
   id:             string
   episodeNumber:  number
@@ -45,7 +48,7 @@ function EpisodeRow({ ep, isActive }: {
       {/* Meta */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 mb-1">
-          <span className="archive-label text-[0.58rem] text-warm-sand">
+          <span className="archive-label text-[0.58rem] text-teal-light">
             EP·{String(ep.episodeNumber).padStart(2, '0')}
           </span>
           {ep.tags.slice(0, 2).map(tag => (
@@ -128,11 +131,11 @@ export default function RadioPage() {
             <div className="flex items-center gap-4">
               {/* Audio player placeholder */}
               <div className="hidden sm:flex items-center gap-1">
-                {Array.from({length: 20}).map((_, i) => (
+                {WAVEFORM_HEIGHTS.map((h, i) => (
                   <div
                     key={i}
                     className="w-0.5 bg-neon-pink rounded-full"
-                    style={{ height: `${Math.random() * 16 + 4}px`, opacity: 0.7 }}
+                    style={{ height: `${h}px`, opacity: 0.7 }}
                   />
                 ))}
               </div>
