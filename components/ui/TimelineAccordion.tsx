@@ -1,15 +1,8 @@
-'use client'
-
-import { useState } from 'react'
+import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
+import type { TimelineItem } from '@/lib/timeline'
 
-export interface TimelineItem {
-  year:    string
-  title:   string
-  summary: string
-  story:   string
-  photo:   string | null
-}
+export type { TimelineItem }
 
 function StoryText({ text }: { text: string }) {
   return (
@@ -29,69 +22,46 @@ function StoryText({ text }: { text: string }) {
 }
 
 export default function TimelineAccordion({ items }: { items: TimelineItem[] }) {
-  const [openIds, setOpenIds] = useState<Set<string>>(new Set())
-
-  function toggle(year: string) {
-    setOpenIds(prev => {
-      const next = new Set(prev)
-      if (next.has(year)) next.delete(year)
-      else next.add(year)
-      return next
-    })
-  }
-
   return (
     <div className="relative">
       {/* Vertical rule */}
       <div className="absolute left-[4.5rem] top-0 bottom-0 w-px bg-pale-stone hidden md:block" />
 
       <div className="flex flex-col">
-        {items.map(({ year, title, summary, story }, i) => {
-          const isOpen = openIds.has(year)
-          return (
-            <ScanReveal key={year} delay={i * 60}>
-              <div className="flex flex-col md:flex-row gap-4 md:gap-12 py-8 border-b border-pale-stone last:border-0">
-                {/* Year */}
-                <div className="flex-shrink-0 w-full md:w-[4.5rem] pt-1">
-                  <span className="font-mono text-xs tracking-wider text-teal">
-                    {year}
-                  </span>
-                </div>
+        {items.map(({ slug, year, title, summary, story }, i) => (
+          <ScanReveal key={year} delay={i * 60}>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-12 py-8 border-b border-pale-stone last:border-0">
+              {/* Year */}
+              <div className="flex-shrink-0 w-full md:w-[4.5rem] pt-1">
+                <span className="font-mono text-xs tracking-wider text-teal">
+                  {year}
+                </span>
+              </div>
 
-                {/* Content */}
-                <div className="md:pl-8 flex-1">
-                  <button
-                    onClick={() => toggle(year)}
-                    className="w-full text-left flex items-start justify-between gap-4 group"
-                    aria-expanded={isOpen}
-                  >
-                    <div>
-                      <h3 className="font-display text-near-black text-xl mb-1 group-hover:text-teal transition-colors duration-150">
-                        {title}
-                      </h3>
-                      <p className="text-charcoal text-sm leading-relaxed">
-                        {summary}
-                      </p>
-                    </div>
-                    <span
-                      className="flex-shrink-0 font-mono text-lg text-teal mt-0.5 transition-transform duration-300 select-none"
-                      style={{ transform: isOpen ? 'rotate(45deg)' : 'none' }}
-                      aria-hidden="true"
-                    >
-                      +
-                    </span>
-                  </button>
-
-                  {isOpen && (
-                    <div className="mt-6 prose-brand animate-fade-up" style={{ animationDuration: '0.3s' }}>
-                      <StoryText text={story} />
-                    </div>
-                  )}
+              {/* Content */}
+              <div className="md:pl-8 flex-1">
+                <Link
+                  href={`/about/${slug}`}
+                  className="group inline-block mb-1"
+                >
+                  <h3 className="font-display text-near-black text-xl group-hover:text-teal transition-colors duration-150">
+                    {title}
+                  </h3>
+                  <div
+                    className="h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ background: '#2A9D9D' }}
+                  />
+                </Link>
+                <p className="text-charcoal text-sm leading-relaxed mb-6">
+                  {summary}
+                </p>
+                <div className="prose-brand">
+                  <StoryText text={story} />
                 </div>
               </div>
-            </ScanReveal>
-          )
-        })}
+            </div>
+          </ScanReveal>
+        ))}
       </div>
     </div>
   )
