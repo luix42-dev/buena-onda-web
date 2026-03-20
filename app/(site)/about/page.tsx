@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
 import PullQuote from '@/components/ui/PullQuote'
 import TimelineAccordion from '@/components/ui/TimelineAccordion'
-import { timelineItems } from '@/lib/timeline'
+import { createClient } from '@/lib/supabase/server'
+import { timelineItems as fallback } from '@/lib/timeline'
+import type { TimelineItem } from '@/lib/timeline'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -10,7 +12,17 @@ export const metadata: Metadata = {
     'Buena Onda is an analog culture house rooted in Miami. This is our story.',
 }
 
-export default function AboutPage() {
+async function getTimeline(): Promise<TimelineItem[]> {
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.from('timeline').select('*').order('sort_order')
+    if (data && data.length > 0) return data as TimelineItem[]
+  } catch { /* fall through */ }
+  return fallback
+}
+
+export default async function AboutPage() {
+  const timelineItems = await getTimeline()
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}

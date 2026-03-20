@@ -2,21 +2,36 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { timelineItems } from '@/lib/timeline'
+import { createClient } from '@/lib/supabase/server'
+import { timelineItems as fallback } from '@/lib/timeline'
+import type { TimelineItem } from '@/lib/timeline'
 import ContactSheet from '@/components/ui/ContactSheet'
 import ScanReveal from '@/components/ui/ScanReveal'
+
+export const dynamic = 'force-dynamic'
+
+async function getTimeline(): Promise<TimelineItem[]> {
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.from('timeline').select('*').order('sort_order')
+    if (data && data.length > 0) return data as TimelineItem[]
+  } catch { /* fall through */ }
+  return fallback
+}
 
 interface Props {
   params: Promise<{ era: string }>
 }
 
 export async function generateStaticParams() {
-  return timelineItems.map(item => ({ era: item.slug }))
+  const items = await getTimeline()
+  return items.map(item => ({ era: item.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { era } = await params
-  const item = timelineItems.find(t => t.slug === era)
+  const items = await getTimeline()
+  const item = items.find(t => t.slug === era)
   if (!item) return {}
   return {
     title:       `${item.year} — ${item.title} | Buena Onda`,
@@ -43,6 +58,7 @@ function StoryText({ text }: { text: string }) {
 
 export default async function EraPage({ params }: Props) {
   const { era } = await params
+  const timelineItems = await getTimeline()
   const idx  = timelineItems.findIndex(t => t.slug === era)
   if (idx === -1) notFound()
 

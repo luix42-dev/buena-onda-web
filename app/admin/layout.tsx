@@ -14,6 +14,7 @@ const sidebarLinks = [
   { href: '/admin/posts',         label: '03 · Posts'     },
   { href: '/admin/episodes',      label: '04 · Episodes'  },
   { href: '/admin/drops',         label: '05 · Drops'     },
+  { href: '/admin/timeline',      label: '06 · Timeline'  },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
