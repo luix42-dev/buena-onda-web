@@ -88,7 +88,7 @@ export default function AboutPage() {
               className="font-display text-near-black mt-2 max-w-[14ch] text-balance"
               style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)' }}
             >
-              We are not a brand.
+              An analog culture house.
             </h1>
           </ScanReveal>
         </div>
@@ -102,22 +102,21 @@ export default function AboutPage() {
               <div className="prose-brand">
                 <p>
                   Buena Onda is an analog culture house rooted in Miami.
-                  We curate objects, music, and cultural events through a single lens: does this reward attention over time?
+                  One question shapes the work: does this reward attention over time?
                 </p>
                 <p>
-                  We don&apos;t make things for the algorithm. We make things for the
-                  room — the physical, present room where culture actually happens.
+                  We make things for the physical room where culture happens.
                 </p>
                 <p>
-                  Our practice is slow. Our objects are heavy. Our mixes run long.
+                  The practice is slow, the objects are heavy, and the mixes run long.
                 </p>
               </div>
             </ScanReveal>
 
             <ScanReveal delay={150}>
               <PullQuote>
-                Culture lives in objects. In the weight of a record,
-                the grain of aged leather, the warmth of a room.
+                Culture lives in objects: the weight of a record,
+                the grain of aged leather, a room that smells like cedar and old vinyl.
               </PullQuote>
             </ScanReveal>
           </div>
@@ -146,17 +145,16 @@ export default function AboutPage() {
             <ScanReveal>
               <div className="prose-brand">
                 <p>
-                  What I found along the way was a community I didn&apos;t expect.
+                  Along the way I found a community I hadn&apos;t planned for.
                   Julian from Cold Heart, Neontalk, Conceptalk, Poolsuite.
                   Tamara from Contrabando. Macky Mack from Summer Breeze. Jolt Radio.
-                  People scattered across different cities who were all pulling in the same direction.
-                  Some of them actually lived the &apos;80s — Adrian Avery is living proof.
+                  People scattered across cities, all pulling the same direction.
+                  Some of them lived the &apos;80s. Adrian Avery is one.
                   Others, like me, arrived late and came in through a side door.
-                  It didn&apos;t matter. The feeling was the same.
                 </p>
                 <p>
-                  Stranger Things helped, honestly. Suddenly the thing we&apos;d been carrying in private had an audience.
-                  We weren&apos;t just collectors and obsessives — we were ahead of a wave.
+                  Stranger Things helped, honestly. The thing we&apos;d been carrying in private suddenly had an audience.
+                  We were ahead of something. That felt good.
                 </p>
               </div>
             </ScanReveal>
@@ -165,15 +163,13 @@ export default function AboutPage() {
               <div className="prose-brand">
                 <p>
                   My taste hasn&apos;t moved in fifteen years.
-                  I can stretch to the &apos;70s — that&apos;s where the &apos;80s got its bones.
-                  I can push a little into the &apos;90s. But that&apos;s the range.
+                  I can stretch to the &apos;70s, where the &apos;80s got its bones.
+                  I push a little into the &apos;90s. That&apos;s the range.
                   Everything I do with Buena Onda comes from inside those coordinates.
                 </p>
                 <p>
-                  But here&apos;s what this is not: a reenactment.
-                  I&apos;m not trying to live in the &apos;80s.
-                  I&apos;m trying to bring what was real and deliberate about that era into the present — the quality, the intention, the craft.
-                  When I see a piece tagged &quot;Made in USA&quot; from 1984, I know what that means.
+                  I&apos;m carrying what was deliberate about that era into the present: the quality, the intention, the craft.
+                  When I see a piece tagged &quot;Made in USA&quot; from 1984, I know what it means.
                   Someone thought about it. Someone built it to last.
                 </p>
               </div>
@@ -193,15 +189,15 @@ export default function AboutPage() {
             {[
               {
                 title: 'Analog First',
-                body:  'Physical before digital. If it only works with Wi-Fi, it\'s not for us.',
+                body:  'Physical before digital. Leave it behind if it needs Wi-Fi.',
               },
               {
                 title: 'Durable Objects',
-                body:  'We only release things we would keep forever. If it needs a trend to exist, it shouldn\'t exist.',
+                body:  'We release things we\'d keep for decades. Trend objects aren\'t in the catalog.',
               },
               {
                 title: 'Music as Culture',
-                body:  'Sound is not content. Every community we admire was built around it.',
+                body:  'Sound is how every community we care about got built. Buena Onda started as a music practice.',
               },
             ].map(({ title, body }, i) => (
               <ScanReveal key={title} delay={i * 100}>

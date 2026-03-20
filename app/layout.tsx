@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Bebas_Neue, Outfit, Instrument_Serif, Space_Mono } from 'next/font/google'
+import { Bebas_Neue, Outfit, Cormorant_Garamond, Space_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
@@ -18,8 +18,8 @@ const outfit = Outfit({
   display:  'swap',
 })
 
-const instrumentSerif = Instrument_Serif({
-  weight:   ['400'],
+const cormorantGaramond = Cormorant_Garamond({
+  weight:   ['300', '400', '500', '600'],
   style:    ['normal', 'italic'],
   subsets:  ['latin'],
   variable: '--font-serif',
@@ -30,6 +30,13 @@ const spaceMono = Space_Mono({
   weight:   ['400', '700'],
   subsets:  ['latin'],
   variable: '--font-mono',
+  display:  'swap',
+})
+
+const orbitron = Orbitron({
+  weight:   ['400', '500', '600', '700'],
+  subsets:  ['latin'],
+  variable: '--font-orbitron',
   display:  'swap',
 })
 
@@ -75,7 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${bebasNeue.variable} ${outfit.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}>
+      <body className={`${bebasNeue.variable} ${outfit.variable} ${cormorantGaramond.variable} ${spaceMono.variable} ${orbitron.variable}`}>
         <FilmGrain />
         <ClickSound />
         {children}

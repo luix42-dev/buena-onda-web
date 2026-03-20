@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const links = [
@@ -59,18 +58,16 @@ export default function Navigation() {
             className="flex flex-col leading-none group"
             aria-label="Buena Onda — Home"
           >
-            <Image
-              src="/NEW LOGO BUENA ONDA revectorized OG COLOR.png"
-              alt="Buena Onda"
-              width={160}
-              height={40}
-              style={{ height: '40px', width: 'auto' }}
-              className="block"
-              priority
-            />
+            <span
+              className="leading-none"
+              style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', letterSpacing: '0.03em' }}
+            >
+              <span style={{ color: '#2A9D9D' }}>BUENA </span>
+              <span style={{ color: '#D4547A' }}>ONDA</span>
+            </span>
             <span
               className="text-[0.55rem] tracking-[0.2em] mt-1 uppercase"
-              style={{ fontFamily: 'var(--font-display)', color: 'var(--teal-light)' }}
+              style={{ fontFamily: 'var(--font-display)', color: '#0D0D0D' }}
             >
               ANALOG CULTURE HOUSE
             </span>

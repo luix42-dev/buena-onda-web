@@ -13,25 +13,25 @@ const pillars = [
   {
     name:     'Objects',
     headline: 'Things built to outlive their moment.',
-    text:     'Curated objects, garments, and furniture selected for design integrity and cultural weight. Every piece in the catalog earned its place.',
+    text:     'Garments, furniture, and objects chosen for how they age. Everything in the catalog was sourced with reason.',
     href:     '/themes',
   },
   {
     name:     'Culture',
     headline: 'Essays from the analog world.',
-    text:     'Dispatches on music, objects, and analog culture. Long reads. Take your time.',
+    text:     'Dispatches on music, objects, and the Miami that runs below the surface. Long reads.',
     href:     '/culture',
   },
   {
     name:     'Radio',
     headline: 'The signal is always on.',
-    text:     'Curated mixes, live sessions, and field recordings broadcast from Little Havana and Wynwood.',
+    text:     'Mixes, live sessions, and field recordings from Little Havana and Wynwood. Front to back.',
     href:     '/radio',
   },
   {
     name:     'Drops',
-    headline: 'Limited objects. No restock.',
-    text:     "Seasonal releases announced without warning. When it's gone, it's gone.",
+    headline: 'Limited objects. One run.',
+    text:     'Seasonal releases. No schedule posted in advance. Once sold, that\'s the end of it.',
     href:     '/radio',
   },
 ]
@@ -52,13 +52,13 @@ export default function HomePage() {
           {/* Teal vertical bar */}
           <div
             className="absolute left-0 top-0 bottom-0"
-            style={{ width: '5px', background: '#2A9D9D' }}
+            style={{ width: '5px', background: '#A8C9C3' }}
             aria-hidden="true"
           />
 
           <span
             className="font-display block mb-5 animate-fade-up"
-            style={{ color: '#2A9D9D', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
+            style={{ color: '#2E2E2E', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
           >
             ANALOG CULTURE HOUSE
           </span>
@@ -68,22 +68,24 @@ export default function HomePage() {
             style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', animationDelay: '250ms' }}
           >
             <span style={{ color: '#2A9D9D', display: 'block' }}>BUENA</span>
-            <span style={{ color: '#D9685A', display: 'block' }}>ONDA</span>
+            <span style={{ color: '#D4547A', display: 'block' }}>ONDA</span>
           </h1>
 
           <p
-            className="font-serif italic animate-fade-up mb-10"
+            className="animate-fade-up mb-10"
             style={{
-              fontSize:       'clamp(1.2rem, 2vw, 1.6rem)',
+              fontFamily:     'var(--font-sans)',
+              fontWeight:     400,
+              fontSize:       'clamp(1rem, 1.5vw, 1.3rem)',
               color:          '#555',
               maxWidth:       '26ch',
-              lineHeight:     1.45,
-              letterSpacing:  '0.03em',
+              lineHeight:     1.55,
+              letterSpacing:  '0.02em',
               animationDelay: '400ms',
             }}
           >
-            Rooted in Miami. Built for the long run.<br />
-            Music, objects, and culture. Done slowly.
+            Rooted in Miami. Music, objects, and culture<br />
+            made to stay.
           </p>
 
           <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
@@ -94,7 +96,7 @@ export default function HomePage() {
 
           <p
             className="font-sans text-[0.6rem] tracking-[0.3em] uppercase mt-16 animate-fade-up"
-            style={{ color: '#AAA', animationDelay: '700ms' }}
+            style={{ color: '#AAA', animationDelay: '700ms', fontWeight: 500 }}
           >
             Miami, FL · Est. 2014
           </p>
@@ -154,7 +156,7 @@ export default function HomePage() {
               </div>
               <div className="flex items-center">
                 <p className="font-sans leading-relaxed" style={{ color: '#AAA', fontWeight: 300, fontSize: '0.95rem' }}>
-                  Four disciplines. None of them are trends.
+                  Four disciplines. Built to last.
                 </p>
               </div>
             </div>
@@ -230,7 +232,7 @@ export default function HomePage() {
                   style={{ color: '#777', fontWeight: 300 }}
                 >
                   Curated mixes, live sessions, and field recordings.
-                  Front to back, without skipping.
+                  Front to back.
                 </p>
                 <Link href="/radio" className="btn-hollow-coral group">
                   Enter the archive
@@ -337,7 +339,7 @@ export default function HomePage() {
                   className="font-display uppercase"
                   style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'white', lineHeight: 1.1 }}
                 >
-                  The analog world is not nostalgic.
+                  The analog world runs forward.
                   <br />It is{' '}
                   <span
                     style={{
@@ -356,8 +358,8 @@ export default function HomePage() {
                   className="font-sans mb-8"
                   style={{ color: '#777', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
                 >
-                  We are not chasing the past. We are building a present that is slower and built to last.
-                  Every object, every mix, every essay is a wager against disposability.
+                  We&apos;re building a present with weight and duration.
+                  Every object, mix, and essay is chosen to outlast the year it was made.
                 </p>
                 <cite
                   className="font-display not-italic block"
@@ -404,10 +406,10 @@ export default function HomePage() {
                   className="font-display text-white uppercase mb-4"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
                 >
-                  Slow mail. Good content.
+                  Slow mail. Worth reading.
                 </h2>
                 <p className="font-sans text-sm" style={{ color: '#777', fontWeight: 300 }}>
-                  No algorithm. Drops, mixes, and what&apos;s happening in the house.
+                  Drops, mixes, and what&apos;s happening in the house. Curated by hand.
                 </p>
               </div>
 
