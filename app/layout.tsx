@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Bebas_Neue, Outfit, Instrument_Serif } from 'next/font/google'
+import { Bebas_Neue, Outfit, Instrument_Serif, Space_Mono } from 'next/font/google'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
@@ -23,6 +23,13 @@ const instrumentSerif = Instrument_Serif({
   style:    ['normal', 'italic'],
   subsets:  ['latin'],
   variable: '--font-serif',
+  display:  'swap',
+})
+
+const spaceMono = Space_Mono({
+  weight:   ['400', '700'],
+  subsets:  ['latin'],
+  variable: '--font-mono',
   display:  'swap',
 })
 
@@ -68,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${bebasNeue.variable} ${outfit.variable} ${instrumentSerif.variable}`}>
+      <body className={`${bebasNeue.variable} ${outfit.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}>
         <FilmGrain />
         <ClickSound />
         {children}

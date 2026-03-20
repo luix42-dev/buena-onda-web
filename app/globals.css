@@ -12,7 +12,6 @@
 
   /* Legacy mono alias → sans */
   --font-body:    var(--font-sans);
-  --font-mono:    var(--font-sans);
 
   /* Miami Synthesis colour tokens */
   --coral:        #D9685A;
@@ -253,7 +252,7 @@ h1, h2, h3, h4, h5, h6 {
   .font-display { font-family: var(--font-display); }
   .font-sans    { font-family: var(--font-sans); }
   .font-serif   { font-family: var(--font-serif); }
-  .font-mono    { font-family: var(--font-sans); }
+  .font-mono    { font-family: var(--font-mono); }
   .text-balance { text-wrap: balance; }
 
   .bg-warm-gradient {

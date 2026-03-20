@@ -70,7 +70,7 @@ const config: Config = {
         serif:   ['var(--font-serif)',   'Georgia', 'serif'],
         // legacy aliases
         body:    ['var(--font-sans)',    '-apple-system', 'sans-serif'],
-        mono:    ['var(--font-sans)',    'SF Mono', 'Consolas', 'monospace'],
+        mono:    ['var(--font-mono)', 'SF Mono', 'Consolas', 'monospace'],
       },
       fontSize: {
         'label': ['0.7rem', { letterSpacing: '0.15em', lineHeight: '1' }],
