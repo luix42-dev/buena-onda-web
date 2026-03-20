@@ -1,5 +1,6 @@
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
+import PersistentPlayer from '@/components/ui/PersistentPlayer'
 
 export default function SiteLayout({
   children,
@@ -9,8 +10,9 @@ export default function SiteLayout({
   return (
     <>
       <Navigation />
-      <main>{children}</main>
+      <main className="pb-16">{children}</main>
       <Footer />
+      <PersistentPlayer />
     </>
   )
 }
