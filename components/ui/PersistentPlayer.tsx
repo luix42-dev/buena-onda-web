@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { playlist } from '@/lib/radio'
 import type { Track } from '@/lib/radio'
 
 function fmt(s: number) {
@@ -12,16 +11,24 @@ function fmt(s: number) {
 }
 
 export default function PersistentPlayer() {
-  const audioRef                    = useRef<HTMLAudioElement>(null)
-  const progressRef                 = useRef<HTMLDivElement>(null)
-  const [trackIdx, setTrackIdx]     = useState(0)
-  const [playing, setPlaying]       = useState(false)
+  const audioRef                      = useRef<HTMLAudioElement>(null)
+  const progressRef                   = useRef<HTMLDivElement>(null)
+  const [tracks, setTracks]           = useState<Track[]>([])
+  const [trackIdx, setTrackIdx]       = useState(0)
+  const [playing, setPlaying]         = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration]     = useState(0)
-  const [dismissed, setDismissed]   = useState(false)
-  const [visible, setVisible]       = useState(false)
+  const [duration, setDuration]       = useState(0)
+  const [dismissed, setDismissed]     = useState(false)
+  const [visible, setVisible]         = useState(false)
 
-  const track: Track | null = playlist[trackIdx] ?? null
+  useEffect(() => {
+    fetch('/api/radio/tracks')
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setTracks(data) })
+      .catch(() => {})
+  }, [])
+
+  const track: Track | null = tracks[trackIdx] ?? null
 
   // Animate in on mount
   useEffect(() => {
@@ -37,7 +44,7 @@ export default function PersistentPlayer() {
     const onTime = () => setCurrentTime(a.currentTime)
     const onMeta = () => setDuration(a.duration)
     const onEnd  = () => {
-      if (trackIdx < playlist.length - 1) {
+      if (trackIdx < tracks.length - 1) {
         setTrackIdx(i => i + 1)
       } else {
         setPlaying(false)
@@ -53,7 +60,7 @@ export default function PersistentPlayer() {
       a.removeEventListener('loadedmetadata', onMeta)
       a.removeEventListener('ended', onEnd)
     }
-  }, [trackIdx])
+  }, [trackIdx, tracks])
 
   // Auto-play next track when trackIdx changes
   useEffect(() => {
