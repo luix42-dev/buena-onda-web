@@ -72,10 +72,11 @@ export default function PersistentPlayer() {
     }
   }, [trackIdx, tracks])
 
-  // Auto-play next track when trackIdx changes
+  // Resume playback when track changes (next/prev/auto-advance)
   useEffect(() => {
     const a = audioRef.current
     if (!a || !playing) return
+    a.load()
     a.play().catch(() => setPlaying(false))
   }, [trackIdx]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -137,6 +138,20 @@ export default function PersistentPlayer() {
         <div className="max-w-site mx-auto px-4 md:px-10 flex items-center gap-4 md:gap-6"
           style={{ height: '56px' }}
         >
+          {/* Prev */}
+          <button
+            onClick={() => setTrackIdx(i => Math.max(0, i - 1))}
+            disabled={!hasTrack || trackIdx === 0}
+            className="flex-shrink-0 transition-colors duration-150"
+            style={{ color: trackIdx === 0 ? '#222' : '#555' }}
+            aria-label="Previous track"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <polygon points="12,0 4,6 12,12" />
+              <rect x="0" y="0" width="2.5" height="12" />
+            </svg>
+          </button>
+
           {/* Play / Pause */}
           <button
             onClick={toggle}
@@ -158,6 +173,20 @@ export default function PersistentPlayer() {
                 <polygon points="0,0 10,6 0,12" />
               </svg>
             )}
+          </button>
+
+          {/* Next */}
+          <button
+            onClick={() => setTrackIdx(i => Math.min(tracks.length - 1, i + 1))}
+            disabled={!hasTrack || trackIdx === tracks.length - 1}
+            className="flex-shrink-0 transition-colors duration-150"
+            style={{ color: trackIdx === tracks.length - 1 ? '#222' : '#555' }}
+            aria-label="Next track"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <polygon points="0,0 8,6 0,12" />
+              <rect x="9.5" y="0" width="2.5" height="12" />
+            </svg>
           </button>
 
           {/* Label + track info + progress */}
