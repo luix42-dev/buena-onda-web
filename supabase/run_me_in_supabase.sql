@@ -176,13 +176,13 @@ do $$ begin
   create policy "Public can view images" on storage.objects for select using (bucket_id = 'images');
 exception when duplicate_object then null; end $$;
 do $$ begin
-  create policy "Authenticated can upload images" on storage.objects for insert using (auth.role() = 'authenticated' and bucket_id = 'images');
+  create policy "Authenticated can upload images" on storage.objects for insert with check (auth.role() = 'authenticated' and bucket_id = 'images');
 exception when duplicate_object then null; end $$;
 do $$ begin
   create policy "Public can view audio" on storage.objects for select using (bucket_id = 'audio');
 exception when duplicate_object then null; end $$;
 do $$ begin
-  create policy "Authenticated can upload audio" on storage.objects for insert using (auth.role() = 'authenticated' and bucket_id = 'audio');
+  create policy "Authenticated can upload audio" on storage.objects for insert with check (auth.role() = 'authenticated' and bucket_id = 'audio');
 exception when duplicate_object then null; end $$;
 
 
@@ -431,3 +431,21 @@ cross join (
     )
 ) as v(title, slug, description, details, price, status)
 on conflict (slug) do nothing;
+
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- PART 5 — Phase 2: availability column (orthogonal to status)
+-- Run this block in Supabase SQL Editor after deploying Phase 2.
+-- Safe to re-run — all guards use IF NOT EXISTS / exception handlers.
+-- ═══════════════════════════════════════════════════════════════════════════
+
+do $$ begin
+  create type item_availability as enum ('available', 'reserved', 'sold');
+exception when duplicate_object then null; end $$;
+
+alter table items
+  add column if not exists availability item_availability not null default 'available';
+
+update items set availability = 'available' where availability is null;
+
+create index if not exists items_availability_idx on items (availability);

@@ -79,9 +79,11 @@ export default function CatalogGrid({ items, themes }: Props) {
                   href={`/items/${item.slug}`}
                   className={[
                     'group block',
-                    i % 2 === 0
-                      ? 'hover:ring-1 hover:ring-neon-blue/40 hover:shadow-[0_0_12px_rgba(0,212,255,0.12)]'
-                      : 'hover:ring-1 hover:ring-neon-pink/40 hover:shadow-[0_0_12px_rgba(255,60,142,0.12)]',
+                    item.availability === 'sold'
+                      ? 'opacity-50 hover:opacity-75 transition-opacity'
+                      : i % 2 === 0
+                        ? 'hover:ring-1 hover:ring-neon-blue/40 hover:shadow-[0_0_12px_rgba(0,212,255,0.12)]'
+                        : 'hover:ring-1 hover:ring-neon-pink/40 hover:shadow-[0_0_12px_rgba(255,60,142,0.12)]',
                   ].join(' ')}
                 >
                   {/* Image */}
@@ -102,11 +104,11 @@ export default function CatalogGrid({ items, themes }: Props) {
                       </div>
                     )}
 
-                    {/* Sold-out badge */}
-                    {item.status === 'sold_out' && (
+                    {/* Sold tombstone banner */}
+                    {item.availability === 'sold' && (
                       <div className="absolute bottom-0 left-0 right-0 bg-near-black/80 py-1.5 px-3">
                         <span className="font-mono text-[0.55rem] tracking-[0.35em] uppercase text-warm-white/70">
-                          Sold
+                          Found its home
                         </span>
                       </div>
                     )}

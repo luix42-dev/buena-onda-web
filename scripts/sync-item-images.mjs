@@ -36,7 +36,8 @@ if (!SUPABASE_URL || !SERVICE_KEY) {
 
 const supabase   = createClient(SUPABASE_URL, SERVICE_KEY)
 const BUCKET     = 'catalog'
-const BASE_FOLDER = join(homedir(), 'Desktop', 'products buena onda')
+const BASE_FOLDER = (env.PRODUCTS_DIR || join(homedir(), 'Desktop', 'products buena onda'))
+  .replace(/^~/, homedir())
 const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp'])
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -61,11 +62,12 @@ async function syncItem(slug) {
   )
   if (files.length === 0) throw new Error(`No image files in ${folder}`)
 
-  // 2. Sort by numeric prefix — accept "3-detail.png" OR already-renamed "{slug}-03.png"
+  // 2. Sort by numeric prefix — accept "1.png", "1-detail.png", or already-renamed "{slug}-01.png"
   const parsed = files.map(f => {
-    const rawMatch     = f.match(/^(\d+)-/)
-    const renamedMatch = f.match(new RegExp(`^${slug}-(\\d+)`))
-    const match = rawMatch || renamedMatch
+    const bareMatch    = f.match(/^(\d+)\./)
+    const prefixMatch  = f.match(/^(\d+)-/)
+    const renamedMatch = f.match(/-(\d{2,})\.[a-z]+$/i)
+    const match        = prefixMatch || bareMatch || renamedMatch
     if (!match) throw new Error(`Missing numeric prefix on file: ${f}`)
     return { original: f, order: parseInt(match[1], 10) }
   })
@@ -143,11 +145,21 @@ async function syncItem(slug) {
     console.log(`  upload  ${filename} → sort_order ${i + 1}`)
   }
 
-  // 8. Insert item_images rows
+  // 8. Set cover_image_url on item
+  if (rows.length > 0) {
+    const { error: coverErr } = await supabase
+      .from('items')
+      .update({ cover_image_url: rows[0].url })
+      .eq('id', item.id)
+    if (coverErr) console.warn(`  ⚠ cover_image_url update: ${coverErr.message}`)
+    else console.log(`  cover   ${rows[0].url}`)
+  }
+
+  // 9. Insert item_images rows
   const { error: insertErr } = await supabase.from('item_images').insert(rows)
   if (insertErr) throw new Error(`DB insert failed: ${insertErr.message}`)
 
-  // 9. Verify & summary
+  // 11. Verify & summary
   const { count } = await supabase
     .from('item_images')
     .select('*', { count: 'exact', head: true })

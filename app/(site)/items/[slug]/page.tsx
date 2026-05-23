@@ -57,7 +57,7 @@ export default async function ItemPage({ params }: Props) {
   const theme   = itemData.theme  as Theme | null
   const images  = (itemData.images as ItemImage[] | null) ?? []
   const details = (item.details as Record<string, string> | null) ?? {}
-  const isSold  = item.status === 'sold_out' || item.status === 'archived'
+  const isSold  = item.availability === 'sold'
 
   const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 
@@ -240,7 +240,16 @@ export default async function ItemPage({ params }: Props) {
                   </p>
 
                   {isSold ? (
-                    <SoldNotifyForm itemId={item.id} />
+                    <>
+                      <p className="font-display text-near-black mb-1"
+                         style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}>
+                        This piece found its home.
+                      </p>
+                      <p className="font-mono text-xs text-stone-grey mb-5">
+                        It&apos;s no longer available — but similar pieces arrive regularly.
+                      </p>
+                      <SoldNotifyForm itemId={item.id} />
+                    </>
                   ) : (
                     <>
                       <ReserveForm itemId={item.id} itemTitle={item.title} />

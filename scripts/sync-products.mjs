@@ -16,13 +16,14 @@ import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
 
 // Load .env.local (Next.js convention)
-dotenv.config({ path: resolve(fileURLToPath(import.meta.url), '../../.env.local') })
+dotenv.config({ path: resolve(fileURLToPath(import.meta.url), '../../.env.local'), override: true })
 
 import { createClient } from '@supabase/supabase-js'
+import Anthropic from '@anthropic-ai/sdk'
 import { createHash } from 'crypto'
 import {
   readFileSync, writeFileSync, readdirSync, renameSync,
-  existsSync, statSync, mkdirSync,
+  existsSync, statSync,
 } from 'fs'
 import { homedir } from 'os'
 
@@ -35,8 +36,11 @@ if (!SUPABASE_URL || !SERVICE_KEY) {
 }
 
 const supabase    = createClient(SUPABASE_URL, SERVICE_KEY)
+const anthropic   = process.env.ANTHROPIC_API_KEY
+  ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+  : null
 const BUCKET      = 'catalog'
-const BASE_FOLDER = 'D:/BuenaOnda_Audit/products buena onda'
+const BASE_FOLDER = 'D:/BuenaOnda_Audit/PRODUCTS BUENA ONDA'
 const STATE_FILE  = resolve(import.meta.dirname, '.sync-state.json')
 const IMAGE_EXTS  = new Set(['.jpg', '.jpeg', '.png', '.webp'])
 const FORCE       = process.argv.includes('--force')
@@ -103,8 +107,64 @@ function timestamp() {
   return new Date().toISOString().replace('T', ' ').slice(0, 19)
 }
 
+// ── AI description generation ────────────────────────────────────────────────
+async function generateDescriptions(imageFiles, folder, knownMeta) {
+  if (!anthropic) return null
+
+  // Send up to 3 images to Claude
+  const imagesToSend = imageFiles.slice(0, 3)
+  const imageContent = imagesToSend.map(filename => {
+    const ext     = extname(filename).toLowerCase().replace('.', '')
+    const mime    = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg'
+    const b64     = readFileSync(join(folder, filename)).toString('base64')
+    return { type: 'image', source: { type: 'base64', media_type: mime, data: b64 } }
+  })
+
+  const knownDetails = [
+    knownMeta.era       && `Era: ${knownMeta.era}`,
+    knownMeta.material  && `Material: ${knownMeta.material}`,
+    knownMeta.condition && `Condition: ${knownMeta.condition}`,
+    knownMeta.origin    && `Origin: ${knownMeta.origin}`,
+    knownMeta.price     && `Price: $${knownMeta.price}`,
+  ].filter(Boolean).join('\n')
+
+  const prompt = `You are writing catalog copy for Buena Onda — a Miami-based analog culture house. The tone is editorial, specific, and confident. Never generic. Never flowery.
+
+Known details:
+${knownDetails || 'None provided'}
+
+Write two things:
+1. DESCRIPTION: 1–2 sentences. Describe what you see — the object, its material, its presence. Be specific.
+2. WHY_WE_CHOSE_THIS: 2–3 sentences. The curatorial story — why this piece belongs in this catalog. Can reference where it might have come from, what room it commands, why the quality is notable.
+
+Respond in this exact JSON format:
+{"description": "...", "why_we_chose_this": "..."}`
+
+  const response = await anthropic.messages.create({
+    model:      'claude-haiku-4-5-20251001',
+    max_tokens: 400,
+    messages: [{
+      role:    'user',
+      content: [...imageContent, { type: 'text', text: prompt }],
+    }],
+  })
+
+  try {
+    const text = response.content[0].text.trim()
+    const json = text.match(/\{[\s\S]*\}/)
+    if (!json) {
+      console.warn(`[${timestamp()}] ⚠ AI response had no JSON: ${text.slice(0, 200)}`)
+      return null
+    }
+    return JSON.parse(json[0])
+  } catch (err) {
+    console.warn(`[${timestamp()}] ⚠ AI parse error: ${err.message}`)
+    return null
+  }
+}
+
 // ── Sync one slug ───────────────────────────────────────────────────────────
-async function syncSlug(slug, folder, state) {
+async function syncSlug(slug, folder, state, dirName) {
   // Scan for image files
   const files = readdirSync(folder).filter(f =>
     IMAGE_EXTS.has(extname(f).toLowerCase()),
@@ -141,13 +201,92 @@ async function syncSlug(slug, folder, state) {
     renamed.push(newName)
   }
 
-  // Look up item in DB
-  const { data: item, error: itemErr } = await supabase
+  // Read optional .meta.json for product details
+  const metaPath = join(folder, '.meta.json')
+  let meta = {}
+  try { meta = JSON.parse(readFileSync(metaPath, 'utf-8')) } catch { /* no meta file — ok */ }
+
+  // AI-generate description + why_we_chose_this if not already in meta
+  if (!meta.description && anthropic) {
+    console.log(`[${timestamp()}] ✦ generating description for "${dirName}"…`)
+    const ai = await generateDescriptions(renamed, folder, meta).catch(err => {
+      console.warn(`[${timestamp()}] ⚠ AI call failed: ${err.message}`)
+      return null
+    })
+    if (ai?.description) {
+      meta.description       = ai.description
+      meta.why_we_chose_this = ai.why_we_chose_this ?? undefined
+      // Save back to .meta.json so it won't regenerate next run
+      writeFileSync(metaPath, JSON.stringify(meta, null, 2))
+      console.log(`[${timestamp()}] ✦ description saved to .meta.json`)
+    }
+  }
+
+  const titleFromDir = dirName
+    .split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ')
+
+  // Build the DB payload from meta
+  const { price, description, era, material, condition, origin, status, theme_slug, tags, why_we_chose_this } = meta
+  const details = {}
+  if (era)               details.era               = era
+  if (material)          details.material          = material
+  if (condition)         details.condition         = condition
+  if (origin)            details.origin            = origin
+  if (why_we_chose_this) details.why_we_chose_this = why_we_chose_this
+
+  // Look up item in DB — auto-create as draft if not found
+  let { data: item } = await supabase
     .from('items')
     .select('id, title')
     .eq('slug', slug)
     .single()
-  if (itemErr || !item) throw new Error(`Slug "${slug}" not found in DB`)
+
+  if (!item) {
+    // Resolve theme_id if theme_slug provided
+    let theme_id = null
+    if (theme_slug) {
+      const { data: theme } = await supabase.from('themes').select('id').eq('slug', theme_slug).single()
+      theme_id = theme?.id ?? null
+    }
+
+    const { data: created, error: createErr } = await supabase
+      .from('items')
+      .insert({
+        title:       meta.title ?? titleFromDir,
+        slug,
+        status:      status ?? 'draft',
+        description: description ?? null,
+        price:       price ?? null,
+        details:     Object.keys(details).length ? details : null,
+        tags:        tags ?? null,
+        theme_id,
+      })
+      .select('id, title')
+      .single()
+    if (createErr || !created) throw new Error(`Failed to create item "${slug}": ${createErr?.message}`)
+    item = created
+    console.log(`[${timestamp()}] + created item: "${item.title}" (${slug}) [${status ?? 'draft'}]`)
+  } else if (Object.keys(meta).length) {
+    // Item exists — update any fields provided in meta
+    let theme_id = undefined
+    if (theme_slug) {
+      const { data: theme } = await supabase.from('themes').select('id').eq('slug', theme_slug).single()
+      theme_id = theme?.id ?? null
+    }
+    const updates = {}
+    if (meta.title)       updates.title       = meta.title
+    if (price !== undefined) updates.price     = price
+    if (description)      updates.description = description
+    if (status)           updates.status      = status
+    if (tags)             updates.tags        = tags
+    if (theme_id !== undefined) updates.theme_id = theme_id
+    if (Object.keys(details).length) updates.details = details
+    if (Object.keys(updates).length) {
+      await supabase.from('items').update(updates).eq('id', item.id)
+    }
+  }
 
   // Delete old storage files
   const { data: existing } = await supabase.storage
@@ -235,7 +374,7 @@ async function main() {
     const slug = resolveSlug(dirName, slugMap)
     if (!slug) continue
     try {
-      const count = await syncSlug(slug, join(BASE_FOLDER, dirName), state)
+      const count = await syncSlug(slug, join(BASE_FOLDER, dirName), state, dirName)
       if (count) {
         console.log(`[${timestamp()}] ✓ ${slug}: ${count} images synced (cover + ${count - 1} gallery)`)
         anySync = true

@@ -94,7 +94,8 @@ export interface Item {
   price: number | null
   buy_url: string | null
   tags: string[] | null
-  status: 'draft' | 'published' | 'archived' | 'sold_out'
+  status:       'draft' | 'published' | 'archived' | 'sold_out'
+  availability: 'available' | 'reserved' | 'sold'
   featured: boolean
   cover_image_url: string | null
   published_at: string | null
