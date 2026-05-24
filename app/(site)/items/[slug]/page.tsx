@@ -3,10 +3,13 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import ImageGallery from '@/components/ui/ImageGallery'
+import BuyNowButton from '@/components/ui/BuyNowButton'
 import ReserveForm from '@/components/ui/ReserveForm'
 import SoldNotifyForm from '@/components/ui/SoldNotifyForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, ItemImage, Theme } from '@/types'
+
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -57,7 +60,11 @@ export default async function ItemPage({ params }: Props) {
   const theme   = itemData.theme  as Theme | null
   const images  = (itemData.images as ItemImage[] | null) ?? []
   const details = (item.details as Record<string, string> | null) ?? {}
-  const isSold  = item.availability === 'sold'
+  const hasPrice = item.price != null
+  const isBuyable = item.status === 'published' && item.availability === 'available' && hasPrice
+  const shouldReserve = item.status === 'published' && item.availability === 'available' && !hasPrice
+  const isSold = item.availability === 'sold'
+  const isReserved = item.availability === 'reserved'
 
   const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 
@@ -160,7 +167,7 @@ export default async function ItemPage({ params }: Props) {
               </ScanReveal>
 
               {/* Price + delivery */}
-              {item.price && (
+              {item.price != null && (
                 <ScanReveal delay={100}>
                   <div className="mb-8">
                     <p className="font-mono text-charcoal" style={{ fontSize: '1.05rem' }}>
@@ -239,7 +246,32 @@ export default async function ItemPage({ params }: Props) {
                     Every object is personally sourced, condition-verified, and delivered by our team in Miami.
                   </p>
 
-                  {isSold ? (
+                  {isBuyable ? (
+                    <>
+                      <BuyNowButton itemId={item.id} itemSlug={item.slug} itemTitle={item.title} />
+                      <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
+                        7-day return policy. No questions asked.
+                      </p>
+                    </>
+                  ) : shouldReserve ? (
+                    <>
+                      <ReserveForm itemId={item.id} itemTitle={item.title} />
+                      <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
+                        7-day return policy. No questions asked.
+                      </p>
+                    </>
+                  ) : isReserved ? (
+                    <>
+                      <p className="font-display text-near-black mb-1"
+                         style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}>
+                        This piece is temporarily reserved.
+                      </p>
+                      <p className="font-mono text-xs text-stone-grey mb-5">
+                        It&apos;s being held while checkout is completed. Join the list if it becomes available again.
+                      </p>
+                      <SoldNotifyForm itemId={item.id} />
+                    </>
+                  ) : (
                     <>
                       <p className="font-display text-near-black mb-1"
                          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}>
@@ -249,13 +281,6 @@ export default async function ItemPage({ params }: Props) {
                         It&apos;s no longer available — but similar pieces arrive regularly.
                       </p>
                       <SoldNotifyForm itemId={item.id} />
-                    </>
-                  ) : (
-                    <>
-                      <ReserveForm itemId={item.id} itemTitle={item.title} />
-                      <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
-                        7-day return policy. No questions asked.
-                      </p>
                     </>
                   )}
 

@@ -6,6 +6,8 @@ import { createClient } from '@/lib/supabase/server'
 import { timelineItems as fallback } from '@/lib/timeline'
 import type { TimelineItem } from '@/lib/timeline'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'About',
   description:

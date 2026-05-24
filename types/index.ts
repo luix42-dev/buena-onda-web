@@ -121,3 +121,17 @@ export interface ItemNotifyRequest {
   email:      string
   created_at: string
 }
+
+export interface Order {
+  id: string
+  item_id: string
+  customer_email: string | null
+  customer_name: string | null
+  stripe_session_id: string
+  stripe_payment_intent_id: string | null
+  status: 'pending' | 'paid' | 'failed' | 'canceled'
+  amount_total: number
+  currency: string
+  created_at: string
+  updated_at: string
+}

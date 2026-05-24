@@ -6,6 +6,8 @@ import SearchForm from '@/components/ui/SearchForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, Theme } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Search',
   description: 'Search the Buena Onda catalog — objects, themes, and more.',
