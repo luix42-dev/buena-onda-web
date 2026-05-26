@@ -1,13 +1,44 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { createMiddlewareSupabase } from '@/lib/supabase/middleware'
 
-const ADMIN_COOKIE = 'bo_admin'
-const LOGIN_PATH   = '/admin/login'
+const ADMIN_COOKIE     = 'bo_admin'
+const ADMIN_LOGIN_PATH = '/admin/login'
+const STUDIO_LOGIN     = '/studio/login'
 
-export function middleware(request: NextRequest) {
+function isStudioPublic(pathname: string): boolean {
+  return (
+    pathname === STUDIO_LOGIN ||
+    pathname.startsWith('/studio/auth/') ||
+    pathname === '/studio/logout'
+  )
+}
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Only guard /admin routes (excluding the login page itself)
-  if (!pathname.startsWith('/admin') || pathname === LOGIN_PATH) {
+  // ── Studio guard — Supabase Auth + email allowlist ───────────────────
+  if (pathname.startsWith('/studio')) {
+    if (isStudioPublic(pathname)) return NextResponse.next()
+
+    const { supabase, response } = createMiddlewareSupabase(request)
+    const { data: { user } } = await supabase.auth.getUser()
+
+    const allowed = process.env.STUDIO_ALLOWED_EMAIL?.trim().toLowerCase()
+    const userEmail = user?.email?.trim().toLowerCase()
+    const ok = !!user && !!allowed && userEmail === allowed
+
+    if (!ok) {
+      const url = request.nextUrl.clone()
+      url.pathname = STUDIO_LOGIN
+      url.search   = ''
+      url.searchParams.set('from', pathname)
+      return NextResponse.redirect(url)
+    }
+    return response
+  }
+
+  // ── Existing /admin guard — cookie + ADMIN_PASSWORD (unchanged) ──────
+  if (!pathname.startsWith('/admin') || pathname === ADMIN_LOGIN_PATH) {
     return NextResponse.next()
   }
 
@@ -19,7 +50,7 @@ export function middleware(request: NextRequest) {
 
   if (token !== expected) {
     const url = request.nextUrl.clone()
-    url.pathname = LOGIN_PATH
+    url.pathname = ADMIN_LOGIN_PATH
     url.searchParams.set('from', pathname)
     return NextResponse.redirect(url)
   }
@@ -28,5 +59,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/studio/:path*'],
 }

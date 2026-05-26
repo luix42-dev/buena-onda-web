@@ -2,14 +2,33 @@ import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
 import { NextResponse } from 'next/server'
 import type { Track } from '@/lib/radio'
 
-const s3 = new S3Client({
-  region:   'auto',
-  endpoint: `https://${process.env.CF_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId:     process.env.CF_R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.CF_R2_SECRET_ACCESS_KEY!,
-  },
-})
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
+function getR2Client(): { client: S3Client | null; error: string | null } {
+  const accountId = process.env.CF_R2_ACCOUNT_ID
+  const accessKeyId = process.env.CF_R2_ACCESS_KEY_ID
+  const secretAccessKey = process.env.CF_R2_SECRET_ACCESS_KEY
+
+  if (!accountId || !accessKeyId || !secretAccessKey) {
+    return {
+      error: 'Missing R2 environment variables',
+      client: null,
+    }
+  }
+
+  return {
+    error: null,
+    client: new S3Client({
+      region: 'auto',
+      endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+    }),
+  }
+}
 
 function humanize(s: string) {
   return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
@@ -32,13 +51,30 @@ function parseKey(key: string): Pick<Track, 'title' | 'artist'> {
 }
 
 export async function GET() {
+  const { client, error: configError } = getR2Client()
+
+  if (configError || !client) {
+    return NextResponse.json(
+      { error: configError ?? 'Missing R2 environment variables' },
+      { status: 500, headers: { 'Cache-Control': 'no-store' } }
+    )
+  }
+
   try {
-    const res = await s3.send(new ListObjectsV2Command({
-      Bucket: process.env.CF_R2_BUCKET_NAME!,
+    const bucketName = process.env.CF_R2_BUCKET_NAME
+    const publicUrl = process.env.CF_R2_PUBLIC_URL
+
+    if (!bucketName || !publicUrl) {
+      return NextResponse.json(
+        { error: 'Missing R2 bucket or public URL configuration' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      )
+    }
+
+    const res = await client.send(new ListObjectsV2Command({
+      Bucket: bucketName,
       Prefix: 'audio/',
     }))
-
-    const base = process.env.CF_R2_PUBLIC_URL!
 
     const tracks: Track[] = (res.Contents ?? [])
       .filter(o => {
@@ -49,7 +85,7 @@ export async function GET() {
       .sort((a, b) => (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0))
       .map(o => ({
         ...parseKey(o.Key!),
-        src: `${base}/${o.Key}`,
+        src: `${publicUrl}/${o.Key}`,
       }))
 
     return NextResponse.json(tracks, {
@@ -57,6 +93,9 @@ export async function GET() {
     })
   } catch (err) {
     console.error('R2 list error:', err)
-    return NextResponse.json({ error: 'Failed to load tracks' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Failed to load tracks' },
+      { status: 500, headers: { 'Cache-Control': 'no-store' } }
+    )
   }
 }

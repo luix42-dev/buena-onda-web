@@ -1,32 +1,16 @@
 import fs from 'fs'
 import path from 'path'
 
-function scanForImages(dir: string): string[] {
-  const results: string[] = []
-  try {
-    const entries = fs.readdirSync(dir, { withFileTypes: true })
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry.name)
-      if (entry.isDirectory()) {
-        results.push(...scanForImages(fullPath))
-      } else if (
-        entry.isFile() &&
-        /\.(jpg|jpeg|png|webp)$/i.test(entry.name) &&
-        path.basename(dir) === 'media'
-      ) {
-        const publicPath = fullPath
-          .replace(path.join(process.cwd(), 'public'), '')
-          .replace(/\\/g, '/')
-        results.push(publicPath)
-      }
-    }
-  } catch {
-    // Folder doesn't exist yet — return empty
-  }
-  return results
-}
+const MEDIA_DIR = 'D:\\BuenaOnda_Audit\\01_instagram_raw\\MEDIA'
 
 export function getHeroImages(): string[] {
-  const root = path.join(process.cwd(), 'public', 'instagram-raw')
-  return scanForImages(root)
+  try {
+    const entries = fs.readdirSync(MEDIA_DIR, { withFileTypes: true })
+    return entries
+      .filter(e => e.isFile() && /\.(jpg|jpeg|png|webp)$/i.test(e.name))
+      .map(e => `/api/ig-img?f=${encodeURIComponent(e.name)}`)
+  } catch {
+    // Folder doesn't exist or isn't accessible — return empty, HeroGrid uses fallback
+    return []
+  }
 }

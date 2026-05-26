@@ -33,8 +33,8 @@ export default function ContactPage() {
             <ScanReveal>
               <div className="flex flex-col gap-10">
                 <p className="text-charcoal leading-relaxed text-base max-w-prose">
-                  For general inquiries, collaboration proposals, object drops,
-                  and radio bookings. We read everything. We reply slowly, but we reply.
+                  For general inquiries, object drops, press, and radio bookings.
+                  We reply slowly, but we reply.
                 </p>
 
                 <div className="flex flex-col gap-6">
@@ -54,7 +54,7 @@ export default function ContactPage() {
                     </div>
                   ))}
                   <p className="font-mono text-xs text-stone-grey/70 mt-2">
-                    Or use the form below — we&apos;ll reply to your email directly.
+                    Or use the form below. We&apos;ll reply to your email directly.
                   </p>
                 </div>
 

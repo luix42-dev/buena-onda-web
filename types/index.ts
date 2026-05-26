@@ -94,7 +94,8 @@ export interface Item {
   price: number | null
   buy_url: string | null
   tags: string[] | null
-  status: 'draft' | 'published' | 'archived' | 'sold_out'
+  status:       'draft' | 'published' | 'archived' | 'sold_out'
+  availability: 'available' | 'reserved' | 'sold'
   featured: boolean
   cover_image_url: string | null
   published_at: string | null
@@ -119,4 +120,18 @@ export interface ItemNotifyRequest {
   item_id:    string
   email:      string
   created_at: string
+}
+
+export interface Order {
+  id: string
+  item_id: string
+  customer_email: string | null
+  customer_name: string | null
+  stripe_session_id: string
+  stripe_payment_intent_id: string | null
+  status: 'pending' | 'paid' | 'failed' | 'canceled'
+  amount_total: number
+  currency: string
+  created_at: string
+  updated_at: string
 }

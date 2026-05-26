@@ -22,6 +22,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   const {
     title, slug, theme_id, price, buy_url,
     description, tags, cover_image_url, status, details,
+    availability,
   } = body
 
   if (!title || !slug) {
@@ -41,6 +42,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     cover_image_url: cover_image_url || null,
     details:         details ?? null,
     status,
+    ...(availability !== undefined && { availability }),
   }
 
   if (status === 'published') {

@@ -5,6 +5,8 @@ import NotifyForm from '@/components/ui/NotifyForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Drop } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Objects & Drops',
   description: 'Durable objects made to be used. Limited drops, no restocks.',
