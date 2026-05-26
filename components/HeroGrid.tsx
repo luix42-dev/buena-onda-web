@@ -34,7 +34,7 @@ export default function HeroGrid({ images, fallback }: HeroGridProps) {
 
   useEffect(() => {
     if (images.length < 3) return
-    const id = setInterval(rotate, 8000)
+    const id = setInterval(rotate, 16000)
     return () => clearInterval(id)
   }, [rotate, images.length])
 
