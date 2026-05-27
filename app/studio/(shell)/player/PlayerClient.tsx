@@ -44,66 +44,16 @@ export default function PlayerClient() {
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
-  useEffect(() => {
-    let cancelled = false
-
-    const loadTracks = async () => {
-      setLoading(true)
-      setError(null)
-
-      try {
-        const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
-        const body = await readJsonOrText(res)
-
-        if (!res.ok) {
-          let message = 'Failed to load tracks.'
-          if (typeof body === 'string') {
-            message = body
-          } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
-            message = body.error
-          }
-          throw new Error(message)
-        }
-
-        if (!cancelled) {
-          setTracks(Array.isArray(body) ? body : [])
-        }
-      } catch (err) {
-        if (!cancelled) {
-          const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
-          setError(msg)
-          toast(msg)
-        }
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
-
-    void loadTracks()
-
-    return () => {
-      cancelled = true
-    }
-  }, [toast])
-
-  const uploadTrack = async (file: File) => {
-    setUploading(true)
-    setMessage(null)
+  const loadTracks = async () => {
+    setLoading(true)
     setError(null)
 
     try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('folder', 'audio')
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      })
+      const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
       const body = await readJsonOrText(res)
 
       if (!res.ok) {
-        let message = 'Audio upload failed.'
+        let message = 'Failed to load tracks.'
         if (typeof body === 'string') {
           message = body
         } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
@@ -112,20 +62,68 @@ export default function PlayerClient() {
         throw new Error(message)
       }
 
+      setTracks(Array.isArray(body) ? body : [])
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
+      setError(msg)
+      toast(msg)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    void loadTracks()
+  }, [])
+
+  const uploadTrack = async (file: File) => {
+    setUploading(true)
+    setMessage(null)
+    setError(null)
+
+    try {
+      const signedRes = await fetch('/api/admin/upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: file.name,
+          contentType: file.type || 'audio/mpeg',
+          folder: 'audio',
+        }),
+      })
+      const body = await readJsonOrText(signedRes)
+
+      if (!signedRes.ok) {
+        let message = 'Could not create upload URL.'
+        if (typeof body === 'string') {
+          message = body
+        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+          message = body.error
+        }
+        throw new Error(message)
+      }
+
+      const uploadData = body as { uploadUrl?: string; publicUrl?: string; key?: string }
+      if (!uploadData.uploadUrl || !uploadData.publicUrl || !uploadData.key) {
+        throw new Error('Signed upload response is incomplete.')
+      }
+
+      const uploadRes = await fetch(uploadData.uploadUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.type || 'audio/mpeg',
+        },
+        body: file,
+      })
+
+      if (!uploadRes.ok) {
+        const uploadText = await uploadRes.text().catch(() => '')
+        throw new Error(uploadText || 'R2 upload failed.')
+      }
+
       setMessage('Upload complete.')
       toast('Track uploaded.')
-      const refreshRes = await fetch('/api/radio/tracks', { cache: 'no-store' })
-      const refreshBody = await readJsonOrText(refreshRes)
-      if (!refreshRes.ok) {
-        let refreshMessage = 'Failed to refresh tracks.'
-        if (typeof refreshBody === 'string') {
-          refreshMessage = refreshBody
-        } else if (refreshBody && typeof refreshBody === 'object' && 'error' in refreshBody && typeof refreshBody.error === 'string') {
-          refreshMessage = refreshBody.error
-        }
-        throw new Error(refreshMessage)
-      }
-      setTracks(Array.isArray(refreshBody) ? refreshBody : [])
+      await loadTracks()
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Audio upload failed.'
       setError(msg)
@@ -170,8 +168,8 @@ export default function PlayerClient() {
           <div className="hk">Upload</div>
           <div className="hl">Track upload wired</div>
           <div className="hs">
-            MP3 uploads use the existing admin upload route with the R2 audio bucket. The page then
-            refreshes from the lightweight JSON track endpoint.
+            MP3 uploads request a signed R2 upload URL, then send the file directly to R2 from the
+            browser. The track list refreshes after upload.
           </div>
           <div className="hb">
             <span className="hvis">MP3 files only</span>
