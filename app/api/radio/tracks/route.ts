@@ -5,6 +5,8 @@ import type { Track } from '@/lib/radio'
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
+const MAX_TRACKS = 50
+
 function getR2Client(): { client: S3Client | null; error: string | null } {
   const accountId = process.env.CF_R2_ACCOUNT_ID
   const accessKeyId = process.env.CF_R2_ACCESS_KEY_ID
@@ -83,6 +85,7 @@ export async function GET() {
         return !filename.startsWith('.') // exclude macOS resource forks (._filename)
       })
       .sort((a, b) => (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0))
+      .slice(0, MAX_TRACKS)
       .map(o => ({
         ...parseKey(o.Key!),
         src: `${publicUrl}/${o.Key}`,

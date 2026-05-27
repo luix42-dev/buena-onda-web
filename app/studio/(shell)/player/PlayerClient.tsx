@@ -1,16 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
-import { useRouter } from 'next/navigation'
 import SectionHead from '@/components/studio/SectionHead'
 import StatusPill from '@/components/studio/StatusPill'
 import { useToast } from '@/components/studio/Toast'
 import type { Track } from '@/lib/radio'
-
-type Props = {
-  initialTracks: Track[]
-  initialError: string | null
-}
 
 function formatBytes(size: number | null | undefined) {
   if (!size || size <= 0) return 'n/a'
@@ -33,27 +27,64 @@ function formatDate(value: string | null | undefined) {
   }).format(new Date(value))
 }
 
-export default function PlayerClient({ initialTracks, initialError }: Props) {
+async function readJsonOrText(res: Response) {
+  const contentType = res.headers.get('content-type') ?? ''
+  if (contentType.includes('application/json')) {
+    return res.json() as Promise<unknown>
+  }
+  return res.text()
+}
+
+export default function PlayerClient() {
   const toast = useToast()
-  const router = useRouter()
   const fileRef = useRef<HTMLInputElement>(null)
-  const [tracks, setTracks] = useState<Track[]>(initialTracks)
+  const [tracks, setTracks] = useState<Track[]>([])
+  const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState<string | null>(initialError)
+  const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
   useEffect(() => {
-    setTracks(initialTracks)
-    setError(initialError)
-  }, [initialTracks, initialError])
+    let cancelled = false
 
-  const readResponseBody = async (res: Response) => {
-    const contentType = res.headers.get('content-type') ?? ''
-    if (contentType.includes('application/json')) {
-      return res.json() as Promise<unknown>
+    const loadTracks = async () => {
+      setLoading(true)
+      setError(null)
+
+      try {
+        const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
+        const body = await readJsonOrText(res)
+
+        if (!res.ok) {
+          let message = 'Failed to load tracks.'
+          if (typeof body === 'string') {
+            message = body
+          } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+            message = body.error
+          }
+          throw new Error(message)
+        }
+
+        if (!cancelled) {
+          setTracks(Array.isArray(body) ? body : [])
+        }
+      } catch (err) {
+        if (!cancelled) {
+          const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
+          setError(msg)
+          toast(msg)
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
     }
-    return res.text()
-  }
+
+    void loadTracks()
+
+    return () => {
+      cancelled = true
+    }
+  }, [toast])
 
   const uploadTrack = async (file: File) => {
     setUploading(true)
@@ -69,7 +100,7 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
         method: 'POST',
         body: formData,
       })
-      const body = await readResponseBody(res)
+      const body = await readJsonOrText(res)
 
       if (!res.ok) {
         let message = 'Audio upload failed.'
@@ -83,7 +114,18 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
 
       setMessage('Upload complete.')
       toast('Track uploaded.')
-      router.refresh()
+      const refreshRes = await fetch('/api/radio/tracks', { cache: 'no-store' })
+      const refreshBody = await readJsonOrText(refreshRes)
+      if (!refreshRes.ok) {
+        let refreshMessage = 'Failed to refresh tracks.'
+        if (typeof refreshBody === 'string') {
+          refreshMessage = refreshBody
+        } else if (refreshBody && typeof refreshBody === 'object' && 'error' in refreshBody && typeof refreshBody.error === 'string') {
+          refreshMessage = refreshBody.error
+        }
+        throw new Error(refreshMessage)
+      }
+      setTracks(Array.isArray(refreshBody) ? refreshBody : [])
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Audio upload failed.'
       setError(msg)
@@ -129,11 +171,11 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
           <div className="hl">Track upload wired</div>
           <div className="hs">
             MP3 uploads use the existing admin upload route with the R2 audio bucket. The page then
-            refreshes from the server-side track loader.
+            refreshes from the lightweight JSON track endpoint.
           </div>
           <div className="hb">
             <span className="hvis">MP3 files only</span>
-            <span className="hvis">{`${tracks.length} tracks`}</span>
+            <span className="hvis">{loading ? 'Loading...' : `${tracks.length} tracks`}</span>
           </div>
         </div>
 
@@ -148,6 +190,11 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
           <div className="empty">
             <div className="em-t">Could not load tracks.</div>
             <div className="em-s">{error}</div>
+          </div>
+        ) : loading ? (
+          <div className="empty">
+            <div className="em-t">Loading tracks...</div>
+            <div className="em-s">Fetching the current R2 track list.</div>
           </div>
         ) : tracks.length === 0 ? (
           <div className="empty">

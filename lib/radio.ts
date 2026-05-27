@@ -12,6 +12,8 @@ export interface Track {
   size?: number | null
 }
 
+const MAX_TRACKS = 50
+
 type R2ClientResult = {
   client: S3Client | null
   error: string | null
@@ -81,6 +83,7 @@ export async function listRadioTracks(): Promise<Track[]> {
       return !filename.startsWith('.')
     })
     .sort((a, b) => (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0))
+    .slice(0, MAX_TRACKS)
     .map(o => ({
       ...parseKey(o.Key!),
       key: o.Key!,
