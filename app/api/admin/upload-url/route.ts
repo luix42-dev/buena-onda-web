@@ -117,7 +117,6 @@ export async function POST(request: NextRequest) {
       new PutObjectCommand({
         Bucket: bucketName,
         Key: key,
-        ContentType: contentType,
       }),
       { expiresIn: 60 * 10 }
     )
