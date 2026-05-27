@@ -1,18 +1,53 @@
-import SectionHead from '@/components/studio/SectionHead'
-import EmptyState from '@/components/studio/EmptyState'
+import { createServiceClient } from '@/lib/supabase/server'
+import TransmissionClient from './TransmissionClient'
 
-export default function TransmissionPage() {
+export const dynamic = 'force-dynamic'
+
+type NewsletterSubscriber = {
+  id: string
+  email: string
+  confirmed: boolean
+  created_at: string
+}
+
+async function loadTransmissionData() {
+  try {
+    const supabase = await createServiceClient()
+
+    const [{ data: posts }, { data: subscribers }, { data: newsletterSetting }] = await Promise.all([
+      supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('newsletter_subscribers')
+        .select('id,email,confirmed,created_at')
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'newsletter')
+        .maybeSingle(),
+    ])
+
+    return {
+      posts: posts ?? [],
+      subscribers: subscribers ?? [],
+      newsletterSetting: newsletterSetting?.value ?? null,
+    }
+  } catch {
+    return { posts: [], subscribers: [] as NewsletterSubscriber[], newsletterSetting: null }
+  }
+}
+
+export default async function TransmissionPage() {
+  const { posts, subscribers, newsletterSetting } = await loadTransmissionData()
+
   return (
-    <>
-      <SectionHead
-        title="The Transmission"
-        subtitle="Slow mail, worth reading"
-        actionLabel="+ Compose"
-      />
-      <EmptyState
-        title="No issues yet."
-        message="Phase 5 adds the transmission_issues table and editor."
-      />
-    </>
+    <TransmissionClient
+      initialPosts={posts}
+      initialSubscribers={subscribers}
+      newsletterSetting={newsletterSetting}
+    />
   )
 }
