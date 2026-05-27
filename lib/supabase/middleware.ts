@@ -16,7 +16,7 @@ type CookieToSet = { name: string; value: string; options: CookieOptions }
  *   return response
  */
 export function createMiddlewareSupabase(request: NextRequest) {
-  let response = NextResponse.next({ request })
+  let response = NextResponse.next()
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,7 +30,7 @@ export function createMiddlewareSupabase(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           )
-          response = NextResponse.next({ request })
+          response = NextResponse.next()
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           )
