@@ -1,18 +1,24 @@
-import SectionHead from '@/components/studio/SectionHead'
-import EmptyState from '@/components/studio/EmptyState'
+import { createServiceClient } from '@/lib/supabase/server'
+import CultureClient from './CultureClient'
 
-export default function CulturePage() {
-  return (
-    <>
-      <SectionHead
-        title="Culture"
-        subtitle="Essays from the analog world"
-        actionLabel="+ New essay"
-      />
-      <EmptyState
-        title="No essays wired in yet."
-        message="Phase 5 connects the posts table to this view."
-      />
-    </>
-  )
+export const dynamic = 'force-dynamic'
+
+async function loadCultureData() {
+  try {
+    const supabase = await createServiceClient()
+    const { data } = await supabase
+      .from('posts')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    return data ?? []
+  } catch {
+    return []
+  }
+}
+
+export default async function CulturePage() {
+  const posts = await loadCultureData()
+
+  return <CultureClient initialPosts={posts} />
 }

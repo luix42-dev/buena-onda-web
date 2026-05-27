@@ -1,18 +1,24 @@
-import SectionHead from '@/components/studio/SectionHead'
-import EmptyState from '@/components/studio/EmptyState'
+import { createServiceClient } from '@/lib/supabase/server'
+import RadioClient from './RadioClient'
 
-export default function RadioPage() {
-  return (
-    <>
-      <SectionHead
-        title="The Archive"
-        subtitle="Curated mixes, sessions, field recordings"
-        actionLabel="+ Upload episode"
-      />
-      <EmptyState
-        title="No episodes wired in yet."
-        message="Phase 4 connects the existing episodes table to this view."
-      />
-    </>
-  )
+export const dynamic = 'force-dynamic'
+
+async function loadRadioData() {
+  try {
+    const supabase = await createServiceClient()
+    const { data } = await supabase
+      .from('episodes')
+      .select('*')
+      .order('episode_number', { ascending: false })
+
+    return data ?? []
+  } catch {
+    return []
+  }
+}
+
+export default async function RadioPage() {
+  const episodes = await loadRadioData()
+
+  return <RadioClient initialEpisodes={episodes} />
 }
