@@ -10,7 +10,7 @@ import { createClient } from '@/lib/supabase/server'
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl
   const code = searchParams.get('code')
-  const next = searchParams.get('from') || '/studio/catalog'
+  const next = searchParams.get('from') || '/studio'
 
   if (!code) {
     return NextResponse.redirect(`${origin}/studio/login?error=missing_code`)
