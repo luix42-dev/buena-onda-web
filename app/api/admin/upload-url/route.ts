@@ -28,6 +28,11 @@ function getR2Client(): { client: S3Client | null; error: string | null } {
       endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
       forcePathStyle: true,
       credentials: { accessKeyId, secretAccessKey },
+      // SDK v3 defaults to WHEN_SUPPORTED for flexible checksums, which injects
+      // x-amz-checksum-crc32 into the signed headers. R2 rejects the browser PUT
+      // with 403 because the browser never sends that header. Opt out entirely.
+      requestChecksumCalculation: 'WHEN_REQUIRED',
+      responseChecksumValidation: 'WHEN_REQUIRED',
     }),
   }
 }
