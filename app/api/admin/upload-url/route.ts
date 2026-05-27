@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
   const key = `audio/${Date.now()}-${randomUUID()}-${sanitizeBaseName(fileName)}.mp3`
 
   try {
-    const uploadUrl = await getSignedUrl(
+    const presignedUrl = await getSignedUrl(
       client as unknown as Parameters<typeof getSignedUrl>[0],
       new PutObjectCommand({
         Bucket: bucketName,
@@ -121,8 +121,10 @@ export async function POST(request: NextRequest) {
       { expiresIn: 60 * 10 }
     )
 
+    console.log('[upload-url] presignedUrl', presignedUrl)
+
     return NextResponse.json({
-      uploadUrl,
+      uploadUrl: presignedUrl,
       publicUrl: `${publicUrl}/${key}`,
       key,
     })
