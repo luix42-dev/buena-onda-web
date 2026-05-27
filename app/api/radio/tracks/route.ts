@@ -51,16 +51,16 @@ function parseKey(key: string): Pick<Track, 'title' | 'artist'> {
 }
 
 export async function GET() {
-  const { client, error: configError } = getR2Client()
-
-  if (configError || !client) {
-    return NextResponse.json(
-      { error: configError ?? 'Missing R2 environment variables' },
-      { status: 500, headers: { 'Cache-Control': 'no-store' } }
-    )
-  }
-
   try {
+    const { client, error: configError } = getR2Client()
+
+    if (configError || !client) {
+      return NextResponse.json(
+        { error: configError ?? 'Missing R2 environment variables' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      )
+    }
+
     const bucketName = process.env.CF_R2_BUCKET_NAME
     const publicUrl = process.env.CF_R2_PUBLIC_URL
 
@@ -94,7 +94,7 @@ export async function GET() {
   } catch (err) {
     console.error('R2 list error:', err)
     return NextResponse.json(
-      { error: 'Failed to load tracks' },
+      { error: err instanceof Error ? err.message : 'Failed to load tracks' },
       { status: 500, headers: { 'Cache-Control': 'no-store' } }
     )
   }

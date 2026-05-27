@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import { useRouter } from 'next/navigation'
 import SectionHead from '@/components/studio/SectionHead'
 import StatusPill from '@/components/studio/StatusPill'
 import { useToast } from '@/components/studio/Toast'
@@ -34,9 +35,9 @@ function formatDate(value: string | null | undefined) {
 
 export default function PlayerClient({ initialTracks, initialError }: Props) {
   const toast = useToast()
+  const router = useRouter()
   const fileRef = useRef<HTMLInputElement>(null)
   const [tracks, setTracks] = useState<Track[]>(initialTracks)
-  const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(initialError)
   const [message, setMessage] = useState<string | null>(null)
@@ -46,23 +47,12 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
     setError(initialError)
   }, [initialTracks, initialError])
 
-  const refreshTracks = async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
-      const data = await res.json()
-      if (!res.ok) {
-        throw new Error((data as { error?: string }).error ?? 'Failed to load tracks.')
-      }
-      setTracks(Array.isArray(data) ? data : [])
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
-      setError(msg)
-      toast(msg)
-    } finally {
-      setLoading(false)
+  const readResponseBody = async (res: Response) => {
+    const contentType = res.headers.get('content-type') ?? ''
+    if (contentType.includes('application/json')) {
+      return res.json() as Promise<unknown>
     }
+    return res.text()
   }
 
   const uploadTrack = async (file: File) => {
@@ -79,15 +69,21 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
         method: 'POST',
         body: formData,
       })
-      const data = await res.json()
+      const body = await readResponseBody(res)
 
       if (!res.ok) {
-        throw new Error((data as { error?: string }).error ?? 'Audio upload failed.')
+        let message = 'Audio upload failed.'
+        if (typeof body === 'string') {
+          message = body
+        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+          message = body.error
+        }
+        throw new Error(message)
       }
 
       setMessage('Upload complete.')
       toast('Track uploaded.')
-      await refreshTracks()
+      router.refresh()
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Audio upload failed.'
       setError(msg)
@@ -132,12 +128,12 @@ export default function PlayerClient({ initialTracks, initialError }: Props) {
           <div className="hk">Upload</div>
           <div className="hl">Track upload wired</div>
           <div className="hs">
-            MP3 uploads use the existing admin upload route with the R2 audio bucket, then refresh the
-            public track list.
+            MP3 uploads use the existing admin upload route with the R2 audio bucket. The page then
+            refreshes from the server-side track loader.
           </div>
           <div className="hb">
             <span className="hvis">MP3 files only</span>
-            <span className="hvis">{loading ? 'Refreshing...' : `${tracks.length} tracks`}</span>
+            <span className="hvis">{`${tracks.length} tracks`}</span>
           </div>
         </div>
 
