@@ -41,31 +41,37 @@ export default function PlayerClient() {
   const [tracks, setTracks] = useState<Track[]>([])
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [loadError, setLoadError] = useState<string | null>(null)
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
   const loadTracks = async () => {
     setLoading(true)
-    setError(null)
+    setLoadError(null)
 
     try {
+      console.log('[player] loadTracks: GET /api/radio/tracks')
       const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
+      console.log('[player] loadTracks: status', res.status, 'url', res.url)
       const body = await readJsonOrText(res)
 
       if (!res.ok) {
-        let message = 'Failed to load tracks.'
+        let msg = 'Failed to load tracks.'
         if (typeof body === 'string') {
-          message = body
+          msg = body
         } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
-          message = body.error
+          msg = body.error
         }
-        throw new Error(message)
+        throw new Error(msg)
       }
 
-      setTracks(Array.isArray(body) ? body : [])
+      const list = Array.isArray(body) ? body : []
+      console.log('[player] loadTracks: loaded', list.length, 'tracks')
+      setTracks(list as Track[])
     } catch (err) {
+      console.error('[player] loadTracks: error', err)
       const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
-      setError(msg)
+      setLoadError(msg)
       toast(msg)
     } finally {
       setLoading(false)
@@ -79,7 +85,7 @@ export default function PlayerClient() {
   const uploadTrack = async (file: File) => {
     setUploading(true)
     setMessage(null)
-    setError(null)
+    setUploadError(null)
 
     try {
       const signedRes = await fetch('/api/admin/upload-url', {
@@ -94,13 +100,13 @@ export default function PlayerClient() {
       const body = await readJsonOrText(signedRes)
 
       if (!signedRes.ok) {
-        let message = 'Could not create upload URL.'
+        let msg = 'Could not create upload URL.'
         if (typeof body === 'string') {
-          message = body
+          msg = body
         } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
-          message = body.error
+          msg = body.error
         }
-        throw new Error(message)
+        throw new Error(msg)
       }
 
       const uploadData = body as { uploadUrl?: string; publicUrl?: string; key?: string }
@@ -108,11 +114,10 @@ export default function PlayerClient() {
         throw new Error('Signed upload response is incomplete.')
       }
 
+      console.log('[player] uploadTrack: PUT', uploadData.uploadUrl.split('?')[0])
       const uploadRes = await fetch(uploadData.uploadUrl, {
         method: 'PUT',
-        headers: {
-          'Content-Type': file.type || 'audio/mpeg',
-        },
+        headers: { 'Content-Type': file.type || 'audio/mpeg' },
         body: file,
       })
 
@@ -125,8 +130,9 @@ export default function PlayerClient() {
       toast('Track uploaded.')
       await loadTracks()
     } catch (err) {
+      console.error('[player] uploadTrack: error', err)
       const msg = err instanceof Error ? err.message : 'Audio upload failed.'
-      setError(msg)
+      setUploadError(msg)
       toast(msg)
     } finally {
       setUploading(false)
@@ -138,7 +144,7 @@ export default function PlayerClient() {
     const file = e.target.files?.[0]
     if (!file) return
     if (!file.type.startsWith('audio/')) {
-      setError('Please choose an audio file.')
+      setUploadError('Please choose an audio file.')
       toast('Please choose an audio file.')
       e.currentTarget.value = ''
       return
@@ -177,6 +183,13 @@ export default function PlayerClient() {
           </div>
         </div>
 
+        {uploadError && (
+          <div className="empty">
+            <div className="em-t">Upload failed.</div>
+            <div className="em-s">{uploadError}</div>
+          </div>
+        )}
+
         {message && (
           <div className="empty" style={{ padding: '20px', textAlign: 'left' }}>
             <div className="em-t" style={{ textAlign: 'left' }}>{message}</div>
@@ -184,10 +197,10 @@ export default function PlayerClient() {
           </div>
         )}
 
-        {error ? (
+        {loadError ? (
           <div className="empty">
             <div className="em-t">Could not load tracks.</div>
-            <div className="em-s">{error}</div>
+            <div className="em-s">{loadError}</div>
           </div>
         ) : loading ? (
           <div className="empty">
