@@ -17,11 +17,7 @@ function trackTimestamp(track: Track) {
 }
 
 function getKvConfig(): KvConfig | null {
-  const accountId =
-    process.env.CLOUDFLARE_ACCOUNT_ID?.trim() ||
-    process.env.CF_R2_ACCOUNT_ID?.trim() ||
-    process.env.R2_ACCOUNT_ID?.trim() ||
-    ''
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim() || ''
   const apiToken = process.env.CLOUDFLARE_API_TOKEN?.trim() || ''
   const namespaceId = process.env.BUENA_ONDA_RADIO_META_NAMESPACE_ID?.trim() || ''
 
