@@ -1,6 +1,7 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 function getR2Client(): { client: S3Client | null; error: string | null } {
   const accountId = process.env.CF_R2_ACCOUNT_ID
@@ -28,6 +29,10 @@ function getR2Client(): { client: S3Client | null; error: string | null } {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const formData = await request.formData()
   const file     = formData.get('file') as File | null
   const folder   = (formData.get('folder') as string) || 'catalog'

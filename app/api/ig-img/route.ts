@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
-
-const MEDIA_DIR = 'D:\\BuenaOnda_Audit\\01_instagram_raw\\MEDIA'
+import { getHeroMediaDir, isHeroImageFile } from '@/lib/hero-media'
 
 export async function GET(req: NextRequest) {
   const f = req.nextUrl.searchParams.get('f')
@@ -10,12 +9,15 @@ export async function GET(req: NextRequest) {
     return new NextResponse('Missing f param', { status: 400 })
   }
 
-  // Sanitize: strip any path separators so callers can't escape the MEDIA dir
   const filename = path.basename(f)
-  const filePath = path.join(MEDIA_DIR, filename)
+  if (!isHeroImageFile(filename)) {
+    return new NextResponse('Unsupported file type', { status: 400 })
+  }
 
-  // Ensure resolved path is still inside MEDIA_DIR
-  if (!filePath.startsWith(MEDIA_DIR)) {
+  const mediaDir = path.resolve(getHeroMediaDir())
+  const filePath = path.resolve(mediaDir, filename)
+
+  if (!filePath.startsWith(`${mediaDir}${path.sep}`)) {
     return new NextResponse('Forbidden', { status: 403 })
   }
 
@@ -29,9 +31,9 @@ export async function GET(req: NextRequest) {
   const ext = path.extname(filename).toLowerCase()
   const contentType =
     ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg'
-    : ext === '.png'  ? 'image/png'
-    : ext === '.webp' ? 'image/webp'
-    : 'application/octet-stream'
+      : ext === '.png' ? 'image/png'
+        : ext === '.webp' ? 'image/webp'
+          : 'application/octet-stream'
 
   return new NextResponse(new Uint8Array(buffer), {
     headers: {

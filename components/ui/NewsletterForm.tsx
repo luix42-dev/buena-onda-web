@@ -9,21 +9,50 @@ interface NewsletterFormProps {
 }
 
 export default function NewsletterForm({ className = '', layout = 'row', variant = 'light' }: NewsletterFormProps) {
-  const [email,  setEmail]  = useState('')
+  const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
+  const [message, setMessage] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!email.trim()) return
+
     setStatus('loading')
-    // TODO: connect to /api/newsletter when endpoint is added
-    await new Promise(r => setTimeout(r, 600))
-    setStatus('done')
+    setMessage('')
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      const body = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        const nextMessage = typeof (body as { error?: string }).error === 'string'
+          ? (body as { error: string }).error
+          : 'Could not subscribe right now.'
+        throw new Error(nextMessage)
+      }
+
+      setStatus('done')
+      setMessage(
+        typeof (body as { message?: string }).message === 'string'
+          ? (body as { message: string }).message
+          : 'You are on the list.'
+      )
+      setEmail('')
+    } catch (err) {
+      setStatus('error')
+      setMessage(err instanceof Error ? err.message : 'Could not subscribe right now.')
+    }
   }
 
   if (status === 'done') {
     return (
       <p className={`font-mono text-xs text-teal ${className}`}>
-        ✓ You&apos;re on the list.
+        {message}
       </p>
     )
   }
@@ -57,6 +86,11 @@ export default function NewsletterForm({ className = '', layout = 'row', variant
       >
         {status === 'loading' ? '...' : 'Subscribe'}
       </button>
+      {status === 'error' && (
+        <p className={`font-mono text-xs text-coral ${layout === 'stack' ? '' : 'self-center'}`}>
+          {message}
+        </p>
+      )}
     </form>
   )
 }

@@ -1,7 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   let supabase: Awaited<ReturnType<typeof createServiceClient>>
   try {
     supabase = await createServiceClient()
@@ -19,6 +24,10 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const body = await request.json()
   const {
     title,

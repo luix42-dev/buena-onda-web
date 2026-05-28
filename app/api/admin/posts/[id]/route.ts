@@ -1,9 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 interface Params { params: Promise<{ id: string }> }
 
-export async function GET(_req: NextRequest, { params }: Params) {
+export async function GET(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id } = await params
   const supabase = await createServiceClient()
   const { data, error } = await supabase
@@ -17,6 +22,10 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PUT(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id } = await params
   const body = await request.json()
   const { title, slug, excerpt, body: postBody, cover_image, tags, published } = body
@@ -59,7 +68,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
   return NextResponse.json(data)
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id } = await params
   const supabase = await createServiceClient()
   const { error } = await supabase.from('posts').delete().eq('id', id)

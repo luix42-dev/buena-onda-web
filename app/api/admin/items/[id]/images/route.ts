@@ -1,9 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 interface Params { params: Promise<{ id: string }> }
 
-export async function GET(_req: NextRequest, { params }: Params) {
+export async function GET(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id } = await params
   const supabase = await createServiceClient()
 
@@ -18,6 +23,10 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function POST(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id } = await params
   const supabase = await createServiceClient()
 

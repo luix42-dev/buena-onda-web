@@ -34,6 +34,14 @@ function parseTags(raw: string) {
     .filter(Boolean)
 }
 
+async function readJsonOrText(res: Response) {
+  const contentType = res.headers.get('content-type') ?? ''
+  if (contentType.includes('application/json')) {
+    return res.json() as Promise<unknown>
+  }
+  return res.text()
+}
+
 export default function RadioClient({ initialEpisodes }: Props) {
   const toast = useToast()
   const fileRef = useRef<HTMLInputElement>(null)
@@ -100,18 +108,40 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setError(null)
 
     try {
-      const uploadData = new FormData()
-      uploadData.append('file', audioFile)
-      uploadData.append('folder', 'audio')
-
-      const uploadRes = await fetch('/api/admin/upload', {
+      const signedRes = await fetch('/api/admin/upload-url', {
         method: 'POST',
-        body: uploadData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: audioFile.name,
+          contentType: audioFile.type || 'audio/mpeg',
+          folder: 'audio',
+        }),
       })
-      const uploadJson = await uploadRes.json()
+      const signedBody = await readJsonOrText(signedRes)
+
+      if (!signedRes.ok) {
+        let msg = 'Could not create upload URL.'
+        if (typeof signedBody === 'string') {
+          msg = signedBody
+        } else if (signedBody && typeof signedBody === 'object' && 'error' in signedBody && typeof signedBody.error === 'string') {
+          msg = signedBody.error
+        }
+        throw new Error(msg)
+      }
+
+      const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string; key?: string }
+      if (!uploadData.uploadUrl || !uploadData.publicUrl || !uploadData.key) {
+        throw new Error('Signed upload response is incomplete.')
+      }
+
+      const uploadRes = await fetch(uploadData.uploadUrl, {
+        method: 'PUT',
+        body: audioFile,
+      })
 
       if (!uploadRes.ok) {
-        throw new Error((uploadJson as { error?: string }).error ?? 'Audio upload failed.')
+        const uploadText = await uploadRes.text().catch(() => '')
+        throw new Error(uploadText || 'R2 upload failed.')
       }
 
       const episodeRes = await fetch('/api/admin/episodes', {
@@ -120,20 +150,26 @@ export default function RadioClient({ initialEpisodes }: Props) {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
-          audio_url: (uploadJson as { url?: string }).url,
+          audio_url: uploadData.publicUrl,
           episode_number: episodeNumber ? parseInt(episodeNumber, 10) : null,
           duration: duration ? parseInt(duration, 10) : null,
           tags: parseTags(tags),
           published,
         }),
       })
-      const episodeJson = await episodeRes.json()
+      const episodeBody = await readJsonOrText(episodeRes)
 
       if (!episodeRes.ok) {
-        throw new Error((episodeJson as { error?: string }).error ?? 'Episode create failed.')
+        let msg = 'Episode create failed.'
+        if (typeof episodeBody === 'string') {
+          msg = episodeBody
+        } else if (episodeBody && typeof episodeBody === 'object' && 'error' in episodeBody && typeof episodeBody.error === 'string') {
+          msg = episodeBody.error
+        }
+        throw new Error(msg)
       }
 
-      setEpisodes(prev => [episodeJson as Episode, ...prev])
+      setEpisodes(prev => [episodeBody as Episode, ...prev])
       setComposerOpen(false)
       toast('Episode uploaded.')
       await refreshEpisodes()
@@ -150,9 +186,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null
     if (!file) return
-    if (!file.type.startsWith('audio/')) {
-      setError('Please choose an audio file.')
-      toast('Please choose an audio file.')
+    if (!file.name.toLowerCase().endsWith('.mp3')) {
+      setError('Please choose an MP3 file.')
+      toast('Please choose an MP3 file.')
       e.currentTarget.value = ''
       return
     }
@@ -174,12 +210,12 @@ export default function RadioClient({ initialEpisodes }: Props) {
           <div className="hk">Episodes</div>
           <div className="hl">Existing `episodes` table</div>
           <div className="hs">
-            Radio archive entries are backed by the current Supabase `episodes` model. Upload sends the
-            file to R2 first, then writes the episode record.
+            Radio archive entries are backed by the current Supabase `episodes` model. Upload requests
+            a signed R2 URL, sends the MP3 directly from the browser, then writes the episode record.
           </div>
           <div className="hb">
             <span className="hvis">{loading ? 'Refreshing...' : `${episodes.length} episodes`}</span>
-            <span className="hvis">MP3 upload wired</span>
+            <span className="hvis">Direct R2 upload wired</span>
           </div>
         </div>
 
@@ -285,7 +321,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
             onChange={onFileChange}
           />
           <div className="hs" style={{ marginTop: 8 }}>
-            MP3 files are required so the track can appear in the existing radio listing.
+            MP3 files are uploaded directly to R2 from the browser, then linked to the episode record.
           </div>
         </div>
 

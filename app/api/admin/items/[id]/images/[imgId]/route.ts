@@ -1,9 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 interface Params { params: Promise<{ id: string; imgId: string }> }
 
 export async function PUT(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { imgId } = await params
   const body = await request.json()
   const { sort_order, alt_text } = body
@@ -24,7 +29,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
   return NextResponse.json(data)
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { id, imgId } = await params
   const supabase = await createServiceClient()
 

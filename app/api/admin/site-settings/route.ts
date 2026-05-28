@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 type SiteSettingsPayload = {
   hero?: Record<string, unknown>
@@ -8,7 +9,11 @@ type SiteSettingsPayload = {
   newsletter?: Record<string, unknown>
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   let supabase: Awaited<ReturnType<typeof createServiceClient>>
   try {
     supabase = await createServiceClient()
@@ -30,11 +35,8 @@ export async function GET() {
 }
 
 export async function PUT(request: NextRequest) {
-  const supabase = await createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
   }
 
   const body = (await request.json()) as SiteSettingsPayload

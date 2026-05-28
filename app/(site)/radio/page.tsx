@@ -1,90 +1,73 @@
-'use client'
-
-import { useState } from 'react'
+import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import ScanReveal from '@/components/ui/ScanReveal'
+import type { Episode } from '@/types'
 
-// Static waveform heights — avoids SSR hydration mismatch from Math.random()
-const WAVEFORM_HEIGHTS = [8, 14, 6, 18, 10, 20, 12, 16, 8, 14, 10, 20, 6, 18, 12, 14, 8, 16, 10, 14]
-
-interface Episode {
-  id:             string
-  episodeNumber:  number
-  title:          string
-  description:    string
-  duration:       string
-  date:           string
-  tags:           string[]
-  audioUrl:       string | null
+export const metadata: Metadata = {
+  title: 'Radio',
+  description: 'Curated mixes, live sessions, and field recordings from the house archive.',
 }
 
-const episodes: Episode[] = [
-  { id: 'ep18', episodeNumber: 18, title: 'Afro-Cuban Jazz at the Source',    description: 'Two hours tracking Afro-Cuban jazz from Havana street rhythms to Miami cocktail bars. Rare 1970s Cuban pressings throughout.',                duration: '2h 04m', date: 'Mar 2024', tags: ['Jazz', 'Cuba', 'Archive'],     audioUrl: null },
-  { id: 'ep17', episodeNumber: 17, title: 'Saudade — A Brazilian Journey',    description: 'Bossa nova, tropicália, and the sadness that runs through all of it. Curated from original vinyl.',                                    duration: '1h 48m', date: 'Feb 2024', tags: ['Brazil', 'Bossa', 'Vinyl'],    audioUrl: null },
-  { id: 'ep16', episodeNumber: 16, title: 'Funk Carioca',                     description: 'Rio de Janeiro\'s street sound — raw, percussive, built for bodies.',                                                                  duration: '1h 22m', date: 'Jan 2024', tags: ['Brazil', 'Funk', 'Dance'],    audioUrl: null },
-  { id: 'ep15', episodeNumber: 15, title: 'Miami Bass: A Retrospective',      description: 'Three acts tracing how Miami bass went from a local phenomenon to a template the world kept copying.',                                                                        duration: '1h 55m', date: 'Dec 2023', tags: ['Miami', 'Bass', 'History'],  audioUrl: null },
-  { id: 'ep14', episodeNumber: 14, title: 'Slow Burners Vol. II',             description: 'Late-night music for people who don\'t want the night to end. Put it on. Don\'t stop it.',                                                                      duration: '2h 12m', date: 'Nov 2023', tags: ['Ambient', 'Deep', 'Night'],  audioUrl: null },
-  { id: 'ep13', episodeNumber: 13, title: 'Havana Club Session',              description: 'Live recording from a sunset session in Little Havana. The room was full, the rum was cold.',                                                                duration: '1h 38m', date: 'Oct 2023', tags: ['Live', 'Havana', 'Session'], audioUrl: null },
-]
+export const dynamic = 'force-dynamic'
 
-function EpisodeRow({ ep, isActive }: {
-  ep:       Episode
-  isActive: boolean
-}) {
-  return (
-    <div
-      className={[
-        'flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5',
-        'border-b border-charcoal/30 last:border-0 transition-colors duration-200',
-        isActive ? 'bg-teal/10' : '',
-      ].join(' ')}
-    >
-      {/* Play indicator — disabled */}
-      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center border border-charcoal/40">
-        <span className="font-mono text-[0.65rem] text-charcoal/40">
-          —
-        </span>
-      </div>
-
-      {/* Meta */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-3 mb-1">
-          <span className="archive-label text-[0.58rem] text-teal-light">
-            EP·{String(ep.episodeNumber).padStart(2, '0')}
-          </span>
-          {ep.tags.slice(0, 2).map(tag => (
-            <span key={tag} className="archive-label text-[0.55rem] text-charcoal border border-charcoal/40 px-1.5 py-0.5">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <h3 className={[
-          'font-display text-base leading-snug transition-colors',
-          isActive ? 'text-warm-white' : 'text-pale-stone group-hover:text-warm-white',
-        ].join(' ')}>
-          {ep.title}
-        </h3>
-        <p className="text-stone-grey text-xs leading-relaxed mt-1 line-clamp-1">
-          {ep.description}
-        </p>
-      </div>
-
-      {/* Duration + date */}
-      <div className="flex-shrink-0 text-right hidden sm:block">
-        <p className="font-mono text-xs text-stone-grey">{ep.duration}</p>
-        <p className="archive-label text-[0.55rem] mt-1">{ep.date}</p>
-      </div>
-    </div>
-  )
+type EpisodesResponse = {
+  episodes?: Episode[]
 }
 
-export default function RadioPage() {
-  const [activeId, setActiveId] = useState<string | null>(null)
+function formatDate(value: string | null | undefined) {
+  if (!value) return 'Unpublished'
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(value))
+}
 
-  const activeEpisode = episodes.find(e => e.id === activeId)
+function formatDuration(seconds: number | null | undefined) {
+  if (seconds == null || Number.isNaN(seconds)) return null
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const remainingSeconds = seconds % 60
+
+  if (hours > 0) return `${hours}h ${String(minutes).padStart(2, '0')}m`
+  return `${minutes}m ${String(remainingSeconds).padStart(2, '0')}s`
+}
+
+async function getBaseUrl() {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  if (configured) return configured.replace(/\/$/, '')
+
+  const headerStore = await headers()
+  const host = headerStore.get('x-forwarded-host') ?? headerStore.get('host')
+  const proto = headerStore.get('x-forwarded-proto') ?? (host?.includes('localhost') ? 'http' : 'https')
+
+  if (host) return `${proto}://${host}`
+  return 'http://localhost:3000'
+}
+
+async function loadEpisodes() {
+  try {
+    const baseUrl = await getBaseUrl()
+    const res = await fetch(`${baseUrl}/api/episodes?limit=50`, {
+      cache: 'no-store',
+    })
+
+    if (!res.ok) {
+      throw new Error('Failed to load episodes.')
+    }
+
+    const body = (await res.json()) as EpisodesResponse
+    return Array.isArray(body.episodes) ? body.episodes : []
+  } catch {
+    return []
+  }
+}
+
+export default async function RadioPage() {
+  const episodes = await loadEpisodes()
 
   return (
     <>
-      {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="pt-32 pb-16 bg-black text-pale-stone">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
@@ -95,87 +78,89 @@ export default function RadioPage() {
             >
               The Archive
             </h1>
-            <p className="text-stone-grey text-sm mt-4 max-w-prose">
-              Curated mixes, live sessions, field recordings.
-              Listen front to back. No shuffle.
+            <p className="text-stone-grey text-sm mt-4 max-w-prose leading-relaxed">
+              Curated mixes, live sessions, and field recordings. Listen front to back, straight from
+              the published archive.
             </p>
           </ScanReveal>
         </div>
       </div>
 
-      {/* ── Coming Soon Banner ─────────────────────────────────────────── */}
-      <div className="bg-near-black border-b border-charcoal/40 py-4">
-        <div className="max-w-site mx-auto px-5 md:px-10">
-          <p className="font-mono text-xs text-stone-grey/60 text-center tracking-wide">
-            The archive is being prepared. Episodes launching soon.
-          </p>
-        </div>
-      </div>
-
-      {/* ── Sticky Player ──────────────────────────────────────────────── */}
-      {activeEpisode && (
-        <div className="sticky top-16 z-30 bg-near-black border-b border-charcoal/50
-                        shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
-          <div className="max-w-site mx-auto px-5 md:px-10 py-4 flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-neon-pink animate-pulse" style={{ boxShadow: '0 0 6px rgba(255,60,142,0.5)' }} />
-              <span className="font-mono text-[0.65rem] text-stone-grey tracking-wider uppercase">
-                Now Playing
-              </span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-display text-warm-white text-sm truncate">
-                EP·{String(activeEpisode.episodeNumber).padStart(2, '0')} — {activeEpisode.title}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              {/* Audio player placeholder */}
-              <div className="hidden sm:flex items-center gap-1">
-                {WAVEFORM_HEIGHTS.map((h, i) => (
-                  <div
-                    key={i}
-                    className="w-0.5 bg-neon-pink rounded-full"
-                    style={{ height: `${h}px`, opacity: 0.7 }}
-                  />
-                ))}
-              </div>
-              <button
-                onClick={() => setActiveId(null)}
-                className="font-mono text-xs text-stone-grey hover:text-pale-stone transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Episode List ───────────────────────────────────────────────── */}
       <section className="bg-black min-h-screen">
         <div className="max-w-site mx-auto px-5 md:px-10 py-12">
-          <ScanReveal>
-            <div className="border border-charcoal/40">
-              {/* Table header */}
-              <div className="flex items-center gap-4 px-5 py-3 border-b border-charcoal/40">
-                <div className="w-10" />
-                <div className="flex-1">
-                  <span className="archive-label text-[0.58rem]">Episode / Title</span>
-                </div>
-                <div className="hidden sm:block">
-                  <span className="archive-label text-[0.58rem]">Duration</span>
-                </div>
+          {episodes.length === 0 ? (
+            <ScanReveal>
+              <div className="border border-charcoal/40 bg-near-black p-8 md:p-10">
+                <p className="archive-label text-[0.62rem] text-teal">Radio Archive</p>
+                <h2 className="font-display text-warm-white mt-3" style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
+                  No published episodes yet.
+                </h2>
+                <p className="text-stone-grey text-sm leading-relaxed mt-3 max-w-prose">
+                  The archive is now wired to live episode data. Publish an episode in Studio and it
+                  will appear here automatically.
+                </p>
               </div>
+            </ScanReveal>
+          ) : (
+            <ScanReveal>
+              <div className="border border-charcoal/40">
+                <div className="hidden md:grid md:grid-cols-[120px_1fr_280px] gap-6 px-5 py-3 border-b border-charcoal/40">
+                  <span className="archive-label text-[0.58rem]">Date</span>
+                  <span className="archive-label text-[0.58rem]">Episode / Title</span>
+                  <span className="archive-label text-[0.58rem]">Playback</span>
+                </div>
 
-              {episodes.map((ep) => (
-                <EpisodeRow
-                  key={ep.id}
-                  ep={ep}
-                  isActive={activeId === ep.id}
-                />
-              ))}
-            </div>
-          </ScanReveal>
+                {episodes.map((episode, index) => (
+                  <article
+                    key={episode.id}
+                    className="grid md:grid-cols-[120px_1fr_280px] gap-4 md:gap-6 px-5 py-6 border-b border-charcoal/30 last:border-b-0"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <span className="archive-label text-[0.58rem] text-teal-light">
+                        EP.{String(episode.episode_number ?? index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="font-mono text-xs text-stone-grey">
+                        {formatDate(episode.published_at ?? episode.created_at)}
+                      </span>
+                      {formatDuration(episode.duration) && (
+                        <span className="font-mono text-xs text-stone-grey/80">
+                          {formatDuration(episode.duration)}
+                        </span>
+                      )}
+                    </div>
 
+                    <div className="min-w-0">
+                      <h2 className="font-display text-warm-white text-xl leading-snug">
+                        {episode.title}
+                      </h2>
+                      <p className="text-stone-grey text-sm leading-relaxed mt-2">
+                        {episode.description ?? 'No description yet.'}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center">
+                      {episode.audio_url ? (
+                        <audio
+                          controls
+                          preload="none"
+                          className="w-full"
+                          src={episode.audio_url}
+                        >
+                          Your browser does not support the audio element.
+                        </audio>
+                      ) : (
+                        <div className="w-full border border-charcoal/40 px-4 py-3">
+                          <span className="font-mono text-xs text-stone-grey">
+                            Audio unavailable
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </ScanReveal>
+          )}
         </div>
       </section>
     </>

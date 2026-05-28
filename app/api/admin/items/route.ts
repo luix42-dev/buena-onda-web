@@ -1,7 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 export async function GET(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const { searchParams } = request.nextUrl
   const status = searchParams.get('status')
   const themeId = searchParams.get('theme_id')
@@ -26,6 +31,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
   const body = await request.json()
   const {
     title, slug, theme_id, price, buy_url,

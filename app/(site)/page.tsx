@@ -4,52 +4,138 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 import HeroGrid from '@/components/HeroGrid'
 import { getHeroImages } from '@/lib/getHeroImages'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
-  title: 'Buena Onda — Analog Culture House',
+  title: 'Buena Onda - Analog Culture House',
 }
+
+export const dynamic = 'force-dynamic'
 
 const pillars = [
   {
-    name:     'Objects',
+    name: 'Objects',
     headline: 'Things built to outlive their moment.',
-    text:     'Garments, furniture, and objects chosen for how they age. Everything in the catalog was sourced with reason.',
-    href:     '/themes',
+    text: 'Garments, furniture, and objects chosen for how they age. Everything in the catalog was sourced with reason.',
+    href: '/themes',
   },
   {
-    name:     'Culture',
+    name: 'Culture',
     headline: 'Essays from the analog world.',
-    text:     'Dispatches on music, objects, and the Miami that runs below the surface. Long reads.',
-    href:     '/culture',
+    text: 'Dispatches on music, objects, and the Miami that runs below the surface. Long reads.',
+    href: '/culture',
   },
   {
-    name:     'Radio',
+    name: 'Radio',
     headline: 'The signal is always on.',
-    text:     'Mixes, live sessions, and field recordings from Little Havana and Wynwood. Front to back.',
-    href:     '/radio',
+    text: 'Mixes, live sessions, and field recordings from Little Havana and Wynwood. Front to back.',
+    href: '/radio',
   },
   {
-    name:     'Drops',
+    name: 'Drops',
     headline: 'Limited objects. One run.',
-    text:     'Seasonal releases. No schedule posted in advance. Once sold, that\'s the end of it.',
-    href:     '/radio',
+    text: 'Seasonal releases. No schedule posted in advance. Once sold, that is the end of it.',
+    href: '/radio',
   },
 ]
 
+type SiteSettingValue = Record<string, unknown>
 
-export default function HomePage() {
+type SiteSettingRow = {
+  key: string
+  value: SiteSettingValue | null
+}
+
+const DEFAULT_HERO = {
+  title: 'Buena Onda',
+  subtitle: 'An Analog Culture House',
+  cta: 'Explore the house',
+}
+
+const DEFAULT_SOCIAL = {
+  instagram: 'https://instagram.com/buenaondalifestyle',
+  mixcloud: '',
+  spotify: '',
+}
+
+const DEFAULT_CONTACT = {
+  email: 'hello@buenaonda.com',
+  city: 'Miami, FL',
+}
+
+const DEFAULT_NEWSLETTER = {
+  enabled: true,
+  provider: 'resend',
+}
+
+function asString(value: unknown, fallback = '') {
+  return typeof value === 'string' && value.trim() ? value.trim() : fallback
+}
+
+function asBoolean(value: unknown, fallback = false) {
+  return typeof value === 'boolean' ? value : fallback
+}
+
+function splitHeroTitle(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean)
+  if (words.length <= 1) return [title, ''] as const
+  return [words[0], words.slice(1).join(' ')] as const
+}
+
+async function loadHomepageSettings() {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('key,value')
+      .in('key', ['hero', 'social', 'contact', 'newsletter'])
+
+    if (error) throw error
+
+    const byKey = new Map((data ?? []).map((setting: SiteSettingRow) => [setting.key, setting.value ?? {}]))
+
+    return {
+      hero: (byKey.get('hero') ?? {}) as SiteSettingValue,
+      social: (byKey.get('social') ?? {}) as SiteSettingValue,
+      contact: (byKey.get('contact') ?? {}) as SiteSettingValue,
+      newsletter: (byKey.get('newsletter') ?? {}) as SiteSettingValue,
+    }
+  } catch {
+    return {
+      hero: DEFAULT_HERO,
+      social: DEFAULT_SOCIAL,
+      contact: DEFAULT_CONTACT,
+      newsletter: DEFAULT_NEWSLETTER,
+    }
+  }
+}
+
+export default async function HomePage() {
   const heroPool = getHeroImages()
+  const { hero, social, contact, newsletter } = await loadHomepageSettings()
+
+  const heroTitle = asString(hero.title, DEFAULT_HERO.title)
+  const heroSubtitle = asString(hero.subtitle, DEFAULT_HERO.subtitle)
+  const heroCta = asString(hero.cta, DEFAULT_HERO.cta)
+  const [heroLineOne, heroLineTwo] = splitHeroTitle(heroTitle)
+
+  const contactEmail = asString(contact.email, DEFAULT_CONTACT.email)
+  const contactCity = asString(contact.city, DEFAULT_CONTACT.city)
+  const newsletterEnabled = asBoolean(newsletter.enabled, DEFAULT_NEWSLETTER.enabled)
+
+  const socialLinks = [
+    { label: 'Instagram', href: asString(social.instagram, DEFAULT_SOCIAL.instagram) },
+    { label: 'Mixcloud', href: asString(social.mixcloud, DEFAULT_SOCIAL.mixcloud) },
+    { label: 'Spotify', href: asString(social.spotify, DEFAULT_SOCIAL.spotify) },
+  ].filter(link => !!link.href)
 
   return (
     <>
-      {/* ── 1. HERO ──────────────────────────────────────────────────────────── */}
       <section
         className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%] pt-16"
         style={{ background: '#FAF8F5' }}
       >
-        {/* Left panel */}
         <div className="relative flex flex-col justify-center pl-10 md:pl-20 pr-8 md:pr-10 py-24 md:py-32">
-          {/* Teal vertical bar */}
           <div
             className="absolute left-0 top-0 bottom-0"
             style={{ width: '5px', background: '#A8C9C3' }}
@@ -67,41 +153,67 @@ export default function HomePage() {
             className="font-display leading-none mb-6 animate-fade-up"
             style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', animationDelay: '250ms' }}
           >
-            <span style={{ color: '#2A9D9D', display: 'block' }}>BUENA</span>
-            <span style={{ color: '#D4547A', display: 'block' }}>ONDA</span>
+            <span style={{ color: '#2A9D9D', display: 'block' }}>{heroLineOne}</span>
+            {heroLineTwo ? (
+              <span style={{ color: '#D4547A', display: 'block' }}>{heroLineTwo}</span>
+            ) : null}
           </h1>
 
           <p
             className="animate-fade-up mb-10"
             style={{
-              fontFamily:     'var(--font-sans)',
-              fontWeight:     400,
-              fontSize:       'clamp(1rem, 1.5vw, 1.3rem)',
-              color:          '#555',
-              maxWidth:       '26ch',
-              lineHeight:     1.55,
-              letterSpacing:  '0.02em',
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 400,
+              fontSize: 'clamp(1rem, 1.5vw, 1.3rem)',
+              color: '#555',
+              maxWidth: '26ch',
+              lineHeight: 1.55,
+              letterSpacing: '0.02em',
               animationDelay: '400ms',
+              whiteSpace: 'pre-line',
             }}
           >
-            Rooted in Miami. Music, objects, and culture<br />
-            made to stay.
+            {heroSubtitle}
           </p>
 
           <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
             <Link href="#pillars" className="btn-hollow-coral">
-              Explore the house ↓
+              {heroCta} ↓
             </Link>
           </div>
+
+          {socialLinks.length > 0 ? (
+            <div className="animate-fade-up flex flex-wrap gap-5 mt-6" style={{ animationDelay: '620ms' }}>
+              {socialLinks.map(link => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#D4547A]"
+                  style={{ color: '#666', fontWeight: 500 }}
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          ) : null}
 
           <p
             className="font-sans text-[0.6rem] tracking-[0.3em] uppercase mt-16 animate-fade-up"
             style={{ color: '#AAA', animationDelay: '700ms', fontWeight: 500 }}
           >
-            Miami, FL · Est. 2014
+            {contactCity}
+            {contactEmail ? (
+              <>
+                {' '}·{' '}
+                <a href={`mailto:${contactEmail}`} className="hover:text-[#2A9D9D] transition-colors">
+                  {contactEmail}
+                </a>
+              </>
+            ) : null}
           </p>
 
-          {/* Mobile-only 4-color accent bar — brand palette anchor on small viewports */}
           <div className="md:hidden flex h-2 mt-10 -ml-10 -mr-8" aria-hidden="true">
             <div className="flex-1" style={{ background: '#2A9D9D' }} />
             <div className="flex-1" style={{ background: '#D9685A' }} />
@@ -110,14 +222,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right panel — Arq-Grid */}
         <div className="relative hidden md:flex items-center justify-center overflow-hidden">
           <HeroGrid
             images={heroPool}
             fallback={['/images/hero/01.jpg', '/images/hero/02.jpg', '/images/hero/06.jpg']}
           />
 
-          {/* Coral arq-steps — bottom-right */}
           <div
             className="absolute bottom-8 right-8 animate-fade-up"
             style={{ animationDelay: '650ms' }}
@@ -130,9 +240,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. PILLARS ───────────────────────────────────────────────────────── */}
       <section id="pillars" style={{ background: '#1A7070' }}>
-        {/* 4-color bar */}
         <div className="flex" style={{ height: '8px' }}>
           <div className="flex-1" style={{ background: '#2A9D9D' }} />
           <div className="flex-1" style={{ background: '#D9685A' }} />
@@ -204,10 +312,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Vice strip */}
       <div className="vice-strip" />
 
-      {/* ── 4. SOUND STRIP ───────────────────────────────────────────────────── */}
       <section style={{ background: '#0D0D0D' }}>
         <div className="max-w-site mx-auto px-5 md:px-10 py-20">
           <ScanReveal>
@@ -216,10 +322,10 @@ export default function HomePage() {
                 <p
                   className="font-display mb-6"
                   style={{
-                    color:         '#FF3C8E',
-                    fontSize:      '0.75rem',
+                    color: '#FF3C8E',
+                    fontSize: '0.75rem',
                     letterSpacing: '0.3em',
-                    textShadow:    '0 0 8px rgba(255,60,142,0.25)',
+                    textShadow: '0 0 8px rgba(255,60,142,0.25)',
                   }}
                 >
                   NOW PLAYING
@@ -234,8 +340,7 @@ export default function HomePage() {
                   className="font-sans text-sm leading-relaxed mb-10 max-w-xl"
                   style={{ color: '#777', fontWeight: 300 }}
                 >
-                  Curated mixes, live sessions, and field recordings.
-                  Front to back.
+                  Curated mixes, live sessions, and field recordings. Front to back.
                 </p>
                 <Link href="/radio" className="btn-hollow-coral group">
                   Enter the archive
@@ -243,7 +348,6 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Episode card — coming soon */}
               <div
                 className="hidden md:block w-72 p-8"
                 style={{ border: '1px solid rgba(255,255,255,0.1)' }}
@@ -252,33 +356,32 @@ export default function HomePage() {
                   className="font-mono mb-3"
                   style={{ color: 'rgba(255,60,142,0.4)', fontSize: '0.55rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 >
-                  Coming Soon
+                  Radio
                 </p>
-                <p className="font-display text-white text-lg mb-2">Onda Tropical Vol. 1</p>
+                <p className="font-display text-white text-lg mb-2">Published archive live</p>
                 <p className="font-sans text-xs leading-relaxed" style={{ color: '#555' }}>
-                  First episode dropping soon.
+                  New episodes appear here as soon as they are published in Studio.
                 </p>
               </div>
             </div>
           </ScanReveal>
         </div>
 
-        {/* Bottom gradient line */}
         <div
           className="h-px opacity-40"
           style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF, #FF3C8E)' }}
         />
       </section>
 
-      {/* ── 5. MANIFESTO ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-32" style={{ background: '#0D0D0D' }}>
-        {/* Ambient radial glows */}
         <div
           className="absolute pointer-events-none"
           aria-hidden="true"
           style={{
-            bottom: '-10%', left: '-10%',
-            width: '50vw', height: '50vw',
+            bottom: '-10%',
+            left: '-10%',
+            width: '50vw',
+            height: '50vw',
             background: 'radial-gradient(ellipse, rgba(255,60,142,0.08) 0%, transparent 70%)',
           }}
         />
@@ -286,16 +389,16 @@ export default function HomePage() {
           className="absolute pointer-events-none"
           aria-hidden="true"
           style={{
-            top: '-10%', right: '-10%',
-            width: '50vw', height: '50vw',
+            top: '-10%',
+            right: '-10%',
+            width: '50vw',
+            height: '50vw',
             background: 'radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%)',
           }}
         />
 
-        {/* Film grain overlay */}
         <div className="grain-overlay" aria-hidden="true" />
 
-        {/* Bauhaus circles — top-right decorative */}
         <div
           className="absolute pointer-events-none"
           aria-hidden="true"
@@ -303,23 +406,23 @@ export default function HomePage() {
         >
           <div
             style={{
-              width:        '28vw',
-              height:       '28vw',
-              border:       '1px solid rgba(0,212,255,0.15)',
-              boxShadow:    '0 0 20px rgba(0,212,255,0.05)',
+              width: '28vw',
+              height: '28vw',
+              border: '1px solid rgba(0,212,255,0.15)',
+              boxShadow: '0 0 20px rgba(0,212,255,0.05)',
               borderRadius: '50%',
-              position:     'relative',
+              position: 'relative',
             }}
           >
             <div
               style={{
-                position:     'absolute',
-                top:          '20%',
-                left:         '20%',
-                width:        '18vw',
-                height:       '18vw',
-                border:       '1px solid rgba(255,179,71,0.15)',
-                boxShadow:    '0 0 15px rgba(255,179,71,0.05)',
+                position: 'absolute',
+                top: '20%',
+                left: '20%',
+                width: '18vw',
+                height: '18vw',
+                border: '1px solid rgba(255,179,71,0.15)',
+                boxShadow: '0 0 15px rgba(255,179,71,0.05)',
                 borderRadius: '50%',
               }}
             />
@@ -336,7 +439,6 @@ export default function HomePage() {
             </span>
 
             <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-16">
-              {/* Left col — blockquote */}
               <div>
                 <blockquote
                   className="font-display uppercase"
@@ -346,7 +448,7 @@ export default function HomePage() {
                   <br />It is{' '}
                   <span
                     style={{
-                      color:      '#FFB347',
+                      color: '#FFB347',
                       textShadow: '0 0 10px rgba(255,179,71,0.3)',
                     }}
                   >
@@ -355,25 +457,24 @@ export default function HomePage() {
                 </blockquote>
               </div>
 
-              {/* Right col — body + attribution */}
               <div className="flex flex-col justify-center">
                 <p
                   className="font-sans mb-8"
                   style={{ color: '#777', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
                 >
-                  We&apos;re building a present with weight and duration.
-                  Every object, mix, and essay is chosen to outlast the year it was made.
+                  We are building a present with weight and duration. Every object, mix, and essay is
+                  chosen to outlast the year it was made.
                 </p>
                 <cite
                   className="font-display not-italic block"
                   style={{
-                    fontSize:      '0.9rem',
-                    color:         '#00D4FF',
+                    fontSize: '0.9rem',
+                    color: '#00D4FF',
                     letterSpacing: '0.2em',
-                    textShadow:    '0 0 8px rgba(0,212,255,0.4)',
+                    textShadow: '0 0 8px rgba(0,212,255,0.4)',
                   }}
                 >
-                  — Buena Onda, Miami, 2014
+                  - Buena Onda, {contactCity || 'Miami, FL'}
                 </cite>
               </div>
             </div>
@@ -381,9 +482,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. TRANSMISSION ──────────────────────────────────────────────────── */}
       <section className="relative" style={{ background: '#161416' }}>
-        {/* Top gradient border */}
         <div
           className="h-px opacity-30"
           style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF)' }}
@@ -392,15 +491,14 @@ export default function HomePage() {
         <div className="max-w-site mx-auto px-5 md:px-10 py-24">
           <ScanReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-              {/* Left col */}
               <div>
                 <span
                   className="font-display block mb-4"
                   style={{
-                    color:         '#FF3C8E',
-                    fontSize:      '0.75rem',
+                    color: '#FF3C8E',
+                    fontSize: '0.75rem',
                     letterSpacing: '0.3em',
-                    textShadow:    '0 0 8px rgba(255,60,142,0.25)',
+                    textShadow: '0 0 8px rgba(255,60,142,0.25)',
                   }}
                 >
                   STAY CLOSE
@@ -412,13 +510,50 @@ export default function HomePage() {
                   Slow mail. Worth reading.
                 </h2>
                 <p className="font-sans text-sm" style={{ color: '#777', fontWeight: 300 }}>
-                  Drops, mixes, and what&apos;s happening in the house. Curated by hand.
+                  Drops, mixes, and what is happening in the house. Curated by hand.
                 </p>
+
+                <div className="flex flex-wrap gap-5 mt-8">
+                  {contactEmail ? (
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#FF3C8E]"
+                      style={{ color: '#9A9A9A', fontWeight: 500 }}
+                    >
+                      {contactEmail}
+                    </a>
+                  ) : null}
+                  {socialLinks.map(link => (
+                    <a
+                      key={`transmission-${link.label}`}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#FF3C8E]"
+                      style={{ color: '#9A9A9A', fontWeight: 500 }}
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
               </div>
 
-              {/* Right col — form */}
               <div className="border-l border-white/5 pl-8 md:pl-16 flex flex-col justify-center">
-                <NewsletterForm layout="stack" variant="dark" />
+                {newsletterEnabled ? (
+                  <NewsletterForm layout="stack" variant="dark" />
+                ) : (
+                  <p className="font-sans text-sm leading-relaxed" style={{ color: '#777', fontWeight: 300 }}>
+                    The newsletter is paused for now. Reach out at{' '}
+                    {contactEmail ? (
+                      <a href={`mailto:${contactEmail}`} className="text-white transition-colors hover:text-[#FF3C8E]">
+                        {contactEmail}
+                      </a>
+                    ) : (
+                      'the studio email'
+                    )}
+                    .
+                  </p>
+                )}
               </div>
             </div>
           </ScanReveal>
