@@ -27,6 +27,47 @@ function formatDuration(seconds: number | null | undefined) {
   return `${mins}m ${secs}s`
 }
 
+const UPLOAD_PREFIX_RE = /^\d{10,}-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-/i
+
+function titleCase(value: string) {
+  return value.replace(/\b[a-z]/g, char => char.toUpperCase())
+}
+
+function deriveEpisodeTitleFromFileName(fileName: string) {
+  const stem = fileName.replace(/\.[^.]+$/, '')
+  const withoutPrefix = stem
+    .replace(UPLOAD_PREFIX_RE, '')
+    .replace(/^\d{10,}-/, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  return titleCase(withoutPrefix || stem)
+}
+
+function getAudioFileName(audioUrl: string | null | undefined) {
+  if (!audioUrl) return 'n/a'
+
+  try {
+    const pathname = new URL(audioUrl).pathname
+    return decodeURIComponent(pathname.split('/').pop() ?? audioUrl)
+  } catch {
+    const fallback = audioUrl.split('/').pop() ?? audioUrl
+    try {
+      return decodeURIComponent(fallback)
+    } catch {
+      return fallback
+    }
+  }
+}
+
+function truncateMiddle(value: string, maxLength = 34) {
+  if (value.length <= maxLength) return value
+  const head = Math.ceil((maxLength - 3) / 2)
+  const tail = Math.floor((maxLength - 3) / 2)
+  return `${value.slice(0, head)}...${value.slice(value.length - tail)}`
+}
+
 function parseTags(raw: string) {
   return raw
     .split(',')
@@ -46,6 +87,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const toast = useToast()
   const fileRef = useRef<HTMLInputElement>(null)
   const [episodes, setEpisodes] = useState<Episode[]>(initialEpisodes)
+  const [publishingIds, setPublishingIds] = useState<Record<string, boolean>>({})
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [composerOpen, setComposerOpen] = useState(false)
@@ -94,7 +136,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
   }
 
   const uploadEpisode = async () => {
-    if (!title.trim()) {
+    const nextTitle = title.trim() || (audioFile ? deriveEpisodeTitleFromFileName(audioFile.name) : '')
+
+    if (!nextTitle) {
       setError('Title is required.')
       return
     }
@@ -148,7 +192,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title: title.trim(),
+          title: nextTitle,
           description: description.trim() || undefined,
           audio_url: uploadData.publicUrl,
           episode_number: episodeNumber ? parseInt(episodeNumber, 10) : null,
@@ -193,7 +237,59 @@ export default function RadioClient({ initialEpisodes }: Props) {
       return
     }
     setAudioFile(file)
+    setTitle(deriveEpisodeTitleFromFileName(file.name))
     setError(null)
+  }
+
+  const togglePublished = async (episode: Episode) => {
+    if (publishingIds[episode.id]) return
+
+    const nextPublished = !episode.published
+    const optimisticEpisode: Episode = {
+      ...episode,
+      published: nextPublished,
+      published_at: nextPublished ? new Date().toISOString() : null,
+    }
+
+    setPublishingIds(current => ({ ...current, [episode.id]: true }))
+    setEpisodes(current => current.map(item => (
+      item.id === episode.id ? optimisticEpisode : item
+    )))
+
+    try {
+      const res = await fetch(`/api/admin/episodes/${episode.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ published: nextPublished }),
+      })
+      const body = await readJsonOrText(res)
+
+      if (!res.ok) {
+        let msg = nextPublished ? 'Could not publish episode.' : 'Could not unpublish episode.'
+        if (typeof body === 'string') {
+          msg = body
+        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+          msg = body.error
+        }
+        throw new Error(msg)
+      }
+
+      setEpisodes(current => current.map(item => (
+        item.id === episode.id ? body as Episode : item
+      )))
+      toast(nextPublished ? 'Episode published.' : 'Episode unpublished.')
+    } catch (err) {
+      setEpisodes(current => current.map(item => (
+        item.id === episode.id ? episode : item
+      )))
+      toast(err instanceof Error ? err.message : 'Could not update episode status.')
+    } finally {
+      setPublishingIds(current => {
+        const next = { ...current }
+        delete next[episode.id]
+        return next
+      })
+    }
   }
 
   return (
@@ -243,6 +339,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
                 <div className="rdate">Audio</div>
                 <div className="rdate">Length</div>
                 <div className="rdate">Updated</div>
+                <div className="rdate">Action</div>
               </div>
             </div>
 
@@ -257,11 +354,25 @@ export default function RadioClient({ initialEpisodes }: Props) {
                 </div>
                 <div className="rmeta">
                   <StatusPill variant={episode.published ? 'published' : 'draft'} inline rowStyle />
-                  <div className="rdate" style={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {episode.audio_url ?? 'n/a'}
+                  <div
+                    className="rdate"
+                    title={getAudioFileName(episode.audio_url)}
+                    style={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                  >
+                    {truncateMiddle(getAudioFileName(episode.audio_url))}
                   </div>
                   <div className="rdate">{formatDuration(episode.duration)}</div>
                   <div className="rdate">{formatDate(episode.published_at ?? episode.created_at)}</div>
+                  <button
+                    type="button"
+                    className="raction"
+                    onClick={() => void togglePublished(episode)}
+                    disabled={!!publishingIds[episode.id]}
+                  >
+                    {publishingIds[episode.id]
+                      ? 'Saving...'
+                      : episode.published ? 'Unpublish' : 'Publish'}
+                  </button>
                 </div>
               </div>
             ))}
@@ -282,7 +393,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
               type="button"
               className="btn coral"
               onClick={uploadEpisode}
-              disabled={saving || !title.trim() || !audioFile}
+              disabled={saving || !audioFile || !(title.trim() || (audioFile && deriveEpisodeTitleFromFileName(audioFile.name)))}
             >
               {saving ? 'Uploading...' : 'Save episode'}
             </button>
@@ -296,7 +407,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            placeholder="Episode title"
+            placeholder="Auto-filled from the MP3 filename"
           />
         </div>
 
@@ -321,7 +432,8 @@ export default function RadioClient({ initialEpisodes }: Props) {
             onChange={onFileChange}
           />
           <div className="hs" style={{ marginTop: 8 }}>
-            MP3 files are uploaded directly to R2 from the browser, then linked to the episode record.
+            MP3 files are uploaded directly to R2 from the browser. The title auto-fills from the
+            original filename and can be edited before save.
           </div>
         </div>
 

@@ -4,6 +4,27 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 
 interface Params { params: Promise<{ id: string }> }
 
+type ServiceClient = Awaited<ReturnType<typeof createServiceClient>>
+
+async function buildPublishedUpdate(supabase: ServiceClient, id: string, published: boolean) {
+  if (!published) {
+    return { published: false, published_at: null }
+  }
+
+  const { data: existing } = await supabase
+    .from('episodes')
+    .select('published, published_at')
+    .eq('id', id)
+    .single()
+
+  return {
+    published: true,
+    published_at: existing?.published && existing.published_at
+      ? existing.published_at
+      : new Date().toISOString(),
+  }
+}
+
 export async function GET(request: NextRequest, { params }: Params) {
   if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
@@ -53,16 +74,37 @@ export async function PUT(request: NextRequest, { params }: Params) {
     episode_number: episode_number != null ? parseInt(episode_number) : null,
     duration:       duration != null ? parseInt(duration) : null,
     tags:           tags ?? [],
-    published,
   }
 
-  if (published) {
-    const { data: existing } = await supabase
-      .from('episodes').select('published, published_at').eq('id', id).single()
-    if (existing && !existing.published) {
-      update.published_at = new Date().toISOString()
-    }
+  if (typeof published === 'boolean') {
+    Object.assign(update, await buildPublishedUpdate(supabase, id, published))
   }
+
+  const { data, error } = await supabase
+    .from('episodes')
+    .update(update)
+    .eq('id', id)
+    .select()
+    .single()
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  return NextResponse.json(data)
+}
+
+export async function PATCH(request: NextRequest, { params }: Params) {
+  if (!(await isStudioAuthorized(request))) {
+    return unauthorizedStudioResponse()
+  }
+
+  const { id } = await params
+  const body = await request.json()
+
+  if (typeof body?.published !== 'boolean') {
+    return NextResponse.json({ error: 'published boolean is required' }, { status: 400 })
+  }
+
+  const supabase = await createServiceClient()
+  const update = await buildPublishedUpdate(supabase, id, body.published)
 
   const { data, error } = await supabase
     .from('episodes')
