@@ -1,6 +1,27 @@
 'use client'
 
-import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import {
+  DndContext,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from 'react'
 import SectionHead from '@/components/studio/SectionHead'
 import StatusPill from '@/components/studio/StatusPill'
 import { useToast } from '@/components/studio/Toast'
@@ -35,15 +56,125 @@ async function readJsonOrText(res: Response) {
   return res.text()
 }
 
+type SortableTrackRowProps = {
+  track: Track
+  index: number
+  editingKey: string | null
+  draftTitle: string
+  savingTitleKey: string | null
+  savingOrder: boolean
+  onStartEdit: (track: Track) => void
+  onDraftTitleChange: (value: string) => void
+  onEditBlur: (track: Track) => void
+  onEditKeyDown: (event: KeyboardEvent<HTMLInputElement>, track: Track) => void
+}
+
+function SortableTrackRow({
+  track,
+  index,
+  editingKey,
+  draftTitle,
+  savingTitleKey,
+  savingOrder,
+  onStartEdit,
+  onDraftTitleChange,
+  onEditBlur,
+  onEditKeyDown,
+}: SortableTrackRowProps) {
+  const sortableId = track.key ?? track.src
+  const isEditing = editingKey === track.key
+  const isSavingTitle = savingTitleKey === track.key
+  const {
+    attributes,
+    listeners,
+    setActivatorNodeRef,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: sortableId, disabled: savingOrder })
+
+  const style: CSSProperties = {
+    transform: transform
+      ? `translate3d(${Math.round(transform.x)}px, ${Math.round(transform.y)}px, 0)`
+      : undefined,
+    transition,
+    cursor: isDragging ? 'grabbing' : 'default',
+    position: isDragging ? 'relative' : undefined,
+    zIndex: isDragging ? 2 : undefined,
+  }
+
+  return (
+    <div ref={setNodeRef} className={`row in${isDragging ? ' dragging' : ''}`} style={style}>
+      <div className="pllead">
+        <button
+          ref={setActivatorNodeRef}
+          type="button"
+          className="plgrab"
+          aria-label={`Reorder ${track.title}`}
+          disabled={savingOrder}
+          {...attributes}
+          {...listeners}
+        >
+          ::
+        </button>
+        <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
+      </div>
+      <div className="rmain">
+        {isEditing ? (
+          <input
+            className="plinput"
+            value={draftTitle}
+            onChange={event => onDraftTitleChange(event.target.value)}
+            onBlur={() => onEditBlur(track)}
+            onKeyDown={event => onEditKeyDown(event, track)}
+            autoFocus
+            disabled={isSavingTitle}
+            maxLength={140}
+          />
+        ) : (
+          <button
+            type="button"
+            className="pltitlebtn"
+            onClick={() => onStartEdit(track)}
+            disabled={!track.key || savingOrder || !!savingTitleKey}
+          >
+            {track.title}
+          </button>
+        )}
+        <div className="rdek">{track.artist || 'Untitled source'}</div>
+      </div>
+      <div className="rmeta">
+        <div className="rdate" style={{ maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {track.fileName ?? track.key?.split('/').pop() ?? 'n/a'}
+        </div>
+        <StatusPill variant="published" inline rowStyle label={track.status ?? 'Ready'} />
+        <div className="rdate">{formatBytes(track.size)}</div>
+        <div className="rdate">{formatDate(track.lastModified)}</div>
+      </div>
+    </div>
+  )
+}
+
 export default function PlayerClient() {
   const toast = useToast()
   const fileRef = useRef<HTMLInputElement>(null)
+  const blurActionRef = useRef<'save' | 'cancel' | null>(null)
   const [tracks, setTracks] = useState<Track[]>([])
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
+  const [savingOrder, setSavingOrder] = useState(false)
+  const [savingTitleKey, setSavingTitleKey] = useState<string | null>(null)
+  const [editingKey, setEditingKey] = useState<string | null>(null)
+  const [draftTitle, setDraftTitle] = useState('')
   const [loadError, setLoadError] = useState<string | null>(null)
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 6 },
+    })
+  )
 
   const loadTracks = async () => {
     setLoading(true)
@@ -68,6 +199,8 @@ export default function PlayerClient() {
       const list = Array.isArray(body) ? body : []
       console.log('[player] loadTracks: loaded', list.length, 'tracks')
       setTracks(list as Track[])
+      setEditingKey(null)
+      setDraftTitle('')
     } catch (err) {
       console.error('[player] loadTracks: error', err)
       const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
@@ -81,6 +214,154 @@ export default function PlayerClient() {
   useEffect(() => {
     void loadTracks()
   }, [])
+
+  const startEditing = (track: Track) => {
+    if (!track.key || savingOrder || savingTitleKey) return
+    setEditingKey(track.key)
+    setDraftTitle(track.title)
+  }
+
+  const stopEditing = () => {
+    setEditingKey(null)
+    setDraftTitle('')
+  }
+
+  const saveEditedTitle = async (track: Track) => {
+    const trackKey = track.key?.trim()
+    const nextTitle = draftTitle.trim()
+
+    if (!trackKey) {
+      stopEditing()
+      return
+    }
+
+    if (!nextTitle) {
+      toast('Track title cannot be empty.')
+      stopEditing()
+      return
+    }
+
+    if (nextTitle === track.title) {
+      stopEditing()
+      return
+    }
+
+    setSavingTitleKey(trackKey)
+
+    try {
+      const res = await fetch('/api/radio/tracks', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: trackKey, title: nextTitle }),
+      })
+      const body = await readJsonOrText(res)
+
+      if (!res.ok) {
+        let msg = 'Could not save track title.'
+        if (typeof body === 'string') {
+          msg = body
+        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+          msg = body.error
+        }
+        throw new Error(msg)
+      }
+
+      setTracks(current =>
+        current.map(item => (
+          item.key === trackKey
+            ? { ...item, title: nextTitle }
+            : item
+        ))
+      )
+      toast('Track title updated.')
+      stopEditing()
+    } catch (err) {
+      console.error('[player] saveEditedTitle: error', err)
+      const msg = err instanceof Error ? err.message : 'Could not save track title.'
+      toast(msg)
+      stopEditing()
+    } finally {
+      setSavingTitleKey(null)
+    }
+  }
+
+  const handleEditBlur = (track: Track) => {
+    const action = blurActionRef.current
+    blurActionRef.current = null
+
+    if (action === 'cancel') {
+      stopEditing()
+      return
+    }
+
+    void saveEditedTitle(track)
+  }
+
+  const handleEditKeyDown = (event: KeyboardEvent<HTMLInputElement>, track: Track) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      blurActionRef.current = 'cancel'
+      event.currentTarget.blur()
+      return
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      blurActionRef.current = 'save'
+      event.currentTarget.blur()
+    }
+  }
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event
+    if (!over || active.id === over.id || savingOrder) return
+
+    const oldIndex = tracks.findIndex(track => (track.key ?? track.src) === active.id)
+    const newIndex = tracks.findIndex(track => (track.key ?? track.src) === over.id)
+
+    if (oldIndex < 0 || newIndex < 0 || oldIndex === newIndex) return
+
+    const previousTracks = tracks
+    const nextTracks = arrayMove(tracks, oldIndex, newIndex).map((track, index) => ({
+      ...track,
+      position: index,
+    }))
+    const orderedKeys = nextTracks
+      .map(track => track.key)
+      .filter((key): key is string => typeof key === 'string' && key.length > 0)
+
+    setTracks(nextTracks)
+    setSavingOrder(true)
+    stopEditing()
+
+    try {
+      const res = await fetch('/api/radio/tracks', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderedKeys }),
+      })
+      const body = await readJsonOrText(res)
+
+      if (!res.ok) {
+        let msg = 'Could not save track order.'
+        if (typeof body === 'string') {
+          msg = body
+        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
+          msg = body.error
+        }
+        throw new Error(msg)
+      }
+
+      toast('Track order updated.')
+    } catch (err) {
+      console.error('[player] handleDragEnd: error', err)
+      const msg = err instanceof Error ? err.message : 'Could not save track order.'
+      setTracks(previousTracks)
+      toast(msg)
+    } finally {
+      setSavingOrder(false)
+    }
+  }
 
   const uploadTrack = async (file: File) => {
     setUploading(true)
@@ -214,7 +495,9 @@ export default function PlayerClient() {
         ) : (
           <div className="rows">
             <div className="row" style={{ borderTop: '1px solid var(--line)' }}>
-              <div className="num">#</div>
+              <div className="pllead">
+                <div className="num">#</div>
+              </div>
               <div className="rmain">
                 <div className="rttl">Track</div>
               </div>
@@ -226,23 +509,28 @@ export default function PlayerClient() {
               </div>
             </div>
 
-            {tracks.map((track, index) => (
-              <div key={track.key ?? `${track.src}-${index}`} className="row in">
-                <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
-                <div className="rmain">
-                  <div className="rttl">{track.title}</div>
-                  <div className="rdek">{track.artist || 'Untitled source'}</div>
-                </div>
-                <div className="rmeta">
-                  <div className="rdate" style={{ maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {track.fileName ?? track.key?.split('/').pop() ?? 'n/a'}
-                  </div>
-                  <StatusPill variant="published" inline rowStyle label={track.status ?? 'Ready'} />
-                  <div className="rdate">{formatBytes(track.size)}</div>
-                  <div className="rdate">{formatDate(track.lastModified)}</div>
-                </div>
-              </div>
-            ))}
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <SortableContext
+                items={tracks.map(track => track.key ?? track.src)}
+                strategy={verticalListSortingStrategy}
+              >
+                {tracks.map((track, index) => (
+                  <SortableTrackRow
+                    key={track.key ?? `${track.src}-${index}`}
+                    track={track}
+                    index={index}
+                    editingKey={editingKey}
+                    draftTitle={draftTitle}
+                    savingTitleKey={savingTitleKey}
+                    savingOrder={savingOrder}
+                    onStartEdit={startEditing}
+                    onDraftTitleChange={setDraftTitle}
+                    onEditBlur={handleEditBlur}
+                    onEditKeyDown={handleEditKeyDown}
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
           </div>
         )}
       </div>

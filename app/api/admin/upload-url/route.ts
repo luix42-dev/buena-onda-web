@@ -121,8 +121,6 @@ export async function POST(request: NextRequest) {
       { expiresIn: 60 * 10 }
     )
 
-    console.log('[upload-url] presignedUrl', presignedUrl)
-
     return NextResponse.json({
       uploadUrl: presignedUrl,
       publicUrl: `${publicUrl}/${key}`,

@@ -7,6 +7,7 @@ export interface Track {
   cover?: string
   key?:   string
   fileName?: string
+  position?: number | null
   status?: 'ready' | 'missing-metadata'
   lastModified?: string | null
   size?: number | null
