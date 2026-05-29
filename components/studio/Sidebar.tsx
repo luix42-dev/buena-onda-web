@@ -12,6 +12,16 @@ type NavSpec = {
 
 const NAV: NavSpec[] = [
   {
+    slug:  'intake',
+    label: 'Intake',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 4h16l-2 10H6z" />
+        <path d="M6 14h4a2 2 0 004 0h4v6H6z" />
+      </svg>
+    ),
+  },
+  {
     slug:  'catalog',
     label: 'Catalog',
     icon: (
