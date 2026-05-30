@@ -40,3 +40,7 @@ scripts/.sync-log.txt
 
 # Local audio files — served from Cloudflare R2 in production
 public/audio/
+.env.local.save
+.env*.save
+.env.local.save
+.env*.save
