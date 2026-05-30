@@ -1,43 +1,41 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 
 /**
  * POST /studio/auth/start
- * Body: { email: string }
- *
- * Always returns { ok: true } so callers can't enumerate the allowed email.
- * Only sends a magic-link OTP when the submitted email matches
- * STUDIO_ALLOWED_EMAIL exactly (case-insensitive trim).
+ * Body: { password: string, from?: string }
  */
 export async function POST(request: NextRequest) {
-  const ok = NextResponse.json({ ok: true })
+  let password = ''
+  let from = '/studio'
 
-  let email = ''
   try {
     const body = await request.json()
-    if (typeof body?.email === 'string') email = body.email.trim().toLowerCase()
+    if (typeof body?.password === 'string') password = body.password
+    if (typeof body?.from === 'string' && body.from.startsWith('/studio')) {
+      from = body.from
+    }
   } catch {
-    return ok
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  if (!email || !email.includes('@')) return ok
-
-  const allowed = process.env.STUDIO_ALLOWED_EMAIL?.trim().toLowerCase()
-  if (!allowed) {
-    console.warn('[studio/auth/start] STUDIO_ALLOWED_EMAIL is unset — all sign-ins are silently rejected')
-    return ok
+  const expected = process.env.STUDIO_PASSWORD?.trim()
+  if (!expected) {
+    console.warn('[studio/auth/start] STUDIO_PASSWORD is unset')
+    return NextResponse.json({ error: 'Studio password is not configured' }, { status: 503 })
   }
-  if (email !== allowed) return ok
 
-  const supabase = await createClient()
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: `${request.nextUrl.origin}/studio/auth/callback`,
-    },
+  if (password !== expected) {
+    return NextResponse.json({ error: 'Incorrect password' }, { status: 401 })
+  }
+
+  const response = NextResponse.json({ ok: true, redirectTo: from })
+  response.cookies.set('studio_session', expected, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 30,
   })
-  if (error) {
-    console.error('[studio/auth/start] OTP send failed:', error.message)
-  }
-  return ok
+
+  return response
 }

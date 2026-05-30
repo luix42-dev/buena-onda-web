@@ -1,12 +1,17 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 
 /**
  * POST /studio/logout
- * Clears the Supabase session and redirects to the studio login screen.
+ * Clears the studio session and redirects to the studio login screen.
  */
 export async function POST(request: NextRequest) {
-  const supabase = await createClient()
-  await supabase.auth.signOut()
-  return NextResponse.redirect(`${request.nextUrl.origin}/studio/login`, { status: 303 })
+  const response = NextResponse.redirect(`${request.nextUrl.origin}/studio/login`, { status: 303 })
+  response.cookies.set('studio_session', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0,
+  })
+  return response
 }

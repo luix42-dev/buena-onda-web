@@ -1,96 +1,72 @@
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+import type { Track } from '@/lib/radio'
 import { createClient } from '@/lib/supabase/server'
-import { listRadioTracks } from '@/lib/radio'
-import { mergeTrackMetadata, reorderTracks, renameTrackTitle, RADIO_META_KV_MISSING_MESSAGE } from '@/lib/radio-metadata'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-type RenamePayload = {
-  key?: string
-  title?: string
+function humanize(s: string) {
+  return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
-type ReorderPayload = {
-  orderedKeys?: string[]
-}
+function parseName(name: string): Pick<Track, 'title' | 'artist'> {
+  const base = name.replace(/\.mp3$/i, '')
+  const parts = base.split('_')
 
-async function isAuthorized(request: NextRequest) {
-  const adminPassword = process.env.ADMIN_PASSWORD?.trim()
-  const adminCookie = request.cookies.get('bo_admin')?.value
-
-  if (adminPassword && adminCookie === adminPassword) return true
-
-  const allowedEmail = process.env.STUDIO_ALLOWED_EMAIL?.trim().toLowerCase()
-  if (!allowedEmail) {
-    return !adminPassword
+  if (parts.length >= 3) {
+    return { artist: humanize(parts[1]), title: humanize(parts.slice(2).join(' ')) }
   }
 
-  try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    const email = user?.email?.trim().toLowerCase()
-    return !!user && email === allowedEmail
-  } catch {
-    return false
+  if (parts.length === 2) {
+    return { artist: humanize(parts[0]), title: humanize(parts[1]) }
   }
+
+  return { artist: '', title: humanize(base) }
 }
 
 export async function GET() {
+  const supabase = await createClient()
+
   try {
-    const tracks = await mergeTrackMetadata(await listRadioTracks())
+    const { data, error } = await supabase.storage
+      .from('audio')
+      .list('', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: 'updated_at', order: 'desc' },
+      })
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } },
+      )
+    }
+
+    const tracks: Track[] = (data ?? [])
+      .filter(file => {
+        if (!file.name.toLowerCase().endsWith('.mp3')) return false
+        return !file.name.startsWith('.')
+      })
+      .map(file => {
+        const { data: publicUrl } = supabase.storage
+          .from('audio')
+          .getPublicUrl(file.name)
+
+        return {
+          ...parseName(file.name),
+          src: publicUrl.publicUrl,
+        }
+      })
 
     return NextResponse.json(tracks, {
       headers: { 'Cache-Control': 'no-store' },
     })
   } catch (err) {
-    console.error('R2 list error:', err)
+    console.error('Supabase audio list error:', err)
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Failed to load tracks' },
-      { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      { error: 'Failed to load tracks' },
+      { status: 500, headers: { 'Cache-Control': 'no-store' } },
     )
-  }
-}
-
-export async function PATCH(request: NextRequest) {
-  if (!(await isAuthorized(request))) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  let body: RenamePayload | ReorderPayload
-  try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
-  }
-
-  try {
-    if (Array.isArray((body as ReorderPayload).orderedKeys)) {
-      const orderedKeys = (body as ReorderPayload).orderedKeys
-        ?.filter((key): key is string => typeof key === 'string' && key.trim().length > 0)
-        .map(key => key.trim())
-
-      if (!orderedKeys || orderedKeys.length === 0) {
-        return NextResponse.json({ error: 'orderedKeys is required' }, { status: 400 })
-      }
-
-      await reorderTracks(orderedKeys)
-      return NextResponse.json({ ok: true, orderedKeys })
-    }
-
-    const renameBody = body as RenamePayload
-    const key = renameBody.key?.trim()
-    const title = renameBody.title?.trim()
-
-    if (!key || !title) {
-      return NextResponse.json({ error: 'key and title are required' }, { status: 400 })
-    }
-
-    await renameTrackTitle(key, title)
-    return NextResponse.json({ ok: true, key, title })
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Failed to update tracks'
-    const status = message === RADIO_META_KV_MISSING_MESSAGE ? 503 : 500
-    return NextResponse.json({ error: message }, { status })
   }
 }
