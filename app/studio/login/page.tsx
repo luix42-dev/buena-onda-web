@@ -13,8 +13,7 @@ export default function StudioLoginPage() {
 
 function LoginCard() {
   const params = useSearchParams()
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
@@ -25,20 +24,33 @@ function LoginCard() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
-    if (!email.trim()) return
+    if (!password) return
+
     setBusy(true)
     setErrorMsg(null)
+
     try {
-      await fetch('/studio/auth/start', {
+      const response = await fetch('/studio/auth/start', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email }),
+        body:    JSON.stringify({
+          password,
+          from: params.get('from') || '/studio',
+        }),
       })
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        setErrorMsg(typeof data?.error === 'string' ? data.error : 'Unable to sign in')
+        return
+      }
+
+      window.location.assign(typeof data?.redirectTo === 'string' ? data.redirectTo : '/studio')
     } catch {
-      // Always show success — request hardening, not user-facing failure.
+      setErrorMsg('Unable to sign in')
+    } finally {
+      setBusy(false)
     }
-    setSent(true)
-    setBusy(false)
   }
 
   return (
@@ -48,32 +60,23 @@ function LoginCard() {
         <div className="login-title">STUDIO</div>
         <div className="login-sub">the back room of the house</div>
 
-        {!sent ? (
-          <form className="login-row" onSubmit={onSubmit}>
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-              autoFocus
-              disabled={busy}
-              required
-            />
-            <button type="submit" className="btn" disabled={busy || !email.trim()}>
-              {busy ? 'Sending…' : 'Enter'}
-            </button>
-          </form>
-        ) : (
-          <div className="login-hint" style={{ marginTop: 0, fontSize: 14, color: 'var(--ink)' }}>
-            <strong style={{ display: 'block', marginBottom: 4 }}>Check your email.</strong>
-            If your address is on the allowlist, a sign-in link is on the way.
-          </div>
-        )}
+        <form className="login-row" onSubmit={onSubmit}>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            autoFocus
+            disabled={busy}
+            required
+          />
+          <button type="submit" className="btn" disabled={busy || !password}>
+            {busy ? 'Entering...' : 'Enter'}
+          </button>
+        </form>
 
-        {!sent && (
-          <div className="login-hint">We&apos;ll send you a sign-in link.</div>
-        )}
+        <div className="login-hint">Enter the studio password.</div>
         {errorMsg && <div className="login-err">{errorMsg}</div>}
       </div>
     </div>

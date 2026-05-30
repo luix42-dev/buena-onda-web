@@ -1,92 +1,23 @@
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
-import { NextResponse } from 'next/server'
-import type { Track } from '@/lib/radio'
+import { NextResponse, type NextRequest } from 'next/server'
+import { listRadioTracks } from '@/lib/radio'
+import { mergeTrackMetadata, reorderTracks, renameTrackTitle, RADIO_META_KV_MISSING_MESSAGE } from '@/lib/radio-metadata'
+import { isStudioAuthorized } from '@/lib/studio-auth'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-function getR2Client(): { client: S3Client | null; error: string | null } {
-  const accountId = process.env.CF_R2_ACCOUNT_ID
-  const accessKeyId = process.env.CF_R2_ACCESS_KEY_ID
-  const secretAccessKey = process.env.CF_R2_SECRET_ACCESS_KEY
-
-  if (!accountId || !accessKeyId || !secretAccessKey) {
-    return {
-      error: 'Missing R2 environment variables',
-      client: null,
-    }
-  }
-
-  return {
-    error: null,
-    client: new S3Client({
-      region: 'auto',
-      endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
-      credentials: {
-        accessKeyId,
-        secretAccessKey,
-      },
-    }),
-  }
+type RenamePayload = {
+  key?: string
+  title?: string
 }
 
-function humanize(s: string) {
-  return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-}
-
-function parseKey(key: string): Pick<Track, 'title' | 'artist'> {
-  const name  = key.replace(/^audio\//, '').replace(/\.mp3$/i, '')
-  const parts = name.split('_')
-
-  if (parts.length >= 3) {
-    // YYYY-MM-DD_show-name_episode-title
-    return { artist: humanize(parts[1]), title: humanize(parts.slice(2).join(' ')) }
-  }
-  if (parts.length === 2) {
-    // show-name_episode-title
-    return { artist: humanize(parts[0]), title: humanize(parts[1]) }
-  }
-  // Fallback: whole filename as title
-  return { artist: '', title: humanize(name) }
+type ReorderPayload = {
+  orderedKeys?: string[]
 }
 
 export async function GET() {
-  const { client, error: configError } = getR2Client()
-
-  if (configError || !client) {
-    return NextResponse.json(
-      { error: configError ?? 'Missing R2 environment variables' },
-      { status: 500, headers: { 'Cache-Control': 'no-store' } }
-    )
-  }
-
   try {
-    const bucketName = process.env.CF_R2_BUCKET_NAME
-    const publicUrl = process.env.CF_R2_PUBLIC_URL
-
-    if (!bucketName || !publicUrl) {
-      return NextResponse.json(
-        { error: 'Missing R2 bucket or public URL configuration' },
-        { status: 500, headers: { 'Cache-Control': 'no-store' } }
-      )
-    }
-
-    const res = await client.send(new ListObjectsV2Command({
-      Bucket: bucketName,
-      Prefix: 'audio/',
-    }))
-
-    const tracks: Track[] = (res.Contents ?? [])
-      .filter(o => {
-        if (!o.Key?.toLowerCase().endsWith('.mp3')) return false
-        const filename = o.Key.split('/').pop() ?? ''
-        return !filename.startsWith('.') // exclude macOS resource forks (._filename)
-      })
-      .sort((a, b) => (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0))
-      .map(o => ({
-        ...parseKey(o.Key!),
-        src: `${publicUrl}/${o.Key}`,
-      }))
+    const tracks = await mergeTrackMetadata(await listRadioTracks())
 
     return NextResponse.json(tracks, {
       headers: { 'Cache-Control': 'no-store' },
@@ -94,8 +25,51 @@ export async function GET() {
   } catch (err) {
     console.error('R2 list error:', err)
     return NextResponse.json(
-      { error: 'Failed to load tracks' },
+      { error: err instanceof Error ? err.message : 'Failed to load tracks' },
       { status: 500, headers: { 'Cache-Control': 'no-store' } }
     )
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  if (!isStudioAuthorized(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  let body: RenamePayload | ReorderPayload
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+  }
+
+  try {
+    if (Array.isArray((body as ReorderPayload).orderedKeys)) {
+      const orderedKeys = (body as ReorderPayload).orderedKeys
+        ?.filter((key): key is string => typeof key === 'string' && key.trim().length > 0)
+        .map(key => key.trim())
+
+      if (!orderedKeys || orderedKeys.length === 0) {
+        return NextResponse.json({ error: 'orderedKeys is required' }, { status: 400 })
+      }
+
+      await reorderTracks(orderedKeys)
+      return NextResponse.json({ ok: true, orderedKeys })
+    }
+
+    const renameBody = body as RenamePayload
+    const key = renameBody.key?.trim()
+    const title = renameBody.title?.trim()
+
+    if (!key || !title) {
+      return NextResponse.json({ error: 'key and title are required' }, { status: 400 })
+    }
+
+    await renameTrackTitle(key, title)
+    return NextResponse.json({ ok: true, key, title })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to update tracks'
+    const status = message === RADIO_META_KV_MISSING_MESSAGE ? 503 : 500
+    return NextResponse.json({ error: message }, { status })
   }
 }
