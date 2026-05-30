@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/luix4/.claude/skills/playwright-skill/**)",
+      "Bash(npm run:*)",
+      "Bash(powershell -c \"Get-PSDrive C | Select-Object Used,Free\")",
+      "Bash(npm install:*)",
+      "Bash(powershell -c \"\\(Get-PSDrive C\\).Free / 1GB\")",
+      "Bash(powershell -c \"Get-ChildItem ''C:\\\\Users\\\\luix4\\\\AppData\\\\Local\\\\npm-cache'' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum | Select-Object @{N=''SizeMB'';E={[math]::Round\\($_Sum/1MB,1\\)}}\")",
+      "Bash(npm cache:*)",
+      "Bash(powershell -c \"Get-ChildItem ''C:\\\\Users\\\\luix4\\\\AppData\\\\Local'' -Directory -ErrorAction SilentlyContinue | ForEach-Object { try { $s = \\(Get-ChildItem $_FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum\\).Sum; if\\($s -gt 100MB\\) { ''{0:N0} MB - {1}'' -f \\($s/1MB\\), $_Name } } catch {} } | Sort-Object -Descending\")",
+      "Bash(node run.js grant-breva.js)",
+      "WebFetch(domain:www.breva.ai)",
+      "WebFetch(domain:quickbooks.intuit.com)",
+      "WebFetch(domain:galaxyofstars.org)",
+      "WebFetch(domain:freedfellowship.com)",
+      "WebFetch(domain:www.hersuitespot.com)",
+      "WebFetch(domain:www.awesomefoundation.org)",
+      "WebFetch(domain:spectrumreachpayitforward.com)",
+      "WebSearch"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 96" role="img" aria-label="Buena Onda">
+  <title>Buena Onda</title>
+  <!--
+    Placeholder script wordmark.
+    Replace this file with the production SVG export of the hand-lettered logo.
+    Target display size: height 34–40 px in the site header.
+  -->
+
+  <!-- "Buena" — upper-left, slightly tilted feel via baseline offset -->
+  <text
+    x="6"
+    y="50"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-size="52"
+    font-weight="400"
+    fill="#D4006A"
+    letter-spacing="-1.5"
+  >Buena</text>
+
+  <!-- "Onda" — lower-right, offset to echo the diagonal composition of the mark -->
+  <text
+    x="90"
+    y="92"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-size="52"
+    font-weight="400"
+    fill="#D4006A"
+    letter-spacing="-1.5"
+  >Onda</text>
+</svg>

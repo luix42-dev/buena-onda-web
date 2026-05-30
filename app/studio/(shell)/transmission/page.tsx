@@ -14,9 +14,9 @@ async function loadTransmissionData() {
   try {
     const supabase = await createServiceClient()
 
-    const [{ data: posts }, { data: subscribers }, { data: newsletterSetting }] = await Promise.all([
+    const [{ data: issues }, { data: subscribers }, { data: newsletterSetting }] = await Promise.all([
       supabase
-        .from('posts')
+        .from('transmission_issues')
         .select('*')
         .order('created_at', { ascending: false }),
       supabase
@@ -31,21 +31,21 @@ async function loadTransmissionData() {
     ])
 
     return {
-      posts: posts ?? [],
+      issues: issues ?? [],
       subscribers: subscribers ?? [],
       newsletterSetting: newsletterSetting?.value ?? null,
     }
   } catch {
-    return { posts: [], subscribers: [] as NewsletterSubscriber[], newsletterSetting: null }
+    return { issues: [], subscribers: [] as NewsletterSubscriber[], newsletterSetting: null }
   }
 }
 
 export default async function TransmissionPage() {
-  const { posts, subscribers, newsletterSetting } = await loadTransmissionData()
+  const { issues, subscribers, newsletterSetting } = await loadTransmissionData()
 
   return (
     <TransmissionClient
-      initialPosts={posts}
+      initialIssues={issues}
       initialSubscribers={subscribers}
       newsletterSetting={newsletterSetting}
     />

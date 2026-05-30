@@ -5,7 +5,7 @@ import SectionHead from '@/components/studio/SectionHead'
 import Drawer from '@/components/studio/Drawer'
 import StatusPill from '@/components/studio/StatusPill'
 import { useToast } from '@/components/studio/Toast'
-import type { Post } from '@/types'
+import type { TransmissionIssue } from '@/types'
 
 type Subscriber = {
   id: string
@@ -15,7 +15,7 @@ type Subscriber = {
 }
 
 type Props = {
-  initialPosts: Post[]
+  initialIssues: TransmissionIssue[]
   initialSubscribers: Subscriber[]
   newsletterSetting: Record<string, unknown> | null
 }
@@ -29,28 +29,20 @@ function formatDate(value: string | null | undefined) {
   }).format(new Date(value))
 }
 
-function parseTags(raw: string) {
-  return raw
-    .split(',')
-    .map(tag => tag.trim().toLowerCase())
-    .filter(Boolean)
-}
-
 export default function TransmissionClient({
-  initialPosts,
+  initialIssues,
   initialSubscribers,
   newsletterSetting,
 }: Props) {
   const toast = useToast()
-  const [posts, setPosts] = useState<Post[]>(initialPosts)
+  const [issues, setIssues] = useState<TransmissionIssue[]>(initialIssues)
   const [subscribers] = useState<Subscriber[]>(initialSubscribers)
   const [composerOpen, setComposerOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
   const [body, setBody] = useState('')
-  const [tags, setTags] = useState('')
-  const [published, setPublished] = useState(false)
+  const [status, setStatus] = useState<'draft' | 'live'>('draft')
 
   const subscriberCount = subscribers.length
   const confirmedCount = subscribers.filter(s => s.confirmed).length
@@ -61,8 +53,7 @@ export default function TransmissionClient({
     setTitle('')
     setExcerpt('')
     setBody('')
-    setTags('')
-    setPublished(false)
+    setStatus('draft')
     setComposerOpen(true)
   }
 
@@ -70,15 +61,14 @@ export default function TransmissionClient({
     if (!title.trim()) return
     setSaving(true)
 
-    const res = await fetch('/api/admin/posts', {
+    const res = await fetch('/api/admin/transmission-issues', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: title.trim(),
         excerpt: excerpt.trim() || undefined,
         body: body.trim() || undefined,
-        tags: parseTags(tags),
-        published,
+        status,
       }),
     })
 
@@ -91,7 +81,7 @@ export default function TransmissionClient({
     }
 
     const saved = await res.json()
-    setPosts(prev => [saved, ...prev])
+    setIssues(prev => [saved, ...prev])
     setComposerOpen(false)
     toast('Issue saved.')
   }
@@ -123,11 +113,10 @@ export default function TransmissionClient({
           <div className="hk">Compose</div>
           <div className="hl">Issue composer wired</div>
           <div className="hs">
-            This uses the existing `posts` model as the editorial issue ledger. There is no separate
-            `transmission_issues` table yet, so Compose writes to the current post API.
+            Transmission issues now use their own editorial ledger instead of sharing the posts table.
           </div>
           <div className="hb">
-            <span className="hvis">No migration required</span>
+            <span className="hvis">Backed by `transmission_issues`</span>
             <button type="button" className="btn" onClick={openComposer}>
               + Compose
             </button>
@@ -147,24 +136,24 @@ export default function TransmissionClient({
           </div>
         </div>
 
-        {posts.length === 0 ? (
+        {issues.length === 0 ? (
           <div className="empty" style={{ gridColumn: '1 / -1' }}>
             <div className="em-t">No issues yet.</div>
-            <div className="em-s">Compose a post to seed the transmission archive.</div>
+            <div className="em-s">Compose a draft to seed the transmission archive.</div>
           </div>
         ) : (
-          posts.map((post, index) => (
-            <div key={post.id} className="row in">
+          issues.map((issue, index) => (
+            <div key={issue.id} className="row in">
               <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
               <div className="rmain">
-                <div className="rttl">{post.title}</div>
+                <div className="rttl">{issue.title}</div>
                 <div className="rdek">
-                  {post.excerpt ?? 'No excerpt yet.'}
+                  {issue.excerpt ?? 'No excerpt yet.'}
                 </div>
               </div>
               <div className="rmeta">
-                <StatusPill variant={post.published ? 'published' : 'draft'} inline rowStyle />
-                <div className="rdate">{formatDate(post.published_at ?? post.created_at)}</div>
+                <StatusPill variant={issue.status === 'live' ? 'published' : 'draft'} inline rowStyle />
+                <div className="rdate">{formatDate(issue.published_at ?? issue.created_at)}</div>
               </div>
             </div>
           ))
@@ -254,24 +243,15 @@ export default function TransmissionClient({
         </div>
 
         <div className="field">
-          <label htmlFor="tx-tags">Tags</label>
-          <input
-            id="tx-tags"
-            type="text"
-            value={tags}
-            onChange={e => setTags(e.target.value)}
-            placeholder="mail, radio, miami"
-          />
-        </div>
-
-        <div className="field">
-          <label htmlFor="tx-published">Publish now</label>
-          <input
-            id="tx-published"
-            type="checkbox"
-            checked={published}
-            onChange={e => setPublished(e.target.checked)}
-          />
+          <label htmlFor="tx-status">Status</label>
+          <select
+            id="tx-status"
+            value={status}
+            onChange={e => setStatus(e.target.value === 'live' ? 'live' : 'draft')}
+          >
+            <option value="draft">Draft</option>
+            <option value="live">Live</option>
+          </select>
         </div>
       </Drawer>
     </>
