@@ -32,6 +32,10 @@ function isCulturePost(post: Post) {
   return tags.includes('culture') || tags.includes('essay')
 }
 
+function postStatus(post: Post): 'draft' | 'live' {
+  return post.status === 'live' || post.published ? 'live' : 'draft'
+}
+
 export default function CultureClient({ initialPosts }: Props) {
   const toast = useToast()
   const [posts, setPosts] = useState<Post[]>(initialPosts)
@@ -41,8 +45,9 @@ export default function CultureClient({ initialPosts }: Props) {
   const [excerpt, setExcerpt] = useState('')
   const [body, setBody] = useState('')
   const [coverImage, setCoverImage] = useState('')
+  const [instagramUrl, setInstagramUrl] = useState('')
   const [tags, setTags] = useState('culture, essay')
-  const [published, setPublished] = useState(false)
+  const [status, setStatus] = useState<'draft' | 'live'>('draft')
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -56,8 +61,9 @@ export default function CultureClient({ initialPosts }: Props) {
     setExcerpt('')
     setBody('')
     setCoverImage('')
+    setInstagramUrl('')
     setTags('culture, essay')
-    setPublished(false)
+    setStatus('draft')
     setError(null)
     setComposerOpen(true)
   }
@@ -81,8 +87,9 @@ export default function CultureClient({ initialPosts }: Props) {
           excerpt: excerpt.trim() || undefined,
           body: body.trim() || undefined,
           cover_image: coverImage.trim() || undefined,
+          instagramUrl: instagramUrl.trim() || undefined,
           tags: postTags.length ? postTags : ['culture', 'essay'],
-          published,
+          status,
         }),
       })
       const data = await res.json()
@@ -164,7 +171,7 @@ export default function CultureClient({ initialPosts }: Props) {
                   <div className="rdek">{post.excerpt ?? 'No excerpt yet.'}</div>
                 </div>
                 <div className="rmeta">
-                  <StatusPill variant={post.published ? 'published' : 'draft'} inline rowStyle />
+                  <StatusPill variant={postStatus(post) === 'live' ? 'published' : 'draft'} inline rowStyle />
                   <div className="rdate">{formatDate(post.published_at ?? post.created_at)}</div>
                   <div className="rdate" style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {(post.tags ?? []).join(', ') || 'n/a'}
@@ -241,6 +248,17 @@ export default function CultureClient({ initialPosts }: Props) {
         </div>
 
         <div className="field">
+          <label htmlFor="cu-instagram">Instagram URL</label>
+          <input
+            id="cu-instagram"
+            type="url"
+            value={instagramUrl}
+            onChange={e => setInstagramUrl(e.target.value)}
+            placeholder="https://www.instagram.com/p/..."
+          />
+        </div>
+
+        <div className="field">
           <label htmlFor="cu-tags">Tags</label>
           <input
             id="cu-tags"
@@ -252,13 +270,15 @@ export default function CultureClient({ initialPosts }: Props) {
         </div>
 
         <div className="field">
-          <label htmlFor="cu-published">Publish now</label>
-          <input
-            id="cu-published"
-            type="checkbox"
-            checked={published}
-            onChange={e => setPublished(e.target.checked)}
-          />
+          <label htmlFor="cu-status">Status</label>
+          <select
+            id="cu-status"
+            value={status}
+            onChange={e => setStatus(e.target.value === 'live' ? 'live' : 'draft')}
+          >
+            <option value="draft">Draft</option>
+            <option value="live">Live</option>
+          </select>
         </div>
       </Drawer>
     </>

@@ -8,7 +8,9 @@ const PostSchema = z.object({
   excerpt:      z.string().max(400).optional(),
   body:         z.string().optional(),
   cover_image:  z.string().url().optional().or(z.literal('')),
+  instagram_url: z.string().url().optional().or(z.literal('')),
   tags:         z.array(z.string()).optional(),
+  status:       z.enum(['draft', 'live']).optional(),
   published:    z.boolean().optional(),
   published_at: z.string().datetime().optional(),
 })
@@ -63,9 +65,18 @@ export async function POST(request: NextRequest) {
   }
 
   const slug = slugify(parsed.data.title)
+  const postStatus = parsed.data.status ?? (parsed.data.published ? 'live' : 'draft')
   const { data, error } = await supabase
     .from('posts')
-    .insert({ ...parsed.data, slug })
+    .insert({
+      ...parsed.data,
+      slug,
+      status: postStatus,
+      published: postStatus === 'live',
+      published_at: postStatus === 'live'
+        ? parsed.data.published_at ?? new Date().toISOString()
+        : null,
+    })
     .select()
     .single()
 

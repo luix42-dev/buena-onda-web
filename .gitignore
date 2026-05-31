@@ -42,5 +42,4 @@ scripts/.sync-log.txt
 public/audio/
 .env.local.save
 .env*.save
-.env.local.save
-.env*.save
+.gstack/

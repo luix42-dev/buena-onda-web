@@ -10,6 +10,8 @@ export interface Post {
   created_at: string
   updated_at: string
   published: boolean
+  status?: 'draft' | 'live' | null
+  instagram_url?: string | null
 }
 
 export interface TransmissionIssue {
