@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { sendTelegramMessage } from '@/lib/telegram'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -32,6 +33,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     title, slug, theme_id, price, buy_url,
     description, tags, cover_image_url, status, details,
     availability,
+    sourcing_model,
   } = body
 
   if (!title || !slug) {
@@ -39,6 +41,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
   }
 
   const supabase = await createServiceClient()
+  const { data: existing } = await supabase
+    .from('items')
+    .select('published_at, status, title')
+    .eq('id', id)
+    .single()
 
   const update: Record<string, unknown> = {
     title,
@@ -52,12 +59,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
     details:         details ?? null,
     status,
     ...(availability !== undefined && { availability }),
+    ...(sourcing_model !== undefined && { sourcing_model }),
   }
 
   if (status === 'published') {
     // Set published_at only if transitioning to published (don't overwrite)
-    const { data: existing } = await supabase
-      .from('items').select('published_at, status').eq('id', id).single()
     if (existing && existing.status !== 'published') {
       update.published_at = new Date().toISOString()
     }
@@ -71,6 +77,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  if (existing?.status === 'draft' && data.status === 'published') {
+    const telegram = await sendTelegramMessage(`New item live: ${data.title}`)
+    return NextResponse.json({ ...data, telegram })
+  }
+
   return NextResponse.json(data)
 }
 

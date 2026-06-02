@@ -47,6 +47,7 @@ create table if not exists items (
   buy_url         text,                           -- outbound link or null for inquiry
   tags            text[]      default '{}',
   status          item_status default 'draft' not null,
+  sourcing_model  text        default 'reservation' not null check (sourcing_model in ('reservation', 'direct')),
   featured        boolean     default false not null,
   cover_image_url text,                           -- primary image (denormalized for speed)
   published_at    timestamptz,
@@ -56,6 +57,7 @@ create table if not exists items (
 
 create index if not exists items_theme_id_idx    on items (theme_id);
 create index if not exists items_status_idx      on items (status);
+create index if not exists items_sourcing_model_idx on items (sourcing_model);
 create index if not exists items_slug_idx        on items (slug);
 create index if not exists items_featured_idx    on items (featured) where featured = true;
 create index if not exists items_catalog_num_idx on items (catalog_number);

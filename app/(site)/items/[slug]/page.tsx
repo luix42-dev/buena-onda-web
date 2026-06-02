@@ -5,7 +5,6 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import ImageGallery from '@/components/ui/ImageGallery'
 import BuyNowButton from '@/components/ui/BuyNowButton'
 import ReserveForm from '@/components/ui/ReserveForm'
-import SoldNotifyForm from '@/components/ui/SoldNotifyForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, ItemImage, Theme } from '@/types'
 
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       .from('items')
       .select('title, description, catalog_number')
       .eq('slug', slug)
-      .in('status', ['published', 'sold_out', 'archived'])
+      .eq('status', 'published')
       .single()
     if (data) {
       return {
@@ -51,7 +50,7 @@ export default async function ItemPage({ params }: Props) {
     .from('items')
     .select('*, theme:themes(*), images:item_images(*)')
     .eq('slug', slug)
-    .in('status', ['published', 'sold_out', 'archived'])
+    .eq('status', 'published')
     .single()
 
   if (!itemData) notFound()
@@ -61,8 +60,9 @@ export default async function ItemPage({ params }: Props) {
   const images  = (itemData.images as ItemImage[] | null) ?? []
   const details = (item.details as Record<string, string> | null) ?? {}
   const hasPrice = item.price != null
-  const isBuyable = item.status === 'published' && item.availability === 'available' && hasPrice
-  const shouldReserve = item.status === 'published' && item.availability === 'available' && !hasPrice
+  const sourcingModel = item.sourcing_model ?? 'reservation'
+  const isBuyable = item.status === 'published' && item.availability === 'available' && sourcingModel === 'direct' && hasPrice
+  const shouldReserve = item.status === 'published' && item.availability === 'available' && sourcingModel === 'reservation'
   const isSold = item.availability === 'sold'
   const isReserved = item.availability === 'reserved'
 
@@ -242,45 +242,33 @@ export default async function ItemPage({ params }: Props) {
               {/* ── Reservation form ─────────────────────────────────────── */}
               <ScanReveal delay={180}>
                 <div className="pt-8 border-t border-pale-stone">
-                  <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
-                    Every object is personally sourced, condition-verified, and delivered by our team in Miami.
-                  </p>
-
-                  {isBuyable ? (
+                  {shouldReserve ? (
                     <>
-                      <BuyNowButton itemId={item.id} itemSlug={item.slug} itemTitle={item.title} />
-                      <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
-                        7-day return policy. No questions asked.
+                      <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
+                        Every object is personally sourced, condition-verified, and delivered by our team in Miami.
                       </p>
-                    </>
-                  ) : shouldReserve ? (
-                    <>
                       <ReserveForm itemId={item.id} itemTitle={item.title} />
-                      <p className="font-mono text-[0.62rem] text-stone-grey mt-4">
-                        7-day return policy. No questions asked.
+                    </>
+                  ) : isBuyable ? (
+                    <>
+                      <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
+                        In stock. Ships within 3 business days.
                       </p>
+                      <BuyNowButton itemId={item.id} itemSlug={item.slug} itemTitle={item.title} />
                     </>
                   ) : isReserved ? (
                     <>
                       <p className="font-display text-near-black mb-1"
                          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}>
-                        This piece is temporarily reserved.
+                        This piece is reserved.
                       </p>
-                      <p className="font-mono text-xs text-stone-grey mb-5">
-                        It&apos;s being held while checkout is completed. Join the list if it becomes available again.
-                      </p>
-                      <SoldNotifyForm itemId={item.id} />
                     </>
                   ) : (
                     <>
                       <p className="font-display text-near-black mb-1"
                          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}>
-                        This piece found its home.
+                        This piece has found a home.
                       </p>
-                      <p className="font-mono text-xs text-stone-grey mb-5">
-                        It&apos;s no longer available — but similar pieces arrive regularly.
-                      </p>
-                      <SoldNotifyForm itemId={item.id} />
                     </>
                   )}
 

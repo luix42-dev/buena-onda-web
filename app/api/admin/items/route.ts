@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
     title, slug, theme_id, price, buy_url,
     description, tags, cover_image_url, status = 'draft', details,
     availability = 'available',
+    sourcing_model = 'reservation',
   } = body
 
   if (!title || !slug) {
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
       details:         details ?? null,
       status,
       availability,
+      sourcing_model,
       published_at:    status === 'published' ? new Date().toISOString() : null,
     })
     .select()

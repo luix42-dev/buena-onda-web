@@ -4,6 +4,8 @@ import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
 
+export const runtime = 'edge'
+
 const bebasNeue = Bebas_Neue({
   weight:   ['400'],
   subsets:  ['latin'],

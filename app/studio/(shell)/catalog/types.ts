@@ -1,4 +1,5 @@
 export type ItemAvailability = 'available' | 'reserved' | 'sold'
+export type ItemSourcingModel = 'reservation' | 'direct'
 export type ItemStatus       = 'draft' | 'published' | 'archived' | 'sold_out'
 
 export interface Theme {
@@ -30,6 +31,7 @@ export interface Item {
   tags:            string[]
   status:          ItemStatus
   availability:    ItemAvailability
+  sourcing_model:  ItemSourcingModel
   featured:        boolean
   cover_image_url: string | null
   published_at:    string | null

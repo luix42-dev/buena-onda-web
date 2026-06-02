@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
   const itemQuery = supabase
     .from('items')
-    .select('id, slug, title, price, status, availability')
+    .select('id, slug, title, price, status, availability, sourcing_model')
     .eq(itemId ? 'id' : 'slug', itemId ?? itemSlug!)
     .single()
 
@@ -61,6 +61,7 @@ export async function POST(request: NextRequest) {
   if (
     item.status !== 'published' ||
     item.availability !== 'available' ||
+    item.sourcing_model !== 'direct' ||
     !Number.isFinite(amountTotal) ||
     amountTotal <= 0
   ) {

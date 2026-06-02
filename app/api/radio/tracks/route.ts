@@ -3,7 +3,7 @@ import type { Track } from '@/lib/radio'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 function humanize(s: string) {
   return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
