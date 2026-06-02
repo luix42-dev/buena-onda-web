@@ -1,11 +1,251 @@
-import { NextResponse } from 'next/server'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import { randomUUID } from 'node:crypto'
+import { NextResponse, type NextRequest } from 'next/server'
+import sharp from 'sharp'
+import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { sendTelegramMessage } from '@/lib/telegram'
 
 export const dynamic = 'force-dynamic'
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
-export async function POST() {
-  return NextResponse.json(
-    { error: 'Intake requires Node.js, Sharp, local Ollama, and filesystem writes; it is disabled on Cloudflare Pages preview.' },
-    { status: 501 },
-  )
+type Destination = 'catalog' | 'transmission' | 'radio'
+
+const VALID_DESTINATIONS = new Set<Destination>(['catalog', 'transmission', 'radio'])
+const UPLOAD_DIR = path.join(process.cwd(), 'public', 'media', 'upload')
+const VALID_THEME_SLUGS = ['curated-vintage', 'analog-objects', 'sound-collection', 'buena-onda-original']
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80) || `intake-${Date.now()}`
+}
+
+function titleFromNote(note: string | undefined, fallback: string) {
+  const firstLine = note?.split(/\r?\n/).find(line => line.trim())?.trim()
+  return firstLine ? firstLine.slice(0, 90) : fallback
+}
+
+function parseImageDataUrl(image: unknown) {
+  if (typeof image !== 'string' || !image.trim()) return null
+  const match = image.match(/^data:([^;]+);base64,(.+)$/)
+  if (!match) throw new Error('Image must be a data URL.')
+  return {
+    contentType: match[1],
+    buffer: Buffer.from(match[2], 'base64'),
+  }
+}
+
+async function saveRawImage(image: ReturnType<typeof parseImageDataUrl>, prefix: string) {
+  if (!image) return null
+  await fs.mkdir(UPLOAD_DIR, { recursive: true })
+  const ext = image.contentType.includes('png') ? 'png' : image.contentType.includes('webp') ? 'webp' : 'jpg'
+  const filename = `${prefix}-${Date.now()}-${randomUUID()}.${ext}`
+  const diskPath = path.join(UPLOAD_DIR, filename)
+  await fs.writeFile(diskPath, image.buffer)
+  return `/media/upload/${filename}`
+}
+
+async function saveCatalogImage(image: ReturnType<typeof parseImageDataUrl>) {
+  if (!image) return { url: null, beforeSize: 0, afterSize: 0 }
+  await fs.mkdir(UPLOAD_DIR, { recursive: true })
+  const filename = `intake-${Date.now()}-${randomUUID()}.webp`
+  const diskPath = path.join(UPLOAD_DIR, filename)
+  const output = await sharp(image.buffer)
+    .rotate()
+    .resize({ width: 1200, height: 1200, fit: 'inside', withoutEnlargement: true })
+    .webp({ quality: 82 })
+    .toBuffer()
+  await fs.writeFile(diskPath, output)
+  return {
+    url: `/media/upload/${filename}`,
+    beforeSize: image.buffer.byteLength,
+    afterSize: output.byteLength,
+  }
+}
+
+function parseJson(raw: string) {
+  const trimmed = raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```$/i, '').trim()
+  return JSON.parse(trimmed)
+}
+
+function normalizeTags(tags: unknown) {
+  const values = Array.isArray(tags) ? tags : []
+  return [...new Set(values
+    .filter((tag): tag is string => typeof tag === 'string')
+    .map(tag => tag.replace(/#/g, '').replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[_\s]+/g, '-').toLowerCase())
+    .map(tag => tag.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, ''))
+    .filter(Boolean))]
+    .slice(0, 8)
+}
+
+async function enrichCatalogCopy(note: string | undefined, sourceUrl: string | undefined, imageUrl: string | null) {
+  const fallbackTitle = titleFromNote(note, 'Catalog Intake Draft')
+  const fallback = {
+    title: fallbackTitle,
+    description: note || 'Draft catalog intake. Editorial copy pending.',
+    provenance: null,
+    tags: ['intake', 'catalog', 'needs-review'],
+    suggested_theme: 'analog-objects',
+    confidence: 0.2,
+  }
+
+  try {
+    const voice = await fs.readFile(path.join(process.cwd(), 'src', 'brand', 'voice_v2.md'), 'utf8')
+    const tagsResponse = await fetch('http://127.0.0.1:11434/api/tags', { signal: AbortSignal.timeout(10_000) })
+    const tagsPayload = await tagsResponse.json()
+    const model = Array.isArray(tagsPayload.models)
+      ? tagsPayload.models.find((entry: { name?: string }) => entry.name === 'mistral:latest')?.name
+      : null
+    if (!model) return fallback
+
+    const user = `You are writing a product listing for Buena Onda, an analog culture house in Miami.
+
+Source material:
+- Note: ${note ?? ''}
+- URL: ${sourceUrl ?? ''}
+- Image: ${imageUrl ?? ''}
+
+Write original catalog copy. Return only JSON:
+{
+  "title": "...",
+  "description": "...",
+  "provenance": null,
+  "tags": ["..."],
+  "suggested_theme": "curated-vintage|analog-objects|sound-collection|buena-onda-original",
+  "confidence": 0.0
+}`
+
+    const response = await fetch('http://127.0.0.1:11434/api/chat', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        stream: false,
+        system: voice,
+        messages: [{ role: 'user', content: user }],
+        format: 'json',
+        options: { temperature: 0.25 },
+      }),
+      signal: AbortSignal.timeout(300_000),
+    })
+    if (!response.ok) return fallback
+    const payload = await response.json()
+    const parsed = parseJson(String(payload?.message?.content ?? payload?.response ?? '{}'))
+    const suggestedTheme = VALID_THEME_SLUGS.includes(String(parsed.suggested_theme))
+      ? String(parsed.suggested_theme)
+      : 'analog-objects'
+    return {
+      title: String(parsed.title || fallback.title).trim(),
+      description: String(parsed.description || fallback.description).trim(),
+      provenance: null,
+      tags: normalizeTags(parsed.tags).length ? normalizeTags(parsed.tags) : fallback.tags,
+      suggested_theme: suggestedTheme,
+      confidence: typeof parsed.confidence === 'number' ? parsed.confidence : 0.5,
+    }
+  } catch {
+    return fallback
+  }
+}
+
+export async function POST(request: NextRequest) {
+  let body: Record<string, unknown>
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ ok: false, error: 'Invalid JSON body' }, { status: 400 })
+  }
+
+  const destination = String(body.destination ?? 'catalog').toLowerCase() as Destination
+  if (!VALID_DESTINATIONS.has(destination)) {
+    return NextResponse.json({ ok: false, error: 'Invalid destination' }, { status: 400 })
+  }
+
+  const note = typeof body.note === 'string' ? body.note.trim() : ''
+  const sourceUrl = typeof body.url === 'string' ? body.url.trim() : ''
+  const image = parseImageDataUrl(body.image)
+  const supabase = createServiceRoleClient()
+
+  if (destination === 'catalog') {
+    const imageResult = await saveCatalogImage(image)
+    const copy = await enrichCatalogCopy(note, sourceUrl, imageResult.url)
+    const { data: theme } = await supabase
+      .from('themes')
+      .select('id')
+      .eq('slug', copy.suggested_theme)
+      .maybeSingle()
+    const title = copy.title || titleFromNote(note, 'Catalog Intake Draft')
+    const { data, error } = await supabase
+      .from('items')
+      .insert({
+        title,
+        slug: `${slugify(title)}-${Date.now()}`,
+        theme_id: theme?.id ?? null,
+        description: copy.description || null,
+        details: {
+          provenance: copy.provenance,
+          confidence: copy.confidence,
+          source_url: sourceUrl || null,
+          intake_note: note || null,
+        },
+        price: null,
+        tags: copy.tags,
+        status: 'draft',
+        availability: 'available',
+        sourcing_model: 'reservation',
+        cover_image_url: imageResult.url,
+      })
+      .select('id,title,slug,status,cover_image_url')
+      .single()
+    if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400 })
+    const telegram = await sendTelegramMessage(`Draft saved to Catalog: ${data.title}`)
+    return NextResponse.json({ ok: true, destination, record: data, image: imageResult, telegram }, { status: 201 })
+  }
+
+  if (destination === 'transmission') {
+    const imageUrl = await saveRawImage(image, 'transmission')
+    const title = titleFromNote(note, 'Transmission Intake Draft')
+    const issueBody = [
+      note,
+      sourceUrl ? `Link: ${sourceUrl}` : '',
+      imageUrl ? `Image: ${imageUrl}` : '',
+    ].filter(Boolean).join('\n\n')
+    const { data, error } = await supabase
+      .from('transmission_issues')
+      .insert({
+        title,
+        slug: `${slugify(title)}-${Date.now()}`,
+        excerpt: note ? note.slice(0, 180) : null,
+        body: issueBody || null,
+        status: 'draft',
+        published_at: null,
+      })
+      .select('id,title,slug,status')
+      .single()
+    if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400 })
+    const telegram = await sendTelegramMessage('Draft saved to Transmission')
+    return NextResponse.json({ ok: true, destination, record: data, imageUrl, telegram }, { status: 201 })
+  }
+
+  const title = titleFromNote(note, 'Radio Intake Draft')
+  const { data, error } = await supabase
+    .from('episodes')
+    .insert({
+      title,
+      slug: `${slugify(title)}-${Date.now()}`,
+      description: [note, sourceUrl ? `Link: ${sourceUrl}` : ''].filter(Boolean).join('\n\n') || null,
+      audio_url: sourceUrl || null,
+      episode_number: null,
+      duration: null,
+      tags: ['radio', 'intake'],
+      published: false,
+      published_at: null,
+    })
+    .select('id,title,slug,published')
+    .single()
+  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400 })
+  const telegram = await sendTelegramMessage('Draft saved to Radio')
+  return NextResponse.json({ ok: true, destination, record: data, telegram }, { status: 201 })
 }
