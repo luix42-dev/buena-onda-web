@@ -1,4 +1,5 @@
 name = "buena-onda-web"
 compatibility_date = "2026-06-01"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".next"
+command = "npx next build"
