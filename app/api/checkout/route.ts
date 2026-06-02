@@ -4,7 +4,7 @@ import Stripe from 'stripe'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 const CheckoutSchema = z.object({
   itemId: z.string().uuid().optional(),
