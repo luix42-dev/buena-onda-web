@@ -72,6 +72,8 @@ export default function EventEditor({ event }: Props) {
   const [status, setStatus] = useState<EventStatus>(event?.status ?? 'recurring')
   const [venueName, setVenueName] = useState(event?.venue_name ?? '')
   const [venueCity, setVenueCity] = useState(event?.venue_city ?? '')
+  const [eventDate, setEventDate] = useState(event?.event_date ?? '')
+  const [lineup, setLineup] = useState(event?.lineup ?? '')
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_url ?? '')
   const [gallery, setGallery] = useState<EventGalleryItem[]>(event?.gallery ?? [])
   const [videos, setVideos] = useState<EventVideo[]>(event?.videos ?? [])
@@ -155,6 +157,8 @@ export default function EventEditor({ event }: Props) {
       status,
       venue_name: venueName.trim() || null,
       venue_city: venueCity.trim() || null,
+      event_date: eventDate || null,
+      lineup: lineup.trim() || null,
       cover_image_url: coverImageUrl.trim() || null,
       gallery: gallery.filter(item => item.image || item.caption),
       videos: videos.filter(item => item.url || item.label),
@@ -268,6 +272,14 @@ export default function EventEditor({ event }: Props) {
           <div className="field">
             <label htmlFor="event-venue-city">Venue city</label>
             <input id="event-venue-city" value={venueCity} onChange={e => setVenueCity(e.target.value)} />
+          </div>
+          <div className="field">
+            <label htmlFor="event-date">EVENT DATE</label>
+            <input id="event-date" type="date" value={eventDate} onChange={e => setEventDate(e.target.value)} />
+          </div>
+          <div className="field">
+            <label htmlFor="event-lineup">LINEUP / SOUND BY</label>
+            <input id="event-lineup" value={lineup} onChange={e => setLineup(e.target.value)} placeholder="DJ Kumi · Tostao" />
           </div>
         </div>
 

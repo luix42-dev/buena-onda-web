@@ -35,6 +35,8 @@ export interface LiveEvent {
   status: EventStatus
   venue_name: string | null
   venue_city: string | null
+  event_date: string | null
+  lineup: string | null
   cover_image_url: string | null
   gallery: EventGalleryItem[] | null
   videos: EventVideo[] | null
