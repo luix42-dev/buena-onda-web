@@ -254,7 +254,7 @@ export default async function ItemPage({ params }: Props) {
                       <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
                         In stock. Ships within 3 business days.
                       </p>
-                      <BuyNowButton itemId={item.id} itemSlug={item.slug} itemTitle={item.title} />
+                      <BuyNowButton itemId={item.id} itemTitle={item.title} />
                     </>
                   ) : isReserved ? (
                     <>
