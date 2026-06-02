@@ -32,10 +32,10 @@ const pillars = [
     href: '/radio',
   },
   {
-    name: 'Drops',
-    headline: 'Limited objects. One run.',
-    text: 'Seasonal releases. No schedule posted in advance. Once sold, that is the end of it.',
-    href: '/radio',
+    name: 'Live Events',
+    headline: 'The floor is the archive.',
+    text: 'Onda Tropical, Open Decks, and recurring formats hosted under the Buena Onda name. Miami. Documented.',
+    href: '/events',
   },
 ]
 
@@ -116,7 +116,6 @@ export default async function HomePage() {
 
   const heroTitle = asString(hero.title, DEFAULT_HERO.title)
   const heroSubtitle = asString(hero.subtitle, DEFAULT_HERO.subtitle)
-  const heroCta = asString(hero.cta, DEFAULT_HERO.cta)
   const [heroLineOne, heroLineTwo] = splitHeroTitle(heroTitle)
 
   const contactEmail = asString(contact.email, DEFAULT_CONTACT.email)
@@ -141,13 +140,6 @@ export default async function HomePage() {
             style={{ width: '5px', background: '#A8C9C3' }}
             aria-hidden="true"
           />
-
-          <span
-            className="font-display block mb-5 animate-fade-up"
-            style={{ color: '#2E2E2E', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
-          >
-            ANALOG CULTURE HOUSE
-          </span>
 
           <h1
             className="font-display leading-none mb-6 animate-fade-up"
@@ -177,8 +169,8 @@ export default async function HomePage() {
           </p>
 
           <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
-            <Link href="#pillars" className="btn-hollow-coral">
-              {heroCta} ↓
+            <Link href="/themes" className="btn-hollow-coral">
+              Shop Analog →
             </Link>
           </div>
 
