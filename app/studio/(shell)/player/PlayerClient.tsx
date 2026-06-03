@@ -63,10 +63,12 @@ type SortableTrackRowProps = {
   draftTitle: string
   savingTitleKey: string | null
   savingOrder: boolean
+  canDelete: boolean
   onStartEdit: (track: Track) => void
   onDraftTitleChange: (value: string) => void
   onEditBlur: (track: Track) => void
   onEditKeyDown: (event: KeyboardEvent<HTMLInputElement>, track: Track) => void
+  onDelete: (track: Track) => void
 }
 
 function SortableTrackRow({
@@ -76,10 +78,12 @@ function SortableTrackRow({
   draftTitle,
   savingTitleKey,
   savingOrder,
+  canDelete,
   onStartEdit,
   onDraftTitleChange,
   onEditBlur,
   onEditKeyDown,
+  onDelete,
 }: SortableTrackRowProps) {
   const sortableId = track.key ?? track.src
   const isEditing = editingKey === track.key
@@ -151,6 +155,15 @@ function SortableTrackRow({
         <StatusPill variant="published" inline rowStyle label={track.status ?? 'Ready'} />
         <div className="rdate">{formatBytes(track.size)}</div>
         <div className="rdate">{formatDate(track.lastModified)}</div>
+        <button
+          type="button"
+          onClick={() => onDelete(track)}
+          disabled={!canDelete || savingOrder || !!savingTitleKey}
+          title={canDelete ? 'Delete track' : 'Cannot delete last track'}
+          style={{ color: canDelete ? '#E8176A' : 'var(--muted)', background: 'none', border: 'none', cursor: canDelete ? 'pointer' : 'default', fontSize: 16, padding: '0 4px', flexShrink: 0 }}
+        >
+          ×
+        </button>
       </div>
     </div>
   )
@@ -181,28 +194,30 @@ export default function PlayerClient() {
     setLoadError(null)
 
     try {
-      console.log('[player] loadTracks: GET /api/radio/tracks')
-      const res = await fetch('/api/radio/tracks', { cache: 'no-store' })
-      console.log('[player] loadTracks: status', res.status, 'url', res.url)
-      const body = await readJsonOrText(res)
+      const [tracksRes, labelsRes] = await Promise.all([
+        fetch('/api/radio/tracks', { cache: 'no-store' }),
+        fetch('/api/admin/player/tracks', { cache: 'no-store' }),
+      ])
+      const body = await readJsonOrText(tracksRes)
 
-      if (!res.ok) {
+      if (!tracksRes.ok) {
         let msg = 'Failed to load tracks.'
-        if (typeof body === 'string') {
-          msg = body
-        } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
-          msg = body.error
-        }
+        if (typeof body === 'string') msg = body
+        else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') msg = body.error
         throw new Error(msg)
       }
 
-      const list = Array.isArray(body) ? body : []
-      console.log('[player] loadTracks: loaded', list.length, 'tracks')
-      setTracks(list as Track[])
+      const labels: Record<string, string> = labelsRes.ok ? (await labelsRes.json() as Record<string, string>) : {}
+      const raw = Array.isArray(body) ? (body as Track[]) : []
+      const list = raw.map(t => {
+        const fileName = t.fileName ?? t.key?.split('/').pop() ?? t.src.split('/').pop()?.split('?')[0] ?? ''
+        const key = t.key ?? fileName
+        return { ...t, key, fileName, title: labels[fileName] ?? t.title }
+      })
+      setTracks(list)
       setEditingKey(null)
       setDraftTitle('')
     } catch (err) {
-      console.error('[player] loadTracks: error', err)
       const msg = err instanceof Error ? err.message : 'Failed to load tracks.'
       setLoadError(msg)
       toast(msg)
@@ -249,10 +264,10 @@ export default function PlayerClient() {
     setSavingTitleKey(trackKey)
 
     try {
-      const res = await fetch('/api/radio/tracks', {
+      const res = await fetch('/api/admin/player/tracks', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: trackKey, title: nextTitle }),
+        body: JSON.stringify({ fileName: trackKey, displayName: nextTitle }),
       })
       const body = await readJsonOrText(res)
 
@@ -309,6 +324,28 @@ export default function PlayerClient() {
       event.preventDefault()
       blurActionRef.current = 'save'
       event.currentTarget.blur()
+    }
+  }
+
+  const deleteTrack = async (track: Track) => {
+    if (!window.confirm('Delete this track? This cannot be undone.')) return
+    const fileName = track.fileName ?? track.key?.split('/').pop() ?? ''
+    if (!fileName) { toast('Cannot identify track file.'); return }
+    try {
+      const res = await fetch('/api/admin/player/tracks', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName }),
+      })
+      if (!res.ok) {
+        const body = await readJsonOrText(res)
+        const msg = typeof body === 'object' && body && 'error' in body ? String(body.error) : 'Delete failed.'
+        throw new Error(msg)
+      }
+      setTracks(prev => prev.filter(t => t.key !== track.key))
+      toast('Track deleted.')
+    } catch (err) {
+      toast(err instanceof Error ? err.message : 'Delete failed.')
     }
   }
 
@@ -523,10 +560,12 @@ export default function PlayerClient() {
                     draftTitle={draftTitle}
                     savingTitleKey={savingTitleKey}
                     savingOrder={savingOrder}
+                    canDelete={tracks.length > 1}
                     onStartEdit={startEditing}
                     onDraftTitleChange={setDraftTitle}
                     onEditBlur={handleEditBlur}
                     onEditKeyDown={handleEditKeyDown}
+                    onDelete={deleteTrack}
                   />
                 ))}
               </SortableContext>
