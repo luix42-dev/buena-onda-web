@@ -164,40 +164,25 @@ export default function PersistentPlayer() {
         </button>
       ) : null}
 
-      <section className={`bo-tape-deck ${deckOpen ? 'bo-tape-deck-open' : ''}`} aria-label="Buena Onda Radio player">
-        <div className="bo-deck-top">
-          <span>BUENA ONDA RADIO</span>
-          <button type="button" onClick={minimize} aria-label="Minimize player">▾</button>
-        </div>
-
-        <div className="bo-deck-body">
+      <section className={`bo-tape-deck ${deckOpen ? 'bo-tape-deck-open' : ''} ${playing ? 'bo-readout-playing' : ''}`} aria-label="Buena Onda Radio player">
+        <div className="bo-progress-bar" style={{ width: `${progress}%` }} />
+        <div className="bo-bar">
+          <span className="bo-bar-brand">BUENA ONDA RADIO</span>
           <div className="bo-transport" aria-label="Radio transport controls">
-            <button type="button" className="bo-key" onClick={prev} disabled={!hasTrack} aria-label="Previous track">
-              &#9668;&#9668;
-            </button>
-            <button type="button" className="bo-key bo-key-play" onClick={toggle} disabled={!hasTrack} aria-label={playing ? 'Pause' : 'Play'}>
-              {playing ? 'II' : 'PLAY'}
-            </button>
-            <button type="button" className="bo-key" onClick={next} disabled={!hasTrack} aria-label="Next track">
-              &#9658;&#9658;
-            </button>
+            <button type="button" className="bo-key" onClick={prev} disabled={!hasTrack} aria-label="Previous track">&#9668;&#9668;</button>
+            <button type="button" className="bo-key bo-key-play" onClick={toggle} disabled={!hasTrack} aria-label={playing ? 'Pause' : 'Play'}>{playing ? 'II' : 'PLAY'}</button>
+            <button type="button" className="bo-key" onClick={next} disabled={!hasTrack} aria-label="Next track">&#9658;&#9658;</button>
           </div>
-
-          <div className={`bo-readout ${playing ? 'bo-readout-playing' : ''}`}>
-            <div className="bo-progress" style={{ width: `${progress}%` }} />
-            <div className="bo-now">NOW PLAYING</div>
-            <div className="bo-track-window">
-              <span>{label} &nbsp; / &nbsp; {label}</span>
-            </div>
-            <div className="bo-readout-foot">
-              <span>{hasTrack ? `${fmt(currentTime)} / ${fmt(duration)}` : '0:00 / 0:00'}</span>
-              <div className="bo-vu" aria-hidden="true">
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <i key={index} style={{ animationDelay: `${index * 70}ms` }} />
-                ))}
-              </div>
-            </div>
+          <div className="bo-track-window">
+            <span>{label} &nbsp; / &nbsp; {label}</span>
           </div>
+          <span className="bo-time">{hasTrack ? `${fmt(currentTime)} / ${fmt(duration)}` : '0:00 / 0:00'}</span>
+          <div className="bo-vu" aria-hidden="true">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <i key={index} style={{ animationDelay: `${index * 70}ms` }} />
+            ))}
+          </div>
+          <button type="button" className="bo-minimize" onClick={minimize} aria-label="Minimize player">▾</button>
         </div>
       </section>
 
@@ -233,110 +218,27 @@ export default function PersistentPlayer() {
         }
         .bo-tape-deck {
           position: fixed;
-          left: 18px;
-          bottom: 18px;
+          left: 0;
+          right: 0;
+          bottom: 0;
           z-index: 60;
-          width: min(680px, calc(100vw - 36px));
+          height: 48px;
           background: #2F2F2D;
           color: #F8F7F3;
-          border: 1px solid #0F6E6E;
-          border-top: 5px solid #1A9E9E;
-          box-shadow: 0 24px 70px rgba(47,47,45,0.42);
-          transform: translateY(calc(100% + 36px));
+          border-top: 2px solid #1A9E9E;
+          box-shadow: 0 -4px 24px rgba(47,47,45,0.42);
+          transform: translateY(100%);
           opacity: 0;
           pointer-events: none;
-          transition: transform 360ms ease, opacity 220ms ease;
+          transition: transform 320ms ease, opacity 200ms ease;
           overflow: hidden;
-        }
-        .bo-tape-deck::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0.18;
-          background: repeating-linear-gradient(
-            to bottom,
-            rgba(248,247,243,0.12) 0,
-            rgba(248,247,243,0.12) 1px,
-            transparent 1px,
-            transparent 5px
-          );
         }
         .bo-tape-deck-open {
           transform: translateY(0);
           opacity: 1;
           pointer-events: auto;
         }
-        .bo-deck-top {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          min-height: 40px;
-          padding: 0 14px;
-          border-bottom: 1px solid rgba(26,158,158,0.45);
-          font-family: var(--font-sans);
-          color: #1A9E9E;
-          font-size: 0.68rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-        }
-        .bo-deck-top button {
-          color: #E8176A;
-          font-size: 1rem;
-          line-height: 1;
-        }
-        .bo-deck-body {
-          position: relative;
-          display: grid;
-          grid-template-columns: auto 1fr;
-          gap: 18px;
-          align-items: stretch;
-          padding: 18px;
-        }
-        .bo-transport {
-          display: flex;
-          align-items: stretch;
-          gap: 8px;
-        }
-        .bo-key {
-          min-width: 66px;
-          min-height: 70px;
-          padding: 0 12px;
-          background: #F8F7F3;
-          color: #2F2F2D;
-          border: 1px solid #2F2F2D;
-          border-bottom: 8px solid #0F6E6E;
-          font-family: var(--font-sans);
-          font-size: 0.68rem;
-          font-weight: 800;
-          letter-spacing: 0.08em;
-          transition: transform 80ms ease, border-bottom-width 80ms ease;
-        }
-        .bo-key-play {
-          min-width: 82px;
-          background: #1A9E9E;
-          color: #F8F7F3;
-          border-bottom-color: #0F6E6E;
-        }
-        .bo-key:active {
-          transform: translateY(2px);
-          border-bottom-width: 3px;
-        }
-        .bo-key:disabled {
-          opacity: 0.45;
-          cursor: default;
-        }
-        .bo-readout {
-          position: relative;
-          min-width: 0;
-          overflow: hidden;
-          background: #0F6E6E;
-          border: 1px solid #1A9E9E;
-          padding: 13px 14px 10px;
-        }
-        .bo-progress {
+        .bo-progress-bar {
           position: absolute;
           left: 0;
           top: 0;
@@ -344,22 +246,65 @@ export default function PersistentPlayer() {
           background: #E8176A;
           transition: width 180ms linear;
         }
-        .bo-now {
-          color: #E8176A;
+        .bo-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          height: 100%;
+          padding: 0 12px;
           font-family: var(--font-sans);
-          font-size: 0.58rem;
+          font-size: 0.68rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+        .bo-bar-brand {
+          color: #1A9E9E;
+          white-space: nowrap;
           letter-spacing: 0.18em;
-          line-height: 1;
-          margin-bottom: 10px;
+        }
+        .bo-transport {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-shrink: 0;
+        }
+        .bo-key {
+          height: 30px;
+          min-width: 38px;
+          padding: 0 8px;
+          background: #F8F7F3;
+          color: #2F2F2D;
+          border: 1px solid #2F2F2D;
+          border-bottom: 3px solid #0F6E6E;
+          font-family: var(--font-sans);
+          font-size: 0.6rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          transition: transform 80ms ease, border-bottom-width 80ms ease;
+        }
+        .bo-key-play {
+          min-width: 46px;
+          background: #1A9E9E;
+          color: #F8F7F3;
+          border-bottom-color: #0F6E6E;
+        }
+        .bo-key:active {
+          transform: translateY(1px);
+          border-bottom-width: 1px;
+        }
+        .bo-key:disabled {
+          opacity: 0.45;
+          cursor: default;
         }
         .bo-track-window {
+          flex: 1;
+          min-width: 0;
           overflow: hidden;
           white-space: nowrap;
           color: #08CCFC;
-          font-family: var(--font-display);
-          font-size: 1.18rem;
-          letter-spacing: 0;
-          line-height: 1.1;
+          font-family: var(--font-sans);
+          font-size: 0.68rem;
+          letter-spacing: 0.1em;
         }
         .bo-track-window span {
           display: inline-block;
@@ -368,26 +313,23 @@ export default function PersistentPlayer() {
         .bo-readout-playing .bo-track-window span {
           animation: boMarquee 16s linear infinite;
         }
-        .bo-readout-foot {
-          display: flex;
-          align-items: end;
-          justify-content: space-between;
-          gap: 16px;
-          margin-top: 12px;
+        .bo-time {
           color: #F8F7F3;
-          font-family: var(--font-sans);
-          font-size: 0.58rem;
+          white-space: nowrap;
+          font-size: 0.6rem;
           letter-spacing: 0.1em;
+          flex-shrink: 0;
         }
         .bo-vu {
           display: flex;
-          align-items: end;
-          gap: 3px;
-          height: 18px;
+          align-items: flex-end;
+          gap: 2px;
+          height: 14px;
+          flex-shrink: 0;
         }
         .bo-vu i {
           display: block;
-          width: 4px;
+          width: 3px;
           height: 100%;
           transform-origin: bottom;
           transform: scaleY(0.25);
@@ -395,6 +337,13 @@ export default function PersistentPlayer() {
         }
         .bo-readout-playing .bo-vu i {
           animation: boVu 620ms ease-in-out infinite;
+        }
+        .bo-minimize {
+          color: #E8176A;
+          font-size: 1rem;
+          line-height: 1;
+          flex-shrink: 0;
+          padding: 0 2px;
         }
         @keyframes boPulse {
           0% { box-shadow: 0 0 0 0 rgba(232,23,106,0.55); }
@@ -408,39 +357,10 @@ export default function PersistentPlayer() {
           0%, 100% { transform: scaleY(0.25); }
           50% { transform: scaleY(1); }
         }
-        @media (max-width: 640px) {
-          .bo-radio-pill {
-            right: 14px;
-            left: 14px;
-            bottom: 14px;
-            justify-content: center;
-          }
-          .bo-tape-deck {
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            width: auto;
-          }
-          .bo-deck-body {
-            grid-template-columns: 1fr;
-            gap: 12px;
-            padding: 12px;
-          }
-          .bo-transport {
-            order: 2;
-            display: grid;
-            grid-template-columns: 1fr 1.25fr 1fr;
-          }
-          .bo-key {
-            min-width: 0;
-            min-height: 54px;
-          }
-          .bo-readout {
-            order: 1;
-          }
-          .bo-track-window {
-            font-size: 0.96rem;
-          }
+        @media (max-width: 480px) {
+          .bo-bar-brand { display: none; }
+          .bo-time { display: none; }
+          .bo-vu { display: none; }
         }
       `}</style>
     </>
