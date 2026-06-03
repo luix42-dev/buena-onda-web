@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 const QuerySchema = z.object({
   itemId: z.string().uuid(),

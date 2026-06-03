@@ -126,6 +126,25 @@ export default function EventEditor({ event }: Props) {
     setGallery(prev => prev.map((item, i) => i === idx ? { ...item, image: url } : item))
   }
 
+  const uploadMultipleIntoGallery = async (idx: number, files: File[]) => {
+    if (files.length === 0) return
+
+    const uploaded: EventGalleryItem[] = []
+    for (const file of files) {
+      const url = await uploadFile(file, 'events/gallery')
+      if (url) uploaded.push({ image: url, caption: '' })
+    }
+
+    if (uploaded.length === 0) return
+    setGallery(prev => {
+      const next = [...prev]
+      const first = uploaded[0]
+      next[idx] = { ...next[idx], image: first.image }
+      next.splice(idx + 1, 0, ...uploaded.slice(1))
+      return next
+    })
+  }
+
   const uploadIntoAudio = async (idx: number, file: File) => {
     const url = await uploadFile(file, 'audio')
     if (!url) return
@@ -312,7 +331,14 @@ export default function EventEditor({ event }: Props) {
             addItem={() => setGallery(prev => [...prev, blankGallery()])}
             render={(item, idx) => (
               <>
-                <UploadRow label="Image" value={item.image} accept="image/*" onUpload={file => uploadIntoGallery(idx, file)} />
+                <UploadRow
+                  label="Image"
+                  value={item.image}
+                  accept="image/*"
+                  multiple
+                  onUpload={file => uploadIntoGallery(idx, file)}
+                  onUploadMany={files => uploadMultipleIntoGallery(idx, files)}
+                />
                 <input
                   value={item.caption ?? ''}
                   onChange={e => setGallery(prev => prev.map((row, i) => i === idx ? { ...row, caption: e.target.value } : row))}
@@ -467,12 +493,16 @@ function UploadRow({
   label,
   value,
   accept,
+  multiple,
   onUpload,
+  onUploadMany,
 }: {
   label: string
   value: string
   accept: string
+  multiple?: boolean
   onUpload: (file: File) => void
+  onUploadMany?: (files: File[]) => void
 }) {
   const ref = useRef<HTMLInputElement>(null)
   return (
@@ -485,10 +515,15 @@ function UploadRow({
         ref={ref}
         type="file"
         accept={accept}
+        multiple={multiple}
         style={{ display: 'none' }}
         onChange={e => {
-          const file = e.target.files?.[0]
-          if (file) onUpload(file)
+          const files = Array.from(e.target.files ?? [])
+          if (multiple && onUploadMany) {
+            onUploadMany(files)
+          } else if (files[0]) {
+            onUpload(files[0])
+          }
           e.target.value = ''
         }}
       />

@@ -3,6 +3,8 @@ import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 import { sendTelegramMessage } from '@/lib/telegram'
 
+export const runtime = 'edge'
+
 interface Params { params: Promise<{ id: string }> }
 
 export async function GET(request: NextRequest, { params }: Params) {

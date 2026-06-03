@@ -1,6 +1,8 @@
 import { createServiceClient } from '@/lib/supabase/server'
 import TransmissionClient from './TransmissionClient'
 
+export const runtime = 'edge'
+
 export const dynamic = 'force-dynamic'
 
 type NewsletterSubscriber = {

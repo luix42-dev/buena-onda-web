@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
+export const runtime = 'edge'
+
 interface Params { params: Promise<{ id: string }> }
 
 function asArray(value: unknown) {

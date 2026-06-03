@@ -7,6 +7,8 @@ import BuyNowButton from '@/components/ui/BuyNowButton'
 import ReserveForm from '@/components/ui/ReserveForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, ItemImage, Theme } from '@/types'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

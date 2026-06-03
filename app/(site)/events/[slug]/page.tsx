@@ -5,6 +5,8 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 
+export const runtime = 'edge'
+
 export const dynamic = 'force-dynamic'
 
 type GalleryItem = { image?: string; caption?: string }
@@ -126,7 +128,7 @@ export default async function EventDetailPage({ params }: Props) {
           </ScanReveal>
 
           <ScanReveal>
-            <p className='archive-label text-teal mb-5 tracking-[0.22em]'>Sound · Space · A Buena Onda Production</p>
+            <p className='archive-label text-teal mb-8 tracking-[0.22em]'>Sound · Space · A Buena Onda Production</p>
           </ScanReveal>
 
           <ScanReveal delay={60}>
@@ -144,9 +146,9 @@ export default async function EventDetailPage({ params }: Props) {
 
           <div className='grid md:grid-cols-[1.4fr_1fr] gap-8 lg:gap-14 items-start'>
             <ScanReveal delay={140}>
-              <div className='aspect-square overflow-hidden rounded-[4px] bg-sand-bg'>
+              <div className='aspect-square overflow-hidden rounded-[4px] bg-near-black p-3'>
                 {event.cover_image_url ? (
-                  <img src={event.cover_image_url} alt={event.name} className='w-full h-full object-cover' />
+                  <img src={event.cover_image_url} alt={event.name} className='w-full h-full object-contain' />
                 ) : <div className='w-full h-full bg-warm-white' />}
               </div>
             </ScanReveal>
@@ -165,14 +167,15 @@ export default async function EventDetailPage({ params }: Props) {
                 ) : null}
 
                 {partners.length > 0 ? (
-                  <div className='mt-8 grid gap-3'>
+                  <div className='mt-8 grid gap-4'>
                     {partners.map((partner, i) => (
-                      <div key={(partner.name ?? 'partner') + '-' + i} className='border border-teal rounded-[4px] p-4 flex items-center gap-4'>
-                        <div className='w-16 h-16 rounded-full border border-teal flex items-center justify-center overflow-hidden bg-cream shrink-0'>
+                      <div key={(partner.name ?? 'partner') + '-' + i} className='border border-teal rounded-[4px] p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4'>
+                        <div className='w-16 h-16 min-w-12 min-h-12 rounded-full border border-teal flex items-center justify-center overflow-hidden bg-cream shrink-0'>
                           {partner.logo ? <img src={partner.logo} alt={partner.name ?? 'Partner'} className='w-full h-full object-contain' /> : <span className='font-display text-teal text-2xl leading-none'>{initials(partner.name)}</span>}
                         </div>
                         <div>
                           <div className='font-display text-near-black text-2xl leading-none uppercase'>{partner.name}</div>
+                          <div className='text-xs text-near-black/75 mt-1'>{partner.name}</div>
                           <div className='archive-label text-[0.55rem] mt-1'>Venue Partner</div>
                         </div>
                       </div>
@@ -199,10 +202,10 @@ export default async function EventDetailPage({ params }: Props) {
 
       {gallery.length > 0 ? (
         <EditorialSection label='On the floor' tone='pink'>
-          <div className='grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4'>
+          <div className='grid grid-cols-2 md:grid-cols-6 auto-rows-[160px] gap-3 md:gap-4'>
             {gallery.map((item, i) => (
-              <ScanReveal key={(item.image ?? 'image') + '-' + i} delay={i * 45}>
-                <figure className={'relative overflow-hidden rounded-[3px] bg-near-black ' + galleryClass(i)}>
+              <ScanReveal key={(item.image ?? 'image') + '-' + i} delay={i * 45} className={galleryClass(i)}>
+                <figure className='relative h-full overflow-hidden rounded-[3px] bg-near-black'>
                   <img src={item.image} alt={item.caption ?? event.name} className='w-full h-full object-cover' />
                   {item.caption ? <figcaption className='absolute left-3 bottom-3 max-w-[80%] font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/75'>{item.caption}</figcaption> : null}
                 </figure>
@@ -263,12 +266,12 @@ export default async function EventDetailPage({ params }: Props) {
 }
 
 function galleryClass(index: number) {
-  if (index === 0) return 'col-span-2 md:col-span-4 md:row-span-2 aspect-[4/3] md:aspect-auto md:min-h-[520px]'
-  if (index === 1) return 'col-span-1 md:col-span-2 aspect-[4/5] md:min-h-[250px]'
-  if (index === 2) return 'col-span-1 md:col-span-2 aspect-[4/5] md:min-h-[250px]'
-  if (index % 5 === 3) return 'col-span-2 md:col-span-3 aspect-[3/2]'
-  if (index % 5 === 4) return 'col-span-1 md:col-span-3 aspect-[4/3]'
-  return 'col-span-1 md:col-span-2 aspect-[4/3]'
+  if (index === 0) return 'col-span-2 row-span-2 md:col-span-3 md:row-span-2'
+  if (index === 1) return 'col-span-1 row-span-1 md:col-span-2'
+  if (index === 2) return 'col-span-1 row-span-1 md:col-span-1'
+  if (index % 5 === 3) return 'col-span-2 row-span-1 md:col-span-3'
+  if (index % 5 === 4) return 'col-span-1 row-span-1 md:col-span-2'
+  return 'col-span-1 row-span-1 md:col-span-2'
 }
 
 function VideoFrame({ title, src, full }: { title: string; src: string; full?: boolean }) {

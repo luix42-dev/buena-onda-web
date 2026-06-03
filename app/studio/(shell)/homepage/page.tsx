@@ -3,6 +3,8 @@ import { createServiceClient } from '@/lib/supabase/server'
 import { getHeroImages } from '@/lib/getHeroImages'
 import HomepageClient from './HomepageClient'
 
+export const runtime = 'edge'
+
 export const dynamic = 'force-dynamic'
 
 type SiteSettingRow = {

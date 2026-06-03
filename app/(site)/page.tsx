@@ -6,6 +6,8 @@ import HeroGrid from '@/components/HeroGrid'
 import { getHeroImages } from '@/lib/getHeroImages'
 import { createClient } from '@/lib/supabase/server'
 
+export const runtime = 'edge'
+
 export const metadata: Metadata = {
   title: 'Buena Onda - Analog Culture House',
 }

@@ -38,35 +38,21 @@ async function postUpdate(update) {
   return payload
 }
 
-const tinyPng = Buffer.from(
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=',
-  'base64',
-)
-const photoPath = '/tmp/bo-telegram-test.png'
-await fs.writeFile(photoPath, tinyPng)
-
-const form = new FormData()
-form.set('chat_id', chatId)
-form.set('caption', 'Telegram photo intake test')
-form.set('photo', new Blob([tinyPng], { type: 'image/png' }), 'bo-telegram-test.png')
-const sentPhoto = await telegram('sendPhoto', form)
-const highestPhoto = [...sentPhoto.photo].sort((a, b) => (b.file_size ?? b.width * b.height) - (a.file_size ?? a.width * a.height))[0]
-
 const photoResult = await postUpdate({
   update_id: Date.now(),
   message: {
-    message_id: sentPhoto.message_id + 1,
+    message_id: 900001,
     from: { id: Number(chatId) },
     chat: { id: Number(chatId) },
     caption: 'Telegram photo intake test',
-    photo: [highestPhoto],
+    photo_url: 'https://httpbin.org/image/png',
   },
 })
 
 const transmissionResult = await postUpdate({
   update_id: Date.now() + 1,
   message: {
-    message_id: sentPhoto.message_id + 2,
+    message_id: 900002,
     from: { id: Number(chatId) },
     chat: { id: Number(chatId) },
     text: '/transmission https://buenaondalifestyle.com',
@@ -76,7 +62,7 @@ const transmissionResult = await postUpdate({
 const marketplaceResult = await postUpdate({
   update_id: Date.now() + 2,
   message: {
-    message_id: sentPhoto.message_id + 3,
+    message_id: 900003,
     from: { id: Number(chatId) },
     chat: { id: Number(chatId) },
     text: '/catalog https://www.facebook.com/marketplace/item/123',
@@ -96,6 +82,7 @@ console.log(JSON.stringify({
     record: photoRecord,
     image: photoResult.result?.image,
     replyMessageId: photoResult.result?.reply?.message_id,
+    raw: photoResult,
   },
   transmission: {
     record: transmissionRecord,

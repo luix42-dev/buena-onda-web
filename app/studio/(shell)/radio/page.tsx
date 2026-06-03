@@ -1,6 +1,8 @@
 import { createServiceClient } from '@/lib/supabase/server'
 import RadioClient from './RadioClient'
 
+export const runtime = 'edge'
+
 export const dynamic = 'force-dynamic'
 
 async function loadRadioData() {

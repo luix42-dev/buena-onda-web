@@ -3,7 +3,7 @@ import 'dotenv/config'
 const token = process.env.TELEGRAM_BOT_TOKEN
 if (!token) throw new Error('TELEGRAM_BOT_TOKEN is missing')
 
-const url = 'https://preview.buena-onda-web.pages.dev/api/telegram/webhook'
+const url = process.env.TELEGRAM_WEBHOOK_URL ?? 'https://buena-onda-web.vercel.app/api/telegram/webhook'
 
 async function telegram(method, body) {
   const response = await fetch(`https://api.telegram.org/bot${token}/${method}`, {

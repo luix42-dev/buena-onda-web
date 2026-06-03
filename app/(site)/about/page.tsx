@@ -5,6 +5,8 @@ import TimelineAccordion from '@/components/ui/TimelineAccordion'
 import { createClient } from '@/lib/supabase/server'
 import { timelineItems as fallback } from '@/lib/timeline'
 import type { TimelineItem } from '@/lib/timeline'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

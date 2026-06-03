@@ -1,14 +1,10 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
-import { randomUUID } from 'node:crypto'
 import { NextResponse, type NextRequest } from 'next/server'
-import sharp from 'sharp'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { VOICE_V2_PROMPT } from '@/lib/voice-prompt'
 
 export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'media', 'upload')
 const VALID_THEME_SLUGS = ['curated-vintage', 'analog-objects', 'sound-collection', 'buena-onda-original']
 
 type TelegramPhotoSize = {
@@ -26,6 +22,7 @@ type TelegramMessage = {
   text?: string
   caption?: string
   photo?: TelegramPhotoSize[]
+  photo_url?: string
 }
 
 function botToken() {
@@ -97,23 +94,34 @@ async function getTelegramFile(fileId: string) {
   if (!response.ok) throw new Error(`Telegram file download failed with ${response.status}`)
   return {
     filename: String(filePath).split('/').pop() ?? fileId,
-    buffer: Buffer.from(await response.arrayBuffer()),
+    contentType: response.headers.get('content-type') ?? 'image/jpeg',
+    buffer: new Uint8Array(await response.arrayBuffer()),
   }
 }
 
-async function processCatalogImage(buffer: Buffer, prefix = 'telegram') {
-  await fs.mkdir(UPLOAD_DIR, { recursive: true })
-  const output = await sharp(buffer)
-    .rotate()
-    .resize({ width: 1200, height: 1200, fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 82 })
-    .toBuffer()
-  const filename = `${prefix}-${Date.now()}-${randomUUID()}.webp`
-  await fs.writeFile(path.join(UPLOAD_DIR, filename), output)
+function imageExt(contentType: string, filename?: string) {
+  if (contentType.includes('png')) return 'png'
+  if (contentType.includes('webp')) return 'webp'
+  if (contentType.includes('gif')) return 'gif'
+  return filename?.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg'
+}
+
+function bytesToBlobPart(bytes: Uint8Array) {
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
+}
+
+async function processCatalogImage(buffer: Uint8Array, prefix = 'telegram', contentType = 'image/jpeg', filename?: string) {
+  const ext = imageExt(contentType, filename)
+  const storagePath = `${prefix}/${Date.now()}-${crypto.randomUUID()}.${ext}`
+  const supabase = createServiceRoleClient()
+  const { error } = await supabase.storage
+    .from('catalog')
+    .upload(storagePath, new Blob([bytesToBlobPart(buffer)], { type: contentType }), { contentType, upsert: false })
+  if (error) throw error
   return {
-    url: `/media/upload/${filename}`,
+    url: supabase.storage.from('catalog').getPublicUrl(storagePath).data.publicUrl,
     beforeSize: buffer.byteLength,
-    afterSize: output.byteLength,
+    afterSize: buffer.byteLength,
   }
 }
 
@@ -146,7 +154,7 @@ async function enrichCatalogCopy(context: { note?: string; sourceUrl?: string; i
   }
 
   try {
-    const voice = await fs.readFile(path.join(process.cwd(), 'src', 'brand', 'voice_v2.md'), 'utf8')
+    const voice = VOICE_V2_PROMPT
     const tagsResponse = await fetch('http://127.0.0.1:11434/api/tags', { signal: AbortSignal.timeout(10_000) })
     const tagsPayload = await tagsResponse.json()
     const model = Array.isArray(tagsPayload.models)
@@ -256,9 +264,15 @@ async function saveCatalogDraft(input: {
 async function handlePhoto(message: TelegramMessage) {
   const chatId = message.chat!.id!
   const photo = [...(message.photo ?? [])].sort((a, b) => (b.file_size ?? b.width * b.height) - (a.file_size ?? a.width * a.height))[0]
-  if (!photo) return reply(chatId, 'Send a photo or use /catalog /transmission /radio + a URL.')
-  const file = await getTelegramFile(photo.file_id)
-  const image = await processCatalogImage(file.buffer)
+  if (!photo && !message.photo_url) return reply(chatId, 'Send a photo or use /catalog /transmission /radio + a URL.')
+  const file = message.photo_url
+    ? {
+        filename: message.photo_url.split('/').pop() || 'photo',
+        contentType: 'image/jpeg',
+        buffer: new Uint8Array(await (await fetch(message.photo_url)).arrayBuffer()),
+      }
+    : await getTelegramFile(photo.file_id)
+  const image = await processCatalogImage(file.buffer, 'telegram', file.contentType, file.filename)
   const saved = await saveCatalogDraft({
     note: message.caption,
     imageUrl: image.url,
@@ -280,7 +294,7 @@ async function handleCatalogUrl(message: TelegramMessage, url: string) {
   if (og.image) {
     const response = await fetch(og.image, { signal: AbortSignal.timeout(30_000) })
     if (!response.ok) throw new Error(`og:image fetch failed with ${response.status}`)
-    image = await processCatalogImage(Buffer.from(await response.arrayBuffer()), 'telegram-og')
+    image = await processCatalogImage(new Uint8Array(await response.arrayBuffer()), 'telegram-og', response.headers.get('content-type') ?? 'image/jpeg', og.image)
   }
   const saved = await saveCatalogDraft({
     note: [og.title, og.description].filter(Boolean).join('\n'),
@@ -361,7 +375,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    if (message.photo?.length) {
+    if (message.photo?.length || message.photo_url) {
       const result = await handlePhoto(message)
       return NextResponse.json({ ok: true, type: 'photo', result })
     }

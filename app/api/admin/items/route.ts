@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()

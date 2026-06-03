@@ -4,7 +4,7 @@ import { sendTelegramMessage } from '@/lib/telegram'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 const CompleteSchema = z.object({
   orderId: z.string().uuid(),
