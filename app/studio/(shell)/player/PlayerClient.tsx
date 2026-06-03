@@ -398,6 +398,7 @@ export default function PlayerClient() {
       console.log('[player] uploadTrack: PUT', uploadData.uploadUrl.split('?')[0])
       const uploadRes = await fetch(uploadData.uploadUrl, {
         method: 'PUT',
+        headers: { 'Content-Type': file.type || 'audio/mpeg' },
         body: file,
       })
 
