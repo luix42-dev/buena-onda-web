@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useToast } from '@/components/studio/Toast'
+import { getHeroImages } from '@/lib/getHeroImages'
 
 type Props = {
   heroPool: string[]
@@ -38,6 +39,21 @@ export default function HomepageClient({
   const [city, setCity] = useState(asString(contact.city, 'Miami, FL'))
   const [newsletterEnabled, setNewsletterEnabled] = useState(asBoolean(newsletter.enabled, true))
   const [newsletterProvider, setNewsletterProvider] = useState(asString(newsletter.provider, 'resend'))
+  const [loadedHeroPool, setLoadedHeroPool] = useState(heroPool)
+
+  useEffect(() => {
+    let mounted = true
+
+    getHeroImages()
+      .then(images => {
+        if (mounted) setLoadedHeroPool(images)
+      })
+      .catch(() => {})
+
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   const save = async () => {
     setSaving(true)
@@ -74,7 +90,7 @@ export default function HomepageClient({
           </div>
           <div className="hb">
             <span className="hvis">No migration needed</span>
-            <span className="hvis">{heroPool.length} hero images found</span>
+            <span className="hvis">{loadedHeroPool.length} hero images found</span>
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import FooterNewsletter from './FooterNewsletter'
+import FooterSwatches from './FooterSwatches'
 
 const navLinks = [
   { href: '/about',   label: 'About'   },
@@ -15,11 +16,11 @@ const socialLinks = [
 ]
 
 const swatches = [
-  { color: '#2A9D9D', label: 'teal',      href: '/themes',  title: 'Catalog'  },
-  { color: '#D9685A', label: 'coral',     href: '/radio',   title: 'Radio'    },
-  { color: '#2E2E2E', label: 'charcoal',  href: '/culture', title: 'Culture'  },
-  { color: '#FF3C8E', label: 'neon-pink', href: '/about',   title: 'About'    },
-  { color: '#00D4FF', label: 'neon-blue', href: '/contact', title: 'Contact'  },
+  { color: '#1A9E9E', label: 'teal' },
+  { color: '#C46D63', label: 'coral' },
+  { color: '#2F2F2D', label: 'charcoal' },
+  { color: '#E8176A', label: 'pink' },
+  { color: '#08CCFC', label: 'cyan' },
 ]
 
 export default function Footer() {
@@ -55,18 +56,7 @@ export default function Footer() {
           </p>
 
           {/* Palette swatches */}
-          <div className="flex gap-2 mt-2" aria-label="Brand palette">
-            {swatches.map(({ color, label, href, title }) => (
-              <Link
-                key={label}
-                href={href}
-                title={title}
-                aria-label={title}
-                style={{ background: color, width: 14, height: 14, display: 'block', flexShrink: 0 }}
-                className="hover:scale-125 transition-transform duration-200"
-              />
-            ))}
-          </div>
+          <FooterSwatches swatches={swatches} />
         </div>
 
         {/* Nav column */}
@@ -131,7 +121,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom band */}
-      <div className="border-t" style={{ borderColor: 'rgba(42,157,157,0.2)' }}>
+      <div className="border-t" style={{ borderColor: 'rgba(26,158,158,0.2)' }}>
         <div className="max-w-site mx-auto px-5 md:px-10 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p
             className="text-[0.6rem] tracking-[0.15em] uppercase"
