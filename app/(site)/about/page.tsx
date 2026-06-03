@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
-import PullQuote from '@/components/ui/PullQuote'
 import TimelineAccordion from '@/components/ui/TimelineAccordion'
 import { createClient } from '@/lib/supabase/server'
 import { timelineItems as fallback } from '@/lib/timeline'
@@ -14,17 +13,31 @@ export const metadata: Metadata = {
     'Buena Onda is an analog culture house rooted in Miami. This is our story.',
 }
 
+const TIMELINE_QUERY_TIMEOUT_MS = 2500
+
+async function withTimeout<T>(promise: PromiseLike<T>): Promise<T> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error('Timeline query timed out')), TIMELINE_QUERY_TIMEOUT_MS)
+    }),
+  ])
+}
+
 async function getTimeline(): Promise<TimelineItem[]> {
   try {
     const supabase = await createClient()
-    const { data } = await supabase.from('timeline').select('*').order('sort_order')
-    if (data && data.length > 0) return data as TimelineItem[]
-  } catch { /* fall through */ }
+    const { data } = await withTimeout(supabase.from('timeline').select('*').order('sort_order'))
+    if (data) return data as TimelineItem[]
+  } catch {
+    // Fall back to the checked-in canonical timeline.
+  }
   return fallback
 }
 
 export default async function AboutPage() {
   const timelineItems = await getTimeline()
+
   return (
     <>
       {/* ── Header ─────────────────────────────────────────────────────── */}
@@ -62,10 +75,34 @@ export default async function AboutPage() {
             </ScanReveal>
 
             <ScanReveal delay={150}>
-              <PullQuote>
-                Culture lives in objects: the weight of a record,
-                the grain of aged leather, a room that smells like cedar and old vinyl.
-              </PullQuote>
+              <div
+                className="p-7 md:p-8"
+                style={{
+                  backgroundColor: '#EDE8DA',
+                  padding: '2rem 1.75rem',
+                  borderLeftWidth: '3px',
+                  borderLeftStyle: 'solid',
+                  borderLeftColor: '#1A9E9E',
+                  borderRadius: '2px',
+                }}
+              >
+                <p className="font-serif italic text-charcoal leading-relaxed" style={{ fontSize: 'clamp(1.15rem, 2vw, 1.45rem)' }}>
+                  Culture lives in objects: the weight of a record,
+                  the grain of aged leather, a room that smells like cedar and old vinyl.
+                </p>
+                <p className="font-serif italic text-charcoal leading-relaxed mt-5" style={{ fontSize: 'clamp(1.05rem, 1.7vw, 1.25rem)' }}>
+                  These are not decorations. They are coordinates. Each one tells you where you are.
+                </p>
+                <div className="flex items-center gap-3 mt-8">
+                  <span style={{ width: 36, height: 1, background: '#1A9E9E' }} aria-hidden="true" />
+                  <span
+                    className="font-sans uppercase"
+                    style={{ color: '#1A9E9E', fontSize: '0.58rem', letterSpacing: '0.2em', fontWeight: 700 }}
+                  >
+                    BUENA ONDA · MIAMI
+                  </span>
+                </div>
+              </div>
             </ScanReveal>
           </div>
         </div>

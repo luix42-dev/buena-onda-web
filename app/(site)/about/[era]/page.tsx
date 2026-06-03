@@ -10,11 +10,22 @@ import ScanReveal from '@/components/ui/ScanReveal'
 
 export const dynamic = 'force-dynamic'
 
+const TIMELINE_QUERY_TIMEOUT_MS = 2500
+
+async function withTimeout<T>(promise: PromiseLike<T>): Promise<T> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error('Timeline query timed out')), TIMELINE_QUERY_TIMEOUT_MS)
+    }),
+  ])
+}
+
 async function getTimeline(): Promise<TimelineItem[]> {
   try {
     const supabase = await createClient()
-    const { data } = await supabase.from('timeline').select('*').order('sort_order')
-    if (data && data.length > 0) return data as TimelineItem[]
+    const { data } = await withTimeout(supabase.from('timeline').select('*').order('sort_order'))
+    if (data) return data as TimelineItem[]
   } catch { /* fall through */ }
   return fallback
 }
@@ -83,24 +94,6 @@ export default async function EraPage({ params }: Props) {
           aria-hidden="true"
         />
 
-        {/* Hero photo */}
-        {item.photo && (
-          <>
-            <Image
-              src={item.photo}
-              alt={item.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            {/* Dark scrim */}
-            <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(to top, rgba(13,13,13,0.92) 0%, rgba(13,13,13,0.4) 60%, transparent 100%)' }}
-            />
-          </>
-        )}
-
         {/* Film grain */}
         <div className="grain-overlay absolute inset-0" aria-hidden="true" />
 
@@ -130,6 +123,18 @@ export default async function EraPage({ params }: Props) {
             >
               {item.year}
             </p>
+
+            {item.photo ? (
+              <div className="relative w-full aspect-[16/9] overflow-hidden mb-8 bg-near-black">
+                <Image
+                  src={item.photo}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            ) : null}
 
             {/* Title */}
             <h1
