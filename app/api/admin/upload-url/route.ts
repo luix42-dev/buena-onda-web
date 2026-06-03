@@ -46,10 +46,6 @@ export async function POST(request: NextRequest) {
     : typeof body.fileName === 'string'
       ? body.fileName
       : ''
-  const contentType = typeof body.contentType === 'string' && body.contentType.trim()
-    ? body.contentType.trim()
-    : 'application/octet-stream'
-
   if (!rawFilename) {
     return NextResponse.json({ error: 'filename is required' }, { status: 400 })
   }
@@ -69,15 +65,24 @@ export async function POST(request: NextRequest) {
     region: 'auto',
     endpoint,
     credentials: { accessKeyId, secretAccessKey },
+    requestChecksumCalculation: 'WHEN_REQUIRED',
+    responseChecksumValidation: 'WHEN_REQUIRED',
   })
 
   try {
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: key,
-      ContentType: contentType,
     })
-    const url = await getSignedUrl(client as any, command as any, { expiresIn: 300 })
+    const url = await getSignedUrl(client as any, command as any, {
+      expiresIn: 300,
+      signableHeaders: new Set(['host']),
+      unhoistableHeaders: new Set(),
+    } as any)
+    const signedHeaders = new URL(url).searchParams.get('X-Amz-SignedHeaders')
+    if (signedHeaders !== 'host') {
+      throw new Error(`Unexpected signed headers: ${signedHeaders ?? 'none'}`)
+    }
     const publicUrl = `${publicBaseUrl(endpoint)}/${key}`
     return NextResponse.json({ url, uploadUrl: url, publicUrl, key })
   } catch (error) {
