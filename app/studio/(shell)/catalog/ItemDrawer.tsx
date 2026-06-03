@@ -6,7 +6,7 @@ import Drawer from '@/components/studio/Drawer'
 import SegmentedControl from '@/components/studio/SegmentedControl'
 import UploadDropzone from '@/components/studio/UploadDropzone'
 import { useToast } from '@/components/studio/Toast'
-import type { Item, ItemAvailability, ItemImage, ItemStatus, Theme } from './types'
+import type { Item, ItemAvailability, ItemImage, ItemSourcingModel, ItemStatus, Theme } from './types'
 
 type Props = {
   item:     Item | null
@@ -27,6 +27,11 @@ const STATUS_OPTIONS: { value: ItemStatus; label: string }[] = [
   { value: 'draft',     label: 'Draft'     },
   { value: 'published', label: 'Published' },
   { value: 'archived',  label: 'Archived'  },
+]
+
+const SOURCING_OPTIONS: { value: ItemSourcingModel; label: string }[] = [
+  { value: 'reservation', label: 'Reservation' },
+  { value: 'direct',      label: 'Direct Purchase' },
 ]
 
 function slugify(s: string) {
@@ -51,6 +56,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
   const [tagInput,     setTagInput]    = useState('')
   const [status,       setStatus]      = useState<ItemStatus>('draft')
   const [availability, setAvailability]= useState<ItemAvailability>('available')
+  const [sourcingModel, setSourcingModel] = useState<ItemSourcingModel>('reservation')
   const [images,       setImages]      = useState<ItemImage[]>([])
   const [coverUrl,     setCoverUrl]    = useState<string | null>(null)
   const [uploading,    setUploading]   = useState(false)
@@ -71,6 +77,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       setTags(item.tags ?? [])
       setStatus((item.status === 'sold_out' ? 'published' : item.status) as ItemStatus)
       setAvailability(item.availability ?? 'available')
+      setSourcingModel(item.sourcing_model ?? 'reservation')
       setCoverUrl(item.cover_image_url)
       // Fetch images
       fetch(`/api/admin/items/${item.id}/images`)
@@ -87,6 +94,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       setTags([])
       setStatus('draft')
       setAvailability('available')
+      setSourcingModel('reservation')
       setImages([])
       setCoverUrl(null)
     }
@@ -128,6 +136,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       body: JSON.stringify({
         title, slug, theme_id: themeId || null, price: price ? Number(price) : null,
         description: description || null, tags, status, availability,
+        sourcing_model: sourcingModel,
         cover_image_url: img.url,
       }),
     })
@@ -186,6 +195,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       tags,
       status,
       availability,
+      sourcing_model: sourcingModel,
       cover_image_url: coverUrl,
     }
 
@@ -415,6 +425,17 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
           options={AVAIL_OPTIONS}
           value={availability}
           onChange={setAvailability}
+        />
+      </div>
+
+      {/* -- Sourcing model -------------------------------------- */}
+      <div className="field">
+        <label>Sourcing Model</label>
+        <SegmentedControl
+          variant="status"
+          options={SOURCING_OPTIONS}
+          value={sourcingModel}
+          onChange={setSourcingModel}
         />
       </div>
 

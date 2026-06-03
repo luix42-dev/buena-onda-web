@@ -4,6 +4,8 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import NotifyForm from '@/components/ui/NotifyForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Drop } from '@/types'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

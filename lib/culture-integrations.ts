@@ -1,4 +1,3 @@
-import sharp from 'sharp'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 type UploadResult = {
@@ -14,6 +13,10 @@ function sanitizeBaseName(value: string) {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
     .slice(0, 80) || 'culture'
+}
+
+function bytesToBlobPart(bytes: Uint8Array) {
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
 }
 
 function decodeHtml(value: string) {
@@ -85,7 +88,7 @@ async function resolveInstagramImageUrl(instagramUrl: string) {
 
   const directType = direct.headers.get('content-type') ?? ''
   if (direct.ok && directType.startsWith('image/')) {
-    return { imageUrl: instagramUrl, directBuffer: Buffer.from(await direct.arrayBuffer()) }
+    return { imageUrl: instagramUrl, directBuffer: new Uint8Array(await direct.arrayBuffer()), contentType: directType }
   }
 
   const html = await direct.text()
@@ -94,7 +97,7 @@ async function resolveInstagramImageUrl(instagramUrl: string) {
     throw new Error('Could not find an image on the Instagram URL')
   }
 
-  return { imageUrl: extracted, directBuffer: null }
+  return { imageUrl: extracted, directBuffer: null, contentType: null }
 }
 
 export async function attachInstagramImage(
@@ -102,26 +105,27 @@ export async function attachInstagramImage(
   instagramUrl: string,
   title: string
 ): Promise<UploadResult> {
-  const { imageUrl, directBuffer } = await resolveInstagramImageUrl(instagramUrl)
-  const imageBuffer = directBuffer ?? Buffer.from(await (await fetch(imageUrl, {
-    headers: {
-      accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-      'user-agent': 'Mozilla/5.0 BuenaOndaBot/1.0',
-    },
-    redirect: 'follow',
-  })).arrayBuffer())
+  const { imageUrl, directBuffer, contentType } = await resolveInstagramImageUrl(instagramUrl)
+  let imageBuffer = directBuffer
+  let imageContentType = contentType ?? 'image/jpeg'
+  if (!imageBuffer) {
+    const response = await fetch(imageUrl, {
+      headers: {
+        accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        'user-agent': 'Mozilla/5.0 BuenaOndaBot/1.0',
+      },
+      redirect: 'follow',
+    })
+    imageContentType = response.headers.get('content-type') ?? imageContentType
+    imageBuffer = new Uint8Array(await response.arrayBuffer())
+  }
 
-  const compressed = await sharp(imageBuffer)
-    .rotate()
-    .resize({ width: 1600, withoutEnlargement: true })
-    .webp({ quality: 82 })
-    .toBuffer()
-
-  const storagePath = `culture/${Date.now()}-${sanitizeBaseName(title)}.webp`
+  const ext = imageContentType.includes('png') ? 'png' : imageContentType.includes('webp') ? 'webp' : 'jpg'
+  const storagePath = `culture/${Date.now()}-${sanitizeBaseName(title)}.${ext}`
   const { error } = await supabase.storage
     .from('catalog')
-    .upload(storagePath, compressed, {
-      contentType: 'image/webp',
+    .upload(storagePath, new Blob([bytesToBlobPart(imageBuffer)], { type: imageContentType }), {
+      contentType: imageContentType,
       upsert: false,
     })
 

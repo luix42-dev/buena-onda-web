@@ -1,6 +1,17 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import SegmentedControl from '@/components/studio/SegmentedControl'
+
+type Destination = 'catalog' | 'transmission' | 'radio'
+
+const DESTINATION_OPTIONS: { value: Destination; label: string }[] = [
+  { value: 'catalog', label: 'Catalog' },
+  { value: 'transmission', label: 'Transmission' },
+  { value: 'radio', label: 'Radio' },
+]
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, '') ?? ''
 
 function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -12,6 +23,7 @@ function fileToBase64(file: File): Promise<string> {
 }
 
 export default function IntakeClient() {
+  const [destination, setDestination] = useState<Destination>('catalog')
   const [note, setNote] = useState('')
   const [link, setLink] = useState('')
   const [image, setImage] = useState<File | null>(null)
@@ -27,10 +39,11 @@ export default function IntakeClient() {
 
     try {
       const imageBase64 = image ? await fileToBase64(image) : undefined
-      const response = await fetch('/api/intake', {
+      const response = await fetch(`${API_BASE_URL}/api/intake`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
+          destination,
           note: note.trim() || undefined,
           image: imageBase64,
           url: link.trim() || undefined,
@@ -55,6 +68,16 @@ export default function IntakeClient() {
       </div>
 
       <form onSubmit={onSubmit} style={{ display: 'grid', gap: 16 }}>
+        <div className="field">
+          <label>Destination</label>
+          <SegmentedControl
+            variant="status"
+            options={DESTINATION_OPTIONS}
+            value={destination}
+            onChange={setDestination}
+          />
+        </div>
+
         <label style={{ display: 'grid', gap: 6 }}>
           <span>Note</span>
           <textarea

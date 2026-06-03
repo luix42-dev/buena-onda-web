@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import type { Item, Theme } from '@/types'
 import CatalogGrid from './CatalogGrid'
 
+export const runtime = 'edge'
+
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {

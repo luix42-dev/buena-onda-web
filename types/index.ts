@@ -110,6 +110,7 @@ export interface Item {
   tags: string[] | null
   status:       'draft' | 'published' | 'archived' | 'sold_out'
   availability: 'available' | 'reserved' | 'sold'
+  sourcing_model: 'reservation' | 'direct'
   featured: boolean
   cover_image_url: string | null
   published_at: string | null

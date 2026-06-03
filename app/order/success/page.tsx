@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

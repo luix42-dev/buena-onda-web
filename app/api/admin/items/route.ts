@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
@@ -40,6 +42,7 @@ export async function POST(request: NextRequest) {
     title, slug, theme_id, price, buy_url,
     description, tags, cover_image_url, status = 'draft', details,
     availability = 'available',
+    sourcing_model = 'reservation',
   } = body
 
   if (!title || !slug) {
@@ -71,6 +74,7 @@ export async function POST(request: NextRequest) {
       details:         details ?? null,
       status,
       availability,
+      sourcing_model,
       published_at:    status === 'published' ? new Date().toISOString() : null,
     })
     .select()

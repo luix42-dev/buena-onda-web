@@ -5,6 +5,8 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import SearchForm from '@/components/ui/SearchForm'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, Theme } from '@/types'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

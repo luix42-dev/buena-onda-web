@@ -3,6 +3,8 @@ import { headers } from 'next/headers'
 import ScanReveal from '@/components/ui/ScanReveal'
 import type { Episode } from '@/types'
 
+export const runtime = 'edge'
+
 export const metadata: Metadata = {
   title: 'Radio',
   description: 'Curated mixes, live sessions, and field recordings from the house archive.',

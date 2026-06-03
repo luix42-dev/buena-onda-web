@@ -1,7 +1,8 @@
 import SectionHead from '@/components/studio/SectionHead'
 import { createServiceClient } from '@/lib/supabase/server'
-import { getHeroImages } from '@/lib/getHeroImages'
 import HomepageClient from './HomepageClient'
+
+export const runtime = 'edge'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,10 +27,7 @@ async function loadHomepageData() {
 }
 
 export default async function HomepageEditorPage() {
-  const [siteSettings, heroPool] = await Promise.all([
-    loadHomepageData(),
-    Promise.resolve(getHeroImages()),
-  ])
+  const siteSettings = await loadHomepageData()
 
   const byKey = new Map(siteSettings.map(setting => [setting.key, setting.value]))
   const hero = byKey.get('hero') ?? {}
@@ -45,7 +43,7 @@ export default async function HomepageEditorPage() {
       />
 
       <HomepageClient
-        heroPool={heroPool}
+        heroPool={[]}
         hero={hero}
         social={social}
         contact={contact}

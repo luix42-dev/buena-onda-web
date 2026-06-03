@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { fulfillOrder } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 function getPaymentIntentId(paymentIntent: Stripe.Checkout.Session['payment_intent']) {
   return typeof paymentIntent === 'string' ? paymentIntent : null
@@ -42,18 +42,19 @@ export async function POST(request: NextRequest) {
   const amountTotal = session.amount_total ?? 0
   const currency = session.currency ?? 'usd'
 
-  const supabase = createServiceRoleClient()
-  const { data, error } = await supabase.rpc('fulfill_stripe_checkout_session', {
-    p_stripe_session_id: session.id,
-    p_stripe_payment_intent_id: paymentIntentId,
-    p_customer_email: customerEmail,
-    p_customer_name: customerName,
-    p_amount_total: amountTotal,
-    p_currency: currency,
-  })
-
-  if (error) {
-    if (error.message?.includes('order_not_found')) {
+  let fulfillment: Awaited<ReturnType<typeof fulfillOrder>>
+  try {
+    fulfillment = await fulfillOrder({
+      stripeSessionId: session.id,
+      stripePaymentIntentId: paymentIntentId,
+      customerEmail,
+      customerName,
+      amountTotal,
+      currency,
+    })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : ''
+    if (message.includes('order_not_found')) {
       console.warn(`Stripe webhook completed before order was stored for session ${session.id}`)
       return NextResponse.json({ received: true })
     }
@@ -62,10 +63,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
   }
 
-  const fulfillment = data?.[0]
-  if (fulfillment?.item_already_sold) {
+  if (fulfillment.itemAlreadySold) {
     console.warn(`Stripe session ${session.id} completed after item was already sold`)
   }
 
-  return NextResponse.json({ received: true })
+  return NextResponse.json({ received: true, telegram: fulfillment.telegram })
 }

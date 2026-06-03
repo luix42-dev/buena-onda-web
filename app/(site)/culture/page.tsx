@@ -3,6 +3,8 @@ import { headers } from 'next/headers'
 import ScanReveal from '@/components/ui/ScanReveal'
 import type { Post } from '@/types'
 
+export const runtime = 'edge'
+
 export const metadata: Metadata = {
   title: 'Culture',
   description: 'Essays, dispatches, and stories from the analog world.',

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import { createClient } from '@/lib/supabase/server'
 import type { Theme, Item } from '@/types'
+export const runtime = 'edge'
+
 
 export const dynamic = 'force-dynamic'
 

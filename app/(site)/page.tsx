@@ -3,8 +3,9 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 import HeroGrid from '@/components/HeroGrid'
-import { getHeroImages } from '@/lib/getHeroImages'
 import { createClient } from '@/lib/supabase/server'
+
+export const runtime = "edge"
 
 export const metadata: Metadata = {
   title: 'Buena Onda - Analog Culture House',
@@ -32,10 +33,10 @@ const pillars = [
     href: '/radio',
   },
   {
-    name: 'Drops',
-    headline: 'Limited objects. One run.',
-    text: 'Seasonal releases. No schedule posted in advance. Once sold, that is the end of it.',
-    href: '/radio',
+    name: 'Live Events',
+    headline: 'The floor is the archive.',
+    text: 'Onda Tropical, Open Decks, and recurring formats hosted under the Buena Onda name. Miami. Documented.',
+    href: '/events',
   },
 ]
 
@@ -111,12 +112,10 @@ async function loadHomepageSettings() {
 }
 
 export default async function HomePage() {
-  const heroPool = getHeroImages()
   const { hero, social, contact, newsletter } = await loadHomepageSettings()
 
   const heroTitle = asString(hero.title, DEFAULT_HERO.title)
   const heroSubtitle = asString(hero.subtitle, DEFAULT_HERO.subtitle)
-  const heroCta = asString(hero.cta, DEFAULT_HERO.cta)
   const [heroLineOne, heroLineTwo] = splitHeroTitle(heroTitle)
 
   const contactEmail = asString(contact.email, DEFAULT_CONTACT.email)
@@ -133,29 +132,22 @@ export default async function HomePage() {
     <>
       <section
         className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%] pt-16"
-        style={{ background: '#FAF8F5' }}
+        style={{ background: '#F8F7F3' }}
       >
-        <div className="relative flex flex-col justify-center pl-10 md:pl-20 pr-8 md:pr-10 py-24 md:py-32">
+        <div className="relative flex flex-col justify-center pl-10 md:pl-20 pr-8 md:pr-10 py-20 pb-12 md:py-32">
           <div
             className="absolute left-0 top-0 bottom-0"
-            style={{ width: '5px', background: '#A8C9C3' }}
+            style={{ width: '5px', background: '#1A9E9E' }}
             aria-hidden="true"
           />
-
-          <span
-            className="font-display block mb-5 animate-fade-up"
-            style={{ color: '#2E2E2E', fontSize: '0.75rem', letterSpacing: '0.2em', animationDelay: '150ms' }}
-          >
-            ANALOG CULTURE HOUSE
-          </span>
 
           <h1
             className="font-display leading-none mb-6 animate-fade-up"
             style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', animationDelay: '250ms' }}
           >
-            <span style={{ color: '#2A9D9D', display: 'block' }}>{heroLineOne}</span>
+            <span style={{ color: '#1A9E9E', display: 'block' }}>{heroLineOne}</span>
             {heroLineTwo ? (
-              <span style={{ color: '#D4547A', display: 'block' }}>{heroLineTwo}</span>
+              <span style={{ color: '#E8176A', display: 'block' }}>{heroLineTwo}</span>
             ) : null}
           </h1>
 
@@ -165,7 +157,7 @@ export default async function HomePage() {
               fontFamily: 'var(--font-sans)',
               fontWeight: 400,
               fontSize: 'clamp(1rem, 1.5vw, 1.3rem)',
-              color: '#555',
+              color: '#2F2F2D',
               maxWidth: '26ch',
               lineHeight: 1.55,
               letterSpacing: '0.02em',
@@ -177,8 +169,8 @@ export default async function HomePage() {
           </p>
 
           <div className="animate-fade-up" style={{ animationDelay: '550ms' }}>
-            <Link href="#pillars" className="btn-hollow-coral">
-              {heroCta} ↓
+            <Link href="/themes" className="btn-hollow-coral">
+              Shop Analog →
             </Link>
           </div>
 
@@ -190,8 +182,8 @@ export default async function HomePage() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#D4547A]"
-                  style={{ color: '#666', fontWeight: 500 }}
+                  className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
+                  style={{ color: '#2F2F2D', fontWeight: 500 }}
                 >
                   {link.label} ↗
                 </a>
@@ -201,13 +193,13 @@ export default async function HomePage() {
 
           <p
             className="font-sans text-[0.6rem] tracking-[0.3em] uppercase mt-16 animate-fade-up"
-            style={{ color: '#AAA', animationDelay: '700ms', fontWeight: 500 }}
+            style={{ color: '#2F2F2D', animationDelay: '700ms', fontWeight: 500 }}
           >
             {contactCity}
             {contactEmail ? (
               <>
                 {' '}·{' '}
-                <a href={`mailto:${contactEmail}`} className="hover:text-[#2A9D9D] transition-colors">
+                <a href={`mailto:${contactEmail}`} className="hover:text-[#1A9E9E] transition-colors">
                   {contactEmail}
                 </a>
               </>
@@ -215,37 +207,27 @@ export default async function HomePage() {
           </p>
 
           <div className="md:hidden flex h-2 mt-10 -ml-10 -mr-8" aria-hidden="true">
-            <div className="flex-1" style={{ background: '#2A9D9D' }} />
-            <div className="flex-1" style={{ background: '#D9685A' }} />
-            <div className="flex-1" style={{ background: '#1A7070' }} />
-            <div className="flex-1" style={{ background: '#E8927F' }} />
+            <div className="flex-1" style={{ background: '#1A9E9E' }} />
+            <div className="flex-1" style={{ background: '#C46D63' }} />
+            <div className="flex-1" style={{ background: '#0F6E6E' }} />
+            <div className="flex-1" style={{ background: '#E8176A' }} />
           </div>
         </div>
 
-        <div className="relative hidden md:flex items-center justify-center overflow-hidden">
+        <div className="relative flex items-center justify-center overflow-hidden px-5 pb-10 md:px-0 md:pb-0">
           <HeroGrid
-            images={heroPool}
+            images={[]}
             fallback={['/images/hero/01.jpg', '/images/hero/02.jpg', '/images/hero/06.jpg']}
           />
-
-          <div
-            className="absolute bottom-8 right-8 animate-fade-up"
-            style={{ animationDelay: '650ms' }}
-            aria-hidden="true"
-          >
-            <div style={{ width: '60px', height: '8px', background: '#D9685A', marginBottom: '4px' }} />
-            <div style={{ width: '40px', height: '8px', background: '#E8927F', marginBottom: '4px', marginLeft: '20px' }} />
-            <div style={{ width: '20px', height: '8px', background: '#F2C4BB', marginLeft: '40px' }} />
-          </div>
         </div>
       </section>
 
-      <section id="pillars" style={{ background: '#1A7070' }}>
+      <section id="pillars" style={{ background: '#0F6E6E' }}>
         <div className="flex" style={{ height: '8px' }}>
-          <div className="flex-1" style={{ background: '#2A9D9D' }} />
-          <div className="flex-1" style={{ background: '#D9685A' }} />
-          <div className="flex-1" style={{ background: '#1A7070' }} />
-          <div className="flex-1" style={{ background: '#E8927F' }} />
+          <div className="flex-1" style={{ background: '#1A9E9E' }} />
+          <div className="flex-1" style={{ background: '#C46D63' }} />
+          <div className="flex-1" style={{ background: '#0F6E6E' }} />
+          <div className="flex-1" style={{ background: '#E8176A' }} />
         </div>
 
         <div className="max-w-site mx-auto px-5 md:px-10 py-24">
@@ -254,7 +236,7 @@ export default async function HomePage() {
               <div>
                 <span
                   className="font-display block mb-3"
-                  style={{ color: '#7DC8C8', fontSize: '0.75rem', letterSpacing: '0.25em' }}
+                  style={{ color: '#08CCFC', fontSize: '0.75rem', letterSpacing: '0.25em' }}
                 >
                   THE HOUSE
                 </span>
@@ -285,7 +267,7 @@ export default async function HomePage() {
                     >
                       {name}
                     </p>
-                    <div style={{ width: '100%', height: '2px', marginTop: '6px', background: '#FF3C8E', boxShadow: '0 0 6px #FF3C8E, 0 0 12px rgba(255,60,142,0.6), 0 0 24px rgba(255,60,142,0.3)' }} />
+                    <div style={{ width: '100%', height: '2px', marginTop: '6px', background: '#E8176A', boxShadow: '0 0 6px #E8176A, 0 0 12px rgba(232,23,106,0.6), 0 0 24px rgba(232,23,106,0.3)' }} />
                   </div>
                   <h3
                     className="font-serif italic mb-4"
@@ -314,7 +296,7 @@ export default async function HomePage() {
 
       <div className="vice-strip" />
 
-      <section style={{ background: '#0D0D0D' }}>
+      <section style={{ background: '#2F2F2D' }}>
         <div className="max-w-site mx-auto px-5 md:px-10 py-20">
           <ScanReveal>
             <div className="grid md:grid-cols-[1fr_auto] gap-12 items-center">
@@ -322,10 +304,10 @@ export default async function HomePage() {
                 <p
                   className="font-display mb-6"
                   style={{
-                    color: '#FF3C8E',
+                    color: '#E8176A',
                     fontSize: '0.75rem',
                     letterSpacing: '0.3em',
-                    textShadow: '0 0 8px rgba(255,60,142,0.25)',
+                    textShadow: '0 0 8px rgba(232,23,106,0.25)',
                   }}
                 >
                   NOW PLAYING
@@ -338,7 +320,7 @@ export default async function HomePage() {
                 </h2>
                 <p
                   className="font-sans text-sm leading-relaxed mb-10 max-w-xl"
-                  style={{ color: '#777', fontWeight: 300 }}
+                  style={{ color: '#F8F7F3', fontWeight: 300 }}
                 >
                   Curated mixes, live sessions, and field recordings. Front to back.
                 </p>
@@ -350,16 +332,16 @@ export default async function HomePage() {
 
               <div
                 className="hidden md:block w-72 p-8"
-                style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+                  style={{ border: '1px solid rgba(248,247,243,0.1)' }}
               >
                 <p
                   className="font-mono mb-3"
-                  style={{ color: 'rgba(255,60,142,0.4)', fontSize: '0.55rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  style={{ color: 'rgba(232,23,106,0.7)', fontSize: '0.55rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 >
                   Radio
                 </p>
                 <p className="font-display text-white text-lg mb-2">Published archive live</p>
-                <p className="font-sans text-xs leading-relaxed" style={{ color: '#555' }}>
+                <p className="font-sans text-xs leading-relaxed" style={{ color: '#F8F7F3' }}>
                   New episodes appear here as soon as they are published in Studio.
                 </p>
               </div>
@@ -369,11 +351,11 @@ export default async function HomePage() {
 
         <div
           className="h-px opacity-40"
-          style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF, #FF3C8E)' }}
+          style={{ background: 'linear-gradient(to right, #E8176A, #08CCFC, #E8176A)' }}
         />
       </section>
 
-      <section className="relative overflow-hidden py-32" style={{ background: '#0D0D0D' }}>
+      <section className="relative overflow-hidden py-32" style={{ background: '#2F2F2D' }}>
         <div
           className="absolute pointer-events-none"
           aria-hidden="true"
@@ -382,7 +364,7 @@ export default async function HomePage() {
             left: '-10%',
             width: '50vw',
             height: '50vw',
-            background: 'radial-gradient(ellipse, rgba(255,60,142,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(232,23,106,0.08) 0%, transparent 70%)',
           }}
         />
         <div
@@ -393,7 +375,7 @@ export default async function HomePage() {
             right: '-10%',
             width: '50vw',
             height: '50vw',
-            background: 'radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(8,204,252,0.06) 0%, transparent 70%)',
           }}
         />
 
@@ -408,8 +390,8 @@ export default async function HomePage() {
             style={{
               width: '28vw',
               height: '28vw',
-              border: '1px solid rgba(0,212,255,0.15)',
-              boxShadow: '0 0 20px rgba(0,212,255,0.05)',
+              border: '1px solid rgba(8,204,252,0.15)',
+              boxShadow: '0 0 20px rgba(8,204,252,0.05)',
               borderRadius: '50%',
               position: 'relative',
             }}
@@ -421,8 +403,8 @@ export default async function HomePage() {
                 left: '20%',
                 width: '18vw',
                 height: '18vw',
-                border: '1px solid rgba(255,179,71,0.15)',
-                boxShadow: '0 0 15px rgba(255,179,71,0.05)',
+                border: '1px solid rgba(196,109,99,0.15)',
+                boxShadow: '0 0 15px rgba(196,109,99,0.05)',
                 borderRadius: '50%',
               }}
             />
@@ -433,7 +415,7 @@ export default async function HomePage() {
           <ScanReveal>
             <span
               className="font-sans block mb-10"
-              style={{ color: '#5ABFBF', fontSize: '0.7rem', letterSpacing: '0.3em', textTransform: 'uppercase' }}
+              style={{ color: '#08CCFC', fontSize: '0.7rem', letterSpacing: '0.3em', textTransform: 'uppercase' }}
             >
               Manifesto
             </span>
@@ -448,8 +430,8 @@ export default async function HomePage() {
                   <br />It is{' '}
                   <span
                     style={{
-                      color: '#FFB347',
-                      textShadow: '0 0 10px rgba(255,179,71,0.3)',
+                      color: '#C46D63',
+                      textShadow: '0 0 10px rgba(196,109,99,0.3)',
                     }}
                   >
                     INEVITABLE.
@@ -460,7 +442,7 @@ export default async function HomePage() {
               <div className="flex flex-col justify-center">
                 <p
                   className="font-sans mb-8"
-                  style={{ color: '#777', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
+                  style={{ color: '#F8F7F3', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
                 >
                   We are building a present with weight and duration. Every object, mix, and essay is
                   chosen to outlast the year it was made.
@@ -469,9 +451,9 @@ export default async function HomePage() {
                   className="font-display not-italic block"
                   style={{
                     fontSize: '0.9rem',
-                    color: '#00D4FF',
+                    color: '#08CCFC',
                     letterSpacing: '0.2em',
-                    textShadow: '0 0 8px rgba(0,212,255,0.4)',
+                    textShadow: '0 0 8px rgba(8,204,252,0.4)',
                   }}
                 >
                   - Buena Onda, {contactCity || 'Miami, FL'}
@@ -482,10 +464,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative" style={{ background: '#161416' }}>
+      <section className="relative" style={{ background: '#2F2F2D' }}>
         <div
           className="h-px opacity-30"
-          style={{ background: 'linear-gradient(to right, #FF3C8E, #00D4FF)' }}
+          style={{ background: 'linear-gradient(to right, #E8176A, #08CCFC)' }}
         />
 
         <div className="max-w-site mx-auto px-5 md:px-10 py-24">
@@ -495,10 +477,10 @@ export default async function HomePage() {
                 <span
                   className="font-display block mb-4"
                   style={{
-                    color: '#FF3C8E',
+                    color: '#E8176A',
                     fontSize: '0.75rem',
                     letterSpacing: '0.3em',
-                    textShadow: '0 0 8px rgba(255,60,142,0.25)',
+                    textShadow: '0 0 8px rgba(232,23,106,0.25)',
                   }}
                 >
                   STAY CLOSE
@@ -509,7 +491,7 @@ export default async function HomePage() {
                 >
                   Slow mail. Worth reading.
                 </h2>
-                <p className="font-sans text-sm" style={{ color: '#777', fontWeight: 300 }}>
+                <p className="font-sans text-sm" style={{ color: '#F8F7F3', fontWeight: 300 }}>
                   Drops, mixes, and what is happening in the house. Curated by hand.
                 </p>
 
@@ -517,8 +499,8 @@ export default async function HomePage() {
                   {contactEmail ? (
                     <a
                       href={`mailto:${contactEmail}`}
-                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#FF3C8E]"
-                      style={{ color: '#9A9A9A', fontWeight: 500 }}
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
+                      style={{ color: '#F8F7F3', fontWeight: 500 }}
                     >
                       {contactEmail}
                     </a>
@@ -529,8 +511,8 @@ export default async function HomePage() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#FF3C8E]"
-                      style={{ color: '#9A9A9A', fontWeight: 500 }}
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
+                      style={{ color: '#F8F7F3', fontWeight: 500 }}
                     >
                       {link.label} ↗
                     </a>
@@ -538,14 +520,14 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className="border-l border-white/5 pl-8 md:pl-16 flex flex-col justify-center">
+              <div className="border-l pl-8 md:pl-16 flex flex-col justify-center" style={{ borderColor: 'rgba(248,247,243,0.08)' }}>
                 {newsletterEnabled ? (
                   <NewsletterForm layout="stack" variant="dark" />
                 ) : (
-                  <p className="font-sans text-sm leading-relaxed" style={{ color: '#777', fontWeight: 300 }}>
+                    <p className="font-sans text-sm leading-relaxed" style={{ color: '#F8F7F3', fontWeight: 300 }}>
                     The newsletter is paused for now. Reach out at{' '}
                     {contactEmail ? (
-                      <a href={`mailto:${contactEmail}`} className="text-white transition-colors hover:text-[#FF3C8E]">
+                      <a href={`mailto:${contactEmail}`} className="transition-colors hover:text-[#E8176A]" style={{ color: '#F8F7F3' }}>
                         {contactEmail}
                       </a>
                     ) : (
