@@ -887,6 +887,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true })
   }
 
+  const body = update
+  console.log('WEBHOOK_DEBUG', JSON.stringify({
+    chat_id: body?.message?.chat?.id,
+    from_id: body?.message?.from?.id,
+    has_photo: !!body?.message?.photo,
+    allowed_env: process.env.TELEGRAM_CHAT_ID,
+  }))
+
   const message = update.message
   if (!message?.chat?.id || !isAllowed(message)) {
     return NextResponse.json({ ok: true })
