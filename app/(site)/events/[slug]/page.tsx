@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
+import GalleryGrid from '@/components/ui/GalleryGrid'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 
 export const runtime = 'edge'
@@ -196,16 +197,7 @@ export default async function EventDetailPage({ params }: Props) {
 
       {gallery.length > 0 ? (
         <EditorialSection label='On the floor' tone='pink'>
-          <div className='grid grid-cols-2 md:grid-cols-6 auto-rows-[160px] gap-3 md:gap-4'>
-            {gallery.map((item, i) => (
-              <ScanReveal key={(item.image ?? 'image') + '-' + i} delay={i * 45} className={galleryClass(i)}>
-                <figure className='relative h-full overflow-hidden rounded-[3px] bg-near-black'>
-                  <img src={item.image} alt={item.caption ?? event.name} className='w-full h-full object-cover' />
-                  {item.caption ? <figcaption className='absolute left-3 bottom-3 max-w-[80%] font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/75'>{item.caption}</figcaption> : null}
-                </figure>
-              </ScanReveal>
-            ))}
-          </div>
+          <GalleryGrid gallery={gallery} eventName={event.name} />
         </EditorialSection>
       ) : null}
 
@@ -257,15 +249,6 @@ export default async function EventDetailPage({ params }: Props) {
       </section>
     </>
   )
-}
-
-function galleryClass(index: number) {
-  if (index === 0) return 'col-span-2 row-span-2 md:col-span-3 md:row-span-2'
-  if (index === 1) return 'col-span-1 row-span-1 md:col-span-2'
-  if (index === 2) return 'col-span-1 row-span-1 md:col-span-1'
-  if (index % 5 === 3) return 'col-span-2 row-span-1 md:col-span-3'
-  if (index % 5 === 4) return 'col-span-1 row-span-1 md:col-span-2'
-  return 'col-span-1 row-span-1 md:col-span-2'
 }
 
 function VideoFrame({ title, src, full }: { title: string; src: string; full?: boolean }) {
