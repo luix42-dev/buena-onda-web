@@ -154,8 +154,10 @@ async function enrichCatalogCopy(context: { note?: string; sourceUrl?: string; i
   }
 
   try {
+    const ollamaUrl = process.env.OLLAMA_URL
+    if (!ollamaUrl) return fallback
     const voice = VOICE_V2_PROMPT
-    const tagsResponse = await fetch('http://127.0.0.1:11434/api/tags', { signal: AbortSignal.timeout(10_000) })
+    const tagsResponse = await fetch(`${ollamaUrl}/api/tags`, { signal: AbortSignal.timeout(10_000) })
     const tagsPayload = await tagsResponse.json()
     const model = Array.isArray(tagsPayload.models)
       ? tagsPayload.models.find((entry: { name?: string }) => entry.name === 'mistral:latest')?.name
@@ -180,7 +182,7 @@ Return only valid JSON:
   "confidence": 0.0
 }`
 
-    const response = await fetch('http://127.0.0.1:11434/api/chat', {
+    const response = await fetch(`${ollamaUrl}/api/chat`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
