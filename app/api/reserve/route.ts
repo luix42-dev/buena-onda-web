@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       replyTo: email,
       subject: `Reserve request: ${itemTitle}`,
       html: `
-        <h2>Reserve Request — Buena Onda</h2>
+        <h2>Reserve Request â€” Buena Onda</h2>
         <p><strong>Item:</strong> ${itemTitle}</p>
         <p><strong>Item ID:</strong> ${itemId}</p>
         <hr />
