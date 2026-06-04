@@ -4,6 +4,7 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 import HeroGrid from '@/components/HeroGrid'
 import { createClient } from '@/lib/supabase/server'
+import type { Episode } from '@/types'
 
 export const runtime = "edge"
 
@@ -46,6 +47,8 @@ type SiteSettingRow = {
   key: string
   value: SiteSettingValue | null
 }
+
+type LatestRadioEpisode = Pick<Episode, 'title' | 'slug' | 'description' | 'published_at'>
 
 const DEFAULT_HERO = {
   title: 'Buena Onda',
@@ -111,8 +114,28 @@ async function loadHomepageSettings() {
   }
 }
 
+async function loadLatestRadioEpisode() {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('episodes')
+      .select('title,slug,description,published_at')
+      .eq('published', true)
+      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (error) throw error
+    return data as LatestRadioEpisode | null
+  } catch {
+    return null
+  }
+}
+
 export default async function HomePage() {
   const { hero, social, contact, newsletter } = await loadHomepageSettings()
+  const latestRadioEpisode = await loadLatestRadioEpisode()
 
   const heroTitle = asString(hero.title, DEFAULT_HERO.title)
   const heroSubtitle = asString(hero.subtitle, DEFAULT_HERO.subtitle)
@@ -231,27 +254,6 @@ export default async function HomePage() {
         </div>
 
         <div className="max-w-site mx-auto px-5 md:px-10 py-24">
-          <ScanReveal>
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              <div>
-                <span
-                  className="font-display block mb-3"
-                  style={{ color: '#08CCFC', fontSize: '0.75rem', letterSpacing: '0.25em' }}
-                >
-                  THE HOUSE
-                </span>
-                <h2 className="font-display text-white" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
-                  Four Pillars
-                </h2>
-              </div>
-              <div className="flex items-center">
-                <p className="font-sans leading-relaxed" style={{ color: 'white', fontWeight: 400, fontSize: '0.95rem' }}>
-                  Four disciplines. Built to last.
-                </p>
-              </div>
-            </div>
-          </ScanReveal>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {pillars.map(({ name, headline, text, href }, i) => (
               <ScanReveal key={name} delay={i * 80}>
@@ -330,9 +332,11 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              <div
-                className="hidden md:block w-72 p-8"
-                  style={{ border: '1px solid rgba(248,247,243,0.1)' }}
+              <Link
+                href="/radio"
+                className="hidden md:block w-72 p-8 transition-colors hover:border-[#E8176A] hover:bg-black/10"
+                style={{ border: '1px solid rgba(248,247,243,0.1)' }}
+                aria-label={latestRadioEpisode ? `Listen to ${latestRadioEpisode.title}` : 'Radio archive'}
               >
                 <p
                   className="font-mono mb-3"
@@ -340,11 +344,25 @@ export default async function HomePage() {
                 >
                   Radio
                 </p>
-                <p className="font-display text-white text-lg mb-2">Published archive live</p>
-                <p className="font-sans text-xs leading-relaxed" style={{ color: '#F8F7F3' }}>
-                  New episodes appear here as soon as they are published in Studio.
-                </p>
-              </div>
+                {latestRadioEpisode ? (
+                  <>
+                    <p className="font-display text-white text-lg mb-2 text-balance">
+                      {latestRadioEpisode.title}
+                    </p>
+                    <p className="font-sans text-xs leading-relaxed" style={{ color: '#F8F7F3' }}>
+                      {latestRadioEpisode.description?.trim() || 'Published archive live.'}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-display text-white text-lg mb-2">Nothing broadcasting yet.</p>
+                    <p className="font-sans text-xs leading-relaxed" style={{ color: '#F8F7F3' }}>
+                      The archive is quiet for the moment. Publish an episode in Studio and it will
+                      appear here automatically.
+                    </p>
+                  </>
+                )}
+              </Link>
             </div>
           </ScanReveal>
         </div>
@@ -413,13 +431,6 @@ export default async function HomePage() {
 
         <div className="max-w-site mx-auto px-5 md:px-10 relative z-10">
           <ScanReveal>
-            <span
-              className="font-sans block mb-10"
-              style={{ color: '#08CCFC', fontSize: '0.7rem', letterSpacing: '0.3em', textTransform: 'uppercase' }}
-            >
-              Manifesto
-            </span>
-
             <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-16">
               <div>
                 <blockquote
