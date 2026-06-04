@@ -78,7 +78,6 @@ export default async function AboutPage() {
               <div
                 className="p-7 md:p-8"
                 style={{
-                  backgroundColor: '#ffffff',
                   padding: '2rem 1.75rem',
                   borderLeftWidth: '3px',
                   borderLeftStyle: 'solid',
@@ -99,7 +98,7 @@ export default async function AboutPage() {
                     className="font-sans uppercase"
                     style={{ color: '#1A9E9E', fontSize: '0.58rem', letterSpacing: '0.2em', fontWeight: 700 }}
                   >
-                    BUENA ONDA Â· MIAMI
+                    BUENA ONDA · MIAMI
                   </span>
                 </div>
               </div>
@@ -201,5 +200,7 @@ export default async function AboutPage() {
     </>
   )
 }
+
+
 
 
