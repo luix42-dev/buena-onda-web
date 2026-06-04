@@ -95,8 +95,7 @@ function allowedId() {
 function isAllowed(message: TelegramMessage) {
   const allowed = allowedId()
   const chatId = message.chat?.id == null ? null : String(message.chat.id)
-  const userId = message.from?.id == null ? null : String(message.from.id)
-  return chatId === allowed && (!userId || userId === allowed)
+  return chatId === allowed
 }
 
 function slugify(value: string) {
