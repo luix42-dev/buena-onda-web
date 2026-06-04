@@ -145,7 +145,7 @@ export default function HeroGrid({ images, fallback }: HeroGridProps) {
           display: grid;
           grid-template-columns: 1fr 1fr;
           grid-template-rows: 1fr 1fr 1fr;
-          gap: 3px;
+          gap: 0;
         }
 
         @media (max-width: 767px) {
