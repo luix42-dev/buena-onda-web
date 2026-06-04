@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Track } from '@/lib/radio'
 
+type Mode = 'hidden' | 'bar' | 'expanded'
+
 function fmt(s: number) {
   if (!s || Number.isNaN(s)) return '0:00'
   const m = Math.floor(s / 60)
@@ -23,7 +25,7 @@ export default function PersistentPlayer() {
   const [playing, setPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [deckOpen, setDeckOpen] = useState(true)
+  const [mode, setMode] = useState<Mode>('bar')
 
   useEffect(() => {
     fetch('/api/radio/tracks')
@@ -32,6 +34,17 @@ export default function PersistentPlayer() {
         if (Array.isArray(data)) setTracks(data)
       })
       .catch(() => {})
+  }, [])
+
+  // Auto-collapse expanded panel when scrolled down
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 100) {
+        setMode(prev => prev === 'expanded' ? 'bar' : prev)
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const track: Track | null = tracks[trackIdx] ?? null
@@ -83,16 +96,6 @@ export default function PersistentPlayer() {
     audioRef.current?.pause()
     setPlaying(false)
   }, [])
-
-  const expand = useCallback(() => {
-    thunk()
-    setDeckOpen(true)
-  }, [thunk])
-
-  const minimize = useCallback(() => {
-    thunk()
-    setDeckOpen(false)
-  }, [thunk])
 
   const toggle = useCallback(() => {
     thunk()
@@ -146,17 +149,19 @@ export default function PersistentPlayer() {
 
   const progress = duration ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0
   const label = trackLabel(track)
+  const playingClass = playing ? 'bo-readout-playing' : ''
 
   return (
     <>
       {track ? <audio ref={audioRef} src={track.src} preload="metadata" /> : null}
 
-      {!deckOpen ? (
+      {/* Pill — hidden state */}
+      {mode === 'hidden' ? (
         <button
           type="button"
-          onClick={expand}
+          onClick={() => setMode('bar')}
           className="bo-radio-pill"
-          aria-label="Expand Buena Onda Radio player"
+          aria-label="Show Buena Onda Radio player"
         >
           <span className="bo-live-dot" aria-hidden="true" />
           <span>BUENA ONDA RADIO</span>
@@ -164,7 +169,11 @@ export default function PersistentPlayer() {
         </button>
       ) : null}
 
-      <section className={`bo-tape-deck ${deckOpen ? 'bo-tape-deck-open' : ''} ${playing ? 'bo-readout-playing' : ''}`} aria-label="Buena Onda Radio player">
+      {/* Full-width bar — collapsed state */}
+      <section
+        className={`bo-tape-deck ${mode === 'bar' ? 'bo-tape-deck-open' : ''} ${playingClass}`}
+        aria-label="Buena Onda Radio player"
+      >
         <div className="bo-progress-bar" style={{ width: `${progress}%` }} />
         <div className="bo-bar">
           <span className="bo-bar-brand">BUENA ONDA RADIO</span>
@@ -182,11 +191,46 @@ export default function PersistentPlayer() {
               <i key={index} style={{ animationDelay: `${index * 70}ms` }} />
             ))}
           </div>
-          <button type="button" className="bo-minimize" onClick={minimize} aria-label="Minimize player">▾</button>
+          <button type="button" className="bo-expand-btn" onClick={() => { thunk(); setMode('expanded') }} aria-label="Expand player">↗</button>
+          <button type="button" className="bo-minimize" onClick={() => { thunk(); setMode('hidden') }} aria-label="Minimize player">▾</button>
+        </div>
+      </section>
+
+      {/* Floating panel — expanded state */}
+      <section
+        className={`bo-panel ${mode === 'expanded' ? 'bo-panel-open' : ''} ${playingClass}`}
+        aria-label="Buena Onda Radio expanded player"
+      >
+        <div className="bo-deck-top">
+          <span>BUENA ONDA RADIO</span>
+          <button type="button" onClick={() => { thunk(); setMode('bar') }} aria-label="Collapse to bar">✕</button>
+        </div>
+        <div className="bo-deck-body">
+          <div className="bo-panel-transport" aria-label="Radio transport controls">
+            <button type="button" className="bo-key bo-key-lg" onClick={prev} disabled={!hasTrack} aria-label="Previous track">&#9668;&#9668;</button>
+            <button type="button" className="bo-key bo-key-play bo-key-lg" onClick={toggle} disabled={!hasTrack} aria-label={playing ? 'Pause' : 'Play'}>{playing ? 'II' : 'PLAY'}</button>
+            <button type="button" className="bo-key bo-key-lg" onClick={next} disabled={!hasTrack} aria-label="Next track">&#9658;&#9658;</button>
+          </div>
+          <div className="bo-readout">
+            <div className="bo-progress" style={{ width: `${progress}%` }} />
+            <div className="bo-now">NOW PLAYING</div>
+            <div className="bo-readout-track">
+              <span>{label} &nbsp; / &nbsp; {label}</span>
+            </div>
+            <div className="bo-readout-foot">
+              <span>{hasTrack ? `${fmt(currentTime)} / ${fmt(duration)}` : '0:00 / 0:00'}</span>
+              <div className="bo-vu-lg" aria-hidden="true">
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <i key={index} style={{ animationDelay: `${index * 70}ms` }} />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <style suppressHydrationWarning>{`
+        /* ── Pill ────────────────────────────────────────────── */
         .bo-radio-pill {
           position: fixed;
           left: 18px;
@@ -216,6 +260,8 @@ export default function PersistentPlayer() {
           box-shadow: 0 0 0 0 rgba(232,23,106,0.55);
           animation: boPulse 1.4s ease-out infinite;
         }
+
+        /* ── Full-width bar ──────────────────────────────────── */
         .bo-tape-deck {
           position: fixed;
           left: 0;
@@ -338,6 +384,13 @@ export default function PersistentPlayer() {
         .bo-readout-playing .bo-vu i {
           animation: boVu 620ms ease-in-out infinite;
         }
+        .bo-expand-btn {
+          color: #1A9E9E;
+          font-size: 0.9rem;
+          line-height: 1;
+          flex-shrink: 0;
+          padding: 0 2px;
+        }
         .bo-minimize {
           color: #E8176A;
           font-size: 1rem;
@@ -345,22 +398,204 @@ export default function PersistentPlayer() {
           flex-shrink: 0;
           padding: 0 2px;
         }
+
+        /* ── Floating panel ──────────────────────────────────── */
+        .bo-panel {
+          position: fixed;
+          left: 18px;
+          bottom: 18px;
+          z-index: 61;
+          width: min(640px, calc(100vw - 36px));
+          background: #2F2F2D;
+          color: #F8F7F3;
+          border: 1px solid #0F6E6E;
+          border-top: 5px solid #1A9E9E;
+          box-shadow: 0 24px 70px rgba(47,47,45,0.42);
+          transform: translateY(calc(100% + 36px));
+          opacity: 0;
+          pointer-events: none;
+          transition: transform 360ms ease, opacity 220ms ease;
+          overflow: hidden;
+        }
+        .bo-panel::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.18;
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(248,247,243,0.12) 0,
+            rgba(248,247,243,0.12) 1px,
+            transparent 1px,
+            transparent 5px
+          );
+        }
+        .bo-panel-open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .bo-deck-top {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          min-height: 40px;
+          padding: 0 14px;
+          border-bottom: 1px solid rgba(26,158,158,0.45);
+          font-family: var(--font-sans);
+          color: #1A9E9E;
+          font-size: 0.68rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+        .bo-deck-top button {
+          color: #E8176A;
+          font-size: 1rem;
+          line-height: 1;
+        }
+        .bo-deck-body {
+          position: relative;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 18px;
+          align-items: stretch;
+          padding: 18px;
+        }
+        .bo-panel-transport {
+          display: flex;
+          align-items: stretch;
+          gap: 8px;
+        }
+        .bo-key-lg {
+          height: auto;
+          min-height: 70px;
+          min-width: 66px;
+          padding: 0 12px;
+          font-size: 0.68rem;
+          border-bottom: 8px solid #0F6E6E;
+        }
+        .bo-key-play.bo-key-lg {
+          min-width: 82px;
+        }
+        .bo-key-lg:active {
+          transform: translateY(2px);
+          border-bottom-width: 3px;
+        }
+        .bo-readout {
+          position: relative;
+          min-width: 0;
+          overflow: hidden;
+          background: #0F6E6E;
+          border: 1px solid #1A9E9E;
+          padding: 13px 14px 10px;
+        }
+        .bo-progress {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 2px;
+          background: #E8176A;
+          transition: width 180ms linear;
+        }
+        .bo-now {
+          color: #E8176A;
+          font-family: var(--font-sans);
+          font-size: 0.58rem;
+          letter-spacing: 0.18em;
+          line-height: 1;
+          margin-bottom: 10px;
+        }
+        .bo-readout-track {
+          overflow: hidden;
+          white-space: nowrap;
+          color: #08CCFC;
+          font-family: var(--font-display);
+          font-size: 1.18rem;
+          letter-spacing: 0;
+          line-height: 1.1;
+        }
+        .bo-readout-track span {
+          display: inline-block;
+          min-width: 100%;
+        }
+        .bo-readout-playing .bo-readout-track span {
+          animation: boMarquee 16s linear infinite;
+        }
+        .bo-readout-foot {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 16px;
+          margin-top: 12px;
+          color: #F8F7F3;
+          font-family: var(--font-sans);
+          font-size: 0.58rem;
+          letter-spacing: 0.1em;
+        }
+        .bo-vu-lg {
+          display: flex;
+          align-items: flex-end;
+          gap: 3px;
+          height: 18px;
+        }
+        .bo-vu-lg i {
+          display: block;
+          width: 4px;
+          height: 100%;
+          transform-origin: bottom;
+          transform: scaleY(0.25);
+          background: #C46D63;
+        }
+        .bo-readout-playing .bo-vu-lg i {
+          animation: boVu 620ms ease-in-out infinite;
+        }
+
+        /* ── Keyframes ───────────────────────────────────────── */
         @keyframes boPulse {
-          0% { box-shadow: 0 0 0 0 rgba(232,23,106,0.55); }
+          0%   { box-shadow: 0 0 0 0 rgba(232,23,106,0.55); }
           100% { box-shadow: 0 0 0 10px rgba(232,23,106,0); }
         }
         @keyframes boMarquee {
-          0% { transform: translateX(0); }
+          0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
         @keyframes boVu {
           0%, 100% { transform: scaleY(0.25); }
-          50% { transform: scaleY(1); }
+          50%      { transform: scaleY(1); }
         }
+
+        /* ── Mobile ──────────────────────────────────────────── */
         @media (max-width: 480px) {
           .bo-bar-brand { display: none; }
-          .bo-time { display: none; }
-          .bo-vu { display: none; }
+          .bo-time      { display: none; }
+          .bo-vu        { display: none; }
+        }
+        @media (max-width: 640px) {
+          .bo-panel {
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            width: auto;
+          }
+          .bo-deck-body {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 12px;
+          }
+          .bo-panel-transport {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr 1fr;
+          }
+          .bo-key-lg {
+            min-width: 0;
+            min-height: 54px;
+          }
+          .bo-readout-track {
+            font-size: 0.96rem;
+          }
         }
       `}</style>
     </>
