@@ -63,21 +63,21 @@ function initials(name: string | null | undefined) {
     .join('') || 'BO'
 }
 
-function youtubeEmbedUrl(raw: string | null | undefined) {
-  if (!raw) return null
+function getYouTubeEmbedUrl(urlString: string): string {
+  if (!urlString) return ""
   try {
-    const url = new URL(raw)
+    const url = new URL(urlString)
     const list = url.searchParams.get('list')
     if (list) return 'https://www.youtube.com/embed/videoseries?list=' + encodeURIComponent(list)
     if (url.hostname.includes('youtu.be')) {
       const id = url.pathname.split('/').filter(Boolean)[0]
-      return id ? 'https://www.youtube.com/embed/' + id : null
+      return id ? 'https://www.youtube.com/embed/' + id : ""
     }
     const segments = url.pathname.split('/').filter(Boolean)
     const id = url.searchParams.get('v') || segments[segments.length - 1]
-    return id ? 'https://www.youtube.com/embed/' + id : null
+    return id ? 'https://www.youtube.com/embed/' + id : ""
   } catch {
-    return null
+    return ""
   }
 }
 
@@ -105,7 +105,7 @@ export default async function EventDetailPage({ params }: Props) {
   const [titleOne, titleTwo] = titleParts(event.name)
   const gallery = event.gallery?.filter(item => item.image) ?? []
   const videos = event.videos?.filter(item => item.url) ?? []
-  const playlistEmbed = youtubeEmbedUrl(event.playlist_url)
+  const playlistEmbed = event.playlist_url ? getYouTubeEmbedUrl(event.playlist_url) : ""
   const audioFiles = event.audio_files?.filter(item => item.file) ?? []
   const partners = event.partners?.filter(item => item.name || item.logo) ?? []
   const archiveSheets = event.archive_sheets?.filter(item => item.file) ?? []
@@ -205,7 +205,7 @@ export default async function EventDetailPage({ params }: Props) {
         <EditorialSection label='Footage'>
           <div className='grid md:grid-cols-2 gap-8'>
             {videos.map((video, i) => {
-              const src = youtubeEmbedUrl(video.url)
+              const src = video.url ? getYouTubeEmbedUrl(video.url) : ""
               return src ? <VideoFrame key={(video.url ?? 'video') + '-' + i} title={video.label ?? 'Video ' + (i + 1)} src={src} /> : null
             })}
           </div>
