@@ -41,6 +41,7 @@ type SessionMessage = {
 type DraftPayload = {
   title: string
   description: string
+  why_chosen: string | null
   provenance: string | null
   tags: string[]
   suggested_theme: string
@@ -52,6 +53,7 @@ type DraftPayload = {
 type SessionDraft = {
   title: string
   description: string
+  why_chosen: string | null
   price: number | null
   tags: string[]
   theme: string
@@ -299,6 +301,9 @@ function normalizeCopy(raw: unknown, fallback: DraftPayload): DraftPayload {
   const parsed = (raw ?? {}) as Record<string, unknown>
   const title = typeof parsed.title === 'string' && parsed.title.trim() ? parsed.title.trim() : fallback.title
   const description = typeof parsed.description === 'string' && parsed.description.trim() ? parsed.description.trim() : fallback.description
+  const whyChosen = typeof parsed.why_chosen === 'string' && parsed.why_chosen.trim()
+    ? parsed.why_chosen.trim()
+    : fallback.why_chosen
   const provenance = typeof parsed.provenance === 'string' && parsed.provenance.trim() ? parsed.provenance.trim() : null
   const tags = normalizeTags(parsed.tags)
   const { category, theme } = normalizeCategoryAndTheme(parsed.category, parsed.suggested_theme)
@@ -306,6 +311,7 @@ function normalizeCopy(raw: unknown, fallback: DraftPayload): DraftPayload {
   return {
     title,
     description,
+    why_chosen: whyChosen,
     provenance,
     tags: tags.length ? tags : fallback.tags,
     suggested_theme: theme,
@@ -319,6 +325,7 @@ function buildFallbackCopy(note?: string, filename?: string): DraftPayload {
   return {
     title: titleFromText(note, filename || 'Telegram Catalog Draft'),
     description: note || 'Draft catalog intake from Telegram. Editorial copy pending.',
+    why_chosen: null,
     provenance: null,
     tags: ['telegram', 'catalog', 'needs-review'],
     suggested_theme: 'analog-objects',
@@ -356,11 +363,13 @@ Source context:
 - Filename: ${filename}
 
 Extract all product details from this image and write catalog copy following the voice guide.
+Also generate "why_chosen" as a 2-3 sentence editorial note explaining the curatorial reason for selecting this item.
 
 Return only valid JSON:
 {
   "title": "...",
   "description": "...",
+  "why_chosen": "...",
   "provenance": null,
   "tags": ["..."],
   "suggested_theme": "curated-vintage|analog-objects|sound-collection|buena-onda-original",
@@ -394,10 +403,13 @@ Valid themes:
 - sound-collection
 - buena-onda-original
 
+Also generate "why_chosen" as a 2-3 sentence editorial note explaining the curatorial reason for selecting this item.
+
 Return only valid JSON with this shape:
 {
   "title": "...",
   "description": "...",
+  "why_chosen": "...",
   "provenance": null,
   "tags": ["..."],
   "suggested_theme": "curated-vintage|analog-objects|sound-collection|buena-onda-original",
@@ -431,6 +443,7 @@ async function callClaudeForCopy(input: {
     ? {
         title: input.session.draft.title,
         description: input.session.draft.description,
+        why_chosen: input.session.draft.why_chosen,
         provenance: input.session.draft.provenance,
         tags: input.session.draft.tags,
         suggested_theme: input.session.draft.theme,
@@ -497,6 +510,7 @@ function draftToSessionDraft(
   return {
     title: copy.title,
     description: copy.description,
+    why_chosen: copy.why_chosen,
     price: copy.price_suggestion,
     tags: copy.tags,
     theme: copy.suggested_theme,
@@ -527,11 +541,13 @@ function draftToDetails(draft: SessionDraft, extras?: { note?: string; filename?
 function formatDraftMessage(draft: SessionDraft) {
   const tags = draft.tags.join(', ') || '—'
   const provenance = draft.provenance ? `\n\n${escapeHtml(draft.provenance)}` : ''
+  const whyChosen = draft.why_chosen ? `\n\n${escapeHtml(draft.why_chosen)}` : ''
   return [
     '<b>DRAFT</b>',
     `<b>${escapeHtml(draft.title)}</b>`,
     escapeHtml(draft.description).replace(/\n/g, '<br/>'),
     provenance ? provenance.replace(/\n/g, '<br/>') : '',
+    whyChosen ? `<i>Why We Chose This</i><br/>${whyChosen.replace(/\n/g, '<br/>')}` : '',
     '',
     `Tags: ${escapeHtml(tags)}`,
     `Theme: ${escapeHtml(draft.theme)}`,
@@ -606,6 +622,7 @@ async function publishConversationDraft(chatId: string, session: ConversationSes
       slug,
       theme_id: theme?.id ?? null,
       description: draft.description || null,
+      why_chosen: draft.why_chosen,
       details: draftToDetails(draft, { chatId }),
       price: draft.price ?? null,
       tags: draft.tags,
@@ -783,6 +800,7 @@ async function saveCatalogDraft(input: {
       slug: `${slugify(title)}-${Date.now()}`,
       theme_id: theme?.id ?? null,
       description: copy.description || null,
+      why_chosen: draft.why_chosen,
       details: draftToDetails(draft, {
         note: input.note,
         filename: input.filename,
