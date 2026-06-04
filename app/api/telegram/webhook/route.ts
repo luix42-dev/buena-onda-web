@@ -221,12 +221,11 @@ async function telegramApi(method: string, payload: Record<string, unknown>) {
   return data.result
 }
 
-async function reply(chatId: string | number, text: string, parseMode?: 'HTML') {
+async function reply(chatId: string | number, text: string) {
   return telegramApi('sendMessage', {
     chat_id: chatId,
     text,
     disable_web_page_preview: true,
-    ...(parseMode ? { parse_mode: parseMode } : {}),
   })
 }
 
@@ -541,26 +540,25 @@ function draftToDetails(draft: SessionDraft, extras?: { note?: string; filename?
 }
 
 function formatDraftMessage(draft: SessionDraft) {
-  const tags = draft.tags.join(', ') || '—'
-  const title = stripHtml(draft.title)
-  const description = stripHtml(draft.description)
-  const provenanceText = draft.provenance ? stripHtml(draft.provenance) : ''
-  const whyChosenText = draft.why_chosen ? stripHtml(draft.why_chosen) : ''
-  const provenance = provenanceText ? `\n\n${escapeHtml(provenanceText)}` : ''
-  const whyChosen = whyChosenText ? `\n\n${escapeHtml(whyChosenText)}` : ''
+  const clean = (s: string) => (s ?? '').replace(/<[^>]*>/g, '')
+  const tags = draft.tags.map(tag => clean(tag)).filter(Boolean).join(', ') || '—'
+  const title = clean(draft.title)
+  const description = clean(draft.description)
+  const provenance = draft.provenance ? clean(draft.provenance) : ''
+  const whyChosen = draft.why_chosen ? clean(draft.why_chosen) : ''
   return [
-    '<b>DRAFT</b>',
-    `<b>${escapeHtml(title)}</b>`,
-    escapeHtml(description).replace(/\n/g, '<br/>'),
-    provenance ? provenance.replace(/\n/g, '<br/>') : '',
-    whyChosen ? `<i>Why We Chose This</i><br/>${whyChosen.replace(/\n/g, '<br/>')}` : '',
+    'DRAFT',
+    title,
+    description,
+    provenance,
+    whyChosen ? `Why We Chose This\n${whyChosen}` : '',
     '',
-    `Tags: ${escapeHtml(tags)}`,
-    `Theme: ${escapeHtml(draft.theme)}`,
-    `Price: ${escapeHtml(formatPrice(draft.price))}`,
-    `Confidence: ${escapeHtml(formatConfidence(draft.confidence))}`,
+    `Tags: ${tags}`,
+    `Theme: ${clean(draft.theme)}`,
+    `Price: ${formatPrice(draft.price)}`,
+    `Confidence: ${formatConfidence(draft.confidence)}`,
     '',
-    'Reply to refine or say <b>publish</b> to save to catalog.',
+    'Reply to refine or say publish to save to catalog.',
   ].filter(Boolean).join('\n')
 }
 
@@ -690,7 +688,7 @@ async function handlePhoto(message: TelegramMessage) {
     state: 'drafting',
   })
 
-  const sent = await reply(chatId, formatDraftMessage(session.draft ?? draft), 'HTML')
+  const sent = await reply(chatId, formatDraftMessage(session.draft ?? draft))
   return { session, image, reply: sent }
 }
 
@@ -746,7 +744,7 @@ async function handleDraftText(message: TelegramMessage, session: ConversationSe
       ],
       state: 'drafting',
     })
-    const sent = await reply(chatId, formatDraftMessage(nextSession.draft ?? nextDraft), 'HTML')
+    const sent = await reply(chatId, formatDraftMessage(nextSession.draft ?? nextDraft))
     return { session: nextSession, reply: sent, action: 'price' }
   }
 
@@ -775,7 +773,7 @@ async function handleDraftText(message: TelegramMessage, session: ConversationSe
     ],
     state: 'drafting',
   })
-  const sent = await reply(chatId, formatDraftMessage(nextSession.draft ?? nextDraft), 'HTML')
+  const sent = await reply(chatId, formatDraftMessage(nextSession.draft ?? nextDraft))
   return { session: nextSession, reply: sent, action: 'revise' }
 }
 
