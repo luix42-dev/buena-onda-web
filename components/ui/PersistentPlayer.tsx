@@ -15,9 +15,20 @@ function trackLabel(track: Track | null) {
   return track.artist ? `${track.artist} - ${track.title}` : track.title
 }
 
+const XFADE_SECS = 3
+
 export default function PersistentPlayer() {
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const audioRefA = useRef<HTMLAudioElement>(null)
+  const audioRefB = useRef<HTMLAudioElement>(null)
+  // Which slot is the currently-playing audio ('a' or 'b')
+  const slotRef = useRef<'a' | 'b'>('a')
+  const xfadeTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const xfadingRef = useRef(false)
+  // Set to true by the crossfade when it completes, so the trackIdx effect
+  // knows not to reload the src (the incoming audio is already playing).
+  const xfadeCompletedRef = useRef(false)
   const audioContextRef = useRef<AudioContext | null>(null)
+
   const [tracks, setTracks] = useState<Track[]>([])
   const [trackIdx, setTrackIdx] = useState(0)
   const [playing, setPlaying] = useState(false)
@@ -25,20 +36,24 @@ export default function PersistentPlayer() {
   const [duration, setDuration] = useState(0)
   const [deckOpen, setDeckOpen] = useState(false)
 
+  const getActive = useCallback(
+    () => (slotRef.current === 'a' ? audioRefA.current : audioRefB.current),
+    [],
+  )
+  const getInactive = useCallback(
+    () => (slotRef.current === 'a' ? audioRefB.current : audioRefA.current),
+    [],
+  )
+
   useEffect(() => {
     fetch('/api/radio/tracks')
       .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data)) setTracks(data)
-      })
+      .then(data => { if (Array.isArray(data)) setTracks(data) })
       .catch(() => {})
   }, [])
 
-  // Auto-collapse panel when scrolled down; bar stays visible
   useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 100) setDeckOpen(false)
-    }
+    const onScroll = () => { if (window.scrollY > 100) setDeckOpen(false) }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -46,18 +61,28 @@ export default function PersistentPlayer() {
   const track: Track | null = tracks[trackIdx] ?? null
   const hasTrack = Boolean(track)
 
+  const stopXfade = useCallback(() => {
+    if (xfadeTimerRef.current !== null) {
+      clearInterval(xfadeTimerRef.current)
+      xfadeTimerRef.current = null
+    }
+    xfadingRef.current = false
+    const inact = getInactive()
+    if (inact) { inact.pause(); inact.volume = 1; inact.src = '' }
+    const act = getActive()
+    if (act) act.volume = 1
+  }, [getActive, getInactive])
+
   const thunk = useCallback(() => {
     try {
       const AudioCtx = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
       if (!AudioCtx) return
-
       const ctx = audioContextRef.current ?? new AudioCtx()
       audioContextRef.current = ctx
       const now = ctx.currentTime
       const osc = ctx.createOscillator()
       const gain = ctx.createGain()
       const filter = ctx.createBiquadFilter()
-
       osc.type = 'square'
       osc.frequency.setValueAtTime(115, now)
       osc.frequency.exponentialRampToValueAtTime(58, now + 0.055)
@@ -66,19 +91,16 @@ export default function PersistentPlayer() {
       gain.gain.setValueAtTime(0.0001, now)
       gain.gain.exponentialRampToValueAtTime(0.18, now + 0.008)
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075)
-
       osc.connect(filter)
       filter.connect(gain)
       gain.connect(ctx.destination)
       osc.start(now)
       osc.stop(now + 0.085)
-    } catch {
-      // WebAudio is optional feedback.
-    }
+    } catch {}
   }, [])
 
   const play = useCallback(async () => {
-    const audio = audioRef.current
+    const audio = getActive()
     if (!audio || !track) return
     try {
       await audio.play()
@@ -86,69 +108,165 @@ export default function PersistentPlayer() {
     } catch {
       setPlaying(false)
     }
-  }, [track])
+  }, [getActive, track])
 
   const pause = useCallback(() => {
-    audioRef.current?.pause()
+    stopXfade()
+    getActive()?.pause()
     setPlaying(false)
-  }, [])
+  }, [getActive, stopXfade])
 
   const toggle = useCallback(() => {
     thunk()
-    if (playing) {
-      pause()
-    } else {
-      void play()
-    }
+    if (playing) pause()
+    else void play()
   }, [pause, play, playing, thunk])
 
   const prev = useCallback(() => {
     thunk()
-    setTrackIdx(index => (tracks.length > 0 ? (index - 1 + tracks.length) % tracks.length : 0))
-  }, [tracks.length, thunk])
+    stopXfade()
+    setTrackIdx(i => (tracks.length > 0 ? (i - 1 + tracks.length) % tracks.length : 0))
+  }, [tracks.length, thunk, stopXfade])
 
   const next = useCallback(() => {
     thunk()
-    setTrackIdx(index => (tracks.length > 0 ? (index + 1) % tracks.length : 0))
-  }, [tracks.length, thunk])
+    stopXfade()
+    setTrackIdx(i => (tracks.length > 0 ? (i + 1) % tracks.length : 0))
+  }, [tracks.length, thunk, stopXfade])
 
+  // Attach playback-state event listeners to both audio elements
   useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
+    const audioA = audioRefA.current
+    const audioB = audioRefB.current
+    if (!audioA || !audioB) return
 
-    const onTime = () => setCurrentTime(audio.currentTime)
-    const onMeta = () => setDuration(audio.duration)
-    const onEnd = () => setTrackIdx(index => (tracks.length > 0 ? (index + 1) % tracks.length : 0))
-    const onPause = () => setPlaying(false)
-    const onPlay = () => setPlaying(true)
+    const onTimeA = () => { if (slotRef.current === 'a') setCurrentTime(audioA.currentTime) }
+    const onTimeB = () => { if (slotRef.current === 'b') setCurrentTime(audioB.currentTime) }
+    const onMetaA = () => { if (slotRef.current === 'a') setDuration(audioA.duration) }
+    const onMetaB = () => { if (slotRef.current === 'b') setDuration(audioB.duration) }
+    const onEndA = () => {
+      if (slotRef.current !== 'a' || xfadingRef.current) return
+      setTrackIdx(i => (tracks.length > 0 ? (i + 1) % tracks.length : 0))
+    }
+    const onEndB = () => {
+      if (slotRef.current !== 'b' || xfadingRef.current) return
+      setTrackIdx(i => (tracks.length > 0 ? (i + 1) % tracks.length : 0))
+    }
+    const onPauseA = () => { if (slotRef.current === 'a') setPlaying(false) }
+    const onPauseB = () => { if (slotRef.current === 'b') setPlaying(false) }
+    const onPlayA  = () => { if (slotRef.current === 'a') setPlaying(true) }
+    const onPlayB  = () => { if (slotRef.current === 'b') setPlaying(true) }
 
-    audio.addEventListener('timeupdate', onTime)
-    audio.addEventListener('loadedmetadata', onMeta)
-    audio.addEventListener('ended', onEnd)
-    audio.addEventListener('pause', onPause)
-    audio.addEventListener('play', onPlay)
+    audioA.addEventListener('timeupdate', onTimeA)
+    audioA.addEventListener('loadedmetadata', onMetaA)
+    audioA.addEventListener('ended', onEndA)
+    audioA.addEventListener('pause', onPauseA)
+    audioA.addEventListener('play', onPlayA)
+    audioB.addEventListener('timeupdate', onTimeB)
+    audioB.addEventListener('loadedmetadata', onMetaB)
+    audioB.addEventListener('ended', onEndB)
+    audioB.addEventListener('pause', onPauseB)
+    audioB.addEventListener('play', onPlayB)
 
     return () => {
-      audio.removeEventListener('timeupdate', onTime)
-      audio.removeEventListener('loadedmetadata', onMeta)
-      audio.removeEventListener('ended', onEnd)
-      audio.removeEventListener('pause', onPause)
-      audio.removeEventListener('play', onPlay)
+      audioA.removeEventListener('timeupdate', onTimeA)
+      audioA.removeEventListener('loadedmetadata', onMetaA)
+      audioA.removeEventListener('ended', onEndA)
+      audioA.removeEventListener('pause', onPauseA)
+      audioA.removeEventListener('play', onPlayA)
+      audioB.removeEventListener('timeupdate', onTimeB)
+      audioB.removeEventListener('loadedmetadata', onMetaB)
+      audioB.removeEventListener('ended', onEndB)
+      audioB.removeEventListener('pause', onPauseB)
+      audioB.removeEventListener('play', onPlayB)
     }
   }, [tracks.length])
 
+  // Crossfade — re-registers whenever tracks list or current track index changes
+  // so that the closure captures the correct nextIdx/nextSrc.
   useEffect(() => {
+    const audioA = audioRefA.current
+    const audioB = audioRefB.current
+    if (!audioA || !audioB || tracks.length <= 1) return
+
+    function tryStartXfade(el: HTMLAudioElement, elSlot: 'a' | 'b') {
+      if (slotRef.current !== elSlot || xfadingRef.current) return
+      const remaining = el.duration - el.currentTime
+      if (!el.duration || remaining > XFADE_SECS || remaining <= 0) return
+
+      xfadingRef.current = true
+      const nextIdx = (trackIdx + 1) % tracks.length
+      const nextSrc = tracks[nextIdx]?.src
+      if (!nextSrc) { xfadingRef.current = false; return }
+
+      const inact = elSlot === 'a' ? audioB : audioA
+      if (!inact) { xfadingRef.current = false; return }
+      inact.src = nextSrc
+      inact.volume = 0
+      inact.play().catch(() => { xfadingRef.current = false })
+
+      const totalSteps = Math.round((XFADE_SECS * 1000) / 50)
+      let step = 0
+      xfadeTimerRef.current = setInterval(() => {
+        step++
+        const p = step / totalSteps
+        el.volume = Math.max(0, 1 - p)
+        if (inact) inact.volume = Math.min(1, p)
+        if (step >= totalSteps) {
+          clearInterval(xfadeTimerRef.current!)
+          xfadeTimerRef.current = null
+          el.pause()
+          el.volume = 1
+          if (inact) inact.volume = 1
+          slotRef.current = elSlot === 'a' ? 'b' : 'a'
+          xfadingRef.current = false
+          xfadeCompletedRef.current = true
+          setTrackIdx(nextIdx)
+        }
+      }, 50)
+    }
+
+    const onTimeA = () => tryStartXfade(audioA, 'a')
+    const onTimeB = () => tryStartXfade(audioB, 'b')
+    audioA.addEventListener('timeupdate', onTimeA)
+    audioB.addEventListener('timeupdate', onTimeB)
+    return () => {
+      audioA.removeEventListener('timeupdate', onTimeA)
+      audioB.removeEventListener('timeupdate', onTimeB)
+    }
+  }, [tracks, trackIdx])
+
+  // Load new track src and optionally start playback when trackIdx changes.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const act = getActive()
+    if (!act) return
+
+    if (xfadeCompletedRef.current) {
+      // The crossfade already loaded and started the incoming audio.
+      // Just sync the displayed time/duration from the live element.
+      xfadeCompletedRef.current = false
+      setCurrentTime(act.currentTime)
+      setDuration(Number.isFinite(act.duration) ? act.duration : 0)
+      return
+    }
+
     setCurrentTime(0)
     setDuration(0)
+    if (!track) return
+    act.src = track.src
     if (playing) void play()
-  }, [play, playing, trackIdx])
+  // tracks is included so this fires on initial track load (trackIdx stays 0).
+  // play/playing/track are read from the same render that changed trackIdx/tracks.
+  }, [trackIdx, tracks]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const progress = duration ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0
   const label = trackLabel(track)
 
   return (
     <>
-      {track ? <audio ref={audioRef} src={track.src} preload="metadata" /> : null}
+      <audio ref={audioRefA} preload="metadata" />
+      <audio ref={audioRefB} preload="metadata" />
 
       {/* Floating panel — exact ed04d2c design, sits above the bar */}
       <section className={`bo-panel ${deckOpen ? 'bo-panel-open' : ''}`} aria-label="Buena Onda Radio expanded player">
