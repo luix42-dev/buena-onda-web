@@ -239,6 +239,19 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioFile(file)
     setTitle(deriveEpisodeTitleFromFileName(file.name))
     setError(null)
+
+    const url = URL.createObjectURL(file)
+    const audio = new Audio()
+    audio.preload = 'metadata'
+    audio.onloadedmetadata = () => {
+      const nextDuration = Number.isFinite(audio.duration) ? Math.round(audio.duration) : 0
+      setDuration(String(nextDuration))
+      URL.revokeObjectURL(url)
+    }
+    audio.onerror = () => {
+      URL.revokeObjectURL(url)
+    }
+    audio.src = url
   }
 
   const togglePublished = async (episode: Episode) => {
