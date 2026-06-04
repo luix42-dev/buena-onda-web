@@ -149,6 +149,8 @@ function escapeHtml(value: string) {
     .replace(/'/g, '&#39;')
 }
 
+const stripHtml = (s: string) => s.replace(/<[^>]*>/g, '')
+
 function formatPrice(value: number | null | undefined) {
   if (value == null || Number.isNaN(value)) return '—'
   return Number.isInteger(value) ? `$${value}` : `$${value.toFixed(2)}`
@@ -540,12 +542,16 @@ function draftToDetails(draft: SessionDraft, extras?: { note?: string; filename?
 
 function formatDraftMessage(draft: SessionDraft) {
   const tags = draft.tags.join(', ') || '—'
-  const provenance = draft.provenance ? `\n\n${escapeHtml(draft.provenance)}` : ''
-  const whyChosen = draft.why_chosen ? `\n\n${escapeHtml(draft.why_chosen)}` : ''
+  const title = stripHtml(draft.title)
+  const description = stripHtml(draft.description)
+  const provenanceText = draft.provenance ? stripHtml(draft.provenance) : ''
+  const whyChosenText = draft.why_chosen ? stripHtml(draft.why_chosen) : ''
+  const provenance = provenanceText ? `\n\n${escapeHtml(provenanceText)}` : ''
+  const whyChosen = whyChosenText ? `\n\n${escapeHtml(whyChosenText)}` : ''
   return [
     '<b>DRAFT</b>',
-    `<b>${escapeHtml(draft.title)}</b>`,
-    escapeHtml(draft.description).replace(/\n/g, '<br/>'),
+    `<b>${escapeHtml(title)}</b>`,
+    escapeHtml(description).replace(/\n/g, '<br/>'),
     provenance ? provenance.replace(/\n/g, '<br/>') : '',
     whyChosen ? `<i>Why We Chose This</i><br/>${whyChosen.replace(/\n/g, '<br/>')}` : '',
     '',
