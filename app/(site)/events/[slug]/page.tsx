@@ -103,6 +103,7 @@ export default async function EventDetailPage({ params }: Props) {
   if (!event) notFound()
 
   const [titleOne, titleTwo] = titleParts(event.name)
+  const isOndaTropical = event.slug.toLowerCase() === 'onda-tropical'
   const gallery = event.gallery?.filter(item => item.image) ?? []
   const videos = event.videos?.filter(item => item.url) ?? []
   const playlistEmbed = event.playlist_url ? getYouTubeEmbedUrl(event.playlist_url) : ""
@@ -162,6 +163,12 @@ export default async function EventDetailPage({ params }: Props) {
 
             <ScanReveal delay={180}>
               <div>
+                {isOndaTropical ? (
+                  <p className='font-serif italic mb-6 max-w-[38ch]' style={{ color: '#555', fontSize: '0.95rem', lineHeight: 1.5 }}>
+                    Latin American and Caribbean dance music at Cerveceria La Tropical. DJ Kumi and Tostao playing from the same tradition that built the room — Afro-Cuban rhythms, tropical bass, cumbia, the long records. A Buena Onda production. Proof that Miami still knows how to move.
+                  </p>
+                ) : null}
+
                 {proofRows.length > 0 ? (
                   <div className='border-t-2 border-charcoal'>
                     {proofRows.map(row => (
