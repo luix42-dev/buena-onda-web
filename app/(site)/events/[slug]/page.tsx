@@ -140,7 +140,13 @@ export default async function EventDetailPage({ params }: Props) {
 
           {event.tagline ? (
             <ScanReveal delay={100}>
-              <p className='font-serif italic text-near-black max-w-3xl mb-12' style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', lineHeight: 1.22 }}>{event.tagline}</p>
+              <p className='font-serif italic text-near-black max-w-3xl mb-6' style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', lineHeight: 1.22 }}>{event.tagline}</p>
+            </ScanReveal>
+          ) : null}
+
+          {event.description ? (
+            <ScanReveal delay={120}>
+              <p className='font-sans font-bold text-near-black mb-12' style={{ fontSize: '1.125rem', lineHeight: 1.55 }}>{event.description}</p>
             </ScanReveal>
           ) : null}
 
@@ -187,18 +193,6 @@ export default async function EventDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
-
-      {event.description ? (
-        <section className='bg-warm-page py-16 border-y border-pale-stone'>
-          <div className='max-w-site mx-auto px-5 md:px-10'>
-            <ScanReveal>
-              <div className='max-w-4xl'>
-                <p className='font-serif text-near-black' style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', lineHeight: 1.45 }}>{event.description}</p>
-              </div>
-            </ScanReveal>
-          </div>
-        </section>
-      ) : null}
 
       {gallery.length > 0 ? (
         <EditorialSection label='On the floor' tone='pink'>
