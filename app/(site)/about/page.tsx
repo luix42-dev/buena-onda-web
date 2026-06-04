@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
 import TimelineAccordion from '@/components/ui/TimelineAccordion'
 import { createClient } from '@/lib/supabase/server'
@@ -40,7 +40,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      {/* ── Header ─────────────────────────────────────────────────────── */}
+      {/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="pt-32 pb-16 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
@@ -55,7 +55,7 @@ export default async function AboutPage() {
         </div>
       </div>
 
-      {/* ── Opening Statement ──────────────────────────────────────────── */}
+      {/* â”€â”€ Opening Statement â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-20 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <div className="grid md:grid-cols-2 gap-16">
@@ -78,7 +78,7 @@ export default async function AboutPage() {
               <div
                 className="p-7 md:p-8"
                 style={{
-                  backgroundColor: '#EDE8DA',
+                  backgroundColor: '#ffffff',
                   padding: '2rem 1.75rem',
                   borderLeftWidth: '3px',
                   borderLeftStyle: 'solid',
@@ -99,7 +99,7 @@ export default async function AboutPage() {
                     className="font-sans uppercase"
                     style={{ color: '#1A9E9E', fontSize: '0.58rem', letterSpacing: '0.2em', fontWeight: 700 }}
                   >
-                    BUENA ONDA · MIAMI
+                    BUENA ONDA Â· MIAMI
                   </span>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* ── Timeline ───────────────────────────────────────────────────── */}
+      {/* â”€â”€ Timeline â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
@@ -119,7 +119,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* ── The World We Found ─────────────────────────────────────────── */}
+      {/* â”€â”€ The World We Found â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
@@ -163,7 +163,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* ── Values ─────────────────────────────────────────────────────── */}
+      {/* â”€â”€ Values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 bg-warm-white">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
@@ -201,3 +201,5 @@ export default async function AboutPage() {
     </>
   )
 }
+
+
