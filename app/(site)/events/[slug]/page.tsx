@@ -69,7 +69,7 @@ function getYouTubeEmbedUrl(urlString: string): string {
   try {
     const url = new URL(input)
     const list = url.searchParams.get('list')
-    if (list) return 'https://www.youtube.com/embed/videoseries?list=' + encodeURIComponent(list)
+    if (list) return 'https://www.youtube.com/embed/videoseries?list=' + encodeURIComponent(list) + '&listType=playlist&index=0'
     if (url.hostname.includes('youtu.be')) {
       const id = url.pathname.split('/').filter(Boolean)[0]
       return id ? 'https://www.youtube.com/embed/' + id : ''
