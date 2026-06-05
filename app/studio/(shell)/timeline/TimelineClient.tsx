@@ -203,13 +203,13 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
             </div>
 
             <div className="dbody">
-              <Field label="Era label">
+              <Field label="Year">
                 <input type="text" value={editing.year} onChange={event => setEditing(prev => prev && { ...prev, year: event.target.value })} />
               </Field>
-              <Field label="Headline">
+              <Field label="Title">
                 <input type="text" value={editing.title} onChange={event => setEditing(prev => prev && { ...prev, title: event.target.value })} />
               </Field>
-              <Field label="Subheadline">
+              <Field label="Summary">
                 <input type="text" value={editing.summary} onChange={event => setEditing(prev => prev && { ...prev, summary: event.target.value })} />
               </Field>
               <Field label="Hero photo URL">

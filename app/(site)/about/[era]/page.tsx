@@ -27,7 +27,7 @@ async function getTimeline(): Promise<TimelineItem[]> {
   try {
     const supabase = await createClient()
     const { data } = await withTimeout(supabase.from('timeline').select('*').order('sort_order'))
-    if (data) return data as TimelineItem[]
+    if (data?.length) return data as TimelineItem[]
   } catch { /* fall through */ }
   return fallback
 }

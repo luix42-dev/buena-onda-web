@@ -86,6 +86,18 @@ const NAV: NavSpec[] = [
     ),
   },
   {
+    slug:  'timeline',
+    label: 'Timeline',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 6h14M5 12h14M5 18h10" />
+        <circle cx="4" cy="6" r="1.25" />
+        <circle cx="4" cy="12" r="1.25" />
+        <circle cx="4" cy="18" r="1.25" />
+      </svg>
+    ),
+  },
+  {
     slug:  'homepage',
     label: 'Homepage',
     icon: (

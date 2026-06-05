@@ -13,12 +13,21 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
   const { id } = await params
   const body = await request.json()
-  const { year, title, summary, story, photo, photos } = body
+  const { slug, year, title, summary, story, photo, photos, sort_order } = body
 
   const supabase = await createServiceClient()
   const { data, error } = await supabase
     .from('timeline')
-    .update({ year, title, summary, story, photo: photo ?? null, photos: photos ?? [] })
+    .update({
+      slug,
+      year,
+      title,
+      summary,
+      story,
+      photo: photo ?? null,
+      photos: photos ?? [],
+      sort_order: sort_order ?? 0,
+    })
     .eq('id', id)
     .select()
     .single()
