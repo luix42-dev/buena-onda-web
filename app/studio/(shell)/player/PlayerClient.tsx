@@ -194,10 +194,10 @@ export default function PlayerClient() {
     setLoadError(null)
 
     try {
-      const [tracksRes, labelsRes] = await Promise.all([
-        fetch('/api/radio/tracks', { cache: 'no-store' }),
-        fetch('/api/admin/player/tracks', { cache: 'no-store' }),
-      ])
+      const tracksRes = await fetch('/api/radio/tracks', {
+        cache: 'no-store',
+        credentials: 'include',
+      })
       const body = await readJsonOrText(tracksRes)
 
       if (!tracksRes.ok) {
@@ -207,12 +207,11 @@ export default function PlayerClient() {
         throw new Error(msg)
       }
 
-      const labels: Record<string, string> = labelsRes.ok ? (await labelsRes.json() as Record<string, string>) : {}
       const raw = Array.isArray(body) ? (body as Track[]) : []
       const list = raw.map(t => {
         const fileName = t.fileName ?? t.key?.split('/').pop() ?? t.src.split('/').pop()?.split('?')[0] ?? ''
         const key = t.key ?? fileName
-        return { ...t, key, fileName, title: labels[fileName] ?? t.title }
+        return { ...t, key, fileName }
       })
       setTracks(list)
       setEditingKey(null)
@@ -267,7 +266,8 @@ export default function PlayerClient() {
       const res = await fetch('/api/admin/player/tracks', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileName: trackKey, displayName: nextTitle }),
+        credentials: 'include',
+        body: JSON.stringify({ key: trackKey, displayName: nextTitle }),
       })
       const body = await readJsonOrText(res)
 
@@ -335,6 +335,7 @@ export default function PlayerClient() {
       const res = await fetch('/api/admin/player/tracks', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ fileName }),
       })
       if (!res.ok) {
@@ -375,6 +376,7 @@ export default function PlayerClient() {
       const res = await fetch('/api/radio/tracks', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ orderedKeys }),
       })
       const body = await readJsonOrText(res)
@@ -409,6 +411,7 @@ export default function PlayerClient() {
       const signedRes = await fetch('/api/admin/upload-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           fileName: file.name,
           contentType: file.type || 'audio/mpeg',
