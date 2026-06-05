@@ -6,6 +6,7 @@ import { timelineItems as fallback } from '@/lib/timeline'
 import type { TimelineItem } from '@/lib/timeline'
 
 export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
 
 export const metadata: Metadata = {
   title: 'About',
