@@ -103,8 +103,6 @@ export default async function EventDetailPage({ params }: Props) {
   const event = await getEvent(slug)
   if (!event) notFound()
 
-  console.log('[events/[slug]] raw event', event)
-
   const [titleOne, titleTwo] = titleParts(event.name)
   const isOndaTropical = event.slug.toLowerCase() === 'onda-tropical'
   const gallery = event.gallery?.filter(item => item.image) ?? []
