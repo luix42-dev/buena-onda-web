@@ -54,7 +54,7 @@ function humanize(s: string) {
 }
 
 function parseKey(key: string): Pick<Track, 'title' | 'artist'> {
-  const name = key.replace(/^audio\//, '').replace(/\.mp3$/i, '')
+  const name = key.replace(/^audio\//, '').replace(/\.mp3$/i, '').replace(/^\d{13}-/, '')
   const parts = name.split('_')
 
   if (parts.length >= 3) {

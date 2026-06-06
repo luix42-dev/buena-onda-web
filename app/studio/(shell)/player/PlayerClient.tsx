@@ -281,13 +281,7 @@ export default function PlayerClient() {
         throw new Error(msg)
       }
 
-      setTracks(current =>
-        current.map(item => (
-          item.key === trackKey
-            ? { ...item, title: nextTitle }
-            : item
-        ))
-      )
+      await loadTracks()
       toast('Track title updated.')
       stopEditing()
     } catch (err) {
