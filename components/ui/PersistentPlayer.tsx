@@ -309,12 +309,12 @@ export default function PersistentPlayer() {
       {/* Full-width bar — always visible */}
       <section className={`bo-tape-deck bo-tape-deck-open ${playing ? 'bo-readout-playing' : ''}`} aria-label="Buena Onda Radio player">
         <div className="bo-progress-bar" style={{ width: `${progress}%` }} />
-        <div className="bo-bar">
+        <div className="bo-bar" onClick={() => { thunk(); setDeckOpen(v => !v) }}>
           <span className="bo-bar-brand">BUENA ONDA RADIO</span>
           <div className="bo-bar-transport" aria-label="Radio transport controls">
-            <button type="button" className="bo-bar-key" onClick={prev} disabled={!hasTrack} aria-label="Previous track">&#9668;&#9668;</button>
-            <button type="button" className="bo-bar-key bo-bar-key-play" onClick={toggle} disabled={!hasTrack} aria-label={playing ? 'Pause' : 'Play'}>{playing ? 'II' : 'PLAY'}</button>
-            <button type="button" className="bo-bar-key" onClick={next} disabled={!hasTrack} aria-label="Next track">&#9658;&#9658;</button>
+            <button type="button" className="bo-bar-key" onClick={e => { e.stopPropagation(); prev() }} disabled={!hasTrack} aria-label="Previous track">&#9668;&#9668;</button>
+            <button type="button" className="bo-bar-key bo-bar-key-play" onClick={e => { e.stopPropagation(); toggle() }} disabled={!hasTrack} aria-label={playing ? 'Pause' : 'Play'}>{playing ? 'II' : 'PLAY'}</button>
+            <button type="button" className="bo-bar-key" onClick={e => { e.stopPropagation(); next() }} disabled={!hasTrack} aria-label="Next track">&#9658;&#9658;</button>
           </div>
           <div className="bo-bar-track">
             <span>{label} &nbsp; / &nbsp; {label}</span>
@@ -328,7 +328,7 @@ export default function PersistentPlayer() {
           <button
             type="button"
             className="bo-toggle-btn"
-            onClick={() => { thunk(); setDeckOpen(v => !v) }}
+            onClick={e => { e.stopPropagation(); thunk(); setDeckOpen(v => !v) }}
             aria-label={deckOpen ? 'Collapse panel' : 'Expand panel'}
           >
             {deckOpen ? '↓' : '↑'}
@@ -541,6 +541,8 @@ export default function PersistentPlayer() {
           gap: 12px;
           height: 100%;
           padding: 0 12px;
+          cursor: pointer;
+          pointer-events: auto;
           font-family: var(--font-sans);
           font-size: 0.68rem;
           letter-spacing: 0.14em;
