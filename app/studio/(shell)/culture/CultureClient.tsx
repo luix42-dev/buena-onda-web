@@ -27,6 +27,13 @@ function parseTags(raw: string) {
     .filter(Boolean)
 }
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
 function isCulturePost(post: Post) {
   const tags = post.tags ?? []
   return tags.includes('culture') || tags.includes('essay')
@@ -39,6 +46,7 @@ function postStatus(post: Post): 'draft' | 'live' {
 export default function CultureClient({ initialPosts }: Props) {
   const toast = useToast()
   const [posts, setPosts] = useState<Post[]>(initialPosts)
+  const [editingPost, setEditingPost] = useState<Post | null>(null)
   const [composerOpen, setComposerOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
@@ -57,6 +65,7 @@ export default function CultureClient({ initialPosts }: Props) {
   const culturePosts = posts.filter(isCulturePost)
 
   const openComposer = () => {
+    setEditingPost(null)
     setTitle('')
     setExcerpt('')
     setBody('')
@@ -64,6 +73,19 @@ export default function CultureClient({ initialPosts }: Props) {
     setInstagramUrl('')
     setTags('culture, essay')
     setStatus('draft')
+    setError(null)
+    setComposerOpen(true)
+  }
+
+  const openEditor = (post: Post) => {
+    setEditingPost(post)
+    setTitle(post.title ?? '')
+    setExcerpt(post.excerpt ?? '')
+    setBody(post.body ?? '')
+    setCoverImage(post.cover_image ?? '')
+    setInstagramUrl(post.instagram_url ?? '')
+    setTags((post.tags ?? []).join(', '))
+    setStatus(postStatus(post))
     setError(null)
     setComposerOpen(true)
   }
@@ -79,18 +101,20 @@ export default function CultureClient({ initialPosts }: Props) {
 
     try {
       const postTags = parseTags(tags)
-      const res = await fetch('/api/admin/posts', {
-        method: 'POST',
+      const payload = {
+        title: title.trim(),
+        excerpt: excerpt.trim() || undefined,
+        body: body.trim() || undefined,
+        cover_image: coverImage.trim() || undefined,
+        instagramUrl: instagramUrl.trim() || undefined,
+        tags: postTags.length ? postTags : ['culture', 'essay'],
+        status,
+        slug: slugify(title.trim()),
+      }
+      const res = await fetch(editingPost ? `/api/admin/posts/${editingPost.id}` : '/api/admin/posts', {
+        method: editingPost ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: title.trim(),
-          excerpt: excerpt.trim() || undefined,
-          body: body.trim() || undefined,
-          cover_image: coverImage.trim() || undefined,
-          instagramUrl: instagramUrl.trim() || undefined,
-          tags: postTags.length ? postTags : ['culture', 'essay'],
-          status,
-        }),
+        body: JSON.stringify(payload),
       })
       const data = await res.json()
 
@@ -98,9 +122,14 @@ export default function CultureClient({ initialPosts }: Props) {
         throw new Error((data as { error?: string }).error ?? 'Could not save essay.')
       }
 
-      setPosts(prev => [data as Post, ...prev])
+      setPosts(prev => (
+        editingPost
+          ? prev.map(post => post.id === editingPost.id ? data as Post : post)
+          : [data as Post, ...prev]
+      ))
+      setEditingPost(null)
       setComposerOpen(false)
-      toast('Essay saved.')
+      toast(editingPost ? 'Essay updated.' : 'Essay saved.')
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Could not save essay.'
       setError(msg)
@@ -164,7 +193,7 @@ export default function CultureClient({ initialPosts }: Props) {
             </div>
 
             {culturePosts.map((post, index) => (
-              <div key={post.id} className="row in">
+              <div key={post.id} className="row in" onClick={() => openEditor(post)}>
                 <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
                 <div className="rmain">
                   <div className="rttl">{post.title}</div>
@@ -185,11 +214,21 @@ export default function CultureClient({ initialPosts }: Props) {
 
       <Drawer
         open={composerOpen}
-        onClose={() => setComposerOpen(false)}
-        title="New essay"
+        onClose={() => {
+          setComposerOpen(false)
+          setEditingPost(null)
+        }}
+        title={editingPost ? 'Edit essay' : 'New essay'}
         footer={(
           <>
-            <button type="button" className="btn ghost" onClick={() => setComposerOpen(false)}>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => {
+                setComposerOpen(false)
+                setEditingPost(null)
+              }}
+            >
               Cancel
             </button>
             <button
@@ -198,7 +237,7 @@ export default function CultureClient({ initialPosts }: Props) {
               onClick={saveEssay}
               disabled={saving || !title.trim()}
             >
-              {saving ? 'Saving...' : 'Save essay'}
+              {saving ? 'Saving...' : editingPost ? 'Save changes' : 'Save essay'}
             </button>
           </>
         )}
