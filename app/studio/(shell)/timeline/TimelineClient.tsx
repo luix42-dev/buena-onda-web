@@ -145,17 +145,22 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
         {eras.map(era => (
           <div
             key={era.slug}
-            style={{ display: 'flex', alignItems: 'stretch', border: '1px solid var(--line)', background: 'var(--paper)' }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) auto',
+              alignItems: 'stretch',
+              border: '1px solid var(--line)',
+              background: 'var(--paper)',
+            }}
           >
             <button
               type="button"
               className="text-left"
               style={{
-                flex: 1,
-                display: 'grid',
-                gridTemplateColumns: '96px 160px 1fr',
-                gap: 16,
-                alignItems: 'baseline',
+                minWidth: 0,
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px 16px',
                 padding: '14px 16px',
                 background: 'transparent',
                 border: 'none',
@@ -164,9 +169,9 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
               }}
               onClick={() => setEditing({ ...era, photos: [...era.photos] })}
             >
-              <span style={{ fontSize: 11, letterSpacing: '.12em', color: 'var(--muted)' }}>{era.year}</span>
-              <span style={{ fontFamily: 'var(--studio-display)', fontSize: 19, textTransform: 'uppercase' }}>{era.title}</span>
-              <span style={{ fontSize: 13, color: 'var(--muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{era.summary}</span>
+              <span style={{ fontSize: 11, letterSpacing: '.12em', color: 'var(--muted)', flexShrink: 0 }}>{era.year}</span>
+              <span style={{ fontFamily: 'var(--studio-display)', fontSize: 19, textTransform: 'uppercase', minWidth: 0 }}>{era.title}</span>
+              <span style={{ fontSize: 13, color: 'var(--muted)', flexBasis: '100%', minWidth: 0, overflowWrap: 'anywhere' }}>{era.summary}</span>
             </button>
             <button
               type="button"

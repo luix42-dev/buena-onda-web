@@ -236,7 +236,7 @@ export default function EventEditor({ event }: Props) {
         actionHref="/studio/events"
       />
 
-      <div className="grid gap-4" style={{ paddingTop: 20, maxWidth: 820 }}>
+      <div className="editor-grid" style={{ maxWidth: 820 }}>
         <div className="hpcard in">
           <div className="hk">Core</div>
           <div className="field">

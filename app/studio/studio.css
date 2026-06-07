@@ -415,7 +415,8 @@
 .studio-root .rows { padding-top: 18px; display: flex; flex-direction: column; gap: 0; }
 .studio-root .row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 16px;
   padding: 16px 14px;
   background: var(--paper);
@@ -457,24 +458,31 @@
   font-weight: 600;
   font-size: 15px;
   line-height: 1.25;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 .studio-root .row .rdek {
   font-size: 12.5px;
   color: var(--ink-2);
   margin-top: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
-.studio-root .row .rmeta { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.studio-root .row .rmeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1 1 260px;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  min-width: 0;
+  margin-left: auto;
+}
 .studio-root .row .rdate {
   font-size: 11px;
   color: var(--muted);
   letter-spacing: .04em;
   font-variant-numeric: tabular-nums;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .studio-root .row .raction {
   font-family: var(--studio-sans), 'Outfit', sans-serif;
@@ -609,6 +617,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
+  padding-top: 20px;
+}
+.studio-root .editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
   padding-top: 20px;
 }
 .studio-root .hpcard {
