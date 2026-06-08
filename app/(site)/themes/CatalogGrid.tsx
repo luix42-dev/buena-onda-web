@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Item, Theme } from '@/types'
 
 type ThemeStub = Pick<Theme, 'id' | 'title' | 'code' | 'slug'>
@@ -87,14 +88,15 @@ export default function CatalogGrid({ items, themes }: Props) {
                   ].join(' ')}
                 >
                   {/* Image */}
-                  <div className="aspect-[3/4] overflow-hidden mb-3 relative bg-sand-bg">
+                  <div className="aspect-square overflow-hidden mb-3 relative bg-cream">
                     {item.cover_image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={item.cover_image_url}
                         alt={item.title}
-                        className="absolute inset-0 w-full h-full object-cover
-                                   group-hover:scale-105 transition-transform duration-700"
+                        fill
+                        loading="lazy"
+                        sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc((100vw - 6rem) / 2), (max-width: 1279px) calc((100vw - 8rem) / 3), calc((100vw - 10rem) / 4)"
+                        className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
