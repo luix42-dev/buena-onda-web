@@ -28,6 +28,29 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   )
 }
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+function createDraft(sortOrder: number): TimelineEra {
+  return {
+    id: `draft:${Date.now()}`,
+    slug: '',
+    year: '',
+    title: '',
+    summary: '',
+    story: '',
+    photo: null,
+    photos: [],
+    sort_order: sortOrder,
+  }
+}
+
 export default function TimelineClient({ initialEras }: { initialEras: TimelineEra[] }) {
   const toast = useToast()
   const [eras, setEras] = useState(initialEras)
@@ -36,23 +59,36 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const openNew = () => {
+    const nextSortOrder = eras.length > 0 ? Math.max(...eras.map(era => era.sort_order)) + 1 : 0
+    setEditing(createDraft(nextSortOrder))
+    setError(null)
+  }
+
   const save = async () => {
     if (!editing) return
+
+    const nextSlug = editing.slug.trim() || slugify(editing.title)
+    if (!editing.year.trim() || !editing.title.trim() || !nextSlug) {
+      setError('Year, title, and slug are required.')
+      return
+    }
+
     setSaving(true)
     setError(null)
 
     try {
-      const isFallback = editing.id.startsWith('fallback:')
+      const isNew = editing.id.startsWith('draft:') || editing.id.startsWith('fallback:')
       const editingId = editing.id
-      const res = await fetch(isFallback ? '/api/admin/timeline' : `/api/admin/timeline/${editing.id}`, {
-        method: isFallback ? 'POST' : 'PUT',
+      const res = await fetch(isNew ? '/api/admin/timeline' : `/api/admin/timeline/${editing.id}`, {
+        method: isNew ? 'POST' : 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          slug: editing.slug,
-          year: editing.year,
-          title: editing.title,
-          summary: editing.summary,
-          story: editing.story,
+          slug: nextSlug,
+          year: editing.year.trim(),
+          title: editing.title.trim(),
+          summary: editing.summary.trim(),
+          story: editing.story.trim(),
           photo: editing.photo,
           photos: editing.photos,
           sort_order: editing.sort_order,
@@ -65,9 +101,18 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
       }
 
       const updated = await res.json() as TimelineEra
-      setEras(prev => prev.map(era => era.id === editingId ? updated : era))
+      setEras(prev => {
+        const existingIndex = prev.findIndex(era => era.id === editingId)
+        const next = [...prev]
+        if (existingIndex >= 0) {
+          next[existingIndex] = updated
+        } else {
+          next.push(updated)
+        }
+        return next.sort((a, b) => a.sort_order - b.sort_order)
+      })
       setEditing(null)
-      toast('Timeline era saved.')
+      toast(isNew ? 'Timeline era created.' : 'Timeline era saved.')
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Could not save era.'
       setError(message)
@@ -79,7 +124,11 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
 
   const deleteEra = async (era: TimelineEra) => {
     if (eras.length <= 1) return
-    if (!window.confirm(`Delete ${era.year} — ${era.title}? This cannot be undone.`)) return
+    if (!window.confirm(`Delete ${era.year} - ${era.title}? This cannot be undone.`)) return
+    if (era.id.startsWith('draft:')) {
+      setEditing(null)
+      return
+    }
     if (era.id.startsWith('fallback:')) {
       toast('Save this era to the database before deleting it.')
       return
@@ -137,6 +186,8 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
       <SectionHead
         title="Timeline Eras"
         subtitle="Edit the About timeline copy and optional hero photo for each era."
+        actionLabel="+ New era"
+        onAction={openNew}
       />
 
       {error ? <p className="error">{error}</p> : null}
@@ -144,7 +195,7 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
       <div className="grid gap-2">
         {eras.map(era => (
           <div
-            key={era.slug}
+            key={era.id}
             style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(0, 1fr) auto',
@@ -189,7 +240,7 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
                 flexShrink: 0,
               }}
             >
-              ×
+              x
             </button>
           </div>
         ))}
@@ -201,8 +252,8 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
           <section className="drawer on">
             <div className="dhead">
               <div>
-                <p className="ey">Editing Era</p>
-                <h2 className="lbl">{editing.year} / {editing.title}</h2>
+                <p className="ey">{editing.id.startsWith('draft:') ? 'New Era' : 'Editing Era'}</p>
+                <h2 className="lbl">{editing.year || 'New'} / {editing.title || 'Untitled era'}</h2>
               </div>
               <button className="x" type="button" onClick={() => setEditing(null)}>x</button>
             </div>
@@ -212,7 +263,10 @@ export default function TimelineClient({ initialEras }: { initialEras: TimelineE
                 <input type="text" value={editing.year} onChange={event => setEditing(prev => prev && { ...prev, year: event.target.value })} />
               </Field>
               <Field label="Title">
-                <input type="text" value={editing.title} onChange={event => setEditing(prev => prev && { ...prev, title: event.target.value })} />
+                <input type="text" value={editing.title} onChange={event => setEditing(prev => prev && { ...prev, title: event.target.value, slug: prev.slug || slugify(event.target.value) })} />
+              </Field>
+              <Field label="Slug">
+                <input type="text" value={editing.slug} onChange={event => setEditing(prev => prev && { ...prev, slug: event.target.value })} />
               </Field>
               <Field label="Summary">
                 <input type="text" value={editing.summary} onChange={event => setEditing(prev => prev && { ...prev, summary: event.target.value })} />

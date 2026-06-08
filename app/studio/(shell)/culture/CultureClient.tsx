@@ -109,7 +109,7 @@ export default function CultureClient({ initialPosts }: Props) {
         instagramUrl: instagramUrl.trim() || undefined,
         tags: postTags.length ? postTags : ['culture', 'essay'],
         status,
-        slug: slugify(title.trim()),
+        slug: editingPost?.slug ?? slugify(title.trim()),
       }
       const res = await fetch(editingPost ? `/api/admin/posts/${editingPost.id}` : '/api/admin/posts', {
         method: editingPost ? 'PUT' : 'POST',

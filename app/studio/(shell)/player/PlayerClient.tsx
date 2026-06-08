@@ -429,7 +429,6 @@ export default function PlayerClient() {
         throw new Error('Signed upload response is incomplete.')
       }
 
-      console.log('[player] uploadTrack: PUT', uploadData.uploadUrl.split('?')[0])
       const uploadRes = await fetch(uploadData.uploadUrl, {
         method: 'PUT',
         body: file,

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json()
   const {
     title, slug, theme_id, price, buy_url,
-    description, tags, cover_image_url, status = 'draft', details,
+    description, why_chosen, tags, cover_image_url, status = 'draft', details,
     availability = 'available',
     sourcing_model = 'reservation',
   } = body
@@ -69,6 +69,7 @@ export async function POST(request: NextRequest) {
       price:           price ?? null,
       buy_url:         buy_url || null,
       description:     description || null,
+      why_chosen:      why_chosen || null,
       tags:            tags ?? [],
       cover_image_url: cover_image_url || null,
       details:         details ?? null,

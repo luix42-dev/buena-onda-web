@@ -9,30 +9,38 @@ import { useToast } from '@/components/studio/Toast'
 import type { Item, ItemAvailability, ItemImage, ItemSourcingModel, ItemStatus, Theme } from './types'
 
 type Props = {
-  item:     Item | null
-  themes:   Theme[]
-  open:     boolean
-  onClose:  () => void
-  onSave:   (item: Item) => void
+  item: Item | null
+  themes: Theme[]
+  open: boolean
+  onClose: () => void
+  onSave: (item: Item) => void
   onDelete: (id: string) => void
 }
 
 const AVAIL_OPTIONS: { value: ItemAvailability; label: string }[] = [
   { value: 'available', label: 'Available' },
-  { value: 'reserved',  label: 'Reserved'  },
-  { value: 'sold',      label: 'Sold'      },
+  { value: 'reserved', label: 'Reserved' },
+  { value: 'sold', label: 'Sold' },
 ]
 
 const STATUS_OPTIONS: { value: ItemStatus; label: string }[] = [
-  { value: 'draft',     label: 'Draft'     },
+  { value: 'draft', label: 'Draft' },
   { value: 'published', label: 'Published' },
-  { value: 'archived',  label: 'Archived'  },
+  { value: 'archived', label: 'Archived' },
 ]
 
 const SOURCING_OPTIONS: { value: ItemSourcingModel; label: string }[] = [
   { value: 'reservation', label: 'Reservation' },
-  { value: 'direct',      label: 'Direct Purchase' },
+  { value: 'direct', label: 'Direct Purchase' },
 ]
+
+const DETAIL_FIELDS = [
+  { key: 'era', label: 'Era' },
+  { key: 'dimensions', label: 'Dimensions' },
+  { key: 'material', label: 'Material' },
+  { key: 'condition', label: 'Condition' },
+  { key: 'origin', label: 'Origin' },
+] as const
 
 function slugify(s: string) {
   return s
@@ -46,25 +54,26 @@ function slugify(s: string) {
 export default function ItemDrawer({ item, themes, open, onClose, onSave, onDelete }: Props) {
   const toast = useToast()
 
-  const [title,        setTitle]       = useState('')
-  const [slug,         setSlug]        = useState('')
-  const [slugTouched,  setSlugTouched] = useState(false)
-  const [themeId,      setThemeId]     = useState('')
-  const [price,        setPrice]       = useState('')
-  const [description,  setDescription] = useState('')
-  const [tags,         setTags]        = useState<string[]>([])
-  const [tagInput,     setTagInput]    = useState('')
-  const [status,       setStatus]      = useState<ItemStatus>('draft')
-  const [availability, setAvailability]= useState<ItemAvailability>('available')
+  const [title, setTitle] = useState('')
+  const [slug, setSlug] = useState('')
+  const [slugTouched, setSlugTouched] = useState(false)
+  const [themeId, setThemeId] = useState('')
+  const [price, setPrice] = useState('')
+  const [description, setDescription] = useState('')
+  const [whyChosen, setWhyChosen] = useState('')
+  const [details, setDetails] = useState<Record<string, string>>({})
+  const [tags, setTags] = useState<string[]>([])
+  const [tagInput, setTagInput] = useState('')
+  const [status, setStatus] = useState<ItemStatus>('draft')
+  const [availability, setAvailability] = useState<ItemAvailability>('available')
   const [sourcingModel, setSourcingModel] = useState<ItemSourcingModel>('reservation')
-  const [images,       setImages]      = useState<ItemImage[]>([])
-  const [coverUrl,     setCoverUrl]    = useState<string | null>(null)
-  const [uploading,    setUploading]   = useState(false)
-  const [saving,       setSaving]      = useState(false)
+  const [images, setImages] = useState<ItemImage[]>([])
+  const [coverUrl, setCoverUrl] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   const fileRef = useRef<HTMLInputElement>(null)
 
-  // Populate form when item changes
   useEffect(() => {
     if (!open) return
     if (item) {
@@ -74,12 +83,13 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       setThemeId(item.theme_id ?? '')
       setPrice(item.price != null ? String(item.price) : '')
       setDescription(item.description ?? '')
+      setWhyChosen(item.why_chosen ?? '')
+      setDetails(item.details ?? {})
       setTags(item.tags ?? [])
       setStatus((item.status === 'sold_out' ? 'published' : item.status) as ItemStatus)
       setAvailability(item.availability ?? 'available')
       setSourcingModel(item.sourcing_model ?? 'reservation')
       setCoverUrl(item.cover_image_url)
-      // Fetch images
       fetch(`/api/admin/items/${item.id}/images`)
         .then(r => r.json())
         .then(data => Array.isArray(data) && setImages(data))
@@ -91,6 +101,8 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       setThemeId(themes[0]?.id ?? '')
       setPrice('')
       setDescription('')
+      setWhyChosen('')
+      setDetails({})
       setTags([])
       setStatus('draft')
       setAvailability('available')
@@ -102,14 +114,26 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     setSaving(false)
   }, [item, open, themes])
 
-  // Auto-derive slug from title for new items
   useEffect(() => {
     if (!slugTouched && !item) {
       setSlug(slugify(title))
     }
   }, [title, slugTouched, item])
 
-  // ── Image helpers ──────────────────────────────────────────────────────
+  const buildBody = (overrideCoverUrl?: string | null) => ({
+    title: title.trim(),
+    slug: slug.trim(),
+    theme_id: themeId || null,
+    price: price ? Number(price) : null,
+    description: description || null,
+    why_chosen: whyChosen || null,
+    details,
+    tags,
+    status,
+    availability,
+    sourcing_model: sourcingModel,
+    cover_image_url: overrideCoverUrl ?? coverUrl,
+  })
 
   const uploadFiles = async (files: File[]) => {
     if (!item) return
@@ -133,12 +157,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     await fetch(`/api/admin/items/${item.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title, slug, theme_id: themeId || null, price: price ? Number(price) : null,
-        description: description || null, tags, status, availability,
-        sourcing_model: sourcingModel,
-        cover_image_url: img.url,
-      }),
+      body: JSON.stringify(buildBody(img.url)),
     })
   }
 
@@ -149,8 +168,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     const next = images.filter(i => i.id !== img.id)
     setImages(next)
     if (img.url === coverUrl) {
-      const newCover = next.length > 0 ? next[0].url : null
-      setCoverUrl(newCover)
+      setCoverUrl(next.length > 0 ? next[0].url : null)
     }
   }
 
@@ -161,8 +179,8 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     const next = [...images]
     const aOrder = next[idx].sort_order
     const bOrder = next[swapIdx].sort_order
-    next[idx]    = { ...next[idx],    sort_order: bOrder }
-    next[swapIdx]= { ...next[swapIdx], sort_order: aOrder }
+    next[idx] = { ...next[idx], sort_order: bOrder }
+    next[swapIdx] = { ...next[swapIdx], sort_order: aOrder }
     ;[next[idx], next[swapIdx]] = [next[swapIdx], next[idx]]
     setImages(next)
 
@@ -180,35 +198,20 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     ])
   }
 
-  // ── Save / Delete ──────────────────────────────────────────────────────
-
   const handleSave = async () => {
     if (!title.trim() || !slug.trim()) return
     setSaving(true)
-
-    const body = {
-      title:           title.trim(),
-      slug:            slug.trim(),
-      theme_id:        themeId || null,
-      price:           price ? Number(price) : null,
-      description:     description || null,
-      tags,
-      status,
-      availability,
-      sourcing_model: sourcingModel,
-      cover_image_url: coverUrl,
-    }
 
     const res = item
       ? await fetch(`/api/admin/items/${item.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
+          body: JSON.stringify(buildBody()),
         })
       : await fetch('/api/admin/items', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
+          body: JSON.stringify(buildBody()),
         })
 
     setSaving(false)
@@ -226,12 +229,13 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     if (!item) return
     if (!window.confirm('Delete this piece? This cannot be undone.')) return
     const res = await fetch(`/api/admin/items/${item.id}`, { method: 'DELETE' })
-    if (!res.ok) { toast('Delete failed.'); return }
+    if (!res.ok) {
+      toast('Delete failed.')
+      return
+    }
     toast('Deleted.')
     onDelete(item.id)
   }
-
-  // ── Tags ───────────────────────────────────────────────────────────────
 
   const addTag = (raw: string) => {
     const t = raw.trim().toLowerCase()
@@ -241,15 +245,13 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
 
   const removeTag = (t: string) => setTags(prev => prev.filter(x => x !== t))
 
-  // ── Footer ─────────────────────────────────────────────────────────────
-
   const footer = (
     <div className="dfoot">
-      {item && (
+      {item ? (
         <button type="button" className="del" onClick={handleDelete}>
           Delete piece
         </button>
-      )}
+      ) : null}
       <button type="button" className="btn ghost" onClick={onClose}>
         Cancel
       </button>
@@ -259,7 +261,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         onClick={handleSave}
         disabled={saving || !title.trim() || !slug.trim()}
       >
-        {saving ? 'Saving…' : 'Save'}
+        {saving ? 'Saving...' : 'Save'}
       </button>
     </div>
   )
@@ -271,13 +273,16 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       title={item ? item.title : 'New Piece'}
       footer={footer}
     >
-      {/* ── Images ─────────────────────────────────────────────── */}
       {images.length > 0 ? (
         <div style={{ marginBottom: 20 }}>
           <label style={{
-            display: 'block', fontSize: 10, fontWeight: 600,
-            letterSpacing: '.16em', textTransform: 'uppercase',
-            color: 'var(--muted)', marginBottom: 8,
+            display: 'block',
+            fontSize: 10,
+            fontWeight: 600,
+            letterSpacing: '.16em',
+            textTransform: 'uppercase',
+            color: 'var(--muted)',
+            marginBottom: 8,
           }}>
             Images
           </label>
@@ -293,27 +298,39 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
                   <span className="tag">{img.url === coverUrl ? 'Cover' : String(idx + 1)}</span>
                   <button
                     type="button"
-                    onClick={(e) => { e.stopPropagation(); handleDeleteImage(img) }}
+                    onClick={e => {
+                      e.stopPropagation()
+                      void handleDeleteImage(img)
+                    }}
                     style={{
-                      position: 'absolute', top: 2, right: 2,
-                      width: 16, height: 16, border: 'none',
-                      background: 'rgba(23,19,16,.6)', color: '#fff',
-                      fontSize: 10, cursor: 'pointer', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
-                      lineHeight: 1, padding: 0,
+                      position: 'absolute',
+                      top: 2,
+                      right: 2,
+                      width: 16,
+                      height: 16,
+                      border: 'none',
+                      background: 'rgba(23,19,16,.6)',
+                      color: '#fff',
+                      fontSize: 10,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      lineHeight: 1,
+                      padding: 0,
                     }}
                     aria-label="Delete image"
                   >
-                    ✕
+                    x
                   </button>
                 </div>
                 <div className="ord">
-                  <button type="button" disabled={idx === 0} onClick={() => handleReorder(idx, -1)} aria-label="Move up">▲</button>
-                  <button type="button" disabled={idx === images.length - 1} onClick={() => handleReorder(idx, 1)} aria-label="Move down">▼</button>
+                  <button type="button" disabled={idx === 0} onClick={() => handleReorder(idx, -1)} aria-label="Move up">^</button>
+                  <button type="button" disabled={idx === images.length - 1} onClick={() => handleReorder(idx, 1)} aria-label="Move down">v</button>
                 </div>
               </div>
             ))}
-            {item && (
+            {item ? (
               <div
                 className="add"
                 onClick={() => fileRef.current?.click()}
@@ -322,9 +339,9 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
                 onKeyDown={e => e.key === 'Enter' && fileRef.current?.click()}
                 aria-label="Add image"
               >
-                {uploading ? '…' : '+'}
+                {uploading ? '...' : '+'}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       ) : item ? (
@@ -350,12 +367,11 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         style={{ display: 'none' }}
         onChange={e => {
           const files = Array.from(e.target.files ?? [])
-          if (files.length) uploadFiles(files)
+          if (files.length) void uploadFiles(files)
           e.target.value = ''
         }}
       />
 
-      {/* ── Title ──────────────────────────────────────────────── */}
       <div className="field">
         <label htmlFor="item-title">Title</label>
         <input
@@ -367,19 +383,20 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         />
       </div>
 
-      {/* ── Slug ───────────────────────────────────────────────── */}
       <div className="field">
         <label htmlFor="item-slug">Slug</label>
         <input
           id="item-slug"
           type="text"
           value={slug}
-          onChange={e => { setSlug(e.target.value); setSlugTouched(true) }}
+          onChange={e => {
+            setSlug(e.target.value)
+            setSlugTouched(true)
+          }}
           placeholder="e.g. low-cabinet-no-4"
         />
       </div>
 
-      {/* ── Theme ──────────────────────────────────────────────── */}
       <div className="field">
         <label htmlFor="item-theme">Theme</label>
         <select
@@ -387,20 +404,23 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
           value={themeId}
           onChange={e => setThemeId(e.target.value)}
           style={{
-            width: '100%', fontFamily: 'inherit', fontSize: 14,
-            padding: '11px 13px', border: '1px solid var(--line)',
-            background: 'var(--paper-2)', color: 'var(--ink)',
+            width: '100%',
+            fontFamily: 'inherit',
+            fontSize: 14,
+            padding: '11px 13px',
+            border: '1px solid var(--line)',
+            background: 'var(--paper-2)',
+            color: 'var(--ink)',
             outline: 'none',
           }}
         >
-          <option value="">— No theme —</option>
+          <option value="">- No theme -</option>
           {themes.map(t => (
-            <option key={t.id} value={t.id}>{t.code} — {t.title}</option>
+            <option key={t.id} value={t.id}>{t.code} - {t.title}</option>
           ))}
         </select>
       </div>
 
-      {/* ── Price ──────────────────────────────────────────────── */}
       <div className="field">
         <label htmlFor="item-price">Price</label>
         <div className="price-wrap">
@@ -417,7 +437,6 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         </div>
       </div>
 
-      {/* ── Availability ───────────────────────────────────────── */}
       <div className="field">
         <label>Availability</label>
         <SegmentedControl
@@ -428,7 +447,6 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         />
       </div>
 
-      {/* -- Sourcing model -------------------------------------- */}
       <div className="field">
         <label>Sourcing Model</label>
         <SegmentedControl
@@ -439,7 +457,6 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         />
       </div>
 
-      {/* ── Status ─────────────────────────────────────────────── */}
       <div className="field">
         <label>Status</label>
         <SegmentedControl
@@ -450,7 +467,6 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
         />
       </div>
 
-      {/* ── Description ────────────────────────────────────────── */}
       <div className="field">
         <label htmlFor="item-desc">Description</label>
         <textarea
@@ -458,18 +474,41 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
           rows={4}
           value={description}
           onChange={e => setDescription(e.target.value)}
-          placeholder="What makes this piece worth having…"
+          placeholder="What makes this piece worth having..."
         />
       </div>
 
-      {/* ── Tags ───────────────────────────────────────────────── */}
+      <div className="field">
+        <label htmlFor="item-why-chosen">Why We Chose This</label>
+        <textarea
+          id="item-why-chosen"
+          rows={4}
+          value={whyChosen}
+          onChange={e => setWhyChosen(e.target.value)}
+          placeholder="Why this piece belongs in the catalog..."
+        />
+      </div>
+
+      {DETAIL_FIELDS.map(field => (
+        <div key={field.key} className="field">
+          <label htmlFor={`item-detail-${field.key}`}>{field.label}</label>
+          <input
+            id={`item-detail-${field.key}`}
+            type="text"
+            value={details[field.key] ?? ''}
+            onChange={e => setDetails(prev => ({ ...prev, [field.key]: e.target.value }))}
+            placeholder={field.label}
+          />
+        </div>
+      ))}
+
       <div className="field">
         <label>Tags</label>
         <div className="tags-in">
           {tags.map(t => (
             <span key={t} className="tagx">
               {t}
-              <i onClick={() => removeTag(t)} role="button" aria-label={`Remove ${t}`}>✕</i>
+              <i onClick={() => removeTag(t)} role="button" aria-label={`Remove ${t}`}>x</i>
             </span>
           ))}
           <input
@@ -477,14 +516,22 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
             value={tagInput}
             onChange={e => setTagInput(e.target.value)}
             onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTag(tagInput) }
+              if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault()
+                addTag(tagInput)
+              }
               if (e.key === 'Backspace' && !tagInput && tags.length) removeTag(tags[tags.length - 1])
             }}
             onBlur={() => tagInput.trim() && addTag(tagInput)}
-            placeholder={tags.length === 0 ? 'Add tags…' : ''}
+            placeholder={tags.length === 0 ? 'Add tags...' : ''}
             style={{
-              border: 'none', outline: 'none', background: 'transparent',
-              fontFamily: 'inherit', fontSize: 13, flex: 1, minWidth: 80,
+              border: 'none',
+              outline: 'none',
+              background: 'transparent',
+              fontFamily: 'inherit',
+              fontSize: 13,
+              flex: 1,
+              minWidth: 80,
             }}
           />
         </div>

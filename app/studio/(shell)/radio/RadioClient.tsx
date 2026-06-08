@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type MouseEvent } from 'react'
 import SectionHead from '@/components/studio/SectionHead'
 import Drawer from '@/components/studio/Drawer'
 import StatusPill from '@/components/studio/StatusPill'
@@ -28,6 +28,13 @@ function formatDuration(seconds: number | null | undefined) {
 }
 
 const UPLOAD_PREFIX_RE = /^\d{10,}-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-/i
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
 
 function titleCase(value: string) {
   return value.replace(/\b[a-z]/g, char => char.toUpperCase())
@@ -91,12 +98,14 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [composerOpen, setComposerOpen] = useState(false)
+  const [editingEpisode, setEditingEpisode] = useState<Episode | null>(null)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [episodeNumber, setEpisodeNumber] = useState('')
   const [duration, setDuration] = useState('')
   const [tags, setTags] = useState('archive, radio')
   const [published, setPublished] = useState(false)
+  const [audioUrl, setAudioUrl] = useState('')
   const [audioFile, setAudioFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -123,19 +132,43 @@ export default function RadioClient({ initialEpisodes }: Props) {
     }
   }
 
+  const closeComposer = () => {
+    setComposerOpen(false)
+    setEditingEpisode(null)
+    setAudioFile(null)
+    setAudioUrl('')
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
   const openComposer = () => {
+    setEditingEpisode(null)
     setTitle('')
     setDescription('')
     setEpisodeNumber('')
     setDuration('')
     setTags('archive, radio')
     setPublished(false)
+    setAudioUrl('')
     setAudioFile(null)
     setError(null)
     setComposerOpen(true)
   }
 
-  const uploadEpisode = async () => {
+  const openEditor = (episode: Episode) => {
+    setEditingEpisode(episode)
+    setTitle(episode.title ?? '')
+    setDescription(episode.description ?? '')
+    setEpisodeNumber(episode.episode_number != null ? String(episode.episode_number) : '')
+    setDuration(episode.duration != null ? String(episode.duration) : '')
+    setTags((episode.tags ?? []).join(', '))
+    setPublished(episode.published)
+    setAudioUrl(episode.audio_url ?? '')
+    setAudioFile(null)
+    setError(null)
+    setComposerOpen(true)
+  }
+
+  const uploadNewEpisode = async () => {
     const nextTitle = title.trim() || (audioFile ? deriveEpisodeTitleFromFileName(audioFile.name) : '')
 
     if (!nextTitle) {
@@ -214,7 +247,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
       }
 
       setEpisodes(prev => [episodeBody as Episode, ...prev])
-      setComposerOpen(false)
+      closeComposer()
       toast('Episode uploaded.')
       await refreshEpisodes()
     } catch (err) {
@@ -223,8 +256,86 @@ export default function RadioClient({ initialEpisodes }: Props) {
       toast(msg)
     } finally {
       setSaving(false)
-      if (fileRef.current) fileRef.current.value = ''
     }
+  }
+
+  const saveEditedEpisode = async () => {
+    if (!editingEpisode || !title.trim()) {
+      setError('Title is required.')
+      return
+    }
+
+    setSaving(true)
+    setError(null)
+
+    try {
+      const res = await fetch(`/api/admin/episodes/${editingEpisode.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title.trim(),
+          slug: slugify(title.trim()),
+          description: description.trim() || undefined,
+          audio_url: audioUrl.trim() || undefined,
+          episode_number: episodeNumber ? parseInt(episodeNumber, 10) : null,
+          duration: duration ? parseInt(duration, 10) : null,
+          tags: parseTags(tags),
+          published,
+        }),
+      })
+      const body = await readJsonOrText(res)
+
+      if (!res.ok) {
+        const msg = typeof body === 'string'
+          ? body
+          : body && typeof body === 'object' && 'error' in body && typeof body.error === 'string'
+            ? body.error
+            : 'Could not save episode.'
+        throw new Error(msg)
+      }
+
+      const saved = body as Episode
+      setEpisodes(prev => prev.map(episode => episode.id === editingEpisode.id ? saved : episode))
+      closeComposer()
+      toast('Episode updated.')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Could not save episode.'
+      setError(msg)
+      toast(msg)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveEpisode = async () => {
+    if (editingEpisode) {
+      await saveEditedEpisode()
+      return
+    }
+    await uploadNewEpisode()
+  }
+
+  const deleteEpisode = async () => {
+    if (!editingEpisode) return
+    if (!window.confirm('Delete this episode? This cannot be undone.')) return
+
+    const res = await fetch(`/api/admin/episodes/${editingEpisode.id}`, {
+      method: 'DELETE',
+    })
+    if (!res.ok) {
+      const body = await readJsonOrText(res)
+      const msg = typeof body === 'string'
+        ? body
+        : body && typeof body === 'object' && 'error' in body && typeof body.error === 'string'
+          ? body.error
+          : 'Could not delete episode.'
+      toast(msg)
+      return
+    }
+
+    setEpisodes(prev => prev.filter(episode => episode.id !== editingEpisode.id))
+    closeComposer()
+    toast('Episode deleted.')
   }
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -254,7 +365,8 @@ export default function RadioClient({ initialEpisodes }: Props) {
     audio.src = url
   }
 
-  const togglePublished = async (episode: Episode) => {
+  const togglePublished = async (episode: Episode, event?: MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation()
     if (publishingIds[episode.id]) return
 
     const nextPublished = !episode.published
@@ -357,7 +469,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
             </div>
 
             {episodes.map((episode, index) => (
-              <div key={episode.id} className="row in">
+              <div key={episode.id} className="row in" onClick={() => openEditor(episode)}>
                 <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
                 <div className="rmain">
                   <div className="rttl">{episode.title}</div>
@@ -379,7 +491,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
                   <button
                     type="button"
                     className="raction"
-                    onClick={() => void togglePublished(episode)}
+                    onClick={event => void togglePublished(episode, event)}
                     disabled={!!publishingIds[episode.id]}
                   >
                     {publishingIds[episode.id]
@@ -395,20 +507,25 @@ export default function RadioClient({ initialEpisodes }: Props) {
 
       <Drawer
         open={composerOpen}
-        onClose={() => setComposerOpen(false)}
-        title="Upload episode"
+        onClose={closeComposer}
+        title={editingEpisode ? 'Edit episode' : 'Upload episode'}
         footer={(
           <>
-            <button type="button" className="btn ghost" onClick={() => setComposerOpen(false)}>
+            {editingEpisode ? (
+              <button type="button" className="del" onClick={deleteEpisode}>
+                Delete episode
+              </button>
+            ) : null}
+            <button type="button" className="btn ghost" onClick={closeComposer}>
               Cancel
             </button>
             <button
               type="button"
               className="btn coral"
-              onClick={uploadEpisode}
-              disabled={saving || !audioFile || !(title.trim() || (audioFile && deriveEpisodeTitleFromFileName(audioFile.name)))}
+              onClick={saveEpisode}
+              disabled={saving || (!editingEpisode && !audioFile) || !title.trim()}
             >
-              {saving ? 'Uploading...' : 'Save episode'}
+              {saving ? (editingEpisode ? 'Saving...' : 'Uploading...') : editingEpisode ? 'Save changes' : 'Save episode'}
             </button>
           </>
         )}
@@ -435,20 +552,33 @@ export default function RadioClient({ initialEpisodes }: Props) {
           />
         </div>
 
-        <div className="field">
-          <label htmlFor="ra-audio">Audio file</label>
-          <input
-            id="ra-audio"
-            ref={fileRef}
-            type="file"
-            accept="audio/mpeg,.mp3"
-            onChange={onFileChange}
-          />
-          <div className="hs" style={{ marginTop: 8 }}>
-            MP3 files are uploaded directly to R2 from the browser. The title auto-fills from the
-            original filename and can be edited before save.
+        {!editingEpisode ? (
+          <div className="field">
+            <label htmlFor="ra-audio">Audio file</label>
+            <input
+              id="ra-audio"
+              ref={fileRef}
+              type="file"
+              accept="audio/mpeg,.mp3"
+              onChange={onFileChange}
+            />
+            <div className="hs" style={{ marginTop: 8 }}>
+              MP3 files are uploaded directly to R2 from the browser. The title auto-fills from the
+              original filename and can be edited before save.
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="field">
+            <label htmlFor="ra-audio-url">Audio URL</label>
+            <input
+              id="ra-audio-url"
+              type="url"
+              value={audioUrl}
+              onChange={e => setAudioUrl(e.target.value)}
+              placeholder="https://..."
+            />
+          </div>
+        )}
 
         <div className="field">
           <label htmlFor="ra-number">Episode number</label>

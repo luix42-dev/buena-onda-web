@@ -33,7 +33,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   const body = await request.json()
   const {
     title, slug, theme_id, price, buy_url,
-    description, tags, cover_image_url, status, details,
+    description, why_chosen, tags, cover_image_url, status, details,
     availability,
     sourcing_model,
   } = body
@@ -56,6 +56,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     price:           price ?? null,
     buy_url:         buy_url || null,
     description:     description || null,
+    why_chosen:      why_chosen || null,
     tags:            tags ?? [],
     cover_image_url: cover_image_url || null,
     details:         details ?? null,

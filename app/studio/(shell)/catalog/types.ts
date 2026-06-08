@@ -25,6 +25,7 @@ export interface Item {
   theme_id:        string | null
   theme?:          Theme
   description:     string | null
+  why_chosen:      string | null
   details:         Record<string, string> | null
   price:           number | null
   buy_url:         string | null

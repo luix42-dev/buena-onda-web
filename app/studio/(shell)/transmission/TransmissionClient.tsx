@@ -37,6 +37,7 @@ export default function TransmissionClient({
   const toast = useToast()
   const [issues, setIssues] = useState<TransmissionIssue[]>(initialIssues)
   const [subscribers] = useState<Subscriber[]>(initialSubscribers)
+  const [editingIssue, setEditingIssue] = useState<TransmissionIssue | null>(null)
   const [composerOpen, setComposerOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
@@ -50,6 +51,7 @@ export default function TransmissionClient({
   const enabled = typeof newsletterSetting?.enabled === 'boolean' ? newsletterSetting.enabled : null
 
   const openComposer = () => {
+    setEditingIssue(null)
     setTitle('')
     setExcerpt('')
     setBody('')
@@ -57,20 +59,37 @@ export default function TransmissionClient({
     setComposerOpen(true)
   }
 
+  const openEditor = (issue: TransmissionIssue) => {
+    setEditingIssue(issue)
+    setTitle(issue.title)
+    setExcerpt(issue.excerpt ?? '')
+    setBody(issue.body ?? '')
+    setStatus(issue.status === 'live' ? 'live' : 'draft')
+    setComposerOpen(true)
+  }
+
+  const closeComposer = () => {
+    setComposerOpen(false)
+    setEditingIssue(null)
+  }
+
   const saveIssue = async () => {
     if (!title.trim()) return
     setSaving(true)
 
-    const res = await fetch('/api/admin/transmission-issues', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: title.trim(),
-        excerpt: excerpt.trim() || undefined,
-        body: body.trim() || undefined,
-        status,
-      }),
-    })
+    const res = await fetch(
+      editingIssue ? `/api/admin/transmission-issues/${editingIssue.id}` : '/api/admin/transmission-issues',
+      {
+        method: editingIssue ? 'PATCH' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title.trim(),
+          excerpt: excerpt.trim() || undefined,
+          body: body.trim() || undefined,
+          status,
+        }),
+      }
+    )
 
     setSaving(false)
 
@@ -80,10 +99,33 @@ export default function TransmissionClient({
       return
     }
 
-    const saved = await res.json()
-    setIssues(prev => [saved, ...prev])
-    setComposerOpen(false)
-    toast('Issue saved.')
+    const saved = await res.json() as TransmissionIssue
+    setIssues(prev => (
+      editingIssue
+        ? prev.map(issue => issue.id === editingIssue.id ? saved : issue)
+        : [saved, ...prev]
+    ))
+    closeComposer()
+    toast(editingIssue ? 'Issue updated.' : 'Issue saved.')
+  }
+
+  const deleteIssue = async () => {
+    if (!editingIssue) return
+    if (!window.confirm('Delete this issue? This cannot be undone.')) return
+
+    const res = await fetch(`/api/admin/transmission-issues/${editingIssue.id}`, {
+      method: 'DELETE',
+    })
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      toast((err as { error?: string }).error ?? 'Could not delete issue.')
+      return
+    }
+
+    setIssues(prev => prev.filter(issue => issue.id !== editingIssue.id))
+    closeComposer()
+    toast('Issue deleted.')
   }
 
   return (
@@ -143,7 +185,7 @@ export default function TransmissionClient({
           </div>
         ) : (
           issues.map((issue, index) => (
-            <div key={issue.id} className="row in">
+            <div key={issue.id} className="row in" onClick={() => openEditor(issue)}>
               <div className="plnum">{String(index + 1).padStart(2, '0')}</div>
               <div className="rmain">
                 <div className="rttl">{issue.title}</div>
@@ -196,15 +238,20 @@ export default function TransmissionClient({
 
       <Drawer
         open={composerOpen}
-        onClose={() => setComposerOpen(false)}
-        title="Compose issue"
+        onClose={closeComposer}
+        title={editingIssue ? 'Edit issue' : 'Compose issue'}
         footer={(
           <>
-            <button type="button" className="btn ghost" onClick={() => setComposerOpen(false)}>
+            {editingIssue ? (
+              <button type="button" className="del" onClick={deleteIssue}>
+                Delete issue
+              </button>
+            ) : null}
+            <button type="button" className="btn ghost" onClick={closeComposer}>
               Cancel
             </button>
             <button type="button" className="btn coral" onClick={saveIssue} disabled={saving || !title.trim()}>
-              {saving ? 'Saving...' : 'Save issue'}
+              {saving ? 'Saving...' : editingIssue ? 'Save changes' : 'Save issue'}
             </button>
           </>
         )}
