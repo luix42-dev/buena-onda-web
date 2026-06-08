@@ -43,3 +43,4 @@ public/audio/
 .env.local.save
 .env*.save
 .gstack/
+.worktrees/
