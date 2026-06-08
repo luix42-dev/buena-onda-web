@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NotifyForm from '@/components/ui/NotifyForm'
 import { createClient } from '@/lib/supabase/server'
@@ -117,14 +116,14 @@ export default async function ObjectsPage() {
                       )}
 
                       {drop.status === 'live' ? (
-                        <Link
-                          href={`/objects/${drop.slug}`}
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-near-black text-linen-peach
-                                     font-mono text-xs tracking-[0.2em] uppercase hover:bg-burnished
-                                     transition-colors self-start"
+                        <span
+                          className="inline-flex items-center gap-2 px-6 py-3 border border-pale-stone text-stone-grey
+                                     font-mono text-xs tracking-[0.2em] uppercase opacity-70 cursor-not-allowed
+                                     self-start"
+                          aria-disabled="true"
                         >
-                          Reserve your unit →
-                        </Link>
+                          Drop page launching soon
+                        </span>
                       ) : drop.status === 'upcoming' ? (
                         <NotifyForm dropDate={drop.drop_date ?? ''} />
                       ) : null}

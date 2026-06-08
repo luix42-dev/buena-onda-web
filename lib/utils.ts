@@ -9,9 +9,9 @@ export function cn(...classes: (string | undefined | null | false)[]): string {
  * Format episode duration from seconds to "Xhr Xmin"
  */
 export function formatDuration(seconds: number): string {
-  const h   = Math.floor(seconds / 3600)
-  const m   = Math.floor((seconds % 3600) / 60)
-  const s   = seconds % 60
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = seconds % 60
   if (h > 0) return `${h}h ${m.toString().padStart(2, '0')}m`
   if (m > 0) return `${m}m ${s.toString().padStart(2, '0')}s`
   return `${s}s`
@@ -42,5 +42,17 @@ export function slugify(str: string): string {
  * Truncate text to a max character count.
  */
 export function truncate(str: string, max: number): string {
-  return str.length <= max ? str : str.slice(0, max).trimEnd() + '…'
+  return str.length <= max ? str : `${str.slice(0, max).trimEnd()}...`
+}
+
+/**
+ * Escape user-controlled text before interpolating into HTML.
+ */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }

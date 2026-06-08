@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
+import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import type { Post } from '@/types'
 
@@ -137,12 +138,14 @@ export default async function CulturePage() {
                     </div>
 
                     <div className="min-w-0">
-                      <h2
-                        className="font-display text-near-black"
-                        style={{ fontSize: 'clamp(1.25rem, 2.8vw, 2rem)' }}
-                      >
-                        {post.title}
-                      </h2>
+                      <Link href={`/culture/${post.slug}`} className="group inline-block">
+                        <h2
+                          className="font-display text-near-black transition-colors group-hover:text-teal"
+                          style={{ fontSize: 'clamp(1.25rem, 2.8vw, 2rem)' }}
+                        >
+                          {post.title}
+                        </h2>
+                      </Link>
                       <p className="text-charcoal text-sm md:text-base leading-relaxed mt-3 max-w-3xl">
                         {post.excerpt ?? 'No excerpt yet.'}
                       </p>

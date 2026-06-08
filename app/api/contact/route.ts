@@ -1,16 +1,18 @@
 export const runtime = 'edge'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { escapeHtml } from '@/lib/utils'
 
 const ContactSchema = z.object({
-  name:    z.string().min(1).max(100),
-  email:   z.string().email(),
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
   subject: z.string().min(1),
   message: z.string().min(20).max(2000),
 })
 
 export async function POST(request: NextRequest) {
-  const body   = await request.json()
+  const body = await request.json()
   const parsed = ContactSchema.safeParse(body)
 
   if (!parsed.success) {
@@ -18,22 +20,25 @@ export async function POST(request: NextRequest) {
   }
 
   const { name, email, subject, message } = parsed.data
+  const safeName = escapeHtml(name)
+  const safeEmail = escapeHtml(email)
+  const safeSubject = escapeHtml(subject)
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
 
-  // If Resend is configured, send an email
   if (process.env.RESEND_API_KEY) {
     const { Resend } = await import('resend')
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { error } = await resend.emails.send({
-      from:    'Buena Onda Contact Form <onboarding@resend.dev>',
-      to:      ['hello@buenaonda.com'],
+      from: 'Buena Onda Contact Form <onboarding@resend.dev>',
+      to: ['hello@buenaonda.com'],
       replyTo: email,
-      subject: `[Contact] ${subject} — from ${name}`,
+      subject: `[Contact] ${subject} - from ${name}`,
       html: `
-        <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p>
+        <p><strong>Subject:</strong> ${safeSubject}</p>
         <hr />
-        <p>${message.replace(/\n/g, '<br />')}</p>
+        <p>${safeMessage}</p>
       `,
     })
 
@@ -42,6 +47,5 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // Always return success — even if Resend isn't configured
   return NextResponse.json({ ok: true })
 }

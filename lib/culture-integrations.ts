@@ -143,7 +143,7 @@ export async function notifyCulturePostLive(title: string, slug: string) {
   const text = [
     'New Culture post live',
     title,
-    `buenaondalifestyle.com/culture/${slug}`,
+    `https://buenaondalifestyle.com/culture/${slug}`,
   ].join('\n')
 
   try {

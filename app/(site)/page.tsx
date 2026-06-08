@@ -531,7 +531,10 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className="border-l pl-8 md:pl-16 flex flex-col justify-center" style={{ borderColor: 'rgba(248,247,243,0.08)' }}>
+              <div
+                className="border-t pt-8 md:border-t-0 md:border-l md:pt-0 pl-0 md:pl-16 flex flex-col justify-center"
+                style={{ borderColor: 'rgba(248,247,243,0.08)' }}
+              >
                 {newsletterEnabled ? (
                   <NewsletterForm layout="stack" variant="dark" />
                 ) : (
