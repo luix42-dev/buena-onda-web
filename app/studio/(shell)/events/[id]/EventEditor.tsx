@@ -84,6 +84,29 @@ export default function EventEditor({ event }: Props) {
   const [archiveNotes, setArchiveNotes] = useState(event?.archive_notes ?? '')
 
   useEffect(() => {
+    setSlugTouched(Boolean(event))
+    setName(event?.name ?? '')
+    setSlug(event?.slug ?? '')
+    setTagline(event?.tagline ?? '')
+    setDescription(event?.description ?? '')
+    setTags(event?.tags ?? [])
+    setTagInput('')
+    setStatus(event?.status ?? 'recurring')
+    setVenueName(event?.venue_name ?? '')
+    setVenueCity(event?.venue_city ?? '')
+    setEventDate(event?.event_date ?? '')
+    setLineup(event?.lineup ?? '')
+    setCoverImageUrl(event?.cover_image_url ?? '')
+    setGallery(event?.gallery ?? [])
+    setVideos(event?.videos ?? [])
+    setPlaylistUrl(event?.playlist_url ?? '')
+    setAudioFiles(event?.audio_files ?? [])
+    setPartners(event?.partners ?? [])
+    setArchiveSheets(event?.archive_sheets ?? [])
+    setArchiveNotes(event?.archive_notes ?? '')
+  }, [event])
+
+  useEffect(() => {
     if (!slugTouched && !event) setSlug(slugify(name))
   }, [name, slugTouched, event])
 

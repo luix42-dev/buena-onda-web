@@ -329,3 +329,125 @@ Constraint reminder:
 - Placeholder dead links to nowhere were removed or replaced with honest disabled states.
 - Studio create/edit/save coverage now exists for Catalog, Culture, Transmission, Radio, and Timeline.
 - Product feed route exists and is ready for Commerce Manager ingestion.
+
+## 2026-06-08 Playlist Trace
+
+### Phase 0: Read-only write-path trace
+
+Studio form field:
+
+- File: `app/studio/(shell)/events/[id]/EventEditor.tsx`
+- Field label: `YouTube Playlist URL`
+- Input id: `event-playlist`
+- State binding: `const [playlistUrl, setPlaylistUrl] = useState(event?.playlist_url ?? '')`
+- Input writes to state with `onChange={e => setPlaylistUrl(e.target.value)}`
+
+Submit path:
+
+- Same file, `saveEvent()`
+- On edit, the client sends `PATCH /api/admin/events/${event.id}`
+- On create, the client sends `POST /api/admin/events`
+- The payload explicitly includes `playlist_url: playlistUrl.trim() || null`
+- The field is not renamed or omitted in the client payload
+
+Server path:
+
+- Edit route: `app/api/admin/events/[id]/route.ts`
+- Create route: `app/api/admin/events/route.ts`
+- Both routes destructure `playlist_url` from the request body
+- Both routes write `playlist_url: playlist_url || null` into the Supabase mutation object
+
+Supabase mutation shape:
+
+- Create uses `insert(...).select().single()` on `events`
+- Edit uses `update(...).eq('id', id).select().single()` on `events`
+- This is not an upsert
+- There is no `onConflict` column because no upsert is used
+- Edit targets exactly one existing row by `id`
+- This path should update the row in place and should not create a duplicate
+
+Supabase client and key:
+
+- The events admin routes call `createServiceClient()` from `lib/supabase/server.ts`
+- `createServiceClient()` uses `createServerClient(...)`
+- URL: `NEXT_PUBLIC_SUPABASE_URL`
+- Key: `SUPABASE_SERVICE_ROLE_KEY`
+- This is the service-role key, not the anon key
+
+Studio auth gate:
+
+- The route is protected by `isStudioAuthorized(request)` in `lib/studio-auth.ts`
+- Authorization is cookie/password based for studio access
+- Once authorized, the actual database write still executes with the service-role key on the server
+
+Events table / RLS:
+
+- Repo migration `supabase/migrations/events_migration.sql` defines the `playlist_url TEXT` column
+- The repo does not define any `events` RLS policies
+- Direct policy introspection through PostgREST was not available from this repo session because the policy catalog is not exposed in the project API schema
+- For the actual studio save path traced here, RLS is not the deciding factor because the write uses the service-role key, which bypasses row-level policy checks
+
+Live schema spot-check:
+
+- On 2026-06-08, a direct service-role read of live `events` rows confirmed `playlist_url` is present in the live table
+- Existing row sample:
+  - `BUENA ONDA OPEN DECKS`
+  - id `f3fad7de-36e9-44ab-baac-1d6c59d07933`
+  - stored `playlist_url` already equals `https://www.youtube.com/playlist?list=PLXAw0NByz6xAgHl7mLQvxgU4GhNWbIvUQ`
+
+Phase 0 diagnosis:
+
+- The code path does not currently show a dropped field, a renamed payload key, an upsert conflict issue, or an anon/RLS write path.
+- The most likely remaining failure mode was that the prior fix had never been proven against the exact service-role write path, which Phase 1 isolates directly.
+
+### Phase 1: Direct DB write proof
+
+Diagnostic script:
+
+- Temporary script created: `scripts/diag-playlist-write.ts`
+- Client used: `createServerClient` from `@supabase/ssr`
+- URL used: `NEXT_PUBLIC_SUPABASE_URL`
+- Key used: `SUPABASE_SERVICE_ROLE_KEY`
+- This matches the effective client/key pattern used by the studio events admin routes
+
+Known row used:
+
+- Event id: `f811a290-bc86-4f69-ae70-47646abbac85`
+- Slug: `onda-tropical`
+
+Test write result:
+
+- Before: `playlist_url = null`
+- Update to test playlist URL succeeded
+- Read-back immediately after update returned the written playlist URL
+- Rows affected: `1`
+- Restore back to original value also succeeded
+- Restore read-back matched the original value
+- No error was returned on before-read, update, after-read, restore, or restored-read
+
+Phase 1 conclusion:
+
+- The DB layer is proven good under the exact service-role save pattern used by the studio events routes.
+- Root cause is not:
+  - missing column
+  - RLS denial
+  - insufficient permissions
+  - bad `onConflict`
+  - duplicate-row behavior
+- No SQL is required for `playlist_url` persistence from the current repo state.
+
+### Playlist bug-fix changes after proof
+
+- Added client-state resync in `app/studio/(shell)/events/[id]/EventEditor.tsx` so the editor state rehydrates cleanly from the server-provided event record when props change.
+- Added `revalidatePath('/events')` and detail-page revalidation in:
+  - `app/api/admin/events/route.ts`
+  - `app/api/admin/events/[id]/route.ts`
+- Removed `runtime = 'edge'` from the events admin routes so server-side revalidation can run correctly.
+- Updated live event embed normalization in `app/(site)/events/[slug]/page.tsx`:
+  - `youtube.com/playlist?list=ID` -> `https://www.youtube.com/embed/videoseries?list=ID`
+  - `youtube.com/watch?v=VID&list=ID` -> `https://www.youtube.com/embed/VID?list=ID`
+  - bare `watch?v=VID` -> `https://www.youtube.com/embed/VID`
+
+Working root-cause statement:
+
+- The previously-suspect `playlist_url` persistence bug was not a DB permission problem. The save path already writes with the service-role key and succeeds. The actionable fixes were to harden the editor refresh/revalidation path and to correct the live YouTube embed URL normalization.

@@ -69,14 +69,38 @@ function getYouTubeEmbedUrl(urlString: string): string {
   try {
     const url = new URL(input)
     const list = url.searchParams.get('list')
-    if (list) return 'https://www.youtube.com/embed/videoseries?list=' + encodeURIComponent(list) + '&listType=playlist&index=0'
+    const videoId = url.searchParams.get('v')
+
     if (url.hostname.includes('youtu.be')) {
-      const id = url.pathname.split('/').filter(Boolean)[0]
-      return id ? 'https://www.youtube.com/embed/' + id : ''
+      const shortId = url.pathname.split('/').filter(Boolean)[0]
+      if (!shortId) return ''
+      if (list) return `https://www.youtube.com/embed/${encodeURIComponent(shortId)}?list=${encodeURIComponent(list)}`
+      return `https://www.youtube.com/embed/${encodeURIComponent(shortId)}`
     }
+
+    if (url.pathname === '/playlist' && list) {
+      return `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}`
+    }
+
+    if (videoId && list) {
+      return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?list=${encodeURIComponent(list)}`
+    }
+
+    if (videoId) {
+      return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}`
+    }
+
+    if (list) {
+      return `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}`
+    }
+
+    if (url.pathname.startsWith('/embed/')) {
+      return url.toString()
+    }
+
     const segments = url.pathname.split('/').filter(Boolean)
-    const id = url.searchParams.get('v') || segments[segments.length - 1]
-    return id ? 'https://www.youtube.com/embed/' + id : ''
+    const id = segments[segments.length - 1]
+    return id ? `https://www.youtube.com/embed/${encodeURIComponent(id)}` : ''
   } catch {
     return ''
   }

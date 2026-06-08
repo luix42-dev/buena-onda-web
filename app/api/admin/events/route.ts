@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
-
-export const runtime = 'edge'
 
 function asArray(value: unknown) {
   return Array.isArray(value) ? value : []
@@ -91,5 +90,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/events')
+  revalidatePath(`/events/${data.slug}`)
   return NextResponse.json(data, { status: 201 })
 }

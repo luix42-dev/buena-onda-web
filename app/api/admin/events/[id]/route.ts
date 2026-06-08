@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
-
-export const runtime = 'edge'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -60,6 +59,11 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 
   const supabase = await createServiceClient()
+  const { data: existing } = await supabase
+    .from('events')
+    .select('slug')
+    .eq('id', id)
+    .single()
   const { data, error } = await supabase
     .from('events')
     .update({
@@ -88,6 +92,9 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/events')
+  if (existing?.slug) revalidatePath(`/events/${existing.slug}`)
+  revalidatePath(`/events/${data.slug}`)
   return NextResponse.json(data)
 }
 
@@ -98,7 +105,14 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
   const { id } = await params
   const supabase = await createServiceClient()
+  const { data: existing } = await supabase
+    .from('events')
+    .select('slug')
+    .eq('id', id)
+    .single()
   const { error } = await supabase.from('events').delete().eq('id', id)
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/events')
+  if (existing?.slug) revalidatePath(`/events/${existing.slug}`)
   return NextResponse.json({ ok: true })
 }
