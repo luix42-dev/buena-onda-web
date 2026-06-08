@@ -269,8 +269,63 @@ Constraint reminder:
 
 ## Final Deliverables To Add Back Into This File
 
-- What was fixed
-- Feed URL
-- Any SQL Luis must run manually in Supabase SQL Editor
-- Anything still needing manual action
-- Final short launch-readiness checklist
+## What Was Fixed
+
+### Frontend launch-readiness
+
+- Added live public culture detail pages at `/culture/[slug]`.
+- Updated the culture index so published essays resolve to real public URLs.
+- Added public `/privacy` and `/terms` pages so footer links no longer 404.
+- Replaced the fake drop notification flow with a real `/api/newsletter` submission path.
+- Replaced the dead `/objects/[slug]` CTA with an honest disabled launch state instead of a broken link.
+- Escaped user-controlled HTML in both contact and reserve email templates before interpolation.
+- Tightened the homepage newsletter section layout on mobile by moving the divider to a top rule on small screens.
+- Converted `/case-study` from a placeholder-heavy public page into an honest launching-soon state.
+
+### Studio completion
+
+- Fixed Culture slug preservation on edit. Slugs are now generated on first create and preserved on later title edits.
+- Added Transmission issue edit/delete support in Studio and added the missing `/api/admin/transmission-issues/[id]` API route.
+- Added Radio episode metadata editing and delete support in Studio while keeping Radio separate from Player.
+- Added Timeline era creation in Studio and fixed the create/save bug where draft or fallback entries were not replaced correctly after save.
+- Expanded Catalog item editing so Studio can now edit `why_chosen` and structured public-facing item details (`era`, `dimensions`, `material`, `condition`, `origin`).
+- Removed the leftover player debug `console.log`.
+
+### Events / playlist_url diagnosis
+
+- Verified directly against the live Supabase project on 2026-06-08 that the `events` table currently includes both `event_date` and `playlist_url`.
+- Verified at least one live event row already has a persisted `playlist_url`.
+- Conclusion: the current repo no longer points to a missing-column schema problem for `playlist_url`; no migration SQL is required from the codebase state audited here.
+
+### Product feed
+
+- Added a public XML feed route at `/feed.xml`.
+- Feed sources published items from Supabase and emits Google-style product XML suitable for Meta Commerce Manager ingestion.
+- Implemented required mappings for `id`, `title`, `description`, `availability`, `condition`, `price`, `link`, and `image_link`.
+- Included recommended fields where available: `additional_image_link`, `brand`, `product_type`, and `item_group_id`.
+
+## Feed URL
+
+- Production feed URL: `https://buenaondalifestyle.com/feed.xml`
+
+## SQL For Luis
+
+- No SQL is required from this implementation pass.
+- No Supabase migration was run.
+
+## Still Needing Manual Action
+
+- Review the branch in Studio with your real admin session, especially the Events editor save flow, since browser automation was intentionally not used.
+- If you want `/objects` to become a live reservation flow rather than an honest disabled state, that needs a real `/objects/[slug]` product/detail implementation.
+
+## Launch-Readiness Checklist
+
+- WSL build passes.
+- Main public nav routes resolve.
+- Footer legal links resolve.
+- Culture slugs resolve publicly and remain stable after edit.
+- Contact and reserve emails no longer interpolate raw HTML.
+- Newsletter and drop-notify signup submit to a real endpoint.
+- Placeholder dead links to nowhere were removed or replaced with honest disabled states.
+- Studio create/edit/save coverage now exists for Catalog, Culture, Transmission, Radio, and Timeline.
+- Product feed route exists and is ready for Commerce Manager ingestion.
