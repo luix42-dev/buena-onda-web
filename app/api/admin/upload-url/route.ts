@@ -8,6 +8,7 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 type UploadBody = {
   filename?: unknown
   fileName?: unknown
+  prefix?: unknown
   contentType?: unknown
 }
 
@@ -60,7 +61,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing R2 upload URL configuration' }, { status: 503 })
   }
 
-  const key = `audio/${Date.now()}-${cleanFilename(rawFilename)}`
+  const allowedPrefixes = new Set(['audio', 'episodes'])
+  const rawPrefix = typeof body.prefix === 'string' ? body.prefix.replace(/\/$/, '') : 'audio'
+  const prefix = allowedPrefixes.has(rawPrefix) ? rawPrefix : 'audio'
+  const key = `${prefix}/${Date.now()}-${cleanFilename(rawFilename)}`
   const client = new S3Client({
     region: 'auto',
     endpoint,

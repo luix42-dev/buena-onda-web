@@ -191,7 +191,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
         body: JSON.stringify({
           fileName: audioFile.name,
           contentType: audioFile.type || 'audio/mpeg',
-          folder: 'audio',
+          prefix: 'episodes',
         }),
       })
       const signedBody = await readJsonOrText(signedRes)
