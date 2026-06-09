@@ -323,14 +323,14 @@ export default function PlayerClient() {
 
   const deleteTrack = async (track: Track) => {
     if (!window.confirm('Delete this track? This cannot be undone.')) return
-    const fileName = track.fileName ?? track.key?.split('/').pop() ?? ''
-    if (!fileName) { toast('Cannot identify track file.'); return }
+    const key = track.key?.trim() ?? ''
+    if (!key) { toast('Cannot identify track file.'); return }
     try {
       const res = await fetch('/api/admin/player/tracks', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ fileName }),
+        body: JSON.stringify({ key }),
       })
       if (!res.ok) {
         const body = await readJsonOrText(res)

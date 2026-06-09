@@ -24,7 +24,7 @@ function env(name: string, fallback?: string) {
   return process.env[name] ?? (fallback ? process.env[fallback] : undefined)
 }
 
-function getR2Config(): R2Config {
+export function getR2Config(): R2Config {
   const accountId = env('R2_ACCOUNT_ID', 'CF_R2_ACCOUNT_ID')
   const accessKeyId = env('R2_ACCESS_KEY_ID', 'CF_R2_ACCESS_KEY_ID')
   const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')

@@ -1,6 +1,7 @@
+import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
-import { listRadioTracks } from '@/lib/radio'
+import { getR2Config, listRadioTracks } from '@/lib/radio'
 import {
   mergeTrackMetadata,
   RADIO_META_KV_MISSING_MESSAGE,
@@ -72,17 +73,43 @@ export async function PATCH(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   if (!isStudioAuthorized(request)) return unauthorizedStudioResponse()
 
-  const { fileName } = await request.json()
-  if (!fileName) return NextResponse.json({ error: 'fileName required' }, { status: 400 })
+  const { key } = await request.json()
+  if (typeof key !== 'string') {
+    return NextResponse.json({ error: 'key required' }, { status: 400 })
+  }
+
+  const trackKey = key.trim()
+
+  if (
+    !trackKey.startsWith('audio/') ||
+    trackKey === 'audio/' ||
+    trackKey.includes('..') ||
+    trackKey.includes('\\') ||
+    trackKey.startsWith('/')
+  ) {
+    return NextResponse.json({ error: 'Invalid key' }, { status: 400 })
+  }
+
+  console.log('[player] deleteTrack: attempting delete', { key: trackKey })
 
   const supabase = await createServiceClient()
+  const { client, bucketName } = getR2Config()
 
-  const { error: storageError } = await supabase.storage.from('audio').remove([fileName])
-  if (storageError) return NextResponse.json({ error: storageError.message }, { status: 500 })
+  try {
+    await client.send(new DeleteObjectCommand({
+      Bucket: bucketName,
+      Key: trackKey,
+    }))
+    console.log('[player] deleteTrack: delete succeeded', { key: trackKey })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Could not delete track from R2.'
+    console.error('[player] deleteTrack: delete failed', { key: trackKey, message })
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
   const labels = await getLabels(supabase)
-  if (labels[fileName]) {
-    delete labels[fileName]
+  if (labels[trackKey]) {
+    delete labels[trackKey]
     await supabase.from('site_settings').upsert({ key: SETTINGS_KEY, value: labels }, { onConflict: 'key' })
   }
 
