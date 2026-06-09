@@ -93,6 +93,7 @@ async function readJsonOrText(res: Response) {
 export default function RadioClient({ initialEpisodes }: Props) {
   const toast = useToast()
   const fileRef = useRef<HTMLInputElement>(null)
+  const editFileRef = useRef<HTMLInputElement>(null)
   const [episodes, setEpisodes] = useState<Episode[]>(initialEpisodes)
   const [publishingIds, setPublishingIds] = useState<Record<string, boolean>>({})
   const [loading, setLoading] = useState(false)
@@ -107,6 +108,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const [published, setPublished] = useState(false)
   const [audioUrl, setAudioUrl] = useState('')
   const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [editUploading, setEditUploading] = useState(false)
+  const [editUploadProgress, setEditUploadProgress] = useState<number | null>(null)
+  const [editUploadError, setEditUploadError] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -138,6 +142,10 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioFile(null)
     setAudioUrl('')
     if (fileRef.current) fileRef.current.value = ''
+    if (editFileRef.current) editFileRef.current.value = ''
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
   }
 
   const openComposer = () => {
@@ -151,6 +159,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioUrl('')
     setAudioFile(null)
     setError(null)
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
     setComposerOpen(true)
   }
 
@@ -165,7 +176,73 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioUrl(episode.audio_url ?? '')
     setAudioFile(null)
     setError(null)
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
     setComposerOpen(true)
+  }
+
+  const uploadEditedEpisodeAudio = async (file: File) => {
+    setEditUploading(true)
+    setEditUploadProgress(0)
+    setEditUploadError(null)
+    setError(null)
+
+    try {
+      const signedRes = await fetch('/api/admin/upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: file.name,
+          contentType: file.type || 'audio/mpeg',
+          prefix: 'episodes',
+        }),
+      })
+      const signedBody = await readJsonOrText(signedRes)
+
+      if (!signedRes.ok) {
+        let msg = 'Could not create upload URL.'
+        if (typeof signedBody === 'string') {
+          msg = signedBody
+        } else if (signedBody && typeof signedBody === 'object' && 'error' in signedBody && typeof signedBody.error === 'string') {
+          msg = signedBody.error
+        }
+        throw new Error(msg)
+      }
+
+      const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string }
+      if (!uploadData.uploadUrl || !uploadData.publicUrl) {
+        throw new Error('Signed upload response is incomplete.')
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', uploadData.uploadUrl!)
+        xhr.upload.onprogress = event => {
+          if (!event.lengthComputable) return
+          setEditUploadProgress(Math.round((event.loaded / event.total) * 100))
+        }
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve()
+            return
+          }
+          reject(new Error(xhr.responseText || 'R2 upload failed.'))
+        }
+        xhr.onerror = () => reject(new Error('R2 upload failed.'))
+        xhr.send(file)
+      })
+
+      setAudioUrl(uploadData.publicUrl)
+      setEditUploadProgress(100)
+      toast('Audio uploaded. Review and save changes.')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Audio upload failed.'
+      setEditUploadError(msg)
+      toast(msg)
+    } finally {
+      setEditUploading(false)
+    }
   }
 
   const uploadNewEpisode = async () => {
@@ -363,6 +440,23 @@ export default function RadioClient({ initialEpisodes }: Props) {
       URL.revokeObjectURL(url)
     }
     audio.src = url
+  }
+
+  const onEditFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null
+    if (!file) return
+    if (!file.name.toLowerCase().endsWith('.mp3')) {
+      const msg = 'Please choose an MP3 file.'
+      setEditUploadError(msg)
+      toast(msg)
+      e.currentTarget.value = ''
+      return
+    }
+
+    await uploadEditedEpisodeAudio(file)
+
+    if (editFileRef.current) editFileRef.current.value = ''
+    e.currentTarget.value = ''
   }
 
   const togglePublished = async (episode: Episode, event?: MouseEvent<HTMLButtonElement>) => {
@@ -569,14 +663,39 @@ export default function RadioClient({ initialEpisodes }: Props) {
           </div>
         ) : (
           <div className="field">
+            <input
+              ref={editFileRef}
+              type="file"
+              accept="audio/mpeg,.mp3"
+              style={{ display: 'none' }}
+              onChange={event => void onEditFileChange(event)}
+            />
             <label htmlFor="ra-audio-url">Audio URL</label>
             <input
               id="ra-audio-url"
               type="url"
               value={audioUrl}
               onChange={e => setAudioUrl(e.target.value)}
+              disabled={editUploading}
               placeholder="https://..."
             />
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8, flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => editFileRef.current?.click()}
+                disabled={editUploading}
+              >
+                {editUploading ? 'Uploading audio...' : 'Upload audio file'}
+              </button>
+              {editUploading && (
+                <div className="hs">
+                  Uploading... {editUploadProgress ?? 0}%
+                </div>
+              )}
+            </div>
+            {editUploadError ? <div className="hs" style={{ marginTop: 8 }}>{editUploadError}</div> : null}
+            <div className="hs" style={{ marginTop: 8 }}>Upload replaces the Audio URL field only after transfer completes. Save changes manually.</div>
           </div>
         )}
 
