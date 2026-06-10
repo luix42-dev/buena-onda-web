@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash } from 'crypto'
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import {
@@ -18,6 +18,7 @@ import {
 } from '@/lib/telegram/bot'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 type ConversationState = 'idle' | 'drafting' | 'awaiting_confirmation'
 type ProcessingStatus = 'queued' | 'processing' | 'ready' | 'failed'
