@@ -13,6 +13,11 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+type PrimaryImageRow = {
+  item_id: string
+  url: string
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   try {
@@ -50,12 +55,28 @@ export default async function ThemeSpreadPage({ params }: Props) {
 
   const { data: itemsData } = await supabase
     .from('items')
-    .select('*')
+    .select('id, title, slug, catalog_number, theme_id, description, price')
     .eq('theme_id', theme.id)
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 
-  const items = (itemsData ?? []) as Item[]
+  const itemRows = (itemsData ?? []) as Item[]
+  const itemIds = itemRows.map(item => item.id)
+  const primaryImagesRes = itemIds.length === 0
+    ? { data: [] as PrimaryImageRow[] }
+    : await supabase
+        .from('item_primary_images')
+        .select('item_id, url')
+        .in('item_id', itemIds)
+
+  const primaryImageMap = new Map(
+    ((primaryImagesRes.data ?? []) as PrimaryImageRow[]).map(image => [image.item_id, image.url]),
+  )
+
+  const items = itemRows.map(item => ({
+    ...item,
+    primary_image_url: primaryImageMap.get(item.id) ?? null,
+  }))
 
   return (
     <>
@@ -157,10 +178,10 @@ export default async function ThemeSpreadPage({ params }: Props) {
 
                       {/* Portrait thumbnail */}
                       <div className="aspect-[3/4] overflow-hidden bg-sand-bg flex-shrink-0">
-                        {item.cover_image_url ? (
+                        {item.primary_image_url ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
-                            src={item.cover_image_url}
+                            src={item.primary_image_url}
                             alt={item.title}
                             className="w-full h-full object-cover transition-all duration-500"
                           />

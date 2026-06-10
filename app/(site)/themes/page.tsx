@@ -13,7 +13,12 @@ export const metadata: Metadata = {
 }
 
 type ThemeStub = Pick<Theme, 'id' | 'title' | 'code' | 'slug'>
-type ItemWithTheme = Item & { theme: ThemeStub | null }
+type ItemWithTheme = Omit<Item, 'theme'> & { theme?: ThemeStub }
+type PrimaryImageRow = {
+  item_id: string
+  url: string
+}
+type ItemRow = Omit<ItemWithTheme, 'theme'> & { theme: ThemeStub[] | ThemeStub | null }
 
 export default async function ThemesPage() {
   const supabase = await createClient()
@@ -21,7 +26,7 @@ export default async function ThemesPage() {
   const [itemsRes, themesRes] = await Promise.all([
     supabase
       .from('items')
-      .select('*, theme:themes(id, title, code, slug)')
+      .select('id, title, slug, catalog_number, theme_id, price, availability, theme:themes(id, title, code, slug)')
       .in('status', ['published', 'sold_out'])
       .order('published_at', { ascending: false }),
     supabase
@@ -31,7 +36,24 @@ export default async function ThemesPage() {
       .order('sort_order'),
   ])
 
-  const items  = (itemsRes.data  ?? []) as ItemWithTheme[]
+  const itemRows = (itemsRes.data ?? []) as unknown as ItemRow[]
+  const itemIds = itemRows.map(item => item.id)
+  const primaryImagesRes = itemIds.length === 0
+    ? { data: [] as PrimaryImageRow[] }
+    : await supabase
+        .from('item_primary_images')
+        .select('item_id, url')
+        .in('item_id', itemIds)
+
+  const primaryImageMap = new Map(
+    ((primaryImagesRes.data ?? []) as PrimaryImageRow[]).map(image => [image.item_id, image.url]),
+  )
+
+  const items = itemRows.map(item => ({
+    ...item,
+    theme: Array.isArray(item.theme) ? (item.theme[0] ?? undefined) : (item.theme ?? undefined),
+    primary_image_url: primaryImageMap.get(item.id) ?? null,
+  }))
   const themes = (themesRes.data ?? []) as ThemeStub[]
 
   return (
