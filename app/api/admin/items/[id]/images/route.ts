@@ -5,6 +5,29 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 
 interface Params { params: Promise<{ id: string }> }
 
+async function syncCoverImageUrl(
+  supabase: Awaited<ReturnType<typeof createServiceClient>>,
+  itemId: string,
+) {
+  const { data: primaryImages, error: primaryError } = await supabase
+    .from('item_images')
+    .select('url')
+    .eq('item_id', itemId)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
+    .limit(1)
+
+  if (primaryError) throw primaryError
+
+  const primaryUrl = primaryImages && primaryImages.length > 0 ? primaryImages[0].url : null
+  const { error: updateError } = await supabase
+    .from('items')
+    .update({ cover_image_url: primaryUrl })
+    .eq('id', itemId)
+
+  if (updateError) throw updateError
+}
+
 export async function GET(request: NextRequest, { params }: Params) {
   if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
@@ -72,16 +95,11 @@ export async function POST(request: NextRequest, { params }: Params) {
     .single()
 
   if (insertError) return NextResponse.json({ error: insertError.message }, { status: 500 })
-
-  // If item has no cover yet, set this as cover
-  const { data: item } = await supabase
-    .from('items')
-    .select('cover_image_url')
-    .eq('id', id)
-    .single()
-
-  if (item && !item.cover_image_url) {
-    await supabase.from('items').update({ cover_image_url: url }).eq('id', id)
+  try {
+    await syncCoverImageUrl(supabase, id)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to sync cover image'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 
   return NextResponse.json(imgRow, { status: 201 })
