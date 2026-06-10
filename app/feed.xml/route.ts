@@ -21,7 +21,6 @@ type FeedItemRow = {
   why_chosen: string | null
   price: number | null
   availability: 'available' | 'reserved' | 'sold' | null
-  cover_image_url: string | null
   theme_id: string | null
   theme: ThemeRow | null
   images: ItemImageRow[] | null
@@ -85,7 +84,7 @@ export async function GET() {
   const supabase = createServiceRoleClient()
   const { data, error } = await supabase
     .from('items')
-    .select('id,slug,title,description,why_chosen,price,availability,cover_image_url,theme_id,theme:themes(id,slug,title),images:item_images(url,sort_order)')
+    .select('id,slug,title,description,why_chosen,price,availability,theme_id,theme:themes(id,slug,title),images:item_images(url,sort_order)')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 
@@ -99,7 +98,7 @@ export async function GET() {
     .map(row => {
       const theme = Array.isArray(row.theme) ? row.theme[0] ?? null : row.theme
       const imageList = [...(row.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)
-      const cover = asHttpsUrl(row.cover_image_url) ?? asHttpsUrl(imageList[0]?.url)
+      const cover = asHttpsUrl(imageList[0]?.url)
       const extras = imageList
         .map(image => asHttpsUrl(image.url))
         .filter((url): url is string => Boolean(url) && url !== cover)

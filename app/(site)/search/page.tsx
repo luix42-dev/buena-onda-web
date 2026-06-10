@@ -19,11 +19,19 @@ interface Props {
   searchParams: Promise<{ q?: string; theme?: string }>
 }
 
+type PrimaryImageRow = {
+  item_id: string
+  url: string
+}
+type ThemeStub = Pick<Theme, 'id' | 'title' | 'code' | 'slug'>
+type SearchItem = Omit<Item, 'theme'> & { theme?: ThemeStub }
+type ItemRow = Omit<SearchItem, 'theme'> & { theme: ThemeStub[] | ThemeStub | null }
+
 export default async function SearchPage({ searchParams }: Props) {
   const { q, theme: themeFilter } = await searchParams
   const query = q?.trim() ?? ''
 
-  let items:  Item[]  = []
+  let items:  SearchItem[]  = []
   let themes: Theme[] = []
 
   try {
@@ -32,7 +40,7 @@ export default async function SearchPage({ searchParams }: Props) {
     const [itemsRes, themesRes] = await Promise.all([
       supabase
         .from('items')
-        .select('*, theme:themes(id, title, code, slug)')
+        .select('id, title, slug, catalog_number, theme_id, description, tags, price, theme:themes(id, title, code, slug)')
         .eq('status', 'published')
         .order('published_at', { ascending: false }),
       supabase
@@ -42,7 +50,24 @@ export default async function SearchPage({ searchParams }: Props) {
         .order('sort_order'),
     ])
 
-    items  = (itemsRes.data  ?? []) as Item[]
+    const itemRows = (itemsRes.data ?? []) as unknown as ItemRow[]
+    const itemIds = itemRows.map(item => item.id)
+    const primaryImagesRes = itemIds.length === 0
+      ? { data: [] as PrimaryImageRow[] }
+      : await supabase
+          .from('item_primary_images')
+          .select('item_id, url')
+          .in('item_id', itemIds)
+
+    const primaryImageMap = new Map(
+      ((primaryImagesRes.data ?? []) as PrimaryImageRow[]).map(image => [image.item_id, image.url]),
+    )
+
+    items = itemRows.map(item => ({
+      ...item,
+      theme: Array.isArray(item.theme) ? (item.theme[0] ?? undefined) : (item.theme ?? undefined),
+      primary_image_url: primaryImageMap.get(item.id) ?? null,
+    }))
     themes = (themesRes.data ?? []) as Theme[]
   } catch { /* Supabase not configured */ }
 
@@ -147,9 +172,9 @@ export default async function SearchPage({ searchParams }: Props) {
 
                     {/* Thumb */}
                     <div className="w-12 h-16 flex-shrink-0 bg-pale-stone overflow-hidden">
-                      {item.cover_image_url ? (
+                      {item.primary_image_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={item.cover_image_url} alt={item.title}
+                        <img src={item.primary_image_url} alt={item.title}
                           className="w-full h-full object-cover transition-all duration-300" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">

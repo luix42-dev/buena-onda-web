@@ -34,8 +34,10 @@ export interface Item {
   availability:    ItemAvailability
   sourcing_model:  ItemSourcingModel
   featured:        boolean
-  cover_image_url: string | null
+  cover_image_url?: string | null
+  primary_image_url?: string | null
   published_at:    string | null
   created_at:      string
   updated_at:      string
+  images?:         ItemImage[]
 }

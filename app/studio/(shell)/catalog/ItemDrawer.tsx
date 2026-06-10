@@ -62,6 +62,11 @@ function reorderImagesWithPrimary(images: ItemImage[], imageId: string) {
     }))
 }
 
+function getPrimaryImageUrl(images: ItemImage[]) {
+  const ordered = [...images].sort((a, b) => a.sort_order - b.sort_order)
+  return ordered[0]?.url ?? null
+}
+
 export default function ItemDrawer({ item, themes, open, onClose, onSave, onDelete }: Props) {
   const toast = useToast()
 
@@ -100,10 +105,14 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
       setStatus((item.status === 'sold_out' ? 'published' : item.status) as ItemStatus)
       setAvailability(item.availability ?? 'available')
       setSourcingModel(item.sourcing_model ?? 'reservation')
-      setCoverUrl(item.cover_image_url)
+      setCoverUrl(item.primary_image_url ?? null)
       fetch(`/api/admin/items/${item.id}/images`)
         .then(r => r.json())
-        .then(data => Array.isArray(data) && setImages(data))
+        .then(data => {
+          if (!Array.isArray(data)) return
+          setImages(data)
+          setCoverUrl(getPrimaryImageUrl(data))
+        })
         .catch(() => {})
     } else {
       setTitle('')

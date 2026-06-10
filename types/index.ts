@@ -113,7 +113,8 @@ export interface Item {
   availability: 'available' | 'reserved' | 'sold'
   sourcing_model: 'reservation' | 'direct'
   featured: boolean
-  cover_image_url: string | null
+  cover_image_url?: string | null
+  primary_image_url?: string | null
   published_at: string | null
   created_at: string
   updated_at: string

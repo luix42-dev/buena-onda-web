@@ -164,9 +164,9 @@ export default function CatalogClient({ initialItems, themes }: Props) {
               onClick={() => openDrawer(item)}
             >
               <div className="thumb" style={{ background: 'var(--paper-2)' }}>
-                {item.cover_image_url && (
+                {item.primary_image_url && (
                   <Image
-                    src={item.cover_image_url}
+                    src={item.primary_image_url}
                     alt={item.title}
                     fill
                     sizes="(max-width: 820px) 50vw, 25vw"

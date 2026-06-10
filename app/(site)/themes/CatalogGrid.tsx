@@ -6,7 +6,7 @@ import Image from 'next/image'
 import type { Item, Theme } from '@/types'
 
 type ThemeStub = Pick<Theme, 'id' | 'title' | 'code' | 'slug'>
-type ItemWithTheme = Item & { theme: ThemeStub | null }
+type ItemWithTheme = Omit<Item, 'theme'> & { theme?: ThemeStub }
 
 interface Props {
   items:  ItemWithTheme[]
@@ -89,9 +89,9 @@ export default function CatalogGrid({ items, themes }: Props) {
                 >
                   {/* Image */}
                   <div className="aspect-square overflow-hidden mb-3 relative bg-cream">
-                    {item.cover_image_url ? (
+                    {item.primary_image_url ? (
                       <Image
-                        src={item.cover_image_url}
+                        src={item.primary_image_url}
                         alt={item.title}
                         fill
                         loading="lazy"
