@@ -51,6 +51,17 @@ function slugify(s: string) {
     .replace(/-+/g, '-')
 }
 
+function reorderImagesWithPrimary(images: ItemImage[], imageId: string) {
+  const primaryIndex = images.findIndex(image => image.id === imageId)
+  if (primaryIndex === -1) return images
+
+  return [images[primaryIndex], ...images.filter(image => image.id !== imageId)]
+    .map((image, index) => ({
+      ...image,
+      sort_order: index,
+    }))
+}
+
 export default function ItemDrawer({ item, themes, open, onClose, onSave, onDelete }: Props) {
   const toast = useToast()
 
@@ -153,12 +164,27 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
 
   const handleSetCover = async (img: ItemImage) => {
     if (!item || img.url === coverUrl) return
+    const previousImages = images
+    const previousCoverUrl = coverUrl
+    const nextImages = reorderImagesWithPrimary(images, img.id)
+
     setCoverUrl(img.url)
-    await fetch(`/api/admin/items/${item.id}`, {
+    setImages(nextImages)
+
+    const res = await fetch(`/api/admin/items/${item.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(buildBody(img.url)),
+      body: JSON.stringify({
+        ...buildBody(img.url),
+        cover_image_id: img.id,
+      }),
     })
+
+    if (!res.ok) {
+      setCoverUrl(previousCoverUrl)
+      setImages(previousImages)
+      toast('Cover update failed.')
+    }
   }
 
   const handleDeleteImage = async (img: ItemImage) => {

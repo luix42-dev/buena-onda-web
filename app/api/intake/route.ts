@@ -50,6 +50,20 @@ function parseImageDataUrl(image: unknown) {
   }
 }
 
+function storagePathFromCatalogUrl(url: string | null) {
+  if (!url) return null
+
+  try {
+    const pathname = new URL(url).pathname
+    const marker = '/storage/v1/object/public/catalog/'
+    const markerIndex = pathname.indexOf(marker)
+    if (markerIndex === -1) return null
+    return decodeURIComponent(pathname.slice(markerIndex + marker.length))
+  } catch {
+    return null
+  }
+}
+
 async function saveRawImage(image: ReturnType<typeof parseImageDataUrl>, prefix: string) {
   if (!image) return null
   const ext = image.contentType.includes('png') ? 'png' : image.contentType.includes('webp') ? 'webp' : 'jpg'
@@ -214,6 +228,35 @@ export async function POST(request: NextRequest) {
       .select('id,title,slug,status,cover_image_url')
       .single()
     if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 400, headers: CORS_HEADERS })
+
+    if (imageResult.url) {
+      const { data: existingImage, error: imageLookupError } = await supabase
+        .from('item_images')
+        .select('id')
+        .eq('item_id', data.id)
+        .eq('url', imageResult.url)
+        .maybeSingle()
+
+      if (imageLookupError) {
+        return NextResponse.json({ ok: false, error: imageLookupError.message }, { status: 400, headers: CORS_HEADERS })
+      }
+
+      if (!existingImage) {
+        const { error: imageInsertError } = await supabase
+          .from('item_images')
+          .insert({
+            item_id: data.id,
+            url: imageResult.url,
+            storage_path: storagePathFromCatalogUrl(imageResult.url),
+            sort_order: 0,
+          })
+
+        if (imageInsertError) {
+          return NextResponse.json({ ok: false, error: imageInsertError.message }, { status: 400, headers: CORS_HEADERS })
+        }
+      }
+    }
+
     const telegram = await sendTelegramMessage(`Draft saved to Catalog: ${data.title}`)
     return NextResponse.json({ ok: true, destination, record: data, image: imageResult, telegram }, { status: 201, headers: CORS_HEADERS })
   }

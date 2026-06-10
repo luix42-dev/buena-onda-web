@@ -7,6 +7,51 @@ export const runtime = 'edge'
 
 interface Params { params: Promise<{ id: string }> }
 
+async function moveImageToPrimary(
+  supabase: Awaited<ReturnType<typeof createServiceClient>>,
+  itemId: string,
+  imageId: string,
+) {
+  const { data: images, error } = await supabase
+    .from('item_images')
+    .select('id, url, sort_order, created_at')
+    .eq('item_id', itemId)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
+
+  if (error) throw error
+  if (!images || images.length === 0) {
+    throw new Error('No images found for item')
+  }
+
+  const primaryIndex = images.findIndex(image => image.id === imageId)
+  if (primaryIndex === -1) {
+    throw new Error('Selected cover image not found')
+  }
+
+  const ordered = [images[primaryIndex], ...images.filter(image => image.id !== imageId)]
+
+  for (let index = 0; index < ordered.length; index += 1) {
+    const { error: tempError } = await supabase
+      .from('item_images')
+      .update({ sort_order: -(index + 1) })
+      .eq('id', ordered[index].id)
+
+    if (tempError) throw tempError
+  }
+
+  for (let index = 0; index < ordered.length; index += 1) {
+    const { error: finalError } = await supabase
+      .from('item_images')
+      .update({ sort_order: index })
+      .eq('id', ordered[index].id)
+
+    if (finalError) throw finalError
+  }
+
+  return ordered[0].url
+}
+
 export async function GET(request: NextRequest, { params }: Params) {
   if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
@@ -36,6 +81,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     description, why_chosen, tags, cover_image_url, status, details,
     availability,
     sourcing_model,
+    cover_image_id,
   } = body
 
   if (!title || !slug) {
@@ -49,6 +95,20 @@ export async function PUT(request: NextRequest, { params }: Params) {
     .eq('id', id)
     .single()
 
+  let syncedCoverImageUrl =
+    typeof cover_image_url === 'string' && cover_image_url.trim()
+      ? cover_image_url
+      : null
+
+  if (typeof cover_image_id === 'string' && cover_image_id.trim()) {
+    try {
+      syncedCoverImageUrl = await moveImageToPrimary(supabase, id, cover_image_id)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update cover image order'
+      return NextResponse.json({ error: message }, { status: 400 })
+    }
+  }
+
   const update: Record<string, unknown> = {
     title,
     slug,
@@ -58,7 +118,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     description:     description || null,
     why_chosen:      why_chosen || null,
     tags:            tags ?? [],
-    cover_image_url: cover_image_url || null,
+    cover_image_url: syncedCoverImageUrl,
     details:         details ?? null,
     status,
     ...(availability !== undefined && { availability }),
