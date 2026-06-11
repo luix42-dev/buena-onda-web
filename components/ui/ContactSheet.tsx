@@ -22,8 +22,9 @@ export default function ContactSheet({
 }: ContactSheetProps) {
   return (
     <div
-      className={`bg-[#1a1a1a] p-px ${className}`}
+      className={`p-px ${className}`}
       style={{
+        backgroundColor:     '#1a1a1a',
         display:             'grid',
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
         gap:                 '1px',
@@ -31,7 +32,10 @@ export default function ContactSheet({
     >
       {images.map((img, i) => (
         <ScanReveal key={i} delay={i * 40} className="relative group">
-          <div className="relative aspect-[4/5] overflow-hidden bg-[#111] paper-hover cursor-pointer">
+          <div
+            className="relative aspect-[4/5] overflow-hidden paper-hover cursor-pointer"
+            style={{ backgroundColor: '#111' }}
+          >
             {img.src ? (
               <Image
                 src={img.src}
@@ -41,8 +45,10 @@ export default function ContactSheet({
                 className="object-cover transition-all duration-500 ease-analog"
               />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-[#2a2a2a] to-[#111]
-                              flex items-center justify-center">
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ backgroundImage: 'linear-gradient(to bottom right, #2a2a2a, #111)' }}
+              >
                 <span className="archive-label text-[0.55rem] text-charcoal">
                   {img.frame ?? `F${String(i + 1).padStart(2, '0')}`}
                 </span>

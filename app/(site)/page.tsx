@@ -205,8 +205,8 @@ export default async function HomePage() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
-                  style={{ color: '#2F2F2D', fontWeight: 500 }}
+                  className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[var(--hover-color)]"
+                  style={{ color: '#2F2F2D', fontWeight: 500, '--hover-color': '#E8176A' } as React.CSSProperties}
                 >
                   {link.label} ↗
                 </a>
@@ -222,7 +222,11 @@ export default async function HomePage() {
             {contactEmail ? (
               <>
                 {' '}·{' '}
-                <a href={`mailto:${contactEmail}`} className="hover:text-[#1A9E9E] transition-colors">
+                <a
+                  href={`mailto:${contactEmail}`}
+                  className="hover:text-[var(--hover-color)] transition-colors"
+                  style={{ '--hover-color': '#1A9E9E' } as React.CSSProperties}
+                >
                   {contactEmail}
                 </a>
               </>
@@ -334,8 +338,8 @@ export default async function HomePage() {
 
               <Link
                 href="/radio"
-                className="hidden md:block w-72 p-8 transition-colors hover:border-[#E8176A] hover:bg-black/10"
-                style={{ border: '1px solid rgba(248,247,243,0.1)' }}
+                className="hidden md:block w-72 p-8 transition-colors hover:border-[var(--hover-border-color)] hover:bg-black/10"
+                style={{ border: '1px solid rgba(248,247,243,0.1)', '--hover-border-color': '#E8176A' } as React.CSSProperties}
                 aria-label={latestRadioEpisode ? `Listen to ${latestRadioEpisode.title}` : 'Radio archive'}
               >
                 <p
@@ -510,8 +514,8 @@ export default async function HomePage() {
                   {contactEmail ? (
                     <a
                       href={`mailto:${contactEmail}`}
-                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
-                      style={{ color: '#F8F7F3', fontWeight: 500 }}
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[var(--hover-color)]"
+                      style={{ color: '#F8F7F3', fontWeight: 500, '--hover-color': '#E8176A' } as React.CSSProperties}
                     >
                       {contactEmail}
                     </a>
@@ -522,8 +526,8 @@ export default async function HomePage() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[#E8176A]"
-                      style={{ color: '#F8F7F3', fontWeight: 500 }}
+                      className="font-sans text-[0.68rem] tracking-[0.22em] uppercase transition-colors hover:text-[var(--hover-color)]"
+                      style={{ color: '#F8F7F3', fontWeight: 500, '--hover-color': '#E8176A' } as React.CSSProperties}
                     >
                       {link.label} ↗
                     </a>
@@ -541,7 +545,11 @@ export default async function HomePage() {
                     <p className="font-sans text-sm leading-relaxed" style={{ color: '#F8F7F3', fontWeight: 300 }}>
                     The newsletter is paused for now. Reach out at{' '}
                     {contactEmail ? (
-                      <a href={`mailto:${contactEmail}`} className="transition-colors hover:text-[#E8176A]" style={{ color: '#F8F7F3' }}>
+                      <a
+                        href={`mailto:${contactEmail}`}
+                        className="transition-colors hover:text-[var(--hover-color)]"
+                        style={{ color: '#F8F7F3', '--hover-color': '#E8176A' } as React.CSSProperties}
+                      >
                         {contactEmail}
                       </a>
                     ) : (
