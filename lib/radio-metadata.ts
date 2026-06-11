@@ -1,150 +1,148 @@
 import type { Track } from '@/lib/radio'
+import { createServiceRoleClient } from '@/lib/supabase/service-role'
 
-const TRACK_ORDER_KEY = 'track-order'
-const TITLE_PREFIX = 'title:'
-
-export const RADIO_META_KV_MISSING_MESSAGE =
-  'Cloudflare KV metadata is not configured. Set BUENA_ONDA_RADIO_META_NAMESPACE_ID.'
-
-type KvConfig = {
-  accountId: string
-  apiToken: string
-  namespaceId: string
+type PlayerTrackRow = {
+  key: string
+  title: string | null
+  position: number | null
 }
 
 function trackTimestamp(track: Track) {
   return track.lastModified ? Date.parse(track.lastModified) || 0 : 0
 }
 
-function getKvConfig(): KvConfig | null {
-  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim() || ''
-  const apiToken = process.env.CLOUDFLARE_API_TOKEN?.trim() || ''
-  const namespaceId = process.env.BUENA_ONDA_RADIO_META_NAMESPACE_ID?.trim() || ''
-
-  if (!accountId || !apiToken || !namespaceId) {
-    return null
-  }
-
-  return { accountId, apiToken, namespaceId }
+function trackKey(track: Track): track is Track & { key: string } {
+  return typeof track.key === 'string' && track.key.length > 0
 }
 
-function getKvValueUrl(config: KvConfig, key: string) {
-  const encodedKey = encodeURIComponent(key)
-  return `https://api.cloudflare.com/client/v4/accounts/${config.accountId}/storage/kv/namespaces/${config.namespaceId}/values/${encodedKey}`
+function titleFromFileName(fileName: string) {
+  return fileName
+    .replace(/\.[^.]+$/, '')
+    .replace(/^\d{10,}-/, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
-async function readKvValue(key: string): Promise<string | null> {
-  const config = getKvConfig()
-  if (!config) return null
-
-  const response = await fetch(getKvValueUrl(config, key), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${config.apiToken}`,
-    },
-    cache: 'no-store',
-  })
-
-  if (response.status === 404) {
-    return null
-  }
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => '')
-    throw new Error(body || `Cloudflare KV read failed for ${key}.`)
-  }
-
-  return response.text()
-}
-
-async function writeKvValue(key: string, value: string) {
-  const config = getKvConfig()
-  if (!config) {
-    throw new Error(RADIO_META_KV_MISSING_MESSAGE)
-  }
-
-  const response = await fetch(getKvValueUrl(config, key), {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${config.apiToken}`,
-      'Content-Type': 'text/plain;charset=UTF-8',
-    },
-    body: value,
-    cache: 'no-store',
-  })
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => '')
-    throw new Error(body || `Cloudflare KV write failed for ${key}.`)
-  }
-}
-
-async function readTrackOrder() {
-  const raw = await readKvValue(TRACK_ORDER_KEY)
-  if (!raw) return null
-
-  try {
-    const parsed = JSON.parse(raw) as unknown
-    if (!Array.isArray(parsed)) return null
-    return parsed.filter((value): value is string => typeof value === 'string')
-  } catch {
-    return null
-  }
-}
-
-function getTitleKey(key: string) {
-  return `${TITLE_PREFIX}${key}`
+function defaultTitleForKey(key: string) {
+  const fileName = key.split('/').pop() ?? key
+  return titleFromFileName(fileName) || fileName
 }
 
 export async function mergeTrackMetadata(rawTracks: Track[]): Promise<Track[]> {
   if (rawTracks.length === 0) return rawTracks
 
-  if (!getKvConfig()) {
-    return rawTracks.map((track, index) => ({ ...track, position: index }))
+  const keys = rawTracks.filter(trackKey).map(track => track.key)
+  if (keys.length === 0) return rawTracks.map((track, index) => ({ ...track, position: index }))
+
+  const supabase = createServiceRoleClient()
+  const { data, error } = await supabase
+    .from('player_tracks')
+    .select('key,title,position')
+    .in('key', keys)
+
+  if (error) throw error
+
+  const metadataByKey = new Map((data ?? []).map((row: PlayerTrackRow) => [row.key, row]))
+
+  return rawTracks
+    .map((track, index) => {
+      if (!trackKey(track)) return { ...track, position: index }
+
+      const metadata = metadataByKey.get(track.key)
+      const title = metadata?.title?.trim()
+
+      return {
+        ...track,
+        title: title || track.title,
+        position: metadata?.position ?? Number.MAX_SAFE_INTEGER,
+      }
+    })
+    .sort((a, b) => {
+      const positionDelta = (a.position ?? Number.MAX_SAFE_INTEGER) - (b.position ?? Number.MAX_SAFE_INTEGER)
+      if (positionDelta !== 0) return positionDelta
+      return trackTimestamp(b) - trackTimestamp(a)
+    })
+}
+
+export async function registerTrack(key: string, title?: string | null) {
+  const trackTitle = title?.trim() || defaultTitleForKey(key)
+  const supabase = createServiceRoleClient()
+
+  const { data: existing, error: existingError } = await supabase
+    .from('player_tracks')
+    .select('key')
+    .eq('key', key)
+    .maybeSingle()
+
+  if (existingError) throw existingError
+  if (existing) {
+    const { error } = await supabase
+      .from('player_tracks')
+      .update({ title: trackTitle, updated_at: new Date().toISOString() })
+      .eq('key', key)
+
+    if (error) throw error
+    return
   }
 
-  const storedOrder = await readTrackOrder()
-  const rawByKey = new Map(
-    rawTracks
-      .filter((track): track is Track & { key: string } => typeof track.key === 'string' && track.key.length > 0)
-      .map(track => [track.key, track])
-  )
+  const { data: maxRow, error: maxError } = await supabase
+    .from('player_tracks')
+    .select('position')
+    .order('position', { ascending: false })
+    .limit(1)
+    .maybeSingle()
 
-  const orderedKeys = (storedOrder ?? []).filter(key => rawByKey.has(key))
-  const remainingKeys = rawTracks
-    .map(track => track.key)
-    .filter((key): key is string => typeof key === 'string' && key.length > 0 && !orderedKeys.includes(key))
+  if (maxError) throw maxError
 
-  const finalKeys = [...orderedKeys, ...remainingKeys]
-  const titleEntries = await Promise.all(
-    finalKeys.map(async key => [key, await readKvValue(getTitleKey(key))] as const)
-  )
-  const titleByKey = new Map(titleEntries)
-  const mergedTracks: Track[] = []
+  const nextPosition = typeof maxRow?.position === 'number' ? maxRow.position + 1 : 0
+  const { error } = await supabase
+    .from('player_tracks')
+    .insert({ key, title: trackTitle, position: nextPosition })
 
-  finalKeys.forEach((key, index) => {
-    const track = rawByKey.get(key)
-    if (!track) return
-
-    const overrideTitle = titleByKey.get(key)?.trim()
-    mergedTracks.push({
-      ...track,
-      title: overrideTitle || track.title,
-      position: index,
-    })
-  })
-
-  return mergedTracks.sort((a, b) => {
-    const positionDelta = (a.position ?? Number.MAX_SAFE_INTEGER) - (b.position ?? Number.MAX_SAFE_INTEGER)
-    if (positionDelta !== 0) return positionDelta
-    return trackTimestamp(b) - trackTimestamp(a)
-  })
+  if (error) throw error
 }
 
 export async function renameTrackTitle(key: string, title: string) {
-  await writeKvValue(getTitleKey(key), title)
+  const supabase = createServiceRoleClient()
+  const { error } = await supabase
+    .from('player_tracks')
+    .upsert(
+      { key, title: title.trim(), updated_at: new Date().toISOString() },
+      { onConflict: 'key' },
+    )
+
+  if (error) throw error
 }
 
 export async function reorderTracks(orderedKeys: string[]) {
-  await writeKvValue(TRACK_ORDER_KEY, JSON.stringify(orderedKeys))
+  const supabase = createServiceRoleClient()
+  const { data, error: existingError } = await supabase
+    .from('player_tracks')
+    .select('key')
+    .in('key', orderedKeys)
+
+  if (existingError) throw existingError
+
+  const existingKeys = new Set((data ?? []).map((row: Pick<PlayerTrackRow, 'key'>) => row.key))
+
+  for (let index = 0; index < orderedKeys.length; index += 1) {
+    const key = orderedKeys[index]
+    const timestamp = new Date().toISOString()
+    const { error } = existingKeys.has(key)
+      ? await supabase
+        .from('player_tracks')
+        .update({ position: index, updated_at: timestamp })
+        .eq('key', key)
+      : await supabase
+        .from('player_tracks')
+        .insert({
+          key,
+          title: defaultTitleForKey(key),
+          position: index,
+          updated_at: timestamp,
+        })
+
+    if (error) throw error
+  }
 }

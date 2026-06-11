@@ -3,7 +3,6 @@ import { listRadioTracks } from '@/lib/radio'
 import {
   mergeTrackMetadata,
   reorderTracks,
-  RADIO_META_KV_MISSING_MESSAGE,
 } from '@/lib/radio-metadata'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
@@ -45,7 +44,6 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ ok: true })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Could not save track order.'
-    const status = message === RADIO_META_KV_MISSING_MESSAGE ? 503 : 500
-    return NextResponse.json({ error: message }, { status })
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

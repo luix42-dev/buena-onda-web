@@ -439,6 +439,27 @@ export default function PlayerClient() {
         throw new Error(uploadText || 'R2 upload failed.')
       }
 
+      const registerRes = await fetch('/api/admin/player/tracks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          key: uploadData.key,
+          fileName: file.name,
+        }),
+      })
+      const registerBody = await readJsonOrText(registerRes)
+
+      if (!registerRes.ok) {
+        let msg = 'Track uploaded, but metadata registration failed.'
+        if (typeof registerBody === 'string') {
+          msg = registerBody
+        } else if (registerBody && typeof registerBody === 'object' && 'error' in registerBody && typeof registerBody.error === 'string') {
+          msg = registerBody.error
+        }
+        throw new Error(msg)
+      }
+
       setMessage('Upload complete.')
       toast('Track uploaded.')
       await loadTracks()
