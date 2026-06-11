@@ -762,7 +762,7 @@ export default function CruiseClient({ initialScenes, initialChannels }: Props) 
               type="button"
               className="btn coral"
               onClick={drawerMode === 'scene' ? saveScene : saveChannel}
-              disabled={saving}
+              disabled={saving || (drawerMode === 'scene' ? videoUploading : trackUploading)}
             >
               {saving ? 'Saving...' : (drawerMode === 'scene' ? (editingScene ? 'Save changes' : 'Create scene') : (editingChannel ? 'Save changes' : 'Create channel'))}
             </button>
