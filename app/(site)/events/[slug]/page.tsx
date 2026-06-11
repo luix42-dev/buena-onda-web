@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import GalleryGrid from '@/components/ui/GalleryGrid'
+import SignupSheetArchive from '@/components/ui/SignupSheetArchive'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 
 export const runtime = 'edge'
@@ -263,14 +264,7 @@ export default async function EventDetailPage({ params }: Props) {
 
       {archiveSheets.length > 0 ? (
         <EditorialSection label='Archive'>
-          <div className='grid md:grid-cols-2 gap-4'>
-            {archiveSheets.map((sheet, i) => (
-              <a key={(sheet.file ?? 'sheet') + '-' + i} href={sheet.file} download className='paper-hover border border-pale-stone bg-warm-white p-5 flex items-center gap-4'>
-                <span className='font-mono text-teal text-xl'>▣</span>
-                <span className='text-cta'>{sheet.label || 'Archive sheet ' + (i + 1)}</span>
-              </a>
-            ))}
-          </div>
+          <SignupSheetArchive sheets={archiveSheets.map(s => ({ url: s.file!, label: s.label }))} />
         </EditorialSection>
       ) : null}
 
