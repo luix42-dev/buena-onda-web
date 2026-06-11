@@ -90,6 +90,7 @@ export default function SignupSheetArchive({ sheets }: { sheets: Sheet[] }) {
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
           scrollbarWidth: "none",
+          width: "100%",
           padding: "6px 2px",
         }}
       >
