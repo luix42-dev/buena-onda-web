@@ -4,10 +4,14 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
+function env(name: string, fallback?: string) {
+  return process.env[name] ?? (fallback ? process.env[fallback] : undefined)
+}
+
 function getR2Client(): { client: S3Client | null; error: string | null } {
-  const accountId = process.env.CF_R2_ACCOUNT_ID
-  const accessKeyId = process.env.CF_R2_ACCESS_KEY_ID
-  const secretAccessKey = process.env.CF_R2_SECRET_ACCESS_KEY
+  const accountId       = env('R2_ACCOUNT_ID',       'CF_R2_ACCOUNT_ID')
+  const accessKeyId     = env('R2_ACCESS_KEY_ID',     'CF_R2_ACCESS_KEY_ID')
+  const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
 
   if (!accountId || !accessKeyId || !secretAccessKey) {
     return {
@@ -59,8 +63,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const bucketName = process.env.CF_R2_BUCKET_NAME
-    const publicUrl = process.env.CF_R2_PUBLIC_URL
+    const bucketName = env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
+    const publicUrl  = env('R2_PUBLIC_URL',  'CF_R2_PUBLIC_URL')
 
     if (!bucketName || !publicUrl) {
       return NextResponse.json(
