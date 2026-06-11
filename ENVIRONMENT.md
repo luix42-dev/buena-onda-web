@@ -46,9 +46,9 @@ R2 CORS must always be managed through Wrangler CLI, never through the Cloudflar
 ### ADMIN_PASSWORD
 - **Service:** Auth
 - **Required:** No
-- **Where to get it:** Generate and store a strong password for the legacy `/admin` interface.
-- **Used for:** Legacy admin authentication.
-- **Vercel:** Yes
+- **Where to get it:** Retired; do not create a new value.
+- **Used for:** Retired legacy `/admin` authentication. `/studio` now uses `STUDIO_PASSWORD` only.
+- **Vercel:** No
 
 ### STUDIO_PASSWORD
 - **Service:** Auth

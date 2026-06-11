@@ -1,7 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const ADMIN_COOKIE     = 'bo_admin'
-const ADMIN_LOGIN_PATH = '/admin/login'
 const STUDIO_LOGIN     = '/studio/login'
 const STUDIO_COOKIE    = 'studio_session'
 
@@ -34,27 +32,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // ── Existing /admin guard — cookie + ADMIN_PASSWORD (unchanged) ──────
-  if (!pathname.startsWith('/admin') || pathname === ADMIN_LOGIN_PATH) {
-    return NextResponse.next()
-  }
-
-  const token    = request.cookies.get(ADMIN_COOKIE)?.value
-  const expected = process.env.ADMIN_PASSWORD
-
-  // If no password configured, allow through (dev mode)
-  if (!expected) return NextResponse.next()
-
-  if (token !== expected) {
-    const url = request.nextUrl.clone()
-    url.pathname = ADMIN_LOGIN_PATH
-    url.searchParams.set('from', pathname)
-    return NextResponse.redirect(url)
-  }
-
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/studio/:path*'],
+  matcher: ['/studio/:path*'],
 }
