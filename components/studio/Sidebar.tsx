@@ -65,6 +65,16 @@ const NAV: NavSpec[] = [
     ),
   },
   {
+    slug:  'cruise',
+    label: 'Cruise',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 16h20M5 16l2-5h10l2 5" />
+        <path d="M7 11V8a5 5 0 0110 0v3" />
+      </svg>
+    ),
+  },
+  {
     slug:  'player',
     label: 'Player',
     icon: (

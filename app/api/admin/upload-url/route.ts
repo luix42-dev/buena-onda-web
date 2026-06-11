@@ -10,6 +10,7 @@ type UploadBody = {
   fileName?: unknown
   prefix?: unknown
   contentType?: unknown
+  key?: unknown
 }
 
 function env(name: string, fallback?: string) {
@@ -61,10 +62,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing R2 upload URL configuration' }, { status: 503 })
   }
 
-  const allowedPrefixes = new Set(['audio', 'episodes'])
+  const allowedPrefixes = new Set(['audio', 'episodes', 'cruise/video', 'cruise/audio'])
   const rawPrefix = typeof body.prefix === 'string' ? body.prefix.replace(/\/$/, '') : 'audio'
   const prefix = allowedPrefixes.has(rawPrefix) ? rawPrefix : 'audio'
-  const key = `${prefix}/${Date.now()}-${cleanFilename(rawFilename)}`
+
+  const cruiseKeyRe = /^cruise\/(video|audio)\/[a-z0-9\-/]+\.(mp4|mp3)$/
+  const rawKey = typeof body.key === 'string' ? body.key.trim() : ''
+  const key = rawKey && cruiseKeyRe.test(rawKey) && !rawKey.includes('..')
+    ? rawKey
+    : `${prefix}/${Date.now()}-${cleanFilename(rawFilename)}`
   const client = new S3Client({
     region: 'auto',
     endpoint,

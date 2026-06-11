@@ -158,3 +158,29 @@ export interface Order {
   created_at: string
   updated_at: string
 }
+
+// ── Cruise ──────────────────────────────────────────────────────────────────
+
+export interface CruiseScene {
+  id: string
+  city: string
+  city_label: string
+  route_label: string | null
+  time_of_day: string
+  title: string
+  video_key: string | null
+  duration_seconds: number | null
+  sort: number
+  published: boolean
+  created_at: string
+}
+
+export interface CruiseChannel {
+  id: string
+  name: string
+  slug: string
+  track_keys: string[]
+  sort: number
+  published: boolean
+  created_at: string
+}
