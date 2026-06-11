@@ -86,9 +86,13 @@ async function xhrUpload(
     }
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300) { resolve(); return }
-      reject(new Error(xhr.responseText || 'R2 upload failed.'))
+      console.error('[R2 upload] PUT failed', xhr.status, xhr.responseText)
+      reject(new Error(xhr.responseText || `R2 upload failed (HTTP ${xhr.status}).`))
     }
-    xhr.onerror = () => reject(new Error('R2 upload failed.'))
+    xhr.onerror = () => {
+      console.error('[R2 upload] Network error — status at failure:', xhr.status)
+      reject(new Error('R2 upload failed (network error).'))
+    }
     xhr.send(file)
   })
 }

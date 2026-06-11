@@ -54,7 +54,11 @@
       "Bash(gh run *)",
       "Bash(gh deployment *)",
       "Bash(xargs grep -l \"CF_R2\\\\|r2Client\\\\|S3Client\\\\|R2_PUBLIC\")",
-      "Bash(wsl bash *)"
+      "Bash(wsl bash *)",
+      "Bash(git rebase *)",
+      "Bash(npx tsx *)",
+      "PowerShell(Resolve-DnsName *)",
+      "Bash(claude update *)"
     ]
   }
 }
