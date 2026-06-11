@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import CruisePlaceholder from './CruisePlaceholder'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -222,7 +223,7 @@ export default function CruisePlayer({ scenes, channels }: Props) {
 
         {/* ── Video window ───────────────────────────────────────────────── */}
         <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', background: CHARCOAL, aspectRatio: '16 / 9' }}>
-          {scene && (
+          {scene && scene.video_url ? (
             <video
               key={scene.id}
               ref={videoRef}
@@ -234,6 +235,8 @@ export default function CruisePlayer({ scenes, channels }: Props) {
               x-webkit-airplay="allow"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
+          ) : (
+            <CruisePlaceholder timeOfDay={effectiveBucket} />
           )}
 
           {/* Scene label */}
