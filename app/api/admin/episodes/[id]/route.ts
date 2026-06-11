@@ -1,6 +1,7 @@
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { S3Client } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
+import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
@@ -162,7 +163,17 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     .eq('id', id)
     .single()
 
-  if (fetchError) return NextResponse.json({ error: fetchError.message }, { status: 404 })
+  if (fetchError) {
+    void logAudit({
+      subsystem: 'radio',
+      action: 'delete',
+      item_type: 'episode',
+      item_id: id,
+      success: false,
+      error_message: fetchError.message,
+    })
+    return NextResponse.json({ error: fetchError.message }, { status: 404 })
+  }
 
   let warning: string | undefined
   const audioKey = typeof episode?.audio_key === 'string' ? episode.audio_key.trim() : ''
@@ -179,6 +190,27 @@ export async function DELETE(request: NextRequest, { params }: Params) {
   }
 
   const { error } = await supabase.from('episodes').delete().eq('id', id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  if (error) {
+    void logAudit({
+      subsystem: 'radio',
+      action: 'delete',
+      item_type: 'episode',
+      item_id: id,
+      item_key: audioKey || undefined,
+      success: false,
+      error_message: error.message,
+      metadata: warning ? { warning } : undefined,
+    })
+    return NextResponse.json({ error: error.message }, { status: 400 })
+  }
+  void logAudit({
+    subsystem: 'radio',
+    action: 'delete',
+    item_type: 'episode',
+    item_id: id,
+    item_key: audioKey || undefined,
+    success: true,
+    metadata: warning ? { warning } : undefined,
+  })
   return NextResponse.json(warning ? { ok: true, warning } : { ok: true })
 }

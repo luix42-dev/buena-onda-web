@@ -1,5 +1,6 @@
 export const runtime = 'edge'
 import { NextResponse, type NextRequest } from 'next/server'
+import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
@@ -66,6 +67,26 @@ export async function POST(request: NextRequest) {
     .select()
     .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  if (error) {
+    void logAudit({
+      subsystem: 'radio',
+      action: 'create',
+      item_type: 'episode',
+      item_key: typeof audio_key === 'string' ? audio_key : undefined,
+      success: false,
+      error_message: error.message,
+      metadata: { title, episode_number },
+    })
+    return NextResponse.json({ error: error.message }, { status: 400 })
+  }
+  void logAudit({
+    subsystem: 'radio',
+    action: 'create',
+    item_type: 'episode',
+    item_id: data?.id ? String(data.id) : undefined,
+    item_key: typeof data?.audio_key === 'string' ? data.audio_key : undefined,
+    success: true,
+    metadata: { title: data?.title, episode_number: data?.episode_number },
+  })
   return NextResponse.json(data, { status: 201 })
 }

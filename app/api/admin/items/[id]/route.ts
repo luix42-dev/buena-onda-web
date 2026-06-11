@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 import { sendTelegramMessage } from '@/lib/telegram'
@@ -160,7 +161,18 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     .select('id, storage_path')
     .eq('item_id', id)
 
-  if (imagesError) return NextResponse.json({ error: imagesError.message }, { status: 400 })
+  if (imagesError) {
+    void logAudit({
+      subsystem: 'catalog',
+      action: 'delete',
+      item_type: 'item',
+      item_id: id,
+      success: false,
+      error_message: imagesError.message,
+      metadata: { stage: 'fetch_images' },
+    })
+    return NextResponse.json({ error: imagesError.message }, { status: 400 })
+  }
 
   const storageWarnings: string[] = []
   for (const image of images ?? []) {
@@ -181,10 +193,52 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     .delete()
     .eq('item_id', id)
 
-  if (imagesDeleteError) return NextResponse.json({ error: imagesDeleteError.message }, { status: 400 })
+  if (imagesDeleteError) {
+    void logAudit({
+      subsystem: 'catalog',
+      action: 'delete',
+      item_type: 'item',
+      item_id: id,
+      success: false,
+      error_message: imagesDeleteError.message,
+      metadata: {
+        stage: 'delete_image_rows',
+        image_count: images?.length ?? 0,
+        storage_warnings: storageWarnings,
+      },
+    })
+    return NextResponse.json({ error: imagesDeleteError.message }, { status: 400 })
+  }
 
   const { error } = await supabase.from('items').delete().eq('id', id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  if (error) {
+    void logAudit({
+      subsystem: 'catalog',
+      action: 'delete',
+      item_type: 'item',
+      item_id: id,
+      success: false,
+      error_message: error.message,
+      metadata: {
+        stage: 'delete_item',
+        image_count: images?.length ?? 0,
+        storage_warnings: storageWarnings,
+      },
+    })
+    return NextResponse.json({ error: error.message }, { status: 400 })
+  }
+  void logAudit({
+    subsystem: 'catalog',
+    action: 'delete',
+    item_type: 'item',
+    item_id: id,
+    success: true,
+    metadata: {
+      image_count: images?.length ?? 0,
+      storage_warnings: storageWarnings,
+      partial_storage_failure: storageWarnings.length > 0,
+    },
+  })
   return NextResponse.json({
     ok: true,
     ...(storageWarnings.length > 0 && {

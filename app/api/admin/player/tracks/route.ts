@@ -1,5 +1,6 @@
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
+import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { getR2Config, listRadioTracks } from '@/lib/radio'
 import {
@@ -45,15 +46,41 @@ export async function POST(request: NextRequest) {
 
   const trackKey = await resolveTrackKey(identifier)
   if (!trackKey) {
+    void logAudit({
+      subsystem: 'player',
+      action: 'create',
+      item_type: 'track',
+      item_key: typeof identifier === 'string' ? identifier : undefined,
+      success: false,
+      error_message: 'Track not found',
+      metadata: { fileName, displayName },
+    })
     return NextResponse.json({ error: 'Track not found' }, { status: 404 })
   }
 
   const title = typeof displayName === 'string' ? displayName : typeof fileName === 'string' ? fileName : trackKey
   try {
     await registerTrack(trackKey, title)
+    void logAudit({
+      subsystem: 'player',
+      action: 'create',
+      item_type: 'track',
+      item_key: trackKey,
+      success: true,
+      metadata: { title },
+    })
     return NextResponse.json({ ok: true, key: trackKey })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Could not register track.'
+    void logAudit({
+      subsystem: 'player',
+      action: 'create',
+      item_type: 'track',
+      item_key: trackKey,
+      success: false,
+      error_message: message,
+      metadata: { title },
+    })
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -70,14 +97,40 @@ export async function PATCH(request: NextRequest) {
 
   const trackKey = await resolveTrackKey(identifier)
   if (!trackKey) {
+    void logAudit({
+      subsystem: 'player',
+      action: 'rename',
+      item_type: 'track',
+      item_key: typeof identifier === 'string' ? identifier : undefined,
+      success: false,
+      error_message: 'Track not found',
+      metadata: { displayName },
+    })
     return NextResponse.json({ error: 'Track not found' }, { status: 404 })
   }
 
   try {
     await renameTrackTitle(trackKey, String(displayName).trim())
+    void logAudit({
+      subsystem: 'player',
+      action: 'rename',
+      item_type: 'track',
+      item_key: trackKey,
+      success: true,
+      metadata: { displayName: String(displayName).trim() },
+    })
     return NextResponse.json({ ok: true, key: trackKey })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Could not save track title.'
+    void logAudit({
+      subsystem: 'player',
+      action: 'rename',
+      item_type: 'track',
+      item_key: trackKey,
+      success: false,
+      error_message: message,
+      metadata: { displayName },
+    })
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -99,6 +152,14 @@ export async function DELETE(request: NextRequest) {
     trackKey.includes('\\') ||
     trackKey.startsWith('/')
   ) {
+    void logAudit({
+      subsystem: 'player',
+      action: 'delete',
+      item_type: 'track',
+      item_key: trackKey,
+      success: false,
+      error_message: 'Invalid key',
+    })
     return NextResponse.json({ error: 'Invalid key' }, { status: 400 })
   }
 
@@ -116,11 +177,38 @@ export async function DELETE(request: NextRequest) {
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Could not delete track from R2.'
     console.error('[player] deleteTrack: delete failed', { key: trackKey, message })
+    void logAudit({
+      subsystem: 'player',
+      action: 'delete',
+      item_type: 'track',
+      item_key: trackKey,
+      success: false,
+      error_message: message,
+      metadata: { stage: 'r2' },
+    })
     return NextResponse.json({ error: message }, { status: 500 })
   }
 
   const { error } = await supabase.from('player_tracks').delete().eq('key', trackKey)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) {
+    void logAudit({
+      subsystem: 'player',
+      action: 'delete',
+      item_type: 'track',
+      item_key: trackKey,
+      success: false,
+      error_message: error.message,
+      metadata: { stage: 'metadata' },
+    })
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 
+  void logAudit({
+    subsystem: 'player',
+    action: 'delete',
+    item_type: 'track',
+    item_key: trackKey,
+    success: true,
+  })
   return NextResponse.json({ ok: true })
 }
