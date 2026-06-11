@@ -54,10 +54,19 @@ export async function POST(request: NextRequest) {
   const accessKeyId = env('R2_ACCESS_KEY_ID', 'CF_R2_ACCESS_KEY_ID')
   const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
   const bucketName = env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
-  const endpoint = env('R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
+  const endpoint = env('R2_ENDPOINT', 'CF_R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
 
-  if (!accountId || !accessKeyId || !secretAccessKey || !bucketName || !endpoint) {
-    return NextResponse.json({ error: 'Missing R2 upload URL configuration' }, { status: 503 })
+  const missing: string[] = []
+  if (!accessKeyId) missing.push('R2_ACCESS_KEY_ID (or CF_R2_ACCESS_KEY_ID)')
+  if (!secretAccessKey) missing.push('R2_SECRET_ACCESS_KEY (or CF_R2_SECRET_ACCESS_KEY)')
+  if (!bucketName) missing.push('R2_BUCKET_NAME (or CF_R2_BUCKET_NAME)')
+  if (!endpoint) missing.push('R2_ENDPOINT (or CF_R2_ENDPOINT, or R2_ACCOUNT_ID/CF_R2_ACCOUNT_ID to derive it)')
+
+  if (missing.length > 0 || !accessKeyId || !secretAccessKey || !bucketName || !endpoint) {
+    return NextResponse.json(
+      { error: `R2 upload configuration incomplete. Missing env vars: ${missing.join(', ')}` },
+      { status: 503 }
+    )
   }
 
   const allowedPrefixes = new Set(['audio', 'episodes', 'cruise/video', 'cruise/audio'])

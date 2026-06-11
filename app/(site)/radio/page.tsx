@@ -60,7 +60,8 @@ async function loadEpisodes() {
 
     const body = (await res.json()) as EpisodesResponse
     return Array.isArray(body.episodes) ? body.episodes : []
-  } catch {
+  } catch (error) {
+    console.error('[site/radio] Failed to load episodes:', error instanceof Error ? error.message : error)
     return []
   }
 }

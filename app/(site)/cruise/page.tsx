@@ -32,6 +32,13 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
         .order('created_at', { ascending: true }),
     ])
 
+    if (scenesRes.error) {
+      console.error('[site/cruise] Supabase cruise_scenes error:', scenesRes.error.message)
+    }
+    if (channelsRes.error) {
+      console.error('[site/cruise] Supabase cruise_channels error:', channelsRes.error.message)
+    }
+
     const scenes: PlayerScene[] = (scenesRes.data ?? [])
       .filter(s => typeof s.video_key === 'string' && s.video_key.length > 0)
       .map(s => ({
@@ -54,7 +61,8 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
     }))
 
     return { scenes, channels }
-  } catch {
+  } catch (error) {
+    console.error('[site/cruise] Failed to load cruise data:', error instanceof Error ? error.message : error)
     return { scenes: [], channels: [] }
   }
 }

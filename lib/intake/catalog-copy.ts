@@ -262,56 +262,62 @@ function normalizeCopy(raw: unknown, fallback: DraftPayload): DraftPayload {
   }
 }
 
-export async function callClaudeForCopy(input: ClaudeCopyInput) {
+export async function callClaudeForCopyStrict(input: ClaudeCopyInput): Promise<DraftPayload> {
   const fallback = input.revision
     ? input.revision.draft
     : buildFallbackCopy(input.note, input.filename)
   const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) return fallback
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set')
 
-  try {
-    const client = new Anthropic({ apiKey })
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
-      system: VOICE_V2_PROMPT,
-      messages: input.revision
-        ? [
-            ...toClaudeMessages(input.revision.messages),
-            {
-              role: 'user',
-              content: [{ type: 'text', text: buildRevisionPrompt({ draft: input.revision.draft, request: input.revision.request }) }],
-            },
-          ]
-        : [{
+  const client = new Anthropic({ apiKey })
+  const response = await client.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 1024,
+    system: VOICE_V2_PROMPT,
+    messages: input.revision
+      ? [
+          ...toClaudeMessages(input.revision.messages),
+          {
             role: 'user',
-            content: [
-              ...(input.image
-                ? [{
-                    type: 'image' as const,
-                    source: {
-                      type: 'base64' as const,
-                      media_type: normalizeMediaType(input.image.contentType),
-                      data: bytesToBase64(input.image.buffer),
-                    },
-                  }]
-                : []),
-              {
-                type: 'text' as const,
-                text: buildInitialPrompt({
-                  note: input.note,
-                  sourceUrl: input.sourceUrl,
-                  filename: input.filename,
-                }),
-              },
-            ],
-          }],
-      temperature: 0.2,
-    })
+            content: [{ type: 'text', text: buildRevisionPrompt({ draft: input.revision.draft, request: input.revision.request }) }],
+          },
+        ]
+      : [{
+          role: 'user',
+          content: [
+            ...(input.image
+              ? [{
+                  type: 'image' as const,
+                  source: {
+                    type: 'base64' as const,
+                    media_type: normalizeMediaType(input.image.contentType),
+                    data: bytesToBase64(input.image.buffer),
+                  },
+                }]
+              : []),
+            {
+              type: 'text' as const,
+              text: buildInitialPrompt({
+                note: input.note,
+                sourceUrl: input.sourceUrl,
+                filename: input.filename,
+              }),
+            },
+          ],
+        }],
+    temperature: 0.2,
+  })
 
-    const parsed = parseJson(extractClaudeText(response))
-    return normalizeCopy(parsed, fallback)
+  const parsed = parseJson(extractClaudeText(response))
+  return normalizeCopy(parsed, fallback)
+}
+
+export async function callClaudeForCopy(input: ClaudeCopyInput): Promise<DraftPayload> {
+  try {
+    return await callClaudeForCopyStrict(input)
   } catch {
-    return fallback
+    return input.revision
+      ? input.revision.draft
+      : buildFallbackCopy(input.note, input.filename)
   }
 }

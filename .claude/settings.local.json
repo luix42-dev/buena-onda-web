@@ -58,7 +58,11 @@
       "Bash(git rebase *)",
       "Bash(npx tsx *)",
       "PowerShell(Resolve-DnsName *)",
-      "Bash(claude update *)"
+      "Bash(claude update *)",
+      "PowerShell(git *)",
+      "Bash(ls /mnt/)",
+      "Read(//mnt/**)",
+      "Bash(wsl.exe *)"
     ]
   }
 }

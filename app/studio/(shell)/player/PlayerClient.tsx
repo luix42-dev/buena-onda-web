@@ -409,19 +409,19 @@ export default function PlayerClient() {
         body: JSON.stringify({
           fileName: file.name,
           contentType: file.type || 'audio/mpeg',
-          folder: 'audio',
+          prefix: 'audio',
         }),
       })
       const body = await readJsonOrText(signedRes)
 
       if (!signedRes.ok) {
-        let msg = 'Could not create upload URL.'
-        if (typeof body === 'string') {
+        let msg = `HTTP ${signedRes.status}`
+        if (typeof body === 'string' && body) {
           msg = body
         } else if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
           msg = body.error
         }
-        throw new Error(msg)
+        throw new Error(`Signed URL request failed: ${msg}`)
       }
 
       const uploadData = body as { uploadUrl?: string; publicUrl?: string; key?: string }
@@ -429,14 +429,19 @@ export default function PlayerClient() {
         throw new Error('Signed upload response is incomplete.')
       }
 
-      const uploadRes = await fetch(uploadData.uploadUrl, {
-        method: 'PUT',
-        body: file,
-      })
+      let uploadRes: Response
+      try {
+        uploadRes = await fetch(uploadData.uploadUrl, {
+          method: 'PUT',
+          body: file,
+        })
+      } catch {
+        throw new Error('Transfer to storage failed: network or CORS error (no response from R2).')
+      }
 
       if (!uploadRes.ok) {
         const uploadText = await uploadRes.text().catch(() => '')
-        throw new Error(uploadText || 'R2 upload failed.')
+        throw new Error(`Transfer to storage failed: HTTP ${uploadRes.status}${uploadText ? ` — ${uploadText}` : ''}`)
       }
 
       const registerRes = await fetch('/api/admin/player/tracks', {

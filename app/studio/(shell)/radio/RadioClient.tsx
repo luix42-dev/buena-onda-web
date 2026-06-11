@@ -208,13 +208,13 @@ export default function RadioClient({ initialEpisodes }: Props) {
       const signedBody = await readJsonOrText(signedRes)
 
       if (!signedRes.ok) {
-        let msg = 'Could not create upload URL.'
-        if (typeof signedBody === 'string') {
+        let msg = `HTTP ${signedRes.status}`
+        if (typeof signedBody === 'string' && signedBody) {
           msg = signedBody
         } else if (signedBody && typeof signedBody === 'object' && 'error' in signedBody && typeof signedBody.error === 'string') {
           msg = signedBody.error
         }
-        throw new Error(msg)
+        throw new Error(`Signed URL request failed: ${msg}`)
       }
 
       const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string; key?: string }
@@ -234,9 +234,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
             resolve()
             return
           }
-          reject(new Error(xhr.responseText || 'R2 upload failed.'))
+          reject(new Error(`Transfer to storage failed: HTTP ${xhr.status}${xhr.responseText ? ` — ${xhr.responseText}` : ''}`))
         }
-        xhr.onerror = () => reject(new Error('R2 upload failed.'))
+        xhr.onerror = () => reject(new Error('Transfer to storage failed: network or CORS error (no response from R2).'))
         xhr.send(file)
       })
 
@@ -282,13 +282,13 @@ export default function RadioClient({ initialEpisodes }: Props) {
       const signedBody = await readJsonOrText(signedRes)
 
       if (!signedRes.ok) {
-        let msg = 'Could not create upload URL.'
-        if (typeof signedBody === 'string') {
+        let msg = `HTTP ${signedRes.status}`
+        if (typeof signedBody === 'string' && signedBody) {
           msg = signedBody
         } else if (signedBody && typeof signedBody === 'object' && 'error' in signedBody && typeof signedBody.error === 'string') {
           msg = signedBody.error
         }
-        throw new Error(msg)
+        throw new Error(`Signed URL request failed: ${msg}`)
       }
 
       const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string; key?: string }
@@ -296,14 +296,19 @@ export default function RadioClient({ initialEpisodes }: Props) {
         throw new Error('Signed upload response is incomplete.')
       }
 
-      const uploadRes = await fetch(uploadData.uploadUrl, {
-        method: 'PUT',
-        body: audioFile,
-      })
+      let uploadRes: Response
+      try {
+        uploadRes = await fetch(uploadData.uploadUrl, {
+          method: 'PUT',
+          body: audioFile,
+        })
+      } catch {
+        throw new Error('Transfer to storage failed: network or CORS error (no response from R2).')
+      }
 
       if (!uploadRes.ok) {
         const uploadText = await uploadRes.text().catch(() => '')
-        throw new Error(uploadText || 'R2 upload failed.')
+        throw new Error(`Transfer to storage failed: HTTP ${uploadRes.status}${uploadText ? ` — ${uploadText}` : ''}`)
       }
 
       const episodeRes = await fetch('/api/admin/episodes', {

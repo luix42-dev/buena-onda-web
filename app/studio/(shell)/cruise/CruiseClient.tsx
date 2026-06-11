@@ -87,11 +87,11 @@ async function xhrUpload(
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300) { resolve(); return }
       console.error('[R2 upload] PUT failed', xhr.status, xhr.responseText)
-      reject(new Error(xhr.responseText || `R2 upload failed (HTTP ${xhr.status}).`))
+      reject(new Error(`Transfer to storage failed: HTTP ${xhr.status}${xhr.responseText ? ` — ${xhr.responseText}` : ''}`))
     }
     xhr.onerror = () => {
       console.error('[R2 upload] Network error — status at failure:', xhr.status)
-      reject(new Error('R2 upload failed (network error).'))
+      reject(new Error('Transfer to storage failed: network or CORS error (no response from R2).'))
     }
     xhr.send(file)
   })
@@ -275,7 +275,7 @@ export default function CruiseClient({ initialScenes, initialChannels }: Props) 
       const signedBody = await readJsonOrText(signedRes)
 
       if (!signedRes.ok) {
-        throw new Error(extractErrorMessage(signedBody, 'Could not create upload URL.'))
+        throw new Error(`Signed URL request failed: ${extractErrorMessage(signedBody, `HTTP ${signedRes.status}`)}`)
       }
 
       const { uploadUrl, key } = signedBody as { uploadUrl?: string; key?: string }
@@ -331,7 +331,7 @@ export default function CruiseClient({ initialScenes, initialChannels }: Props) 
           }),
         })
         const signedBody = await readJsonOrText(signedRes)
-        if (!signedRes.ok) throw new Error(extractErrorMessage(signedBody, 'Upload URL failed.'))
+        if (!signedRes.ok) throw new Error(`Signed URL request failed: ${extractErrorMessage(signedBody, `HTTP ${signedRes.status}`)}`)
 
         const { uploadUrl, key } = signedBody as { uploadUrl?: string; key?: string }
         if (!uploadUrl || !key) throw new Error('Signed upload response is incomplete.')

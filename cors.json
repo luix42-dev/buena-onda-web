@@ -1,15 +1,16 @@
 {
   "rules": [
     {
-      "allowedOrigins": [
-        "https://buenaondalifestyle.com",
-        "https://www.buenaondalifestyle.com",
-        "http://localhost:3000"
-      ],
-      "allowedMethods": ["GET", "PUT", "HEAD", "DELETE"],
-      "allowedHeaders": ["*"],
-      "exposeHeaders": ["ETag"],
-      "maxAgeSeconds": 3600
+      "allowed": {
+        "origins": [
+          "https://buenaondalifestyle.com",
+          "https://www.buenaondalifestyle.com",
+          "https://buena-onda-web.vercel.app",
+          "http://localhost:3000"
+        ],
+        "methods": ["GET", "PUT", "HEAD"],
+        "headers": ["*"]
+      }
     }
   ]
 }
