@@ -42,9 +42,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 })
   }
 
-  const ext      = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
-  const ts       = Date.now()
-  const path     = `${folder}/${ts}.${ext}`
+  const ext           = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
+  const ts            = Date.now()
+  const customPath    = (formData.get('storagePath') as string | null)?.trim()
+  const path          = customPath || `${folder}/${ts}.${ext}`
   const arrayBuf = await file.arrayBuffer()
   const buffer   = Buffer.from(arrayBuf)
 

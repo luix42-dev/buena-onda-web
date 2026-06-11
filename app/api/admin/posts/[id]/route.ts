@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   }
 
   const { id } = await params
-  const body = await request.json()
+  const rawBody = await request.json()
   const {
     title,
     slug,
@@ -41,7 +41,13 @@ export async function PUT(request: NextRequest, { params }: Params) {
     tags,
     published,
     status,
-  } = body
+    hero_image,
+    inline_image_1,
+    inline_image_1_caption,
+    inline_image_2,
+    inline_image_2_caption,
+    editorial_note,
+  } = rawBody
 
   if (!title || !slug) {
     return NextResponse.json({ error: 'title and slug are required' }, { status: 400 })
@@ -79,6 +85,13 @@ export async function PUT(request: NextRequest, { params }: Params) {
     status:      postStatus,
     published:   postStatus === 'live',
   }
+
+  if ('hero_image' in rawBody) update.hero_image = hero_image ?? null
+  if ('inline_image_1' in rawBody) update.inline_image_1 = inline_image_1 ?? null
+  if ('inline_image_1_caption' in rawBody) update.inline_image_1_caption = inline_image_1_caption ?? null
+  if ('inline_image_2' in rawBody) update.inline_image_2 = inline_image_2 ?? null
+  if ('inline_image_2_caption' in rawBody) update.inline_image_2_caption = inline_image_2_caption ?? null
+  if ('editorial_note' in rawBody) update.editorial_note = editorial_note ?? null
 
   if (postStatus === 'live') {
     if (existing && !existing.published_at) {

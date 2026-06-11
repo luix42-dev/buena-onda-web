@@ -12,6 +12,12 @@ export interface Post {
   published: boolean
   status?: 'draft' | 'live' | null
   instagram_url?: string | null
+  hero_image?: string | null
+  inline_image_1?: string | null
+  inline_image_1_caption?: string | null
+  inline_image_2?: string | null
+  inline_image_2_caption?: string | null
+  editorial_note?: string | null
 }
 
 export interface TransmissionIssue {

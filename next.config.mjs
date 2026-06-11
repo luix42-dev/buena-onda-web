@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ['sharp', '@imgly/background-removal-node'],
   async redirects() {
     return [
       { source: '/objects', destination: '/themes', permanent: false },

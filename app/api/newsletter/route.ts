@@ -1,10 +1,10 @@
-export const runtime = 'edge'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 const NewsletterSchema = z.object({
   email: z.string().email(),
+  source: z.string().optional(),
 })
 
 function isDuplicateError(error: { code?: string; message?: string } | null) {
@@ -22,33 +22,21 @@ export async function POST(request: NextRequest) {
   }
 
   const email = parsed.data.email.trim().toLowerCase()
+  const source = parsed.data.source ?? null
 
-  let supabase: Awaited<ReturnType<typeof createClient>>
-  try {
-    supabase = await createClient()
-  } catch {
-    return NextResponse.json({ error: 'Newsletter is not configured.' }, { status: 503 })
-  }
+  const supabase = await createServiceClient()
 
   const { error } = await supabase
     .from('newsletter_subscribers')
-    .insert({ email })
+    .insert({ email, confirmed: true, source })
 
   if (isDuplicateError(error)) {
-    return NextResponse.json({
-      ok: true,
-      duplicate: true,
-      message: 'You are already on the list.',
-    })
+    return NextResponse.json({ ok: true, existing: true })
   }
 
   if (error) {
     return NextResponse.json({ error: 'Could not save subscription.' }, { status: 500 })
   }
 
-  return NextResponse.json({
-    ok: true,
-    duplicate: false,
-    message: 'You are on the list.',
-  })
+  return NextResponse.json({ ok: true })
 }

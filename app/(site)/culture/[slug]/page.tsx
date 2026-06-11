@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ScanReveal from '@/components/ui/ScanReveal'
+import SubscribeBlock from '@/components/SubscribeBlock'
 import { createClient } from '@/lib/supabase/server'
 import type { Post } from '@/types'
 
-export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 type Props = {
@@ -21,21 +22,71 @@ function formatDate(value: string | null | undefined) {
   }).format(new Date(value))
 }
 
-function renderParagraphs(text: string) {
-  return text
-    .trim()
-    .split(/\n\n+/)
-    .filter(Boolean)
-    .map((paragraph, index) => (
-      <p key={index} className="mb-6 last:mb-0">
-        {paragraph.split('\n').map((line, lineIndex, lines) => (
-          <span key={lineIndex}>
-            {line}
-            {lineIndex < lines.length - 1 ? <br /> : null}
-          </span>
-        ))}
-      </p>
-    ))
+function renderBody(post: Post) {
+  const raw = post.body?.trim()
+  if (!raw) {
+    return <p>No body copy has been published for this piece yet.</p>
+  }
+
+  const paragraphs = raw.split(/\n\n+/).filter(Boolean)
+
+  const renderParagraph = (text: string, index: number) => (
+    <p key={index} className="mb-6 last:mb-0">
+      {text.split('\n').map((line, lineIndex, lines) => (
+        <span key={lineIndex}>
+          {line}
+          {lineIndex < lines.length - 1 ? <br /> : null}
+        </span>
+      ))}
+    </p>
+  )
+
+  const renderInlineImage = (
+    src: string,
+    caption: string | null | undefined,
+    key: string
+  ) => (
+    <figure key={key} style={{ margin: '40px 0' }}>
+      <Image
+        src={src}
+        alt={caption ?? ''}
+        width={960}
+        height={540}
+        style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+      />
+      {caption ? (
+        <figcaption
+          className="font-mono"
+          style={{ fontSize: 11, color: '#7A7873', marginTop: 8 }}
+        >
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+
+  const nodes: React.ReactNode[] = []
+
+  paragraphs.forEach((para, index) => {
+    nodes.push(renderParagraph(para, index))
+
+    if (index === 2 && post.inline_image_1) {
+      nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, 'inline-1'))
+    }
+    if (index === 5 && post.inline_image_2) {
+      nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, 'inline-2'))
+    }
+  })
+
+  // Append inline images if paragraphs array is shorter than injection index
+  if (paragraphs.length <= 3 && post.inline_image_1) {
+    nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, 'inline-1-tail'))
+  }
+  if (paragraphs.length <= 6 && post.inline_image_2) {
+    nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, 'inline-2-tail'))
+  }
+
+  return <>{nodes}</>
 }
 
 async function getPost(slug: string) {
@@ -61,6 +112,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt ?? undefined,
+    openGraph: post.hero_image
+      ? { images: [{ url: post.hero_image, width: 1280, height: 640 }] }
+      : undefined,
   }
 }
 
@@ -76,7 +130,20 @@ export default async function CulturePostPage({ params }: Props) {
 
   return (
     <>
-      <div className="pt-32 pb-16 bg-warm-page">
+      {post.hero_image ? (
+        <div style={{ lineHeight: 0 }}>
+          <Image
+            src={post.hero_image}
+            alt={post.title}
+            width={1280}
+            height={640}
+            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+            priority
+          />
+        </div>
+      ) : null}
+
+      <div className="pt-16 pb-16 bg-warm-page">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>
             <Link href="/culture" className="archive-label text-[0.58rem] text-teal">
@@ -111,9 +178,40 @@ export default async function CulturePostPage({ params }: Props) {
 
           <ScanReveal delay={80}>
             <article className="prose-brand max-w-3xl text-near-black text-base leading-relaxed">
-              {post.body?.trim()
-                ? renderParagraphs(post.body)
-                : <p>No body copy has been published for this piece yet.</p>}
+              {post.editorial_note ? (
+                <div style={{ position: 'relative', marginBottom: 32 }}>
+                  <span
+                    className="font-mono"
+                    style={{
+                      display: 'block',
+                      fontSize: 10,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.18em',
+                      color: '#E8176A',
+                      marginBottom: 8,
+                    }}
+                  >
+                    A Note on Voice
+                  </span>
+                  <div
+                    style={{
+                      border: '1px solid #0E0E0E',
+                      padding: '20px 24px',
+                      background: '#F2F1EB',
+                      position: 'relative',
+                    }}
+                  >
+                    <p
+                      className="font-serif"
+                      style={{ fontStyle: 'italic', fontSize: 14, color: '#2A2A28', margin: 0 }}
+                    >
+                      {post.editorial_note}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+
+              {renderBody(post)}
             </article>
           </ScanReveal>
 
@@ -134,6 +232,8 @@ export default async function CulturePostPage({ params }: Props) {
           ) : null}
         </div>
       </section>
+
+      <SubscribeBlock source={post.slug} />
     </>
   )
 }
