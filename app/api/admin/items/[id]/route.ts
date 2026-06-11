@@ -155,7 +155,40 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
   const { id } = await params
   const supabase = await createServiceClient()
+  const { data: images, error: imagesError } = await supabase
+    .from('item_images')
+    .select('id, storage_path')
+    .eq('item_id', id)
+
+  if (imagesError) return NextResponse.json({ error: imagesError.message }, { status: 400 })
+
+  const storageWarnings: string[] = []
+  for (const image of images ?? []) {
+    if (!image.storage_path) continue
+
+    const { error: storageError } = await supabase.storage
+      .from('catalog')
+      .remove([image.storage_path])
+
+    if (storageError) {
+      console.error('[items/delete] Storage removal failed:', image.storage_path, storageError.message)
+      storageWarnings.push(image.storage_path)
+    }
+  }
+
+  const { error: imagesDeleteError } = await supabase
+    .from('item_images')
+    .delete()
+    .eq('item_id', id)
+
+  if (imagesDeleteError) return NextResponse.json({ error: imagesDeleteError.message }, { status: 400 })
+
   const { error } = await supabase.from('items').delete().eq('id', id)
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({
+    ok: true,
+    ...(storageWarnings.length > 0 && {
+      warning: `Storage removal failed for: ${storageWarnings.join(', ')}`,
+    }),
+  })
 }
