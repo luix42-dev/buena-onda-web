@@ -1,4 +1,5 @@
-export const runtime = 'edge'
+import { DeleteObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
@@ -6,6 +7,33 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 interface Params { params: Promise<{ id: string }> }
 
 type ServiceClient = Awaited<ReturnType<typeof createServiceClient>>
+
+function env(name: string, fallback?: string) {
+  return process.env[name] ?? (fallback ? process.env[fallback] : undefined)
+}
+
+function getR2DeleteConfig() {
+  const accountId = env('R2_ACCOUNT_ID', 'CF_R2_ACCOUNT_ID')
+  const accessKeyId = env('R2_ACCESS_KEY_ID', 'CF_R2_ACCESS_KEY_ID')
+  const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
+  const bucketName = env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
+  const endpoint = env('R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
+
+  if (!accountId || !accessKeyId || !secretAccessKey || !bucketName || !endpoint) {
+    throw new Error('Missing R2 environment variables')
+  }
+
+  return {
+    bucketName,
+    client: new S3Client({
+      region: 'auto',
+      endpoint,
+      credentials: { accessKeyId, secretAccessKey },
+      requestChecksumCalculation: 'WHEN_REQUIRED',
+      responseChecksumValidation: 'WHEN_REQUIRED',
+    }),
+  }
+}
 
 async function buildPublishedUpdate(supabase: ServiceClient, id: string, published: boolean) {
   if (!published) {
@@ -55,6 +83,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     slug,
     description,
     audio_url,
+    audio_key,
     episode_number,
     duration,
     tags,
@@ -72,6 +101,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     slug,
     description:    description || null,
     audio_url:      audio_url || null,
+    audio_key:      audio_key || null,
     episode_number: episode_number != null ? parseInt(episode_number) : null,
     duration:       duration != null ? parseInt(duration) : null,
     tags:           tags ?? [],
@@ -125,7 +155,30 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
   const { id } = await params
   const supabase = await createServiceClient()
+
+  const { data: episode, error: fetchError } = await supabase
+    .from('episodes')
+    .select('audio_key')
+    .eq('id', id)
+    .single()
+
+  if (fetchError) return NextResponse.json({ error: fetchError.message }, { status: 404 })
+
+  let warning: string | undefined
+  const audioKey = typeof episode?.audio_key === 'string' ? episode.audio_key.trim() : ''
+
+  if (audioKey && audioKey.startsWith('episodes/') && !audioKey.includes('..') && !audioKey.startsWith('/')) {
+    try {
+      const { client, bucketName } = getR2DeleteConfig()
+      await client.send(new DeleteObjectCommand({ Bucket: bucketName, Key: audioKey }))
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Could not delete episode audio from R2.'
+      warning = `Episode row deleted, but R2 cleanup failed: ${message}`
+      console.error('[radio] deleteEpisode: R2 cleanup failed', { id, audioKey, message })
+    }
+  }
+
   const { error } = await supabase.from('episodes').delete().eq('id', id)
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
-  return NextResponse.json({ ok: true })
+  return NextResponse.json(warning ? { ok: true, warning } : { ok: true })
 }

@@ -11,6 +11,8 @@ type Props = {
   initialEpisodes: Episode[]
 }
 
+type EpisodeWithAudioKey = Episode & { audio_key?: string | null }
+
 function formatDate(value: string | null | undefined) {
   if (!value) return 'n/a'
   return new Intl.DateTimeFormat('en-US', {
@@ -107,6 +109,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const [tags, setTags] = useState('archive, radio')
   const [published, setPublished] = useState(false)
   const [audioUrl, setAudioUrl] = useState('')
+  const [audioKey, setAudioKey] = useState('')
   const [audioFile, setAudioFile] = useState<File | null>(null)
   const [editUploading, setEditUploading] = useState(false)
   const [editUploadProgress, setEditUploadProgress] = useState<number | null>(null)
@@ -141,6 +144,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setEditingEpisode(null)
     setAudioFile(null)
     setAudioUrl('')
+    setAudioKey('')
     if (fileRef.current) fileRef.current.value = ''
     if (editFileRef.current) editFileRef.current.value = ''
     setEditUploading(false)
@@ -157,6 +161,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setTags('archive, radio')
     setPublished(false)
     setAudioUrl('')
+    setAudioKey('')
     setAudioFile(null)
     setError(null)
     setEditUploading(false)
@@ -174,6 +179,8 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setTags((episode.tags ?? []).join(', '))
     setPublished(episode.published)
     setAudioUrl(episode.audio_url ?? '')
+    const episodeWithAudioKey = episode as EpisodeWithAudioKey
+    setAudioKey(typeof episodeWithAudioKey.audio_key === 'string' ? episodeWithAudioKey.audio_key : '')
     setAudioFile(null)
     setError(null)
     setEditUploading(false)
@@ -210,8 +217,8 @@ export default function RadioClient({ initialEpisodes }: Props) {
         throw new Error(msg)
       }
 
-      const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string }
-      if (!uploadData.uploadUrl || !uploadData.publicUrl) {
+      const uploadData = signedBody as { uploadUrl?: string; publicUrl?: string; key?: string }
+      if (!uploadData.uploadUrl || !uploadData.publicUrl || !uploadData.key) {
         throw new Error('Signed upload response is incomplete.')
       }
 
@@ -234,6 +241,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
       })
 
       setAudioUrl(uploadData.publicUrl)
+      setAudioKey(uploadData.key)
       setEditUploadProgress(100)
       toast('Audio uploaded. Review and save changes.')
     } catch (err) {
@@ -305,6 +313,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
           title: nextTitle,
           description: description.trim() || undefined,
           audio_url: uploadData.publicUrl,
+          audio_key: uploadData.key,
           episode_number: episodeNumber ? parseInt(episodeNumber, 10) : null,
           duration: duration ? parseInt(duration, 10) : null,
           tags: parseTags(tags),
@@ -354,6 +363,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
           slug: slugify(title.trim()),
           description: description.trim() || undefined,
           audio_url: audioUrl.trim() || undefined,
+          audio_key: audioKey.trim() || undefined,
           episode_number: episodeNumber ? parseInt(episodeNumber, 10) : null,
           duration: duration ? parseInt(duration, 10) : null,
           tags: parseTags(tags),
