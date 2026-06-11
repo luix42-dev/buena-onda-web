@@ -32,7 +32,16 @@ function fromFallback(): TimelineEra[] {
   }))
 }
 
-async function loadTimelineData(): Promise<TimelineEra[]> {
+function TimelineError({ message }: { message: string }) {
+  return (
+    <div style={{ padding: '2rem', color: '#E8176A', fontFamily: 'monospace' }}>
+      <strong>Data source unavailable.</strong>
+      <pre style={{ marginTop: '1rem', fontSize: '0.85rem' }}>{message}</pre>
+    </div>
+  )
+}
+
+async function loadTimelineData(): Promise<{ data?: TimelineEra[], error?: string }> {
   try {
     const supabase = await createServiceClient()
     const { data, error } = await supabase
@@ -40,9 +49,13 @@ async function loadTimelineData(): Promise<TimelineEra[]> {
       .select('id, slug, year, title, summary, story, photo, photos, sort_order')
       .order('sort_order')
 
-    if (error) throw error
+    if (error) {
+      console.error('[studio/timeline] Supabase timeline error:', error.message)
+      return { error: error.message }
+    }
     if (data?.length) {
-      return (data as TimelineRow[]).map(row => ({
+      return {
+        data: (data as TimelineRow[]).map(row => ({
         id: String(row.id),
         slug: row.slug,
         year: row.year,
@@ -52,17 +65,21 @@ async function loadTimelineData(): Promise<TimelineEra[]> {
         photo: row.photo ?? null,
         photos: Array.isArray(row.photos) ? row.photos : [],
         sort_order: row.sort_order ?? 0,
-      }))
+        })),
+      }
     }
-  } catch {
-    // Fall back to the checked-in canonical timeline.
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unable to initialize Supabase client'
+    console.error('[studio/timeline] Supabase client error:', message)
+    return { error: message }
   }
 
-  return fromFallback()
+  return { data: fromFallback() }
 }
 
 export default async function TimelinePage() {
-  const initialEras = await loadTimelineData()
+  const { data: initialEras, error } = await loadTimelineData()
+  if (error) return <TimelineError message={error} />
 
-  return <TimelineClient initialEras={initialEras} />
+  return <TimelineClient initialEras={initialEras ?? []} />
 }
