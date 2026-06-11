@@ -44,3 +44,11 @@ public/audio/
 .env*.save
 .gstack/
 .worktrees/
+
+# Accidentally tracked git internals
+origin/
+refs/
+
+# Accidentally tracked git internals
+origin/
+refs/
