@@ -80,7 +80,7 @@ function getYouTubeEmbedUrl(urlString: string): string {
     }
 
     if (url.pathname === '/playlist' && list) {
-      return `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}`
+      return `https://www.youtube.com/embed?listType=playlist&list=${encodeURIComponent(list)}`
     }
 
     if (videoId && list) {
@@ -92,7 +92,7 @@ function getYouTubeEmbedUrl(urlString: string): string {
     }
 
     if (list) {
-      return `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}`
+      return `https://www.youtube.com/embed?listType=playlist&list=${encodeURIComponent(list)}`
     }
 
     if (url.pathname.startsWith('/embed/')) {
