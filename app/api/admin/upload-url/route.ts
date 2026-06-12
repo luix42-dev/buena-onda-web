@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
       Key: key,
     })
     const url = await getSignedUrl(client as any, command as any, {
-      expiresIn: 300,
+      expiresIn: 3600,
       signableHeaders: new Set(['host']),
       unhoistableHeaders: new Set(),
     } as any)

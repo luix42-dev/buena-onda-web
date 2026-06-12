@@ -296,20 +296,27 @@ export default function RadioClient({ initialEpisodes }: Props) {
         throw new Error('Signed upload response is incomplete.')
       }
 
-      let uploadRes: Response
-      try {
-        uploadRes = await fetch(uploadData.uploadUrl, {
-          method: 'PUT',
-          body: audioFile,
-        })
-      } catch {
-        throw new Error('Transfer to storage failed: network or CORS error (no response from R2).')
-      }
-
-      if (!uploadRes.ok) {
-        const uploadText = await uploadRes.text().catch(() => '')
-        throw new Error(`Transfer to storage failed: HTTP ${uploadRes.status}${uploadText ? ` — ${uploadText}` : ''}`)
-      }
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', uploadData.uploadUrl!)
+        xhr.timeout = 0
+        xhr.setRequestHeader('Content-Type', audioFile.type || 'audio/mpeg')
+        xhr.upload.onprogress = event => {
+          if (!event.lengthComputable) return
+          console.info('Episode upload progress', Math.round((event.loaded / event.total) * 100))
+        }
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            resolve()
+            return
+          }
+          reject(new Error(`Transfer to storage failed: HTTP ${xhr.status}${xhr.responseText ? ` - ${xhr.responseText}` : ''}`))
+        }
+        xhr.onerror = () => reject(new Error(xhr.status ? `Transfer to storage failed: HTTP ${xhr.status}` : 'Upload failed'))
+        xhr.onabort = () => reject(new Error(xhr.status ? `Transfer to storage aborted: HTTP ${xhr.status}` : 'Upload failed'))
+        xhr.ontimeout = () => reject(new Error(xhr.status ? `Transfer to storage timed out: HTTP ${xhr.status}` : 'Upload failed'))
+        xhr.send(audioFile)
+      })
 
       const episodeRes = await fetch('/api/admin/episodes', {
         method: 'POST',
