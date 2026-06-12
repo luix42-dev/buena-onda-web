@@ -487,10 +487,16 @@ export default function EventEditor({ event }: Props) {
                     <input
                       type="file"
                       accept="image/*,.pdf"
+                      multiple
                       style={{ display: 'none' }}
-                      onChange={e => {
+                      onChange={async e => {
                         const files = Array.from(e.target.files ?? [])
-                        if (files[0]) uploadIntoSheet(idx, files[0])
+                        if (files[0]) await uploadIntoSheet(idx, files[0])
+                        for (const [offset, file] of files.slice(1).entries()) {
+                          const nextIdx = archiveSheets.length + offset
+                          setArchiveSheets(prev => [...prev, blankSheet()])
+                          await uploadIntoSheet(nextIdx, file)
+                        }
                         e.target.value = ''
                       }}
                     />
