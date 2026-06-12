@@ -6,6 +6,7 @@ import ScanReveal from '@/components/ui/ScanReveal'
 import GalleryGrid from '@/components/ui/GalleryGrid'
 import SignupSheetArchive from '@/components/ui/SignupSheetArchive'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import PlaylistPlayer from './PlaylistPlayer'
 
 export const runtime = 'edge'
 
@@ -13,6 +14,7 @@ export const dynamic = 'force-dynamic'
 
 type GalleryItem = { image?: string; caption?: string }
 type VideoItem = { url?: string; label?: string }
+type StoredVideoItem = VideoItem | string
 type AudioFile = { file?: string; label?: string }
 type Partner = { name?: string; logo?: string }
 type ArchiveSheet = { file?: string; label?: string }
@@ -31,7 +33,7 @@ type LiveEvent = {
   lineup: string | null
   cover_image_url: string | null
   gallery: GalleryItem[] | null
-  videos: VideoItem[] | null
+  videos: StoredVideoItem[] | null
   playlist_url: string | null
   audio_files: AudioFile[] | null
   partners: Partner[] | null
@@ -107,6 +109,27 @@ function getYouTubeEmbedUrl(urlString: string): string {
   }
 }
 
+function normalizeVideos(value: LiveEvent['videos']): Array<{ url: string; label?: string }> {
+  if (!Array.isArray(value)) return []
+  return value
+    .map(item => {
+      if (typeof item === 'string') return { url: item }
+      return { url: item.url ?? '', label: item.label }
+    })
+    .filter(item => item.url)
+}
+
+function getYouTubePlaylistId(urlString: string): string {
+  const input = urlString.trim()
+  if (!input) return ''
+  try {
+    const url = new URL(input)
+    return url.searchParams.get('list') ?? ''
+  } catch {
+    return ''
+  }
+}
+
 async function getEvent(slug: string) {
   const supabase = createServiceRoleClient()
   const { data, error } = await supabase.from('events').select('*').eq('slug', slug).single()
@@ -131,8 +154,9 @@ export default async function EventDetailPage({ params }: Props) {
   const [titleOne, titleTwo] = titleParts(event.name)
   const isOndaTropical = event.slug.toLowerCase() === 'onda-tropical'
   const gallery = event.gallery?.filter(item => item.image) ?? []
-  const videos = event.videos?.filter(item => item.url) ?? []
+  const videos = normalizeVideos(event.videos)
   const playlistEmbed = getYouTubeEmbedUrl(event.playlist_url ?? '')
+  const playlistId = getYouTubePlaylistId(event.playlist_url ?? '')
   const audioFiles = event.audio_files?.filter(item => item.file) ?? []
   const partners = event.partners?.filter(item => item.name || item.logo) ?? []
   const archiveSheets = event.archive_sheets?.filter(item => item.file) ?? []
@@ -242,7 +266,13 @@ export default async function EventDetailPage({ params }: Props) {
               return src ? <VideoFrame key={(video.url ?? 'video') + '-' + i} title={video.label ?? 'Video ' + (i + 1)} src={src} /> : null
             })}
           </div>
-          {playlistEmbed ? <div className='mt-10'><VideoFrame title='Full playlist' src={playlistEmbed} full /></div> : null}
+          {playlistEmbed ? (
+            <PlaylistPlayer
+              playlistEmbed={playlistEmbed}
+              videos={videos}
+              playlistId={playlistId}
+            />
+          ) : null}
         </EditorialSection>
       ) : null}
 

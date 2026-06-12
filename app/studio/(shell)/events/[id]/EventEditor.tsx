@@ -43,6 +43,14 @@ function blankVideo(): EventVideo {
   return { url: '', label: '' }
 }
 
+function normalizeVideos(value: LiveEvent['videos']): EventVideo[] {
+  if (!Array.isArray(value)) return []
+  return value.map(item => {
+    if (typeof item === 'string') return { url: item, label: '' }
+    return { url: item.url ?? '', label: item.label ?? '' }
+  })
+}
+
 function blankAudio(): EventAudioFile {
   return { file: '', label: '' }
 }
@@ -76,7 +84,7 @@ export default function EventEditor({ event }: Props) {
   const [lineup, setLineup] = useState(event?.lineup ?? '')
   const [coverImageUrl, setCoverImageUrl] = useState(event?.cover_image_url ?? '')
   const [gallery, setGallery] = useState<EventGalleryItem[]>(event?.gallery ?? [])
-  const [videos, setVideos] = useState<EventVideo[]>(event?.videos ?? [])
+  const [videos, setVideos] = useState<EventVideo[]>(normalizeVideos(event?.videos ?? []))
   const [playlistUrl, setPlaylistUrl] = useState(event?.playlist_url ?? '')
   const [audioFiles, setAudioFiles] = useState<EventAudioFile[]>(event?.audio_files ?? [])
   const [partners, setPartners] = useState<EventPartner[]>(event?.partners ?? [])
@@ -98,7 +106,7 @@ export default function EventEditor({ event }: Props) {
     setLineup(event?.lineup ?? '')
     setCoverImageUrl(event?.cover_image_url ?? '')
     setGallery(event?.gallery ?? [])
-    setVideos(event?.videos ?? [])
+    setVideos(normalizeVideos(event?.videos ?? []))
     setPlaylistUrl(event?.playlist_url ?? '')
     setAudioFiles(event?.audio_files ?? [])
     setPartners(event?.partners ?? [])
@@ -393,7 +401,7 @@ export default function EventEditor({ event }: Props) {
                 <input
                   value={item.label ?? ''}
                   onChange={e => setVideos(prev => prev.map((row, i) => i === idx ? { ...row, label: e.target.value } : row))}
-                  placeholder="Label"
+                  placeholder="Video title"
                 />
               </>
             )}

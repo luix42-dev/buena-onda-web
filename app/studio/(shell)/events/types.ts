@@ -10,6 +10,8 @@ export type EventVideo = {
   label?: string
 }
 
+export type StoredEventVideo = EventVideo | string
+
 export type EventAudioFile = {
   file: string
   label: string
@@ -39,7 +41,7 @@ export interface LiveEvent {
   lineup: string | null
   cover_image_url: string | null
   gallery: EventGalleryItem[] | null
-  videos: EventVideo[] | null
+  videos: StoredEventVideo[] | null
   playlist_url: string | null
   audio_files: EventAudioFile[] | null
   partners: EventPartner[] | null
