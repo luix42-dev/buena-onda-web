@@ -439,22 +439,89 @@ export default function EventEditor({ event }: Props) {
 
         <div className="hpcard in">
           <div className="hk">Archive</div>
-          <ArrayEditor
-            title="Signup sheets"
-            items={archiveSheets}
-            addItem={() => setArchiveSheets(prev => [...prev, blankSheet()])}
-            render={(item, idx) => (
-              <>
-                <UploadRow label="File" value={item.file} accept="image/*,.pdf" onUpload={file => uploadIntoSheet(idx, file)} />
-                <input
-                  value={item.label}
-                  onChange={e => setArchiveSheets(prev => prev.map((row, i) => i === idx ? { ...row, label: e.target.value } : row))}
-                  placeholder="Open Decks #1 - March 2025"
-                />
-              </>
-            )}
-            remove={idx => setArchiveSheets(prev => prev.filter((_, i) => i !== idx))}
-          />
+          <div className="field">
+            <label>Signup sheets</label>
+            <div style={{ display: 'grid', gap: 10 }}>
+              {archiveSheets.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: 10,
+                    minWidth: 0,
+                    padding: 10,
+                    border: '1px solid var(--line)',
+                    background: 'var(--paper-2)',
+                  }}
+                >
+                  <label
+                    className="btn ghost"
+                    style={{
+                      width: 112,
+                      minWidth: 112,
+                      height: 72,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: item.file ? 0 : '10px 12px',
+                      overflow: 'hidden',
+                      whiteSpace: item.file ? 'normal' : 'nowrap',
+                    }}
+                  >
+                    {item.file ? (
+                      item.file.toLowerCase().split('?')[0].endsWith('.pdf') ? (
+                        <span style={{ fontSize: 12, fontWeight: 700 }}>PDF</span>
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={item.file}
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      )
+                    ) : (
+                      'Upload sheet'
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*,.pdf"
+                      style={{ display: 'none' }}
+                      onChange={e => {
+                        const files = Array.from(e.target.files ?? [])
+                        if (files[0]) uploadIntoSheet(idx, files[0])
+                        e.target.value = ''
+                      }}
+                    />
+                  </label>
+                  <div style={{ flex: '1 1 220px', minWidth: 0, display: 'grid', gap: 6 }}>
+                    <input
+                      value={item.label}
+                      onChange={e => setArchiveSheets(prev => prev.map((row, i) => i === idx ? { ...row, label: e.target.value } : row))}
+                      placeholder="Open Decks #1 - March 2025"
+                    />
+                    {item.file ? (
+                      <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 11, color: '#999', minWidth: 0 }}>
+                        {item.file}
+                      </div>
+                    ) : null}
+                  </div>
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    style={{ marginLeft: 'auto', flex: '0 0 auto' }}
+                    onClick={() => setArchiveSheets(prev => prev.filter((_, i) => i !== idx))}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button type="button" className="btn ghost" onClick={() => setArchiveSheets(prev => [...prev, blankSheet()])}>
+                + Add signup sheets
+              </button>
+            </div>
+          </div>
           <div className="field">
             <label htmlFor="event-archive-notes">Archivist notes</label>
             <textarea id="event-archive-notes" rows={5} value={archiveNotes} onChange={e => setArchiveNotes(e.target.value)} />
