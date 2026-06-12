@@ -70,6 +70,25 @@ export default function PlaylistPlayer({ playlistEmbed, videos, playlistId }: Pr
         />
       </div>
 
+      {playlistId ? (
+        <a
+          href={`https://www.youtube.com/playlist?list=${playlistId}`}
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{
+            display: 'inline-block',
+            marginTop: '12px',
+            fontSize: '0.875rem',
+            color: '#1A9E9E',
+            textDecoration: 'none',
+          }}
+          onMouseEnter={event => { event.currentTarget.style.textDecoration = 'underline' }}
+          onMouseLeave={event => { event.currentTarget.style.textDecoration = 'none' }}
+        >
+          Watch full playlist on YouTube →
+        </a>
+      ) : null}
+
       {playableVideos.length > 0 ? (
         <div className='mt-6 border-t border-pale-stone'>
           {playableVideos.map((video, index) => {
