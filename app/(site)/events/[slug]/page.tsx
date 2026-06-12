@@ -156,6 +156,7 @@ export default async function EventDetailPage({ params }: Props) {
   const gallery = event.gallery?.filter(item => item.image) ?? []
   const videos = normalizeVideos(event.videos)
   const playlistEmbed = getYouTubeEmbedUrl(event.playlist_url ?? '')
+  const playlistThumbnailUrl = event.cover_image_url ?? gallery[0]?.image
   const playlistId = getYouTubePlaylistId(event.playlist_url ?? '')
   const audioFiles = event.audio_files?.filter(item => item.file) ?? []
   const partners = event.partners?.filter(item => item.name || item.logo) ?? []
@@ -271,6 +272,7 @@ export default async function EventDetailPage({ params }: Props) {
               playlistEmbed={playlistEmbed}
               videos={videos}
               playlistId={playlistId}
+              thumbnailUrl={playlistThumbnailUrl}
             />
           ) : null}
         </EditorialSection>

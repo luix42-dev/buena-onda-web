@@ -11,6 +11,7 @@ type Props = {
   playlistEmbed: string
   videos: PlaylistVideo[]
   playlistId: string
+  thumbnailUrl?: string
 }
 
 function getVideoEmbedUrl(urlString: string, playlistId: string) {
@@ -39,7 +40,7 @@ function getVideoEmbedUrl(urlString: string, playlistId: string) {
   }
 }
 
-export default function PlaylistPlayer({ playlistEmbed, videos, playlistId }: Props) {
+export default function PlaylistPlayer({ playlistEmbed, videos, playlistId, thumbnailUrl }: Props) {
   const playableVideos = useMemo(() => (
     videos
       .map((video, index) => ({
@@ -54,36 +55,69 @@ export default function PlaylistPlayer({ playlistEmbed, videos, playlistId }: Pr
   const activeVideo = activeIndex == null ? null : playableVideos[activeIndex]
   const activeSrc = activeVideo?.embed || playlistEmbed
   const activeTitle = activeVideo?.title || 'Full playlist'
+  const playlistUrl = playlistId ? `https://www.youtube.com/playlist?list=${playlistId}` : ''
 
-  if (!activeSrc) return null
+  if (!activeSrc && !(thumbnailUrl && playlistUrl)) return null
 
   return (
     <div className='mt-10'>
       <p className='archive-label text-[0.58rem] mb-3'>Full playlist</p>
-      <div className='aspect-video bg-near-black overflow-hidden rounded-[3px]'>
-        <iframe
-          src={activeSrc}
-          title={activeTitle}
-          className='w-full h-full'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-          allowFullScreen
-        />
+      <div className='aspect-video bg-near-black overflow-hidden rounded-[3px]' style={{ position: 'relative' }}>
+        {thumbnailUrl && playlistUrl ? (
+          <a
+            href={playlistUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='Watch full playlist on YouTube'
+          >
+            <img src={thumbnailUrl} alt={activeTitle} className='w-full h-full object-cover' />
+            <span
+              aria-hidden='true'
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '64px',
+                height: '64px',
+                borderRadius: '9999px',
+                background: 'rgba(0, 0, 0, 0.55)',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '28px',
+                lineHeight: 1,
+              }}
+            >
+              ▶
+            </span>
+          </a>
+        ) : (
+          <iframe
+            src={activeSrc}
+            title={activeTitle}
+            className='w-full h-full'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          />
+        )}
       </div>
 
-      {playlistId ? (
+      {playlistUrl ? (
         <a
-          href={`https://www.youtube.com/playlist?list=${playlistId}`}
+          href={playlistUrl}
           target='_blank'
           rel='noopener noreferrer'
           style={{
             display: 'inline-block',
             marginTop: '12px',
-            fontSize: '0.875rem',
+            fontSize: '1rem',
+            fontWeight: 600,
             color: '#1A9E9E',
-            textDecoration: 'none',
+            textDecoration: 'underline',
+            textDecorationColor: '#1A9E9E',
           }}
-          onMouseEnter={event => { event.currentTarget.style.textDecoration = 'underline' }}
-          onMouseLeave={event => { event.currentTarget.style.textDecoration = 'none' }}
         >
           Watch full playlist on YouTube →
         </a>
