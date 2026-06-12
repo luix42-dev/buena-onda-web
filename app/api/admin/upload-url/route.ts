@@ -25,8 +25,8 @@ function cleanFilename(value: string) {
     .slice(0, 160) || fallback
 }
 
-function publicBaseUrl(endpoint: string) {
-  return (env('R2_PUBLIC_URL', 'CF_R2_PUBLIC_URL') ?? endpoint).replace(/\/$/, '')
+function publicBaseUrl() {
+  return env('R2_PUBLIC_URL', 'CF_R2_PUBLIC_URL')?.replace(/\/$/, '')
 }
 
 export async function POST(request: NextRequest) {
@@ -55,16 +55,24 @@ export async function POST(request: NextRequest) {
   const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
   const bucketName = env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
   const endpoint = env('R2_ENDPOINT', 'CF_R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
+  const publicUrlBase = publicBaseUrl()
 
   const missing: string[] = []
-  if (!accessKeyId) missing.push('R2_ACCESS_KEY_ID (or CF_R2_ACCESS_KEY_ID)')
-  if (!secretAccessKey) missing.push('R2_SECRET_ACCESS_KEY (or CF_R2_SECRET_ACCESS_KEY)')
-  if (!bucketName) missing.push('R2_BUCKET_NAME (or CF_R2_BUCKET_NAME)')
-  if (!endpoint) missing.push('R2_ENDPOINT (or CF_R2_ENDPOINT, or R2_ACCOUNT_ID/CF_R2_ACCOUNT_ID to derive it)')
+  if (!accessKeyId) missing.push('R2_ACCESS_KEY_ID')
+  if (!secretAccessKey) missing.push('R2_SECRET_ACCESS_KEY')
+  if (!bucketName) missing.push('R2_BUCKET_NAME')
+  if (!endpoint) missing.push('R2_ACCOUNT_ID')
 
   if (missing.length > 0 || !accessKeyId || !secretAccessKey || !bucketName || !endpoint) {
     return NextResponse.json(
-      { error: `R2 upload configuration incomplete. Missing env vars: ${missing.join(', ')}` },
+      { error: `Missing R2 env vars: ${missing.join(', ')}` },
+      { status: 503 }
+    )
+  }
+
+  if (!publicUrlBase) {
+    return NextResponse.json(
+      { error: 'Missing R2_PUBLIC_URL — cannot build public playback URL' },
       { status: 503 }
     )
   }
@@ -100,7 +108,7 @@ export async function POST(request: NextRequest) {
     if (signedHeaders !== 'host') {
       throw new Error(`Unexpected signed headers: ${signedHeaders ?? 'none'}`)
     }
-    const publicUrl = `${publicBaseUrl(endpoint)}/${key}`
+    const publicUrl = `${publicUrlBase}/${key}`
     return NextResponse.json({ url, uploadUrl: url, publicUrl, key })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Could not create upload URL'
