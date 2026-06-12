@@ -13,6 +13,10 @@ function formatUnavailable() {
   return NextResponse.json({ error: 'ITEM_UNAVAILABLE' }, { status: 400 })
 }
 
+function isDirectPurchaseModel(value: string | null | undefined) {
+  return value === 'direct' || value === 'direct_purchase'
+}
+
 export async function GET(request: NextRequest) {
   const parsed = QuerySchema.safeParse({
     itemId: request.nextUrl.searchParams.get('itemId'),
@@ -38,7 +42,7 @@ export async function GET(request: NextRequest) {
     !item ||
     item.status !== 'published' ||
     item.availability !== 'available' ||
-    item.sourcing_model !== 'direct' ||
+    !isDirectPurchaseModel(item.sourcing_model) ||
     !Number.isFinite(amount) ||
     amount <= 0
   ) {

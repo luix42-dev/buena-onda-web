@@ -21,6 +21,10 @@ function getPaymentIntentId(paymentIntent: Stripe.Checkout.Session['payment_inte
   return typeof paymentIntent === 'string' ? paymentIntent : null
 }
 
+function isDirectPurchaseModel(value: string | null | undefined) {
+  return value === 'direct' || value === 'direct_purchase'
+}
+
 export async function POST(request: NextRequest) {
   let body: unknown
   try {
@@ -61,7 +65,7 @@ export async function POST(request: NextRequest) {
   if (
     item.status !== 'published' ||
     item.availability !== 'available' ||
-    item.sourcing_model !== 'direct' ||
+    !isDirectPurchaseModel(item.sourcing_model) ||
     !Number.isFinite(amountTotal) ||
     amountTotal <= 0
   ) {

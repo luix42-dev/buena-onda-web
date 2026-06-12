@@ -1,5 +1,5 @@
 export type ItemAvailability = 'available' | 'reserved' | 'sold'
-export type ItemSourcingModel = 'reservation' | 'direct'
+export type ItemSourcingModel = 'reservation' | 'direct' | 'direct_purchase'
 export type ItemStatus       = 'draft' | 'published' | 'archived' | 'sold_out'
 
 export interface Theme {

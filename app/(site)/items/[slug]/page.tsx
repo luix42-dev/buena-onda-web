@@ -30,17 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       .eq('slug', slug)
       .eq('status', 'published')
       .single()
-
     if (data) {
       return {
-        title: `${data.catalog_number ? `${data.catalog_number} - ` : ''}${data.title}`,
+        title: `${data.catalog_number ? `${data.catalog_number} \u2014 ` : ''}${data.title}`,
         description: data.description ?? undefined,
       }
     }
-  } catch {
-    // noop
-  }
-
+  } catch { /* noop */ }
   return { title: 'Catalog Item' }
 }
 
@@ -51,6 +47,8 @@ const DETAIL_FIELDS: { key: string; label: string }[] = [
   { key: 'condition', label: 'Condition' },
   { key: 'origin', label: 'Origin' },
 ]
+
+const RESERVE_FORM_ID = 'reserve-form'
 
 export default async function ItemPage({ params }: Props) {
   const { slug } = await params
@@ -66,44 +64,44 @@ export default async function ItemPage({ params }: Props) {
   if (!itemData) notFound()
 
   const item = itemData as unknown as Item
-  const theme = Array.isArray(itemData.theme)
-    ? (itemData.theme[0] ?? null) as Theme | null
-    : (itemData.theme as Theme | null)
+  const theme = (Array.isArray(itemData.theme) ? itemData.theme[0] : itemData.theme) as Theme | null
   const images = (itemData.images as ItemImage[] | null) ?? []
   const details = (item.details as Record<string, string> | null) ?? {}
   const whyChosen = item.why_chosen?.trim() ?? ''
   const sourcingModel = item.sourcing_model ?? 'reservation'
+  const isDirectPurchase = sourcingModel === 'direct' || sourcingModel === 'direct_purchase'
   const isPublishedAndAvailable = item.status === 'published' && item.availability === 'available'
-  const canBuyNow = isPublishedAndAvailable && sourcingModel === 'direct' && item.price != null && item.price > 0
+  const canBuyNow = isPublishedAndAvailable && isDirectPurchase && item.price != null && item.price > 0
+  const canReserve = isPublishedAndAvailable && !isDirectPurchase
   const isSold = item.availability === 'sold'
   const isReserved = item.availability === 'reserved'
 
-  const hasDetails = DETAIL_FIELDS.some(field => details[field.key]) || !!item.catalog_number
+  const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 
+  // Pairs Well With - up to 4 other available published items, same theme first.
   let related: Item[] = []
   if (theme) {
     const { data: sameTheme } = await supabase
       .from('items')
       .select('id, title, slug, price, catalog_number')
       .eq('status', 'published')
+      .eq('availability', 'available')
       .eq('theme_id', theme.id)
       .neq('id', item.id)
       .order('published_at', { ascending: false })
       .limit(4)
-
     related = (sameTheme ?? []) as Item[]
   }
-
   if (related.length < 4) {
-    const exclude = [item.id, ...related.map(rel => rel.id)]
+    const exclude = [item.id, ...related.map(r => r.id)]
     const { data: others } = await supabase
       .from('items')
       .select('id, title, slug, price, catalog_number')
       .eq('status', 'published')
+      .eq('availability', 'available')
       .not('id', 'in', `(${exclude.join(',')})`)
       .order('published_at', { ascending: false })
       .limit(4 - related.length)
-
     related = [...related, ...((others ?? []) as Item[])]
   }
 
@@ -146,26 +144,17 @@ export default async function ItemPage({ params }: Props) {
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-start">
             <ScanReveal>
-              <ImageGallery
-                images={images}
-                fallbackCoverUrl={null}
-                title={item.title}
-                isSold={isSold}
-              />
+              <div className="md:sticky" style={{ top: 'calc(64px + 2rem)' }}>
+                <ImageGallery
+                  images={images}
+                  fallbackCoverUrl={null}
+                  title={item.title}
+                  isSold={isSold}
+                />
+              </div>
             </ScanReveal>
 
-            <div className="lg:sticky lg:top-8">
-              {item.catalog_number && (
-                <ScanReveal>
-                  <p
-                    className="font-mono text-warm-sand/60 tracking-[0.3em] mb-6 select-none"
-                    style={{ fontSize: 'clamp(0.65rem, 1.2vw, 0.85rem)' }}
-                  >
-                    {item.catalog_number}
-                  </p>
-                </ScanReveal>
-              )}
-
+            <div>
               {theme && (
                 <ScanReveal>
                   <Link
@@ -188,19 +177,50 @@ export default async function ItemPage({ params }: Props) {
 
               {item.price != null && (
                 <ScanReveal delay={100}>
-                  <div className="mb-8">
+                  <div className="mb-6">
                     <p className="font-mono text-charcoal" style={{ fontSize: '1.05rem' }}>
                       ${item.price.toFixed(2)}
                     </p>
                     <p className="font-mono text-xs text-stone-grey mt-1 tracking-wide">
-                      📍 Free Delivery - Miami &amp; Surroundings
+                      Free Delivery &mdash; Miami &amp; Surroundings
                     </p>
                   </div>
                 </ScanReveal>
               )}
 
+              <ScanReveal delay={110}>
+                <div className="mb-8">
+                  <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-5 max-w-sm">
+                    Final sale, non-returnable. Every piece is one of one &mdash; when it&apos;s gone, it&apos;s gone.
+                  </p>
+
+                  {canBuyNow ? (
+                    <BuyNowButton itemId={item.id} itemTitle={item.title} />
+                  ) : canReserve ? (
+                    <a
+                      href={`#${RESERVE_FORM_ID}`}
+                      className="px-8 py-3.5 bg-near-black text-linen-peach
+                                 font-mono text-xs tracking-[0.2em] uppercase
+                                 hover:bg-burnished transition-colors self-start inline-block"
+                    >
+                      Reserve this piece -&gt;
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled
+                      className="px-8 py-3.5 bg-near-black text-linen-peach
+                                 font-mono text-xs tracking-[0.2em] uppercase
+                                 opacity-50 cursor-not-allowed self-start inline-block"
+                    >
+                      {isReserved ? 'Reserved' : 'Sold'}
+                    </button>
+                  )}
+                </div>
+              </ScanReveal>
+
               {item.description && (
-                <ScanReveal delay={110}>
+                <ScanReveal delay={120}>
                   <div className="mb-8 pt-8 border-t border-pale-stone">
                     <p className="editorial-body">{item.description}</p>
                   </div>
@@ -208,7 +228,7 @@ export default async function ItemPage({ params }: Props) {
               )}
 
               {whyChosen && (
-                <ScanReveal delay={120}>
+                <ScanReveal delay={130}>
                   <div className="mb-8">
                     <p className="font-serif italic text-near-black mb-3" style={{ fontSize: '1rem' }}>
                       Why We Chose This
@@ -221,7 +241,7 @@ export default async function ItemPage({ params }: Props) {
               )}
 
               {hasDetails && (
-                <ScanReveal delay={130}>
+                <ScanReveal delay={140}>
                   <div className="mb-8 border-t border-pale-stone">
                     {DETAIL_FIELDS.map(({ key, label }) =>
                       details[key] ? (
@@ -229,7 +249,7 @@ export default async function ItemPage({ params }: Props) {
                           <span className="archive-label text-[0.6rem] text-stone-grey uppercase tracking-widest">{label}</span>
                           <span className="font-mono text-xs text-near-black text-right">{details[key]}</span>
                         </div>
-                      ) : null,
+                      ) : null
                     )}
                     {item.catalog_number && (
                       <div className="flex justify-between items-baseline py-3 border-b border-pale-stone/60">
@@ -257,58 +277,32 @@ export default async function ItemPage({ params }: Props) {
                 </ScanReveal>
               )}
 
-              <ScanReveal delay={180}>
-                <div className="pt-8 border-t border-pale-stone">
-                  {canBuyNow && (
-                    <div className="mb-8">
-                      <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
-                        In stock. Ships within 3 business days.
-                      </p>
-                      <BuyNowButton itemId={item.id} itemTitle={item.title} />
-                    </div>
-                  )}
-
-                  <div className={canBuyNow ? 'pt-8 border-t border-pale-stone' : ''}>
-                    {isPublishedAndAvailable ? (
-                      <>
-                        <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
-                          Every object is personally sourced, condition-verified, and delivered by our team in Miami.
-                        </p>
-                        <ReserveForm itemId={item.id} itemTitle={item.title} />
-                      </>
-                    ) : isReserved ? (
-                      <>
-                        <p
-                          className="font-display text-near-black mb-1"
-                          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}
-                        >
-                          This piece is reserved.
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <p
-                          className="font-display text-near-black mb-1"
-                          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', lineHeight: 1.1 }}
-                        >
-                          This piece has found a home.
-                        </p>
-                      </>
-                    )}
+              {canReserve && (
+                <ScanReveal delay={180}>
+                  <div
+                    id={RESERVE_FORM_ID}
+                    tabIndex={-1}
+                    className="scroll-mt-28 pt-8 border-t border-pale-stone focus:outline-none"
+                  >
+                    <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-6 max-w-xs">
+                      Every object is personally sourced, condition-verified, and delivered by our team in Miami.
+                    </p>
+                    <ReserveForm itemId={item.id} itemTitle={item.title} />
                   </div>
+                </ScanReveal>
+              )}
 
-                  {theme && (
-                    <div className="mt-6">
-                      <Link
-                        href={`/themes/${theme.slug}`}
-                        className="font-mono text-xs text-stone-grey hover:text-burnished transition-colors underline underline-offset-4"
-                      >
-                        View all from {theme.title}
-                      </Link>
-                    </div>
-                  )}
+              {theme && (
+                <div className="mt-6">
+                  <Link
+                    href={`/themes/${theme.slug}`}
+                    className="font-mono text-xs text-stone-grey hover:text-burnished
+                               transition-colors underline underline-offset-4"
+                  >
+                    View all from {theme.title}
+                  </Link>
                 </div>
-              </ScanReveal>
+              )}
             </div>
           </div>
         </div>
@@ -318,18 +312,20 @@ export default async function ItemPage({ params }: Props) {
         <section className="py-20 bg-warm-page border-t border-pale-stone">
           <div className="max-w-site mx-auto px-5 md:px-10">
             <ScanReveal>
-              <p className="archive-label text-[0.6rem] mb-10">From the Catalog</p>
+              <p className="archive-label text-[0.6rem] mb-10">Pairs Well With</p>
             </ScanReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {related.map((rel, index) => (
-                <ScanReveal key={rel.id} delay={index * 60}>
+              {related.map((rel, i) => (
+                <ScanReveal key={rel.id} delay={i * 60}>
                   <Link href={`/items/${rel.slug}`} className="group block">
                     <div className="aspect-[3/4] bg-sand-bg overflow-hidden mb-3">
                       {rel.primary_image_url ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                           src={rel.primary_image_url}
                           alt={rel.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-105
+                                     transition-transform duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-sand-bg to-linen-white flex items-end p-3">

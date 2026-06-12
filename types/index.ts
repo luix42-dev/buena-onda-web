@@ -117,7 +117,7 @@ export interface Item {
   tags: string[] | null
   status:       'draft' | 'published' | 'archived' | 'sold_out'
   availability: 'available' | 'reserved' | 'sold'
-  sourcing_model: 'reservation' | 'direct'
+  sourcing_model: 'reservation' | 'direct' | 'direct_purchase'
   featured: boolean
   cover_image_url?: string | null
   primary_image_url?: string | null
