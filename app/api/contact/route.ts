@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     const { error } = await resend.emails.send({
       from: 'Buena Onda Contact Form <onboarding@resend.dev>',
-      to: ['hello@buenaonda.com'],
+      to: ['contact@buenaondalifestyle.com'],
       replyTo: email,
       subject: `[Contact] ${subject} - from ${name}`,
       html: `

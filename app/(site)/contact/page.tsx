@@ -39,9 +39,8 @@ export default function ContactPage() {
 
                 <div className="flex flex-col gap-6">
                   {[
-                    { label: 'General',          value: 'hello@buenaonda.com', href: 'mailto:hello@buenaonda.com' },
-                    { label: 'Press & Media',    value: 'press@buenaonda.com', href: 'mailto:press@buenaonda.com' },
-                    { label: 'Radio & Bookings', value: 'radio@buenaonda.com', href: 'mailto:radio@buenaonda.com' },
+                    { label: 'General', value: 'hello@buenaondalifestyle.com', href: 'mailto:hello@buenaondalifestyle.com' },
+                    { label: 'Questions. Support. Orders', value: 'contact@buenaondalifestyle.com', href: 'mailto:contact@buenaondalifestyle.com' },
                   ].map(({ label, value, href }) => (
                     <div key={label} className="border-b border-pale-stone pb-5">
                       <p className="archive-label text-[0.6rem] mb-1">{label}</p>
@@ -61,7 +60,7 @@ export default function ContactPage() {
                 <div>
                   <p className="archive-label text-[0.6rem] mb-3">Find us</p>
                   <p className="font-mono text-sm text-charcoal">
-                    Miami, FL — Wynwood &amp; Little Havana
+                    Miami, FL
                   </p>
                   <div className="flex gap-5 mt-5">
                     <a
