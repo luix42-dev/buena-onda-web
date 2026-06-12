@@ -264,6 +264,9 @@ export default async function EventDetailPage({ params }: Props) {
 
       {archiveSheets.length > 0 ? (
         <EditorialSection label='Archive'>
+          <p className='font-serif italic mb-10' style={{ color: '#555', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '38ch' }}>
+            The names from those years. Scroll through the archive, then follow it into the playlist.
+          </p>
           <SignupSheetArchive sheets={archiveSheets.map(s => ({ url: s.file!, label: s.label }))} />
         </EditorialSection>
       ) : null}
