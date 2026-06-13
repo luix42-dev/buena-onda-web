@@ -51,17 +51,27 @@ export async function POST(request: NextRequest) {
   const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
   const endpoint = env('R2_ENDPOINT', 'CF_R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
 
-  const allowedPrefixes = new Set(['audio', 'episodes', 'cruise/video', 'cruise/audio'])
+  const allowedPrefixes = new Set(['audio', 'events/audio', 'episodes', 'cruise/video', 'cruise/audio'])
   const rawPrefix = typeof body.prefix === 'string' ? body.prefix.replace(/\/$/, '') : 'audio'
   const prefix = allowedPrefixes.has(rawPrefix) ? rawPrefix : 'audio'
   const isEpisodes = prefix === 'episodes'
 
+  const episodesBucketName = env('R2_EPISODES_BUCKET_NAME', 'CF_R2_EPISODES_BUCKET_NAME')
+  const episodesPublicUrl  = env('R2_EPISODES_PUBLIC_URL',  'CF_R2_EPISODES_PUBLIC_URL')
+
+  if (isEpisodes && !episodesBucketName) {
+    return NextResponse.json(
+      { error: 'Missing R2_EPISODES_BUCKET_NAME — episodes must not fall back to the radio bucket' },
+      { status: 503 }
+    )
+  }
+
   const bucketName = isEpisodes
-    ? (env('R2_EPISODES_BUCKET_NAME') ?? env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME'))
+    ? episodesBucketName
     : env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
 
   const publicUrlBase = (isEpisodes
-    ? (env('R2_EPISODES_PUBLIC_URL') ?? env('R2_PUBLIC_URL', 'CF_R2_PUBLIC_URL'))
+    ? episodesPublicUrl
     : env('R2_PUBLIC_URL', 'CF_R2_PUBLIC_URL'))?.replace(/\/$/, '')
 
   const missing: string[] = []

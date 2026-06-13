@@ -17,7 +17,7 @@ function getR2DeleteConfig() {
   const accountId = env('R2_ACCOUNT_ID', 'CF_R2_ACCOUNT_ID')
   const accessKeyId = env('R2_ACCESS_KEY_ID', 'CF_R2_ACCESS_KEY_ID')
   const secretAccessKey = env('R2_SECRET_ACCESS_KEY', 'CF_R2_SECRET_ACCESS_KEY')
-  const bucketName = env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
+  const bucketName = env('R2_EPISODES_BUCKET_NAME', 'CF_R2_EPISODES_BUCKET_NAME') ?? env('R2_BUCKET_NAME', 'CF_R2_BUCKET_NAME')
   const endpoint = env('R2_ENDPOINT') ?? (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
 
   if (!accountId || !accessKeyId || !secretAccessKey || !bucketName || !endpoint) {

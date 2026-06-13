@@ -177,7 +177,7 @@ export default function EventEditor({ event }: Props) {
   }
 
   const uploadIntoAudio = async (idx: number, file: File) => {
-    const url = await uploadFile(file, 'audio')
+    const url = await uploadFile(file, 'events/audio')
     if (!url) return
     setAudioFiles(prev => prev.map((item, i) => i === idx ? { ...item, file: url } : item))
   }
