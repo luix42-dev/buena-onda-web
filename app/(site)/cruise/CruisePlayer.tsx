@@ -12,7 +12,7 @@ export type PlayerScene = {
   route_label: string | null
   time_of_day: string
   title: string
-  video_url: string
+  video_url: string | null
 }
 
 export type PlayerChannel = {
@@ -159,19 +159,7 @@ export default function CruisePlayer({ scenes, channels }: Props) {
     setTrackIndex(i => (i + 1) % activeChannel.tracks.length)
   }
 
-  // ── Empty state ─────────────────────────────────────────────────────────────
-  if (scenes.length === 0) {
-    return (
-      <div style={{ background: CREAM, color: CHARCOAL, minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '64px 24px' }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(40px, 7vw, 72px)', letterSpacing: '0.04em', margin: 0 }}>
-          CRUISE
-        </h1>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, opacity: 0.7, margin: 0 }}>
-          No scenes published yet. The first cruise is being cut.
-        </p>
-      </div>
-    )
-  }
+
 
   const badgeLabel = override
     ? 'MANUAL'
@@ -277,6 +265,12 @@ export default function CruisePlayer({ scenes, channels }: Props) {
           </button>
         </div>
 
+        {/* ── Empty state (zero scenes) ─────────────── */}
+        {scenes.length === 0 && (
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, opacity: 0.7, margin: 0 }}>
+            No scenes published yet. The first cruise is being cut.
+          </p>
+        )}
         {/* ── Time badge + override chips ────────────────────────────────── */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <span

@@ -40,7 +40,6 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
     }
 
     const scenes: PlayerScene[] = (scenesRes.data ?? [])
-      .filter(s => typeof s.video_key === 'string' && s.video_key.length > 0)
       .map(s => ({
         id: s.id,
         city: s.city,
@@ -48,7 +47,7 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
         route_label: s.route_label ?? null,
         time_of_day: s.time_of_day,
         title: s.title,
-        video_url: `${base}/${s.video_key}`,
+        video_url: s.video_key ? `${base}/${s.video_key}` : null,
       }))
 
     const channels: PlayerChannel[] = (channelsRes.data ?? []).map(c => ({
