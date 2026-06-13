@@ -62,7 +62,32 @@
       "PowerShell(git *)",
       "Bash(ls /mnt/)",
       "Read(//mnt/**)",
-      "Bash(wsl.exe *)"
+      "Bash(wsl.exe *)",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && pwd && git log --oneline -3 && git status --short | head -20\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && npx wrangler r2 bucket list 2>&1 | head -60\")",
+      "PowerShell(wsl bash -lc \"source ~/.nvm/nvm.sh 2>/dev/null; nvm ls 2>/dev/null | head -10; node -v\")",
+      "PowerShell(wsl bash -lc \"source ~/.nvm/nvm.sh && cd ~/buena-onda-web && npx wrangler r2 bucket list 2>&1 | head -80\")",
+      "PowerShell(wsl bash -lc \"source ~/.nvm/nvm.sh && cd ~/buena-onda-web && npx wrangler r2 object --help 2>&1 | head -30\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && grep -E 'aws-sdk' package.json\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat -n app/api/admin/upload-url/route.ts\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat -n 'app/api/admin/episodes/[id]/route.ts'\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat -n 'app/api/admin/cruise/scenes/[id]/route.ts'\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat -n lib/radio.ts | sed -n '1,80p' && echo ===UPLOAD=== && cat -n app/api/admin/upload/route.ts | head -70\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat -n 'app/api/admin/cruise/channels/[id]/route.ts' | grep -A4 -B4 -E 'Delete|startsWith|Bucket' | head -40 && echo ===TRACKS=== && cat -n app/api/admin/cruise/tracks/route.ts | grep -B4 -A6 -E 'Delete|startsWith|Bucket|getR2' | head -50\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && sed -n '70,140p' app/api/admin/upload/route.ts\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && grep -n -E 'fetch\\\\\\(|/api/admin/upload|folder|storagePath|prefix' 'app/studio/\\(shell\\)/events/[id]/EventEditor.tsx' | head -20; echo ===SIGNUP; grep -n -E 'fetch\\\\\\(|upload|storage|supabase' components/ui/SignupSheetArchive.tsx | head -15\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && grep -n -E 'uploadFile\\\\\\(|folder' 'app/studio/\\(shell\\)/events/[id]/EventEditor.tsx' | head -20\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && head -40 components/ui/SignupSheetArchive.tsx && grep -rn 'signup' app/api -l | head\")",
+      "PowerShell(wsl bash -lc \"source ~/.nvm/nvm.sh && cd ~/buena-onda-web && npx wrangler r2 bucket info radioarchive 2>&1 | tail -15\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && cat wrangler.toml; echo ===WORKER; grep -n -E 'R2|bucket|env\\\\.' worker/intake-worker.ts | head -20; echo ===STRIPE; grep -n -E 'R2|bucket' app/api/webhooks/stripe/route.ts app/api/telegram/webhook/route.ts | head\")",
+      "PowerShell(wsl bash -lc \"printf '\\\\a\\\\a\\\\a'\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && sed -n '120,200p' 'app/studio/\\(shell\\)/events/[id]/EventEditor.tsx'\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && sed -n '54,100p' app/api/admin/upload-url/route.ts\")",
+      "PowerShell(wsl bash -lc \"cd ~/buena-onda-web && sed -i \\\\\"s/R2_EPISODES_BUCKET_NAME ? episodes must not/R2_EPISODES_BUCKET_NAME — episodes must not/\\\\\" app/api/admin/upload-url/route.ts && grep 'episodes must' app/api/admin/upload-url/route.ts\")",
+      "Read(//c/Users/luix4/.claude/skills/**)",
+      "Read(//home/luix4/buena-onda-web/.claude/**)",
+      "PowerShell(node --version 2>$null; npx playwright --version 2>$null)",
+      "PowerShell(Set-Location *)"
     ]
   }
 }

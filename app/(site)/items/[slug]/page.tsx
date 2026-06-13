@@ -143,16 +143,14 @@ export default async function ItemPage({ params }: Props) {
           </ScanReveal>
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-start">
-            <ScanReveal>
-              <div className="md:sticky" style={{ top: 'calc(64px + 2rem)' }}>
-                <ImageGallery
-                  images={images}
-                  fallbackCoverUrl={null}
-                  title={item.title}
-                  isSold={isSold}
-                />
-              </div>
-            </ScanReveal>
+            <div style={{ position: 'sticky', top: 80, alignSelf: 'flex-start' }}>
+              <ImageGallery
+                images={images}
+                fallbackCoverUrl={null}
+                title={item.title}
+                isSold={isSold}
+              />
+            </div>
 
             <div>
               {theme && (
