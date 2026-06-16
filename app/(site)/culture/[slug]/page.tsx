@@ -269,7 +269,7 @@ export default async function CulturePostPage({ params }: Props) {
   const dek = post.excerpt ?? null
 
   return (
-    <main className="pt-16" style={{ background: '#F8F7F3', color: '#2F2F2D' }}>
+    <main style={{ background: '#F8F7F3', color: '#2F2F2D', paddingTop: 64 }}>
       <section
         className="grid grid-cols-1 gap-3 px-5 py-4 text-center md:grid-cols-3 md:px-8 md:text-left"
         style={{ borderBottom: '1px solid #2F2F2D' }}
