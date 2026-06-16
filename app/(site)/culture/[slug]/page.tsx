@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import SubscribeBlock from '@/components/SubscribeBlock'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Post } from '@/types'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -85,7 +85,7 @@ function EditorialNote({ note }: { note: string }) {
 }
 
 async function getIssueNumber(post: Post) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const [cultureRes, essayRes] = await Promise.all([
     supabase
       .from('posts')
@@ -226,7 +226,7 @@ function renderBody(post: Post, issueNumber: string) {
 }
 
 async function getPost(slug: string) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data } = await supabase
     .from('posts')
     .select('*')

@@ -5,12 +5,10 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import GalleryGrid from '@/components/ui/GalleryGrid'
 import SignupSheetArchive from '@/components/ui/SignupSheetArchive'
-import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { createPublicServiceClient } from '@/lib/supabase/public'
 import PlaylistPlayer from './PlaylistPlayer'
 
-export const runtime = 'edge'
-
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 type GalleryItem = { image?: string; caption?: string }
 type VideoItem = { url?: string; label?: string }
@@ -131,7 +129,7 @@ function getYouTubePlaylistId(urlString: string): string {
 }
 
 async function getEvent(slug: string) {
-  const supabase = createServiceRoleClient()
+  const supabase = createPublicServiceClient()
   const { data, error } = await supabase.from('events').select('*').eq('slug', slug).single()
   if (error || !data) return null
   return data as LiveEvent

@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
-import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { createPublicServiceClient } from '@/lib/supabase/public'
 
-export const runtime = 'edge'
-
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Live Events',
@@ -37,7 +35,7 @@ function formatVenue(event: LiveEvent) {
 
 async function loadEvents() {
   try {
-    const supabase = createServiceRoleClient()
+    const supabase = createPublicServiceClient()
     const { data, error } = await supabase
       .from('events')
       .select('id,slug,name,tagline,description,tags,status,venue_name,venue_city,cover_image_url')

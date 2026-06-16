@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NotifyForm from '@/components/ui/NotifyForm'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Drop } from '@/types'
-export const runtime = 'edge'
 
-
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Objects & Drops',
@@ -20,7 +18,7 @@ const statusLabel: Record<string, { label: string; color: string }> = {
 }
 
 export default async function ObjectsPage() {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data } = await supabase
     .from('drops')
     .select('*')

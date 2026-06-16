@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Item, Theme } from '@/types'
 import CatalogGrid from './CatalogGrid'
 
-export const runtime = 'edge'
-
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'The Catalog — Buena Onda',
@@ -21,7 +19,7 @@ type PrimaryImageRow = {
 type ItemRow = Omit<ItemWithTheme, 'theme'> & { theme: ThemeStub[] | ThemeStub | null }
 
 export default async function ThemesPage() {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const [itemsRes, themesRes] = await Promise.all([
     supabase

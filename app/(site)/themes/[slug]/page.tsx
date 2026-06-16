@@ -2,12 +2,10 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Theme, Item } from '@/types'
-export const runtime = 'edge'
 
-
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -21,7 +19,7 @@ type PrimaryImageRow = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     const { data } = await supabase
       .from('themes')
       .select('title, description')
@@ -41,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ThemeSpreadPage({ params }: Props) {
   const { slug } = await params
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
   const { data: themeData } = await supabase
     .from('themes')
