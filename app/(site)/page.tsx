@@ -3,16 +3,14 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 import HeroGrid from '@/components/HeroGrid'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Episode } from '@/types'
-
-export const runtime = "edge"
 
 export const metadata: Metadata = {
   title: 'Buena Onda - Analog Culture House',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 const pillars = [
   {
@@ -88,7 +86,7 @@ function splitHeroTitle(title: string) {
 
 async function loadHomepageSettings() {
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     const { data, error } = await supabase
       .from('site_settings')
       .select('key,value')
@@ -116,7 +114,7 @@ async function loadHomepageSettings() {
 
 async function loadLatestRadioEpisode() {
   try {
-    const supabase = await createClient()
+    const supabase = createPublicClient()
     const { data, error } = await supabase
       .from('episodes')
       .select('title,slug,description,published_at')
