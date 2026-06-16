@@ -87,8 +87,8 @@ function EditorialNote({ note }: { note: string }) {
 async function getIssueNumber(post: Post) {
   const supabase = await createClient()
   const [cultureRes, essayRes] = await Promise.all([
-    supabase.from('posts').select('*').eq('status', 'published').contains('tags', ['culture']),
-    supabase.from('posts').select('*').eq('status', 'published').contains('tags', ['essay']),
+    supabase.from('posts').select('*').in('status', ['published', 'live']).contains('tags', ['culture']),
+    supabase.from('posts').select('*').in('status', ['published', 'live']).contains('tags', ['essay']),
   ])
 
   const posts = mergePosts(
@@ -223,7 +223,7 @@ async function getPost(slug: string) {
     .from('posts')
     .select('*')
     .eq('slug', slug)
-    .eq('status', 'published')
+    .in('status', ['published', 'live'])
     .maybeSingle()
 
   return data as Post | null
