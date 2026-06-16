@@ -135,6 +135,17 @@ async function getEvent(slug: string) {
   return data as LiveEvent
 }
 
+export async function generateStaticParams() {
+  try {
+    const supabase = createPublicServiceClient()
+    const { data, error } = await supabase.from('events').select('slug')
+    if (error) throw error
+    return (data ?? []).map(event => ({ slug: event.slug }))
+  } catch {
+    return []
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   try {
