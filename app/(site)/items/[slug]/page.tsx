@@ -143,7 +143,7 @@ export default async function ItemPage({ params }: Props) {
           </ScanReveal>
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-start">
-            <div style={{ position: 'sticky', top: 80, alignSelf: 'flex-start' }}>
+            <div className="md:sticky md:top-20 md:self-start">
               <ImageGallery
                 images={images}
                 fallbackCoverUrl={null}
