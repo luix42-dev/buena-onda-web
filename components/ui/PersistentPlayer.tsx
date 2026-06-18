@@ -525,7 +525,6 @@ export default function PersistentPlayer() {
         .bo-tape-deck-open {
           transform: translateY(0);
           opacity: 1;
-          pointer-events: auto;
         }
         .bo-progress-bar {
           position: absolute;
@@ -561,6 +560,7 @@ export default function PersistentPlayer() {
         }
         .bo-bar-key {
           height: 30px;
+          pointer-events: auto;
           min-width: 38px;
           padding: 0 8px;
           background: #F8F7F3;
@@ -630,6 +630,7 @@ export default function PersistentPlayer() {
           animation: boVu 620ms ease-in-out infinite;
         }
         .bo-toggle-btn {
+          pointer-events: auto;
           color: #1A9E9E;
           font-size: 1rem;
           line-height: 1;
