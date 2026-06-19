@@ -38,6 +38,7 @@ export interface Episode {
   slug: string
   description: string | null
   audio_url: string | null
+  audio_key?: string | null
   cover_image: string | null
   duration: number | null
   episode_number: number | null
@@ -45,6 +46,7 @@ export interface Episode {
   published_at: string | null
   created_at: string
   published: boolean
+  status?: 'draft' | 'published' | null
 }
 
 export interface Drop {
