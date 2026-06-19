@@ -61,6 +61,7 @@ export async function POST(request: NextRequest) {
       episode_number:  episode_number != null ? parseInt(episode_number) : null,
       duration:        duration != null ? parseInt(duration) : null,
       tags:            tags ?? [],
+      status:          published ? 'published' : 'draft',
       published,
       status:          published ? 'published' : 'draft',
       published_at:    published ? new Date().toISOString() : null,

@@ -111,11 +111,13 @@ export default function RadioClient({ initialEpisodes }: Props) {
   const [audioUrl, setAudioUrl] = useState('')
   const [audioKey, setAudioKey] = useState('')
   const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [editUploading, setEditUploading] = useState(false)
+  const [editUploadProgress, setEditUploadProgress] = useState<number | null>(null)
+  const [editUploadError, setEditUploadError] = useState<string | null>(null)
   const [uploadStatus, setUploadStatus] = useState<string | null>(null)
   const [uploadProgress, setUploadProgress] = useState<number | null>(null)
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const uploadBusy = uploadStatus !== null
 
   useEffect(() => {
     setEpisodes(initialEpisodes)
@@ -148,6 +150,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioKey('')
     if (fileRef.current) fileRef.current.value = ''
     if (editFileRef.current) editFileRef.current.value = ''
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
     setUploadStatus(null)
     setUploadProgress(null)
     setUploadError(null)
@@ -165,6 +170,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioKey('')
     setAudioFile(null)
     setError(null)
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
     setUploadStatus(null)
     setUploadProgress(null)
     setUploadError(null)
@@ -184,6 +192,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
     setAudioKey(typeof episodeWithAudioKey.audio_key === 'string' ? episodeWithAudioKey.audio_key : '')
     setAudioFile(null)
     setError(null)
+    setEditUploading(false)
+    setEditUploadProgress(null)
+    setEditUploadError(null)
     setUploadStatus(null)
     setUploadProgress(null)
     setUploadError(null)
@@ -191,9 +202,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
   }
 
   const uploadEditedEpisodeAudio = async (file: File) => {
-    setUploadStatus('Getting upload link...')
-    setUploadProgress(0)
-    setUploadError(null)
+    setEditUploading(true)
+    setEditUploadProgress(0)
+    setEditUploadError(null)
     setError(null)
 
     try {
@@ -230,9 +241,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
         xhr.open('PUT', uploadData.uploadUrl!)
         xhr.upload.onprogress = event => {
           if (!event.lengthComputable) return
-          const nextProgress = Math.round((event.loaded / event.total) * 100)
-          setUploadProgress(nextProgress)
-          setUploadStatus(`Uploading ${nextProgress}%...`)
+          setEditUploadProgress(Math.round((event.loaded / event.total) * 100))
         }
         xhr.onload = () => {
           if (xhr.status >= 200 && xhr.status < 300) {
@@ -247,14 +256,14 @@ export default function RadioClient({ initialEpisodes }: Props) {
 
       setAudioUrl(uploadData.publicUrl)
       setAudioKey(uploadData.key)
-      setUploadProgress(100)
-      setUploadStatus(null)
+      setEditUploadProgress(100)
       toast('Audio uploaded. Review and save changes.')
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Audio upload failed.'
-      setUploadError(msg)
-      setUploadStatus(null)
+      setEditUploadError(msg)
       toast(msg)
+    } finally {
+      setEditUploading(false)
     }
   }
 
@@ -272,10 +281,10 @@ export default function RadioClient({ initialEpisodes }: Props) {
     }
 
     setSaving(true)
-    setUploadStatus('Getting upload link...')
-    setUploadProgress(0)
-    setUploadError(null)
     setError(null)
+    setUploadError(null)
+    setUploadProgress(0)
+    setUploadStatus('Getting upload link...')
 
     try {
       const signedRes = await fetch('/api/admin/upload-url', {
@@ -313,9 +322,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
         xhr.setRequestHeader('Content-Type', audioFile.type || 'audio/mpeg')
         xhr.upload.onprogress = event => {
           if (!event.lengthComputable) return
-          const nextProgress = Math.round((event.loaded / event.total) * 100)
-          setUploadProgress(nextProgress)
-          setUploadStatus(`Uploading ${nextProgress}%...`)
+          const percent = Math.round((event.loaded / event.total) * 100)
+          setUploadProgress(percent)
+          setUploadStatus('Uploading ' + percent + '%...')
         }
         xhr.onload = () => {
           if (xhr.status === 200) {
@@ -330,7 +339,6 @@ export default function RadioClient({ initialEpisodes }: Props) {
         xhr.send(audioFile)
       })
 
-      setUploadProgress(100)
       setUploadStatus('Saving...')
 
       const episodeRes = await fetch('/api/admin/episodes', {
@@ -367,9 +375,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
       const msg = err instanceof Error ? err.message : 'Episode upload failed.'
       setError(msg)
       setUploadError(msg)
+      setUploadStatus(null)
       toast(msg)
     } finally {
-      setUploadStatus(null)
       setSaving(false)
     }
   }
@@ -381,8 +389,6 @@ export default function RadioClient({ initialEpisodes }: Props) {
     }
 
     setSaving(true)
-    setUploadStatus('Saving...')
-    setUploadError(null)
     setError(null)
 
     try {
@@ -421,7 +427,6 @@ export default function RadioClient({ initialEpisodes }: Props) {
       setError(msg)
       toast(msg)
     } finally {
-      setUploadStatus(null)
       setSaving(false)
     }
   }
@@ -489,7 +494,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
     if (!file) return
     if (!file.name.toLowerCase().endsWith('.mp3')) {
       const msg = 'Please choose an MP3 file.'
-      setUploadError(msg)
+      setEditUploadError(msg)
       toast(msg)
       e.currentTarget.value = ''
       return
@@ -558,7 +563,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
       <SectionHead
         title="The Archive"
         subtitle="Curated mixes, sessions, field recordings"
-        actionLabel={saving ? 'Uploading...' : '+ Upload episode'}
+        actionLabel={saving ? (uploadStatus ?? 'Uploading...') : '+ Upload episode'}
         onAction={openComposer}
       />
 
@@ -659,9 +664,9 @@ export default function RadioClient({ initialEpisodes }: Props) {
               type="button"
               className="btn coral"
               onClick={saveEpisode}
-              disabled={saving || uploadBusy || (!editingEpisode && !audioFile) || !title.trim()}
+              disabled={saving || (!editingEpisode && !audioFile) || !title.trim()}
             >
-              {uploadStatus ?? (saving ? (editingEpisode ? 'Saving...' : 'Uploading...') : uploadError ? 'Retry' : editingEpisode ? 'Save changes' : 'Save episode')}
+              {saving ? (uploadStatus ?? (editingEpisode ? 'Saving...' : 'Uploading...')) : editingEpisode ? 'Save changes' : 'Save episode'}
             </button>
           </>
         )}
@@ -702,12 +707,21 @@ export default function RadioClient({ initialEpisodes }: Props) {
               MP3 files are uploaded directly to R2 from the browser. The title auto-fills from the
               original filename and can be edited before save.
             </div>
-            {(uploadStatus || uploadProgress != null) ? (
-              <div className="hs" style={{ marginTop: 8 }}>
-                {uploadStatus ?? `Uploading ${uploadProgress}%...`}
+            {uploadStatus ? (
+              <div className='hs' style={{ marginTop: 8 }}>
+                {uploadStatus}
+                {uploadProgress != null ? (
+                  <div style={{ height: 4, background: 'var(--line)', marginTop: 8 }}>
+                    <div style={{ height: '100%', width: uploadProgress + '%', background: 'var(--coral)' }} />
+                  </div>
+                ) : null}
               </div>
             ) : null}
-            {uploadError ? <div className="hs" style={{ marginTop: 8 }}>{uploadError}</div> : null}
+            {uploadError && audioFile ? (
+              <button type='button' className='btn ghost' style={{ marginTop: 8 }} onClick={saveEpisode}>
+                Retry
+              </button>
+            ) : null}
           </div>
         ) : (
           <div className="field">
@@ -724,7 +738,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
               type="url"
               value={audioUrl}
               onChange={e => setAudioUrl(e.target.value)}
-              disabled={uploadBusy}
+              disabled={editUploading}
               placeholder="https://..."
             />
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8, flexWrap: 'wrap' }}>
@@ -732,17 +746,17 @@ export default function RadioClient({ initialEpisodes }: Props) {
                 type="button"
                 className="btn ghost"
                 onClick={() => editFileRef.current?.click()}
-                disabled={uploadBusy}
+                disabled={editUploading}
               >
-                {uploadBusy ? (uploadStatus ?? 'Uploading audio...') : uploadError ? 'Retry upload' : 'Upload audio file'}
+                {editUploading ? 'Uploading audio...' : 'Upload audio file'}
               </button>
-              {uploadBusy && (
+              {editUploading && (
                 <div className="hs">
-                  {uploadStatus ?? `Uploading ${uploadProgress ?? 0}%...`}
+                  Uploading... {editUploadProgress ?? 0}%
                 </div>
               )}
             </div>
-            {uploadError ? <div className="hs" style={{ marginTop: 8 }}>{uploadError}</div> : null}
+            {editUploadError ? <div className="hs" style={{ marginTop: 8 }}>{editUploadError}</div> : null}
             <div className="hs" style={{ marginTop: 8 }}>Upload replaces the Audio URL field only after transfer completes. Save changes manually.</div>
           </div>
         )}

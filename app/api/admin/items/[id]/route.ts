@@ -1,10 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 import { sendTelegramMessage } from '@/lib/telegram'
-
-export const runtime = 'edge'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -92,7 +91,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   const supabase = await createServiceClient()
   const { data: existing } = await supabase
     .from('items')
-    .select('published_at, status, title')
+    .select('published_at, status, title, slug')
     .eq('id', id)
     .single()
 
@@ -141,6 +140,11 @@ export async function PUT(request: NextRequest, { params }: Params) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+
+  revalidatePath('/themes')
+  revalidatePath('/sitemap.xml')
+  if (existing?.slug) revalidatePath(`/items/${existing.slug}`)
+  revalidatePath(`/items/${data.slug}`)
   if (existing?.status === 'draft' && data.status === 'published') {
     const telegram = await sendTelegramMessage(`New item live: ${data.title}`)
     return NextResponse.json({ ...data, telegram })

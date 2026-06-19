@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { error } = await resend.emails.send({
-      from: 'Buena Onda Contact Form <onboarding@resend.dev>',
+      from: 'Buena Onda <noreply@buenaondalifestyle.com>',
       to: ['contact@buenaondalifestyle.com'],
       replyTo: email,
       subject: `[Contact] ${subject} - from ${name}`,

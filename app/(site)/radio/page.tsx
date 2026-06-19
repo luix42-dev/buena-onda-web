@@ -1,13 +1,24 @@
 import type { Metadata } from 'next'
-import Archive, { type ArchiveEpisode } from './_components/Archive'
 import { createServiceClient } from '@/lib/supabase/server'
-import type { Episode } from '@/types'
-
-export const dynamic = 'force-dynamic'
+import BuenaOndaArchive from './_components/Archive'
 
 export const metadata: Metadata = {
   title: 'Radio',
   description: 'Curated mixes, live sessions, and field recordings from the house archive.',
+}
+
+export const dynamic = 'force-dynamic'
+
+type EpisodeRow = {
+  id: string
+  title: string
+  description: string | null
+  audio_url: string | null
+  audio_key: string | null
+  duration: number | null
+  episode_number: number | null
+  published_at: string | null
+  created_at: string
 }
 
 function formatDate(value: string | null | undefined) {
@@ -20,25 +31,25 @@ function formatDate(value: string | null | undefined) {
 }
 
 function formatDuration(seconds: number | null | undefined) {
-  if (seconds == null || Number.isNaN(seconds)) return '0:00'
+  if (seconds == null || Number.isNaN(seconds)) return ''
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
   const remainingSeconds = seconds % 60
 
-  if (hours > 0) return `${hours}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
-  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`
+  if (hours > 0) {
+    return hours + ':' + String(minutes).padStart(2, '0') + ':' + String(remainingSeconds).padStart(2, '0')
+  }
+
+  return minutes + ':' + String(remainingSeconds).padStart(2, '0')
 }
 
-function mapEpisode(episode: Episode, index: number): ArchiveEpisode {
-  return {
-    id: episode.id,
-    no: String(episode.episode_number ?? index + 1).padStart(2, '0'),
-    title: episode.title,
-    date: formatDate(episode.published_at ?? episode.created_at),
-    duration: formatDuration(episode.duration),
-    desc: episode.description ?? 'No description yet.',
-    audioUrl: episode.audio_url ?? '',
+function buildEpisodeAudioUrl(row: EpisodeRow) {
+  const publicBase = process.env.R2_EPISODES_PUBLIC_URL
+  if (row.audio_key && publicBase) {
+    return publicBase.replace(/\/$/, '') + '/' + row.audio_key.replace(/^\//, '')
   }
+
+  return row.audio_url ?? ''
 }
 
 async function loadEpisodes() {
@@ -46,13 +57,12 @@ async function loadEpisodes() {
     const supabase = await createServiceClient()
     const { data, error } = await supabase
       .from('episodes')
-      .select('*')
+      .select('id,title,description,audio_url,audio_key,duration,episode_number,published_at,created_at,status')
       .eq('status', 'published')
       .order('episode_number', { ascending: false })
-      .limit(50)
 
     if (error) throw error
-    return ((data ?? []) as Episode[]).filter(episode => episode.audio_url).map(mapEpisode)
+    return (data ?? []) as EpisodeRow[]
   } catch (error) {
     console.error('[site/radio] Failed to load episodes:', error instanceof Error ? error.message : error)
     return []
@@ -60,6 +70,16 @@ async function loadEpisodes() {
 }
 
 export default async function RadioPage() {
-  const episodes = await loadEpisodes()
-  return <Archive episodes={episodes} />
+  const rows = await loadEpisodes()
+  const episodes = rows.map((row, index) => ({
+    id: row.id,
+    no: String(row.episode_number ?? index + 1).padStart(2, '0'),
+    title: row.title,
+    date: formatDate(row.published_at ?? row.created_at),
+    duration: formatDuration(row.duration),
+    desc: row.description ?? 'No description yet.',
+    audioUrl: buildEpisodeAudioUrl(row),
+  }))
+
+  return <BuenaOndaArchive episodes={episodes} />
 }

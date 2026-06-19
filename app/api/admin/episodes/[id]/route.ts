@@ -38,7 +38,7 @@ function getR2DeleteConfig() {
 
 async function buildPublishedUpdate(supabase: ServiceClient, id: string, published: boolean) {
   if (!published) {
-    return { published: false, published_at: null, status: 'draft' }
+    return { published: false, status: 'draft', published_at: null }
   }
 
   const { data: existing } = await supabase

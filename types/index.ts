@@ -46,7 +46,7 @@ export interface Episode {
   published_at: string | null
   created_at: string
   published: boolean
-  status?: 'draft' | 'published' | null
+  status?: 'draft' | 'published' | 'archived' | null
 }
 
 export interface Drop {

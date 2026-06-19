@@ -6,7 +6,9 @@
           "https://buenaondalifestyle.com",
           "https://www.buenaondalifestyle.com",
           "https://buena-onda-web.vercel.app",
-          "http://localhost:3000"
+          "http://localhost:3000",
+          "http://localhost:3001",
+          "http://localhost:3002"
         ],
         "methods": ["GET", "PUT", "HEAD"],
         "headers": ["*"]
