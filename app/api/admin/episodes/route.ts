@@ -63,7 +63,6 @@ export async function POST(request: NextRequest) {
       tags:            tags ?? [],
       status:          published ? 'published' : 'draft',
       published,
-      status:          published ? 'published' : 'draft',
       published_at:    published ? new Date().toISOString() : null,
     })
     .select()
