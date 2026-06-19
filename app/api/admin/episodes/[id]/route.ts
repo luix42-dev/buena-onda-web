@@ -1,6 +1,7 @@
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { S3Client } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { logAudit } from '@/lib/audit'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
@@ -121,6 +122,8 @@ export async function PUT(request: NextRequest, { params }: Params) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/')
+  revalidatePath('/radio')
   return NextResponse.json(data)
 }
 
@@ -147,6 +150,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/')
+  revalidatePath('/radio')
   return NextResponse.json(data)
 }
 
@@ -213,5 +218,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     success: true,
     metadata: warning ? { warning } : undefined,
   })
+  revalidatePath('/')
+  revalidatePath('/radio')
   return NextResponse.json(warning ? { ok: true, warning } : { ok: true })
 }

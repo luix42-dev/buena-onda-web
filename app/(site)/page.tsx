@@ -84,6 +84,15 @@ function splitHeroTitle(title: string) {
   return [words[0], words.slice(1).join(' ')] as const
 }
 
+function excerpt(text: string | null | undefined, max = 140) {
+  const normalized = text?.replace(/\s+/g, ' ').trim() ?? ''
+  if (normalized.length <= max) return normalized
+
+  const boundary = normalized.lastIndexOf(' ', max)
+  const end = boundary > 0 ? boundary : max
+  return `${normalized.slice(0, end).trimEnd()}...`
+}
+
 async function loadHomepageSettings() {
   try {
     const supabase = createPublicClient()
@@ -352,7 +361,7 @@ export default async function HomePage() {
                       {latestRadioEpisode.title}
                     </p>
                     <p className="font-sans text-xs leading-relaxed" style={{ color: '#F8F7F3' }}>
-                      {latestRadioEpisode.description?.trim() || 'Published archive live.'}
+                      {excerpt(latestRadioEpisode.description) || 'Published archive live.'}
                     </p>
                   </>
                 ) : (
