@@ -439,16 +439,7 @@ export default async function HomePage() {
                   className="font-display uppercase"
                   style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'white', lineHeight: 1.1 }}
                 >
-                  The analog world runs forward.
-                  <br />It is{' '}
-                  <span
-                    style={{
-                      color: '#C46D63',
-                      textShadow: '0 0 10px rgba(196,109,99,0.3)',
-                    }}
-                  >
-                    INEVITABLE.
-                  </span>
+                  The future already existed. We’re bringing it back.
                 </blockquote>
               </div>
 
@@ -457,8 +448,7 @@ export default async function HomePage() {
                   className="font-sans mb-8"
                   style={{ color: '#F8F7F3', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.7 }}
                 >
-                  We are building a present with weight and duration. Every object, mix, and essay is
-                  chosen to outlast the year it was made.
+                  Buena Onda explores the future as it was once imagined: bold, optimistic, tactile, and built to last. Every object, mix, and story carries that vision forward.
                 </p>
                 <cite
                   className="font-display not-italic block"
@@ -469,7 +459,7 @@ export default async function HomePage() {
                     textShadow: '0 0 8px rgba(8,204,252,0.4)',
                   }}
                 >
-                  - Buena Onda, {contactCity || 'Miami, FL'}
+                  — Buena Onda, {contactCity || 'Miami, FL'}
                 </cite>
               </div>
             </div>
