@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Post } from '@/types'
 
 export const metadata: Metadata = {
@@ -9,11 +9,8 @@ export const metadata: Metadata = {
   description: 'Essays, dispatches, and stories from the analog world.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
-type PostsResponse = {
-  posts?: Post[]
-}
 
 function formatDate(value: string | null | undefined) {
   if (!value) return 'Unpublished'
@@ -44,32 +41,22 @@ function mergePosts(...collections: Post[][]) {
   return sortPosts(Array.from(byId.values()))
 }
 
-async function getBaseUrl() {
-  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim()
-  if (configured) return configured.replace(/\/$/, '')
-
-  const headerStore = await headers()
-  const host = headerStore.get('x-forwarded-host') ?? headerStore.get('host')
-  const proto = headerStore.get('x-forwarded-proto') ?? (host?.includes('localhost') ? 'http' : 'https')
-
-  if (host) return `${proto}://${host}`
-  return 'http://localhost:3000'
-}
-
 async function fetchTaggedPosts(tag: string): Promise<Post[]> {
-  const baseUrl = await getBaseUrl()
-  const res = await fetch(`${baseUrl}/api/posts?tag=${encodeURIComponent(tag)}&limit=50`, {
-    cache: 'no-store',
-  })
+  const supabase = createPublicClient()
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('published', true)
+    .contains('tags', [tag])
+    .order('published_at', { ascending: false })
+    .limit(50)
 
-  if (!res.ok) {
-    throw new Error(`Failed to load ${tag} posts.`)
+  if (error) {
+    throw new Error(`Failed to load ${tag} posts: ${error.message}`)
   }
 
-  const body = (await res.json()) as PostsResponse
-  return Array.isArray(body.posts) ? body.posts : []
+  return (data ?? []) as Post[]
 }
-
 async function loadCulturePosts() {
   try {
     const [culturePosts, essayPosts] = await Promise.all([
