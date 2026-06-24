@@ -3,7 +3,7 @@ import Script from 'next/script'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bebas_Neue, Outfit, Cormorant_Garamond, Space_Mono, Orbitron } from 'next/font/google'
+import { Bebas_Neue, Outfit, Cormorant_Garamond, Space_Mono, Orbitron, Fraunces } from 'next/font/google'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
@@ -42,6 +42,14 @@ const orbitron = Orbitron({
   weight:   ['400', '500', '600', '700'],
   subsets:  ['latin'],
   variable: '--font-orbitron',
+  display:  'swap',
+})
+
+const fraunces = Fraunces({
+  weight:   ['400', '500'],
+  style:    ['normal', 'italic'],
+  subsets:  ['latin'],
+  variable: '--font-fraunces',
   display:  'swap',
 })
 
@@ -90,7 +98,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${bebasNeue.variable} ${outfit.variable} ${cormorantGaramond.variable} ${spaceMono.variable} ${orbitron.variable}`}>
+      <body className={`${bebasNeue.variable} ${outfit.variable} ${cormorantGaramond.variable} ${spaceMono.variable} ${orbitron.variable} ${fraunces.variable}`}>
         <FilmGrain />
         <ClickSound />
         {children}

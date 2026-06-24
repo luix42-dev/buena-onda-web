@@ -210,10 +210,10 @@ export default async function ItemPage({ params }: Props) {
               {item.price != null && (
                 <ScanReveal delay={100}>
                   <div className="mb-6">
-                    <p className="font-mono text-charcoal" style={{ fontSize: '1.05rem' }}>
+                    <p className="font-mono" style={{ fontSize: '21px', color: '#2F2F2D' }}>
                       ${item.price.toFixed(2)}
                     </p>
-                    <p className="font-mono text-xs text-stone-grey mt-1 tracking-wide">
+                    <p className="font-mono" style={{ fontSize: '13px', color: '#7C7B73', lineHeight: 1.6, marginTop: '10px' }}>
                       Free Delivery &mdash; Miami &amp; Surroundings
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export default async function ItemPage({ params }: Props) {
 
               <ScanReveal delay={110}>
                 <div className="mb-8">
-                  <p className="font-mono text-[0.68rem] text-stone-grey leading-relaxed mb-5 max-w-sm">
+                  <p className="font-mono mb-5 max-w-sm" style={{ fontSize: '13px', color: '#7C7B73', lineHeight: 1.6 }}>
                     Final sale, non-returnable. Every piece is one of one &mdash; when it&apos;s gone, it&apos;s gone.
                   </p>
 
@@ -253,8 +253,25 @@ export default async function ItemPage({ params }: Props) {
 
               {item.description && (
                 <ScanReveal delay={120}>
-                  <div className="mb-8 pt-8 border-t border-pale-stone">
-                    <p className="editorial-body">{item.description}</p>
+                  <div
+                    className="border-t border-pale-stone"
+                    style={{ margin: '30px 0', paddingTop: '30px' }}
+                  >
+                    {item.description.split('\n\n').map((para, i, arr) => (
+                      <p
+                        key={i}
+                        style={{
+                          fontFamily: 'var(--font-fraunces)',
+                          fontSize: '18px',
+                          lineHeight: 1.72,
+                          color: '#2F2F2D',
+                          maxWidth: '34em',
+                          marginBottom: i < arr.length - 1 ? '1.05em' : 0,
+                        }}
+                      >
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 </ScanReveal>
               )}
@@ -262,12 +279,24 @@ export default async function ItemPage({ params }: Props) {
               {whyChosen && (
                 <ScanReveal delay={130}>
                   <div className="mb-8">
-                    <p className="font-serif italic text-near-black mb-3" style={{ fontSize: '1rem' }}>
+                    <p style={{ fontFamily: 'var(--font-fraunces)', fontStyle: 'italic', fontSize: '16px', color: '#2F2F2D', marginTop: '1.9rem', marginBottom: '0.75rem' }}>
                       Why We Chose This
                     </p>
-                    <p className="editorial-body text-sm leading-relaxed">
-                      {whyChosen}
-                    </p>
+                    {whyChosen.split('\n\n').map((para, i, arr) => (
+                      <p
+                        key={i}
+                        style={{
+                          fontFamily: 'var(--font-fraunces)',
+                          fontSize: '18px',
+                          lineHeight: 1.72,
+                          color: '#2F2F2D',
+                          maxWidth: '34em',
+                          marginBottom: i < arr.length - 1 ? '1.05em' : 0,
+                        }}
+                      >
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 </ScanReveal>
               )}
