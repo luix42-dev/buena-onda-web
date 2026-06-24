@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { createServiceClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import BuenaOndaArchive from './_components/Archive'
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Curated mixes, live sessions, and field recordings from the house archive.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 type EpisodeRow = {
   id: string
@@ -54,11 +54,11 @@ function buildEpisodeAudioUrl(row: EpisodeRow) {
 
 async function loadEpisodes() {
   try {
-    const supabase = await createServiceClient()
+    const supabase = createPublicClient()
     const { data, error } = await supabase
       .from('episodes')
       .select('id,title,description,audio_url,audio_key,duration,episode_number,published_at,created_at,status')
-      .eq('status', 'published')
+      .eq('published', true)
       .order('episode_number', { ascending: false })
 
     if (error) throw error

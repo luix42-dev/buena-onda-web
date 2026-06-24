@@ -138,7 +138,7 @@ export default function Navigation() {
       {/* Mobile menu */}
       <div
         className={[
-          'fixed inset-0 z-40 flex flex-col justify-center px-8',
+          'fixed inset-0 z-40 flex flex-col justify-center px-8 md:hidden',
           'transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]',
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
         ].join(' ')}
