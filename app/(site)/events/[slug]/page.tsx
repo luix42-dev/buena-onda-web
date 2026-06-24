@@ -5,6 +5,8 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import GalleryGrid from '@/components/ui/GalleryGrid'
 import SignupSheetArchive from '@/components/ui/SignupSheetArchive'
+import JsonLd from '@/components/seo/JsonLd'
+import { absoluteUrl, breadcrumbList } from '@/lib/seo/json-ld'
 import { createPublicServiceClient } from '@/lib/supabase/public'
 import PlaylistPlayer from './PlaylistPlayer'
 
@@ -117,6 +119,11 @@ function normalizeVideos(value: LiveEvent['videos']): Array<{ url: string; label
     .filter(item => item.url)
 }
 
+function schemaEventStatus(status: LiveEvent['status']) {
+  if (status === 'archived') return 'https://schema.org/EventCompleted'
+  return 'https://schema.org/EventScheduled'
+}
+
 function getYouTubePlaylistId(urlString: string): string {
   const input = urlString.trim()
   if (!input) return ''
@@ -170,6 +177,26 @@ export default async function EventDetailPage({ params }: Props) {
   const audioFiles = event.audio_files?.filter(item => item.file) ?? []
   const partners = event.partners?.filter(item => item.name || item.logo) ?? []
   const archiveSheets = event.archive_sheets?.filter(item => item.file) ?? []
+  const eventJsonLd = event.event_date ? {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.name,
+    description: event.description ?? event.tagline ?? undefined,
+    image: event.cover_image_url ? [event.cover_image_url] : undefined,
+    startDate: event.event_date,
+    eventStatus: schemaEventStatus(event.status),
+    location: event.venue_name || event.venue_city ? {
+      '@type': 'Place',
+      name: event.venue_name ?? event.venue_city ?? undefined,
+      address: event.venue_city ?? undefined,
+    } : undefined,
+    url: absoluteUrl(`/events/${event.slug}`),
+  } : null
+  const breadcrumbs = breadcrumbList([
+    { name: 'Home', path: '/' },
+    { name: 'Live Events', path: '/events' },
+    { name: event.name, path: `/events/${event.slug}` },
+  ])
   const proofRows = [
     { label: 'Venue', value: event.venue_name },
     { label: 'City', value: event.venue_city },
@@ -179,6 +206,7 @@ export default async function EventDetailPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={eventJsonLd ? [breadcrumbs, eventJsonLd] : [breadcrumbs]} />
       <section className='bg-cream pt-32 pb-16 md:pb-24 overflow-hidden'>
         <div className='max-w-site mx-auto px-5 md:px-10'>
           <ScanReveal>

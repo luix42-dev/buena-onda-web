@@ -1,26 +1,43 @@
 import type { MetadataRoute } from 'next'
-import { createClient } from '@supabase/supabase-js'
+import { createPublicClient } from '@/lib/supabase/public'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.buenaondalifestyle.com'
+export const revalidate = 3600
 
-const STATIC_ROUTES: MetadataRoute.Sitemap = [
-  { url: `${BASE_URL}/`,        lastModified: new Date(), changeFrequency: 'weekly',  priority: 1.0 },
-  { url: `${BASE_URL}/themes`,  lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.8 },
-  { url: `${BASE_URL}/culture`, lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.8 },
-  { url: `${BASE_URL}/radio`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-  { url: `${BASE_URL}/about`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.buenaondalifestyle.com').replace(/\/$/, '')
+
+const staticPaths = [
+  '/',
+  '/about',
+  '/contact',
+  '/culture',
+  '/events',
+  '/objects',
+  '/radio',
+  '/themes',
 ]
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+function route(path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] = 'weekly'): MetadataRoute.Sitemap[number] {
+  return {
+    url: `${SITE}${path}`,
+    lastModified: new Date(),
+    changeFrequency,
+    priority,
+  }
+}
 
-  if (!url || !key) return STATIC_ROUTES
+function fromUpdatedAt(value: string | null | undefined) {
+  return value ? new Date(value) : new Date()
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const routes: MetadataRoute.Sitemap = [
+    ...staticPaths.map((path) => route(path, path === '/' ? 1 : 0.7)),
+  ]
 
   try {
-    const supabase = createClient(url, key)
+    const supabase = createPublicClient()
 
-    const [{ data: items }, { data: themes }] = await Promise.all([
+    const [{ data: items }, { data: themes }, { data: posts }, { data: episodes }, { data: events }] = await Promise.all([
       supabase
         .from('items')
         .select('slug, updated_at')
@@ -29,24 +46,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .from('themes')
         .select('slug, updated_at')
         .eq('published', true),
+      supabase
+        .from('posts')
+        .select('slug, updated_at')
+        .eq('published', true),
+      supabase
+        .from('episodes')
+        .select('slug, published_at, created_at')
+        .eq('published', true),
+      supabase
+        .from('events')
+        .select('slug, updated_at'),
     ])
 
-    const itemRoutes: MetadataRoute.Sitemap = (items ?? []).map(item => ({
-      url: `${BASE_URL}/items/${item.slug}`,
-      lastModified: new Date(item.updated_at),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    }))
-
-    const themeRoutes: MetadataRoute.Sitemap = (themes ?? []).map(theme => ({
-      url: `${BASE_URL}/themes/${theme.slug}`,
-      lastModified: new Date(theme.updated_at),
+    const themeRoutes: MetadataRoute.Sitemap = (themes ?? []).map((theme) => ({
+      url: `${SITE}/themes/${theme.slug}`,
+      lastModified: fromUpdatedAt(theme.updated_at),
       changeFrequency: 'monthly',
       priority: 0.75,
     }))
 
-    return [...STATIC_ROUTES, ...themeRoutes, ...itemRoutes]
+    const itemRoutes: MetadataRoute.Sitemap = (items ?? []).map((item) => ({
+      url: `${SITE}/items/${item.slug}`,
+      lastModified: fromUpdatedAt(item.updated_at),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }))
+
+    const cultureRoutes: MetadataRoute.Sitemap = (posts ?? []).map((post) => ({
+      url: `${SITE}/culture/${post.slug}`,
+      lastModified: fromUpdatedAt(post.updated_at),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    }))
+
+    const radioRoutes: MetadataRoute.Sitemap = (episodes ?? []).map((episode) => ({
+      url: `${SITE}/radio#${episode.slug}`,
+      lastModified: fromUpdatedAt(episode.published_at ?? episode.created_at),
+      changeFrequency: 'monthly',
+      priority: 0.55,
+    }))
+
+    const eventRoutes: MetadataRoute.Sitemap = (events ?? []).map((event) => ({
+      url: `${SITE}/events/${event.slug}`,
+      lastModified: fromUpdatedAt(event.updated_at),
+      changeFrequency: 'monthly',
+      priority: 0.65,
+    }))
+
+    return [...routes, ...themeRoutes, ...itemRoutes, ...cultureRoutes, ...radioRoutes, ...eventRoutes]
   } catch {
-    return STATIC_ROUTES
+    return routes
   }
 }

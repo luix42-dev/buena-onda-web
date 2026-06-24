@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   description:
     'Buena Onda is an analog culture house rooted in Miami. Music, objects, and a lifestyle built to last.',
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buenaonda.com'
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.buenaondalifestyle.com'
   ),
   openGraph: {
     type:        'website',

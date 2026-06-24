@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import SubscribeBlock from '@/components/SubscribeBlock'
+import JsonLd from '@/components/seo/JsonLd'
+import { ORGANIZATION, absoluteUrl, breadcrumbList } from '@/lib/seo/json-ld'
 import { createPublicClient } from '@/lib/supabase/public'
 import type { Post } from '@/types'
 
@@ -267,9 +269,27 @@ export default async function CulturePostPage({ params }: Props) {
   const issueNumber = await getIssueNumber(post)
   const isFirstIssue = issueNumber === '001'
   const dek = post.excerpt ?? null
-
+  const publishedDate = post.published_at ?? post.created_at
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    image: post.hero_image ? [post.hero_image] : undefined,
+    datePublished: publishedDate,
+    dateModified: post.updated_at ?? publishedDate,
+    author: ORGANIZATION,
+    publisher: ORGANIZATION,
+    mainEntityOfPage: absoluteUrl(`/culture/${post.slug}`),
+  }
+  const breadcrumbs = breadcrumbList([
+    { name: 'Home', path: '/' },
+    { name: 'Culture', path: '/culture' },
+    { name: post.title, path: `/culture/${post.slug}` },
+  ])
   return (
     <main style={{ background: '#F8F7F3', color: '#2F2F2D', paddingTop: 64 }}>
+      <JsonLd data={[breadcrumbs, articleJsonLd]} />
       <section
         className="grid grid-cols-1 gap-3 px-5 py-4 text-center md:grid-cols-3 md:px-8 md:text-left"
         style={{ borderBottom: '1px solid #2F2F2D' }}
