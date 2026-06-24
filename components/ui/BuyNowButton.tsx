@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { trackGAEvent } from '@/lib/analytics/ga'
 
 interface Props {
   itemId: string
@@ -15,6 +16,7 @@ export default function BuyNowButton({ itemId, itemTitle }: Props) {
     if (isLoading) return
     setIsLoading(true)
     setError(null)
+    trackGAEvent('checkout_start', { item_id: itemId, item_name: itemTitle })
 
     try {
       const response = await fetch('/api/checkout', {

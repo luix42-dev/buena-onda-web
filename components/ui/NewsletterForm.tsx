@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { trackGAEvent } from '@/lib/analytics/ga'
 
 interface NewsletterFormProps {
   className?: string
@@ -42,6 +43,7 @@ export default function NewsletterForm({ className = '', layout = 'row', variant
           ? (body as { message: string }).message
           : 'You are on the list.'
       )
+      trackGAEvent('newsletter_signup', { source: 'newsletter_form' })
       setEmail('')
     } catch (err) {
       setStatus('error')

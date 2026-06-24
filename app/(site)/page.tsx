@@ -3,6 +3,8 @@ import Link from 'next/link'
 import ScanReveal from '@/components/ui/ScanReveal'
 import NewsletterForm from '@/components/ui/NewsletterForm'
 import HeroGrid from '@/components/HeroGrid'
+import JsonLd from '@/components/seo/JsonLd'
+import { organizationJsonLd, websiteJsonLd } from '@/lib/seo/json-ld'
 import { createPublicClient } from '@/lib/supabase/public'
 import type { Episode } from '@/types'
 
@@ -160,6 +162,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <section
         className="relative min-h-screen overflow-hidden grid grid-cols-1 md:grid-cols-[55%_45%] pt-16"
         style={{ background: '#F8F7F3' }}
