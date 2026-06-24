@@ -6,6 +6,7 @@ import ImageGallery from '@/components/ui/ImageGallery'
 import BuyNowButton from '@/components/ui/BuyNowButton'
 import ReserveForm from '@/components/ui/ReserveForm'
 import JsonLd from '@/components/seo/JsonLd'
+import GAItemView from '@/components/analytics/GAItemView'
 import { absoluteUrl, breadcrumbList } from '@/lib/seo/json-ld'
 import { createClient } from '@/lib/supabase/server'
 import type { Item, ItemImage, Theme } from '@/types'
@@ -156,6 +157,7 @@ export default async function ItemPage({ params }: Props) {
   return (
     <>
       <JsonLd data={[breadcrumbs, productJsonLd]} />
+      <GAItemView itemId={item.id} itemTitle={item.title} itemSlug={item.slug} />
       <div className="pt-32 pb-32 bg-cream">
         <div className="max-w-site mx-auto px-5 md:px-10">
           <ScanReveal>

@@ -1,8 +1,13 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Bebas_Neue, Outfit, Cormorant_Garamond, Space_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
+import MetaPixel from '@/components/analytics/MetaPixel'
 
 const bebasNeue = Bebas_Neue({
   weight:   ['400'],
@@ -79,6 +84,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+  const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -86,6 +94,21 @@ export default function RootLayout({
         <FilmGrain />
         <ClickSound />
         {children}
+        <Analytics />
+        <SpeedInsights />
+        <MetaPixel />
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
+        {clarityProjectId ? (
+          <Script id="microsoft-clarity" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "${clarityProjectId}");
+            `}
+          </Script>
+        ) : null}
       </body>
     </html>
   )

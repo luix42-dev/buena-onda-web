@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import ScanReveal from '@/components/ui/ScanReveal'
+import GAPurchase from '@/components/analytics/GAPurchase'
 export const runtime = 'edge'
 
 
@@ -18,7 +19,9 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
   const { session_id: sessionId } = await searchParams
 
   return (
-    <div className="pt-32 pb-32 bg-cream">
+    <>
+      <GAPurchase sessionId={sessionId} />
+      <div className="pt-32 pb-32 bg-cream">
       <div className="max-w-site mx-auto px-5 md:px-10">
         <ScanReveal>
           <div className="max-w-2xl border border-pale-stone bg-warm-page p-8 md:p-10">
@@ -55,6 +58,7 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
           </div>
         </ScanReveal>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

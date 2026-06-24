@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { trackGAEvent } from '@/lib/analytics/ga'
 
 interface FormData {
   name:    string
@@ -43,6 +44,7 @@ export default function ReserveForm({ itemId, itemTitle }: Props) {
       setAlreadyReserved(true)
     } else if (res.ok) {
       setSent(true)
+      trackGAEvent('reserve_submit', { item_id: itemId, item_name: itemTitle })
     } else {
       setError('Something went wrong. Please try again.')
     }
