@@ -18,6 +18,14 @@ export interface Post {
   inline_image_2?: string | null
   inline_image_2_caption?: string | null
   editorial_note?: string | null
+  body_images?: PostBodyImage[] | null
+}
+
+export interface PostBodyImage {
+  src: string
+  caption?: string | null
+  alt?: string | null
+  afterParagraph: number
 }
 
 export interface TransmissionIssue {
