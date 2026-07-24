@@ -19,6 +19,7 @@ export interface Post {
   inline_image_2_caption?: string | null
   editorial_note?: string | null
   body_images?: PostBodyImage[] | null
+  playlist_url?: string | null
 }
 
 export interface PostBodyImage {

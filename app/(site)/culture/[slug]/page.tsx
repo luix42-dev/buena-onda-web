@@ -221,6 +221,23 @@ function renderBody(post: Post, issueNumber: string) {
   return (
     <>
       {nodes}
+      {post.playlist_url ? (
+        <a
+          href={post.playlist_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono mt-8 inline-block"
+          style={{
+            color: '#1A9E9E',
+            fontSize: 11,
+            letterSpacing: '0.08em',
+            textDecoration: 'underline',
+            textUnderlineOffset: 4,
+          }}
+        >
+          Listen to the playlist here
+        </a>
+      ) : null}
       <div
         className="font-mono mt-12 pt-5"
         style={{
