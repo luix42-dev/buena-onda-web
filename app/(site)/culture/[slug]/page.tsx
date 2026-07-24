@@ -119,7 +119,7 @@ function renderBody(post: Post, issueNumber: string) {
     )
   }
 
-  const paragraphs = raw.split(/\n\n+/).filter(Boolean)
+  const paragraphs = raw.split(/(?:\r?\n){2,}/).filter(Boolean)
 
   const renderParagraph = (text: string, index: number) => (
     <p
