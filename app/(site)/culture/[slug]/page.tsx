@@ -143,12 +143,13 @@ function renderBody(post: Post, issueNumber: string) {
   const renderInlineImage = (
     src: string,
     caption: string | null | undefined,
+    alt: string | null | undefined,
     key: string
   ) => (
     <figure key={key} style={{ margin: '34px 0' }}>
       <Image
         src={src}
-        alt={caption ?? ''}
+        alt={alt ?? caption ?? ''}
         width={960}
         height={540}
         style={{ objectFit: 'cover', width: '100%', height: 'auto', border: '1px solid #2F2F2D' }}
@@ -172,31 +173,43 @@ function renderBody(post: Post, issueNumber: string) {
   )
 
   const nodes: React.ReactNode[] = []
+  const bodyImages = Array.isArray(post.body_images) ? post.body_images : []
 
   paragraphs.forEach((para, index) => {
     nodes.push(renderParagraph(para, index))
 
-    if (index === 1 && post.inline_image_1) {
-      nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, 'inline-1'))
+    bodyImages
+      .filter(image => image.afterParagraph === index + 1)
+      .forEach((image, imageIndex) => {
+        nodes.push(renderInlineImage(
+          image.src,
+          image.caption,
+          image.alt,
+          'body-image-' + (index + 1) + '-' + imageIndex
+        ))
+      })
+
+    if (!bodyImages.length && index === 1 && post.inline_image_1) {
+      nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, undefined, 'inline-1'))
       if (post.editorial_note) {
         nodes.push(<EditorialNote key="editorial-note" note={post.editorial_note} />)
       }
     }
 
-    if (index === 3 && post.inline_image_2 && post.inline_image_2 !== post.inline_image_1) {
-      nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, 'inline-2'))
+    if (!bodyImages.length && index === 3 && post.inline_image_2 && post.inline_image_2 !== post.inline_image_1) {
+      nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, undefined, 'inline-2'))
     }
   })
 
-  if (paragraphs.length <= 2 && post.inline_image_1) {
-    nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, 'inline-1-tail'))
+  if (!bodyImages.length && paragraphs.length <= 2 && post.inline_image_1) {
+    nodes.push(renderInlineImage(post.inline_image_1, post.inline_image_1_caption, undefined, 'inline-1-tail'))
     if (post.editorial_note) {
       nodes.push(<EditorialNote key="editorial-note" note={post.editorial_note} />)
     }
   }
 
-  if (paragraphs.length <= 4 && post.inline_image_2 && post.inline_image_2 !== post.inline_image_1) {
-    nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, 'inline-2-tail'))
+  if (!bodyImages.length && paragraphs.length <= 4 && post.inline_image_2 && post.inline_image_2 !== post.inline_image_1) {
+    nodes.push(renderInlineImage(post.inline_image_2, post.inline_image_2_caption, undefined, 'inline-2-tail'))
   }
 
   if (post.editorial_note && !post.inline_image_1) {
