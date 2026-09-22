@@ -1,5 +1,6 @@
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { sendTelegramMessage, type TelegramSendResult } from '@/lib/telegram'
+import { sendOrderConfirmationEmail, type EmailSendResult } from '@/lib/email'
 
 type FulfillOrderInput = {
   stripeSessionId: string
@@ -15,7 +16,9 @@ export type FulfillOrderResult = {
   itemId: string | null
   status: string | null
   itemAlreadySold: boolean
+  alreadyFulfilled: boolean
   telegram: TelegramSendResult
+  email: EmailSendResult
 }
 
 function formatAmount(amountTotal: number, currency: string) {
@@ -40,16 +43,29 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
 
   const fulfillment = data?.[0]
   let telegram: TelegramSendResult = { ok: false, reason: 'No paid fulfillment' }
+  let email: EmailSendResult = { ok: false, reason: 'No paid fulfillment' }
 
-  if (fulfillment?.status_out === 'paid' && fulfillment?.item_id) {
+  const isFirstTimeFulfillment =
+    fulfillment?.status_out === 'paid' && !fulfillment?.already_fulfilled
+
+  if (isFirstTimeFulfillment && fulfillment?.item_id) {
     const { data: item } = await supabase
       .from('items')
       .select('title')
       .eq('id', fulfillment.item_id)
       .single()
 
+    const itemTitle = item?.title ?? 'Catalog item'
+
     telegram = await sendTelegramMessage(
-      `Order received: ${item?.title ?? 'Catalog item'} - ${formatAmount(input.amountTotal, input.currency)}`,
+      `Order received: ${itemTitle} - ${formatAmount(input.amountTotal, input.currency)}`,
+    )
+
+    email = await sendOrderConfirmationEmail(
+      itemTitle,
+      input.customerEmail,
+      input.amountTotal,
+      input.currency,
     )
   }
 
@@ -58,6 +74,8 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
     itemId: fulfillment?.item_id ?? null,
     status: fulfillment?.status_out ?? null,
     itemAlreadySold: Boolean(fulfillment?.item_already_sold),
+    alreadyFulfilled: Boolean(fulfillment?.already_fulfilled),
     telegram,
+    email,
   }
 }

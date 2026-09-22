@@ -3,10 +3,38 @@ import Stripe from 'stripe'
 import { fulfillOrder } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
 function getPaymentIntentId(paymentIntent: Stripe.Checkout.Session['payment_intent']) {
   return typeof paymentIntent === 'string' ? paymentIntent : null
+}
+
+async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
+  const customerEmail = session.customer_details?.email ?? session.customer_email ?? null
+  const customerName = session.customer_details?.name ?? null
+  const paymentIntentId = getPaymentIntentId(session.payment_intent)
+  const amountTotal = session.amount_total ?? 0
+  const currency = session.currency ?? 'usd'
+
+  return fulfillOrder({
+    stripeSessionId: session.id,
+    stripePaymentIntentId: paymentIntentId,
+    customerEmail,
+    customerName,
+    amountTotal,
+    currency,
+  })
+}
+
+async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
+  return fulfillOrder({
+    stripeSessionId: `elements_${paymentIntent.id}`,
+    stripePaymentIntentId: paymentIntent.id,
+    customerEmail: paymentIntent.receipt_email ?? null,
+    customerName: null,
+    amountTotal: paymentIntent.amount,
+    currency: paymentIntent.currency,
+  })
 }
 
 export async function POST(request: NextRequest) {
@@ -31,31 +59,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  if (event.type !== 'checkout.session.completed') {
+  if (event.type === 'checkout.session.expired') {
+    // Nothing to release: the checkout route no longer reserves inventory
+    // before redirecting to Stripe, so an expired session has no side effects.
     return NextResponse.json({ received: true })
   }
 
-  const session = event.data.object as Stripe.Checkout.Session
-  const customerEmail = session.customer_details?.email ?? session.customer_email ?? null
-  const customerName = session.customer_details?.name ?? null
-  const paymentIntentId = getPaymentIntentId(session.payment_intent)
-  const amountTotal = session.amount_total ?? 0
-  const currency = session.currency ?? 'usd'
+  if (event.type !== 'checkout.session.completed' && event.type !== 'payment_intent.succeeded') {
+    return NextResponse.json({ received: true })
+  }
+
+  const sourceId =
+    event.type === 'checkout.session.completed'
+      ? (event.data.object as Stripe.Checkout.Session).id
+      : (event.data.object as Stripe.PaymentIntent).id
 
   let fulfillment: Awaited<ReturnType<typeof fulfillOrder>>
   try {
-    fulfillment = await fulfillOrder({
-      stripeSessionId: session.id,
-      stripePaymentIntentId: paymentIntentId,
-      customerEmail,
-      customerName,
-      amountTotal,
-      currency,
-    })
+    fulfillment =
+      event.type === 'checkout.session.completed'
+        ? await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session)
+        : await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent)
   } catch (error) {
     const message = error instanceof Error ? error.message : ''
     if (message.includes('order_not_found')) {
-      console.warn(`Stripe webhook completed before order was stored for session ${session.id}`)
+      console.warn(`Stripe webhook completed before order was stored for ${sourceId}`)
       return NextResponse.json({ received: true })
     }
 
@@ -64,8 +92,12 @@ export async function POST(request: NextRequest) {
   }
 
   if (fulfillment.itemAlreadySold) {
-    console.warn(`Stripe session ${session.id} completed after item was already sold`)
+    console.warn(`Stripe event for ${sourceId} completed after item was already sold`)
   }
 
-  return NextResponse.json({ received: true, telegram: fulfillment.telegram })
+  return NextResponse.json({
+    received: true,
+    telegram: fulfillment.telegram,
+    email: fulfillment.email,
+  })
 }

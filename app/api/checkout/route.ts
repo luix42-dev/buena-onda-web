@@ -72,18 +72,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Item is not available for checkout' }, { status: 409 })
   }
 
-  const { data: reservedItem, error: reserveError } = await supabase
-    .from('items')
-    .update({ availability: 'reserved' })
-    .eq('id', item.id)
-    .eq('availability', 'available')
-    .select('id')
-    .maybeSingle()
-
-  if (reserveError || !reservedItem) {
-    return NextResponse.json({ error: 'Item is already reserved or sold' }, { status: 409 })
-  }
-
   let checkoutSession: Stripe.Checkout.Session | null = null
 
   try {
@@ -143,11 +131,6 @@ export async function POST(request: NextRequest) {
 
     if (orderError || !order) {
       await stripe.checkout.sessions.expire(checkoutSession.id).catch(() => null)
-      await supabase
-        .from('items')
-        .update({ availability: 'available' })
-        .eq('id', item.id)
-        .eq('availability', 'reserved')
       return NextResponse.json({ error: 'Could not create order' }, { status: 500 })
     }
 
@@ -156,12 +139,6 @@ export async function POST(request: NextRequest) {
     if (checkoutSession) {
       await stripe.checkout.sessions.expire(checkoutSession.id).catch(() => null)
     }
-
-    await supabase
-      .from('items')
-      .update({ availability: 'available' })
-      .eq('id', item.id)
-      .eq('availability', 'reserved')
 
     const message = error instanceof Error ? error.message : 'Checkout failed'
     return NextResponse.json({ error: message }, { status: 500 })
