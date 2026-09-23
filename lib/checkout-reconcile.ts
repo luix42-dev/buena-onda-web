@@ -22,6 +22,15 @@ async function fulfillPaidOrder(stripe: Stripe, order: HoldOrder) {
   return fulfillCheckoutSession(await stripe.checkout.sessions.retrieve(order.stripe_session_id))
 }
 
+type LogRow = { item_id?: string | null; order_id?: string | null; action: string; reason?: string | null }
+
+// Best effort: the log table arrives with migration 20260923120000.
+async function logRecovery(supabase: SupabaseClient, source: string, rows: LogRow[]) {
+  if (!rows.length) return
+  const { error } = await supabase.from('checkout_recovery_log').insert(rows.map(row => ({ source, ...row })))
+  if (error) console.warn('[reconcile] recovery log unavailable:', error.message)
+}
+
 /**
  * Repair missed webhook outcomes and release abandoned holds. Safe to run at
  * any time and any number of times: every decision is re-verified with Stripe
@@ -31,6 +40,7 @@ export async function reconcileCheckouts(
   supabase: SupabaseClient,
   stripe: Stripe,
   now = Date.now(),
+  source: 'cron' | 'studio' = 'cron',
 ): Promise<ReconcileReport> {
   const report: ReconcileReport = { fulfilled: [], canceled: [], released: [], protected: [], unresolved: [] }
   const store = supabaseHoldStore(supabase)
@@ -73,6 +83,14 @@ export async function reconcileCheckouts(
       report.protected.push({ itemId: id, reason: verdict.reason })
     }
   }
+
+  const pendingById = new Map(((pending ?? []) as HoldOrder[]).map(order => [order.id, order.item_id]))
+  await logRecovery(supabase, source, [
+    ...report.fulfilled.map(id => ({ order_id: id, item_id: pendingById.get(id), action: 'fulfilled', reason: 'missed_webhook' })),
+    ...report.canceled.map(id => ({ order_id: id, item_id: pendingById.get(id), action: 'canceled', reason: 'stripe_confirmed_unpayable' })),
+    ...report.released.map(id => ({ item_id: id, action: 'released', reason: 'abandoned_checkout' })),
+    ...report.unresolved.map(entry => ({ order_id: entry.orderId, item_id: pendingById.get(entry.orderId), action: 'protected', reason: entry.state })),
+  ])
 
   return report
 }
