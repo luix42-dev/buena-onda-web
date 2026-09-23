@@ -2,6 +2,7 @@ import type Stripe from 'stripe'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { sendTelegramMessage, type TelegramSendResult } from '@/lib/telegram'
 import { sendOrderConfirmationEmail, type EmailSendResult } from '@/lib/email'
+import { formatShippingLines, shippingFromSession, type ShippingAddress } from '@/lib/shipping'
 
 type FulfillOrderInput = {
   stripeSessionId: string
@@ -10,6 +11,7 @@ type FulfillOrderInput = {
   customerName: string | null
   amountTotal: number
   currency: string
+  shipping?: ShippingAddress | null
 }
 
 export type FulfillOrderResult = {
@@ -27,6 +29,20 @@ function formatAmount(amountTotal: number, currency: string) {
     style: 'currency',
     currency: currency.toUpperCase(),
   }).format(amountTotal / 100)
+}
+
+// Columns come from supabase/migrations/20260923120000_order_fulfillment_fields.sql.
+// Until that migration is applied the address stays in Stripe (the studio reads it there).
+async function persistShipping(
+  supabase: ReturnType<typeof createServiceRoleClient>,
+  stripeSessionId: string,
+  shipping: ShippingAddress,
+) {
+  const { error } = await supabase
+    .from('orders')
+    .update({ shipping_name: shipping.name, shipping_phone: shipping.phone, shipping_address: shipping })
+    .eq('stripe_session_id', stripeSessionId)
+  if (error) console.warn('[fulfillment] shipping not persisted:', error.message)
 }
 
 export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrderResult> {
@@ -67,9 +83,16 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
       .single()
 
     const itemTitle = item?.title ?? 'Catalog item'
+    const shipping = input.shipping ?? null
+    if (shipping) await persistShipping(supabase, input.stripeSessionId, shipping)
 
     telegram = await sendTelegramMessage(
-      `Order received: ${itemTitle} - ${formatAmount(input.amountTotal, input.currency)}`,
+      [
+        `Order received: ${itemTitle} - ${formatAmount(input.amountTotal, input.currency)}`,
+        shipping
+          ? `Deliver to:\n${formatShippingLines(shipping).join('\n')}`
+          : 'No delivery address on this order: check the studio.',
+      ].join('\n'),
     )
 
     email = await sendOrderConfirmationEmail(
@@ -77,6 +100,7 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
       input.customerEmail,
       input.amountTotal,
       input.currency,
+      shipping,
     )
   }
 
@@ -100,6 +124,7 @@ export function fulfillCheckoutSession(session: Stripe.Checkout.Session) {
     customerName: session.customer_details?.name ?? null,
     amountTotal: session.amount_total ?? 0,
     currency: session.currency ?? 'usd',
+    shipping: shippingFromSession(session),
   })
 }
 
@@ -111,5 +136,6 @@ export function fulfillElementsPaymentIntent(paymentIntent: Stripe.PaymentIntent
     customerName: null,
     amountTotal: paymentIntent.amount,
     currency: paymentIntent.currency,
+    shipping: shippingFromSession({ shipping_details: paymentIntent.shipping }),
   })
 }

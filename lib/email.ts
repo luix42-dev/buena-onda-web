@@ -1,4 +1,5 @@
 import { escapeHtml } from '@/lib/utils'
+import { formatShippingLines, type ShippingAddress } from '@/lib/shipping'
 
 export type EmailSendResult =
   | { ok: true; id: string | null }
@@ -16,6 +17,7 @@ export async function sendOrderConfirmationEmail(
   customerEmail: string | null,
   amountTotal: number,
   currency: string,
+  shipping: ShippingAddress | null = null,
 ): Promise<EmailSendResult> {
   if (!customerEmail) {
     return { ok: false, reason: 'No customer email on order' }
@@ -30,6 +32,9 @@ export async function sendOrderConfirmationEmail(
 
   const safeItemTitle = escapeHtml(itemTitle)
   const amountText = formatAmount(amountTotal, currency)
+  const shipToHtml = shipping
+    ? `<p><strong>Delivering to:</strong><br />${formatShippingLines(shipping).map(escapeHtml).join('<br />')}</p>`
+    : ''
 
   const { data, error } = await resend.emails.send({
     from: 'Buena Onda <noreply@buenaondalifestyle.com>',
@@ -39,6 +44,7 @@ export async function sendOrderConfirmationEmail(
       <h2>Order Confirmed - Buena Onda</h2>
       <p><strong>Item:</strong> ${safeItemTitle}</p>
       <p><strong>Amount:</strong> ${amountText}</p>
+      ${shipToHtml}
       <hr />
       <p>Thanks for your order. We'll be in touch to arrange delivery.</p>
     `,

@@ -5,6 +5,7 @@ import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 import { acquireHold, releaseOwnHold, stripeSessionExpiresAt } from '@/lib/checkout-holds'
 import { stripeHoldApi, supabaseHoldStore } from '@/lib/checkout-holds-adapters'
+import { shippingCountries } from '@/lib/shipping'
 
 export const runtime = 'edge'
 
@@ -92,6 +93,8 @@ export async function POST(request: NextRequest) {
     checkoutSession = await stripe.checkout.sessions.create({
       mode: 'payment',
       expires_at: stripeSessionExpiresAt(),
+      shipping_address_collection: { allowed_countries: shippingCountries() },
+      phone_number_collection: { enabled: true },
       line_items: [
         {
           quantity: 1,
