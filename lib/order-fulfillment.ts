@@ -1,3 +1,4 @@
+import type Stripe from 'stripe'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { sendTelegramMessage, type TelegramSendResult } from '@/lib/telegram'
 import { sendOrderConfirmationEmail, type EmailSendResult } from '@/lib/email'
@@ -30,6 +31,16 @@ function formatAmount(amountTotal: number, currency: string) {
 
 export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrderResult> {
   const supabase = createServiceRoleClient()
+
+  // Fallback for databases where the RPC predates the already_fulfilled flag:
+  // a replayed event for an order that was already paid must not notify again.
+  const { data: priorOrder } = await supabase
+    .from('orders')
+    .select('status')
+    .eq('stripe_session_id', input.stripeSessionId)
+    .maybeSingle()
+  const wasAlreadyPaid = priorOrder?.status === 'paid'
+
   const { data, error } = await supabase.rpc('fulfill_stripe_checkout_session', {
     p_stripe_session_id: input.stripeSessionId,
     p_stripe_payment_intent_id: input.stripePaymentIntentId,
@@ -45,8 +56,8 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
   let telegram: TelegramSendResult = { ok: false, reason: 'No paid fulfillment' }
   let email: EmailSendResult = { ok: false, reason: 'No paid fulfillment' }
 
-  const isFirstTimeFulfillment =
-    fulfillment?.status_out === 'paid' && !fulfillment?.already_fulfilled
+  const alreadyFulfilled = Boolean(fulfillment?.already_fulfilled ?? wasAlreadyPaid)
+  const isFirstTimeFulfillment = fulfillment?.status_out === 'paid' && !alreadyFulfilled
 
   if (isFirstTimeFulfillment && fulfillment?.item_id) {
     const { data: item } = await supabase
@@ -74,8 +85,31 @@ export async function fulfillOrder(input: FulfillOrderInput): Promise<FulfillOrd
     itemId: fulfillment?.item_id ?? null,
     status: fulfillment?.status_out ?? null,
     itemAlreadySold: Boolean(fulfillment?.item_already_sold),
-    alreadyFulfilled: Boolean(fulfillment?.already_fulfilled),
+    alreadyFulfilled,
     telegram,
     email,
   }
+}
+
+export function fulfillCheckoutSession(session: Stripe.Checkout.Session) {
+  const paymentIntent = session.payment_intent
+  return fulfillOrder({
+    stripeSessionId: session.id,
+    stripePaymentIntentId: typeof paymentIntent === 'string' ? paymentIntent : paymentIntent?.id ?? null,
+    customerEmail: session.customer_details?.email ?? session.customer_email ?? null,
+    customerName: session.customer_details?.name ?? null,
+    amountTotal: session.amount_total ?? 0,
+    currency: session.currency ?? 'usd',
+  })
+}
+
+export function fulfillElementsPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
+  return fulfillOrder({
+    stripeSessionId: `elements_${paymentIntent.id}`,
+    stripePaymentIntentId: paymentIntent.id,
+    customerEmail: paymentIntent.receipt_email ?? null,
+    customerName: null,
+    amountTotal: paymentIntent.amount,
+    currency: paymentIntent.currency,
+  })
 }

@@ -26,7 +26,7 @@ export default function BuyNowButton({ itemId, itemTitle }: Props) {
       })
       const data = await response.json().catch(() => null)
       if (!response.ok) {
-        throw new Error(data?.error ?? 'Checkout failed')
+        throw new Error(data?.message ?? data?.error ?? 'Checkout failed')
       }
       if (!data?.checkoutUrl) {
         throw new Error('Missing checkout URL')
