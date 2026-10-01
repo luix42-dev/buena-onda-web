@@ -173,7 +173,7 @@ export async function reconcileHold(
   if (states.some(entry => entry.state === 'paid')) {
     return { action: 'protect', reason: 'paid_not_sold', orders: states }
   }
-  if (states.some(entry => entry.state !== 'dead' && entry.state !== 'test_mode')) {
+  if (states.some(entry => entry.state !== 'dead')) {
     return { action: 'protect', reason: 'order_protected', orders: states }
   }
 

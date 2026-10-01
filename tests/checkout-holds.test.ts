@@ -183,10 +183,11 @@ test('duplicate / delayed expiry handling is a no-op once the item moved on', as
   assert.deepEqual(await reconcileHold(ctx.store, ctx.stripe, 'item-1', later), { action: 'none', reason: 'not_reserved' })
 })
 
-test('test-mode orders never block or release live inventory', async () => {
+test('test-mode orders cannot authorize releasing live inventory', async () => {
   const ctx = setup()
   await checkout(ctx, 'cs_test_a')
   const verdict = await reconcileHold(ctx.store, ctx.stripe, 'item-1', T0 + (HOLD_MINUTES + 1) * MIN)
-  assert.equal(verdict.action, 'released')
+  assert.equal(verdict.action, 'protect')
+  assert.equal(ctx.store.items.get('item-1')!.availability, 'reserved')
   assert.equal(ctx.store.orders[0].status, 'pending', 'test orders are left as they are')
 })
