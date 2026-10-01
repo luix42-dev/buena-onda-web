@@ -40,5 +40,5 @@
   ],
   "paymentInitiatedBy": "Owner manually completed requested checkout",
   "agentCreatedCharges": 0,
-  "emailDelivery": "Not independently verified: email API key is send-only; awaiting owner receipt confirmation"
+  "emailDelivery": "Owner confirmed receipt in conversation on 2026-10-01"
 }
