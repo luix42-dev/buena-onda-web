@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-01T21:49:59.485Z",
+  "sessionStatus": "complete",
+  "paymentStatus": "paid",
+  "amount": 50,
+  "currency": "usd",
+  "processorAddressPresent": true,
+  "orders": [
+    {
+      "id": "5356f30a-9777-4e94-b44e-1958a77ff8e2",
+      "status": "paid",
+      "amount": 50,
+      "currency": "usd",
+      "shippingPersisted": true,
+      "emailPresent": true
+    }
+  ],
+  "item": {
+    "id": "da298ad4-b8be-43ec-a6b8-0d05de2e1324",
+    "availability": "sold",
+    "status": "sold_out"
+  },
+  "event": {
+    "id": "evt_1ULrqNJVoShb7owbrzWDq8n5",
+    "pendingWebhooks": 0
+  },
+  "webhookRequests": [
+    {
+      "timestamp": 1790891327764,
+      "status": 200,
+      "level": "info",
+      "logCount": 0
+    },
+    {
+      "timestamp": 1790891327242,
+      "status": 200,
+      "level": "info",
+      "logCount": 0
+    }
+  ],
+  "paymentInitiatedBy": "Owner manually completed requested checkout",
+  "agentCreatedCharges": 0,
+  "emailDelivery": "Not independently verified: email API key is send-only; awaiting owner receipt confirmation"
+}
