@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-01T21:18:36.061Z",
+  "accountId": "acct_1TahwxJVoShb7owb",
+  "mode": "live",
+  "endpointId": "we_1ULrN8JVoShb7owb8I5gCBWW",
+  "url": "https://www.buenaondalifestyle.com/api/webhooks/stripe",
+  "status": "enabled",
+  "apiVersion": "2025-02-24.acacia",
+  "enabledEvents": [
+    "checkout.session.completed",
+    "checkout.session.async_payment_succeeded",
+    "checkout.session.expired",
+    "checkout.session.async_payment_failed",
+    "payment_intent.succeeded",
+    "payment_intent.canceled"
+  ],
+  "productionEnvironmentUpdated": true,
+  "chargesCreated": 0
+}

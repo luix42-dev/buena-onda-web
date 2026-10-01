@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-01T21:14:57.197Z",
+  "columns": [
+    {
+      "column_name": "shipping_address"
+    },
+    {
+      "column_name": "shipping_name"
+    },
+    {
+      "column_name": "shipping_phone"
+    }
+  ],
+  "rpc": [
+    {
+      "result": "TABLE(order_id uuid, item_id uuid, status_out text, item_already_sold boolean, already_fulfilled boolean)",
+      "anon_execute": false,
+      "authenticated_execute": false,
+      "service_execute": true
+    }
+  ],
+  "reserved": [
+    {
+      "id": "3b0c2119-e663-4ab6-8c78-ae81cf0f8963"
+    },
+    {
+      "id": "758c3220-7bca-4c7a-a659-f63220772104"
+    },
+    {
+      "id": "a851ce98-81b7-4b7e-abe8-c8253aea01a4"
+    },
+    {
+      "id": "b282a4ae-7c7e-4e85-800b-11c06490840a"
+    },
+    {
+      "id": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3"
+    }
+  ]
+}
