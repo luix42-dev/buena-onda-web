@@ -3,8 +3,7 @@ import { z } from 'zod'
 import Stripe from 'stripe'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
-import { acquireHold, releaseOwnHold, stripeSessionExpiresAt } from '@/lib/checkout-holds'
-import { stripeHoldApi, supabaseHoldStore } from '@/lib/checkout-holds-adapters'
+import { stripeSessionExpiresAt } from '@/lib/checkout-holds'
 import { shippingCountries } from '@/lib/shipping'
 
 export const runtime = 'edge'
@@ -54,7 +53,7 @@ export async function POST(request: NextRequest) {
 
   const itemQuery = supabase
     .from('items')
-    .select('id, slug, title, price, status, availability, sourcing_model')
+    .select('id, slug, title, price, catalog_number, status, availability, sourcing_model')
     .eq(itemId ? 'id' : 'slug', itemId ?? itemSlug!)
     .single()
 
@@ -67,25 +66,13 @@ export async function POST(request: NextRequest) {
 
   if (
     item.status !== 'published' ||
-    item.availability === 'sold' ||
+    item.availability !== 'available' ||
     !isDirectPurchaseModel(item.sourcing_model) ||
     !Number.isFinite(amountTotal) ||
     amountTotal <= 0
   ) {
-    return NextResponse.json({ error: 'Item is not available for checkout' }, { status: 409 })
+    return NextResponse.json({ error: 'unavailable', items: [{ id: item.id, title: item.title }] }, { status: 409 })
   }
-
-  const holdStore = supabaseHoldStore(supabase)
-  const acquired = await acquireHold(holdStore, stripeHoldApi(stripe), item.id)
-  if (!acquired.ok) {
-    return acquired.reason === 'held' || acquired.reason === 'raced'
-      ? NextResponse.json(
-          { error: 'ITEM_ON_HOLD', message: 'Someone is checking out this piece right now. If they do not finish, it comes back within about 35 minutes.' },
-          { status: 409 },
-        )
-      : NextResponse.json({ error: 'Item is not available for checkout' }, { status: 409 })
-  }
-  const hold = acquired.hold
 
   let checkoutSession: Stripe.Checkout.Session | null = null
 
@@ -105,6 +92,7 @@ export async function POST(request: NextRequest) {
               metadata: {
                 item_id: item.id,
                 item_slug: item.slug,
+                sku: item.catalog_number ?? item.slug,
               },
             },
             unit_amount: amountTotal,
@@ -119,7 +107,6 @@ export async function POST(request: NextRequest) {
         item_id: item.id,
         item_slug: item.slug,
         item_title: item.title,
-        hold_started_at: hold.updated_at,
       },
       payment_intent_data: {
         metadata: {
@@ -149,18 +136,13 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (orderError || !order) {
-      const expired = await stripe.checkout.sessions.expire(checkoutSession.id).then(() => true, () => false)
-      if (expired) await releaseOwnHold(holdStore, hold).catch(() => null)
+      await stripe.checkout.sessions.expire(checkoutSession.id).catch(() => null)
       return NextResponse.json({ error: 'Could not create order' }, { status: 500 })
     }
 
     return NextResponse.json({ checkoutUrl: checkoutSession.url })
   } catch (error) {
-    // The hold is only safe to give back once Stripe can no longer take payment.
-    const expired = checkoutSession
-      ? await stripe.checkout.sessions.expire(checkoutSession.id).then(() => true, () => false)
-      : true
-    if (expired) await releaseOwnHold(holdStore, hold).catch(() => null)
+    if (checkoutSession) await stripe.checkout.sessions.expire(checkoutSession.id).catch(() => null)
 
     const message = error instanceof Error ? error.message : 'Checkout failed'
     return NextResponse.json({ error: message }, { status: 500 })

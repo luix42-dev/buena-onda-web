@@ -26,6 +26,7 @@ export default function BuyNowButton({ itemId, itemTitle }: Props) {
       })
       const data = await response.json().catch(() => null)
       if (!response.ok) {
+        if (data?.error === 'unavailable') throw new Error('This piece is no longer available.')
         throw new Error(data?.message ?? data?.error ?? 'Checkout failed')
       }
       if (!data?.checkoutUrl) {

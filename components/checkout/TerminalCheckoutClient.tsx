@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {
   Elements,
   PaymentElement,
+  AddressElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js'
@@ -153,6 +154,7 @@ function CheckoutForm({
     <form onSubmit={onSubmit} className="terminal-form">
       {error && <div className="terminal-error">! {error}</div>}
 
+      <AddressElement options={{ mode: 'shipping', allowedCountries: ['US'] }} />
       <label className="terminal-field">
         <span>&gt; CARD DETAILS</span>
         <div className="terminal-payment-box">

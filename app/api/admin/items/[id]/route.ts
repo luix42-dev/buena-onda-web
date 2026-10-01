@@ -79,7 +79,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
   const {
     title, slug, theme_id, price, buy_url,
     description, why_chosen, tags, cover_image_url, status, details,
-    availability,
     sourcing_model,
     cover_image_id,
   } = body
@@ -121,7 +120,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
     cover_image_url: syncedCoverImageUrl,
     details:         details ?? null,
     status,
-    ...(availability !== undefined && { availability }),
     ...(sourcing_model !== undefined && { sourcing_model }),
   }
 

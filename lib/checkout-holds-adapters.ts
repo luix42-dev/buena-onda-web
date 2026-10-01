@@ -1,6 +1,6 @@
 import type Stripe from 'stripe'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { HOLD_MINUTES, holdOwner, type Availability, type HoldItem, type HoldOrder, type HoldStore, type HoldStripe, type OrderStatus } from '@/lib/checkout-holds'
+import { type HoldItem, type HoldOrder, type HoldStore, type HoldStripe, type OrderStatus } from '@/lib/checkout-holds'
 
 export function supabaseHoldStore(supabase: SupabaseClient): HoldStore {
   return {
@@ -25,7 +25,7 @@ export function supabaseHoldStore(supabase: SupabaseClient): HoldStore {
       return (data ?? []) as HoldOrder[]
     },
 
-    async setAvailabilityIf(itemId, guard, next: Availability) {
+    async setAvailabilityIf(itemId, guard, next: 'available') {
       // updated_at is bumped by the items_updated_at trigger, so it doubles as
       // the hold's start time and as an optimistic-concurrency token.
       const { data, error } = await supabase
@@ -70,16 +70,4 @@ export function stripeHoldApi(stripe: Stripe): HoldStripe {
       await stripe.paymentIntents.cancel(id)
     },
   }
-}
-
-/**
- * True when a checkout hold has run past its window. The buy button can be
- * shown again; the checkout route re-verifies with Stripe before taking it.
- * Manual holds set in the studio never lapse.
- */
-export async function isLapsedCheckoutHold(supabase: SupabaseClient, item: HoldItem, now = Date.now()) {
-  if (item.availability !== 'reserved') return false
-  if (now - Date.parse(item.updated_at) < HOLD_MINUTES * 60 * 1000) return false
-  const orders = await supabaseHoldStore(supabase).listOrders(item.id)
-  return holdOwner(item, orders) !== null
 }
