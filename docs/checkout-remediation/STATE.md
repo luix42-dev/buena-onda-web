@@ -1,11 +1,11 @@
-- Current objective: payment-only inventory fulfillment, shipping persistence, verified deployment.
-- Branch / commit: fix/checkout-payment-only / 3983ae0 baseline; scoped repair ready to commit.
-- Deployed SHA: 3983ae013d9a09cbc89d51c6e298fddf45fae6f9 (Vercel API, production).
-- Confirmed defects: 3516f04 reintroduced holds after 6d68c2a; production shipping columns absent; embedded checkout omitted shipping; admin accepted inventory transitions; local-key Stripe account has no webhook endpoints (production key is non-readable).
-- Confirmed-good behavior: repaired routes use canonical data, no holds, structured unavailable errors, signed/mode-checked events, SQL replay locking, stored shipping before sale, actionable sold-race log. No cart, PayPal, or separate Customer table exists here.
-- Files changed: checkout/intent/webhook routes; fulfillment and legacy reconciliation; product detail and catalog availability controls; SQL migration; fixture tests; diagnostic guard; ESLint configuration; evidence documents.
-- Tests passed: 27 tests including real PostgreSQL fulfillment and replay; typecheck; lint (7 pre-existing warnings); production build.
-- Tests failed: none outstanding; fixture clock issue fixed; Windows test-worker EPERM resolved by authorized execution outside sandbox; missing lint configuration added.
-- Production/database state: read-only audit found 5 reserved, 0 changed; all ambiguous. Shipping schema absent; SQL execution RPCs absent. Live homepage 200, webhook GET 405, unsigned POST 400. Production Stripe credentials cannot be compared with local keys.
-- External blocker: Supabase DDL access; production Stripe account/delivery verification and test-mode access; owner evidence for legacy manual holds.
-- Single next action: finish diff review, commit and push isolated repair branch, then verify its preview build.
+- Current objective: complete production payment-only checkout, shipping persistence, and safe legacy inventory reconciliation.
+- Current branch / commit: fix/checkout-payment-only / HEAD (evidence-only follow-up); repaired source ca27039d8b2b67271d89db1900da58dbade5d08e, following 66b4445. Draft PR #6.
+- Deployed SHA: preview ca27039d8b2b67271d89db1900da58dbade5d08e READY; production remains 3983ae013d9a09cbc89d51c6e298fddf45fae6f9.
+- Confirmed defects: later commit reintroduced holds; production shipping columns absent; Elements lacked shipping; catalog edits accepted inventory transitions; production processor delivery unverified.
+- Confirmed-good behavior: repaired canonical availability/pricing/SKUs; no runtime reserved writer; structured unavailable response; signed/mode-checked payments; shared locked replay-safe fulfillment; required persisted shipping; actionable sold-race log. Cart, PayPal, and separate Customer table absent.
+- Files changed: Stripe routes; fulfillment/legacy reconciliation; availability UI/admin controls; shipping UI; SQL migration; diagnostic guards; real-SQL route tests; ESLint config; audit/release evidence.
+- Tests passed: npm test 27/27; typecheck; lint (7 existing warnings); production build; Vercel preview build; preview homepage 200 / webhook GET 405; production homepage and published available item 200 with Buy Now / webhook GET 405 / unsigned POST 400.
+- Tests failed: preview webhook POST 500 (STRIPE_WEBHOOK_SECRET absent); production delivery and address persistence cannot pass pending access/migration. Earlier local fixture-clock and Windows worker issues resolved.
+- Production/database state: deployed Supabase URL equals audited project; 5 reserved, 0 restored, 0 marked sold, 5 ambiguous. Local-key history: 4 sessions, 0 intents; one matching expired/unpaid session. Orders: 6 paid (4 test-marked IDs), 4 pending, 4 canceled. Missing shipping schema; no SQL execution RPC. No live payment or diagnostic inventory write.
+- External blocker: Supabase DDL access and production Stripe account/delivery access; legacy manual/offline payment evidence may be required. Preview has no payment secrets. See RELEASE-GATE.md.
+- Single next action: complete the access handoff in RELEASE-GATE.md, then apply the tested migration before production promotion and verification.

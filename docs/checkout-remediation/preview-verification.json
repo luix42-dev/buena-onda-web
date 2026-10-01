@@ -1,0 +1,27 @@
+{
+  "sha": "ca27039d8b2b67271d89db1900da58dbade5d08e",
+  "url": "https://buena-onda-kjnyg0r0k-luis-manjarres-projects.vercel.app",
+  "checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/api/webhooks/stripe",
+      "method": "GET",
+      "status": 405,
+      "contentType": null
+    },
+    {
+      "path": "/api/webhooks/stripe",
+      "method": "POST",
+      "status": 500,
+      "contentType": "application/json",
+      "body": {
+        "error": "STRIPE_WEBHOOK_SECRET is required"
+      }
+    }
+  ]
+}
