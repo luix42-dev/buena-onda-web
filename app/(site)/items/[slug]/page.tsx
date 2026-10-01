@@ -9,8 +9,6 @@ import JsonLd from '@/components/seo/JsonLd'
 import GAItemView from '@/components/analytics/GAItemView'
 import { absoluteUrl, breadcrumbList } from '@/lib/seo/json-ld'
 import { createClient } from '@/lib/supabase/server'
-import { createServiceRoleClient } from '@/lib/supabase/service-role'
-import { isLapsedCheckoutHold } from '@/lib/checkout-holds-adapters'
 import type { Item, ItemImage, Theme } from '@/types'
 
 export const runtime = 'edge'
@@ -69,7 +67,7 @@ export default async function ItemPage({ params }: Props) {
     .from('items')
     .select('id, title, slug, catalog_number, theme_id, description, why_chosen, details, price, buy_url, tags, status, availability, sourcing_model, featured, published_at, created_at, updated_at, theme:themes(*), images:item_images(*)')
     .eq('slug', slug)
-    .eq('status', 'published')
+    .in('status', ['published', 'sold_out'])
     .single()
 
   if (!itemData) notFound()
@@ -81,16 +79,12 @@ export default async function ItemPage({ params }: Props) {
   const whyChosen = item.why_chosen?.trim() ?? ''
   const sourcingModel = item.sourcing_model ?? 'reservation'
   const isDirectPurchase = sourcingModel === 'direct' || sourcingModel === 'direct_purchase'
-  const holdLapsed =
-    item.availability === 'reserved' &&
-    isDirectPurchase &&
-    (await isLapsedCheckoutHold(createServiceRoleClient(), item).catch(() => false))
   const isPublishedAndAvailable =
-    item.status === 'published' && (item.availability === 'available' || holdLapsed)
+    item.status === 'published' && item.availability === 'available'
   const canBuyNow = isPublishedAndAvailable && isDirectPurchase && item.price != null && item.price > 0
   const canReserve = isPublishedAndAvailable && !isDirectPurchase
   const isSold = item.availability === 'sold'
-  const isReserved = item.availability === 'reserved' && !holdLapsed
+  const isReserved = item.availability === 'reserved'
 
   const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 

@@ -1,0 +1,11 @@
+- Current objective: payment-only inventory fulfillment, shipping persistence, verified deployment.
+- Branch / commit: fix/checkout-payment-only / 3983ae0 baseline; scoped repair ready to commit.
+- Deployed SHA: 3983ae013d9a09cbc89d51c6e298fddf45fae6f9 (Vercel API, production).
+- Confirmed defects: 3516f04 reintroduced holds after 6d68c2a; production shipping columns absent; embedded checkout omitted shipping; admin accepted inventory transitions; local-key Stripe account has no webhook endpoints (production key is non-readable).
+- Confirmed-good behavior: repaired routes use canonical data, no holds, structured unavailable errors, signed/mode-checked events, SQL replay locking, stored shipping before sale, actionable sold-race log. No cart, PayPal, or separate Customer table exists here.
+- Files changed: checkout/intent/webhook routes; fulfillment and legacy reconciliation; product detail and catalog availability controls; SQL migration; fixture tests; diagnostic guard; ESLint configuration; evidence documents.
+- Tests passed: 27 tests including real PostgreSQL fulfillment and replay; typecheck; lint (7 pre-existing warnings); production build.
+- Tests failed: none outstanding; fixture clock issue fixed; Windows test-worker EPERM resolved by authorized execution outside sandbox; missing lint configuration added.
+- Production/database state: read-only audit found 5 reserved, 0 changed; all ambiguous. Shipping schema absent; SQL execution RPCs absent. Live homepage 200, webhook GET 405, unsigned POST 400. Production Stripe credentials cannot be compared with local keys.
+- External blocker: Supabase DDL access; production Stripe account/delivery verification and test-mode access; owner evidence for legacy manual holds.
+- Single next action: finish diff review, commit and push isolated repair branch, then verify its preview build.

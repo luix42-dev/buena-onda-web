@@ -17,11 +17,6 @@ type Props = {
   onDelete: (id: string) => void
 }
 
-const AVAIL_OPTIONS: { value: ItemAvailability; label: string }[] = [
-  { value: 'available', label: 'Available' },
-  { value: 'reserved', label: 'Reserved' },
-  { value: 'sold', label: 'Sold' },
-]
 
 const STATUS_OPTIONS: { value: ItemStatus; label: string }[] = [
   { value: 'draft', label: 'Draft' },
@@ -150,7 +145,6 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
     details,
     tags,
     status,
-    availability,
     sourcing_model: sourcingModel,
     cover_image_url: overrideCoverUrl ?? coverUrl,
   })
@@ -474,12 +468,7 @@ export default function ItemDrawer({ item, themes, open, onClose, onSave, onDele
 
       <div className="field">
         <label>Availability</label>
-        <SegmentedControl
-          variant="status"
-          options={AVAIL_OPTIONS}
-          value={availability}
-          onChange={setAvailability}
-        />
+        <p>{availability} (updated after confirmed payment)</p>
       </div>
 
       <div className="field">

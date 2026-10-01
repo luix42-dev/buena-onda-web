@@ -1,0 +1,86 @@
+{
+  "at": "2026-10-01T20:48:09.909Z",
+  "mode": "live-read-only",
+  "reserved": [
+    {
+      "id": "b282a4ae-7c7e-4e85-800b-11c06490840a",
+      "availability": "reserved",
+      "updated_at": "2026-06-04T22:23:20.678741+00:00"
+    },
+    {
+      "id": "a851ce98-81b7-4b7e-abe8-c8253aea01a4",
+      "availability": "reserved",
+      "updated_at": "2026-06-04T22:23:01.889131+00:00"
+    },
+    {
+      "id": "758c3220-7bca-4c7a-a659-f63220772104",
+      "availability": "reserved",
+      "updated_at": "2026-06-04T22:21:16.009729+00:00"
+    },
+    {
+      "id": "3b0c2119-e663-4ab6-8c78-ae81cf0f8963",
+      "availability": "reserved",
+      "updated_at": "2026-06-04T22:23:45.248755+00:00"
+    },
+    {
+      "id": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3",
+      "availability": "reserved",
+      "updated_at": "2026-06-12T15:56:57.061101+00:00"
+    }
+  ],
+  "classifications": [
+    {
+      "itemId": "b282a4ae-7c7e-4e85-800b-11c06490840a",
+      "classification": "ambiguous",
+      "evidence": []
+    },
+    {
+      "itemId": "a851ce98-81b7-4b7e-abe8-c8253aea01a4",
+      "classification": "ambiguous",
+      "evidence": []
+    },
+    {
+      "itemId": "758c3220-7bca-4c7a-a659-f63220772104",
+      "classification": "ambiguous",
+      "evidence": []
+    },
+    {
+      "itemId": "3b0c2119-e663-4ab6-8c78-ae81cf0f8963",
+      "classification": "ambiguous",
+      "evidence": []
+    },
+    {
+      "itemId": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3",
+      "classification": "ambiguous",
+      "evidence": [
+        {
+          "orderId": "674fd6d7-b574-4d15-a65d-bbccb673815e",
+          "orderStatus": "canceled",
+          "processorStatus": "expired",
+          "paymentStatus": "unpaid"
+        }
+      ]
+    }
+  ],
+  "processorHistory": {
+    "sessions": 4,
+    "intents": 0,
+    "matching": [
+      {
+        "id": "cs_live_a1Xzr7TzTR7va4bncHxIZGbegx1DMAqg9ArGswY4QOW81kn3RKDjn8bTBx",
+        "itemId": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3",
+        "status": "expired",
+        "paymentStatus": "unpaid"
+      }
+    ],
+    "accountScope": "local-key; production sensitive key cannot be read for comparison"
+  },
+  "shippingSchema": "column orders.shipping_address does not exist",
+  "paidOrders": null,
+  "paidOrdersWithAddress": null,
+  "webhooks": [],
+  "recentEvents": [],
+  "/": 200,
+  "/api/webhooks/stripe": 405,
+  "unsignedWebhookPost": 400
+}

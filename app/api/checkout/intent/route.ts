@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
-import { acquireHold, releaseOwnHold } from '@/lib/checkout-holds'
-import { stripeHoldApi, supabaseHoldStore } from '@/lib/checkout-holds-adapters'
 
 export const runtime = 'edge'
 
@@ -11,8 +9,8 @@ const QuerySchema = z.object({
   itemId: z.string().uuid(),
 })
 
-function formatUnavailable() {
-  return NextResponse.json({ error: 'ITEM_UNAVAILABLE' }, { status: 400 })
+function formatUnavailable(item?: { id: string; title: string }) {
+  return NextResponse.json({ error: 'unavailable', items: item ? [{ id: item.id, title: item.title }] : [] }, { status: 409 })
 }
 
 function isDirectPurchaseModel(value: string | null | undefined) {
@@ -33,7 +31,7 @@ export async function GET(request: NextRequest) {
 
   const { data: item, error: itemError } = await supabase
     .from('items')
-    .select('id, title, price, status, availability, sourcing_model')
+    .select('id, title, price, catalog_number, status, availability, sourcing_model')
     .eq('id', parsed.data.itemId)
     .single()
 
@@ -43,23 +41,17 @@ export async function GET(request: NextRequest) {
     itemError ||
     !item ||
     item.status !== 'published' ||
-    item.availability === 'sold' ||
+    item.availability !== 'available' ||
     !isDirectPurchaseModel(item.sourcing_model) ||
     !Number.isFinite(amount) ||
     amount <= 0
   ) {
-    return formatUnavailable()
+    return formatUnavailable(item ?? undefined)
   }
-
-  const holdStore = supabaseHoldStore(supabase)
-  const acquired = await acquireHold(holdStore, stripeHoldApi(stripe), item.id)
-  if (!acquired.ok) {
-    return formatUnavailable()
-  }
-  const hold = acquired.hold
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
+    description: `${item.title} (${item.catalog_number ?? item.id})`,
     currency: 'usd',
     automatic_payment_methods: {
       enabled: true,
@@ -69,11 +61,8 @@ export async function GET(request: NextRequest) {
       item_id: item.id,
       item_title: item.title,
       checkout_surface: 'terminal_elements',
-      hold_started_at: hold.updated_at,
+      sku: item.catalog_number ?? item.id,
     },
-  }).catch(async error => {
-    await releaseOwnHold(holdStore, hold).catch(() => null)
-    throw error
   })
 
   const { data: order, error: orderError } = await supabase
@@ -92,8 +81,7 @@ export async function GET(request: NextRequest) {
     .single()
 
   if (orderError || !order) {
-    const canceled = await stripe.paymentIntents.cancel(paymentIntent.id).then(() => true, () => false)
-    if (canceled) await releaseOwnHold(holdStore, hold).catch(() => null)
+    await stripe.paymentIntents.cancel(paymentIntent.id).catch(() => null)
     return NextResponse.json({ error: 'Could not create order' }, { status: 500 })
   }
 

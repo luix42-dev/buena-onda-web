@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { fulfillCheckoutSession, fulfillElementsPaymentIntent, type FulfillOrderResult } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
-import { reconcileHold } from '@/lib/checkout-holds'
-import { stripeHoldApi, supabaseHoldStore } from '@/lib/checkout-holds-adapters'
-import { createServiceRoleClient } from '@/lib/supabase/service-role'
-
 export const runtime = 'nodejs'
 
 function isPaid(session: Stripe.Checkout.Session) {
@@ -14,25 +10,6 @@ function isPaid(session: Stripe.Checkout.Session) {
 
 function isElementsIntent(paymentIntent: Stripe.PaymentIntent) {
   return paymentIntent.metadata?.checkout_surface === 'terminal_elements'
-}
-
-/** Close the order and give the item back if nothing else can still pay for it. */
-async function releaseForDeadOrder(stripeSessionId: string, status: 'canceled' | 'failed', stripe: Stripe) {
-  const supabase = createServiceRoleClient()
-  const { data: order } = await supabase
-    .from('orders')
-    .update({ status })
-    .eq('stripe_session_id', stripeSessionId)
-    .eq('status', 'pending')
-    .select('item_id')
-    .maybeSingle()
-
-  const itemId =
-    order?.item_id ??
-    (await supabase.from('orders').select('item_id').eq('stripe_session_id', stripeSessionId).maybeSingle()).data?.item_id
-  if (!itemId) return null
-
-  return reconcileHold(supabaseHoldStore(supabase), stripeHoldApi(stripe), itemId)
 }
 
 export async function POST(request: NextRequest) {
@@ -57,6 +34,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
+  if (event.livemode !== (process.env.STRIPE_SECRET_KEY ?? '').includes('_live_')) {
+    return NextResponse.json({ error: 'Payment environment mismatch' }, { status: 400 })
+  }
+
   let sourceId = ''
   let fulfillment: FulfillOrderResult | null = null
 
@@ -67,21 +48,16 @@ export async function POST(request: NextRequest) {
         const session = event.data.object as Stripe.Checkout.Session
         sourceId = session.id
         // An async payment method completes the session before money moves;
-        // the hold stays in place until async_payment_succeeded/failed.
+        // fulfillment waits for async_payment_succeeded.
         if (!isPaid(session)) return NextResponse.json({ received: true, awaiting_payment: true })
-        fulfillment = await fulfillCheckoutSession(session)
+        fulfillment = await fulfillCheckoutSession(session, event.id)
         break
       }
 
       case 'checkout.session.expired':
       case 'checkout.session.async_payment_failed': {
-        const session = event.data.object as Stripe.Checkout.Session
-        const verdict = await releaseForDeadOrder(
-          session.id,
-          event.type === 'checkout.session.expired' ? 'canceled' : 'failed',
-          stripe,
-        )
-        return NextResponse.json({ received: true, hold: verdict?.action ?? 'none' })
+        // No inventory was reserved; expiry/failure cannot release inventory.
+        return NextResponse.json({ received: true })
       }
 
       case 'payment_intent.succeeded': {
@@ -89,15 +65,12 @@ export async function POST(request: NextRequest) {
         // Hosted Checkout payment intents are fulfilled through their session.
         if (!isElementsIntent(paymentIntent)) return NextResponse.json({ received: true })
         sourceId = paymentIntent.id
-        fulfillment = await fulfillElementsPaymentIntent(paymentIntent)
+        fulfillment = await fulfillElementsPaymentIntent(paymentIntent, event.id)
         break
       }
 
       case 'payment_intent.canceled': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent
-        if (!isElementsIntent(paymentIntent)) return NextResponse.json({ received: true })
-        const verdict = await releaseForDeadOrder(`elements_${paymentIntent.id}`, 'canceled', stripe)
-        return NextResponse.json({ received: true, hold: verdict?.action ?? 'none' })
+        return NextResponse.json({ received: true })
       }
 
       default:

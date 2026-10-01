@@ -1,14 +1,4 @@
-// Inventory holds for one-of-one items.
-//
-// A checkout takes a short, explicit hold on an item (availability='reserved')
-// so two buyers cannot pay for the same piece. Correctness never depends on a
-// release event firing: every hold is owned by the order row created with it,
-// expires HOLD_MINUTES after it was taken, and is re-verified against Stripe
-// before it is released. Releases are conditional on the item row being
-// unchanged since it was inspected, so cleanup can never release a newer hold.
-//
-// Store and Stripe access are injected so the rules are testable without a
-// database or network.
+// Legacy reservation reconciliation only. Checkout never acquires inventory holds.
 
 export const STRIPE_SESSION_MINUTES = 31 // Stripe minimum is 30
 export const HOLD_MINUTES = 35 // must outlive the Stripe session
@@ -39,7 +29,7 @@ export interface HoldStore {
   setAvailabilityIf(
     itemId: string,
     guard: { availability: Availability; updated_at: string },
-    next: Availability,
+    next: 'available',
   ): Promise<HoldItem | null>
   /** Conditional update; returns true when the order was still in `from`. */
   setOrderStatusIf(orderId: string, from: OrderStatus, to: OrderStatus): Promise<boolean>
@@ -116,7 +106,6 @@ export async function classifyOrder(
 
   if (stripe.liveMode && isTestModeId(objectId)) return 'test_mode'
   if (order.status === 'paid') return 'paid'
-  if (order.status !== 'pending') return 'dead'
   if (now - Date.parse(order.created_at) < HOLD_MINUTES * 60 * 1000) return 'live'
 
   try {
@@ -175,7 +164,7 @@ export async function reconcileHold(
   const owner = holdOwner(item, orders)
   if (!owner) return { action: 'protect', reason: 'manual_hold', orders: [] }
 
-  const open = orders.filter(order => order.status === 'pending' || order.status === 'paid')
+  const open = orders // Local canceled/failed state alone is not proof of no payment.
   const states: Array<{ id: string; state: OrderState }> = []
   for (const order of open) {
     states.push({ id: order.id, state: await classifyOrder(order, stripe, now) })
@@ -200,45 +189,6 @@ export async function reconcileHold(
     'available',
   )
   return released ? { action: 'released', canceledOrderIds } : { action: 'raced' }
-}
-
-export type AcquireResult =
-  | { ok: true; hold: HoldItem }
-  | { ok: false; reason: 'sold' | 'held' | 'raced' | 'missing_item' }
-
-/** Atomically take the hold for a new checkout. */
-export async function acquireHold(
-  store: HoldStore,
-  stripe: HoldStripe,
-  itemId: string,
-  now = Date.now(),
-): Promise<AcquireResult> {
-  let item = await store.getItem(itemId)
-  if (!item) return { ok: false, reason: 'missing_item' }
-  if (item.availability === 'sold') return { ok: false, reason: 'sold' }
-
-  if (item.availability === 'reserved') {
-    const verdict = await reconcileHold(store, stripe, itemId, now)
-    if (verdict.action !== 'released') return { ok: false, reason: 'held' }
-    item = await store.getItem(itemId)
-    if (!item || item.availability !== 'available') return { ok: false, reason: 'held' }
-  }
-
-  const hold = await store.setAvailabilityIf(
-    itemId,
-    { availability: 'available', updated_at: item.updated_at },
-    'reserved',
-  )
-  return hold ? { ok: true, hold } : { ok: false, reason: 'raced' }
-}
-
-/** Give back a hold this request took, e.g. when session creation failed. */
-export async function releaseOwnHold(store: HoldStore, hold: HoldItem) {
-  return store.setAvailabilityIf(
-    hold.id,
-    { availability: 'reserved', updated_at: hold.updated_at },
-    'available',
-  )
 }
 
 export function stripeSessionExpiresAt(now = Date.now()) {

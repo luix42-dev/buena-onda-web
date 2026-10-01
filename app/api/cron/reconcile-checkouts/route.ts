@@ -7,8 +7,8 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
-// Safety net only: holds expire on their own and are normally released by the
-// checkout.session.expired webhook. Vercel Cron sends CRON_SECRET as a bearer token.
+// Recover missed verified payments and inspect legacy reservations only.
+// New checkouts never reserve inventory. Vercel Cron supplies CRON_SECRET.
 export async function GET(request: NextRequest) {
   const secret = process.env.CRON_SECRET?.trim()
   if (!secret || request.headers.get('authorization') !== `Bearer ${secret}`) {

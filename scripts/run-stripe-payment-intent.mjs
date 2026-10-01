@@ -19,6 +19,9 @@ if (!process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_')) {
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 if (!supabaseUrl || !supabaseKey) throw new Error('Supabase service env is missing')
+if (!['localhost', '127.0.0.1', '[::1]'].includes(new URL(supabaseUrl).hostname)) {
+  throw new Error('Payment diagnostic requires a local disposable database; production inventory is forbidden')
+}
 
 const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
