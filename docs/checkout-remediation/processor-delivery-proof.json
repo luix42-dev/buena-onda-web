@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-01T21:24:47.880Z",
+  "endpointId": "we_1ULrN8JVoShb7owb8I5gCBWW",
+  "kind": "non-payment customer.created delivery probe",
+  "chargesCreated": 0,
+  "paymentMethodsCreated": 0,
+  "observations": [
+    {
+      "at": "2026-10-01T21:24:50.134Z",
+      "pendingWebhooks": 1
+    },
+    {
+      "at": "2026-10-01T21:24:55.228Z",
+      "pendingWebhooks": 0
+    }
+  ],
+  "eventId": "evt_1ULrTCJVoShb7owbIC9pwABD",
+  "livemode": true,
+  "stripeDeliveryAcknowledged": true,
+  "inventoryUnchanged": true,
+  "ordersUnchanged": true,
+  "originalSubscriptionsRestored": true,
+  "temporaryCustomerDeleted": true
+}
