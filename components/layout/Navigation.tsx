@@ -11,6 +11,7 @@ const links = [
   { href: '/culture',     label: 'Culture'   },
   { href: '/themes',      label: 'Catalog'   },
   { href: '/radio',       label: 'Radio'     },
+  { href: '/cruise',      label: 'Cruise'    },
   { href: '/contact',     label: 'Contact'   },
 ]
 
@@ -75,7 +76,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
             {links.map(({ href, label }) => (
               <Link
                 key={href}
@@ -105,7 +106,7 @@ export default function Navigation() {
 
           {/* Hamburger */}
           <button
-            className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
+            className="lg:hidden flex flex-col gap-[5px] p-2 -mr-2"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
@@ -138,7 +139,7 @@ export default function Navigation() {
       {/* Mobile menu */}
       <div
         className={[
-          'fixed inset-0 z-40 flex flex-col justify-center px-8 md:hidden',
+          'fixed inset-0 z-40 flex flex-col justify-center px-8 lg:hidden',
           'transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]',
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
         ].join(' ')}
