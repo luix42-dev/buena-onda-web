@@ -1,11 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
 import CruisePlayer, { type PlayerScene, type PlayerChannel } from './CruisePlayer'
+import CruiseClient from './CruiseClient'
+import PersistentPlayer from '@/components/ui/PersistentPlayer'
+import { resolveCruiseCampaign } from '@/lib/cruise/campaigns'
+import MiniMaxExperiment from '@/components/cruise/MiniMaxExperiment'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Cruise — Buena Onda',
-  description: 'Time-reactive cruising scenes, synced to Miami time.',
+  title: 'Buena Onda Cruise TV',
+  description: 'An endless Miami-inspired drive, tuned to Buena Onda Radio.',
 }
 
 function publicBase() {
@@ -66,8 +70,13 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
   }
 }
 
-export default async function CruisePage() {
+export default async function CruisePage({ searchParams }: { searchParams: { mode?: string; campaign?: string | string[] } }) {
+  if (searchParams.mode === 'minimax-test') return <MiniMaxExperiment />
+  if (searchParams.mode !== 'video') {
+    const selection = resolveCruiseCampaign(searchParams.campaign)
+    return <CruiseClient campaign={selection.campaign} campaignValid={selection.valid} />
+  }
   const { scenes, channels } = await loadCruise()
 
-  return <CruisePlayer scenes={scenes} channels={channels} />
+  return <><a href="/cruise" style={{ display: 'block', padding: '16px', fontFamily: 'var(--font-mono)', fontSize: 12 }}>Back to Cruise TV</a><CruisePlayer scenes={scenes} channels={channels} /><PersistentPlayer /></>
 }

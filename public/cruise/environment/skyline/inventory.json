@@ -1,0 +1,58 @@
+[
+  {
+    "asset": "skyline-terraced.glb",
+    "triangles": 15508,
+    "panels": 180,
+    "materials": 6,
+    "textures": 0,
+    "bytes": 689260,
+    "gltfDimensions": [
+      14.649999618530273,
+      47.54999923706055,
+      12.649999618530273
+    ],
+    "gltfBounds": [
+      [
+        -7.324999809265137,
+        0.0,
+        -6.324999809265137
+      ],
+      [
+        7.324999809265137,
+        47.54999923706055,
+        6.324999809265137
+      ]
+    ],
+    "pivot": "ground center",
+    "front": "+Z; detailed on all four sides",
+    "source": "Metal_FullWindow.gltf"
+  },
+  {
+    "asset": "skyline-glass.glb",
+    "triangles": 15356,
+    "panels": 180,
+    "materials": 5,
+    "textures": 0,
+    "bytes": 680592,
+    "gltfDimensions": [
+      10.680000305175781,
+      53.25,
+      9.920000076293945
+    ],
+    "gltfBounds": [
+      [
+        -5.340000152587891,
+        0.0,
+        -4.960000038146973
+      ],
+      [
+        5.340000152587891,
+        53.25,
+        4.960000038146973
+      ]
+    ],
+    "pivot": "ground center",
+    "front": "+Z; detailed on all four sides",
+    "source": "Metal_FullWindow.gltf"
+  }
+]

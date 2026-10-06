@@ -1,0 +1,34 @@
+{
+  "asset": "Asphalt 02",
+  "author": "Rob Tuytel",
+  "source": "https://polyhaven.com/a/asphalt_02",
+  "license": "CC0-1.0",
+  "sourceResolution": 1024,
+  "tileMeters": 3,
+  "maps": [
+    {
+      "channel": "color",
+      "resolution": 1024,
+      "sourceBytes": 731707,
+      "runtimeBytes": 455686,
+      "sourceSha256": "1aa5ce99f58a625c71d48cfc3e68b65ca85ccb00f39e045c0a928608a0ea25ed",
+      "runtimeSha256": "12387a3a6e75f490ccce0f27ed5ebfa209b02385d3ea6d615078dd5e8902c84b"
+    },
+    {
+      "channel": "normal",
+      "resolution": 512,
+      "sourceBytes": 1240122,
+      "runtimeBytes": 498666,
+      "sourceSha256": "42a1c381b53204e83a982db2864479a30bc127bbdeebb1006f8ee51bff099df3",
+      "runtimeSha256": "6dcdcadde3907f3fcea3a399bdbddfa8dc3b21b8617c94b0b10dfc2c86254e92"
+    },
+    {
+      "channel": "roughness",
+      "resolution": 512,
+      "sourceBytes": 544032,
+      "runtimeBytes": 186888,
+      "sourceSha256": "70ba3edc65525eb4dc366cf010ca7ae0bd34e0251ff0225c2dad627a873d0712",
+      "runtimeSha256": "ec619ea2b78afb640389347297446007ac0afade59bcb270e99701fcc32ffaff"
+    }
+  ]
+}

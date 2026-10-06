@@ -52,3 +52,4 @@ refs/
 # Accidentally tracked git internals
 origin/
 refs/
+.env*

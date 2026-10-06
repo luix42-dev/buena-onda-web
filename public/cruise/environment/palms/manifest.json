@@ -1,0 +1,80 @@
+{
+  "status": "candidate-pending-runtime-review",
+  "provenance": "Original Buena Onda Blender-authored geometry",
+  "externalSources": [],
+  "textures": [],
+  "materials": [
+    "Miami_Coconut_Trunk",
+    "Miami_Coconut_Rings",
+    "Miami_Pinnate_Leaves"
+  ],
+  "leafStructure": "Opaque mesh rachides and individually tapered leaflet ribbons",
+  "variants": [
+    {
+      "id": "coastal-tall",
+      "file": "coastal-tall.glb",
+      "triangles": 7444,
+      "bytes": 377796,
+      "boundsMin": [
+        -3.2677,
+        -3.8568,
+        0.0
+      ],
+      "boundsMax": [
+        3.0271,
+        3.077,
+        11.5
+      ],
+      "height": 11.5,
+      "fronds": 11,
+      "leafletPairsPerFrond": 36,
+      "description": "Tall open crown with long, wind-swept pinnate fronds."
+    },
+    {
+      "id": "boulevard-full",
+      "file": "boulevard-full.glb",
+      "triangles": 9884,
+      "bytes": 509580,
+      "boundsMin": [
+        -3.3861,
+        -2.8375,
+        0.0
+      ],
+      "boundsMax": [
+        2.4583,
+        3.2928,
+        10.2
+      ],
+      "height": 10.2,
+      "fronds": 13,
+      "leafletPairsPerFrond": 42,
+      "description": "Dense radial boulevard crown with layered feather fronds."
+    },
+    {
+      "id": "courtyard-fan",
+      "file": "courtyard-fan.glb",
+      "triangles": 6528,
+      "bytes": 328348,
+      "boundsMin": [
+        -2.4559,
+        -3.025,
+        0.0
+      ],
+      "boundsMax": [
+        3.2322,
+        2.6513,
+        8.4
+      ],
+      "height": 8.4,
+      "fronds": 10,
+      "leafletPairsPerFrond": 34,
+      "description": "Compact leaning crown with lower, more strongly drooped fronds."
+    }
+  ],
+  "preview": {
+    "file": "palms-preview.png",
+    "bytes": 853698,
+    "width": 1200,
+    "height": 700
+  }
+}

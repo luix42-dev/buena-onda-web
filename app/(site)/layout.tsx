@@ -1,6 +1,4 @@
-import Navigation from '@/components/layout/Navigation'
-import Footer from '@/components/layout/Footer'
-import PersistentPlayer from '@/components/ui/PersistentPlayer'
+import CruiseSiteFrame from '@/components/cruise/CruiseSiteFrame'
 
 export default function SiteLayout({
   children,
@@ -8,11 +6,6 @@ export default function SiteLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
-      <Navigation />
-      <main className="pb-16">{children}</main>
-      <Footer />
-      <PersistentPlayer />
-    </>
+    <CruiseSiteFrame>{children}</CruiseSiteFrame>
   )
 }

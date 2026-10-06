@@ -1,0 +1,14 @@
+{
+  "name": "Island Trail",
+  "kind": "original-procedural-component",
+  "source": "components/cruise/vehicle/RetroJeep.tsx",
+  "textures": "components/cruise/vehicle/jeepTextures.ts",
+  "created": "2026-10-05",
+  "thirdPartyAssetFiles": [],
+  "referencePhotosRedistributed": false,
+  "brandAffiliation": "None. An original late-eighties-inspired open-top off-roader, not an authentic Jeep model.",
+  "coordinates": "+Y up, -Z forward, meters",
+  "wheelRadius": 0.394,
+  "wheelbase": 2.34,
+  "radioCenter": [0.055, 1.125, -0.50]
+}

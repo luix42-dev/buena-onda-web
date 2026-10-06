@@ -1,0 +1,35 @@
+{
+  "asset": "Asphalt Track",
+  "author": "Dimitrios Savva",
+  "source": "https://polyhaven.com/a/asphalt_track",
+  "license": "CC0-1.0",
+  "downloadDate": "2026-09-08",
+  "sourceResolution": 2048,
+  "tileMeters": 2,
+  "maps": [
+    {
+      "channel": "color",
+      "resolution": 1024,
+      "sourceBytes": 3779263,
+      "runtimeBytes": 295188,
+      "sourceSha256": "742d1d79560bd661d5871afc857e981e25dcd563bfd24385cbd063ebcaeef06c",
+      "runtimeSha256": "3dfbd89d78825059902be9c3a6f5dcc5ca96fccb3a9c9d885c39bca741ed8532"
+    },
+    {
+      "channel": "normal",
+      "resolution": 1024,
+      "sourceBytes": 3694762,
+      "runtimeBytes": 1684154,
+      "sourceSha256": "d9c635867ed0e022580baac711e0dcff679f8301cd906dff162be1bfbad8cfcd",
+      "runtimeSha256": "0f6708b317dca3a4b65b17a3204530cb096c8e8a13c92cff9df07eeda2376964"
+    },
+    {
+      "channel": "roughness",
+      "resolution": 1024,
+      "sourceBytes": 2182047,
+      "runtimeBytes": 417730,
+      "sourceSha256": "b934fb6fbe05770df95fa94fee3a12d45eb121621ce96e9b262f403d49ee493e",
+      "runtimeSha256": "762e18a1348a337e2a08d1c0c6e8ff09abf8373b7c5e046ab903e45d668efdc3"
+    }
+  ]
+}

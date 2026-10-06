@@ -1,0 +1,136 @@
+body:has([data-cruise]) { overflow: hidden; }
+body:has([data-cruise]) .grain-overlay { display: none; }
+.cruise-experience { --cruise-pink: #ef3d89; position: fixed; inset: 0; width: 100%; height: 100dvh; overflow: hidden; background: #100e10; color: #fbf8f6; font-family: var(--font-sans), Arial, sans-serif; z-index: 100; letter-spacing: 0; line-height: 1.4; isolation: isolate; }
+.cruise-experience * { letter-spacing: 0; }
+.cruise-experience button, .cruise-experience a, .cruise-experience select { -webkit-tap-highlight-color: transparent; }
+.cruise-experience button { cursor: pointer; font: inherit; color: inherit; background: transparent; border: 0; }
+.cruise-experience a { color: inherit; text-decoration: none; }
+.cruise-experience :focus-visible { outline: 2px solid var(--cruise-pink); outline-offset: 4px; }
+.cruise-canvas { position: absolute !important; inset: 0; opacity: 0; transition: opacity 1.3s ease; }
+.is-ready .cruise-canvas { opacity: 1; }
+.cruise-opening { position: absolute; inset: 0; display: grid; place-items: center; background: #100e10; }
+.cruise-back { position: absolute; top: max(25px, env(safe-area-inset-top)); left: max(26px, env(safe-area-inset-left)); padding: 10px; opacity: 0.6; }
+.cruise-ident { text-align: center; padding: 32px 22px; width: 100%; }
+.cruise-time { font-family: var(--font-mono), monospace; font-size: 11px; color: #b8aeae; margin-bottom: 32px; }
+.cruise-time span { color: var(--cruise-pink); padding: 0 7px; }
+.cruise-ident h1 { font-family: var(--font-serif), Georgia, serif; font-size: 64px; font-weight: 500; text-transform: none; line-height: 1; }
+.cruise-ident h1 > span { display: block; font-family: var(--font-mono), monospace; text-transform: uppercase; font-size: 13px; margin-top: 20px; }
+.cruise-start { display: inline-flex; align-items: center; gap: 34px; margin-top: 56px; min-height: 52px; padding: 0 26px; border: 1px solid #ef3d8980 !important; border-radius: 2px; font-family: var(--font-mono), monospace !important; font-size: 12px !important; transition: background 180ms, border-color 180ms; }
+.cruise-start:hover { background: #ef3d8910; border-color: var(--cruise-pink) !important; }
+.cruise-opening-footer { position: absolute; bottom: max(26px, env(safe-area-inset-bottom)); left: 36px; right: 36px; display: flex; align-items: center; justify-content: space-between; font-family: var(--font-mono), monospace; color: #a29a9e; font-size: 10px; gap: 16px; }
+.cruise-opening-footer a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.cruise-loading { font-family: var(--font-mono), monospace; font-size: 10px; margin: 48px auto 0; width: 150px; color: #b7afb2; }
+.cruise-loading > span { display: block; height: 1px; background: var(--cruise-pink); margin-bottom: 18px; transform-origin: left; animation: cruise-tune 1.8s ease-in-out infinite; }
+@keyframes cruise-tune { 0%, 100% { transform: scaleX(.2); opacity: .4; } 50% { transform: scaleX(1); opacity: 1; } }
+.cruise-unavailable { margin: 36px auto 0; font-size: 13px; max-width: 280px; }
+.cruise-unavailable p { color: #b8afb4; }
+.cruise-unavailable a { display: inline-flex; align-items: center; gap: 14px; min-height: 52px; margin-top: 15px; font-family: var(--font-mono), monospace; font-size: 11px; border-bottom: 1px solid var(--cruise-pink); }
+.cruise-unavailable a:focus { outline: 2px solid var(--cruise-pink); outline-offset: 4px; }
+.cruise-hud { position: absolute; transition: opacity 450ms ease; z-index: 2; }
+.hud-hidden { cursor: none; }
+.hud-hidden .cruise-hud { opacity: 0; pointer-events: none; }
+.cruise-header { inset: 0 0 auto; padding: max(30px, env(safe-area-inset-top)) max(36px, env(safe-area-inset-right)) 50px max(36px, env(safe-area-inset-left)); display: flex; justify-content: space-between; align-items: start; gap: 20px; background: linear-gradient(180deg, #100e105c, transparent); text-shadow: 0 1px 8px #0005; }
+.cruise-wordmark { font-family: var(--font-serif), Georgia, serif; font-size: 28px; line-height: 1; }
+.cruise-wordmark > span { display: block; font-family: var(--font-mono), monospace; font-size: 9px; margin-top: 9px; }
+.cruise-location { font-family: var(--font-mono), monospace; font-size: 11px; text-align: right; }
+.cruise-sunset { display: flex; align-items: center; justify-content: flex-end; gap: 7px; font-size: 9px; margin-top: 10px; opacity: .78; }
+.cruise-bottom { inset: auto 0 0; padding: 72px max(36px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(36px, env(safe-area-inset-left)); background: linear-gradient(0deg, #100e10b3, transparent); }
+.cruise-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 14px 0; border-bottom: 1px solid #ffffff30; }
+.cruise-radio { display: flex; gap: 14px; align-items: center; flex: 1; min-width: 0; }
+.cruise-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex: 0 0 44px; border-radius: 2px; transition: background 150ms; }
+.cruise-icon:hover, .cruise-camera-button:hover { background: #ffffff12; }
+.cruise-icon.selected { color: #ff82b7; box-shadow: inset 0 -1px var(--cruise-pink); }
+.cruise-radio-toggle { border: 1px solid #ef3d8980 !important; }
+.cruise-station { min-width: 0; }
+.cruise-station > span, .cruise-station-name { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono), monospace; font-size: 10px; white-space: nowrap; }
+.cruise-station-name { min-height: 32px; max-width: 100%; }
+.cruise-vehicle-loading { position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 16px; background: #171418e8; color: #fff; font-size: 12px; pointer-events: none; }
+.cruise-panel-heading, .cruise-queue-controls { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cruise-panel-heading { font-family: var(--font-mono), monospace; }
+.cruise-station-list { display: flex; flex-direction: column; }
+.cruise-station-list > button, .cruise-station-list > a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 50px; border-bottom: 1px solid #ffffff20; text-align: left; }
+.cruise-station-list small { display: block; color: #aaa3aa; font-size: 10px; margin-top: 4px; }
+.cruise-station-list [aria-pressed="true"] { color: var(--cruise-pink); }
+.cruise-queue-controls > span { min-width: 0; font-size: 10px; text-align: center; }
+.cruise-experience button:disabled { opacity: .45; cursor: not-allowed; }
+.cruise-settings { max-height: calc(100dvh - 220px); overflow-y: auto; }
+.cruise-settings select { min-width: 0; max-width: 100%; flex: 1; }
+.cruise-settings.cruise-radio-panel { display: flex; width: min(300px, calc(100vw - 44px)); }
+.cruise-radio-panel > * { flex-shrink: 0; }
+.cruise-station p { font-size: 12px; color: #e6dee0; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 430px; }
+.cruise-tools { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+.cruise-camera-button { display: flex; gap: 9px; align-items: center; justify-content: center; min-width: 140px; height: 44px; padding: 0 10px; font-size: 12px !important; border-radius: 2px; }
+.cruise-divider { width: 1px; height: 22px; background: #ffffff30; margin: 0 12px; }
+.cruise-volume { width: 64px; height: 24px; accent-color: #fbf8f6; cursor: pointer; margin-right: 10px; }
+.cruise-bottomline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; font-family: var(--font-mono), monospace; font-size: 9px; color: #e6dee0b3; }
+.cruise-bottomline i { display: inline-block; width: 5px; height: 5px; margin-right: 7px; border-radius: 50%; background: #e976a6; vertical-align: middle; }
+.cruise-settings { position: absolute; bottom: calc(100% - 64px); right: max(36px, env(safe-area-inset-right)); display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; width: 240px; max-width: calc(100vw - 28px); padding: 18px; background: #171418f5; border: 1px solid #ffffff28; border-radius: 4px; font-size: 12px; }
+.cruise-settings label { display: flex; align-items: center; justify-content: space-between; gap: 18px; font-family: var(--font-mono), monospace; font-size: 10px; }
+.cruise-settings select { min-height: 40px; background: #242025; color: #fff; padding: 0 10px; border: 1px solid #ffffff30; border-radius: 2px; }
+.cruise-setting-group { display: grid; gap: 7px; font-family: var(--font-mono), monospace; font-size: 10px; }
+.cruise-segments { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #ffffff2e; }
+.cruise-segments button { min-width: 0; min-height: 34px; padding: 0 5px; color: #cfc7ca; border-right: 1px solid #ffffff1f; border-bottom: 1px solid #ffffff1f; font-size: 9px !important; }
+.cruise-segments button:nth-child(2n) { border-right: 0; }
+.cruise-segments button:nth-last-child(-n+2) { border-bottom: 0; }
+.cruise-segments button.selected { color: #fff; background: #ef3d8918; box-shadow: inset 0 -1px var(--cruise-pink); }
+.cruise-segments-short { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cruise-segments-short button { border-bottom: 0; }
+.cruise-settings > a, .cruise-settings > button { display: flex; align-items: center; gap: 10px; min-height: 40px; text-align: left; }
+.cruise-credits { width: min(310px, calc(100vw - 44px)); flex-direction: row; align-items: flex-start; line-height: 1.7; }
+.cruise-credits a { text-decoration: underline; text-underline-offset: 3px; }
+.cruise-notice { display: flex; justify-content: space-between; align-items: center; gap: 12px; max-width: 480px; font-size: 12px; margin-bottom: 4px; }
+.cruise-notice button { text-decoration: underline; min-height: 40px; flex-shrink: 0; }
+.cruise-bottomline a { display: inline-flex; align-items: center; min-height: 32px; }
+@media (max-width: 760px) {
+  .cruise-header { padding: max(22px, env(safe-area-inset-top)) 22px 42px; }
+  .cruise-wordmark { font-size: 24px; }
+  .cruise-location { font-size: 10px; }
+  .cruise-sunset { font-size: 8px; }
+  .cruise-bottom { padding: 62px 22px max(20px, env(safe-area-inset-bottom)); }
+  .cruise-toolbar { flex-wrap: wrap; gap: 14px; }
+  .cruise-radio { flex-basis: 100%; }
+  .cruise-tools { width: 100%; justify-content: space-between; gap: 0; }
+  .cruise-volume { display: none; }
+  .cruise-camera-button { justify-content: flex-start; padding-left: 0; min-width: 116px; font-size: 11px !important; }
+  .cruise-divider { margin: 0 4px; }
+  .cruise-settings { right: 22px; }
+  .cruise-ident h1 { font-size: 48px; }
+  .cruise-opening-footer { left: 24px; right: 24px; font-size: 9px; }
+}
+@media (max-width: 360px) {
+  .cruise-header { padding-left: 14px; padding-right: 14px; }
+  .cruise-bottom { padding-left: 14px; padding-right: 14px; }
+  .cruise-camera-button { min-width: 44px; width: 44px; padding: 0; }
+  .cruise-camera-button span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .cruise-divider { display: none; }
+  .cruise-settings { right: 14px; }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .cruise-header { padding: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) 20px max(24px, env(safe-area-inset-left)); }
+  .cruise-wordmark { font-size: 23px; }
+  .cruise-bottom { padding: 24px max(24px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); }
+  .cruise-toolbar { flex-wrap: nowrap; padding: 7px 0; gap: 18px; }
+  .cruise-radio { flex-basis: auto; }
+  .cruise-tools { width: auto; gap: 0; }
+  .cruise-station p { max-width: 240px; }
+  .cruise-volume { display: none; }
+  .cruise-divider { margin: 0 6px; }
+  .cruise-bottomline { margin-top: 7px; font-size: 8px; }
+  .cruise-time { margin-bottom: 16px; }
+  .cruise-ident h1 { font-size: 43px; }
+  .cruise-ident h1 > span { margin-top: 12px; font-size: 11px; }
+  .cruise-start { margin-top: 25px; min-height: 44px; }
+  .cruise-opening-footer { bottom: max(6px, env(safe-area-inset-bottom)); }
+  .cruise-settings { position: fixed; inset: auto max(24px, env(safe-area-inset-right)) calc(120px + env(safe-area-inset-bottom)) auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; width: min(420px, calc(100vw - 48px)); max-height: calc(100dvh - 144px - env(safe-area-inset-bottom)); padding: 12px; overflow-y: auto; }
+  .cruise-setting-group { gap: 4px; }
+  .cruise-segments button { min-height: 28px; }
+  .cruise-settings > a, .cruise-settings > button, .cruise-settings label { min-height: 34px; }
+  .cruise-settings.cruise-credits { display: flex; width: min(310px, calc(100vw - 48px)); }
+}
+@media (prefers-reduced-motion: reduce) { .cruise-experience *, .cruise-experience *::before, .cruise-experience *::after { transition: none !important; animation: none !important; } }
+.cockpit-radio-panel { width: 250px; max-width: 80vw; background: #181c19f5; color: #ffd08a; border: 1px solid #716749; padding: 10px; font: 12px monospace; display: grid; gap: 8px; }
+.cockpit-radio-panel label, .cockpit-radio-panel small { display: grid; gap: 5px; }
+.cockpit-radio-panel button, .cockpit-radio-panel select { min-height: 36px; padding: 5px 8px; background: #30362e; color: #ffe2b3; }
+.cockpit-radio-panel input { width: 100%; }
+.cruise-bottom { pointer-events: none; }
+.cruise-bottom > * { pointer-events: auto; }

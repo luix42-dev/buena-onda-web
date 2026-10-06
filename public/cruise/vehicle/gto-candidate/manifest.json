@@ -1,0 +1,207 @@
+{
+  "status": "launch-runtime-low-variant",
+  "source": "Pontiac GTO 67 by thecali via Bitterli PBRT and ErfanMo77 glTF conversion",
+  "license": "CC0-1.0",
+  "normalizationScale": 0.59,
+  "front": "-Z in exported Y-up GLB",
+  "variants": [
+    {
+      "id": "high",
+      "sourceTriangles": 1063228,
+      "triangles": 301739,
+      "consolidatedTriangles": 301737,
+      "wheelTriangles": 75559,
+      "meshNodes": 15,
+      "materialPrimitives": 23,
+      "boundsMinBlender": [
+        -0.98602,
+        -2.796816,
+        0.0
+      ],
+      "boundsMaxBlender": [
+        0.936238,
+        2.382211,
+        1.442662
+      ],
+      "sizeBlender": [
+        1.922258,
+        5.179027,
+        1.442662
+      ],
+      "wheelRootsBlender": {
+        "FL": [
+          -0.758908,
+          -1.488688,
+          0.351077
+        ],
+        "FR": [
+          0.758907,
+          -1.488688,
+          0.351077
+        ],
+        "RL": [
+          -0.758908,
+          1.488688,
+          0.351077
+        ],
+        "RR": [
+          0.758908,
+          1.488688,
+          0.351077
+        ]
+      },
+      "steeringCenterBlender": [
+        -0.302417,
+        0.408202,
+        0.92539
+      ],
+      "boundsMinYUp": [
+        -0.98602,
+        0.0,
+        -2.382211
+      ],
+      "boundsMaxYUp": [
+        0.936238,
+        1.442662,
+        2.796816
+      ],
+      "sizeYUp": [
+        1.922258,
+        1.442662,
+        5.179027
+      ],
+      "wheelRootsYUp": {
+        "FL": [
+          -0.758908,
+          0.351077,
+          1.488688
+        ],
+        "FR": [
+          0.758907,
+          0.351077,
+          1.488688
+        ],
+        "RL": [
+          -0.758908,
+          0.351077,
+          -1.488688
+        ],
+        "RR": [
+          0.758908,
+          0.351077,
+          -1.488688
+        ]
+      },
+      "steeringCenterYUp": [
+        -0.302417,
+        0.92539,
+        -0.408202
+      ],
+      "rawFile": "gto-high-raw.glb",
+      "rawBytes": 10784600,
+      "publicFile": "gto-high.glb",
+      "publicBytes": 2110820,
+      "publicSha256": "4a687c63c5b6bfde2b8fbafc045473c5f2dc6b3e6a25de189a833ff344ccb984",
+      "compression": "EXT_meshopt_compression"
+    },
+    {
+      "id": "low",
+      "sourceTriangles": 1063228,
+      "triangles": 267112,
+      "consolidatedTriangles": 267109,
+      "wheelTriangles": 73776,
+      "meshNodes": 15,
+      "materialPrimitives": 23,
+      "boundsMinBlender": [
+        -0.98602,
+        -2.796816,
+        0.0
+      ],
+      "boundsMaxBlender": [
+        0.936271,
+        2.382211,
+        1.442728
+      ],
+      "sizeBlender": [
+        1.922292,
+        5.179027,
+        1.442728
+      ],
+      "wheelRootsBlender": {
+        "FL": [
+          -0.758908,
+          -1.488688,
+          0.351077
+        ],
+        "FR": [
+          0.758907,
+          -1.488688,
+          0.351077
+        ],
+        "RL": [
+          -0.758908,
+          1.488688,
+          0.351077
+        ],
+        "RR": [
+          0.758908,
+          1.488688,
+          0.351077
+        ]
+      },
+      "steeringCenterBlender": [
+        -0.302419,
+        0.408027,
+        0.92539
+      ],
+      "boundsMinYUp": [
+        -0.98602,
+        0.0,
+        -2.382211
+      ],
+      "boundsMaxYUp": [
+        0.936271,
+        1.442728,
+        2.796816
+      ],
+      "sizeYUp": [
+        1.922292,
+        1.442728,
+        5.179027
+      ],
+      "wheelRootsYUp": {
+        "FL": [
+          -0.758908,
+          0.351077,
+          1.488688
+        ],
+        "FR": [
+          0.758907,
+          0.351077,
+          1.488688
+        ],
+        "RL": [
+          -0.758908,
+          0.351077,
+          -1.488688
+        ],
+        "RR": [
+          0.758908,
+          0.351077,
+          -1.488688
+        ]
+      },
+      "steeringCenterYUp": [
+        -0.302419,
+        0.92539,
+        -0.408027
+      ],
+      "rawFile": "gto-low-raw.glb",
+      "rawBytes": 9953612,
+      "publicFile": "gto-low.glb",
+      "publicBytes": 1941060,
+      "publicSha256": "97b2f6714b477d832316b34d68268a8372957b5d0dac0139b0f60dbf3a89d4fb",
+      "compression": "EXT_meshopt_compression"
+    }
+  ]
+}
