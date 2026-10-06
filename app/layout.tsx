@@ -3,55 +3,11 @@ import Script from 'next/script'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bebas_Neue, Outfit, Cormorant_Garamond, Space_Mono, Orbitron, Fraunces } from 'next/font/google'
+import { bebasNeue, outfit, cormorantGaramond, spaceMono, orbitron, fraunces } from './fonts'
 import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
 import MetaPixel from '@/components/analytics/MetaPixel'
-
-const bebasNeue = Bebas_Neue({
-  weight:   ['400'],
-  subsets:  ['latin'],
-  variable: '--font-display',
-  display:  'swap',
-})
-
-const outfit = Outfit({
-  weight:   ['300', '400', '500', '600', '700'],
-  subsets:  ['latin'],
-  variable: '--font-sans',
-  display:  'swap',
-})
-
-const cormorantGaramond = Cormorant_Garamond({
-  weight:   ['300', '400', '500', '600'],
-  style:    ['normal', 'italic'],
-  subsets:  ['latin'],
-  variable: '--font-serif',
-  display:  'swap',
-})
-
-const spaceMono = Space_Mono({
-  weight:   ['400', '700'],
-  subsets:  ['latin'],
-  variable: '--font-mono',
-  display:  'swap',
-})
-
-const orbitron = Orbitron({
-  weight:   ['400', '500', '600', '700'],
-  subsets:  ['latin'],
-  variable: '--font-orbitron',
-  display:  'swap',
-})
-
-const fraunces = Fraunces({
-  weight:   ['400', '500'],
-  style:    ['normal', 'italic'],
-  subsets:  ['latin'],
-  variable: '--font-fraunces',
-  display:  'swap',
-})
 
 export const metadata: Metadata = {
   title: {

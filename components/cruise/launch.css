@@ -1,5 +1,6 @@
 .launch-experience{--launch-cream:#f5ecdc;--launch-accent:#f1ac79;color:var(--launch-cream);background:#171e24}
 .launch-experience button{min-height:44px}.launch-experience :focus-visible{outline-color:var(--launch-accent)}
+.launch-garage-heading .launch-support{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:12px;color:var(--launch-accent);pointer-events:auto;text-decoration:underline;text-underline-offset:4px}
 .launch-header{inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:26px 4%;z-index:4;pointer-events:none}.launch-header>*{pointer-events:auto}
 .launch-brand{font-family:var(--font-serif),Georgia,serif;font-style:italic;font-size:31px;line-height:1}.launch-brand span{display:block;font-family:var(--font-mono),monospace;font-size:9px;font-style:normal;letter-spacing:.18em!important;margin-top:9px}
 .launch-small{font-size:12px!important;opacity:.7}.launch-pill{display:flex;gap:9px;align-items:center;background:#172126b8!important;border:1px solid #ffffff28!important;border-radius:24px;padding:0 19px;font-size:13px!important;backdrop-filter:blur(12px)}

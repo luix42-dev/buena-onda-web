@@ -109,11 +109,11 @@ export default function LaunchExperience({campaign,campaignValid}:{campaign:Crui
       {!garage&&<><RadioConsole focused={radioFocused} step={tutorial} onClose={closeRadio} onSkip={finishTutorial} onReplay={replayTutorial} hidden={placeOpen||credits}/>{!radioFocused&&<span className="district-now">{DISTRICT_LABELS[district]} / MIAMI DRIVE</span>}</>}
       <PlaceDiscovery garage={garage} ready={vehicleReady&&!failed} initialPlaceId={deepLinkPlace} nearbyPlaceId={nearbyPlaceId} onStart={start} onOpenChange={setPlaceOpen}/>
       <header className="launch-header cruise-hud" aria-hidden={!visible} ref={e=>{if(e)e.inert=!visible}}>
-        <a href="/" className="launch-brand">Buena Onda<span>CRUISE / MIAMI</span></a>
+        <a href="/" className="launch-brand">Buena Onda<span>CRUISE / MIAMI · BETA</span></a>
         {garage?<button onClick={()=>setCredits(!credits)} className="launch-small">Credits</button>:<button onClick={returnGarage} className="launch-pill"><ArrowLeft size={16}/> Garage</button>}
       </header>
       {garage&&<div className="launch-garage">
-        <div className="launch-garage-heading"><p>GOOD MUSIC. OPEN ROAD.</p><h1>Your ride. Your rhythm.</h1></div>
+        <div className="launch-garage-heading"><p>BETA — STILL FINDING OUR GROOVE.</p><h1>Your ride. Your rhythm.</h1><a className="launch-support" href="/themes" target="_blank" rel="noopener noreferrer">Support Buena Onda <ArrowRight size={13}/><span className="place-sr-only"> — explore the catalog (opens a new tab)</span></a></div>
         <div className="launch-car-arrows"><button aria-label="Previous car" onClick={()=>shift(-1)}><ArrowLeft/></button><button aria-label="Next car" onClick={()=>shift(1)}><ArrowRight/></button></div>
         <section className="launch-selection" aria-label="Garage">
           <div className="launch-car-copy"><span className="launch-eyebrow">{car.tag}</span><h2>{car.name}</h2><p>{car.description}</p>
