@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 interface ArchiveLabelProps {
   children: ReactNode
   className?: string
-  as?: keyof JSX.IntrinsicElements
+  as?: 'span' | 'p' | 'div' | 'label'
 }
 
 export default function ArchiveLabel({
