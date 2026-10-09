@@ -1,0 +1,13 @@
+{
+  "chase": {
+    "source": "D:\\10-VENTURES\\12-buena-onda\\cruise-publish-20261006\\docs\\cruise\\master\\video-review\\592743f6ba34cfa0554eab34e13a08f9.webm",
+    "trimStart": 6.924,
+    "requestedDuration": 55
+  },
+  "cockpit": {
+    "source": "D:\\10-VENTURES\\12-buena-onda\\cruise-publish-20261006\\docs\\cruise\\master\\video-radio\\b5c5194230db52a6cc194ed8f78b0537.webm",
+    "trimStart": 8.699,
+    "requestedDuration": 55
+  },
+  "note": "Actual Playwright gameplay. Recordings are silent: live audio playback is verified separately through media events and advancing currentTime. Frame captures are native-resolution, unretouched."
+}

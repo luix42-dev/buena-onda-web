@@ -1,0 +1,322 @@
+{
+  "errors": [],
+  "escapeAfterBackdropClick": true,
+  "drivingVideoOffsetMs": 9199,
+  "media": [
+    {
+      "time": 0,
+      "playing": false,
+      "src": ""
+    },
+    {
+      "time": 55.403437,
+      "playing": true,
+      "src": "https://stream-relay-geo.ntslive.net/stream?client=direct"
+    }
+  ],
+  "drive": {
+    "distance": 185.44470000000365,
+    "speed": 3.5,
+    "lateral": 2,
+    "steer": 0,
+    "paused": false,
+    "glance": 0
+  },
+  "desktopShadowsPausedSamples": [
+    {
+      "fps": 7.712247477451772,
+      "p95": 110.09999999962747,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 107.57724285125732,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    },
+    {
+      "fps": 32.40440699936309,
+      "p95": 154,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 97.6432523727417,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    },
+    {
+      "fps": 41.622301810026116,
+      "p95": 103.40000000037253,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 113.05725383758545,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    },
+    {
+      "fps": 40.33014443821989,
+      "p95": 111.80000000074506,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 104.68337917327881,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    },
+    {
+      "fps": 41.626331074540175,
+      "p95": 100.90000000037253,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 95.09558010101318,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    },
+    {
+      "fps": 38.11701924908119,
+      "p95": 117.40000000037253,
+      "calls": 521,
+      "triangles": 167072,
+      "textures": 32,
+      "heapMB": 109.67149639129639,
+      "distance": 0,
+      "speed": 0,
+      "camera": "chase",
+      "ads": [
+        {
+          "id": "billboard",
+          "width": 105.05791357540808,
+          "height": 48.736148842803175,
+          "distance": 40.332238976428705,
+          "angle": 17.408533737367552,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "buena",
+          "width": 45.32212752722614,
+          "height": 20.917924202401004,
+          "distance": 89.12171637873342,
+          "angle": 6.853749802966301,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": false,
+          "blockedBy": ""
+        },
+        {
+          "id": "branches",
+          "width": 26.963104755845695,
+          "height": 12.437763897529852,
+          "distance": 148.81988625687882,
+          "angle": 3.8453259678076837,
+          "visible": false,
+          "continuous": 0,
+          "maxContinuous": 0,
+          "occluded": true,
+          "blockedBy": ":BufferGeometry:118.32/149.05"
+        }
+      ]
+    }
+  ],
+  "video": "D:\\10-VENTURES\\12-buena-onda\\cruise-publish-20261006\\docs\\cruise\\master\\video-radio\\b5c5194230db52a6cc194ed8f78b0537.webm"
+}
