@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
   // Never collect demo impressions or expose checkout/admin writes in a preview.
   if (process.env.CRUISE_COMPARISON_PREVIEW === '1') {
     if (!['GET', 'HEAD'].includes(request.method)) return NextResponse.json({ error: 'Read-only Cruise comparison' }, { status: 403 })
-    if (pathname === '/api/cruise/plots') return NextResponse.json({ plots: [], events: [], live: false })
     if (pathname.startsWith('/api/') && pathname !== '/api/radio/tracks') return NextResponse.json({ error: 'Unavailable in comparison preview' }, { status: 403 })
     if (pathname === '/studio' || pathname.startsWith('/studio/')) return new NextResponse(null, { status: 404 })
   }

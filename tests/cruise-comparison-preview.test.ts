@@ -16,7 +16,9 @@ test('comparison deployment permits scene/radio reads but blocks writes and othe
     for (const path of ['/api/cron/reconcile-checkouts', '/api/admin/cruise/tracks']) {
       assert.equal((await middleware(new NextRequest(`https://preview.example${path}`))).status, 403)
     }
-    assert.deepEqual(await (await middleware(new NextRequest('https://preview.example/api/cruise/plots'))).json(), { plots: [], events: [], live: false })
+    // A failed read preserves the client's local geometry seed; an empty successful
+    // result would remove structural billboard records required by Miami's scene.
+    assert.equal((await middleware(new NextRequest('https://preview.example/api/cruise/plots'))).status, 403)
     assert.equal((await middleware(new NextRequest('https://preview.example/studio'))).status, 404)
   } finally {
     if (saved === undefined) delete process.env.CRUISE_COMPARISON_PREVIEW
