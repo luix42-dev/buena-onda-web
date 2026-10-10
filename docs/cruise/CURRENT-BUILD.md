@@ -1,3 +1,63 @@
+# Buena Onda Cruise — Current Build (bounded founder-feedback pass)
+
+October 10, 2026. Branch `experiment/cruise-miami-master`, base `bbe52ee`. **LOCAL ONLY; NO PUSH OR DEPLOYMENT.** [Review packet](feedback/REPORT.md), [first-pass boundary and hard stops](feedback/FIRST-PASS-BOUNDARY.md).
+
+## BUILT
+
+- Existing licensed RX-7 exterior adapted around the working cockpit. Sculpted shell, preserved radio/camera anchors, safe hood triangle retention. This is a direction prototype, not a finished vehicle.
+- Experimental route grows 210 → 630 m: storefronts, open promenade and taller hotels. Original active route is still larger at 2,304 m. Existing covered reset remains; true wrapping is not implemented.
+- Palms partitioned into 160 m batches for culling, sharing sway/materials. No causal performance gain claimed.
+- Four requested stations added only to Miami's catalog: Rinse France, The Lot Radio, Kiosk Radio and dublab. Eight configured total; original catalog defaults preserved.
+- Primary Cast gives current-tab/screen mirroring instructions. Optional TV Remote Mode is explicitly separate. Start gate, Director, cockpit and hidden Avenue preserved.
+
+## VERIFIED
+
+- Final isolated production build/type/lint passed. Full suite **64/64 passed** after audio/car integration; last palm batching change was subsequently production-built. Dummy configuration and blocked outgoing server network; `.env` untouched.
+- Seven external stations reported playing in actual local Next/Edge: Jolt, NTS 1/2 and four additions. Five reported live FFT; NTS 1/2 used the explicitly labeled capture-restricted fallback. Human audible output not independently verified.
+- Independent six-angle vehicle and nine-position route screenshot reviews completed. Route images show three sections without visible road gaps. Radio remains framed.
+- Final Mobile-quality night/Jolt 30-second fixed-camera tests: desktop 1440x900 **50.25 chase / 32.57 cockpit FPS**, actual buffer 1224x765 (DPR0.85). Landscape 844x390 **60.02 / 59.72**; portrait 390x844 **60.02 / 46.76**, renderer DPR1. Edge154/Windows/Intel UHD630; phone sizes are desktop emulation.
+- Independent source audit found original-route/catalog isolation and hidden Avenue guards intact. Primary Cast did not launch PresentationRequest or replace the scene in browser QA.
+- Continuous **600.573-second** Lot Radio/night/Director run completed: three natural covered resets, no recorded playback-state interruption, page error or context loss. WebGL counts settled at262 geometries/131 textures; JS heap ranged50.2–76.0MB. This is bounded stability evidence, not proof against leaks or physical audible verification.
+- Extended-endpoint regression **62/62 checks passed**, with no page errors: all six views, reduced motion, simulated hidden tab, shadowless Desktop headlights, mirror cadence/night-off and DPR policy. Transition recording/contact sheet inspected; this remains a visible fade/cut rather than a wrapping world.
+
+## FAILED
+
+- Car cabin/body proportions fail a convincing all-angle result: tall door panels, windshield and rear seat mismatch the lower sports body. Side and Crane expose it clearly. Founder direction required before further work.
+- Sustained 30-FPS floor not fully achieved: desktop cockpit p5 one-second FPS **29.04**, despite mean32.57. Portrait frame pacing also uneven. Desktop high quality was not retested; historical failure is not claimed resolved.
+- Ten-minute Director soak also misses the FPS floor: its30-second windows averaged **29.58–46.97 FPS**. The JSON's functional `passed` flag checks playback/loop/context continuity, not performance acceptance.
+- NTS 1/2 live FFT assertions fail due to capture restriction, while playback succeeds. No bypass or fake live-analysis claim.
+- Miami remains shorter and less varied than Original. A covered reset is not seamless wrapping.
+- Initial HLS native demux/buffering issues and confounded early performance runs are retained and explained in the review packet.
+
+## BLOCKERS
+
+- Luis last confirmed leaked key retirement incomplete. No deployment or production writes allowed until confirmed; deployment still needs separate explicit authorization.
+- Chromecast, AirPlay, Smart-TV browser and physical Android performance: **BLOCKED — PHYSICAL DEVICE REQUIRED**.
+- Stripe TEST plot #7: isolated non-production Supabase/Stripe environment not established. Existing checkout work is not evidence of isolation.
+- Third-party commercial embedding/rebroadcast permissions are not established by public player URLs. Kiosk's only advertised HLS feed includes1080p video; physical-mobile transport/decoding cost unverified.
+- Owned R2 radio intentionally unavailable with isolated dummy settings; no local playback verification claimed.
+
+## NEXT ACTION
+
+After the evidence packet and local commit, **HARD STOP** for Luis to accept, reject or redirect car, world and radio/casting direction. No larger district system, vehicle acquisition/lab, LA camera, broader art overhaul or remaining four stations until that approval. Silence is not approval. Local review approval does not authorize deployment.
+
+Preview: http://127.0.0.1:3041/cruise/miami-test . Select an external station for this isolated preview.
+
+## Participants and ledger
+
+| Owner | Files | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| `/root` | Integration/UI, scripts, docs | Built; browser validated within limits | Build,64tests,performance,review packet | Founder approval; device/security gates |
+| `/root/performance` | ConvertibleCar, vehicle report | Prototype; independent six-view review | Asset counts and pixels | Cabin fit fails |
+| `/root/ux_music` | route,DriveController,StreetEnvironment | Built; independent nine-position review | Dimensions and pixels | Full wrapping/Original scale absent |
+| `/root/qa_security` | Audio,catalog,context,tests,radio report | Built; independent source/result audit | Seven playing,five liveFFT,isolation | Permissions,physicaldevices,Stripe isolation |
+
+Inherited session models; exact runtime variants not exposed. No specific Astra/Opus model identity claimed.
+
+---
+
+## Historical Pass 6 snapshot
+
 # Buena Onda Cruise — Current Build (Pass 6)
 
 Snapshot: October 10, 2026. Branch experiment/cruise-miami-master; base c23833c. **LOCAL ONLY. No push or deployment.** Luis owns deployment after retiring the leaked key. [Pass 6 report and evidence](pass6/REPORT.md).

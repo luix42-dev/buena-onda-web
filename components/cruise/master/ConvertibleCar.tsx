@@ -14,7 +14,8 @@ import { useReducedMotion } from './cockpit/motion'
 
 /**
  * "Ocean Drive '84" — a cream classic with the roof cut away at the beltline.
- * Exterior: existing CC0 classic-traffic.glb, clipped above y = BELT, clear-coated.
+ * Exterior: existing CC BY 3.0 RX-7 by IvOfficial (see docs/cruise/ASSETS.md),
+ * adapted to an open-top silhouette above y = BELT while retaining its sculpted bodywork.
  * Interior: authored here — tuck-and-roll leather, walnut fascia, chrome-ringed gauges,
  * wood-rim wheel with optional gloved hands, the CockpitRadio head unit, a live rear-view
  * mirror (Desktop) and a palm air freshener. Static interior parts are merged per material
@@ -44,15 +45,17 @@ const RAKE = Math.atan2(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
 const SCREEN_LEN = Math.hypot(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
 const MIRROR_AT: [number, number, number] = [.02, SCREEN.topY - .095, SCREEN.topZ + .03]
 
-/** Drops triangles whose centroid lies inside the cabin volume (model space, before Z_OFFSET). */
+/** Drop only triangles fully inside the cabin; a long hood triangle can cross its boundary. */
 function withoutCabinProxy(source: T.BufferGeometry, matrix: T.Matrix4) {
-  const g = source.clone(); const pos = g.getAttribute('position'); const v = new T.Vector3(), c = new T.Vector3()
+  const g = source.clone(); const pos = g.getAttribute('position'); const v = new T.Vector3()
   const index = g.getIndex(); const count = index ? index.count : pos.count; const keep: number[] = []
   for (let i = 0; i < count; i += 3) {
-    c.set(0, 0, 0)
-    for (let k = 0; k < 3; k++) { const vi = index ? index.getX(i + k) : i + k; c.add(v.fromBufferAttribute(pos, vi).applyMatrix4(matrix)) }
-    c.multiplyScalar(1 / 3)
-    const cabin = Math.abs(c.x) < .8 && c.z > -.8 && c.z < 1.52 && c.y > .55
+    let cabin = true
+    for (let k = 0; k < 3; k++) {
+      const vi = index ? index.getX(i + k) : i + k
+      v.fromBufferAttribute(pos, vi).applyMatrix4(matrix)
+      if (!(Math.abs(v.x) < .8 && v.z > -.8 && v.z < 1.52 && v.y > .55)) cabin = false
+    }
     if (!cabin) for (let k = 0; k < 3; k++) keep.push(index ? index.getX(i + k) : i + k)
   }
   g.setIndex(keep); return g
@@ -107,8 +110,6 @@ function buildInterior() {
   const rm = mat(MIRROR_AT)
   matte.push({ g: new T.BoxGeometry(.012, .1, .012), m: mat([0, .07, -.01], [0, 0, 0], 1, rm), c: '#1e1e1e' })
   matte.push({ g: new RoundedBoxGeometry(.27, .08, .03, 2, .012), m: mat([0, 0, -.012], [0, 0, 0], 1, rm), c: '#1c1c1c' })
-  // Hood ornament
-  chrome.push({ g: new T.ConeGeometry(.02, .11, 4), m: mat([0, 1.0, -2.25], [-.4, 0, 0]) })
   return { leather: mergeParts(leather), chrome: mergeParts(chrome), matte: mergeParts(matte), gaugeFaces: mergeParts(gaugeFaces), gaugeGlass: mergeParts(gaugeGlass), needlesStatic: mergeParts(needles) }
 }
 
@@ -129,17 +130,27 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
   const night = timeOfDay === 'night', sunset = timeOfDay === 'sunset'
   const { gl } = useThree()
   const reduced = useReducedMotion()
-  const gltf = useGLTF('/cruise/traffic/classic-traffic.glb', false, true)
+  const gltf = useGLTF('/cruise/vehicle/rx7-fc-optimized.glb', false, true)
   useEffect(() => { gl.localClippingEnabled = true }, [gl])
   const belt = useMemo(() => new T.Plane(new T.Vector3(0, -1, 0), BELT), [])
   const body = useMemo(() => {
     const scene = gltf.scene.clone(true); const owned: T.Material[] = [], paints: { mesh: T.Mesh; high: T.Material; low: T.Material }[] = []
+    // The licensed coupe faces +Z. Its 1.79m body fits the existing 1.74m cabin at this scale;
+    // preserve the authored cockpit and camera anchors while replacing the traffic-LOD silhouette.
+    scene.rotation.y = Math.PI
+    scene.scale.setScalar(1.02)
+    scene.position.y = .015
     scene.updateMatrixWorld(true)
     scene.traverse(o => {
       if (!(o instanceof T.Mesh)) return
       const src = o.material as T.MeshStandardMaterial; const name = src.name || ''
-      // The LOD model has a solid low-detail interior proxy where our cabin goes; cut it out once.
-      o.geometry = withoutCabinProxy(o.geometry, o.matrixWorld)
+      let wheel = false
+      for (let parent: T.Object3D | null = o; parent; parent = parent.parent) {
+        if (/^[FR][LR]_WHEEL/.test(parent.name)) { wheel = true; break }
+      }
+      // Remove coupe cabin surfaces where our radio/interior lives. Never cut the wheel arches'
+      // separate wheel meshes: their upper inside faces intersect the cabin's bounding volume.
+      o.geometry = wheel ? o.geometry.clone() : withoutCabinProxy(o.geometry, o.matrixWorld)
       let m: T.Material
       if (/paint/i.test(name)) {
         // Clearcoat paint on Desktop only, like the wood: Physical is the costliest shader on screen in both cameras.
@@ -148,8 +159,8 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
         const low = new T.MeshStandardMaterial({ name: 'ConvertiblePaintMobile', color: '#f1e5c9', roughness: .18, metalness: .72, envMapIntensity: 1.2, side: T.DoubleSide, clippingPlanes: [belt] })
         owned.push(low); paints.push({ mesh: o, high: m, low })
       }
-      else if (/chrome/i.test(name)) m = new T.MeshStandardMaterial({ name: 'ConvertibleExteriorMetal', color: '#e9ecef', metalness: .94, roughness: .28, envMapIntensity: 1.25, clippingPlanes: [belt] })
-      else if (/glaz/i.test(name)) { o.visible = false; return }
+      else if (/chrome|rims/i.test(name)) m = new T.MeshStandardMaterial({ name: 'ConvertibleExteriorMetal', color: '#e9ecef', metalness: .94, roughness: .28, envMapIntensity: 1.25, clippingPlanes: [belt] })
+      else if (/glaz|glass/i.test(name)) { o.visible = false; return }
       else if (/rear/i.test(name)) m = new T.MeshStandardMaterial({ color: '#c3142c', emissive: '#ff1f3d', emissiveIntensity: .6, roughness: .3 })
       else { m = src.clone(); (m as T.MeshStandardMaterial).clippingPlanes = [belt] }
       owned.push(m); o.material = m; o.castShadow = true; o.receiveShadow = true

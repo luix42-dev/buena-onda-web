@@ -136,7 +136,7 @@ export interface CruiseQualitySettings {
   rainParticles: number
 }
 
-export type CruiseRadioRights = 'owned' | 'approved' | 'permission-required' | 'external-only'
+export type CruiseRadioRights = 'owned' | 'approved' | 'public-stream' | 'permission-required' | 'external-only'
 export type CruiseRadioMood = 'miami-local' | 'leftfield' | 'poolside' | 'night-drive' | 'tropical' | 'ambient' | 'global' | 'guest'
 export type CruiseRadioPlayback = 'playlist' | 'stream' | 'hls' | 'embed' | 'external'
 

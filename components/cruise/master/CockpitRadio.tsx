@@ -24,7 +24,7 @@ const VFD = '#ffb347', VFD_DIM = '#3a220c', VFD_CYAN = '#5ff2e6'
 const SEGMENTS = 12
 const FONT = '"Consolas","Lucida Console","Courier New",monospace'
 const DIAL_LO = 88.1, DIAL_HI = 107.9
-const dialFor = (i: number) => DIAL_LO + (RADIO_PRESETS.length > 1 ? i / (RADIO_PRESETS.length - 1) : .5) * (DIAL_HI - DIAL_LO)
+const dialFor = (i: number, count: number) => DIAL_LO + (count > 1 ? i / (count - 1) : .5) * (DIAL_HI - DIAL_LO)
 
 function canvas(w: number, h: number, live = false) {
   const el = document.createElement('canvas'); el.width = w; el.height = h
@@ -39,6 +39,8 @@ const DEV = process.env.NODE_ENV !== 'production'
 
 export default function CockpitRadio({ night, sunset = false, high = false }: { night: boolean; sunset?: boolean; high?: boolean }) {
   const controls = useCockpit(); const audio = controls?.audio
+  const stationPresets = controls?.presets ?? RADIO_PRESETS
+  const physicalPresets = useMemo(() => stationPresets.slice(0, 4), [stationPresets])
   const reduced = useReducedMotion()
   const screen = useMemo(() => canvas(1024, 256, true), [])
   const eq = useMemo(() => canvas(512, 128, true), [])
@@ -133,15 +135,15 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
   const volumeKnob = useRef<T.Mesh>(null), tuneKnob = useRef<T.Mesh>(null)
   const root = useRef<T.Group>(null)
   const marquee = useRef(0), acc = useRef(0), clock = useRef(0), glowLevel = useRef(0)
-  const initDial = dialFor(Math.max(0, RADIO_PRESETS.findIndex(s => s.id === audio?.stationId)))
+  const initDial = dialFor(Math.max(0, stationPresets.findIndex(s => s.id === audio?.stationId)), stationPresets.length)
   const sweep = useRef({ start: -1, from: initDial, to: initDial, station: audio?.stationId ?? '', tuning: false, dial: initDial })
   const scratch = useMemo(() => ({ m: new T.Matrix4(), v: new T.Vector3(), c: new T.Color(), last: 0 }), [])
 
   // Preset instance colours follow the active station / power state.
-  const activeIndex = RADIO_PRESETS.findIndex(s => s.id === audio?.stationId), playing = !!audio?.playing
+  const activeIndex = stationPresets.findIndex(s => s.id === audio?.stationId), playing = !!audio?.playing
   useEffect(() => {
     const p = presets.current, l = leds.current; if (!p || !l) return
-    for (let i = 0; i < RADIO_PRESETS.length; i++) {
+    for (let i = 0; i < physicalPresets.length; i++) {
       p.setColorAt(i, scratch.c.set(i === activeIndex ? '#f0d9a0' : '#cfd2d6'))
       l.setColorAt(i, scratch.c.set(i === activeIndex && playing ? VFD : '#3a2a1a'))
       l.setMatrixAt(i, scratch.m.makeTranslation(-.105 + i * .058, -.029, .0115))
@@ -149,7 +151,7 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
     if (p.instanceColor) p.instanceColor.needsUpdate = true
     if (l.instanceColor) l.instanceColor.needsUpdate = true
     l.instanceMatrix.needsUpdate = true; presetsDirty.current = true
-  }, [activeIndex, playing, scratch])
+  }, [activeIndex, playing, scratch, physicalPresets])
 
   useFrame(({ camera, size }, dt) => {
     const tuning = !!controls?.tuning
@@ -157,7 +159,7 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
     // ---- Tuning sweep trigger: CockpitContext static burst, or any station change.
     const sw = sweep.current, id = audio?.stationId ?? ''
     if ((tuning && !sw.tuning) || id !== sw.station) {
-      const to = dialFor(Math.max(0, RADIO_PRESETS.findIndex(s => s.id === id)))
+      const to = dialFor(Math.max(0, stationPresets.findIndex(s => s.id === id)), stationPresets.length)
       if (to !== sw.to || tuning) { sw.from = sw.dial; sw.to = to; sw.start = clock.current }
       sw.station = id
     }
@@ -181,7 +183,7 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
     if (p) {
       const down = pressed.current && performance.now() - pressed.current.t < 180 ? pressed.current.i : -1
       if (presetsDirty.current || down >= 0 || pressed.current) {
-        for (let i = 0; i < RADIO_PRESETS.length; i++) p.setMatrixAt(i, scratch.m.makeTranslation(-.105 + i * .058, -.04, .004 + (i === down ? -.006 : 0)))
+        for (let i = 0; i < physicalPresets.length; i++) p.setMatrixAt(i, scratch.m.makeTranslation(-.105 + i * .058, -.04, .004 + (i === down ? -.006 : 0)))
         p.instanceMatrix.needsUpdate = true; presetsDirty.current = false
         if (down < 0) pressed.current = null
       }
@@ -229,10 +231,10 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
     </group>)}
 
     {/* Chrome preset buttons (instanced) with amber LEDs for the active station */}
-    <instancedMesh ref={presets} args={[geo.preset, mats.preset, RADIO_PRESETS.length]} name="CockpitPresets"
+    <instancedMesh ref={presets} args={[geo.preset, mats.preset, physicalPresets.length]} name="CockpitPresets"
       onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}
-      onClick={e => act(e, () => { const i = e.instanceId ?? -1; const station = RADIO_PRESETS[i]; if (!station) return; pressed.current = { i, t: performance.now() }; controls?.operateRadio('preset', station.id) })} />
-    <instancedMesh ref={leds} args={[geo.led, mats.led, RADIO_PRESETS.length]} />
+      onClick={e => act(e, () => { const i = e.instanceId ?? -1; const station = physicalPresets[i]; if (!station) return; pressed.current = { i, t: performance.now() }; controls?.operateRadio('preset', station.id) })} />
+    <instancedMesh ref={leds} args={[geo.led, mats.led, physicalPresets.length]} />
 
     {/* Tape deck */}
     <mesh position={[-.03, -.1, .001]} material={mats.tape}><planeGeometry args={[.2, .05]} /></mesh>

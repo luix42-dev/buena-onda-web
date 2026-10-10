@@ -18,3 +18,7 @@ GTO evidence: public/cruise/vehicle/gto-candidate/LICENSE.txt and manifest.json.
 Radio retains existing sources, not new audio assets: Buena Onda catalog API, Jolt, NTS 1/2. These are listener playback endpoints, not new rebroadcast licenses or sponsor affiliation. Missing local catalog configuration remains an operational issue; no audio files or credentials were copied. No reference screenshot, Teleoperator material, stock storefront, or proprietary vehicle was imported.
 
 Asset selection favors existing suitable geometry over catalog collection. Fab, Sketchfab, itch.io, Kenney, Quaternius, ambientCG and similar catalogs are future candidates only; no unspecified asset from them is represented as cleared or incorporated. No Mixamo animation, Freesound audio, game-icons artwork, Lospec palette, or Godot asset package was added.
+
+## Founder feedback: Ocean Drive convertible body
+
+The experimental Ocean Drive convertible now derives from the existing Mazda RX-7 by IvOfficial, via [Poly Pizza](https://poly.pizza/m/SnIoWlh7S2), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Modifications: roof/glass removal, cabin cutout, orientation/scale fit, cream paint and existing authored cockpit. Asset file: `rx7-fc-optimized.glb`; no new download or purchase. This replaces the classic-traffic exterior only; the visible Garage attribution was updated.

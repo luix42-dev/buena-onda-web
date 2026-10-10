@@ -1,0 +1,960 @@
+{
+  "date": "2026-10-10T19:33:36.385Z",
+  "browser": "154.0.4258.62",
+  "physicalDevice": false,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "windowDpr": 1,
+  "quality": "mobile",
+  "sky": "night",
+  "camera": "director",
+  "station": "The Lot Radio",
+  "durationSeconds": 600,
+  "errors": [],
+  "samples": [
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.239,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 102.2,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 36.326760713725776,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.5,
+      "heapMB": 65.05068111419678,
+      "resources": {
+        "geometries": 261,
+        "textures": 131
+      },
+      "drawCalls": 246,
+      "triangles": 450876,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 30.072
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.232,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 206,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 40.53531935303365,
+      "p95FrameMs": 50,
+      "maxFrameMs": 66.79999999999563,
+      "heapMB": 69.42319583892822,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 195,
+      "triangles": 442336,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 60.104
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.233,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "hood",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 308.9,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 37.62121743194298,
+      "p95FrameMs": 50,
+      "maxFrameMs": 99.80000000000291,
+      "heapMB": 60.34303855895996,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 161,
+      "triangles": 427978,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 90.102
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.134,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 413.2,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 38.0830636892635,
+      "p95FrameMs": 50,
+      "maxFrameMs": 99.80000000000291,
+      "heapMB": 66.4379072189331,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 192,
+      "triangles": 426688,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 120.089
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.209,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "aerial",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 517.4,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 39.50195507987137,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.29999999998836,
+      "heapMB": 76.04157257080078,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 197,
+      "triangles": 422538,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 150.069
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.23,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "low",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 621.5,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 42.00113246511008,
+      "p95FrameMs": 50,
+      "maxFrameMs": 66.70000000001164,
+      "heapMB": 68.72029113769531,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 188,
+      "triangles": 403135,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 180.048
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.114,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 92.8,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 40.00266906882861,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.20000000001164,
+      "heapMB": 62.501359939575195,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 252,
+      "triangles": 451126,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 210.07
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.142,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "aerial",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 197.2,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 43.33315569293078,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.39999999999418,
+      "heapMB": 54.595582008361816,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 208,
+      "triangles": 450604,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 240.059
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.093,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "low",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 301.6,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 43.24818187577738,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.09999999997672,
+      "heapMB": 73.01320457458496,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 201,
+      "triangles": 450570,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 270.053
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.116,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 406.3,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 46.75684772864367,
+      "p95FrameMs": 33.40000000002328,
+      "maxFrameMs": 83.39999999996508,
+      "heapMB": 72.87609958648682,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 192,
+      "triangles": 415987,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 300.055
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.222,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "side",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 509.4,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 40.29127022478463,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.29999999998836,
+      "heapMB": 65.21120834350586,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 177,
+      "triangles": 376338,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 330.025
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.215,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 613.7,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 41.570608312119816,
+      "p95FrameMs": 50,
+      "maxFrameMs": 66.69999999995343,
+      "heapMB": 54.576904296875,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 190,
+      "triangles": 414172,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 360.08
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.225,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 85,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 46.97117481199877,
+      "p95FrameMs": 49.79999999998836,
+      "maxFrameMs": 66.70000000001164,
+      "heapMB": 57.47515392303467,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 273,
+      "triangles": 459460,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 390.081
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.119,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "side",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 185.9,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 31.410784369300174,
+      "p95FrameMs": 66.5,
+      "maxFrameMs": 99.90000000002328,
+      "heapMB": 50.220314025878906,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 183,
+      "triangles": 385812,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 420.044
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.166,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 290.6,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 42.757545057054465,
+      "p95FrameMs": 49.90000000002328,
+      "maxFrameMs": 66.70000000001164,
+      "heapMB": 52.78895950317383,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 195,
+      "triangles": 442336,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 450.079
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.145,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 394.8,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 46.81591741192007,
+      "p95FrameMs": 49.70000000001164,
+      "maxFrameMs": 83.29999999998836,
+      "heapMB": 57.73031139373779,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 200,
+      "triangles": 435090,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 480.064
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.195,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 495.8,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 35.93221922323679,
+      "p95FrameMs": 50.100000000034925,
+      "maxFrameMs": 116.60000000003492,
+      "heapMB": 52.09907531738281,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 184,
+      "triangles": 395321,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 510.095
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.105,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 592.6,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 29.576722752402553,
+      "p95FrameMs": 66.70000000006985,
+      "maxFrameMs": 116.70000000006985,
+      "heapMB": 51.69954299926758,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 190,
+      "triangles": 414172,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 540.105
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.192,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "hood",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 61.6,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 40.20237750265616,
+      "p95FrameMs": 50,
+      "maxFrameMs": 116.69999999995343,
+      "heapMB": 67.15857791900635,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 246,
+      "triangles": 437030,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        },
+        {
+          "time": 565678.2,
+          "distance": 0,
+          "opacity": 1
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 570.062
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.124,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 165.6,
+        "running": true,
+        "paused": false
+      },
+      "meanFps": 37.105009842487014,
+      "p95FrameMs": 50,
+      "maxFrameMs": 83.19999999995343,
+      "heapMB": 75.7383680343628,
+      "resources": {
+        "geometries": 262,
+        "textures": 131
+      },
+      "drawCalls": 210,
+      "triangles": 457884,
+      "rendererDpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": [
+        {
+          "time": 196537.7,
+          "distance": 0,
+          "opacity": 0.999756
+        },
+        {
+          "time": 378925.3,
+          "distance": 0,
+          "opacity": 0.999757
+        },
+        {
+          "time": 565678.2,
+          "distance": 0,
+          "opacity": 1
+        }
+      ],
+      "playingFailures": 0,
+      "contextLost": false,
+      "elapsedSeconds": 600.111
+    }
+  ],
+  "notes": [
+    "One desktop Edge GPU browser; emulation, not a phone.",
+    "JS heap and WebGL resource counts are indicators, not GPU memory or proof against all leaks.",
+    "Frame-rate changes across Director views cannot be treated as a fixed-camera benchmark.",
+    "No production mutations; public live audio only."
+  ],
+  "actualDurationSeconds": 600.573,
+  "passed": true
+}

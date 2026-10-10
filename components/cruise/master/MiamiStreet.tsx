@@ -9,7 +9,8 @@ import StreetMetrics, { event, type StreetSample } from './StreetMetrics'
 import ConvertibleCar from './ConvertibleCar'
 import HeroCar from '../vehicle/HeroCar'
 import ImprovedCockpit from '../cockpit-lab/ImprovedCockpit'
-import { CockpitProvider, RADIO_PRESETS } from '../vehicle/CockpitContext'
+import { CockpitProvider } from '../vehicle/CockpitContext'
+import { MIAMI_CRUISE_STATIONS, canPlayCruiseStation } from '@/lib/cruise/stations'
 import { useCruiseAudio } from '../audio/useCruiseAudio'
 import { MusicAudio } from '@/lib/cruise/music-audio'
 import { trackCruiseEvent } from '@/lib/cruise/analytics'
@@ -18,9 +19,11 @@ import type { CruiseRuntime, CruiseVehicleId, CruiseTimeOfDay } from '@/lib/crui
 import { pulse, updatePulse, reducedMotion } from './pulse'
 import { KIND_LABEL, avenuePhase, dollars, priceCents, type Plot } from './plots'
 import { AvenueDrawer, AvenueTicker, PlotCard, useAvenue, useDriveBys } from './AvenueUI'
-import { canPresent, isAppleDevice, isPresentationReceiver, listenAsReceiver, startCast, tvUrl, type RemoteMessage } from './cast'
+import { canPresent, startCast, tvUrl, isPresentationReceiver, listenAsReceiver, type RemoteMessage } from './cast'
 import QrCode from './QrCode'
 import './master.css'
+
+const RADIO_PRESETS = MIAMI_CRUISE_STATIONS.filter(canPlayCruiseStation)
 
 const businesses = {
   buena: { name: 'Buena Onda Record Store', line: 'Records · Miami', description: 'Vinyl discoveries, independent music and coastal listening sessions.', station: 95, thumb: '/cruise/places/records.svg', url: '/objects' },
@@ -63,7 +66,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   const drive = useRef<DriveState>({ distance: 0, speed: 3.5, lateral: 2, steer: 0, paused: true, glance: 0, autopilot: true })
   const runtime = useRef<CruiseRuntime>({ distance: 0, time: 0, speed: 0 }), car = useRef<T.Group | null>(null), root = useRef<HTMLElement>(null)
   const music = useMemo(() => new MusicAudio(), [])
-  const audio = useCruiseAudio(music)
+  const audio = useCruiseAudio(music, MIAMI_CRUISE_STATIONS)
   const [mode, setMode] = useState<StreetCamera>('chase')
   const [vehicle, setVehicle] = useState<StreetVehicleId>('ocean-convertible')
   const [time, setTime] = useState<CruiseTimeOfDay>(() => tv ? miamiBucket() : 'sunset')
@@ -74,7 +77,8 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   const [nearby, setNearby] = useState<{ kind: 'business'; id: Business } | { kind: 'plot'; plot: Plot } | null>(null)
   const [stats, setStats] = useState<StreetSample | null>(null), [visible, setVisible] = useState(true)
   const [remote, setRemote] = useState<null | { send: (m: RemoteMessage) => void; stop: () => void }>(null)
-  const [castError, setCastError] = useState<string | null>(null), [tvGate, setTvGate] = useState(true), [loopFade, setLoopFade] = useState(false), [clock, setClock] = useState('')
+  const [castError, setCastError] = useState<string | null>(null)
+  const [tvGate, setTvGate] = useState(true), [loopFade, setLoopFade] = useState(false), [clock, setClock] = useState('')
   const [autoDirector, setAutoDirector] = useState(tv)
   const [largeCanvas, setLargeCanvas] = useState(false)
   useEffect(() => {
@@ -109,7 +113,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   probe.current = { audio, mode, vehicle, time, high }
   useEffect(() => {
     const w = window as unknown as { __cruise?: () => object }
-    w.__cruise = () => { const s = probe.current; return { source: pulse.source, energy: +pulse.energy.toFixed(3), playing: s.audio.playing, station: s.audio.stationId, error: s.audio.error, track: s.audio.trackTitle, analysis: music.status, camera: s.mode, vehicle: s.vehicle, time: s.time, quality: s.high ? 'desktop' : 'mobile', distance: +drive.current.distance.toFixed(1), running: !drive.current.paused, paused: drive.current.paused } }
+    w.__cruise = () => { const s = probe.current; return { source: pulse.source, energy: +pulse.energy.toFixed(3), playing: s.audio.playing, requested: s.audio.requested, loading: s.audio.loading, station: s.audio.stationId, error: s.audio.error, track: s.audio.trackTitle, analysis: music.status, camera: s.mode, vehicle: s.vehicle, time: s.time, quality: s.high ? 'desktop' : 'mobile', distance: +drive.current.distance.toFixed(1), running: !drive.current.paused, paused: drive.current.paused } }
     return () => { delete w.__cruise }
   }, [music])
 
@@ -214,7 +218,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
     window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k)
   }, [tv, tvGate])
 
-  // ---- Cast (this device becomes the remote) --------------------------------
+  // ---- Optional TV Remote Mode (explicit separate-session action) --------------------------------
   const [remoteState, setRemoteState] = useState<{ station: string; playing: boolean; track: string; camera: string } | null>(null)
   async function cast() {
     setCastError(null)
@@ -243,8 +247,8 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   }
   const nextStation = () => { const i = RADIO_PRESETS.findIndex(st => st.id === audio.stationId); audio.selectStation(RADIO_PRESETS[(i + 1) % RADIO_PRESETS.length].id) }
   const fullscreen = () => { if (document.fullscreenElement) void document.exitFullscreen(); else void root.current?.requestFullscreen?.().catch(() => null) }
-  // One tap: Chrome/Android opens the device picker straight away. Elsewhere, a small sheet with AirPlay / TV-browser options.
-  const castClick = () => { if (canPresent()) void cast(); else setPanel(panel === 'cast' ? null : 'cast') }
+  // Mirroring is started through browser/OS controls; never launch a second Cruise.
+  const castClick = () => setPanel(panel === 'cast' ? null : 'cast')
   const cycleCamera = () => { if (loopTransition.current !== 'idle') return; setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
   useEffect(() => {
     const k = (e: KeyboardEvent) => { if (loopTransition.current !== 'idle' || tvGate || detail || plotOpen !== null || e.repeat || e.code !== 'KeyC' || e.target instanceof HTMLElement && e.target.closest('input,select,textarea')) return; setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
@@ -269,7 +273,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   return <main ref={root} className={`miami-master${tv ? ' mm-tv' : ''}${mode === 'driver' ? ' mm-cockpit' : ''}`} data-ready={ready}>
     <section className="mm-stage" aria-label="Playable Miami street">
       <div ref={el => { if (el) el.inert = tvGate }} style={{ display: 'contents' }} aria-hidden={tvGate}>
-      <Guard><CockpitProvider audio={audio} vehicleId={vehicle as CruiseVehicleId} autoLights={time === 'night'} instant radioFocused focusRadio={() => setPanel('radio')}>
+      <Guard><CockpitProvider stations={MIAMI_CRUISE_STATIONS} audio={audio} vehicleId={vehicle as CruiseVehicleId} autoLights={time === 'night'} instant radioFocused focusRadio={() => setPanel('radio')}>
         <Canvas dpr={high ? [1, 1.25] : time === 'night' && largeCanvas ? .85 : 1} shadows={high} frameloop={visible || tv ? 'always' : 'never'} camera={{ position: [2, 3, 7], fov: 65, near: .04, far: 500 }} gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: T.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}>
           <PulseDriver music={music} playing={audio.playing} />
           <StreetSky time={time} high={high} />
@@ -304,7 +308,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
         <MiniEq on={audio.playing} />
       </button>
       : <div className="mm-dock" role="toolbar" aria-label="Cruise controls">
-        <button className="mm-play" onClick={audio.toggle} aria-label={audio.playing ? 'Pause radio' : 'Play radio'}>{audio.playing ? <Icon d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <Icon d="M8 5l11 7-11 7z" />}</button>
+        <button className="mm-play" onClick={audio.toggle} aria-label={audio.requested ? 'Pause radio' : 'Play radio'}>{audio.requested ? <Icon d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <Icon d="M8 5l11 7-11 7z" />}</button>
         <button className="mm-station" onClick={() => setPanel(panel === 'radio' ? null : 'radio')} aria-label="Radio stations">
           <span className={`mm-disc${audio.playing ? ' spin' : ''}`} aria-hidden />
           <span className="mm-now-text"><small>CH{RADIO_PRESETS.findIndex(s => s.id === audio.stationId) + 1} · {audio.station.name}</small><b>{audio.error ? 'Signal lost · tap to retry' : audio.loading && audio.requested ? 'Tuning…' : audio.playing ? (audio.trackTitle || audio.station.name) : 'Tap play to tune in'}</b></span>
@@ -334,30 +338,33 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
       {panel === 'radio' && <section className="mm-panel" aria-label="Radio">
         <header><b>Buena Onda Radio</b><button aria-label="Close radio" onClick={() => setPanel(null)}>×</button></header>
         <p className="mm-signal" role="status">{audio.error || (audio.loading && audio.requested ? 'Connecting…' : audio.playing ? `On air · ${pulse.source === 'live' ? 'live spectrum' : 'auto rhythm'}` : 'Ready')}</p>
-        <button className="mm-big" onClick={audio.toggle}>{audio.playing ? 'Pause radio' : 'Play radio'}</button>
+        <button className="mm-big" onClick={audio.toggle}>{audio.requested ? 'Pause radio' : 'Play radio'}</button>
         <div className="mm-chips">{RADIO_PRESETS.map((s, i) => <button key={s.id} aria-pressed={audio.stationId === s.id} onClick={() => audio.selectStation(s.id)}><small>CH{i + 1}</small>{s.name}</button>)}</div>
         {audio.canSkip && <div className="mm-chips"><button onClick={audio.previousTrack}>⏮ Prev</button><button onClick={audio.nextTrack}>Next ⏭</button></div>}
         <label className="mm-vol">Volume<input aria-label="Radio volume" type="range" min="0" max="1" step=".05" value={audio.volume} onChange={e => audio.setVolume(Number(e.target.value))} /></label>
         <p className="mm-fine">Tip: switch to Cockpit and use the head unit. Presets, knobs and the tape deck all work.</p>
       </section>}
       {panel === 'cast' && <section className="mm-panel" aria-label="Cast to TV">
-        <header><b>Put the Cruise on a TV</b><button aria-label="Close" onClick={() => setPanel(null)}>×</button></header>
-        {canPresent() && <><button className="mm-big" onClick={() => void cast()}>Cast to TV (Chromecast)</button><p className="mm-fine">Your TV drives and plays the radio. This screen turns into the remote.</p></>}
-        {isAppleDevice() && <p className="mm-fine"><b>AirPlay:</b> open Control Center → Screen Mirroring → your TV, then tap TV mode below.</p>}
-        <a className="mm-big ghost" href="?tv=1">Open TV mode here</a>
-        <div className="mm-qr"><QrCode value={tvUrl()} size={132} label="QR code to open TV mode" /><p className="mm-fine">On a smart-TV browser, open<br /><b>{tvUrl().replace(/^https?:\/\//, '')}</b></p></div>
+        <header><b>Mirror this Cruise to your TV</b><button aria-label="Close" onClick={() => setPanel(null)}>×</button></header>
+        <p className="mm-fine">Keep this Cruise open. Mirror this tab or screen so the TV shows the same camera, Director views and radio.</p>
+        <p className="mm-fine"><b>Laptop / desktop Chrome:</b> open Chrome&apos;s menu, choose Cast, then Sources &gt; Cast tab and select your TV. Cast the tab to include its audio.</p>
+        <p className="mm-fine"><b>Android:</b> in Google Home, select your TV and choose Cast my screen. Return here and rotate your phone to landscape.</p>
+        <p className="mm-fine"><b>iPhone / iPad / Mac:</b> open Control Center, choose Screen Mirroring and select an AirPlay-compatible TV.</p>
+        <p className="mm-fine">Use the same Wi-Fi network. Your browser or device starts mirroring; this button opens these instructions.</p>
+        <button className="mm-big" onClick={() => setPanel(null)}>Back to the Cruise</button>
+        {canPresent() && <details><summary>Optional TV Remote Mode</summary><p className="mm-fine">Starts a separate Cruise on the TV. This device becomes its remote; this is not screen mirroring.</p><button className="mm-big ghost" onClick={() => void cast()}>Start separate TV session</button></details>}
         {castError && <p className="mm-error" role="alert">{castError}</p>}
       </section>}
       {panel === 'menu' && <section className="mm-panel" aria-label="More options">
         <header><b>Garage</b><button aria-label="Close" onClick={() => setPanel(null)}>×</button></header>
-        <label>Car<select aria-label="Vehicle" value={vehicle} onChange={e => { setReady(false); setVehicle(e.target.value as StreetVehicleId) }}><option value="ocean-convertible">Ocean Drive &apos;84 convertible</option><option value="island-trail">Island Trail</option><option value="classic-coupe">1967 classic coupe</option><option value="coastal-coupe">Coastal coupe</option></select></label>
+        <label>Car<select aria-label="Vehicle" value={vehicle} onChange={e => { setReady(false); setVehicle(e.target.value as StreetVehicleId) }}><option value="ocean-convertible">Ocean Drive convertible</option><option value="island-trail">Island Trail</option><option value="classic-coupe">1967 classic coupe</option><option value="coastal-coupe">Coastal coupe</option></select></label>
         <label>Quality<select aria-label="Quality" value={high ? 'desktop' : 'mobile'} onChange={e => setHigh(e.target.value === 'desktop')}><option value="mobile">Mobile</option><option value="desktop">Desktop (shadows + live mirror)</option></select></label>
         {!legacy && <label className="mm-check"><input type="checkbox" checked={hands} onChange={e => setHands(e.target.checked)} /> Hands on the wheel</label>}
         <label>Speed<input aria-label="Cruising speed" type="range" min="2" max="8" step=".5" defaultValue="3.5" onChange={e => { drive.current.speed = Number(e.target.value) }} /></label>
         <div className="mm-chips"><button aria-pressed={autoDirector} onClick={() => setAutoDirector(a => !a)}>Auto director (cinematic cameras)</button><button onClick={() => setPanel('cast')}>TV &amp; casting options</button><button onClick={() => reset()}>Restart</button>{(Object.keys(businesses) as Business[]).map(id => <button key={id} onClick={() => explore(id)}>{businesses[id].name}</button>)}</div>
         <p className="mm-fine">The car drives itself. Choose your station, camera and sky. C changes camera.</p>
         {/* Credits live here, not below the stage: a taller-than-viewport page scrolled on Space/arrows. */}
-        <p className="mm-credits">Ocean Drive &apos;84 body and traffic: classic-traffic (CC0, see ASSETS). Pedestrians: Quaternius (CC0). Palm: Yughues / Nobiax (CC0). Asphalt: Poly Haven (CC0). Coastal Coupe: Mazda RX-7 by IvOfficial, Poly Pizza, CC BY 3.0. QR: qrcode-generator (MIT).{showAds ? ' All signs on the Avenue are plots; open plots say so.' : ''}</p>
+        <p className="mm-credits">Ocean Drive convertible: modified Mazda RX-7 by IvOfficial, via Poly Pizza, CC BY 3.0 (roof removed; custom cabin and paint). Traffic: classic-traffic (CC0, see ASSETS). Pedestrians: Quaternius (CC0). Palm: Yughues / Nobiax (CC0). Asphalt: Poly Haven (CC0). Coastal Coupe: Mazda RX-7 by IvOfficial, Poly Pizza, CC BY 3.0. QR: qrcode-generator (MIT).{showAds ? ' All signs on the Avenue are plots; open plots say so.' : ''}</p>
       </section>}
       {panel === 'avenue' && showAds && <AvenueDrawer plots={avenue.plots} live={avenue.live} onSelect={openPlot} onClose={() => setPanel(null)} />}
 

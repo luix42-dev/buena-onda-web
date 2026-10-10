@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { canPlayCruiseStation, DEFAULT_CRUISE_STATION, getCruiseStation } from '@/lib/cruise/stations'
+import { canPlayCruiseStation, CRUISE_STATIONS, DEFAULT_CRUISE_STATION } from '@/lib/cruise/stations'
+import type Hls from 'hls.js'
 import type { CruiseStation } from '@/lib/cruise/types'
 import type { MusicAudio } from '@/lib/cruise/music-audio'
 
@@ -59,8 +60,10 @@ function isBlockedPlayback(error: unknown) {
   return error instanceof DOMException && error.name === 'NotAllowedError'
 }
 
-export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
+export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStation[] = CRUISE_STATIONS): CruiseAudio {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const hlsRef = useRef<Hls | null>(null)
+  const hlsLoadingRef = useRef(false)
   const tracksRef = useRef<RadioTrack[]>([])
   const trackIndexRef = useRef(0)
   const wantsPlaybackRef = useRef(false)
@@ -121,23 +124,66 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
 
     if (force || audio.src !== track.src) {
       music?.detach()
+      hlsRef.current?.destroy(); hlsRef.current = null; hlsLoadingRef.current = false
       if (music) audio.crossOrigin = 'anonymous'
       sourceRevisionRef.current += 1
+      if (stationRef.current.playback === 'hls') {
+        const revision = sourceRevisionRef.current
+        hlsLoadingRef.current = true
+        audio.removeAttribute('src'); audio.load()
+        void import('hls.js').then(({ default: HlsPlayer }) => {
+          if (!mountedRef.current || revision !== sourceRevisionRef.current) return
+          if (!HlsPlayer.isSupported()) {
+            if (!audio.canPlayType('application/vnd.apple.mpegurl')) throw new Error('HLS playback is unsupported in this browser')
+            // Native HLS remains the fallback on browsers without usable MSE.
+            // Prefer hls.js elsewhere so the lowest rendition is deterministic.
+            hlsLoadingRef.current = false
+            audio.src = track.src; audio.load()
+            if (wantsPlaybackRef.current) void audio.play().catch(() => { if (revision === sourceRevisionRef.current) { setLoading(false); setError('Tap play to start the radio.') } })
+            return
+          }
+          const player = new HlsPlayer({ enableWorker: false, startLevel: 0, maxBufferLength: 12, maxMaxBufferLength: 20, backBufferLength: 0 })
+          hlsRef.current = player
+          player.on(HlsPlayer.Events.MEDIA_ATTACHED, () => player.loadSource(track.src))
+          player.on(HlsPlayer.Events.MANIFEST_PARSED, () => {
+            if (revision !== sourceRevisionRef.current) return
+            // Prefer an audio-only variant; otherwise pin the lowest bandwidth video rendition.
+            const audioOnly = player.levels.findIndex(level => !level.videoCodec)
+            const cheapest = player.levels.reduce((best, level, i, levels) => level.bitrate < levels[best].bitrate ? i : best, 0)
+            player.currentLevel = audioOnly >= 0 ? audioOnly : cheapest
+            hlsLoadingRef.current = false
+            if (wantsPlaybackRef.current) void audio.play().catch(() => { if (revision === sourceRevisionRef.current) { setLoading(false); setError('Tap play to start the radio.') } })
+          })
+          player.on(HlsPlayer.Events.ERROR, (_, detail) => {
+            if (!detail.fatal || revision !== sourceRevisionRef.current) return
+            player.destroy(); hlsRef.current = null; hlsLoadingRef.current = false
+            clearLoadingTimeout(); setLoading(false); setPlaying(false); setPlaybackIntent(false)
+            setAvailable(false); tracksRef.current = []; setError('Radio signal unavailable. Tap play to retry.')
+          })
+          player.attachMedia(audio)
+        }).catch(() => {
+          if (revision !== sourceRevisionRef.current) return
+          hlsLoadingRef.current = false; clearLoadingTimeout(); setLoading(false); setAvailable(false)
+          tracksRef.current = []; setPlaybackIntent(false); setError('HLS radio unavailable. Try again or visit the station website.')
+        })
+        return revision
+      }
       audio.src = track.src
       audio.load()
     }
     return sourceRevisionRef.current
-  }, [music])
+  }, [music, clearLoadingTimeout])
 
   const attemptPlay = useCallback(() => {
     const audio = audioRef.current
     if (!audio || tracksRef.current.length === 0) return
 
-    if (!audio.src) prepareTrack(trackIndexRef.current)
+    if (!audio.src && !hlsLoadingRef.current) prepareTrack(trackIndexRef.current)
     const revision = sourceRevisionRef.current
     setError(null)
     setLoading(true)
     armPlaybackLoadingTimeout(revision)
+    if (hlsLoadingRef.current) return
 
     // Keep play() in the gesture call stack when start/toggle invokes this.
     const result = audio.play()
@@ -220,7 +266,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
 
     try {
       let tracks: RadioTrack[]
-      if (selectedStation.playback === 'stream') {
+      if (selectedStation.playback === 'stream' || selectedStation.playback === 'hls') {
         tracks = [{ src: selectedStation.source, title: selectedStation.name, artist: '' }]
       } else {
         const response = await fetch(selectedStation.source, {
@@ -287,7 +333,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
     }
 
     failedTracksRef.current = 0
-    if (audio.error || (audio.ended && stationRef.current.playback === 'stream')) {
+    if (audio.error || (audio.ended && stationRef.current.playback !== 'playlist')) {
       prepareTrack(trackIndexRef.current, true)
     }
     attemptPlay()
@@ -311,7 +357,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
   }, [pause, start])
 
   const selectStation = useCallback((id: string) => {
-    const nextStation = getCruiseStation(id)
+    const nextStation = stations.find(item => item.id === id)
     if (!nextStation || !canPlayCruiseStation(nextStation)) return false
     if (stationRef.current.id === id) return true
 
@@ -319,6 +365,8 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
     fetchControllerRef.current = null
     fetchingRef.current = false
     sourceRevisionRef.current += 1
+    hlsRef.current?.destroy(); hlsRef.current = null; hlsLoadingRef.current = false
+    music?.detach()
     audioRef.current?.pause()
     clearLoadingTimeout()
     tracksRef.current = []
@@ -333,7 +381,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
     if (wantsPlaybackRef.current) unlockMedia()
     void loadPlaylist()
     return true
-  }, [clearLoadingTimeout, loadPlaylist, unlockMedia])
+  }, [clearLoadingTimeout, loadPlaylist, unlockMedia, stations, music])
 
   const skipTrack = useCallback((direction: number) => {
     if (stationRef.current.playback !== 'playlist' || tracksRef.current.length < 2) return
@@ -380,7 +428,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
         return
       }
       const expected = tracksRef.current[trackIndexRef.current]?.src
-      if (!expected || audio.currentSrc !== new URL(expected, window.location.href).href || audio.paused) return
+      if (!expected || (!hlsRef.current && audio.currentSrc !== new URL(expected, window.location.href).href) || audio.paused) return
       clearLoadingTimeout()
       if (!wantsPlaybackRef.current) {
         audio.pause()
@@ -407,7 +455,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
     }
     const onEnded = () => {
       if (!wantsPlaybackRef.current) return
-      if (stationRef.current.playback === 'stream') {
+      if (stationRef.current.playback !== 'playlist') {
         setPlaybackIntent(false)
         setPlaying(false)
         setLoading(false)
@@ -429,6 +477,17 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
     }
     const onError = () => {
       const expected = tracksRef.current[trackIndexRef.current]?.src
+      if (stationRef.current.playback === 'hls') {
+        // MSE failures belong to the revision-guarded HLS ERROR handler. A queued
+        // media error from the previous station or empty-src transition must not
+        // cancel the new station's playback intent while HLS is attaching.
+        if (hlsRef.current || hlsLoadingRef.current) return
+        // Native HLS errors must belong to the currently selected URL.
+        if (!audio.error || !expected || audio.currentSrc !== new URL(expected, window.location.href).href) return
+        clearLoadingTimeout(); setPlaybackIntent(false); setPlaying(false); setLoading(false)
+        setError('Radio signal unavailable. Tap play to retry.')
+        return
+      }
       if (!audio.error || !expected || audio.currentSrc !== new URL(expected, window.location.href).href) return
       clearLoadingTimeout()
       // A media error cannot tell CORS from a transient failure (the r2.dev host answers 503 under load).
@@ -479,6 +538,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
       setPlaybackIntent(false)
       failedTracksRef.current = 0
       sourceRevisionRef.current += 1
+      hlsRef.current?.destroy(); hlsRef.current = null; hlsLoadingRef.current = false
       unlockedRef.current = false
       unlockPromiseRef.current = null
       tracksRef.current = []

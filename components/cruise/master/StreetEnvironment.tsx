@@ -9,8 +9,9 @@ import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js
 import { SKY } from './StreetSky'
 import { pulse, BANDS } from './pulse'
 import { SEED_PLOTS, dollars, priceCents, type Plot, type AvenuePhase } from './plots'
+import { MIAMI_ROUTE_LENGTH, MIAMI_SCENERY_END, MIAMI_GROUND_END, miamiStreetCenter } from './route'
 
-export const streetX = (s: number) => 3 * Math.sin(s / 95)
+export const streetX = miamiStreetCenter
 const yawAt = (s: number) => -Math.atan(3 / 95 * Math.cos(s / 95))
 type Time = 'day' | 'sunset' | 'night'
 type Props = { timeOfDay: Time; onAdClick?: (id: string) => void; onPlotClick?: (n: number) => void; plots?: Plot[]; avenue?: AvenuePhase; drive?: MutableRefObject<{ distance: number }>; high?: boolean }
@@ -21,7 +22,8 @@ const B = -D
 const PALETTE = ['#7fd3c8', '#f5a9b5', '#f4e4c6', '#a9d4ec', '#f8c999', '#c4e5c9', '#e7b9da']
 const TEAL = '#45c7bd', PINK = '#f7b4bf', NEON_PINK = '#ff4f9a', NEON_TEAL = '#38f0dc'
 const DISPLAY = '"Arial Black","Archivo Black","Helvetica Neue",Helvetica,Arial,sans-serif'
-const SITES = [22, 46, 70, 95, 124, 155, 181, 207]
+// Preserve original storefront/plot coordinates. The middle section intentionally opens into a park.
+const SITES = [22, 46, 70, 95, 124, 155, 181, 207, 424, 454, 484, 514, 544, 574, 604, 634, 664, 694, 724, 754]
 const BUENA = 3, BRANCHES = 5
 
 // ---------- Canvas artwork --------------------------------------------------
@@ -178,7 +180,7 @@ function Architecture({ timeOfDay }: { timeOfDay: Time }) {
       // fx(a): a metres from the building centre toward the road. Works for either street side.
       const c = streetX(s) + D * (17 + (i === 2 ? 3 : 0)); const fx = (a: number) => c - D * a
       const z = -s; const hero = i === BUENA || i === BRANCHES
-      const h = hero ? 9 : 9 + (i % 3) * 2
+      const h = hero ? 9 : s >= 400 ? 14 + (i % 3) * 5 : 9 + (i % 3) * 2
       const color = i === BUENA ? TEAL : i === BRANCHES ? PINK : PALETTE[(i + 2) % PALETTE.length]
       const trim = i === BRANCHES ? '#fff1e6' : '#f4ead2'
       add(color, [fx(-1), h / 2, z], [10, h, 20]); if (i === 2) add('#e7cdbd', [fx(7.3), .06, z], [3.1, .12, 20])
@@ -235,8 +237,22 @@ function Architecture({ timeOfDay }: { timeOfDay: Time }) {
         add(neon, [fx(4.1), 8.68, z], [.05, .06, 15.2]); add(neon, [fx(4.1), 6.02, z], [.05, .06, 15.2])
       }
     })
+    // A genuinely different middle section: open lawns, low shade pavilions and seating.
+    // Reuse existing material batches; no duplicate full street or additional animated people.
+    for (const s of [242, 290, 338, 382]) {
+      const x = streetX(s) + D * 18
+      add('#8fa166', [x + 5, .025, -s], [23, .04, 42])
+      add('#e6d2c0', [x, .10, -s], [9, .16, 13])
+      for (const dx of [-3.6, 3.6]) for (const dz of [-5, 5]) add('#f4ead2', [x + dx, 1.9, -s + dz], [.25, 3.8, .25])
+      add('#f4ead2', [x, 3.9, -s], [9.5, .22, 13.5])
+      add('#45c7bd', [x, 4.1, -s], [9.7, .16, 13.7])
+      for (const dz of [-3.5, 3.5]) {
+        add('#b9936a', [x, .6, -s + dz], [5.8, .16, .8])
+        for (const dx of [-2.3, 2.3]) add('#2f4744', [x + dx, .3, -s + dz], [.18, .6, .7])
+      }
+    }
     // Road furniture: curbs, sidewalks, double yellow centre line and edge lines.
-    for (let s = 5; s < 224; s += 2) {
+    for (let s = 5; s < MIAMI_GROUND_END; s += 2) {
       const x = streetX(s); const yaw = yawAt(s)
       for (const side of [-1, 1]) {
         add('#d9cbb6', [x + side * 6.2, .15, -s], [.35, .3, 2.03], yaw)
@@ -246,7 +262,7 @@ function Architecture({ timeOfDay }: { timeOfDay: Time }) {
         add('#f0b23a', [x + side * .14, .025, -s], [.1, .018, 2.03], yaw)
       }
     }
-    for (let s = 16; s < 220; s += 27) for (const side of [-1, 1]) {
+    for (let s = 16; s < MIAMI_SCENERY_END; s += 27) for (const side of [-1, 1]) {
       const x = streetX(s) + side * 8.9
       if (!isOpenSightline(s, side)) {
         add('#2f4744', [x, 3.5, -s], [.14, 7, .14]); add('#2f4744', [x - side * .65, 6.9, -s], [1.4, .14, .14])
@@ -258,7 +274,7 @@ function Architecture({ timeOfDay }: { timeOfDay: Time }) {
     { const s = 58, x = streetX(s) + B * 27
       for (const dx of [-.8, .8]) for (const dz of [-.8, .8]) add('#f3ead6', [x + dx, 1, -s + dz], [.15, 2, .15])
       add('#ffd27a', [x, 2.6, -s], [2.4, 1.4, 2.2]); add('#ff6f8e', [x, 3.45, -s], [2.8, .25, 2.6]); add('#45c7bd', [x, 1.55, -s], [2.6, .12, 2.4]) }
-    for (let s = 9; s < 225; s += 11.3) for (let i = 0; i < 5; i++) {
+    for (let s = 9; s < MIAMI_SCENERY_END; s += s < 225 ? 11.3 : 22) for (let i = 0; i < 5; i++) {
       const color = i % 2 ? '#5f8048' : '#476b45'; const g = new T.SphereGeometry(.65 + (i % 3) * .18, 7, 5)
       g.scale(1.15, .65, 1); g.translate(streetX(s) + B * (12.4 + i * .57), .32, -s + Math.sin(i * 3.2) * 1.2); push(color, g)
     }
@@ -333,8 +349,37 @@ function swayMaterial(source: T.Material) {
 }
 function Batched({ url, placements, shadows = true, sway = false }: { url: string; placements: Placement[]; shadows?: boolean; sway?: boolean }) {
   const gltf = useGLTF(url, false, true)
-  const batches = useMemo(() => batchScene(gltf.scene, placements).map(p => ({ ...p, material: sway ? (Array.isArray(p.material) ? p.material.map(swayMaterial) : swayMaterial(p.material)) : p.material })), [gltf.scene, placements, sway])
-  useEffect(() => () => batches.forEach(p => { p.geometry.dispose(); if (sway) (Array.isArray(p.material) ? p.material : [p.material]).forEach(m => m.dispose()) }), [batches, sway])
+  const batches = useMemo(() => {
+    // One route-wide palm mesh defeats frustum culling after the 630 m extension.
+    // Keep the same geometry, but bound each merge to a 160 m section. Sparse skyline stays merged.
+    const sections = new Map<number, Placement[]>()
+    for (const placement of placements) {
+      const section = sway ? Math.floor(-placement.z / 160) : 0
+      const list = sections.get(section) ?? []; list.push(placement); sections.set(section, list)
+    }
+    // All sections share each cloned sway material; no per-section shader or animation owner.
+    const materials = new Map<T.Material, T.Material>()
+    const materialFor = (source: T.Material) => {
+      if (!sway) return source
+      let material = materials.get(source)
+      if (!material) { material = swayMaterial(source); materials.set(source, material) }
+      return material
+    }
+    return Array.from(sections.values()).flatMap(section => batchScene(gltf.scene, section).map(part => {
+      part.geometry.computeBoundingSphere()
+      // Baked positions are world-space; include shader-only leaf/trunk sway in culling bounds.
+      if (sway && part.geometry.boundingSphere) part.geometry.boundingSphere.radius += 6
+      return { geometry: part.geometry, material: Array.isArray(part.material) ? part.material.map(materialFor) : materialFor(part.material) }
+    }))
+  }, [gltf.scene, placements, sway])
+  useEffect(() => () => {
+    const materials = new Set<T.Material>()
+    for (const part of batches) {
+      part.geometry.dispose()
+      if (sway) (Array.isArray(part.material) ? part.material : [part.material]).forEach(material => materials.add(material))
+    }
+    materials.forEach(material => material.dispose())
+  }, [batches, sway])
   useFrame((_, dt) => { if (!sway) return; swayUniforms.uSwayTime.value += Math.min(dt, .05); swayUniforms.uSwayBass.value += (pulse.bass - swayUniforms.uSwayBass.value) * .15 })
   return <group dispose={null}>{batches.map((p, i) => <mesh key={i} geometry={p.geometry} material={p.material} castShadow={shadows} receiveShadow={shadows} />)}</group>
 }
@@ -343,6 +388,11 @@ const AD_STATIONS = [56, 84, 144]
 /** The ocean-side lamp at s=43 stood in front of billboard #1 (s=56) from the start line: no post there (its bench stays). */
 const isOpenSightline = (s: number, side: number) => s === 43 && side === B
 const PALMS: Placement[] = [
+  ...Array.from({ length: Math.ceil((MIAMI_SCENERY_END - 235) / 22) }, (_, i) => {
+    const s = 235 + i * 22
+    return { x: streetX(s) + B * (13 + (i % 2) * 3), z: -s, scale: .7 + (i % 3) * .04, yaw: i * 2.4 }
+  }),
+  ...[238, 266, 290, 314, 338, 362, 388, 438, 498, 558, 618, 678, 738].map((s, i) => ({ x: streetX(s) + D * (s < 400 ? 27 : 9.7), z: -s, scale: .7, yaw: i * 1.7 })),
   ...Array.from({ length: 19 }, (_, i) => ({ s: 10 + i * 11.3, i })).filter(({ s }) => AD_STATIONS.every(a => Math.abs(a - s) > 4))
     .map(({ s, i }) => ({ x: streetX(s) + B * (12.5 + (i % 2) * 3), z: -s, scale: .69 + (i % 4) * .055, yaw: i * 2.4 })),
   // Sidewalk palms on the shop side, kept clear of the approach signs and hero shopfronts.
@@ -350,11 +400,13 @@ const PALMS: Placement[] = [
 ]
 const SKYLINE_GLASS: Placement[] = [
   { x: D * 50, z: -70, scale: .95, yaw: .4 }, { x: D * 56, z: -175, scale: 1.15, yaw: 1.1 },
-  { x: D * 14, z: -330, scale: 1.25, yaw: .2 }, { x: B * 10, z: -380, scale: 1.1, yaw: .9 },
+  { x: D * 60, z: -450, scale: 1.25, yaw: .2 }, { x: D * 64, z: -590, scale: 1.1, yaw: .9 },
+  { x: D * 52, z: -730, scale: 1.2, yaw: .5 }, { x: D * 44, z: -850, scale: 1.1, yaw: .3 },
 ]
 const SKYLINE_TERRACED: Placement[] = [
   { x: D * 46, z: -125, scale: .85, yaw: 0 }, { x: D * 44, z: -240, scale: 1.0, yaw: .6 },
-  { x: D * 34, z: -300, scale: 1.1, yaw: .3 }, { x: D * -2, z: -350, scale: .9, yaw: 1.4 },
+  { x: D * 60, z: -510, scale: 1.1, yaw: .3 }, { x: D * 56, z: -650, scale: .9, yaw: 1.4 },
+  { x: D * 60, z: -790, scale: 1.0, yaw: .6 },
 ]
 
 // ---------- Ground, ocean ---------------------------------------------------
@@ -409,15 +461,16 @@ function Ocean({ time }: { time: Time }) {
   }, [material, time])
   useEffect(() => () => material.dispose(), [material])
   useFrame((_, dt) => { material.uniforms.uTime.value += dt; material.uniforms.uHighs.value = pulse.highs })
-  return <mesh rotation-x={-Math.PI / 2} position={[B * (34 + 150), -.06, -150]} material={material}><planeGeometry args={[300, 700]} /></mesh>
+  return <mesh rotation-x={-Math.PI / 2} position={[B * (34 + 150), -.06, -MIAMI_GROUND_END / 2]} material={material}><planeGeometry args={[300, MIAMI_GROUND_END + 220]} /></mesh>
 }
 
 function Ground({ time }: { time: Time }) {
   const originals = useTexture(['/cruise/materials/clean-asphalt/color.webp', '/cruise/materials/clean-asphalt/normal.webp', '/cruise/materials/clean-asphalt/roughness.webp'])
-  const maps = useMemo(() => originals.map((original, i) => { const t = original.clone(); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(4, 70); t.anisotropy = 8; if (i === 0) t.colorSpace = T.SRGBColorSpace; t.needsUpdate = true; return t }), [originals])
+  const maps = useMemo(() => originals.map((original, i) => { const t = original.clone(); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(4, (MIAMI_GROUND_END + 12) * 70 / 240); t.anisotropy = 8; if (i === 0) t.colorSpace = T.SRGBColorSpace; t.needsUpdate = true; return t }), [originals])
   const road = useMemo(() => {
     const p: number[] = [], uv: number[] = [], indices: number[] = []
-    for (let i = 0; i <= 120; i++) { const s = -12 + i * 2; const x = streetX(s); p.push(x - 6, 0, -s, x + 6, 0, -s); uv.push(0, i / 120, 1, i / 120); if (i < 120) { const a = i * 2; indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2) } }
+    const steps = Math.ceil((MIAMI_GROUND_END + 12) / 2)
+    for (let i = 0; i <= steps; i++) { const s = -12 + i * 2; const x = streetX(s); p.push(x - 6, 0, -s, x + 6, 0, -s); uv.push(0, i / steps, 1, i / steps); if (i < steps) { const a = i * 2; indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2) } }
     const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(p, 3)); g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); g.setIndex(indices); g.computeVertexNormals(); return g
   }, [])
   useEffect(() => () => { road.dispose(); maps.forEach(m => m.dispose()) }, [road, maps])
@@ -425,10 +478,10 @@ function Ground({ time }: { time: Time }) {
   const land = 34 + 70
   return <>
     <mesh geometry={road} receiveShadow><meshStandardMaterial map={maps[0]} normalMap={maps[1]} roughnessMap={maps[2]} normalScale={new T.Vector2(.35, .35)} color="#cfc8c6" envMapIntensity={.9} /></mesh>
-    <mesh rotation-x={-Math.PI / 2} position={[B * 34 + D * land / 2, -.035, -150]} receiveShadow><planeGeometry args={[land, 700]} /><meshStandardMaterial color="#e6cfa6" roughness={1} /></mesh>
-    <mesh rotation-x={-Math.PI / 2} position={[B * 14.6, -.018, -110]} receiveShadow><planeGeometry args={[6.1, 480]} /><meshStandardMaterial color="#8fa166" roughness={1} /></mesh>
-    <mesh rotation-x={-Math.PI / 2} position={[B * 22.1, -.025, -110]}><planeGeometry args={[3.2, 480]} /><meshStandardMaterial color="#d8c3a0" roughness={.9} /></mesh>
-    <mesh rotation-x={-Math.PI / 2} position={[B * 33.2, -.03, -150]}><planeGeometry args={[2.4, 700]} /><meshStandardMaterial color="#b89d76" roughness={.4} metalness={.1} /></mesh>
+    <mesh rotation-x={-Math.PI / 2} position={[B * 34 + D * land / 2, -.035, -MIAMI_GROUND_END / 2]} receiveShadow><planeGeometry args={[land, MIAMI_GROUND_END + 220]} /><meshStandardMaterial color="#e6cfa6" roughness={1} /></mesh>
+    <mesh rotation-x={-Math.PI / 2} position={[B * 14.6, -.018, -MIAMI_GROUND_END / 2]} receiveShadow><planeGeometry args={[6.1, MIAMI_GROUND_END + 220]} /><meshStandardMaterial color="#8fa166" roughness={1} /></mesh>
+    <mesh rotation-x={-Math.PI / 2} position={[B * 22.1, -.025, -MIAMI_GROUND_END / 2]}><planeGeometry args={[3.2, MIAMI_GROUND_END + 220]} /><meshStandardMaterial color="#d8c3a0" roughness={.9} /></mesh>
+    <mesh rotation-x={-Math.PI / 2} position={[B * 33.2, -.03, -MIAMI_GROUND_END / 2]}><planeGeometry args={[2.4, MIAMI_GROUND_END + 220]} /><meshStandardMaterial color="#b89d76" roughness={.4} metalness={.1} /></mesh>
     <Ocean time={time} />
   </>
 }
@@ -499,7 +552,7 @@ function LightPools({ time }: { time: Time }) {
   }))
   const geometry = useMemo(() => {
     const parts: T.BufferGeometry[] = []
-    for (let s = 16; s < 220; s += 27) for (const side of [-1, 1]) {
+    for (let s = 16; s < MIAMI_SCENERY_END; s += 27) for (const side of [-1, 1]) {
       if (isOpenSightline(s, side)) continue
       const g = new T.PlaneGeometry(10, 10); g.rotateX(-Math.PI / 2); g.translate(streetX(s) + side * (8.9 - 2.2), .06, -s); parts.push(g)
     }
@@ -672,11 +725,11 @@ function Traffic({ drive, night }: { drive?: MutableRefObject<{ distance: number
   useFrame((state, dt) => {
     const d = drive?.current.distance ?? 0, t = state.clock.elapsedTime
     for (const c of cars) {
-      if (c.spec.speed === 0) c.s = Math.min(232, d + c.spec.ahead + Math.sin(t * .15 + c.spec.ahead) * 5)
-      else { c.s -= c.spec.speed * Math.min(dt, .05); if (c.s < -15) c.s = 235 }
+      if (c.spec.speed === 0) c.s = Math.min(MIAMI_SCENERY_END - 10, d + c.spec.ahead + Math.sin(t * .15 + c.spec.ahead) * 5)
+      else { c.s -= c.spec.speed * Math.min(dt, .05); if (c.s < d - 35) c.s = Math.min(MIAMI_SCENERY_END - 10, d + 180) }
       c.car.position.set(streetX(c.s) + c.spec.lane, 0, -c.s)
       c.car.rotation.y = yawAt(c.s) + (c.spec.speed ? Math.PI : 0)
-      c.car.visible = c.s < 231
+      c.car.visible = c.s < MIAMI_SCENERY_END - 11
     }
   })
   return <group>{cars.map((c, i) => <primitive key={i} object={c.car} />)}</group>
@@ -697,13 +750,13 @@ function People({ count }: { count: number }) {
     const walking = i % 4 !== 3; const clip = walking ? walkClip : idleClip
     if (clip) { const action = mixer.clipAction(clip); action.time = i * .37; action.play() }
     const side = i % 3 === 1 ? B : D; const dir = i % 2 ? 1 : -1
-    return { holder, mixer, walking, side, dir, s: 12 + i * (205 / count), lane: side === D ? 8.3 + (i % 2) * .9 : 8.0, speed: 1.15 + (i % 3) * .12 }
+    return { holder, mixer, walking, side, dir, s: 12 + i * ((MIAMI_ROUTE_LENGTH - 15) / count), lane: side === D ? 8.3 + (i % 2) * .9 : 8.0, speed: 1.15 + (i % 3) * .12 }
   }), [casual, suit, count])
   useFrame((_, dt) => {
     const step = Math.min(dt, .05)
     for (const p of crowd) {
       p.mixer.update(step)
-      if (p.walking) { p.s += p.dir * p.speed * step; if (p.s > 222) p.s = 8; if (p.s < 8) p.s = 222 }
+      if (p.walking) { p.s += p.dir * p.speed * step; if (p.s > MIAMI_ROUTE_LENGTH + 12) p.s = 8; if (p.s < 8) p.s = MIAMI_ROUTE_LENGTH + 12 }
       p.holder.position.set(streetX(p.s) + p.side * p.lane, .1, -p.s)
       p.holder.rotation.y = p.walking ? (p.dir > 0 ? Math.PI : 0) : -p.side * Math.PI / 2
     }

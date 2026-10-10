@@ -6,6 +6,7 @@ import { Group, MathUtils, PerspectiveCamera, Vector3, type Object3D } from 'thr
 import type { CruiseRuntime, CruiseVehicleId } from '@/lib/cruise/types'
 import { VEHICLES } from '@/lib/cruise/vehicles'
 import { CONVERTIBLE_EYE } from './ConvertibleCar'
+import { MIAMI_ROUTE_LENGTH, miamiStreetCenter } from './route'
 
 /** steer/glance are normalized touch inputs; speed is the selected cruise speed in m/s. */
 export type DriveState = {
@@ -44,7 +45,7 @@ export function convertibleFov(aspect: number) {
   return 2 * Math.atan(half) * DEG
 }
 
-export function streetCenter(distance: number) { return 3 * Math.sin(distance / 95) }
+export const streetCenter = miamiStreetCenter
 
 /** Bounded lane driving, not a tire/rigid-body physics simulation. */
 export default function DriveController({ state, runtime, vehicle, cameraMode, vehicleId, onFinish, onResetRendered }: DriveControllerProps) {
@@ -79,11 +80,11 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     steering.current = MathUtils.damp(steering.current, input, 2.5, dt)
     drive.wheel = steering.current
     if (!drive.paused) {
-      drive.distance = Math.min(210, Math.max(0, drive.distance + drive.speed * dt))
+      drive.distance = Math.min(MIAMI_ROUTE_LENGTH, Math.max(0, drive.distance + drive.speed * dt))
       drive.lateral = MathUtils.clamp(drive.lateral + steering.current * Math.min(drive.speed * .28, 1.6) * dt, -2.3, 2.3)
     }
-    if (drive.distance < 209) finished.current = false
-    if (drive.distance >= 210 && !finished.current) {
+    if (drive.distance < MIAMI_ROUTE_LENGTH - 1) finished.current = false
+    if (drive.distance >= MIAMI_ROUTE_LENGTH && !finished.current) {
       finished.current = true
       drive.paused = true
       onFinish()
