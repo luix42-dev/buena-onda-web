@@ -1,3 +1,33 @@
+# Buena Onda Cruise - Current Build: Project Cinema Gate A
+
+October 10, 2026. **BLOCKED - SUITABLE GPU / UNREAL ENVIRONMENT REQUIRED.** [Cinema handoff and milestone ledger](cinema/REPORT.md).
+
+## BUILT
+
+Architecture, source-asset/license manifest, reproducible 30-second Unreal scene specification and browser integration/test plan. No cinematic route or rendered film created.
+
+## VERIFIED
+
+Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, no Unreal/Blender installation found in checked locations. Initial C free140MB; D free177GB. Existing FFmpeg available. Luis confirmed this is his only laptop and the33-second reference is not stored locally. Original Cruise and all application source remain unchanged in this Cinema phase.
+
+## FAILED
+
+No render attempted. Photographic quality, hands, animation, browser decoding and new comparative performance are not verified. No proxy footage is labeled Unreal output.
+
+## BLOCKERS
+
+No available Unreal rendering environment; nearly full system drive; missing33-second reference; hero/hand quality and acquisition gates pending. No installations, paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
+
+## NEXT ACTION
+
+Luis resends the reference. Review it, resolve an explicitly approved rendering environment, then produce stills and a two-second motion test before the full900-frame film. Browser integration follows visual/animation acceptance. No40-minute production is authorized.
+
+Participants: `/root`, `/root/cinema_unreal`, `/root/cinema_assets`, `/root/cinema_playback`; exact inherited runtime model variants unavailable. See linked ledger for file ownership and evidence.
+
+---
+
+## Previous completed Nightdrive comparison
+
 # Buena Onda Cruise - Current Build: Nightdrive isolated lab
 
 October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **Isolated comparison preview published and smoke-tested. Production unchanged.** [Three-build links and deployment evidence](nightdrive/PREVIEW.md). [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).

@@ -1,0 +1,42 @@
+﻿{
+    "collectedAt":  "2026-10-10T19:56:07.1276017-04:00",
+    "os":  "Microsoft Windows 10 Home",
+    "ramTotalKiB":  16566556,
+    "ramFreeKiB":  4611900,
+    "adapters":  [
+                     {
+                         "Name":  "Intel(R) UHD Graphics 630",
+                         "DriverVersion":  "27.20.100.9664",
+                         "VideoProcessor":  "Intel(R) UHD Graphics Family"
+                     },
+                     {
+                         "Name":  "NVIDIA GeForce GTX 1060 with Max-Q Design",
+                         "DriverVersion":  "27.21.14.6231",
+                         "VideoProcessor":  "GeForce GTX 1060 with Max-Q Design"
+                     }
+                 ],
+    "nvidiaSmi":  "GeForce GTX 1060 with Max-Q Design, 6144 MiB, 462.31",
+    "disks":  [
+                  {
+                      "Name":  "C",
+                      "Used":  111208615936,
+                      "Free":  135471104
+                  },
+                  {
+                      "Name":  "D",
+                      "Used":  822936535040,
+                      "Free":  177132335104
+                  },
+                  {
+                      "Name":  "G",
+                      "Used":  111215390720,
+                      "Free":  128696320
+                  }
+              ],
+    "unrealDiscovery":  "No UnrealEditor command, standard Epic install directory, Unreal registry entry or installed-app registration found in checked locations. Custom installation elsewhere remains possible.",
+    "blenderDiscovery":  "No Blender command or standard installation found in checked locations.",
+    "ffmpeg":  "C:\\Users\\luix4\\AppData\\Local\\CapCut\\Apps\\8.8.0.3774\\ffmpeg.exe",
+    "renderedFrames":  0,
+    "softwareInstalled":  false,
+    "moneySpent":  0
+}
