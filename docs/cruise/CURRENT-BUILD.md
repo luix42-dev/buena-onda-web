@@ -1,6 +1,6 @@
 # Buena Onda Cruise - Current Build: Nightdrive isolated lab
 
-October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **Comparison preview authorized by Luis; publication and verification in progress.** [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).
+October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **Isolated comparison preview published and smoke-tested. Production unchanged.** [Three-build links and deployment evidence](nightdrive/PREVIEW.md). [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).
 
 ## BUILT
 

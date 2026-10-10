@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-10T22:10:25.414Z",
+  "base": "https://buena-onda-1gdqlwimp-luis-manjarres-projects.vercel.app",
+  "browser": "154.0.4258.62",
+  "runs": [
+    {
+      "name": "miami",
+      "path": "/cruise/miami-test",
+      "errors": [],
+      "failedRequests": [],
+      "http": 200,
+      "failure": "page.waitForFunction: Timeout 120000ms exceeded.",
+      "passed": false,
+      "probe": {
+        "mains": [
+          {
+            "cls": "miami-master",
+            "data": {
+              "ready": "false"
+            }
+          }
+        ],
+        "text": "The 3D scene could not load. Return to Cruise.\n\nBUENA ONDA\nCruise\nOCEAN DRIVE · MIAMI\nGarage\nCH1 · BUENA ONDA RADIO\nTap play to tune in\nVolume\nChase\nSunset\nLoading the street…\nRadio on · the car drives itself · just ride",
+        "state": {
+          "source": "idle",
+          "energy": 0,
+          "playing": false,
+          "requested": false,
+          "loading": false,
+          "station": "buena-onda-radio",
+          "error": null,
+          "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+          "analysis": "CORS unavailable; ordinary radio playback",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 0,
+          "running": false,
+          "paused": true
+        }
+      }
+    }
+  ]
+}
