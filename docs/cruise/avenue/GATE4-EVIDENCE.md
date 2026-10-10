@@ -120,3 +120,22 @@ anon_exec = f · svc_exec = t
 ```
 
 I left Docker Desktop running. The failed `supabase start` may have left cached images and volumes for project `cruise-avenue-test`. To remove them, run `npx supabase stop --no-backup` in the scratch dir, or prune them in Docker Desktop.
+
+## Addendum (lead): two-connection webhook race, real PostgreSQL
+
+`bash scripts/cruise-avenue-race-test.sh` runs against a throwaway local `postgres:16-alpine` container (PostgreSQL 16.13), which is removed on exit. It applies the real migration, then simulates Stripe delivering the same `checkout.session.completed` twice at once. Delivery A holds its transaction open for 3 s, and delivery B arrives 1 s later on a second connection.
+
+```
+With the advisory lock (expected: A applied, B duplicate, 0 refunds):
+  A: applied
+  B: duplicate
+  refunds_needed: 0
+Control, lock removed (shows the bug: B stale_price, 1 false refund):
+  A: applied
+  B: stale_price
+  refunds_needed: 1
+```
+
+Without `pg_advisory_xact_lock`, the duplicate delivery waits on the row lock, then sees the new price and flags a paid customer for a refund. With the lock it waits, sees the committed event and returns `duplicate`.
+
+The migration also applied cleanly on this server: 6 house plots and 24 open, because plot 10 is now house-owned.

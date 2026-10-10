@@ -133,7 +133,7 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
   useEffect(() => { gl.localClippingEnabled = true }, [gl])
   const belt = useMemo(() => new T.Plane(new T.Vector3(0, -1, 0), BELT), [])
   const body = useMemo(() => {
-    const scene = gltf.scene.clone(true); const owned: T.Material[] = []
+    const scene = gltf.scene.clone(true); const owned: T.Material[] = [], paints: { mesh: T.Mesh; high: T.Material; low: T.Material }[] = []
     scene.updateMatrixWorld(true)
     scene.traverse(o => {
       if (!(o instanceof T.Mesh)) return
@@ -141,7 +141,12 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
       // The LOD model has a solid low-detail interior proxy where our cabin goes; cut it out once.
       o.geometry = withoutCabinProxy(o.geometry, o.matrixWorld)
       let m: T.Material
-      if (/paint/i.test(name)) m = new T.MeshPhysicalMaterial({ color: '#f1e5c9', roughness: .32, metalness: .05, clearcoat: 1, clearcoatRoughness: .08, side: T.DoubleSide, clippingPlanes: [belt] })
+      if (/paint/i.test(name)) {
+        // Clearcoat paint on Desktop only, like the wood: Physical is the costliest shader on screen in both cameras.
+        m = new T.MeshPhysicalMaterial({ color: '#f1e5c9', roughness: .32, metalness: .05, clearcoat: 1, clearcoatRoughness: .08, side: T.DoubleSide, clippingPlanes: [belt] })
+        const low = new T.MeshStandardMaterial({ color: '#f1e5c9', roughness: .26, metalness: .05, side: T.DoubleSide, clippingPlanes: [belt] })
+        owned.push(low); paints.push({ mesh: o, high: m, low })
+      }
       else if (/chrome/i.test(name)) m = new T.MeshStandardMaterial({ color: '#e9ecef', metalness: 1, roughness: .14, clippingPlanes: [belt] })
       else if (/glaz/i.test(name)) { o.visible = false; return }
       else if (/rear/i.test(name)) m = new T.MeshStandardMaterial({ color: '#c3142c', emissive: '#ff1f3d', emissiveIntensity: .6, roughness: .3 })
@@ -149,9 +154,10 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
       owned.push(m); o.material = m; o.castShadow = true; o.receiveShadow = true
     })
     const box = new T.Box3().setFromObject(scene)
-    return { scene, owned, front: box.min.z + Z_OFFSET }
+    return { scene, owned, paints, front: box.min.z + Z_OFFSET }
   }, [gltf.scene, belt])
   useEffect(() => () => { body.owned.forEach(m => m.dispose()); body.scene.traverse(o => { if (o instanceof T.Mesh) o.geometry.dispose() }) }, [body])
+  useEffect(() => { body.paints.forEach(p => { p.mesh.material = high ? p.high : p.low }) }, [body, high])
   useEffect(() => { onReady?.() }, [onReady])
 
   const tex = useMemo(() => ({ wood: woodTex(), leather: leatherTex(), gauges: gaugeAtlas(), palm: palmTex(), badge: badgeTex(), glow: glowTex(), beam: beamTex() }), [])

@@ -146,14 +146,14 @@ test('webhook: stale buyout → 200 stale_price + refund record; house plot → 
 })
 
 test('webhook: async payment — completed-unpaid waits, async_payment_succeeded applies', async () => {
-  const meta = { ...session().metadata!, plot_number: '10' }
+  const meta = { ...session().metadata!, plot_number: '11' }
   const unpaid = session({ payment_status: 'unpaid', metadata: meta })
   const r1 = await sendEvent('checkout.session.completed', unpaid)
   assert.deepEqual([r1.status, r1.body.awaiting_payment], [200, true])
-  assert.equal((await plotRow(10)).status, 'open')
+  assert.equal((await plotRow(11)).status, 'open')
   const r2 = await sendEvent('checkout.session.async_payment_succeeded', { ...unpaid, payment_status: 'paid' } as Stripe.Checkout.Session)
   assert.deepEqual([r2.status, r2.body.cruise_plot], [200, 'applied'])
-  assert.equal((await plotRow(10)).review_state, 'pending')
+  assert.equal((await plotRow(11)).review_state, 'pending')
 })
 
 test('webhook: expired / async_payment_failed cruise sessions are acknowledged with no state change', async () => {

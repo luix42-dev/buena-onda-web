@@ -51,6 +51,8 @@ export function priceCents(plot: Pick<Plot, 'kind' | 'status' | 'valueCents'>) {
 export const dollars = (cents: number) => `$${(cents / 100).toLocaleString('en-US', { maximumFractionDigits: cents % 100 ? 2 : 0 })}`
 
 const LAMP_STATIONS = [16, 43, 70, 97, 124, 151, 178, 205]
+/** Ocean-side lamp flag at s=43 (see docs/cruise/pass3/perf/RESULTS.md, billboard addendum). */
+const BILLBOARD_SIGHTLINE_FLAG = 10
 const house = (owner: PlotOwner, cents: number) => ({ status: 'house' as const, owner, valueCents: cents })
 
 /** Geometry-bound seed. The API overlays ownership/value/visits from the database on top of this. */
@@ -61,9 +63,10 @@ export const SEED_PLOTS: Plot[] = [
   { number: 4, kind: 'banner', s: 62, side: 1, ...house({ name: 'Vice Nights', tagline: 'Friday · music by the ocean', url: '/events', color: '#ff4f9a' }, 0), visits: 0, clicks: 0 },
   { number: 5, kind: 'sign', s: 84, side: 1, ...house({ name: 'Buena Onda Record Store', tagline: '0.3 mi ahead', url: '/objects', color: '#2aa79f' }, 0), visits: 0, clicks: 0 },
   { number: 6, kind: 'sign', s: 144, side: 1, ...house({ name: 'Branches Vintage', tagline: 'On your right', url: 'https://branchesvintage.com', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
-  ...LAMP_STATIONS.flatMap((s, i) => [1, -1].map((side, j) => ({
-    number: 7 + i * 2 + j, kind: 'lamp' as const, s, side: side as -1 | 1, status: 'open' as const, valueCents: 0, visits: 0, clicks: 0,
-  }))),
+  ...LAMP_STATIONS.flatMap((s, i) => [1, -1].map((side, j): Plot => 7 + i * 2 + j === BILLBOARD_SIGHTLINE_FLAG
+    // Not for sale: this flag crosses the driver's sightline to billboard #1, so one buyer would block another.
+    ? { number: 7 + i * 2 + j, kind: 'lamp', s, side: side as -1 | 1, ...house({ name: 'Buena Onda Radio', tagline: 'Tune in · CH1', url: '/radio', color: '#2aa79f' }, 0), visits: 0, clicks: 0 }
+    : { number: 7 + i * 2 + j, kind: 'lamp', s, side: side as -1 | 1, status: 'open', valueCents: 0, visits: 0, clicks: 0 })),
   ...LAMP_STATIONS.map((s, i) => ({
     number: 23 + i, kind: 'bench' as const, s: s + 4, side: -1 as const, status: 'open' as const, valueCents: 0, visits: 0, clicks: 0,
   })),

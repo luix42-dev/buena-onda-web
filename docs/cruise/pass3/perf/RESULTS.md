@@ -59,3 +59,13 @@ An earlier ads attempt read 0 for the billboard because the page keeps only the 
   - Remaining interruptions: the cockpit chrome (merged `BufferGeometry`, the A-pillar) and lamp flag `plot-10` at s=43.
   - Phone and night views were not re-measured after the move.
 - The measure script gained `--stop <m>` and `--tag <suffix>` for partial runs.
+
+## Addendum 2 (lead): profiling and optimization
+- `scripts/cruise-pass3-profile.mjs [--cam chase|driver] [--root a,b] [--depth n]` opens `?profile`, pauses the cruise at 30 m and hides one scene subtree at a time, measuring rAF FPS (`profile-*.json`). The numbers are relative costs on a shared laptop iGPU.
+- **Found and fixed:**
+  - the sky dome shaded every pixel, including those behind buildings (now drawn at the far plane after opaque geometry, with a cheaper hash and fewer octaves);
+  - the cockpit radio re-drew and re-uploaded two canvases with mipmaps 30×/s in every camera (now 2 Hz outside the cabin, 24 Hz inside, with no live mipmaps and a cached background);
+  - the body paint used clearcoat on the Mobile preset (now Desktop only).
+- **Perf pass after the fixes** (`*-perf-opt.json`): desktop chase 32.6 → 41.9 (p5 30.0 → 38.4), desktop cockpit 23.7 → 27.3 (p5 19.7 → 25.6), night chase 29.7 → 41.8 (p5 16.5 → 38.8).
+- **Contended runs:** while another browser was using the GPU, identical cockpit runs gave 21.5, then 12.5 (`*-perf-contended.json`, not used). With the GPU idle again, cockpit re-measured at 27.26 (`b-…-perf-opt.json`) and Desktop-preset cockpit 18.1 → 19.4 (`e-…-perf-opt.json`).
+- **Billboard after the move** (`*-ads-bb56.json.gz`, first 75 m): chase 6.1, cockpit 2.7, phone chase 3.25, phone cockpit 1.25 s. The remaining cockpit breaks are the left A-pillar crossing the five sample points in turn; plot-10 is now a house flag.

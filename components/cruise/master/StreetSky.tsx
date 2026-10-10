@@ -34,16 +34,19 @@ varying vec3 vDir;
 void main() {
   vDir = position;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  gl_Position.z = gl_Position.w; // far plane: drawn after opaque geometry, only visible sky pixels are shaded
 }`
 
 const fragment = /* glsl */ `
 uniform vec3 uSun, uTop, uMid, uHorizon, uSunColor, uCloudLit, uCloudShade;
 uniform float uTime, uCloud, uStars, uPulse;
 varying vec3 vDir;
-float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
 float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
   return mix(mix(hash(i),hash(i+vec2(1,0)),f.x), mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x), f.y); }
 float fbm(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+vec2(1.7,9.2); a*=0.5; } return v; }
+// Fine layers only need three octaves; the missing high octaves are below a pixel at sky distance.
+float fbm3(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<3;i++){ v+=a*noise(p); p=p*2.03+vec2(1.7,9.2); a*=0.5; } return v + 0.0625; }
 void main() {
   vec3 d = normalize(vDir);
   float h = d.y;
@@ -61,9 +64,9 @@ void main() {
   if (h > 0.0) {
     vec2 uv = d.xz / (h + 0.1) * 0.9;
     uv.x *= 0.7; uv += vec2(uTime * 0.006, 0.0);
-    float n = fbm(uv * 1.25) * 0.75 + fbm(uv * 4.0) * 0.25;
+    float n = fbm(uv * 1.25) * 0.75 + fbm3(uv * 4.0) * 0.25;
     float cover = smoothstep(0.5, 0.66, n) * uCloud * smoothstep(0.015, 0.1, h) * (1.0 - smoothstep(0.55, 0.95, h));
-    float detail = fbm(uv * 3.4 + 4.1);
+    float detail = fbm3(uv * 3.4 + 4.1);
     float lit = clamp(pow(sd, 2.0) * 0.7 + (1.0 - t) * 0.35 + (n - 0.55) * 2.2 + (detail - 0.5) * 0.6, 0.0, 1.0);
     vec3 cc = mix(uCloudShade, uCloudLit, lit);
     cc += uSunColor * pow(sd, 6.0) * 0.6 * (1.0 - smoothstep(0.6, 0.85, n)); // silver lining
@@ -122,7 +125,7 @@ export default function StreetSky({ time, high }: { time: SkyTime; high: boolean
     return () => { scene.environment = null; target.dispose(); pmrem.dispose(); geo.dispose(); envMat.dispose() }
   }, [gl, scene, time, p.exposure])
 
-  const sky = useMemo(() => { const m = new T.Mesh(new T.SphereGeometry(1, 48, 24), material); m.frustumCulled = false; m.renderOrder = -10; m.scale.setScalar(200); return m }, [material])
+  const sky = useMemo(() => { const m = new T.Mesh(new T.SphereGeometry(1, 48, 24), material); m.frustumCulled = false; m.renderOrder = 10; m.scale.setScalar(200); return m }, [material])
   useEffect(() => () => sky.geometry.dispose(), [sky])
   useFrame((_, dt) => { sky.position.copy(camera.position); material.uniforms.uTime.value += dt; material.uniforms.uPulse.value = pulse.bass * 0.8 + pulse.kick * 0.5 })
 

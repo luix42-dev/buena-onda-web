@@ -9,7 +9,10 @@ declare global{interface Window{__street?:StreetSample;__streetSamples?:StreetSa
 export function event(type:string,id:string){window.__streetEvents=[...(window.__streetEvents||[]),{type,id,time:performance.now()}].slice(-500)}
 export default function StreetMetrics({drive,mode,onSample}:{drive:MutableRefObject<DriveState>;mode:string;onSample:(s:StreetSample)=>void}){
  const {scene,camera,gl,size}=useThree(),measure=useRef(typeof location!=='undefined'&&new URLSearchParams(location.search).has('metrics')),acc=useRef(0),frames=useRef<number[]>([]),last=useRef(0),history=useRef(new Map<string,{continuous:number;max:number;lastVisible:boolean}>()),previous=useRef(mode),previousDistance=useRef(0),qualified=useRef(new Set<string>())
+ // ?profile exposes the scene for local performance bisection (scripts/cruise-pass3-profile.mjs). Never set in normal use.
+ const profile=useRef(typeof location!=="undefined"&&new URLSearchParams(location.search).has("profile"))
  useFrame((_,dt)=>{
+  if(profile.current)(window as unknown as {__three:unknown}).__three={scene,gl,camera}
   window.__streetDrive=drive.current
   if(drive.current.distance<previousDistance.current)qualified.current.clear()
   if(previous.current!==mode||drive.current.distance<previousDistance.current){history.current.clear();previous.current=mode;frames.current=[];acc.current=0;last.current=0}

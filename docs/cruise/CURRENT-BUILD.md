@@ -106,6 +106,9 @@ Gate 6 below holds the measured numbers. The matrix was run in a live browser se
 - `node --import tsx --test tests/cruise-avenue-*.test.ts` → **33/33 pass**: the migration on pglite, the real route handlers, and locally signed TEST Stripe events. The lead re-ran it after the review fixes; still 33/33.
 - `npm test` → 60/60 (Agent D).
 - Agent D also applied the migration to a throwaway Postgres 16.13 container, with the same results.
+- **Two-connection webhook race on real PostgreSQL 16.13** (`scripts/cruise-avenue-race-test.sh`, throwaway container):
+  - with the advisory lock, a concurrent duplicate delivery returns `duplicate` and writes 0 refund rows;
+  - the control run with the lock removed reproduces the bug (`stale_price` plus a false refund row for a customer who paid once).
 - Dev-server smoke test with no env:
   - GET falls back to the seed;
   - visit: 204, 413 for an oversized body, 429 after a burst;
@@ -124,25 +127,31 @@ Gate 6 below holds the measured numbers. The matrix was run in a live browser se
 
 | View | Viewport / DPR | Mean FPS | p5 FPS (1 s) | p95 frame | Draw calls |
 |---|---|---:|---:|---:|---:|
-| Desktop chase | 1600×900 / 1 | 32.6 | 30.0 | 50 ms | 243 |
-| Desktop cockpit | 1600×900 / 1 | 23.7 | 19.7 | 67 ms | 234 |
-| Desktop cockpit, **Desktop** preset | 1600×900 / 1 | 18.1 | 13.3 | 100 ms | 728 |
-| Desktop chase, night | 1600×900 / 1 | 29.7 | 16.5 | 67 ms | 241 |
+| Desktop chase | 1600×900 / 1 | 32.6 → **41.9** after optimization | 30.0 → **38.4** | 50 → 34 ms | 243 |
+| Desktop cockpit | 1600×900 / 1 | 23.7 → **27.3** after optimization | 19.7 → **25.6** | 67 ms | 237 |
+| Desktop cockpit, **Desktop** preset | 1600×900 / 1 | 18.1 → **19.4** after optimization | 13.3 → **15.9** | 100 → 83 ms | 727 |
+| Desktop chase, night | 1600×900 / 1 | 29.7 → **41.8** after optimization | 16.5 → **38.8** | 67 → 34 ms | 244 |
 | Phone-landscape chase (emulated) | 844×390 / 3 | 58.9 | 53.1 | 17 ms | 244 |
 | Phone-landscape cockpit (emulated) | 844×390 / 3 | 58.8 | 53.1 | 17 ms | 233 |
 
 - About 314k triangles. JS heap is 94–112 MB (not GPU memory). Load-to-ready takes 7–11 s.
-- **FPS regression versus pass 1:**
-  - desktop chase fell from 51.6 to 32.6 FPS and desktop cockpit from 35.2 to 23.7, about −35% each.
-  - The pixel count is the same as pass 1 (1440×1000 vs 1600×900).
-  - The cause has not been profiled. Candidates: the 24 new instrumented plot signs with canvas textures, the sky shader and the cockpit materials.
+- **FPS regression versus pass 1: profiled and partly recovered.**
+  - Before: desktop chase fell from 51.6 to 32.6 FPS and desktop cockpit from 35.2 to 23.7, at the same pixel count.
+  - `scripts/cruise-pass3-profile.mjs` (`?profile`) pauses the cruise and hides one scene subtree at a time.
+  - Results are in `docs/cruise/pass3/perf/profile-*.json`. Three causes were found and fixed:
+    1. **Sky shader** (about 5 ms/frame): it was drawn first, so it shaded every pixel behind buildings, with 15 octaves of sin-hash noise. It now draws at the far plane after opaque geometry, with a sin-free hash and 3-octave fine layers.
+    2. **Cockpit radio** (about 5 FPS in *both* cameras): two canvases were redrawn and re-uploaded with full mipmap chains 30×/s, even in chase view. Now: 2 Hz outside the cabin, 24 Hz inside, no mipmaps on the live screens, and the static background cached.
+    3. **Clearcoat paint** on the car body: now Desktop preset only, like the wood.
+  - After (same scripts, driving): chase **41.9**, night chase **41.8** (p5 16.5 → 38.8), cockpit **27.3**.
+  - Desktop-preset cockpit: 18.1 → 19.4. The cockpit result was confirmed with a second run on an idle GPU (27.26). It is still below pass 1, whose cockpit was a much simpler car.
+  - A later attempt to halve the radio canvas resolution could not be measured reliably: another browser was using the GPU and the numbers drifted 27 → 12 FPS between identical runs. It was reverted.
 - Phone emulation runs at the vsync cap, but that comes from the desktop GPU and says nothing about a phone.
 
 Continuous geometric sign qualification, in simulated seconds (target 5 s; a proxy, not proof of readability):
 
 | Sign | Desktop chase | Desktop cockpit | Phone chase | Phone cockpit |
 |---|---:|---:|---:|---:|
-| Billboard #1 | **6.05** → **6.1** after the move | 1.35 → 2.7 after the move | 3.25 (before the move) | 0 (before the move) |
+| Billboard #1 | **6.05** → **6.1** after the move | 1.35 → 2.7 after the move | 3.25 → 3.25 | 0 → 1.25 |
 | Buena Onda sign | 4.65 | 2.25 | 2.65 | 0 |
 | Branches sign | **6.70** | 3.95 | 2.65 | 0 |
 | Lamp flags #7–22, bench panels #23–30 | 0 | 0 | 0 | 0 |
@@ -163,11 +172,11 @@ Continuous geometric sign qualification, in simulated seconds (target 5 s; a pro
   - **Change:** billboard #1 moved from s=34 to s=56 (`StreetEnvironment.tsx` and `plots.ts`), and the panel centre lowered from 7.4 m to 4.6 m. The plot number and price are unchanged.
   - **Re-measured** (`?metrics=1`, first 75 m, `*-ads-bb56.json.gz`): desktop cockpit 1.35 → 2.7 s, desktop chase 6.05 → 6.1 s.
   - **Still in the way:**
-    - the sign is now framed for about 25 m (~7 s), but the cockpit chrome/A-pillar (merged `BufferGeometry`) interrupts it three times;
-    - lamp flag #10 (s=43, ocean side) briefly covers the billboard. If both plots were sold, one buyer would block the other, so the owner must decide whether to move or retire that flag.
-  - **Not re-measured after the move:** phone views and night.
+    - the sign is now framed for about 25 m (~7 s), but the left A-pillar (part of the merged chrome `BufferGeometry`) interrupts it four times. That is one pillar crossing the sign's five sample points one after another as the sign sweeps from about 13° to 24° left. A thinner pillar only shortens each break; removing them needs a different windshield or a sign on the other side. The occlusion rule was deliberately **not** loosened;
+    - lamp flag #10 (s=43, ocean side) briefly covers the billboard. **Resolved commercially:** plot 10 is now a house "Buena Onda Radio" flag, not for sale (`plots.ts` and the unapplied migration), so no buyer can block another buyer. The flag still physically crosses the sightline. Any ocean-side flag between the start and s=56 would cross it, so moving the flag doesn't help.
+  - **Phone views re-measured after the move:** phone chase 3.25 s (unchanged; the sign is under the 130-px width minimum until close), phone cockpit 0 → 1.25 s. Night was not re-measured.
 - **Five-second readable exposure:** see the Gate 6 table; phone-sized exposure remains far below target.
-- **Desktop FPS regressed about 35% versus pass 1** (chase 51.6 → 32.6, cockpit 35.2 → 23.7, same iGPU and pixel count). Not profiled; see Gate 6.
+- **Desktop FPS is still below pass 1** after optimization: chase 41.9 vs 51.6, cockpit 27.3 vs 35.2. See Gate 6.
 - **Legacy vehicles' cockpit performance** (Island Trail, Classic Coupe): 3–4 FPS samples on this iGPU in dev. They are shared with the original `/cruise` and were not changed.
 - The dash and hood still fill roughly the bottom 40% of the cockpit frame.
 
@@ -181,7 +190,7 @@ Continuous geometric sign qualification, in simulated seconds (target 5 s; a pro
    - Local Supabase failed. The CLI's DB init runs as user `nobody`, and Docker Desktop then crashed under memory pressure.
    - The owner chose to skip for now. The steps are in `GATE4-EVIDENCE.md`.
 3. **Physical devices:** TV browser, Chromecast, AirPlay and Android: BLOCKED — PHYSICAL DEVICE REQUIRED.
-4. **Concurrency test for the webhook advisory lock** needs a two-connection Postgres. PGlite is single-connection; not yet run.
+4. ~~Concurrency test for the webhook advisory lock~~ **done** on real PostgreSQL 16.13 (see Gate 4).
 5. **Pre-existing studio auth weaknesses (not changed in pass 3):** `middleware.ts` and `lib/studio-auth.ts` let everyone in when `STUDIO_PASSWORD` is unset, don't cover `/api`, and store the password itself as the cookie value. The new Avenue moderation uses its own fail-closed check.
 
 ## Opening the Avenue (proposal for Luis to confirm)
@@ -196,9 +205,10 @@ Measured with the existing GA4 events now sent by `/cruise/miami-test` (`cruise_
 
 1. Owner: rotate the leaked Supabase service-role key, then decide on the history purge.
 2. Owner: provide the Stripe TEST + local Supabase env (or a stable Docker), then run the plot #7 script in `GATE4-EVIDENCE.md`. Also review `TERMS-DRAFT.md` with counsel.
-3. Billboard #1 cockpit sightline: move or retire lamp flag #10 (owner decision, since it is a sellable plot), and consider a narrower cockpit A-pillar profile. Then re-run `node scripts/cruise-pass3-measure.mjs --mode ads --only a,b,c,d` (about 27 min per view) and update Gate 6.
-4. Physical Android FPS test, plus real TV / Chromecast / AirPlay tests on an HTTPS preview URL. A preview deploy needs the owner's authorization.
-5. Consider fixing legacy-vehicle cockpit performance; this touches the original `/cruise` components, so it is the owner's decision.
+3. Billboard #1 cockpit sightline: consider a narrower cockpit A-pillar profile. Then re-run `node scripts/cruise-pass3-measure.mjs --mode ads --only a,b,c,d` (about 27 min per view). Owner: confirm that plot 10 stays a house flag.
+4. Performance: profile the cockpit again on an idle machine (`node scripts/cruise-pass3-profile.mjs --cam driver --root 5,1`), and measure a production build (`next build` + `next start`), not the dev server.
+5. Physical Android FPS test, plus real TV / Chromecast / AirPlay tests on an HTTPS preview URL. A preview deploy needs the owner's authorization.
+6. Consider fixing legacy-vehicle cockpit performance; this touches the original `/cruise` components, so it is the owner's decision.
 
 ## Run locally
 

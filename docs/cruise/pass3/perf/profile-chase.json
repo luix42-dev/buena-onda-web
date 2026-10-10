@@ -1,0 +1,54 @@
+{
+ "cam": "chase",
+ "at": 30,
+ "baseline": 39.7,
+ "baselineRuns": [
+  39.7,
+  39.6,
+  39.8
+ ],
+ "shadowsEnabled": false,
+ "fpsWithoutShadows": null,
+ "info": {
+  "calls": 301,
+  "triangles": 333108,
+  "programs": 36,
+  "textures": 136,
+  "pixelRatio": 1
+ },
+ "results": [
+  {
+   "path": [
+    4
+   ],
+   "name": "Group",
+   "meshes": 264,
+   "tris": 297216,
+   "visible": true,
+   "fpsHidden": 60.1,
+   "gain": 20.5
+  },
+  {
+   "path": [
+    0
+   ],
+   "name": "Mesh",
+   "meshes": 1,
+   "tris": 2208,
+   "visible": true,
+   "fpsHidden": 43.1,
+   "gain": 3.4
+  },
+  {
+   "path": [
+    5
+   ],
+   "name": "Group",
+   "meshes": 44,
+   "tris": 33758,
+   "visible": true,
+   "fpsHidden": 42.9,
+   "gain": 3.2
+  }
+ ]
+}

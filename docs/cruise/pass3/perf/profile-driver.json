@@ -1,0 +1,186 @@
+{
+ "cam": "driver",
+ "at": 30,
+ "baseline": 26.1,
+ "baselineRuns": [
+  26.3,
+  26.2,
+  26
+ ],
+ "shadowsEnabled": false,
+ "fpsWithoutShadows": null,
+ "info": {
+  "calls": 298,
+  "triangles": 333060,
+  "programs": 39,
+  "textures": 136,
+  "pixelRatio": 1
+ },
+ "results": [
+  {
+   "path": [
+    5
+   ],
+   "name": "Group",
+   "meshes": 44,
+   "tris": 33758,
+   "visible": true,
+   "fpsHidden": 45,
+   "gain": 18.9
+  },
+  {
+   "path": [
+    5,
+    1
+   ],
+   "name": "OceanDriveConvertible",
+   "meshes": 43,
+   "tris": 33726,
+   "visible": true,
+   "fpsHidden": 45.1,
+   "gain": 18.9
+  },
+  {
+   "path": [
+    4
+   ],
+   "name": "Group",
+   "meshes": 264,
+   "tris": 297216,
+   "visible": true,
+   "fpsHidden": 42.3,
+   "gain": 16.1
+  },
+  {
+   "path": [
+    4,
+    6
+   ],
+   "name": "Group",
+   "meshes": 46,
+   "tris": 29720,
+   "visible": true,
+   "fpsHidden": 28.5,
+   "gain": 2.4
+  },
+  {
+   "path": [
+    4,
+    9
+   ],
+   "name": "Group",
+   "meshes": 6,
+   "tris": 62032,
+   "visible": true,
+   "fpsHidden": 28.2,
+   "gain": 2.1
+  },
+  {
+   "path": [
+    4,
+    8
+   ],
+   "name": "Group",
+   "meshes": 5,
+   "tris": 61424,
+   "visible": true,
+   "fpsHidden": 27.9,
+   "gain": 1.7
+  },
+  {
+   "path": [
+    4,
+    48
+   ],
+   "name": "Group",
+   "meshes": 76,
+   "tris": 44228,
+   "visible": true,
+   "fpsHidden": 27.5,
+   "gain": 1.4
+  },
+  {
+   "path": [
+    0
+   ],
+   "name": "Mesh",
+   "meshes": 1,
+   "tris": 2208,
+   "visible": true,
+   "fpsHidden": 27.1,
+   "gain": 0.9
+  },
+  {
+   "path": [
+    4,
+    11
+   ],
+   "name": "Group",
+   "meshes": 8,
+   "tris": 86,
+   "visible": true,
+   "fpsHidden": 26.6,
+   "gain": 0.5
+  },
+  {
+   "path": [
+    4,
+    12
+   ],
+   "name": "Group",
+   "meshes": 8,
+   "tris": 86,
+   "visible": true,
+   "fpsHidden": 26.6,
+   "gain": 0.4
+  },
+  {
+   "path": [
+    4,
+    15
+   ],
+   "name": "Group",
+   "meshes": 6,
+   "tris": 52,
+   "visible": true,
+   "fpsHidden": 26.5,
+   "gain": 0.4
+  },
+  {
+   "path": [
+    4,
+    16
+   ],
+   "name": "Group",
+   "meshes": 6,
+   "tris": 52,
+   "visible": true,
+   "fpsHidden": 26.4,
+   "gain": 0.2
+  },
+  {
+   "path": [
+    4,
+    47
+   ],
+   "name": "Group",
+   "meshes": 20,
+   "tris": 75772,
+   "visible": true,
+   "fpsHidden": 26.3,
+   "gain": 0.2
+  },
+  {
+   "path": [
+    4,
+    10
+   ],
+   "name": "Group",
+   "meshes": 8,
+   "tris": 86,
+   "visible": true,
+   "fpsHidden": 26.3,
+   "gain": 0.1
+  }
+ ]
+}

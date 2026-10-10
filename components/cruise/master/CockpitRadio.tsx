@@ -26,9 +26,11 @@ const FONT = '"Consolas","Lucida Console","Courier New",monospace'
 const DIAL_LO = 88.1, DIAL_HI = 107.9
 const dialFor = (i: number) => DIAL_LO + (RADIO_PRESETS.length > 1 ? i / (RADIO_PRESETS.length - 1) : .5) * (DIAL_HI - DIAL_LO)
 
-function canvas(w: number, h: number) {
+function canvas(w: number, h: number, live = false) {
   const el = document.createElement('canvas'); el.width = w; el.height = h
   const t = new T.CanvasTexture(el); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4
+  // Live screens re-upload many times a second: skip the mipmap chain rebuild on every upload.
+  if (live) { t.generateMipmaps = false; t.minFilter = T.LinearFilter }
   return { el, ctx: el.getContext('2d')!, t }
 }
 
@@ -38,8 +40,8 @@ const DEV = process.env.NODE_ENV !== 'production'
 export default function CockpitRadio({ night, sunset = false, high = false }: { night: boolean; sunset?: boolean; high?: boolean }) {
   const controls = useCockpit(); const audio = controls?.audio
   const reduced = useReducedMotion()
-  const screen = useMemo(() => canvas(1024, 256), [])
-  const eq = useMemo(() => canvas(512, 128), [])
+  const screen = useMemo(() => canvas(1024, 256, true), [])
+  const eq = useMemo(() => canvas(512, 128, true), [])
   // VFD cell mask: drawn once, stamped over every frame for the dot-matrix look.
   const mask = useMemo(() => {
     const el = document.createElement('canvas'); el.width = 1024; el.height = 256; const c = el.getContext('2d')!
@@ -195,7 +197,9 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
       document.documentElement.dataset.cruiseHeadUnit = JSON.stringify({ x: Math.round((scratch.v.x * .5 + .5) * 1000) / 10, y: Math.round((.5 - scratch.v.y * .5) * 1000) / 10, w: size.width, h: size.height })
     }
 
-    acc.current += dt; if (acc.current < 1 / 30) return; const step = acc.current; acc.current = 0
+    // Canvas redraw + texture upload is the radio's main cost; from outside the cabin it is a few pixels, so 2 Hz is plenty.
+    const near = !!root.current && root.current.getWorldPosition(scratch.v).distanceToSquared(camera.position) < 4
+    acc.current += dt; if (acc.current < (near ? 1 / 24 : 1 / 2)) return; const step = acc.current; acc.current = 0
     marquee.current += step * 90
     drawScreen(screen.ctx, mask, high, {
       station: audio?.station.name ?? 'BUENA ONDA', track: audio?.trackTitle || '', playing,
@@ -242,15 +246,23 @@ export default function CockpitRadio({ night, sunset = false, high = false }: { 
   </group>
 }
 
+// Background + ghost segments (real VFDs show unlit cells) never change: draw them once.
+let base: HTMLCanvasElement | null = null
+function screenBase(W: number, H: number) {
+  if (base) return base
+  base = document.createElement('canvas'); base.width = W; base.height = H; const c = base.getContext('2d')!
+  c.fillStyle = '#050302'; c.fillRect(0, 0, W, H)
+  c.fillStyle = VFD_DIM
+  for (let b = 0; b < BANDS; b++) for (let k = 0; k < SEGMENTS; k++) c.fillRect(40 + b * 24, 236 - k * 8, 18, 5)
+  return base
+}
+
 type ScreenState = { station: string; track: string; playing: boolean; loading: boolean; error: string | null; muted: boolean; volume: number; preset: number; marquee: number; sweep: number; dial: number; time: number }
 
 function drawScreen(c: CanvasRenderingContext2D, mask: HTMLCanvasElement, high: boolean, s: ScreenState) {
   const W = 1024, H = 256, tuning = s.sweep >= 0
   c.shadowBlur = 0
-  c.fillStyle = '#050302'; c.fillRect(0, 0, W, H)
-  // Ghost segments: real VFDs show unlit cells.
-  c.fillStyle = VFD_DIM
-  for (let b = 0; b < BANDS; b++) for (let k = 0; k < SEGMENTS; k++) c.fillRect(40 + b * 24, 236 - k * 8, 18, 5)
+  c.drawImage(screenBase(W, H), 0, 0)
   c.textBaseline = 'alphabetic'
   const glow = (color: string, blur: number) => { c.fillStyle = color; if (high) { c.shadowColor = color; c.shadowBlur = blur } }
 

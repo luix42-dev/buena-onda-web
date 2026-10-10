@@ -42,9 +42,9 @@ test('cleanOwner: validates and trims, rejects bad url/colour/short names', () =
 
 test('mergePlots: pending/pulled claims are claimed with owner content withheld; approved show owner; legacy rows count as approved', () => {
   const base = { status: 'claimed', owner_name: 'TEST Secret Brand', owner_tagline: 'TEST', owner_url: 'https://example.test', owner_color: '#123456', value_cents: 500 }
-  const [p7, p8, p9, p10] = [7, 8, 9, 10].map(n => mergePlots([
+  const [p7, p8, p9, p11] = [7, 8, 9, 11].map(n => mergePlots([
     { number: 7, ...base, review_state: 'pending' }, { number: 8, ...base, review_state: 'pulled' },
-    { number: 9, ...base, review_state: 'approved' }, { number: 10, ...base },
+    { number: 9, ...base, review_state: 'approved' }, { number: 11, ...base },
   ] as never).find(p => p.number === n)!)
   for (const p of [p7, p8]) {
     assert.equal(p.status, 'claimed'); assert.equal(p.pending, true)
@@ -52,7 +52,7 @@ test('mergePlots: pending/pulled claims are claimed with owner content withheld;
     assert.equal(priceCents(p), 800)
   }
   assert.equal(p9.owner?.name, 'TEST Secret Brand'); assert.equal(p9.pending, undefined)
-  assert.equal(p10.owner?.name, 'TEST Secret Brand')
+  assert.equal(p11.owner?.name, 'TEST Secret Brand')
   // House plots ignore DB ownership but take drive-bys.
   const house = mergePlots([{ number: 2, status: 'claimed', owner_name: 'TEST hijack', visits: 42 } as never]).find(p => p.number === 2)!
   assert.equal(house.status, 'house'); assert.equal(house.owner?.name, 'Buena Onda Record Store'); assert.equal(house.visits, 42)
