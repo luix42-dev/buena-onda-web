@@ -1,0 +1,55 @@
+{
+ "vehicle": "island-trail",
+ "cam": "driver",
+ "at": 30,
+ "baseline": 23.2,
+ "baselineRuns": [
+  23.2,
+  23.1,
+  23.3
+ ],
+ "shadowsEnabled": false,
+ "fpsWithoutShadows": null,
+ "info": {
+  "calls": 527,
+  "triangles": 373056,
+  "programs": 37,
+  "textures": 135,
+  "pixelRatio": 1
+ },
+ "results": [
+  {
+   "path": [
+    5
+   ],
+   "name": "Group",
+   "meshes": 449,
+   "tris": 121150,
+   "visible": true,
+   "fpsHidden": 42.8,
+   "gain": 19.6
+  },
+  {
+   "path": [
+    4
+   ],
+   "name": "Group",
+   "meshes": 264,
+   "tris": 297216,
+   "visible": true,
+   "fpsHidden": 36.9,
+   "gain": 13.7
+  },
+  {
+   "path": [
+    0
+   ],
+   "name": "Mesh",
+   "meshes": 1,
+   "tris": 2208,
+   "visible": true,
+   "fpsHidden": 23.7,
+   "gain": 0.5
+  }
+ ]
+}

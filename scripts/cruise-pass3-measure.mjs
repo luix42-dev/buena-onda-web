@@ -1,10 +1,10 @@
-// Pass 3 Gate 6 measurement. Usage: node scripts/cruise-pass3-measure.mjs [--probe] [--headful] [--only a,b,...] [--mode perf|ads] [--stop metres] [--tag suffix]
+// Pass 3 Gate 6 measurement. Usage: node scripts/cruise-pass3-measure.mjs [--probe] [--headful] [--only a,b,...] [--mode perf|ads] [--stop metres] [--tag suffix] [--vehicle id]
 // Only meaningful for FPS if the recorded renderer is the Intel GPU (not SwiftShader). JS heap is not GPU memory.
 import {createRequire} from 'node:module'
 import {mkdir,writeFile} from 'node:fs/promises'
 const require=createRequire(new URL('../../cruise-master-20261005/package.json',import.meta.url)),{chromium}=require('@playwright/test')
 const has=k=>process.argv.includes(k),arg=(k,d)=>{const i=process.argv.indexOf(k);return i>0?process.argv[i+1]:d}
-const STOP=+arg("--stop",208),TAG=arg("--tag","");const headless=!has("--headful"),only=(arg('--only','')||'').split(',').filter(Boolean)
+const STOP=+arg("--stop",208),TAG=arg("--tag",""),VEHICLE=arg("--vehicle","");const headless=!has("--headful"),only=(arg('--only','')||'').split(',').filter(Boolean)
 const out='docs/cruise/pass3/perf';await mkdir(out,{recursive:true})
 const ARGS=['--enable-gpu','--use-angle=d3d11','--ignore-gpu-blocklist','--enable-webgl']
 const D={width:1600,height:900},P={viewport:{width:844,height:390},deviceScaleFactor:3,isMobile:true,hasTouch:true}
@@ -35,6 +35,8 @@ try{
   await page.waitForTimeout(3000)
   if(run.q==='desktop'){await page.getByRole('button',{name:'More options'}).click();await page.getByLabel('Quality').selectOption('desktop');await page.getByRole('button',{name:'More options'}).click();await page.evaluate(()=>document.activeElement?.blur?.());await page.waitForTimeout(3000)}
   const st=()=>page.evaluate(()=>window.__cruise())
+  if(VEHICLE){await page.getByRole('button',{name:'More options'}).click();await page.getByLabel('Vehicle').selectOption(VEHICLE);await page.getByRole('button',{name:'More options'}).click()
+   await page.waitForFunction(v=>window.__cruise().vehicle===v&&document.querySelector('main')?.dataset.ready==='true',VEHICLE,{timeout:240000});await page.waitForTimeout(2500)}
   for(let i=0;i<4&&(await st()).time!==run.time;i++){await page.getByRole('button',{name:'Change time of day'}).click();await page.waitForTimeout(500)}
   await page.evaluate(()=>{window.__streetSamples=[];window.__all.length=0;window.__streetEvents=[];window.__ft=[];let l=performance.now();const t=n=>{window.__ft.push(n-l);l=n;requestAnimationFrame(t)};requestAnimationFrame(t)})
   await page.getByRole('button',{name:'▶ Cruise'}).click()
@@ -43,7 +45,7 @@ try{
   const tStart=Date.now(),limit=MODE==='ads'?3.3e6:110000;let shot=false,maxD=0,fin=await st()
   while(Date.now()-tStart<limit){
    await page.waitForTimeout(MODE==='ads'?5000:1000);fin=await st();maxD=Math.max(maxD,fin.distance)
-   if(!shot&&fin.distance>60){await page.screenshot({path:`${out}/${run.id}-${MODE}${TAG}.png`});shot=true}
+   if(!shot&&fin.distance>60){await page.screenshot({path:`${out}/${run.id}${VEHICLE?'-'+VEHICLE:''}-${MODE}${TAG}.png`});shot=true}
    if(maxD>=STOP)break
   }
   const durationS=(Date.now()-tStart)/1000
@@ -62,7 +64,7 @@ try{
    for(const o of Object.values(ads)){o.maxContinuousSimSeconds=+o.maxContinuousSimSeconds.toFixed(2);o.qualified5s=o.maxContinuousSimSeconds>=5;o.topBlockers=Object.entries(o.blockers).sort((x,y)=>y[1]-x[1]).slice(0,3);delete o.blockers;delete o._ld}
    r.ads=ads;r.trianglesMean=Math.round(mean(samples.map(s=>s.triangles)));r.inPageCallsMean=Math.round(mean(samples.map(s=>s.calls)));r.sampleCount=samples.length;r.inflatedInPageEvents=events.filter(e=>e.type==='visibility-qualified').map(e=>e.id)
   }
-  console.log(JSON.stringify({...r,ads:r.ads&&Object.fromEntries(Object.entries(r.ads).map(([k,v])=>[k,v.maxContinuousSimSeconds]))}));await writeFile(`${out}/${run.id}-${MODE}${TAG}.json`,JSON.stringify({...r,samples:MODE==='ads'?samples:undefined,fps1s:wins.map(x=>+x.toFixed(1))},null,1))
+  console.log(JSON.stringify({...r,ads:r.ads&&Object.fromEntries(Object.entries(r.ads).map(([k,v])=>[k,v.maxContinuousSimSeconds]))}));await writeFile(`${out}/${run.id}${VEHICLE?'-'+VEHICLE:''}-${MODE}${TAG}.json`,JSON.stringify({...r,samples:MODE==='ads'?samples:undefined,fps1s:wins.map(x=>+x.toFixed(1))},null,1))
   await ctx.close()
  }
 }finally{await browser.close()}

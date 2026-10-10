@@ -81,7 +81,7 @@ Previous snapshot (pass 1 measurements, Astra review): `docs/cruise/master/CURRE
 
 The 1-second rAF samples taken right after each switch (dev build, memory-starved machine) are diagnostic only:
 - convertible: chase 11–22 FPS, cockpit 10–16 FPS;
-- Island Trail and Classic Coupe cockpit: **3–4 FPS** (legacy components shared with the original `/cruise`, not modified).
+- Island Trail and Classic Coupe cockpit: 3–4 FPS in these post-switch samples. **This was a measurement artifact:** proper driving runs (`--vehicle`) give Island Trail 36.3 chase / 23.3 cockpit and Classic Coupe 37.4 / 24.4, close to the convertible. No change to the shared legacy code was needed.
 
 Gate 6 below holds the measured numbers. The matrix was run in a live browser session, and no artifact file was saved for it.
 
@@ -177,7 +177,6 @@ Continuous geometric sign qualification, in simulated seconds (target 5 s; a pro
   - **Phone views re-measured after the move:** phone chase 3.25 s (unchanged; the sign is under the 130-px width minimum until close), phone cockpit 0 → 1.25 s. Night was not re-measured.
 - **Five-second readable exposure:** see the Gate 6 table; phone-sized exposure remains far below target.
 - **Desktop FPS is still below pass 1** after optimization: chase 41.9 vs 51.6, cockpit 27.3 vs 35.2. See Gate 6.
-- **Legacy vehicles' cockpit performance** (Island Trail, Classic Coupe): 3–4 FPS samples on this iGPU in dev. They are shared with the original `/cruise` and were not changed.
 - The dash and hood still fill roughly the bottom 40% of the cockpit frame.
 
 ## BLOCKERS
@@ -208,7 +207,6 @@ Measured with the existing GA4 events now sent by `/cruise/miami-test` (`cruise_
 3. Billboard #1 cockpit sightline: consider a narrower cockpit A-pillar profile. Then re-run `node scripts/cruise-pass3-measure.mjs --mode ads --only a,b,c,d` (about 27 min per view). Owner: confirm that plot 10 stays a house flag.
 4. Performance: profile the cockpit again on an idle machine (`node scripts/cruise-pass3-profile.mjs --cam driver --root 5,1`), and measure a production build (`next build` + `next start`), not the dev server.
 5. Physical Android FPS test, plus real TV / Chromecast / AirPlay tests on an HTTPS preview URL. A preview deploy needs the owner's authorization.
-6. Consider fixing legacy-vehicle cockpit performance; this touches the original `/cruise` components, so it is the owner's decision.
 
 ## Run locally
 

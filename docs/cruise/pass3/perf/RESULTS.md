@@ -69,3 +69,6 @@ An earlier ads attempt read 0 for the billboard because the page keeps only the 
 - **Perf pass after the fixes** (`*-perf-opt.json`): desktop chase 32.6 → 41.9 (p5 30.0 → 38.4), desktop cockpit 23.7 → 27.3 (p5 19.7 → 25.6), night chase 29.7 → 41.8 (p5 16.5 → 38.8).
 - **Contended runs:** while another browser was using the GPU, identical cockpit runs gave 21.5, then 12.5 (`*-perf-contended.json`, not used). With the GPU idle again, cockpit re-measured at 27.26 (`b-…-perf-opt.json`) and Desktop-preset cockpit 18.1 → 19.4 (`e-…-perf-opt.json`).
 - **Billboard after the move** (`*-ads-bb56.json.gz`, first 75 m): chase 6.1, cockpit 2.7, phone chase 3.25, phone cockpit 1.25 s. The remaining cockpit breaks are the left A-pillar crossing the five sample points in turn; plot-10 is now a house flag.
+
+## Addendum 3 (lead): legacy vehicles while driving
+`--vehicle` was added to both scripts. Island Trail: chase 36.3 / cockpit 23.3 FPS (p5 32.9 / 21.9). Classic Coupe: 37.4 / 24.4 (p5 34.4 / 23.2). These are sunset, Mobile preset, 1600x900 runs (`*-island-trail-perf.json`, `*-classic-coupe-perf.json`). The earlier 3–4 FPS figures were 1-s samples taken right after a vehicle switch, while the dev server was compiling.
