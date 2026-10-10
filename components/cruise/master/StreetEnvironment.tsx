@@ -630,9 +630,14 @@ function BannerEQ({ s }: { s: number }) {
 
 // ---------- Life: traffic and pedestrians ------------------------------------
 
-const TRAFFIC_COLORS = ['#f1e6cf', '#d9485a', '#53bfcc', '#f4b860']
-function Traffic({ drive }: { drive?: MutableRefObject<{ distance: number }> }) {
+/** Two well-dressed classics instead of a fleet of low-detail blocks: one cruising ahead, one oncoming. */
+const TRAFFIC_COLORS = ['#7fd3c8', '#d9485a']
+function Traffic({ drive, night }: { drive?: MutableRefObject<{ distance: number }>; night: boolean }) {
   const gltf = useGLTF('/cruise/traffic/classic-traffic.glb', false, true)
+  const headMat = useMemo(() => new T.MeshStandardMaterial({ color: '#fff6e0', emissive: '#fff1cc', toneMapped: false }), [])
+  const tailMat = useMemo(() => new T.MeshStandardMaterial({ color: '#c3142c', emissive: '#ff1f3d', roughness: .3 }), [])
+  const lampGeo = useMemo(() => new T.CircleGeometry(.11, 20), [])
+  useEffect(() => () => { headMat.dispose(); tailMat.dispose(); lampGeo.dispose() }, [headMat, tailMat, lampGeo])
   const cars = useMemo(() => {
     // Normalise the model: ~4.7 m long, nose toward -z.
     const base = gltf.scene.clone(true); const box = new T.Box3().setFromObject(base); const size = box.getSize(new T.Vector3())
@@ -644,15 +649,26 @@ function Traffic({ drive }: { drive?: MutableRefObject<{ distance: number }> }) 
     if (rearZ < 0) base.rotation.y += Math.PI
     base.updateMatrixWorld(true); const b3 = new T.Box3().setFromObject(base); base.position.y -= b3.min.y
     const specs = [
-      { lane: 2.1, ahead: 34, speed: 0, color: 0 }, { lane: 2.0, ahead: 72, speed: 0, color: 1 },
-      { lane: -3.4, ahead: 0, speed: 7.5, color: 2, start: 150 }, { lane: -3.4, ahead: 0, speed: 6.5, color: 3, start: 40 },
+      { lane: 2.1, ahead: 46, speed: 0, color: 0 },
+      { lane: -3.4, ahead: 0, speed: 6.8, color: 1, start: 120 },
     ]
+    const front = b3.min.z
     return specs.map(spec => {
       const car = holder.clone(true)
-      car.traverse(o => { if (o instanceof T.Mesh) { const m = (Array.isArray(o.material) ? o.material[0] : o.material) as T.MeshStandardMaterial; if (/paint/i.test(m.name)) { o.material = m.clone(); (o.material as T.MeshStandardMaterial).color.set(TRAFFIC_COLORS[spec.color]) } o.castShadow = true } })
+      car.traverse(o => {
+        if (!(o instanceof T.Mesh)) return
+        const name = ((Array.isArray(o.material) ? o.material[0] : o.material) as T.Material).name
+        if (/paint/i.test(name)) o.material = new T.MeshPhysicalMaterial({ color: TRAFFIC_COLORS[spec.color], roughness: .3, metalness: .05, clearcoat: 1, clearcoatRoughness: .08 })
+        else if (/chrome/i.test(name)) o.material = new T.MeshStandardMaterial({ color: '#e9ecef', metalness: 1, roughness: .14 })
+        else if (/glaz/i.test(name)) o.material = new T.MeshPhysicalMaterial({ color: '#1c2a33', roughness: .05, metalness: .2, clearcoat: 1 })
+        else if (/rear/i.test(name)) o.material = tailMat
+        o.castShadow = true
+      })
+      for (const x of [-.6, .6]) { const lamp = new T.Mesh(lampGeo, headMat); lamp.position.set(x, .72, front - .01); lamp.rotation.y = Math.PI; car.add(lamp) }
       return { car, spec, s: spec.start ?? 0 }
     })
-  }, [gltf.scene])
+  }, [gltf.scene, headMat, tailMat, lampGeo])
+  useEffect(() => { headMat.emissiveIntensity = night ? 6 : .25; tailMat.emissiveIntensity = night ? 3 : .6 }, [night, headMat, tailMat])
   useFrame((state, dt) => {
     const d = drive?.current.distance ?? 0, t = state.clock.elapsedTime
     for (const c of cars) {
@@ -671,6 +687,8 @@ function People({ count }: { count: number }) {
   const crowd = useMemo(() => Array.from({ length: count }, (_, i) => {
     const src = i % 3 === 2 ? suit : casual
     const body = cloneSkinned(src.scene) as T.Object3D
+    // The Quaternius suit model ships holding a pistol. Never on Ocean Drive.
+    const props: T.Object3D[] = []; body.traverse(o => { if (/pistol|gun|weapon|rifle|knife/i.test(o.name)) props.push(o) }); props.forEach(o => o.removeFromParent())
     const box = new T.Box3().setFromObject(body); const height = box.getSize(new T.Vector3()).y || 1
     body.scale.setScalar((1.66 + (i % 4) * .05) / height)
     body.traverse(o => { if (o instanceof T.Mesh) { o.castShadow = true; o.frustumCulled = false } })
@@ -729,7 +747,7 @@ export default function StreetEnvironment({ timeOfDay, onAdClick, onPlotClick: p
     {plots.filter(p => p.kind === 'lamp' && !isOpenSightline(p.s, p.side)).map(p => <LampFlag key={p.number} plot={p} night={night} onClick={onPlotClick} phase={avenue} />)}
     {plots.filter(p => p.kind === 'bench').map(p => <BenchPanel key={p.number} plot={p} night={night} onClick={onPlotClick} phase={avenue} />)}
     <LightPools time={timeOfDay} />
-    <Traffic drive={drive} />
+    <Traffic drive={drive} night={night} />
     <People count={high ? 12 : 7} />
   </group>
 }

@@ -1,4 +1,62 @@
-# Buena Onda Cruise — Current Build (pass 3)
+# Buena Onda Cruise — Current Build (Pass 5)
+
+Snapshot: October 10, 2026. Branch `experiment/cruise-miami-master`; intake HEAD `fb9e967`. Experimental route only: `/cruise/miami-test`. **LOCAL ONLY; NO PUSH OR DEPLOYMENT.** Original `/cruise` is unchanged.
+
+**Verdict: BLOCKED.** Luis confirmed the exposed legacy Supabase key rollover is **not completed**. The local experience improved, but it is not yet unmistakably superior to Original or ready for production. [Full comparison and evidence](pass5/REPORT.md).
+
+## BUILT
+
+- Preserved and integrated Claude's five-file Pass 5 handoff: one responsive dock, Start audio gate, automatic travel, portrait cameras, visible landscape head unit, cast controls, two traffic cars, removal of named weapon meshes, night lights and opt-in debug metrics.
+- Removed remaining manual steering/acceleration and repaired restart, detail-close and visibility resume behavior. The route automatically fades/resets at 210 m; **this is not a seamless recycled world**.
+- Kept unsolicited store cards off the hidden public experience. Portrait dock is two rows; portrait camera brings the complete radio and both knobs into frame. Landscape framing remains intact.
+- Mobile uses the wide additive road beam and existing lamp pools; Desktop retains two real headlights. This deliberately trades facade illumination for speed.
+- Reduced-motion pulse responses are smaller/slower, kicks are disabled, dock EQ is static and automatic camera cuts stop. Some independent decorative clocks still animate.
+- Server-side Studio authorization now gates Avenue preview, passing only a boolean to the client. Hidden remains the default. Claim and moderation API gates and drive-by counting remain separate and unchanged.
+
+## VERIFIED
+
+- Real Next.js application, Windows Edge 154 / Intel UHD 630. Original, served Miami and local Pass 5 screenshot/video evidence at 390x844, 844x390 and 1440x900; matched DAY captures supplement different default atmospheres. Physical devices were not used.
+- Final local browser interaction run **31/31**, no page errors: Start, Jolt live analysis, music-driven banner geometry settling on pause, six camera changes with playback, landscape and portrait physical preset pointer clicks, resume/restart, automatic reset, hidden Avenue, unauthorized preview, 112 px portrait dock, reduced-motion dock EQ and TV Enter start. [Results](pass5/functional/results.json).
+- Independent pixel review confirms the complete portrait radio, unobstructed landscape radio and smaller dock. Original retains better road/vehicle materials and calmer composition; matched daytime visual appeal is roughly tied.
+- Night Mobile-quality local development desktop: chase **35.64 → 42.06 FPS**, cockpit **23.02 → 28.06 FPS**. Controlled stationary lights on/off/on: **22.42 / 27.00 / 22.50 FPS**. [Measurements and caveats](pass5/PERFORMANCE-REVIEW.md).
+- Final isolated optimized production build and typecheck passed; sequential tests passed **60/60**. Production night cockpit: **28.97 FPS** at 1440x900, **59.75 FPS** at 390x844 and **59.60 FPS** at 844x390, 60 seconds each, Mobile quality, renderer DPR 1, Jolt LIVE. Phone sizes are desktop emulation.
+
+## FAILED
+
+- The optimized production night cockpit at 1440x900 still misses 30 FPS (28.97). Phone-sized desktop emulation near 60 FPS does not establish real phone performance.
+- Initial parallel tests/typecheck/browser runs failed from memory pressure; recovered by serializing work after Luis freed memory. The first fully offline production build failed because the unrelated Studio layout requires a Google font download; the successful retry permitted only Google Fonts HTTPS GET during build. An optional DPR experiment did not run after its browser permission request was aborted; no DPR change was made.
+- Default local R2 and NTS capture were restricted and used synthetic groove; Jolt demonstrated live analysis (final sampled energy 0.037–0.196). Served Miami R2 reported live analysis. No claim that every stream/browser is synchronized or that audible output was independently heard.
+- Seamless geometry, full reduced-motion coverage and exhaustive accessibility remain incomplete. Oversized signs, simple car surfaces and the sunset-colored fallback mirror at night remain visual deficiencies.
+
+## BLOCKERS
+
+- **Security:** owner must retire the leaked legacy credential and update/verify consumers. Existing shared Studio auth can fail open without configuration and uses password-valued cookies; unchanged in this experimental-route pass. No deploy, publish or production writes until security confirmation and explicit deployment authorization.
+- **Stripe TEST plot #7:** no verified isolated non-production Supabase/Stripe environment. Real Checkout, webhook, moderation, ticker and 1.5x buyout E2E were not performed. PGlite unit fulfillment tests are not a substitute.
+- Desktop Chrome→Chromecast, Android Chrome→Chromecast, iPhone AirPlay mirroring, Smart-TV browser and physical Android FPS: **BLOCKED — PHYSICAL DEVICE REQUIRED**. Local `?tv=1` is not hardware cast validation.
+
+## NEXT ACTION
+
+1. Review the comparison and validated local commit; no push or deployment is authorized.
+2. Luis retires the exposed key, updates affected deployments and confirms verification; then decide whether to purge history. Never share secret values in chat or git.
+3. Review the local visual comparison. Next product work should address truly seamless looping, quieter signage and vehicle/material definition; preserve the music-first dock and radio framing.
+4. Arrange isolated Stripe TEST data and physical casting/phone hardware. Any future deployment requires explicit authorization.
+
+## Actual participants and milestone ledger
+
+All participants below are Codex agents using the inherited session model. Exact runtime model identifier was not exposed; no model variant is invented. Claude supplied the initial five-file handoff; its exact model was not independently established. No physical-device tester participated.
+
+| Owner | Files / work | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| `/root` lead | Route wrapper, integration, CSS, preview phase/tests, browser scripts, report | Implemented; browser verified | 31/31 functional checks, three-view comparisons | Build/typecheck/60 tests passed; external security gate |
+| `/root/ux_music` C+D | MiamiStreet, DriveController, pulse; UX/music review | Implemented; independently reviewed bounded runtime evidence | Jolt/banner/preset/resume checks | Stream/browser capture limits |
+| `/root/performance` B | ConvertibleCar, light profile, performance report | Implemented and measured | Controlled A/B/A and 60 s night runs | Physical Android; production desktop cockpit below 30 |
+| `/root/qa_security` E then A | Security and visual reviews; isolated-build runner | Source and pixels independently reviewed | Original/day/night/portrait pairs, preview gate review | Key rollover, shared auth, Stripe and devices |
+
+No paid assets, new dependencies, purchases, pushes, deployments or production mutations. Unrelated files/worktrees remain untouched. Explicit-path staging only. [Detailed ledger](pass5/LEDGER.md).
+
+---
+
+## Historical Pass 3/4 snapshots (superseded by Pass 5 above)
 
 Snapshot: October 9, 2026 · Branch `experiment/cruise-miami-master` · Route `/cruise/miami-test` · Local only, **not deployed**. Not production-ready, not photorealistic.
 Previous snapshot (pass 1 measurements, Astra review): `docs/cruise/master/CURRENT-BUILD-pass1.md`.

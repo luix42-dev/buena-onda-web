@@ -120,12 +120,12 @@ export function cleanOwner(input: unknown): PlotOwner | null {
  *                         no Avenue UI. Drive-bys are still counted silently: that is the audience proof.
  *  - 'preview': the Avenue UI is visible (for sponsor demos); claims stay off server-side.
  *  - 'open'   : full marketplace (also requires CRUISE_PLOTS_ENABLED=1 on the server).
- * Set NEXT_PUBLIC_CRUISE_AVENUE at build time. `?avenue=preview` previews it on any build.
+ * Preview requires server-verified Studio access, including `?avenue=preview` demos.
  */
 export type AvenuePhase = 'hidden' | 'preview' | 'open'
-export function avenuePhase(search = typeof location === 'undefined' ? '' : location.search): AvenuePhase {
+export function avenuePhase(search = typeof location === 'undefined' ? '' : location.search, previewAuthorized = false): AvenuePhase {
   const q = new URLSearchParams(search).get('avenue')
-  if (q === 'preview' || q === '1') return 'preview'
   const env = process.env.NEXT_PUBLIC_CRUISE_AVENUE
-  return env === 'open' || env === 'preview' ? env : 'hidden'
+  if (env === 'open') return 'open'
+  return previewAuthorized && (q === 'preview' || q === '1' || env === 'preview') ? 'preview' : 'hidden'
 }

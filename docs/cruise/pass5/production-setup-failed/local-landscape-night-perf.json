@@ -1,0 +1,27 @@
+{
+  "id": "local-landscape-night-perf",
+  "url": "http://127.0.0.1:3041/cruise/miami-test",
+  "viewport": {
+    "width": 844,
+    "height": 390
+  },
+  "windowDpr": 3,
+  "requestedStation": "jolt",
+  "errors": [],
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    }
+  ],
+  "http": 200,
+  "failure": "page.waitForFunction: Timeout 30000ms exceeded.",
+  "browser": "154.0.4258.62",
+  "date": "2026-10-10T17:01:26.721Z",
+  "physicalDevice": false,
+  "recording": false
+}

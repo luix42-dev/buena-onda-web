@@ -20,7 +20,7 @@ import { useReducedMotion } from './cockpit/motion'
  * mirror (Desktop) and a palm air freshener. Static interior parts are merged per material
  * class (one draw call each); only moving parts stay separate.
  * Night: instrument backlight, under-dash neon spill and a headlight pool on the road
- * (additive decal on Mobile, plus one shadowless SpotLight on Desktop). No postprocessing.
+ * (additive decal on Mobile, plus two shadowless SpotLights on Desktop). No postprocessing.
  * Coordinates: car-local, front = -Z, ground = 0. Driver sits at x = DRIVER_X.
  */
 export const DRIVER_X = -.4
@@ -198,11 +198,10 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     mats.badge.emissive.set('#2bd3a0'); mats.badge.emissiveIntensity = night ? .5 : 0
   }, [mats, night, sunset])
   const neonBase = night ? 1 : sunset ? .35 : 0
-  const beamBase = night ? (high ? .5 : .7) : sunset ? .12 : 0
+  const beamBase = night ? .8 : sunset ? .18 : 0
   useEffect(() => { mats.beam.opacity = beamBase }, [mats, beamBase])
   const neonColor = useMemo(() => new T.Color('#ff4f9a'), [])
 
-  const spotTarget = useMemo(() => new T.Object3D(), [])
   const wheel = useRef<T.Group>(null), speedNeedle = useRef<T.Group>(null), rpmNeedle = useRef<T.Group>(null), freshener = useRef<T.Group>(null)
   const swing = useRef({ a: 0, v: 0, bass: 0 })
   useFrame((_, rawDt) => {
@@ -225,7 +224,7 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     mats.neonGlow.opacity = neon * (high ? .55 : .45)
   })
 
-  const beamLength = 18
+  const beamLength = 30
   return <group name="OceanDriveConvertible">
     <group position-z={Z_OFFSET}><primitive object={body.scene} /></group>
 
@@ -268,14 +267,11 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
       <mesh position={[0, -.1125, 0]} material={mats.freshener}><planeGeometry args={[.075, .225]} /></mesh>
     </group>
 
-    {/* Headlights: additive light pool on the road ahead (all qualities) + one shadowless spot (Desktop). */}
+    {/* Headlights: wide additive road pool on all qualities; real spotlights on Desktop only. */}
     <mesh position={[0, .04, body.front - beamLength / 2 + .4]} rotation-x={-Math.PI / 2} material={mats.beam} visible={beamBase > 0} renderOrder={1}>
-      <planeGeometry args={[5.2, beamLength]} />
+      <planeGeometry args={[12.5, beamLength]} />
     </mesh>
-    {high && <>
-      <primitive object={spotTarget} position={[0, 0, body.front - 14]} />
-      <spotLight position={[0, .78, body.front + .1]} target={spotTarget} color="#ffe6c2" intensity={night ? 26 : sunset ? 4 : 0} distance={34} decay={1.3} angle={.52} penumbra={.75} />
-    </>}
+    <Headlights front={body.front} level={night ? 1 : sunset ? .35 : 0} realLights={high} />
   </group>
 }
 
@@ -301,4 +297,18 @@ function RearViewMirror({ active }: { active: boolean }) {
   return <group ref={root} position={MIRROR_AT}>
     <mesh ref={surface} position-z={.004}><planeGeometry args={[.25, .065]} /><meshBasicMaterial map={active ? fbo.texture : fallback} /></mesh>
   </group>
+}
+
+/**
+ * Desktop gets two shadowless spotlights; Mobile keeps the wide beam decal and glowing lenses.
+ * Keeping Desktop lights mounted at intensity 0 by day avoids time-of-day shader recompiles.
+ * Mobile night cockpit measurements showed a material cost from the two light shaders.
+ */
+function Headlights({ front, level, realLights }: { front: number; level: number; realLights: boolean }) {
+  const targets = useMemo(() => [new T.Object3D(), new T.Object3D()], [])
+  return <group>{[-1, 1].map((side, i) => <group key={side}>
+    <primitive object={targets[i]} position={[side * 2.6, 0, front - 24]} />
+    {realLights && <spotLight position={[side * .62, .74, front + .05]} target={targets[i]} color="#ffe9c4" intensity={level * 2200} distance={120} angle={.62} penumbra={.55} decay={2} castShadow={false} />}
+    <mesh position={[side * .62, .74, front - .005]} rotation-y={Math.PI}><circleGeometry args={[.105, 24]} /><meshStandardMaterial color="#fff8e6" emissive="#fff1cc" emissiveIntensity={level ? 6 * level : .2} toneMapped={!level} /></mesh>
+  </group>)}</group>
 }

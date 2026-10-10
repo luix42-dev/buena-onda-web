@@ -1,0 +1,429 @@
+{
+  "date": "2026-10-10T16:44:13.007Z",
+  "browser": "154.0.4258.62",
+  "physicalDevice": false,
+  "checks": [
+    {
+      "name": "Start gate focused",
+      "pass": true
+    },
+    {
+      "name": "Start gate isolates underlying controls",
+      "pass": true
+    },
+    {
+      "name": "Camera shortcut blocked before Start",
+      "pass": true
+    },
+    {
+      "name": "Start unlocks radio and automatic driving",
+      "pass": true,
+      "evidence": {
+        "source": "groove",
+        "energy": 0.164,
+        "playing": true,
+        "station": "buena-onda-radio",
+        "error": null,
+        "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 2.4,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Debug metrics hidden by default",
+      "pass": true
+    },
+    {
+      "name": "No rendered weapon meshes",
+      "pass": true
+    },
+    {
+      "name": "Jolt analysis becomes live",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.126,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 14.1,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Jolt real analysis varies",
+      "pass": true,
+      "evidence": {
+        "min": 0.037,
+        "max": 0.196
+      }
+    },
+    {
+      "name": "Music drives actual banner geometry; pause settles it",
+      "pass": true,
+      "evidence": {
+        "onBands": [
+          0.6175680942833424,
+          0.6372469551861286,
+          0.6684121340513229,
+          0.6637087017297745,
+          0.6856044977903366,
+          0.8448091894388199,
+          0.8512882068753242,
+          0.8272031545639038,
+          0.8558287173509598,
+          0.9922742396593094,
+          0.9447894468903542,
+          1.0119281187653542,
+          1.0266799330711365,
+          0.8168938532471657,
+          0.838658444583416,
+          0.7819636538624763,
+          0.7171699330210686,
+          0.6566117852926254,
+          0.6147444248199463,
+          0.5861481465399265,
+          0.5487193949520588,
+          0.5021524857729673,
+          0.38775974325835705,
+          0.26194724068045616
+        ],
+        "offBands": [
+          0.11316084861755371,
+          0.11198748648166656,
+          0.11081411689519882,
+          0.10964078456163406,
+          0.1084674596786499,
+          0.10729416459798813,
+          0.10612080991268158,
+          0.10494742542505264,
+          0.10377401858568192,
+          0.10260072350502014,
+          0.10142731666564941,
+          0.10025398433208466,
+          0.09908062219619751,
+          0.09790721535682678,
+          0.09673387557268143,
+          0.0955604836344719,
+          0.09438711404800415,
+          0.09321373701095581,
+          0.09204035997390747,
+          0.09086699038743973,
+          0.08969361335039139,
+          0.08852022141218185,
+          0.08734681457281113,
+          0.0861734077334404
+        ],
+        "state": {
+          "source": "idle",
+          "energy": 0,
+          "playing": false,
+          "station": "jolt-radio",
+          "error": null,
+          "track": "Jolt Radio",
+          "analysis": "Idle / paused",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 48,
+          "running": true,
+          "paused": false
+        }
+      }
+    },
+    {
+      "name": "Camera keeps radio 0",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.077,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 50,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Camera keeps radio 1",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.151,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "side",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 51.6,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Camera keeps radio 2",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.17,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "aerial",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 53.2,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Camera keeps radio 3",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.163,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "low",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 54.8,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Camera keeps radio 4",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.197,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "hood",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 56.5,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Camera keeps radio 5",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.183,
+        "playing": true,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 58.1,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Physical cockpit preset is clickable",
+      "pass": true,
+      "evidence": {
+        "point": {
+          "x": 639.9937666037592,
+          "y": 309.2020823025513
+        },
+        "before": "jolt-radio",
+        "after": "nts-radio"
+      }
+    },
+    {
+      "name": "Store detail pauses driving",
+      "pass": true
+    },
+    {
+      "name": "Closing detail resumes driving",
+      "pass": true
+    },
+    {
+      "name": "Hidden tab pauses ride",
+      "pass": true
+    },
+    {
+      "name": "Visible tab resumes ride",
+      "pass": true
+    },
+    {
+      "name": "Restart keeps automatic ride running",
+      "pass": true
+    },
+    {
+      "name": "Manual acceleration removed",
+      "pass": true
+    },
+    {
+      "name": "Hidden Avenue has no unsolicited cards",
+      "pass": true
+    },
+    {
+      "name": "Street automatically loops",
+      "pass": true,
+      "evidence": {
+        "source": "groove",
+        "energy": 0.42,
+        "playing": true,
+        "station": "nts-radio",
+        "error": null,
+        "track": "NTS 1",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 4.7,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Portrait resize no overflow",
+      "pass": true
+    },
+    {
+      "name": "Portrait dock is compact",
+      "pass": true,
+      "evidence": {
+        "x": 10,
+        "y": 722,
+        "width": 370,
+        "height": 112
+      }
+    },
+    {
+      "name": "Portrait rightmost cockpit preset is visible and clickable",
+      "pass": true,
+      "evidence": {
+        "point": {
+          "x": 221.014052025999,
+          "y": 541.6980248210422
+        },
+        "before": "nts-radio",
+        "after": "nts-radio-2"
+      }
+    },
+    {
+      "name": "Reduced-motion dock EQ is static",
+      "pass": true,
+      "evidence": {
+        "a": [
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)"
+        ],
+        "b": [
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)",
+          "scaleY(0.35)"
+        ]
+      }
+    },
+    {
+      "name": "Desktop night retains two real headlights",
+      "pass": true,
+      "evidence": {
+        "desktopLights": 2,
+        "state": {
+          "source": "groove",
+          "energy": 0.208,
+          "playing": true,
+          "station": "nts-radio-2",
+          "error": null,
+          "track": "NTS 2",
+          "analysis": "Capture restricted; radio playback unaffected",
+          "camera": "driver",
+          "vehicle": "ocean-convertible",
+          "time": "night",
+          "quality": "desktop",
+          "distance": 21.6,
+          "running": true,
+          "paused": false
+        }
+      }
+    },
+    {
+      "name": "Unauthenticated preview stays hidden",
+      "pass": true
+    },
+    {
+      "name": "TV Enter starts automatic ride and radio",
+      "pass": true,
+      "evidence": {
+        "source": "groove",
+        "energy": 0.207,
+        "playing": true,
+        "station": "buena-onda-radio",
+        "error": null,
+        "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "day",
+        "quality": "mobile",
+        "distance": 11,
+        "running": true,
+        "paused": false
+      }
+    }
+  ],
+  "errors": [],
+  "notes": [
+    "Tab visibility change is simulated through the visibilitychange contract.",
+    "Drive position is advanced through the existing local profile probe for boundary tests.",
+    "No production writes or real checkout."
+  ],
+  "passed": true
+}

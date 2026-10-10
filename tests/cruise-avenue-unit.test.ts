@@ -64,15 +64,24 @@ test('seed/house helpers and MAX_PLOT agree with the seed', () => {
   assert.deepEqual([1, 2, 6, 7].map(isHousePlot), [false, true, true, false])
 })
 
-test('avenuePhase: hidden by default, preview via query, env open/preview', () => {
+test('avenuePhase: preview requires authorization, open remains an explicit environment choice', () => {
   withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: undefined }, () => {
     assert.equal(avenuePhase(''), 'hidden')
-    assert.equal(avenuePhase('?avenue=preview'), 'preview')
-    assert.equal(avenuePhase('?avenue=1'), 'preview')
+    assert.equal(avenuePhase('?avenue=preview'), 'hidden')
+    assert.equal(avenuePhase('?avenue=1'), 'hidden')
+    assert.equal(avenuePhase('?avenue=preview', true), 'preview')
+    assert.equal(avenuePhase('?avenue=1', true), 'preview')
+    assert.equal(avenuePhase('', true), 'hidden')
     assert.equal(avenuePhase('?avenue=open'), 'hidden') // the query can never open claims
   })
-  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'open' }, () => assert.equal(avenuePhase(''), 'open'))
-  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'preview' }, () => assert.equal(avenuePhase(''), 'preview'))
+  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'open' }, () => {
+    assert.equal(avenuePhase(''), 'open')
+    assert.equal(avenuePhase('?avenue=preview'), 'open')
+  })
+  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'preview' }, () => {
+    assert.equal(avenuePhase(''), 'hidden')
+    assert.equal(avenuePhase('', true), 'preview')
+  })
   withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'garbage' }, () => assert.equal(avenuePhase(''), 'hidden'))
 })
 

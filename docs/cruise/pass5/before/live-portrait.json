@@ -1,0 +1,321 @@
+{
+  "id": "live-portrait",
+  "url": "https://www.buenaondalifestyle.com/cruise/miami-test",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "windowDpr": 3,
+  "errors": [],
+  "blocked": [
+    {
+      "method": "GET",
+      "path": "/gtag/js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    }
+  ],
+  "http": 200,
+  "loadToReadyMs": 8079,
+  "chase": {
+    "state": {
+      "source": "live",
+      "energy": 0.517,
+      "playing": true,
+      "station": "buena-onda-radio",
+      "error": null,
+      "track": "Moonrunner - Ping Pong",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 31.6
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    ],
+    "heapMB": 47.121432304382324,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Change camera",
+        "rect": {
+          "x": 172.546875,
+          "y": 28,
+          "width": 54.796875,
+          "height": 36,
+          "top": 28,
+          "right": 227.34375,
+          "bottom": 64,
+          "left": 172.546875
+        }
+      },
+      {
+        "name": "Change time of day",
+        "rect": {
+          "x": 232.34375,
+          "y": 28,
+          "width": 56.9375,
+          "height": 36,
+          "top": 28,
+          "right": 289.28125,
+          "bottom": 64,
+          "left": 232.34375
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 294.28125,
+          "y": 28,
+          "width": 48.84375,
+          "height": 36,
+          "top": 28,
+          "right": 343.125,
+          "bottom": 64,
+          "left": 294.28125
+        }
+      },
+      {
+        "name": "More options",
+        "rect": {
+          "x": 348.125,
+          "y": 28,
+          "width": 31.875,
+          "height": 36,
+          "top": 28,
+          "right": 380,
+          "bottom": 64,
+          "left": 348.125
+        }
+      },
+      {
+        "name": "Radio",
+        "rect": {
+          "x": 10,
+          "y": 701.203125,
+          "width": 283.671875,
+          "height": 58.796875,
+          "top": 701.203125,
+          "right": 293.671875,
+          "bottom": 760,
+          "left": 10
+        }
+      },
+      {
+        "name": "Steer left",
+        "rect": {
+          "x": 73,
+          "y": 772,
+          "width": 52,
+          "height": 52,
+          "top": 772,
+          "right": 125,
+          "bottom": 824,
+          "left": 73
+        }
+      },
+      {
+        "name": "Ⅱ",
+        "rect": {
+          "x": 135,
+          "y": 772,
+          "width": 120,
+          "height": 52,
+          "top": 772,
+          "right": 255,
+          "bottom": 824,
+          "left": 135
+        }
+      },
+      {
+        "name": "Steer right",
+        "rect": {
+          "x": 265,
+          "y": 772,
+          "width": 52,
+          "height": 52,
+          "top": 772,
+          "right": 317,
+          "bottom": 824,
+          "left": 265
+        }
+      }
+    ]
+  },
+  "driver": {
+    "state": {
+      "source": "live",
+      "energy": 0.507,
+      "playing": true,
+      "station": "buena-onda-radio",
+      "error": null,
+      "track": "Moonrunner - Ping Pong",
+      "analysis": "Analyzing current radio",
+      "camera": "driver",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 56.5
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    ],
+    "heapMB": 40.59907627105713,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Change camera",
+        "rect": {
+          "x": 201.921875,
+          "y": 28,
+          "width": 62.296875,
+          "height": 36,
+          "top": 28,
+          "right": 264.21875,
+          "bottom": 64,
+          "left": 201.921875
+        }
+      },
+      {
+        "name": "Change time of day",
+        "rect": {
+          "x": 269.21875,
+          "y": 28,
+          "width": 56.9375,
+          "height": 36,
+          "top": 28,
+          "right": 326.15625,
+          "bottom": 64,
+          "left": 269.21875
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 331.15625,
+          "y": 28,
+          "width": 48.84375,
+          "height": 36,
+          "top": 28,
+          "right": 380,
+          "bottom": 64,
+          "left": 331.15625
+        }
+      },
+      {
+        "name": "More options",
+        "rect": {
+          "x": 348.125,
+          "y": 69,
+          "width": 31.875,
+          "height": 36,
+          "top": 69,
+          "right": 380,
+          "bottom": 105,
+          "left": 348.125
+        }
+      },
+      {
+        "name": "Radio",
+        "rect": {
+          "x": 10,
+          "y": 701.203125,
+          "width": 283.671875,
+          "height": 58.796875,
+          "top": 701.203125,
+          "right": 293.671875,
+          "bottom": 760,
+          "left": 10
+        }
+      },
+      {
+        "name": "Explore store ↗",
+        "rect": {
+          "x": 97,
+          "y": 636.0968627929688,
+          "width": 123.53125,
+          "height": 38.09375,
+          "top": 636.0968627929688,
+          "right": 220.53125,
+          "bottom": 674.1906127929688,
+          "left": 97
+        }
+      },
+      {
+        "name": "Dismiss",
+        "rect": {
+          "x": 345,
+          "y": 572.2062377929688,
+          "width": 28,
+          "height": 28,
+          "top": 572.2062377929688,
+          "right": 373,
+          "bottom": 600.2062377929688,
+          "left": 345
+        }
+      },
+      {
+        "name": "Steer left",
+        "rect": {
+          "x": 73,
+          "y": 772,
+          "width": 52,
+          "height": 52,
+          "top": 772,
+          "right": 125,
+          "bottom": 824,
+          "left": 73
+        }
+      },
+      {
+        "name": "Ⅱ",
+        "rect": {
+          "x": 135,
+          "y": 772,
+          "width": 120,
+          "height": 52,
+          "top": 772,
+          "right": 255,
+          "bottom": 824,
+          "left": 135
+        }
+      },
+      {
+        "name": "Steer right",
+        "rect": {
+          "x": 265,
+          "y": 772,
+          "width": 52,
+          "height": 52,
+          "top": 772,
+          "right": 317,
+          "bottom": 824,
+          "left": 265
+        }
+      }
+    ]
+  },
+  "video": "live-portrait.webm",
+  "browser": "154.0.4258.62",
+  "date": "2026-10-10T16:13:28.486Z",
+  "physicalDevice": false,
+  "recording": true
+}
