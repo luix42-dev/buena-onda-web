@@ -1,0 +1,98 @@
+[
+  {
+    "id": "desktop-driver-sunset-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-driver-sunset-mobile.png",
+    "camera": "driver",
+    "time": "sunset",
+    "quality": "mobile",
+    "drawsPerFrame": 352,
+    "softwareMsPerFrame": 39,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "desktop-driver-night-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-driver-night-mobile.png",
+    "camera": "driver",
+    "time": "night",
+    "quality": "mobile",
+    "drawsPerFrame": 358,
+    "softwareMsPerFrame": 41,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "desktop-driver-day-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-driver-day-mobile.png",
+    "camera": "driver",
+    "time": "day",
+    "quality": "mobile",
+    "drawsPerFrame": 357,
+    "softwareMsPerFrame": 45,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "desktop-chase-sunset-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-chase-sunset-mobile.png",
+    "camera": "chase",
+    "time": "sunset",
+    "quality": "mobile",
+    "drawsPerFrame": 366,
+    "softwareMsPerFrame": 32,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "desktop-driver-sunset-desktop",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-driver-sunset-desktop.png",
+    "camera": "driver",
+    "time": "sunset",
+    "quality": "desktop",
+    "drawsPerFrame": 814,
+    "softwareMsPerFrame": 51,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "desktop-driver-night-desktop",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-desktop-driver-night-desktop.png",
+    "camera": "driver",
+    "time": "night",
+    "quality": "desktop",
+    "drawsPerFrame": 815,
+    "softwareMsPerFrame": 52,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "phone-landscape-driver-sunset-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-phone-landscape-driver-sunset-mobile.png",
+    "camera": "driver",
+    "time": "sunset",
+    "quality": "mobile",
+    "drawsPerFrame": 352,
+    "softwareMsPerFrame": 17,
+    "headUnit": null,
+    "errors": []
+  },
+  {
+    "id": "phone-landscape-driver-night-mobile",
+    "tag": "before",
+    "path": "docs/cruise/pass3/cockpit/before-phone-landscape-driver-night-mobile.png",
+    "camera": "driver",
+    "time": "night",
+    "quality": "mobile",
+    "drawsPerFrame": 358,
+    "softwareMsPerFrame": 17,
+    "headUnit": null,
+    "errors": []
+  }
+]

@@ -1,4 +1,167 @@
-.miami-master{background:#102b32;color:#f8edda;min-height:100vh;padding:20px;font-family:Arial,sans-serif}.miami-master header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.miami-master h1{font:italic 32px Georgia;margin:5px 0}.miami-master a{color:#a8ddd0}.miami-master small{font-size:10px;letter-spacing:2px}.miami-master button,.miami-master select{background:#203e44;color:#fff0d7;border:1px solid #64837e;border-radius:5px;padding:10px 13px;min-height:42px;cursor:pointer}.miami-master button[aria-pressed=true]{background:#e8b97f;color:#102b32}.miami-master button:disabled{opacity:.5}.mm-tools,.mm-touch{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.mm-tools{margin-bottom:12px}.mm-stage{height:min(68vh,760px);min-height:340px;position:relative;border:1px solid #77918b;border-radius:9px;overflow:hidden}.mm-status{position:absolute;top:12px;left:15px;background:#102b32b0;padding:8px 12px;font-size:11px;pointer-events:none}.mm-status span{margin-left:20px}.mm-bottom{padding:10px 0}.mm-bottom p{font-size:11px;color:#b9cbc5}.mm-touch button{touch-action:none}.mm-touch label{font-size:12px;display:flex;align-items:center;gap:8px}.mm-discovery{max-width:360px;background:#e8dbc3;color:#17343a;border-radius:8px;padding:14px;display:inline-block;margin:6px 0}.mm-discovery strong{display:block;font:22px Georgia;margin-top:5px}.mm-discovery p{font-size:13px;margin:7px 0}.mm-discovery button{margin-right:6px}.mm-radio,.mm-directory{padding:14px;background:#19373d;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}.mm-radio span{font-size:12px;max-width:350px}.mm-radio label{display:flex;gap:8px;align-items:center}.mm-modal{position:fixed;z-index:100;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,460px);padding:28px;background:#eedfc6;color:#17343a;border:2px solid #588780;border-radius:12px;box-shadow:0 0 0 100vmax #00182099}.mm-modal p{margin:12px 0}.mm-modal h2{font:28px Georgia;margin-top:15px}@media(max-width:600px){.miami-master{padding:10px}.miami-master h1{font-size:24px}.miami-master header a{font-size:12px}.mm-stage{height:56vw;min-height:220px}.mm-tools{gap:5px}.miami-master button,.miami-master select{padding:8px;font-size:12px}.mm-status{font-size:9px;left:6px;top:6px;padding:5px}.mm-status span{margin-left:8px}.mm-discovery{max-width:100%}}@media(max-height:500px) and (orientation:landscape){.miami-master header{display:none}.mm-stage{height:72vh;min-height:250px}.miami-master{padding:5px}.mm-tools{margin-bottom:5px}}
-.mm-status{top:auto;left:auto;right:10px;bottom:10px}@media(max-height:500px) and (orientation:landscape){.mm-tools{flex-wrap:nowrap;overflow-x:auto;min-height:44px}.mm-tools>*{flex-shrink:0}.mm-stage{height:calc(100dvh - 130px);min-height:180px}.mm-touch{flex-wrap:nowrap}.mm-bottom{padding:6px 0}.mm-status{font-size:9px;padding:4px;bottom:5px;right:5px}}
-.mm-credits{font-size:10px;color:#9eb7b1;max-width:850px;margin-top:18px;line-height:1.6}
-.mm-backdrop{position:fixed;inset:0;z-index:99;background:#00182099}.mm-modal{box-shadow:none}
+/* Buena Onda Cruise — Ocean Drive overlay HUD. Glass pills over the scene, coral CTA, neon accents. */
+.miami-master{--ink:#fff6e8;--glass:rgba(22,18,34,.62);--glass2:rgba(22,18,34,.82);--line:rgba(255,255,255,.16);--coral:#ff6f61;--pink:#ff4f9a;--teal:#38f0dc;--amber:#ffb347;
+  background:#0f0c18;color:var(--ink);min-height:100dvh;font-family:var(--font-sans,'Outfit'),system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.miami-master button,.miami-master select,.miami-master input{font:inherit;color:inherit}
+.miami-master button{cursor:pointer}
+.mm-stage{position:relative;height:100dvh;min-height:320px;overflow:hidden;background:#1a1426;isolation:isolate}
+.mm-stage canvas{display:block}
+.mm-fail{padding:40px}
+
+/* Lockup */
+.mm-lockup{position:absolute;top:32px;left:22px;z-index:5;display:flex;flex-direction:column;line-height:.9;pointer-events:none;text-shadow:0 2px 18px rgba(80,0,60,.45)}
+.mm-lockup b{font-family:var(--font-display,'Bebas Neue'),Impact,sans-serif;font-size:34px;letter-spacing:.06em;background:linear-gradient(180deg,#fff 0%,#ffe1f0 55%,#ff9cc8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 3px rgba(60,0,50,.75)) drop-shadow(0 0 14px rgba(255,79,154,.45))}
+.mm-lockup i{font-family:'Brush Script MT','Segoe Script',cursive;font-size:30px;color:var(--pink);margin:-4px 0 0 48px;text-shadow:0 0 12px rgba(255,79,154,.8)}
+.mm-lockup small{margin-top:8px;font-size:10px;letter-spacing:.24em;opacity:.85;border:1px solid var(--line);border-radius:999px;padding:5px 10px;width:max-content;background:var(--glass)}
+
+/* Ticker */
+.av-ticker{position:absolute;top:0;left:0;right:0;height:22px;z-index:4;overflow:hidden;background:linear-gradient(90deg,rgba(255,79,154,.0),rgba(22,18,34,.55) 20%,rgba(22,18,34,.55) 80%,rgba(56,240,220,0));font:600 10px/22px var(--font-mono,'Space Mono'),monospace;letter-spacing:.14em;pointer-events:none}
+.av-ticker-track{display:inline-flex;gap:46px;white-space:nowrap;animation:av-scroll 70s linear infinite;padding-left:100%}
+.av-ticker-track span:nth-child(odd){color:var(--teal)}
+@keyframes av-scroll{to{transform:translateX(-100%)}}
+
+/* Top-right controls */
+.mm-top{position:absolute;top:34px;right:18px;z-index:5;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:62vw}
+.mm-top button{background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:9px 14px;min-height:40px;font-size:13px;letter-spacing:.04em;text-transform:capitalize;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.mm-top button:hover{border-color:rgba(255,255,255,.4)}
+.mm-avenue{background:linear-gradient(90deg,rgba(255,79,154,.35),rgba(56,240,220,.25))!important;border-color:rgba(255,79,154,.6)!important}
+.mm-avenue em{font-style:normal;margin-left:6px;font-size:11px;opacity:.85}
+
+/* Now playing pill */
+.mm-now{position:absolute;left:18px;bottom:18px;z-index:5;display:flex;align-items:center;gap:12px;background:var(--glass2);border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 8px;min-width:230px;max-width:min(420px,60vw);text-align:left;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.mm-disc{width:40px;height:40px;border-radius:50%;flex:none;background:radial-gradient(circle,#ff8a5b 0 22%,#111 23% 26%,#1d1d1f 27% 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),0 0 0 2px var(--pink)}
+.mm-disc.spin{animation:mm-spin 1.8s linear infinite}
+@keyframes mm-spin{to{transform:rotate(360deg)}}
+.mm-now-text{display:flex;flex-direction:column;min-width:0;flex:1}
+.mm-now-text b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mm-now-text small{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mm-eq{display:flex;gap:3px;align-items:flex-end;height:20px}
+.mm-eq i{width:3px;height:20px;background:linear-gradient(var(--pink),var(--amber));transform-origin:bottom;transform:scaleY(.15);border-radius:2px}
+
+/* Sponsored card (bottom right) */
+.mm-sponsor{position:absolute;right:18px;bottom:18px;z-index:5;display:flex;gap:12px;align-items:center;background:var(--glass2);border:1px solid var(--line);border-radius:16px;padding:10px 34px 20px 10px;max-width:min(380px,70vw);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:mm-in .35s ease-out}
+@keyframes mm-in{from{opacity:0;transform:translateY(10px)}}
+.mm-sponsor img,.mm-plotnum{width:64px;height:64px;border-radius:10px;object-fit:cover;flex:none;background:#2aa79f}
+.mm-plotnum{display:grid;place-items:center;font:800 18px var(--font-display,'Bebas Neue'),sans-serif;letter-spacing:.06em;border:1px dashed var(--pink)}
+.mm-sponsor div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mm-sponsor b{font-size:15px}
+.mm-sponsor small{font-size:12px;opacity:.75}
+.mm-sponsor div button{margin-top:6px;align-self:flex-start;background:var(--coral);border:0;border-radius:999px;padding:8px 16px;font-weight:700;font-size:13px;color:#fff;box-shadow:0 6px 18px rgba(255,111,97,.35)}
+.mm-sponsor>em{position:absolute;right:14px;bottom:6px;font-style:normal;font-size:10px;opacity:.6}
+.mm-x{position:absolute;top:4px;right:6px;background:none;border:0;font-size:18px;opacity:.6;width:28px;height:28px}
+
+/* Drive controls */
+.mm-drive{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:5;display:flex;gap:10px;align-items:center}
+.mm-drive button{background:var(--glass);border:1px solid var(--line);color:var(--ink);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.mm-steer{width:52px;height:52px;border-radius:50%;font-size:30px;line-height:1;touch-action:none;user-select:none}
+.mm-go{min-width:120px;height:52px;border-radius:999px;font-weight:700;letter-spacing:.06em;background:linear-gradient(90deg,rgba(255,79,154,.55),rgba(255,111,97,.55))!important}
+.mm-go:disabled{opacity:.6}
+.mm-status{position:absolute;left:50%;transform:translateX(-50%);bottom:80px;z-index:4;font:600 9px var(--font-mono,'Space Mono'),monospace;letter-spacing:.14em;opacity:.55;pointer-events:none;white-space:nowrap}
+.mm-status span{margin-left:12px}
+
+/* Panels */
+.mm-panel,.av-drawer{position:absolute;top:80px;right:18px;z-index:8;width:min(360px,calc(100vw - 36px));max-height:calc(100% - 180px);overflow:auto;background:var(--glass2);border:1px solid var(--line);border-radius:18px;padding:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;flex-direction:column;gap:12px;animation:mm-in .25s ease-out}
+.mm-panel header,.av-drawer header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.mm-panel header button,.av-drawer header button{background:none;border:0;font-size:22px;line-height:1;opacity:.7}
+.mm-panel label{display:flex;flex-direction:column;gap:6px;font-size:12px;letter-spacing:.06em;opacity:.9}
+.mm-panel select{background:#221c33;border:1px solid var(--line);border-radius:10px;padding:9px}
+.mm-big{display:block;text-align:center;text-decoration:none;background:var(--coral);color:#fff;border:0;border-radius:999px;padding:12px 18px;font-weight:700;letter-spacing:.04em}
+.mm-big.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.mm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.mm-chips button{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;display:flex;flex-direction:column;align-items:flex-start;text-transform:capitalize}
+.mm-chips button small{font-size:9px;letter-spacing:.2em;color:var(--amber)}
+.mm-chips button[aria-pressed=true]{border-color:var(--amber);background:rgba(255,179,71,.14)}
+.mm-signal{font-size:12px;color:var(--teal);margin:0}
+.mm-fine{font-size:11px;opacity:.7;margin:0;line-height:1.5}
+.mm-error,.av-error{color:#ff9a8a;font-size:12px;margin:0}
+.mm-vol{display:flex;flex-direction:column;font-size:12px;gap:6px}
+.mm-qr{display:flex;gap:12px;align-items:center}
+.mm-qr svg{border-radius:10px;flex:none}
+
+/* Avenue drawer */
+.av-drawer small{font-size:10px;letter-spacing:.22em;color:var(--teal)}
+.av-drawer h2{margin:4px 0 0;font:400 26px/1 var(--font-display,'Bebas Neue'),Impact,sans-serif;letter-spacing:.04em}
+.av-drawer h3{margin:6px 0 0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.av-lede{font-size:12px;opacity:.8;margin:0;line-height:1.5}
+.av-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.av-list button{width:100%;display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;text-align:left;background:rgba(255,255,255,.04);border:1px solid transparent;border-radius:10px;padding:8px 10px;font-size:13px}
+.av-list button:hover{border-color:var(--line)}
+.av-list b{font-family:var(--font-mono,'Space Mono'),monospace;color:var(--pink)}
+.av-list em{font-style:normal;font-size:11px;opacity:.75}
+
+/* Cards / modals */
+.av-backdrop{position:absolute;inset:0;z-index:20;background:rgba(10,6,20,.55);display:grid;place-items:center;padding:16px}
+.av-card{width:min(440px,100%);border-radius:20px;overflow:hidden;background:#17122a;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.av-card-top{padding:22px 22px 18px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.25)}
+.av-card-top small{font-size:10px;letter-spacing:.22em;opacity:.9}
+.av-card-top h2{margin:6px 0;font:400 34px/1 var(--font-display,'Bebas Neue'),Impact,sans-serif;letter-spacing:.03em}
+.av-card-top p{margin:0;font-size:13px;opacity:.92}
+.av-card-body{padding:18px 22px 22px;display:flex;flex-direction:column;gap:12px}
+.av-card dl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0}
+.av-card dt{font-size:10px;letter-spacing:.18em;opacity:.6;text-transform:uppercase}
+.av-card dd{margin:2px 0 0;font:700 18px var(--font-mono,'Space Mono'),monospace}
+.av-actions{display:flex;gap:8px;flex-wrap:wrap}
+.av-btn{background:var(--coral);color:#fff;border:0;border-radius:999px;padding:10px 16px;font-weight:700;text-decoration:none;font-size:14px}
+.av-btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.av-btn:disabled{opacity:.6}
+.av-fine{font-size:11px;opacity:.7;margin:0;line-height:1.5}
+.av-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;opacity:.9}
+.av-form input{background:#221c33;border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--ink)}
+.av-form input[type=color]{padding:2px;height:40px;width:80px}
+
+/* Loop fade */
+.mm-fade{position:absolute;inset:0;z-index:6;background:#0f0c18;opacity:0;pointer-events:none;transition:opacity .8s}
+.mm-fade.on{opacity:1}
+
+/* TV mode */
+.mm-tv .mm-stage{cursor:none}
+.mm-tv .mm-lockup b{font-size:52px}.mm-tv .mm-lockup i{font-size:44px;margin-left:80px}.mm-tv .mm-lockup small{font-size:13px}
+.mm-tv .mm-now{left:4vw;bottom:5vh;min-width:420px;padding:12px 28px 12px 12px}
+.mm-tv .mm-disc{width:64px;height:64px}
+.mm-tv .mm-now-text b{font-size:24px}.mm-tv .mm-now-text small{font-size:13px}
+.mm-tv .mm-status{display:none}
+.mm-tvcard{position:absolute;right:4vw;bottom:5vh;z-index:5;display:flex;align-items:center;gap:16px;background:var(--glass2);border:1px solid var(--line);border-radius:20px;padding:14px 14px 14px 14px;max-width:46vw;animation:mm-in .5s ease-out;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.mm-tvswatch{width:12px;align-self:stretch;border-radius:6px}
+.mm-tvcard>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mm-tvcard small{font-size:12px;letter-spacing:.22em;color:var(--teal)}
+.mm-tvcard b{font-size:26px}
+.mm-tvcard span{font-size:15px;opacity:.8}
+.mm-tvqr{display:flex!important;flex-direction:column;align-items:center;gap:4px}
+.mm-tvqr svg{border-radius:10px}
+.mm-tvgate{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 50% 60%,rgba(255,79,154,.35),rgba(15,12,24,.92));border:0;color:var(--ink);cursor:pointer}
+.mm-tvgate b{font:400 64px var(--font-display,'Bebas Neue'),Impact,sans-serif;letter-spacing:.06em}
+.mm-tvgate small{letter-spacing:.24em;font-size:13px;opacity:.8}
+
+/* Remote */
+.mm-remote{padding:22px;display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto}
+.mm-remote .mm-lockup{position:static}
+.mm-remote h3{margin:8px 0 0;font-size:11px;letter-spacing:.2em;opacity:.7;text-transform:uppercase}
+.mm-remote-now{background:linear-gradient(135deg,rgba(255,79,154,.25),rgba(56,240,220,.15));border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.mm-remote-now small{letter-spacing:.24em;font-size:10px;color:var(--teal)}
+.mm-remote-now strong{font:400 34px var(--font-display,'Bebas Neue'),Impact,sans-serif}
+.mm-stop{background:none;border:1px solid var(--line);border-radius:999px;padding:12px;color:var(--ink);margin-top:10px}
+
+.mm-credits{font-size:10px;color:#9a93b0;max-width:900px;margin:0;padding:12px 18px 20px;line-height:1.6}
+
+@media (max-width:700px){
+  .mm-lockup{top:28px;left:12px}.mm-lockup b{font-size:24px}.mm-lockup i{font-size:22px;margin-left:30px}.mm-lockup small{display:none}
+  .mm-top{top:28px;right:10px;gap:5px;max-width:55vw}.mm-top button{padding:7px 10px;min-height:36px;font-size:11px}
+  .mm-now{left:10px;bottom:84px;min-width:0;max-width:calc(100vw - 20px)}
+  .mm-sponsor{left:10px;right:10px;bottom:150px;max-width:none}
+  .mm-panel,.av-drawer{top:auto;bottom:10px;right:10px;left:10px;width:auto;max-height:70%}
+}
+@media (max-height:500px) and (orientation:landscape){
+  .mm-lockup small,.av-ticker{display:none}
+  .mm-now{bottom:10px;left:10px}.mm-drive{bottom:10px}.mm-sponsor{bottom:10px;right:10px;max-width:34vw}.mm-sponsor img,.mm-plotnum{width:44px;height:44px}
+  .mm-status{bottom:68px}
+}
+
+/* Cockpit: keep the status readout off the steering wheel and instruments. */
+.mm-cockpit .mm-status{bottom:auto;top:16px}
+.mm-check{display:flex;align-items:center;gap:8px}
+.mm-check input{width:auto}
+
+/* Reduced motion: stop the ticker scroll, disc spin, mini EQ and entrance animations. */
+@media (prefers-reduced-motion: reduce){
+  .miami-master *, .miami-master *::before, .miami-master *::after{animation:none!important;transition:none!important}
+  .av-ticker-track{transform:none!important}
+}

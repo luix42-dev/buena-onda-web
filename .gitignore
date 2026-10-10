@@ -53,3 +53,6 @@ refs/
 origin/
 refs/
 .env*
+
+# Local Claude Code settings can hold credentials; never track them.
+.claude/settings.local.json

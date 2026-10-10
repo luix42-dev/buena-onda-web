@@ -14,7 +14,8 @@ export class MusicAudio {
   private source: MediaStreamAudioSourceNode | null = null
   private analyser: AnalyserNode | null = null
   private stream: MediaStream | null = null
-  private bins = new Uint8Array(1024)
+  /** Latest frequency bins (0-255). Read-only for visualizers; refreshed ~30 Hz while analysis is active. */
+  readonly bins = new Uint8Array(1024)
   private waveform = new Uint8Array(2048)
   private timer = 0
   private previous = 0

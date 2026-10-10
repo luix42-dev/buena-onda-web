@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { createServiceClient } from '@/lib/supabase/server'
 import CruiseClient from './CruiseClient'
 
@@ -53,5 +54,12 @@ export default async function CruisePage() {
   const { scenes, channels, error } = await loadCruiseData()
   if (error) return <CruiseError message={error} />
 
-  return <CruiseClient initialScenes={scenes ?? []} initialChannels={channels ?? []} />
+  return (
+    <>
+      <p style={{ padding: '12px 16px 0', margin: 0, fontSize: '0.85rem' }}>
+        <Link href="/studio/cruise/avenue" style={{ color: 'inherit' }}>Avenue moderation →</Link>
+      </p>
+      <CruiseClient initialScenes={scenes ?? []} initialChannels={channels ?? []} />
+    </>
+  )
 }

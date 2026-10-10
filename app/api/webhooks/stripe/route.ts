@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { fulfillCheckoutSession, fulfillElementsPaymentIntent, type FulfillOrderResult } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
+import { handleCruisePlotEvent, isCruisePlotSession } from '@/lib/cruise/plot-fulfillment'
 export const runtime = 'nodejs'
 
 function isPaid(session: Stripe.Checkout.Session) {
@@ -36,6 +37,16 @@ export async function POST(request: NextRequest) {
 
   if (event.livemode !== (process.env.STRIPE_SECRET_KEY ?? '').includes('_live_')) {
     return NextResponse.json({ error: 'Payment environment mismatch' }, { status: 400 })
+  }
+
+  // Cruise Avenue plots are a separate product. Every checkout.session.* event for a cruise plot
+  // session is handled here, before the switch, so it can never reach item/order fulfillment.
+  if (event.type.startsWith('checkout.session.')) {
+    const session = event.data.object as Stripe.Checkout.Session
+    if (isCruisePlotSession(session)) {
+      const cruise = await handleCruisePlotEvent(event.type, session)
+      return NextResponse.json(cruise.body, { status: cruise.status })
+    }
   }
 
   let sourceId = ''

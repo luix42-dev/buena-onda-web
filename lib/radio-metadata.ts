@@ -34,6 +34,8 @@ export async function mergeTrackMetadata(rawTracks: Track[]): Promise<Track[]> {
 
   const keys = rawTracks.filter(trackKey).map(track => track.key)
   if (keys.length === 0) return rawTracks.map((track, index) => ({ ...track, position: index }))
+  // Local/preview environments without Supabase still play the R2 playlist in listing order.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return rawTracks.map((track, index) => ({ ...track, position: index }))
 
   const supabase = createServiceRoleClient()
   const { data, error } = await supabase

@@ -8,7 +8,7 @@ export type StreetSample={fps:number;p95:number;calls:number;triangles:number;te
 declare global{interface Window{__street?:StreetSample;__streetSamples?:StreetSample[];__streetEvents?:{type:string;id:string;time:number}[];__streetDrive?:DriveState}}
 export function event(type:string,id:string){window.__streetEvents=[...(window.__streetEvents||[]),{type,id,time:performance.now()}].slice(-500)}
 export default function StreetMetrics({drive,mode,onSample}:{drive:MutableRefObject<DriveState>;mode:string;onSample:(s:StreetSample)=>void}){
- const {scene,camera,gl,size}=useThree(),acc=useRef(0),frames=useRef<number[]>([]),last=useRef(0),history=useRef(new Map<string,{continuous:number;max:number;lastVisible:boolean}>()),previous=useRef(mode),previousDistance=useRef(0),qualified=useRef(new Set<string>())
+ const {scene,camera,gl,size}=useThree(),measure=useRef(typeof location!=='undefined'&&new URLSearchParams(location.search).has('metrics')),acc=useRef(0),frames=useRef<number[]>([]),last=useRef(0),history=useRef(new Map<string,{continuous:number;max:number;lastVisible:boolean}>()),previous=useRef(mode),previousDistance=useRef(0),qualified=useRef(new Set<string>())
  useFrame((_,dt)=>{
   window.__streetDrive=drive.current
   if(drive.current.distance<previousDistance.current)qualified.current.clear()
@@ -16,7 +16,8 @@ export default function StreetMetrics({drive,mode,onSample}:{drive:MutableRefObj
   previousDistance.current=drive.current.distance
   acc.current+=dt;frames.current.push(dt*1000);if(acc.current<.25)return
   const interval=Math.min(acc.current,.4),ads:AdSample[]=[],ray=new T.Raycaster(),objects:T.Mesh[]=[]
-  scene.updateMatrixWorld();scene.traverseVisible(o=>{if(o instanceof T.Mesh)objects.push(o)})
+  // Sign exposure sampling (raycasts) only runs for measurement sessions: ?metrics=1.
+  if(measure.current){scene.updateMatrixWorld();scene.traverseVisible(o=>{if(o instanceof T.Mesh)objects.push(o)})}
   for(const mesh of objects.filter(o=>o.userData.adId)){
    const id=String(mesh.userData.adId);mesh.geometry.computeBoundingBox();const b=mesh.geometry.boundingBox!;const center=b.getCenter(new T.Vector3()).applyMatrix4(mesh.matrixWorld)
    const normal=new T.Vector3(0,0,1).transformDirection(mesh.matrixWorld),toEye=camera.position.clone().sub(center).normalize(),cos=normal.dot(toEye),distance=center.distanceTo(camera.position)
