@@ -34,7 +34,8 @@ test('migration seeds open plots 1, 7–9 and 11–30, house plots 2–6 and 10'
   const r = await db.query<{ status: string; n: number }>(`select status, count(*)::int as n from public.cruise_plots group by status order by status`)
   assert.deepEqual(r.rows, [{ status: 'house', n: 6 }, { status: 'open', n: 24 }])
   const seedHouse = SEED_PLOTS.filter(p => p.status === 'house').map(p => p.number)
-  assert.deepEqual(seedHouse, [2, 3, 4, 5, 6, 10])
+  assert.deepEqual(seedHouse, [2, 3, 4, 5, 6])
+  assert.equal(SEED_PLOTS.some(p => p.number === 10), false) // retired: no geometry, never sold
 })
 
 test('TEST claim of plot 7 lands pending (not approved) and is hidden on the street', async () => {

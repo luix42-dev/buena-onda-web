@@ -246,7 +246,12 @@ export default function MiamiStreet() {
         <button onClick={() => setPanel(panel === 'menu' ? null : 'menu')} aria-label="More options">⋯</button>
       </nav>}
 
-      <button className="mm-now" onClick={() => tv ? audio.toggle() : setPanel(panel === 'radio' ? null : 'radio')} aria-label="Radio">
+      <button className="mm-now" onClick={() => {
+        // The pill says "Tap to play": a tap starts the radio (and shows the stations); once playing it toggles the panel.
+        if (tv) { audio.toggle(); return }
+        if (!audio.playing && !(audio.loading && audio.requested)) { audio.toggle(); setPanel('radio'); return }
+        setPanel(panel === 'radio' ? null : 'radio')
+      }} aria-label="Radio">
         <span className={`mm-disc${audio.playing ? ' spin' : ''}`} aria-hidden />
         <span className="mm-now-text"><b>{audio.station.name}</b><small>{audio.error ? 'Signal lost · tap' : audio.loading && audio.requested ? 'Tuning…' : audio.playing ? (audio.trackTitle || 'Playing') : 'Tap to play'}</small></span>
         <MiniEq on={audio.playing} />
@@ -294,6 +299,8 @@ export default function MiamiStreet() {
         <label>Speed<input aria-label="Cruising speed" type="range" min="2" max="8" step=".5" defaultValue="3.5" onChange={e => { drive.current.speed = Number(e.target.value) }} /></label>
         <div className="mm-chips"><button onClick={() => { drive.current.autopilot = !drive.current.autopilot; setAutoDirector(!!drive.current.autopilot) }}>Lean back (autopilot + director)</button><button onClick={() => reset()}>Restart</button>{(Object.keys(businesses) as Business[]).map(id => <button key={id} onClick={() => explore(id)}>{businesses[id].name}</button>)}</div>
         <p className="mm-fine">Arrows/WASD steer · Space pauses · Q/E glance · C camera.</p>
+        {/* Credits live here, not below the stage: a taller-than-viewport page scrolled on Space/arrows. */}
+        <p className="mm-credits">Ocean Drive &apos;84 body and traffic: classic-traffic (CC0, see ASSETS). Pedestrians: Quaternius (CC0). Palm: Yughues / Nobiax (CC0). Asphalt: Poly Haven (CC0). Coastal Coupe: Mazda RX-7 by IvOfficial, Poly Pizza, CC BY 3.0. QR: qrcode-generator (MIT).{showAds ? ' All signs on the Avenue are plots; open plots say so.' : ''}</p>
       </section>}
       {panel === 'avenue' && showAds && <AvenueDrawer plots={avenue.plots} live={avenue.live} onSelect={openPlot} onClose={() => setPanel(null)} />}
 
@@ -305,7 +312,6 @@ export default function MiamiStreet() {
 
       {tv && tvGate && !isPresentationReceiver() && <button ref={gateButton} className="mm-tvgate" autoFocus onClick={startTv} disabled={!ready}><b>{ready ? 'Start the Cruise' : 'Loading the street…'}</b><small>Full screen · radio on · lean back</small></button>}
     </section>
-    {!tv && <p className="mm-credits">Ocean Drive &apos;84 body and traffic: classic-traffic (CC0, see ASSETS). Pedestrians: Quaternius (CC0). Palm: Yughues / Nobiax (CC0). Asphalt: Poly Haven (CC0). Coastal Coupe: Mazda RX-7 by IvOfficial, Poly Pizza, CC BY 3.0. QR: qrcode-generator (MIT).{showAds ? ' All signs on the Avenue are plots; open plots say so.' : ''}</p>}
   </main>
 }
 

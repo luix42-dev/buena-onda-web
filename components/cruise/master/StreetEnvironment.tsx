@@ -248,8 +248,10 @@ function Architecture({ timeOfDay }: { timeOfDay: Time }) {
     }
     for (let s = 16; s < 220; s += 27) for (const side of [-1, 1]) {
       const x = streetX(s) + side * 8.9
-      add('#2f4744', [x, 3.5, -s], [.14, 7, .14]); add('#2f4744', [x - side * .65, 6.9, -s], [1.4, .14, .14])
-      add('light', [x - side * 1.25, 6.8, -s], [.65, .12, .42]); add('#d9cbb6', [x, .25, -s], [.6, .5, .6])
+      if (!isOpenSightline(s, side)) {
+        add('#2f4744', [x, 3.5, -s], [.14, 7, .14]); add('#2f4744', [x - side * .65, 6.9, -s], [1.4, .14, .14])
+        add('light', [x - side * 1.25, 6.8, -s], [.65, .12, .42]); add('#d9cbb6', [x, .25, -s], [.6, .5, .6])
+      }
       if (side === B) { add('#b9936a', [x + B * 3, .52, -s - 4], [.6, .15, 2.3]); add('#2f4744', [x + B * 3, .26, -s - 4.8], [.5, .45, .08]); add('#2f4744', [x + B * 3, .26, -s - 3.2], [.5, .45, .08]); add('#2f4744', [x + B * 3.32, .9, -s - 4], [.06, .75, 2.3]) }
     }
     // Lifeguard tower on the beach.
@@ -338,6 +340,8 @@ function Batched({ url, placements, shadows = true, sway = false }: { url: strin
 }
 
 const AD_STATIONS = [56, 84, 144]
+/** The ocean-side lamp at s=43 stood in front of billboard #1 (s=56) from the start line: no post there (its bench stays). */
+const isOpenSightline = (s: number, side: number) => s === 43 && side === B
 const PALMS: Placement[] = [
   ...Array.from({ length: 19 }, (_, i) => ({ s: 10 + i * 11.3, i })).filter(({ s }) => AD_STATIONS.every(a => Math.abs(a - s) > 4))
     .map(({ s, i }) => ({ x: streetX(s) + B * (12.5 + (i % 2) * 3), z: -s, scale: .69 + (i % 4) * .055, yaw: i * 2.4 })),
@@ -496,6 +500,7 @@ function LightPools({ time }: { time: Time }) {
   const geometry = useMemo(() => {
     const parts: T.BufferGeometry[] = []
     for (let s = 16; s < 220; s += 27) for (const side of [-1, 1]) {
+      if (isOpenSightline(s, side)) continue
       const g = new T.PlaneGeometry(10, 10); g.rotateX(-Math.PI / 2); g.translate(streetX(s) + side * (8.9 - 2.2), .06, -s); parts.push(g)
     }
     const merged = mergeGeometries(parts)!; parts.forEach(g => g.dispose()); return merged
@@ -721,7 +726,7 @@ export default function StreetEnvironment({ timeOfDay, onAdClick, onPlotClick: p
     <FacadeSign s={SITES[4]} a={5.9} y={4.65} w={16.5} h={1.55} texture={cafeSol} night={night} />
     <EventBanner s={62} night={night} />
     <BannerEQ s={62} />
-    {plots.filter(p => p.kind === 'lamp').map(p => <LampFlag key={p.number} plot={p} night={night} onClick={onPlotClick} phase={avenue} />)}
+    {plots.filter(p => p.kind === 'lamp' && !isOpenSightline(p.s, p.side)).map(p => <LampFlag key={p.number} plot={p} night={night} onClick={onPlotClick} phase={avenue} />)}
     {plots.filter(p => p.kind === 'bench').map(p => <BenchPanel key={p.number} plot={p} night={night} onClick={onPlotClick} phase={avenue} />)}
     <LightPools time={timeOfDay} />
     <Traffic drive={drive} />

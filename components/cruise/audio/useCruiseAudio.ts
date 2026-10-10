@@ -65,6 +65,7 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
   const trackIndexRef = useRef(0)
   const wantsPlaybackRef = useRef(false)
   const failedTracksRef = useRef(0)
+  const corsRetryRef = useRef('')
   const sourceRevisionRef = useRef(0)
   const unlockedRef = useRef(false)
   const unlockPromiseRef = useRef<Promise<void> | null>(null)
@@ -430,6 +431,13 @@ export function useCruiseAudio(music?: MusicAudio): CruiseAudio {
       const expected = tracksRef.current[trackIndexRef.current]?.src
       if (!audio.error || !expected || audio.currentSrc !== new URL(expected, window.location.href).href) return
       clearLoadingTimeout()
+      // A media error cannot tell CORS from a transient failure (the r2.dev host answers 503 under load).
+      // Retry the same file once with CORS kept, so one bad response does not cost live analysis for the visit.
+      if (music && audio.crossOrigin === 'anonymous' && corsRetryRef.current !== expected) {
+        corsRetryRef.current = expected
+        window.setTimeout(() => { if (audio.currentSrc === new URL(expected, window.location.href).href) { audio.load(); if (wantsPlaybackRef.current) attemptPlay() } }, 700)
+        return
+      }
       // Capture is optional. A CORS failure retries ordinary radio on the same element.
       if (music && audio.crossOrigin === 'anonymous') {
         music.detach(); music.status = 'CORS unavailable; ordinary radio playback'

@@ -237,3 +237,11 @@ Pages:
 - `?avenue=preview` (Avenue UI; claims still 503)
 - `?tv=1` (lean-back)
 - `?metrics=1` (sign exposure sampling and FPS readout)
+
+## Live review fixes (October 10, 2026)
+
+Reviewed on https://www.buenaondalifestyle.com/cruise/miami-test after deploy. Found and fixed (verified locally, pending the next push):
+- **Radio first play timed out, and live visuals were lost for the whole visit.** The `r2.dev` host returned 503 twice. The player treated any first media error as a CORS failure and reloaded without CORS, which taints the element for the rest of the visit. It now retries the same file once with CORS kept (`useCruiseAudio.ts`, shared with `/cruise`). **Owner action:** connect a custom domain to the R2 bucket and point `CF_R2_PUBLIC_URL` at it, because `r2.dev` is rate-limited and not meant for production.
+- **"Tap to play" opened a panel instead of playing.** A tap now starts the radio and shows the stations.
+- **The page was 65 px taller than the screen** (credits below the stage), so Space/arrows scrolled it. The credits moved into the ⋯ Garage panel.
+- **The lamp post at s=43 (ocean side) stood in front of billboard #1.** That post and its flag were removed (the bench stays), and plot 10 is retired from the seed. The migration keeps row 10 as `house`, so it can never be sold.

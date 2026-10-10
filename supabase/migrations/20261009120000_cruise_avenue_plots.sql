@@ -88,7 +88,7 @@ revoke all on public.cruise_plots, public.cruise_plot_events, public.cruise_plot
 insert into public.cruise_plots(number) select n from generate_series(1,1) n on conflict do nothing;
 insert into public.cruise_plots(number, status) select n, 'house' from generate_series(2,6) n on conflict do nothing;
 insert into public.cruise_plots(number) select n from generate_series(7,30) n where n <> 10 on conflict do nothing;
--- Plot 10 (ocean-side lamp flag at s=43) crosses the sightline to billboard #1: house-owned, not for sale.
+-- Plot 10 (ocean-side lamp at s=43) is retired: its post blocked billboard #1. Held as 'house' so it can never be sold.
 insert into public.cruise_plots(number, status) values (10, 'house') on conflict do nothing;
 
 -- Drive-bys: counts each plot at most once per client hash per p_window_minutes.

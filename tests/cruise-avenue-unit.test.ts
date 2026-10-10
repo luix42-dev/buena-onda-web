@@ -59,8 +59,8 @@ test('mergePlots: pending/pulled claims are claimed with owner content withheld;
 })
 
 test('seed/house helpers and MAX_PLOT agree with the seed', () => {
-  assert.equal(SEED_PLOTS.length, MAX_PLOT)
-  assert.ok(isSeedPlot(1) && isSeedPlot(30) && !isSeedPlot(0) && !isSeedPlot(31))
+  assert.equal(Math.max(...SEED_PLOTS.map(p => p.number)), MAX_PLOT)
+  assert.ok(isSeedPlot(1) && isSeedPlot(30) && !isSeedPlot(0) && !isSeedPlot(31) && !isSeedPlot(10))
   assert.deepEqual([1, 2, 6, 7].map(isHousePlot), [false, true, true, false])
 })
 

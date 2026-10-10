@@ -140,7 +140,7 @@
 .mm-remote-now strong{font:400 34px var(--font-display,'Bebas Neue'),Impact,sans-serif}
 .mm-stop{background:none;border:1px solid var(--line);border-radius:999px;padding:12px;color:var(--ink);margin-top:10px}
 
-.mm-credits{font-size:10px;color:#9a93b0;max-width:900px;margin:0;padding:12px 18px 20px;line-height:1.6}
+.mm-credits{font-size:10px;color:#9a93b0;margin:10px 0 0;line-height:1.5}
 
 @media (max-width:700px){
   .mm-lockup{top:28px;left:12px}.mm-lockup b{font-size:24px}.mm-lockup i{font-size:22px;margin-left:30px}.mm-lockup small{display:none}
