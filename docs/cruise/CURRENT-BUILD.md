@@ -17,7 +17,14 @@ Previous snapshot (pass 1 measurements, Astra review): `docs/cruise/master/CURRE
 
 **Astra was not available in this environment and did not participate in pass 3.** The ledger is `docs/cruise/pass3/LEDGER.md`. External costs: **none** (no paid assets, services or credits; no new npm dependencies).
 
-## Pass 4 intake — October 9, 2026
+## Pass 4 release — October 10, 2026 (supersedes local-only snapshot above)
+
+- **BUILT / DEPLOYED:** At the owner's explicit request, pushed commits through `4e6e8fd` to main before key rotation. Vercel production deployment `dpl_Hmwv2AS1wvPDZo66htju4ezwFQKU` is Ready and aliased to `buenaondalifestyle.com`. Avenue remains hidden by default; no production migration or environment changes were made.
+- **VERIFIED:** Pre-push `npm test` passed 60/60; `npm run typecheck` passed. Vercel's production build succeeded with configuration/lint warnings. Live browser evidence is in `docs/cruise/pass4/live-smoke.json`; reproducible check: `node scripts/cruise-pass4-live-smoke.mjs` (uses the existing sibling checkout's Playwright dependency).
+- **FAILED / BLOCKERS:** Leaked legacy service-role key retirement is still unconfirmed. Stripe TEST purchase, new sustained FPS measurements, sign visibility improvements, studio auth changes, scratchpad cleanup, and physical-device checks remain pending. Browser playback state and analysis do not establish audible output.
+- **NEXT ACTION:** Owner updates the API keys, verifies a replacement deployment, and disables the exposed legacy key; then decide on history purge and resume the Pass 4 sequence. Participant: Codex primary agent only; no subagents participated in this release.
+
+## Pass 4 intake — October 9, 2026 (historical)
 
 - **BUILT:** No Pass 4 application changes yet. Participant: Codex (primary agent only; no subagents).
 - **VERIFIED:** GitHub main remains `106aa22c7ceccd780dc54bd1529e8b6de22ad74a`; the four Cruise commits through `608ce76` have not reached main. Vercel inspection reports production deployment `dpl_85roTCtNDAB2SHgfmssLxSJj8di3` Ready, created October 6. This does not verify the Pass 3 Cruise build in production. The inspection returned deployment details despite an update-worker timeout.
