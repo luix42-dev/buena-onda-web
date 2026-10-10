@@ -17,6 +17,16 @@ Previous snapshot (pass 1 measurements, Astra review): `docs/cruise/master/CURRE
 
 **Astra was not available in this environment and did not participate in pass 3.** The ledger is `docs/cruise/pass3/LEDGER.md`. External costs: **none** (no paid assets, services or credits; no new npm dependencies).
 
+## Pass 4 intake — October 9, 2026
+
+- **BUILT:** No Pass 4 application changes yet. Participant: Codex (primary agent only; no subagents).
+- **VERIFIED:** GitHub main remains `106aa22c7ceccd780dc54bd1529e8b6de22ad74a`; the four Cruise commits through `608ce76` have not reached main. Vercel inspection reports production deployment `dpl_85roTCtNDAB2SHgfmssLxSJj8di3` Ready, created October 6. This does not verify the Pass 3 Cruise build in production. The inspection returned deployment details despite an update-worker timeout.
+- **FAILED:** The security prerequisite remains unmet: the owner explicitly confirmed the leaked service-role key has not been rotated.
+- **BLOCKERS:** Await replacement and retirement of the exposed credential. No production migration, environment changes, deploy, Stripe TEST checkout, new FPS/visibility measurement or physical-device verification performed in Pass 4. Scratchpad `wt` is clean and its `node_modules` is a junction to this repo's dependencies; removal remains pending.
+- **NEXT ACTION:** Replace the legacy key following Supabase's current API-key migration guidance, update consumers, verify the replacement, and deactivate the compromised legacy key. This repository reads `SUPABASE_SERVICE_ROLE_KEY` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; account for both before disabling legacy keys. Set an independent `CRUISE_DRIVEBY_SALT`. Production environment changes and any required redeploy need owner approval. After revocation is confirmed, ask the owner whether to purge git history, then continue the requested Pass 4 sequence. Do not put replacement secrets in chat or git.
+
+Reference: https://supabase.com/docs/guides/getting-started/api-keys#rotate-a-leaked-or-compromised-key
+
 ## BUILT
 
 - **Next.js integration:** `/cruise/miami-test` runs inside the real Next 14 dev server (client-only dynamic import, no SSR of WebGL). A read-only QA probe `window.__cruise()` reports pulse source, playback, camera, vehicle, time and quality.
