@@ -3,6 +3,14 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  // Deployment-scoped comparison mode: browsing and radio reads only.
+  // Never collect demo impressions or expose checkout/admin writes in a preview.
+  if (process.env.CRUISE_COMPARISON_PREVIEW === '1') {
+    if (!['GET', 'HEAD'].includes(request.method)) return NextResponse.json({ error: 'Read-only Cruise comparison' }, { status: 403 })
+    if (pathname === '/api/cruise/plots') return NextResponse.json({ plots: [], events: [], live: false })
+    if (pathname.startsWith('/api/') && pathname !== '/api/radio/tracks') return NextResponse.json({ error: 'Unavailable in comparison preview' }, { status: 403 })
+    if (pathname === '/studio' || pathname.startsWith('/studio/')) return new NextResponse(null, { status: 404 })
+  }
   if (['/studio/login', '/studio/auth/start', '/studio/logout'].includes(pathname)) return NextResponse.next()
   const protectedApi = pathname === '/api/studio' || pathname.startsWith('/api/studio/') || pathname === '/api/admin' || pathname.startsWith('/api/admin/')
   const protectedPage = pathname === '/studio' || pathname.startsWith('/studio/')
@@ -14,4 +22,4 @@ export async function middleware(request: NextRequest) {
   return NextResponse.redirect(url)
 }
 
-export const config = { matcher: ['/studio/:path*', '/api/studio/:path*', '/api/admin/:path*'] }
+export const config = { matcher: ['/studio/:path*', '/api/studio/:path*', '/api/admin/:path*', '/((?!_next/static|_next/image|favicon.ico).*)'] }

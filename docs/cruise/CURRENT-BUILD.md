@@ -1,6 +1,6 @@
 # Buena Onda Cruise - Current Build: Nightdrive isolated lab
 
-October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **LOCAL ONLY. NO PUSH OR DEPLOYMENT.** [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).
+October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **Comparison preview authorized by Luis; publication and verification in progress.** [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).
 
 ## BUILT
 
@@ -30,7 +30,7 @@ October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **LOC
 
 ## BLOCKERS
 
-- Leaked Supabase key retirement remains unconfirmed. No deployment or production writes; deployment always requires separate authorization.
+- Luis confirmed key retirement and replacement updates in this session, and authorized a separate Vercel comparison preview. This is founder confirmation, not an independent credential audit. Production deployment and production writes remain unauthorized.
 - Physical Android/iPhone, Chromecast, AirPlay and TV browser: **BLOCKED - PHYSICAL DEVICE REQUIRED**.
 - Stripe TEST plot #7 blocked without a confirmed isolated non-production environment. No payment/data writes performed.
 - Remaining four radio candidates, stream permissions and inherited vehicle improvements remain outstanding. Owned R2 audio unavailable under intentionally dummy local settings.
