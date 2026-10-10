@@ -1,3 +1,60 @@
+# Buena Onda Cruise — Current Build (Pass 6)
+
+Snapshot: October 10, 2026. Branch experiment/cruise-miami-master; base c23833c. **LOCAL ONLY. No push or deployment.** Luis owns deployment after retiring the leaked key. [Pass 6 report and evidence](pass6/REPORT.md).
+
+## BUILT
+
+- Desktop mirror updates every third frame and is off at night, with a dark fallback. Headlights remain shadowless. Desktop DPR cap is 1.25.
+- A controlled resolution experiment supports DPR 0.85 for Mobile quality only on night canvases above one million CSS pixels. Phone-sized canvases and daytime remain DPR 1; DOM controls retain full sharpness.
+- Loop reset is hidden under an opaque cover and a deliberate camera cut; reveal waits for a rendered new shot. Reduced motion retains the selected view and uses an immediate cover. This is not a truly wrapping street.
+- Convertible paint and exterior metal adapt Original Cruise material values, including Desktop clearcoat and environment intensity. Original /cruise rendering is unchanged.
+- Shared Studio authentication fails closed, uses signed 12-hour sessions, covers Studio/admin APIs and rejects raw-password cookies. All existing sessions require a fresh login after any future deployment. Avenue remains hidden; claims remain disabled in local validation.
+
+## VERIFIED
+
+- Final isolated production build exited 0; typecheck passed; full sequential suite **62/62 passed**. Dummy service settings and blocked outgoing server network; real .env files untouched.
+- Real Next runtime missing-password authentication smoke **5/5 passed**. Signed session, tampering, expiry, password rotation and moderation are route/unit tested; authenticated real-browser login is not claimed.
+- Final 60-second Mobile/night/Jolt LIVE runs on Windows Edge 154, Intel UHD 630: desktop 1440x900 chase **50.85 FPS**, cockpit **34.18 FPS**, cockpit p5 **30.50 FPS**, actual buffer 1224x765. Portrait 390x844 and landscape 844x390 each approximately **60 FPS**, renderer DPR 1. These are desktop emulations, not physical phones.
+- Controlled stationary resolution A/B/A: full/85%/full **27.10 / 32.37 / 27.58 FPS**. Independent image review confirms primary radio controls remain usable, with softer fine 3D detail.
+- Final loop/renderer runtime run **62/62 checks passed**, no page errors. All six camera angles, reduced motion and simulated visibility verified; extracted recording frames show an opaque cover before the new shot. Matched Mobile/Desktop material screenshots were independently reviewed: darker, more reflective paint, preserved radio visibility, modest subjective improvement.
+
+## FAILED
+
+- **Desktop quality still misses 30 FPS:** cockpit 19.59, chase 29.79 at 1440x900. Default Mobile quality on that desktop viewport passes 34.18/50.85. Do not conflate the quality settings.
+- One timing sample was rejected because a loop cut changed cockpit to chase; the corrected harness verifies camera stability. Both artifacts are retained.
+
+- Initial same-origin login smoke returned 403 because Next normalized localhost internally. Fixed using the request Host authority plus protocol; regression test and final runtime smoke passed. Initial evidence is retained.
+- 85% rendering softens fine scene edges and tiny VFD text. The dock stays sharp. This tradeoff is limited to large-canvas Mobile night.
+- Full world wrapping remains unimplemented; [scope and cost](pass6/LOOP.md) require coordinated geometry, path, traffic, camera and plot-coordinate work.
+
+## BLOCKERS
+
+- Leaked Supabase key retirement remains unconfirmed. No deployment or production writes were performed.
+- Stripe TEST plot #7 end-to-end is **BLOCKED — isolated test environment not established**. Current local configuration lacks verified Stripe TEST/Supabase credentials and a test webhook destination. Prior storefront checkout work does not prove isolation. PGlite and signed event fixtures are not real Checkout/webhook evidence.
+- Physical Android performance, Chromecast, AirPlay and TV browser: **BLOCKED — PHYSICAL DEVICE REQUIRED**.
+
+## NEXT ACTION
+
+1. Review final local measurements, material screenshots and transition recording in the Pass 6 report.
+2. Luis retires the leaked key and verifies consumers before considering deployment; confirm STUDIO_PASSWORD is configured and expect every Studio user to log in again.
+3. Establish an explicitly isolated Supabase/Stripe TEST environment before the real plot #7 flow. Keep Avenue hidden.
+4. Test physical phones/casting, then prototype true street wrapping as a separate bounded change.
+
+## Actual participants and milestone ledger
+
+Codex lead /root; /root/performance; /root/ux_music; /root/qa_security. Inherited session model; exact runtime variant not exposed, so the Pass 6 Astra label is not claimed as an independently verified model identity.
+
+| Owner | Files / responsibility | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| Lead | Integration, DPR policy, browser scripts, report | Built; production measurement verified | Build, 62 tests, 60s runs | Desktop-quality FPS; external gates |
+| Rendering specialist | ConvertibleCar; rendering review | Built; resolution pixels independently reviewed | A/B/A, mirror cadence, material source mapping | Desktop-quality target fails; physical devices |
+| UX/music specialist | DriveController, MiamiStreet, scoped CSS, loop harness | Built; final runtime verified | 62 transition/renderer checks | True wrapping remains planned |
+| Security specialist | Shared auth, middleware, required callers, tests | Built and bounded tests verified | 62-suite pass; 5 runtime smoke checks | Real isolated Stripe environment; deployment |
+
+---
+
+## Historical Pass 5 snapshot
+
 # Buena Onda Cruise — Current Build (Pass 5)
 
 Snapshot: October 10, 2026. Branch `experiment/cruise-miami-master`; intake HEAD `fb9e967`. Experimental route only: `/cruise/miami-test`. **LOCAL ONLY; NO PUSH OR DEPLOYMENT.** Original `/cruise` is unchanged.

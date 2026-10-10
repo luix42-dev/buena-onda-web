@@ -36,7 +36,7 @@ function when(iso: string) {
 export default async function OrdersPage() {
   // Customer data: middleware already gates /studio, this also fails closed
   // if STUDIO_PASSWORD is ever missing in production.
-  if (!hasStudioAccess(cookies().get(studioCookieName())?.value)) notFound()
+  if (!(await hasStudioAccess(cookies().get(studioCookieName())?.value))) notFound()
 
   let data: Awaited<ReturnType<typeof loadOrdersDashboard>>
   try {

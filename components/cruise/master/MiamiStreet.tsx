@@ -76,6 +76,12 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   const [remote, setRemote] = useState<null | { send: (m: RemoteMessage) => void; stop: () => void }>(null)
   const [castError, setCastError] = useState<string | null>(null), [tvGate, setTvGate] = useState(true), [loopFade, setLoopFade] = useState(false), [clock, setClock] = useState('')
   const [autoDirector, setAutoDirector] = useState(tv)
+  const [largeCanvas, setLargeCanvas] = useState(false)
+  useEffect(() => {
+    const resize = () => setLargeCanvas(window.innerWidth * window.innerHeight > 1_000_000)
+    resize(); window.addEventListener('resize', resize)
+    return () => window.removeEventListener('resize', resize)
+  }, [])
   const [metrics] = useState(() => typeof window !== 'undefined' && new URLSearchParams(location.search).has('metrics'))
   // Back from Stripe Checkout. The redirect proves nothing about payment; only the webhook assigns plots.
   const [returned, setReturned] = useState<number | null>(() => { if (typeof window === 'undefined') return null; const n = Number(new URLSearchParams(location.search).get('claimed')); return Number.isInteger(n) && n > 0 ? n : null })
@@ -110,20 +116,39 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   // ---- Driving lifecycle ----------------------------------------------------
   const resumeAllowed = useRef(false)
   resumeAllowed.current = !tvGate && ready && visible && !detail && plotOpen === null && !remote
-  const loopTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const loopCover = useRef<HTMLDivElement>(null)
+  const loopTransition = useRef<'idle' | 'cover' | 'render'>('idle')
   const reset = useCallback(() => {
-    if (loopTimer.current !== null) clearTimeout(loopTimer.current)
-    loopTimer.current = null
-    const resume = resumeAllowed.current && !document.hidden
-    Object.assign(drive.current, { distance: 0, lateral: 2, speed: 3.5, paused: !resume, steer: 0 })
-    setLoopFade(false); setRunning(resume); dismissed.current.clear(); appeared.current.clear(); window.__streetSamples = []; event('restart', 'street')
-  }, [])
-  function onFinish() {
+    if (loopTransition.current !== 'idle') return
+    loopTransition.current = 'cover'
+    drive.current.paused = true
     setRunning(false); setLoopFade(true)
-    if (loopTimer.current !== null) clearTimeout(loopTimer.current)
-    loopTimer.current = setTimeout(reset, 900)
-  }
-  useEffect(() => () => { if (loopTimer.current !== null) clearTimeout(loopTimer.current) }, [])
+  }, [])
+  const onFinish = reset
+  useEffect(() => {
+    if (!loopFade) return
+    let frame = 0
+    const coverThenReset = () => {
+      if (loopTransition.current !== 'cover') return
+      // Wait for the actual cover opacity, not a timer that can race CSS or a hidden tab.
+      if (document.hidden || !loopCover.current || Number(getComputedStyle(loopCover.current).opacity) < .999) {
+        frame = requestAnimationFrame(coverThenReset); return
+      }
+      loopTransition.current = 'render'
+      // A deliberate new shot makes this an editorial cut, not a disguised spatial sweep.
+      const nextCamera = reducedMotion() ? probe.current.mode : probe.current.mode === 'driver' ? 'chase' : 'driver'
+      setMode(nextCamera)
+      Object.assign(drive.current, { distance: 0, lateral: 2, speed: 3.5, paused: true, steer: 0, glance: 0, resetCamera: probe.current.vehicle !== 'ocean-convertible' && nextCamera !== 'driver' ? 'chase' : nextCamera, resetRevision: (drive.current.resetRevision ?? 0) + 1 })
+      dismissed.current.clear(); appeared.current.clear(); window.__streetSamples = []; event('restart', 'street')
+      // Keep the cover until DriveController has rendered a frame at the new camera position.
+    }
+    frame = requestAnimationFrame(coverThenReset)
+    return () => cancelAnimationFrame(frame)
+  }, [loopFade])
+  const onResetRendered = useCallback((revision: number) => {
+    if (loopTransition.current !== 'render' || revision !== drive.current.resetRevision) return
+    loopTransition.current = 'idle'; setLoopFade(false)
+  }, [])
   useEffect(() => {
     const h = () => { setVisible(!document.hidden); if (document.hidden) { drive.current.paused = true; setRunning(false) } }
     h(); document.addEventListener('visibilitychange', h)
@@ -140,7 +165,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   useEffect(() => {
     if (!autoDirector || tvGate) return
     let i = 0, timer: ReturnType<typeof setTimeout>
-    const next = () => { const [shot, secs] = TV_SHOTS[i++ % TV_SHOTS.length]; if (!reducedMotion()) setMode(shot); timer = setTimeout(next, secs * 1000) }
+    const next = () => { const [shot, secs] = TV_SHOTS[i++ % TV_SHOTS.length]; if (!reducedMotion() && loopTransition.current === 'idle' && (!loopCover.current || Number(getComputedStyle(loopCover.current).opacity) <= .001)) setMode(shot); timer = setTimeout(next, secs * 1000) }
     next(); return () => clearTimeout(timer)
   }, [autoDirector, tvGate])
   const startTv = useCallback(() => {
@@ -160,7 +185,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
     if (m.type === 'station') { if (RADIO_PRESETS.some(s => s.id === m.id)) audio.selectStation(m.id) }
     else if (m.type === 'toggle') audio.toggle()
     else if (m.type === 'volume') { if (Number.isFinite(m.value)) audio.setVolume(Math.min(1, Math.max(0, m.value))) }
-    else if (m.type === 'camera') { if (m.mode === 'auto') setAutoDirector(true); else if (CAMERAS.includes(m.mode)) { setAutoDirector(false); setMode(m.mode) } }
+    else if (m.type === 'camera') { if (loopTransition.current !== 'idle') return; if (m.mode === 'auto') setAutoDirector(true); else if (CAMERAS.includes(m.mode)) { setAutoDirector(false); setMode(m.mode) } }
     else if (m.type === 'time') { if (m.value === 'day' || m.value === 'sunset' || m.value === 'night') setTime(m.value) }
   }
   // Lean-back: keep the TV awake while the Cruise runs, and let remote/media keys drive the radio.
@@ -220,9 +245,9 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
   const fullscreen = () => { if (document.fullscreenElement) void document.exitFullscreen(); else void root.current?.requestFullscreen?.().catch(() => null) }
   // One tap: Chrome/Android opens the device picker straight away. Elsewhere, a small sheet with AirPlay / TV-browser options.
   const castClick = () => { if (canPresent()) void cast(); else setPanel(panel === 'cast' ? null : 'cast') }
-  const cycleCamera = () => { setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
+  const cycleCamera = () => { if (loopTransition.current !== 'idle') return; setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
   useEffect(() => {
-    const k = (e: KeyboardEvent) => { if (tvGate || detail || plotOpen !== null || e.repeat || e.code !== 'KeyC' || e.target instanceof HTMLElement && e.target.closest('input,select,textarea')) return; setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
+    const k = (e: KeyboardEvent) => { if (loopTransition.current !== 'idle' || tvGate || detail || plotOpen !== null || e.repeat || e.code !== 'KeyC' || e.target instanceof HTMLElement && e.target.closest('input,select,textarea')) return; setAutoDirector(false); setMode(m => CAMERAS[(CAMERAS.indexOf(m) + 1) % CAMERAS.length]) }
     window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k)
   }, [tvGate, detail, plotOpen])
   const plot = plotOpen !== null ? avenue.plots.find(p => p.number === plotOpen) ?? null : null
@@ -245,7 +270,7 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
     <section className="mm-stage" aria-label="Playable Miami street">
       <div ref={el => { if (el) el.inert = tvGate }} style={{ display: 'contents' }} aria-hidden={tvGate}>
       <Guard><CockpitProvider audio={audio} vehicleId={vehicle as CruiseVehicleId} autoLights={time === 'night'} instant radioFocused focusRadio={() => setPanel('radio')}>
-        <Canvas dpr={high ? [1, 1.5] : 1} shadows={high} frameloop={visible || tv ? 'always' : 'never'} camera={{ position: [2, 3, 7], fov: 65, near: .04, far: 500 }} gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: T.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}>
+        <Canvas dpr={high ? [1, 1.25] : time === 'night' && largeCanvas ? .85 : 1} shadows={high} frameloop={visible || tv ? 'always' : 'never'} camera={{ position: [2, 3, 7], fov: 65, near: .04, far: 500 }} gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: T.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}>
           <PulseDriver music={music} playing={audio.playing} />
           <StreetSky time={time} high={high} />
           <Suspense fallback={null}>
@@ -257,14 +282,14 @@ export default function MiamiStreet({ previewAuthorized = false }: { previewAuth
                   ? <ImprovedCockpit improved parked={false} runtime={runtime} camera={mode === 'driver' ? 'driver' : 'chase'} quality={high ? 'high' : 'low'} timeOfDay={time} onReady={() => setReady(true)} />
                   : <HeroCar vehicleId={vehicle as CruiseVehicleId} runtime={runtime} camera={mode === 'driver' ? 'driver' : 'chase'} quality={high ? 'high' : 'low'} timeOfDay={time} weather="clear" onReady={() => setReady(true)} />}</group>}
             </group>
-            <DriveController state={drive} runtime={runtime} vehicle={car} cameraMode={legacy && mode !== 'driver' ? 'chase' : mode} vehicleId={vehicle} onFinish={onFinish} />
+            <DriveController state={drive} runtime={runtime} vehicle={car} cameraMode={legacy && mode !== 'driver' ? 'chase' : mode} vehicleId={vehicle} onFinish={onFinish} onResetRendered={onResetRendered} />
             <StreetMetrics drive={drive} mode={mode} onSample={sample} />
           </Suspense>
         </Canvas>
       </CockpitProvider></Guard>
 
       {/* ---------- Overlay HUD ---------- */}
-      <div className={`mm-fade${loopFade ? ' on' : ''}`} aria-hidden />
+      <div ref={loopCover} className={`mm-fade${loopFade ? ' on' : ''}`} aria-hidden />
       <div className="mm-lockup"><b>BUENA ONDA</b><i>Cruise</i><small>{tv ? `MIAMI · ${clock}` : 'OCEAN DRIVE · MIAMI'}</small></div>
       {showAds && <AvenueTicker plots={avenue.plots} events={avenue.events} />}
 

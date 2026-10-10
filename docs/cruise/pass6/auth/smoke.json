@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-10T17:43:25.290Z",
+  "configuration": "isolated; password unset; service network blocked",
+  "checks": [
+    {
+      "path": "/studio",
+      "method": "GET",
+      "status": 307,
+      "expected": 307,
+      "pass": true,
+      "location": "http://localhost:3041/studio/login?from=%2Fstudio"
+    },
+    {
+      "path": "/api/studio",
+      "method": "GET",
+      "status": 401,
+      "expected": 401,
+      "pass": true,
+      "location": null
+    },
+    {
+      "path": "/api/studio/unknown",
+      "method": "GET",
+      "status": 401,
+      "expected": 401,
+      "pass": true,
+      "location": null
+    },
+    {
+      "path": "/api/admin/kv-debug",
+      "method": "GET",
+      "status": 401,
+      "expected": 401,
+      "pass": true,
+      "location": null
+    },
+    {
+      "path": "/studio/auth/start",
+      "method": "POST",
+      "status": 503,
+      "expected": 503,
+      "pass": true,
+      "location": null
+    }
+  ]
+}

@@ -22,7 +22,7 @@ async function resolveTrackKey(identifier: string) {
 }
 
 export async function GET(request: NextRequest) {
-  if (!isStudioAuthorized(request)) return unauthorizedStudioResponse()
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
 
   const tracks = await mergeTrackMetadata(await listRadioTracks())
   const labels = Object.fromEntries(
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  if (!isStudioAuthorized(request)) return unauthorizedStudioResponse()
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
 
   const { key, fileName, displayName } = await request.json()
   const identifier = typeof key === 'string' && key.trim().length > 0 ? key : fileName
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isStudioAuthorized(request)) return unauthorizedStudioResponse()
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
 
   const { key, fileName, displayName } = await request.json()
   const identifier = typeof key === 'string' && key.trim().length > 0 ? key : fileName
@@ -136,7 +136,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  if (!isStudioAuthorized(request)) return unauthorizedStudioResponse()
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
 
   const { key } = await request.json()
   if (typeof key !== 'string') {

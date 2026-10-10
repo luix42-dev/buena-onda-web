@@ -19,6 +19,9 @@ export type DriveState = {
   wheel?: number
   /** TV / lean-back mode: the car drives itself with a slow, human weave. */
   autopilot?: boolean
+  /** Increment when teleporting under the loop cover; cameras snap on this revision. */
+  resetRevision?: number
+  resetCamera?: StreetCamera
 }
 
 export type StreetVehicleId = CruiseVehicleId | 'ocean-convertible'
@@ -31,6 +34,7 @@ export type DriveControllerProps = {
   cameraMode: StreetCamera
   vehicleId: StreetVehicleId
   onFinish: () => void
+  onResetRendered?: (revision: number) => void
 }
 
 const DEG = 180 / Math.PI
@@ -43,11 +47,14 @@ export function convertibleFov(aspect: number) {
 export function streetCenter(distance: number) { return 3 * Math.sin(distance / 95) }
 
 /** Bounded lane driving, not a tire/rigid-body physics simulation. */
-export default function DriveController({ state, runtime, vehicle, cameraMode, vehicleId, onFinish }: DriveControllerProps) {
+export default function DriveController({ state, runtime, vehicle, cameraMode, vehicleId, onFinish, onResetRendered }: DriveControllerProps) {
   const { camera } = useThree()
   const steering = useRef(0)
   const finished = useRef(false)
   const lastView = useRef('')
+  // A remounted scene must also acknowledge a reset that happened while it was absent.
+  const resetRevision = useRef(-1)
+  const pendingReset = useRef<number | null>(null)
   const desiredPosition = useRef(new Vector3())
   const desiredTarget = useRef(new Vector3())
   const cameraTarget = useRef(new Vector3())
@@ -59,6 +66,14 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     // Discard suspended-tab catch-up instead of teleporting the vehicle.
     const dt = Math.min(elapsed, .05)
     const drive = state.current
+    const revision = drive.resetRevision ?? 0
+    const reset = revision !== resetRevision.current
+    // Acknowledgement occurs one frame after the snapped camera was rendered.
+    const renderedRevision = !reset && (!drive.resetCamera || lastView.current === `${drive.resetCamera}:${vehicleId}`) ? pendingReset.current : null
+    if (reset) {
+      resetRevision.current = revision; pendingReset.current = revision
+      steering.current = 0; finished.current = false
+    } else if (renderedRevision !== null) pendingReset.current = null
     const weave = Math.sin(runtime.current.time * .23) * .7 + Math.sin(runtime.current.time * .071) * .5
     const input = MathUtils.clamp((2 + weave * .6 - drive.lateral) * .7, -.6, .6)
     steering.current = MathUtils.damp(steering.current, input, 2.5, dt)
@@ -140,7 +155,7 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
       const z = -point.x * Math.sin(yaw) + point.z * Math.cos(yaw)
       point.set(x + center.current.x, point.y, z + center.current.z)
     }
-    if (isDriver || lastView.current !== view) {
+    if (reset || isDriver || lastView.current !== view) {
       // No position lag inside the cabin: lag causes dashboard/pillar clipping.
       camera.position.copy(desiredPosition.current)
       cameraTarget.current.copy(desiredTarget.current)
@@ -150,6 +165,7 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     }
     camera.lookAt(cameraTarget.current)
     lastView.current = view
+    if (renderedRevision !== null) onResetRendered?.(renderedRevision)
   }, -1)
 
   // HeroCar updates its stock wheel from the original route. Apply actual player

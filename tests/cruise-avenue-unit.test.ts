@@ -1,4 +1,5 @@
 /** Unit tests for the Avenue: pricing, owner validation, merge/pending, rate limiter, phase, studio auth. TEST data only. */
+import { createStudioSession } from '../lib/studio-auth'
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import {
@@ -118,19 +119,20 @@ test('driveByClientHash: salted, daily rotating, no raw IP; null without a secre
   })
 })
 
-test('cruise studio auth fails closed in every environment', () => {
+test('cruise studio auth fails closed in every environment', async () => {
   for (const NODE_ENV of ['development', 'production', 'test']) {
-    withEnv({ STUDIO_PASSWORD: undefined, NODE_ENV }, () => {
-      assert.equal(hasCruiseStudioAccess(undefined), false)
-      assert.equal(hasCruiseStudioAccess('anything'), false)
-      assert.equal(hasCruiseStudioAccess(''), false)
+    await withEnv({ STUDIO_PASSWORD: undefined, NODE_ENV }, async () => {
+      assert.equal(await hasCruiseStudioAccess(undefined), false)
+      assert.equal(await hasCruiseStudioAccess('anything'), false)
+      assert.equal(await hasCruiseStudioAccess(''), false)
     })
-    withEnv({ STUDIO_PASSWORD: '   ', NODE_ENV }, () => assert.equal(hasCruiseStudioAccess('   '), false))
-    withEnv({ STUDIO_PASSWORD: 'TEST-pass', NODE_ENV }, () => {
-      assert.equal(hasCruiseStudioAccess('TEST-pass'), true)
-      assert.equal(hasCruiseStudioAccess('TEST-pas'), false)
-      assert.equal(hasCruiseStudioAccess('TEST-pass '), false)
-      assert.equal(hasCruiseStudioAccess(undefined), false)
+    await withEnv({ STUDIO_PASSWORD: '   ', NODE_ENV }, async () => assert.equal(await hasCruiseStudioAccess('   '), false))
+    await withEnv({ STUDIO_PASSWORD: 'TEST-pass', NODE_ENV }, async () => {
+      assert.equal(await hasCruiseStudioAccess('TEST-pass'), false)
+      assert.equal(await hasCruiseStudioAccess(await createStudioSession()), true)
+      assert.equal(await hasCruiseStudioAccess('TEST-pas'), false)
+      assert.equal(await hasCruiseStudioAccess('TEST-pass '), false)
+      assert.equal(await hasCruiseStudioAccess(undefined), false)
     })
   }
   assert.equal(timingSafeEqualString('abc', 'abc'), true)

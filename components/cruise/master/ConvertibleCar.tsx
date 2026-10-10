@@ -143,11 +143,12 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
       let m: T.Material
       if (/paint/i.test(name)) {
         // Clearcoat paint on Desktop only, like the wood: Physical is the costliest shader on screen in both cameras.
-        m = new T.MeshPhysicalMaterial({ color: '#f1e5c9', roughness: .32, metalness: .05, clearcoat: 1, clearcoatRoughness: .08, side: T.DoubleSide, clippingPlanes: [belt] })
-        const low = new T.MeshStandardMaterial({ color: '#f1e5c9', roughness: .26, metalness: .05, side: T.DoubleSide, clippingPlanes: [belt] })
+        // Original Cruise's paint response, with its more expensive clearcoat reserved for Desktop.
+        m = new T.MeshPhysicalMaterial({ name: 'ConvertiblePaintDesktop', color: '#f1e5c9', roughness: .18, metalness: .72, clearcoat: 1, clearcoatRoughness: .065, envMapIntensity: 1.58, side: T.DoubleSide, clippingPlanes: [belt] })
+        const low = new T.MeshStandardMaterial({ name: 'ConvertiblePaintMobile', color: '#f1e5c9', roughness: .18, metalness: .72, envMapIntensity: 1.2, side: T.DoubleSide, clippingPlanes: [belt] })
         owned.push(low); paints.push({ mesh: o, high: m, low })
       }
-      else if (/chrome/i.test(name)) m = new T.MeshStandardMaterial({ color: '#e9ecef', metalness: 1, roughness: .14, clippingPlanes: [belt] })
+      else if (/chrome/i.test(name)) m = new T.MeshStandardMaterial({ name: 'ConvertibleExteriorMetal', color: '#e9ecef', metalness: .94, roughness: .28, envMapIntensity: 1.25, clippingPlanes: [belt] })
       else if (/glaz/i.test(name)) { o.visible = false; return }
       else if (/rear/i.test(name)) m = new T.MeshStandardMaterial({ color: '#c3142c', emissive: '#ff1f3d', emissiveIntensity: .6, roughness: .3 })
       else { m = src.clone(); (m as T.MeshStandardMaterial).clippingPlanes = [belt] }
@@ -158,6 +159,10 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
   }, [gltf.scene, belt])
   useEffect(() => () => { body.owned.forEach(m => m.dispose()); body.scene.traverse(o => { if (o instanceof T.Mesh) o.geometry.dispose() }) }, [body])
   useEffect(() => { body.paints.forEach(p => { p.mesh.material = high ? p.high : p.low }) }, [body, high])
+  useEffect(() => { body.paints.forEach(p => {
+    ;(p.high as T.MeshStandardMaterial).envMapIntensity = 1.58 + (night ? .38 : 0)
+    ;(p.low as T.MeshStandardMaterial).envMapIntensity = 1.2 + (night ? .38 : 0)
+  }) }, [body, night])
   useEffect(() => { onReady?.() }, [onReady])
 
   const tex = useMemo(() => ({ wood: woodTex(), leather: leatherTex(), gauges: gaugeAtlas(), palm: palmTex(), badge: badgeTex(), glow: glowTex(), beam: beamTex() }), [])
@@ -262,7 +267,7 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     {/* Windshield glass between the chrome frame */}
     <mesh position={[0, (SCREEN.cowlY + SCREEN.topY) / 2, (SCREEN.cowlZ + SCREEN.topZ) / 2]} rotation-x={RAKE} material={mats.windshield} renderOrder={1}><planeGeometry args={[SCREEN.x * 2, SCREEN_LEN]} /></mesh>
 
-    <RearViewMirror active={view === 'driver' && high} />
+    <RearViewMirror active={view === 'driver' && high && !night} night={night} />
     <group ref={freshener} position={[.05, MIRROR_AT[1] - .03, MIRROR_AT[2] + .025]}>
       <mesh position={[0, -.1125, 0]} material={mats.freshener}><planeGeometry args={[.075, .225]} /></mesh>
     </group>
@@ -275,17 +280,17 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
   </group>
 }
 
-/** Real reflection on desktop: a small render target from behind the windshield, every other frame. */
-function RearViewMirror({ active }: { active: boolean }) {
+/** Day/sunset Desktop reflection every third frame; night uses a dark static fallback. */
+function RearViewMirror({ active, night }: { active: boolean; night: boolean }) {
   const fbo = useFBO(active ? 384 : 1, active ? 112 : 1, { samples: 0 })
   const cam = useMemo(() => new T.PerspectiveCamera(38, 384 / 112, .1, 260), [])
   const root = useRef<T.Group>(null), surface = useRef<T.Mesh>(null), frame = useRef(0)
   const flip = useMemo(() => new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), Math.PI), [])
-  const fallback = useMemo(() => canvasTex(256, 64, c => { const g = c.createLinearGradient(0, 0, 0, 64); g.addColorStop(0, '#d0548f'); g.addColorStop(.6, '#ff8f52'); g.addColorStop(1, '#2a2430'); c.fillStyle = g; c.fillRect(0, 0, 256, 64) }), [])
+  const fallback = useMemo(() => canvasTex(256, 64, c => { const g = c.createLinearGradient(0, 0, 0, 64); g.addColorStop(0, night ? '#11172a' : '#d0548f'); g.addColorStop(.6, night ? '#293448' : '#ff8f52'); g.addColorStop(1, night ? '#080c15' : '#2a2430'); c.fillStyle = g; c.fillRect(0, 0, 256, 64) }), [night])
   useEffect(() => { fbo.texture.wrapS = T.RepeatWrapping; fbo.texture.repeat.x = -1; fbo.texture.offset.x = 1 }, [fbo])
   useEffect(() => () => fallback.dispose(), [fallback])
   useFrame(({ gl, scene }) => {
-    if (!active || !root.current || !surface.current || ++frame.current % 2) return
+    if (!active || !root.current || !surface.current || ++frame.current % 3) return
     root.current.updateWorldMatrix(true, false)
     root.current.matrixWorld.decompose(cam.position, cam.quaternion, cam.scale)
     cam.quaternion.multiply(flip); cam.scale.set(1, 1, 1)

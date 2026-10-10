@@ -111,6 +111,8 @@
 /* Loop fade */
 .mm-fade{position:absolute;inset:0;z-index:6;background:#0f0c18;opacity:0;pointer-events:none;transition:opacity .8s}
 .mm-fade.on{opacity:1}
+/* Loop resets cut under the opaque cover; reduced motion never animates that transition. */
+@media (prefers-reduced-motion:reduce){.miami-master .mm-fade{transition:none}}
 
 /* TV mode */
 .mm-tv .mm-stage{cursor:none}

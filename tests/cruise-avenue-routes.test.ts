@@ -15,6 +15,7 @@ import { createServer, type Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { PGlite } from '@electric-sql/pglite'
 import Stripe from 'stripe'
+import { createStudioSession } from '../lib/studio-auth'
 import { NextRequest } from 'next/server'
 
 const MIGRATION = join(__dirname, '..', 'supabase', 'migrations', '20261009120000_cruise_avenue_plots.sql')
@@ -198,11 +199,12 @@ test('moderation API: fails closed without STUDIO_PASSWORD, needs cookie + same 
   assert.equal((await POST(req('anything', 'http://localhost:3040', approve))).status, 401)
   assert.equal((await POST(req(null, 'http://localhost:3040', approve))).status, 401)
   process.env.STUDIO_PASSWORD = STUDIO
+  const studioSession = await createStudioSession()
   assert.equal((await POST(req('wrong', 'http://localhost:3040', approve))).status, 401)
-  assert.equal((await POST(req(STUDIO, null, approve))).status, 403)
-  assert.equal((await POST(req(STUDIO, 'https://evil.test', approve))).status, 403)
-  assert.equal((await POST(req(STUDIO, 'http://localhost:3040', { ...approve, session: 'cs_other' }))).status, 409)
-  assert.equal((await POST(req(STUDIO, 'http://localhost:3040', approve))).status, 200)
+  assert.equal((await POST(req(studioSession, null, approve))).status, 403)
+  assert.equal((await POST(req(studioSession, 'https://evil.test', approve))).status, 403)
+  assert.equal((await POST(req(studioSession, 'http://localhost:3040', { ...approve, session: 'cs_other' }))).status, 409)
+  assert.equal((await POST(req(studioSession, 'http://localhost:3040', approve))).status, 200)
   assert.equal((await plotRow(9)).review_state, 'approved')
   const audit = (await db.query<{ action: string; actor: string }>(`select action, actor from public.cruise_plot_moderation where plot = 9`)).rows
   assert.deepEqual(audit, [{ action: 'approve', actor: 'studio:TEST op' }])
@@ -211,9 +213,9 @@ test('moderation API: fails closed without STUDIO_PASSWORD, needs cookie + same 
   assert.equal(data.plots.find(p => p.number === 9)!.owner?.name, 'TEST Owner Nine')
   assert.ok(data.events.some(e => e.plot === 9 && e.name === 'TEST Owner Nine'))
   // Pull hides it again; refund resolution works through the same route.
-  assert.equal((await POST(req(STUDIO, 'http://localhost:3040', { action: 'pull', plot: 9, session: sessionId, reason: 'TEST policy' }))).status, 200)
+  assert.equal((await POST(req(studioSession, 'http://localhost:3040', { action: 'pull', plot: 9, session: sessionId, reason: 'TEST policy' }))).status, 200)
   const stale = (await db.query<{ s: string }>(`select stripe_session_id as s from public.cruise_plot_refunds_needed where reason = 'stale_price' limit 1`)).rows[0].s
-  assert.equal((await POST(req(STUDIO, 'http://localhost:3040', { action: 'refund_resolved', session: stale, reason: 'TEST refunded' }))).status, 200)
+  assert.equal((await POST(req(studioSession, 'http://localhost:3040', { action: 'refund_resolved', session: stale, reason: 'TEST refunded' }))).status, 200)
   delete process.env.STUDIO_PASSWORD
 })
 
