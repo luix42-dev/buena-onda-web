@@ -1,0 +1,293 @@
+{
+  "date": "2026-10-10T20:48:07.123Z",
+  "mode": "inspect",
+  "target": "lab",
+  "browser": "154.0.4258.62",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "physicalDevice": false,
+  "quality": "mobile",
+  "sky": "night",
+  "station": "jolt-radio",
+  "recording": true,
+  "notes": [
+    "Desktop Edge on Windows, phone viewports are emulation.",
+    "No production mutations. Video does not record third-party radio audio.",
+    "Own synthesized ambience recording is separate from radio."
+  ],
+  "checks": [
+    {
+      "name": "Ambience locked before gesture",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Keyboard gate focuses Start without unlocking audio",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Jolt plays with live analysis",
+      "pass": true
+    },
+    {
+      "name": "Driving accelerates and remains continuous",
+      "pass": true,
+      "detail": {
+        "distance": 681.4489868059919,
+        "speed": 19.74428542186018,
+        "overtakes": 1
+      }
+    },
+    {
+      "name": "Ambiance Off silences its graph without pausing radio",
+      "pass": true,
+      "detail": {
+        "state": "suspended",
+        "enabled": false,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 16,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Ambiance resumes same graph",
+      "pass": true,
+      "detail": {
+        "state": "running",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0.036,
+        "nodeCount": 16,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Radio Pause silences ambience",
+      "pass": true
+    },
+    {
+      "name": "desktop la radio retained",
+      "pass": true
+    },
+    {
+      "name": "desktop driver radio retained",
+      "pass": true
+    },
+    {
+      "name": "desktop no page overflow",
+      "pass": true
+    },
+    {
+      "name": "landscape la radio retained",
+      "pass": true
+    },
+    {
+      "name": "landscape driver radio retained",
+      "pass": true
+    },
+    {
+      "name": "landscape no page overflow",
+      "pass": true
+    },
+    {
+      "name": "portrait la radio retained",
+      "pass": true
+    },
+    {
+      "name": "portrait driver radio retained",
+      "pass": true
+    },
+    {
+      "name": "portrait no page overflow",
+      "pass": true
+    },
+    {
+      "name": "Cast keeps current lab",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion holds camera",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "state": {
+        "distance": 678.5125088510761,
+        "speed": 19.753266918378138,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 45.26859999999358,
+        "odometer": 680.0938667555573,
+        "targetSpeed": 19.68827578299782,
+        "acceleration": -0.05875642575819633,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 1,
+        "minTrafficGap": 45.016398792879535,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 471.8371835173451,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 812.6154793244089,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5999999940395355,
+        "maxGenerationMs": 2.4000000059604645,
+        "chunksGenerated": 20,
+        "wheel": 0.00150749333268097,
+        "camera": "driver",
+        "director": true,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.036,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 153,
+          "triangles": 77831,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 55.87808579230238,
+      "p5Fps": 46.47110078419976,
+      "p95FrameMs": 33.200000000004366,
+      "maxFrameMs": 83.40000000000055,
+      "heapMB": 24.992140769958496,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false
+    }
+  ],
+  "loadToReadyMs": 6307,
+  "final": {
+    "distance": 1396.2243046629903,
+    "speed": 13.691426448541304,
+    "lateral": 2,
+    "steer": 0,
+    "paused": false,
+    "glance": 0,
+    "autopilot": true,
+    "seed": 1984,
+    "elapsed": 87.51740000000716,
+    "odometer": 1399.5170637693982,
+    "targetSpeed": 13.536450892142808,
+    "acceleration": -0.1419045688866074,
+    "mood": "night-drive",
+    "district": "neon",
+    "districtMix": 1,
+    "laneTarget": 2,
+    "maneuver": "follow",
+    "overtakes": 1,
+    "minTrafficGap": 45.016398792879535,
+    "traffic": [
+      {
+        "id": 0,
+        "distance": 1781.5901996995622,
+        "lateral": 2,
+        "speed": 9
+      },
+      {
+        "id": 1,
+        "distance": 1402.7144965449165,
+        "lateral": -2,
+        "speed": 14
+      }
+    ],
+    "reduced": true,
+    "generationMs": 0.29999999701976776,
+    "maxGenerationMs": 2.4000000059604645,
+    "chunksGenerated": 27,
+    "wheel": -0.001498360051646443,
+    "camera": "driver",
+    "director": true,
+    "sky": "night",
+    "playing": true,
+    "requested": true,
+    "station": "jolt-radio",
+    "audioError": null,
+    "analysis": "Analyzing current radio",
+    "source": "live",
+    "ambience": {
+      "state": "running",
+      "enabled": true,
+      "gain": 0.2,
+      "targetGain": 0.036,
+      "nodeCount": 16,
+      "error": null,
+      "synthetic": true
+    },
+    "render": {
+      "drawCalls": 165,
+      "triangles": 89174,
+      "geometries": 126,
+      "textures": 19,
+      "dpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ]
+    }
+  },
+  "passed": true
+}

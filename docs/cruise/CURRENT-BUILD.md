@@ -1,3 +1,60 @@
+# Buena Onda Cruise - Current Build: Nightdrive isolated lab
+
+October 10, 2026. Branch `experiment/cruise-miami-master`, base `6a5c366`. **LOCAL ONLY. NO PUSH OR DEPLOYMENT.** [Final evidence](nightdrive/RESULTS.md), [architecture and research](nightdrive/REPORT.md).
+
+## BUILT
+
+- New isolated `/cruise/miami-test/nightdrive` route. Existing Miami Test and original `/cruise` source untouched.
+- Deterministic continuous road with 13 recycled 96 m chunks, two district palettes, shared geometry/traffic/camera sampling and local coordinates. No endpoint fade/reset.
+- Three driving moods, smooth acceleration, guarded lane changes and two traffic cars. Fixed a browser-observed following deadlock; passing resumes once the adjacent lane clears.
+- Existing cockpit/radio, Auto Director and cameras plus LA rear view. Separate optional synthesized wind, road, engine and traffic ambiance; gesture unlock and independent Off/level control.
+- Existing eight-station catalog, mirroring guidance and hidden Avenue preserved. Lab miles do not generate sponsorship analytics. No new assets, dependencies or services.
+
+## VERIFIED
+
+- Final isolated production build/type/lint completed, explicit process exit 0. Full suite **81/81**. Dummy settings/outgoing server guard; environment files untouched.
+- Browser functional inspection **18/18**, including Start keyboard isolation, actual Jolt live analysis, ambiance controls, radio pause, three screen sizes and reduced-motion camera hold. Final passing fix separately browser-tested.
+- Corrected five-minute journey: two overtakes, **4,462 m odometer**, no backward reset/context loss, radio playing at every 30-second sample. Minimum measured **same-lane longitudinal gap 30.9 m**, not all-traffic Euclidean separation.
+- Recording-free night/Mobile quality, Edge154, Intel UHD630: six 60-second LA/cockpit cases averaged **59.97-60.03 FPS**, p95 frame **16.8 ms**. Desktop1440x900 uses DPR0.85/buffer1224x765; 844x390 and390x844 use DPR1. Phone sizes are desktop emulation.
+- Independently reviewed final screenshots, six passing frames, source isolation and reported numbers. Matched-start five-minute Miami/lab recordings and separate own-generated sound demo saved.
+- Final controls **16/16**: all moods, remaining views, Rinse/Jolt switching without replacing Canvas, ambiance gain and hidden metrics.
+- Real-time Director soak **1,800.320 seconds**, **27.74 km odometer**, **13 overtakes**, zero backward resets/page errors/context losses; radio playing at all 60 samples. Thirty-second FPS **59.09-60.05**, lowest p5 one-second rate **53.14**. Geometry count settled at126 by60s, textures19 throughout;301 chunk fills in13 slots.
+
+## FAILED
+
+- Lab scenery is still visually weaker than Miami: repetitive boxes, flat ocean, limited district personality and rectangular headlight edge. Do not migrate these visuals.
+- LA view still overlaps the dock, particularly landscape. Existing exterior/cabin fit remains unfinished.
+- Five-minute pre-fix run exposed a speed-matched following deadlock; fixed and regression-tested. Retained failed evidence.
+- Sound is an audition draft, not a verified convincing engine recording. Technical motion/continuity is not evidence of lasting visitor appeal.
+- Long-run memory acceptance remains unresolved: JS heap17.90-46.03MB; first/last five-minute means24.42/35.75MB. Stable geometry/texture counts do not prove no JavaScript retention. One frame reached116.6ms; cause unisolated. Do not claim zero spikes or leak-free operation.
+
+## BLOCKERS
+
+- Leaked Supabase key retirement remains unconfirmed. No deployment or production writes; deployment always requires separate authorization.
+- Physical Android/iPhone, Chromecast, AirPlay and TV browser: **BLOCKED - PHYSICAL DEVICE REQUIRED**.
+- Stripe TEST plot #7 blocked without a confirmed isolated non-production environment. No payment/data writes performed.
+- Remaining four radio candidates, stream permissions and inherited vehicle improvements remain outstanding. Owned R2 audio unavailable under intentionally dummy local settings.
+- Additional YouTube reference remains unreviewed; actual local founder footage frames were inspected.
+
+## NEXT ACTION
+
+**HARD STOP for Luis to review the lab's driving and sound direction before main-scene migration or broader art work.** Recommendation: keep the bounded road architecture, restore authored scenery, and investigate retained heap/frame spikes before release claims. The Nightdrive brief authorized this bounded prototype, superseding the older boundary below only for this work. Silence is not approval. Local commit does not authorize deployment.
+
+Preview: http://127.0.0.1:3041/cruise/miami-test/nightdrive .
+
+| Owner | Files | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| `/root` | NightLab, state, CSS, route, proof script, docs | Integrated and browser-tested | Build,81tests,18+16checks,sixFPS cases,30min soak | Founder acceptance; heap/frame investigation |
+| `/root/ux_music` | road, NightWorld, road tests, research/audit | Implemented; source-reviewed | Deterministic seams and bounded pool | Art weaker than Miami |
+| `/root/performance` | dynamics, NightDrive,12tests,visual review | Implemented; recovery verified | Two passes; actual images/frames | Camera overlap; cabin fit |
+| `/root/qa_security` | NightAmbience,2tests,gate/labels,audit | Implemented; independently reviewed | Audio/gesture isolation; artifact reconciliation | Human listening; devices/security |
+
+Inherited session models; exact runtime variants unavailable. No invented Astra/Opus participation. [Detailed ledger](nightdrive/REPORT.md), [final measurements](nightdrive/RESULTS.md).
+
+---
+
+## Historical founder-feedback pass
+
 # Buena Onda Cruise — Current Build (bounded founder-feedback pass)
 
 October 10, 2026. Branch `experiment/cruise-miami-master`, base `bbe52ee`. **LOCAL ONLY; NO PUSH OR DEPLOYMENT.** [Review packet](feedback/REPORT.md), [first-pass boundary and hard stops](feedback/FIRST-PASS-BOUNDARY.md).

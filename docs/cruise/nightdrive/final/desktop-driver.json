@@ -1,0 +1,69 @@
+{
+  "distance": 832.4131388109183,
+  "speed": 19.06853032821451,
+  "lateral": 2,
+  "steer": 0,
+  "paused": false,
+  "glance": 0,
+  "autopilot": true,
+  "seed": 1984,
+  "elapsed": 53.20699999999931,
+  "odometer": 834.3887390728962,
+  "targetSpeed": 18.94698284679373,
+  "acceleration": -0.11107214409715205,
+  "mood": "night-drive",
+  "district": "neon",
+  "districtMix": 0.6457860198564651,
+  "laneTarget": 2,
+  "maneuver": "follow",
+  "overtakes": 1,
+  "minTrafficGap": 45.01082167048307,
+  "traffic": [
+    {
+      "id": 0,
+      "distance": 543.124742107165,
+      "lateral": 2,
+      "speed": 9
+    },
+    {
+      "id": 1,
+      "distance": 923.6504270473879,
+      "lateral": -2,
+      "speed": 14
+    }
+  ],
+  "reduced": false,
+  "generationMs": 1,
+  "maxGenerationMs": 3.5999999940395355,
+  "chunksGenerated": 21,
+  "wheel": 0.00747297143183997,
+  "camera": "driver",
+  "director": false,
+  "sky": "night",
+  "playing": true,
+  "requested": true,
+  "station": "jolt-radio",
+  "audioError": null,
+  "analysis": "Analyzing current radio",
+  "source": "live",
+  "ambience": {
+    "state": "running",
+    "enabled": true,
+    "gain": 0.2,
+    "targetGain": 0.036,
+    "nodeCount": 16,
+    "error": null,
+    "synthetic": true
+  },
+  "render": {
+    "drawCalls": 158,
+    "triangles": 80267,
+    "geometries": 126,
+    "textures": 19,
+    "dpr": 0.85,
+    "buffer": [
+      1224,
+      765
+    ]
+  }
+}
