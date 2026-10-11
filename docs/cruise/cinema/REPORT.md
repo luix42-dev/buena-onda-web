@@ -2,6 +2,8 @@
 
 October 10, 2026. Scope: one 30-second Unreal film, then an isolated `/cruise/cinematic-test` browser proof. **BLOCKED - SUITABLE GPU / UNREAL ENVIRONMENT REQUIRED.** No Unreal project, scene, animated hands, master, delivery video or new website route was produced. These are pending deliverables, not completed work.
 
+Update: the founder subsequently supplied 33secref.mp4 locally. [Actual reference review](REFERENCE.md) resolves the missing-reference blocker below; original inspection findings are retained as history. Rendering remains blocked.
+
 ## BUILT
 
 - [Reproducible Unreal scene and rendering specification](UNREAL-SPEC.md): one authored downhill corridor, one hero, a 900-frame timeline, cockpit-first camera, proper steering/hand IK, staged still/motion approval and two render configurations for measurement.

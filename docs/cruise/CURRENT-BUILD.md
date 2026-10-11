@@ -8,7 +8,7 @@ Architecture, source-asset/license manifest, reproducible 30-second Unreal scene
 
 ## VERIFIED
 
-Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, no Unreal/Blender installation found in checked locations. Initial C free140MB; D free177GB. Existing FFmpeg available. Luis confirmed this is his only laptop and the33-second reference is not stored locally. Original Cruise and all application source remain unchanged in this Cinema phase.
+Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, no Unreal/Blender installation found in checked locations. Initial C free140MB; D free177GB. Existing FFmpeg available. Luis confirmed this is his only laptop. The supplied 33secref.mp4 is now located and visually inspected: 32.70 seconds, 368x496, no audio, approximately nine-second repeated driving shot plus branded outro. [Reference review](cinema/REFERENCE.md). Original Cruise and all application source remain unchanged in this Cinema phase.
 
 ## FAILED
 
@@ -16,11 +16,11 @@ No render attempted. Photographic quality, hands, animation, browser decoding an
 
 ## BLOCKERS
 
-No available Unreal rendering environment; nearly full system drive; missing33-second reference; hero/hand quality and acquisition gates pending. No installations, paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
+No available Unreal rendering environment; nearly full system drive; hero/hand quality and acquisition gates pending. No installations, paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
 
 ## NEXT ACTION
 
-Luis resends the reference. Review it, resolve an explicitly approved rendering environment, then produce stills and a two-second motion test before the full900-frame film. Browser integration follows visual/animation acceptance. No40-minute production is authorized.
+Reference reviewed. Resolve an explicitly approved rendering environment, then produce cockpit-first stills and a two-second motion test before the full900-frame film. Browser integration follows visual/animation acceptance. No40-minute production is authorized.
 
 Participants: `/root`, `/root/cinema_unreal`, `/root/cinema_assets`, `/root/cinema_playback`; exact inherited runtime model variants unavailable. See linked ledger for file ownership and evidence.
 

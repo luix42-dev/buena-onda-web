@@ -2,6 +2,8 @@
 
 2026-10-10. Owner `/root/cinema_unreal`, delegated Unreal technical research. Inherited session model; exact runtime model variant is not exposed. **Specification only: no Unreal project, rig, source scene or rendered frame has been created or verified by this agent.**
 
+Reference amendment: [33secref inspected](REFERENCE.md). Prioritize cockpit-only framing, a broad distant city-light field and near-road parallax. Approximately nine-second repetition and low resolution in the reference do not prove continuous travel or realistic hand contact. The missing-reference note in the original gate table below is now resolved; the rendering-environment gate remains blocked.
+
 ## Decision and hardware gate
 
 Use one offline Unreal scene and a normal browser video player. No Unreal runtime, Pixel Streaming server, per-viewer GPU session, procedural open-world framework or new web rendering engine is needed for this proof.
