@@ -8,7 +8,7 @@ Architecture, source-asset/license manifest, reproducible 30-second Unreal scene
 
 ## VERIFIED
 
-Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, no Unreal/Blender installation found in checked locations. Initial C free140MB; D free177GB. Existing FFmpeg available. Luis confirmed this is his only laptop. The supplied 33secref.mp4 is now located and visually inspected: 32.70 seconds, 368x496, no audio, approximately nine-second repeated driving shot plus branded outro. [Reference review](cinema/REFERENCE.md). Original Cruise and all application source remain unchanged in this Cinema phase.
+Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, no Unreal/Blender installation found in checked locations. Initial disk values are historical. After Luis freed space, the latest check found C: 14.89 GiB free and D: 154.26 GiB free; Unreal is still not installed. Existing FFmpeg available. Luis confirmed this is his only laptop. The supplied 33secref.mp4 is now located and visually inspected: 32.70 seconds, 368x496, no audio, approximately nine-second repeated driving shot plus branded outro. [Reference review](cinema/REFERENCE.md). Original Cruise and all application source remain unchanged in this Cinema phase.
 
 ## FAILED
 
@@ -16,7 +16,7 @@ No render attempted. Photographic quality, hands, animation, browser decoding an
 
 ## BLOCKERS
 
-No available Unreal rendering environment; nearly full system drive; hero/hand quality and acquisition gates pending. No installations, paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
+No available Unreal rendering environment; installation approval and installer space requirements pending; hero/hand quality and acquisition gates pending. No installations, paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
 
 ## NEXT ACTION
 
