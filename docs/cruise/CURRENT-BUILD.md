@@ -4,6 +4,8 @@ October 10, 2026. **UNREAL 5.8.3 FINALIZING ON D:; GPU TEST PENDING. EXISTING GT
 
 ## BUILT
 
+October 11, 00:23 EDT: root reviewed and launched the specialist's one-shot installation watcher (PID 25644). Initial state: `WAITING_INSTALL`. It waits at most eight hours, then attempts the bounded 12-minute DX11 diagnostic once only after verified installation completion, with at least 4 GiB free RAM and no existing Unreal editor. No application closures or installer changes. Local status: `.vercel/cinema-probe/watcher/status.json`. Render results remain pending; file sanity alone will not establish cinematic quality.
+
 Architecture, source-asset/license manifest, 30-second scene specification and browser integration/test plan. A bounded Unreal startup probe is prepared but has not run. Reproducible Blender geometry diagnostics and actual GTO cockpit images are saved. No cinematic route or rendered film created.
 
 ## VERIFIED
