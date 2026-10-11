@@ -1,0 +1,27 @@
+﻿{
+    "completedRun":  {
+                         "status":  "completed",
+                         "exitCode":  null,
+                         "durationSeconds":  24.137725099999997,
+                         "initialFreeGiB":  4.8922805786132813,
+                         "minFreeGiB":  4.4675102233886719,
+                         "peakWorkingSetGiB":  0.46170425415039063
+                     },
+    "failedCanary":  {
+                         "status":  "timeout",
+                         "exitCode":  null,
+                         "durationSeconds":  120.63616719999999,
+                         "initialFreeGiB":  5.1389923095703125,
+                         "minFreeGiB":  4.6326179504394531,
+                         "peakWorkingSetGiB":  0.41230010986328125
+                     },
+    "verification":  "Six PNGs and completion metadata produced; pixels independently inspected by lead and asset agent. Wrapper exitCode was null: no numeric exit-code claim. Workbench geometry diagnosis, not Unreal or photographic proof.",
+    "fullSourceRun":  {
+                          "status":  "completed",
+                          "exitCode":  0,
+                          "durationSeconds":  25.260974899999997,
+                          "initialFreeGiB":  4.3732566833496094,
+                          "minFreeGiB":  3.7624244689941406,
+                          "peakWorkingSetGiB":  0.60599136352539063
+                      }
+}

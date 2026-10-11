@@ -1,8 +1,22 @@
 # Project Cinema: Gate A handoff
 
-October 10, 2026. Scope: one 30-second Unreal film, then an isolated `/cruise/cinematic-test` browser proof. **BLOCKED - SUITABLE GPU / UNREAL ENVIRONMENT REQUIRED.** No Unreal project, scene, animated hands, master, delivery video or new website route was produced. These are pending deliverables, not completed work.
+October 10, 2026. Scope: one 30-second Unreal film, then an isolated `/cruise/cinematic-test` browser proof. **FEASIBILITY PENDING: ENGINE FINALIZING; EXISTING COCKPIT ASSET INSUFFICIENT.** No Unreal-rendered scene, animated hands, master, delivery video or cinematic website route exists yet.
 
-Current update: the founder supplied 33secref.mp4 locally, freed disk space, authorized a small local Unreal trial and completed Epic sign-in. [Actual reference review](REFERENCE.md) resolves the missing-reference blocker below. [Installation status](INSTALLATION.md): launcher20.3.5 installed; authenticated Unreal Library verified, but engine catalog remains empty after restart/refresh. No engine download or render has begun. Manual input comparison requested. The original inspection and authorization findings below are historical and superseded by these linked updates. Rendering remains blocked.
+Current update: the founder supplied the reference, freed space and authorized a small local Unreal trial. [Reference review](REFERENCE.md) is complete. [Installation/recovery evidence](INSTALLATION.md): verified launcher recovery restored the engine catalog. UE 5.8.3 build 58210709 has reached final file relocation on D:, with its editor executable present; Epic has not yet marked installation complete. The prepared GPU probe has not run.
+
+Current asset result: actual Blender 4.5.0 inspections of the processed and full-source GTO show no finished instrument panel. The six-view run took 24.14 seconds; the unsimplified cockpit run took 25.26 seconds and exited 0. Both were independently inspected by the lead and asset agent. This is a failed cockpit-detail gate, not an Unreal-rendering result. No additional asset was downloaded. [Images, measured resource use, licenses and reproduction source](ASSETS.md).
+
+| Owner | Files | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| `/root` | CURRENT-BUILD.md, INSTALLATION.md, REPORT.md, archived asset evidence | Recovery verified; inspection reviewed | Installer signatures/hashes, build metadata, actual images | Final install, GPU probe, interior quality |
+| `/root/cinema_unreal` | Ignored compatibility project and bounded monitor | Prepared; syntax checked; not executed | DX11/SM5 configuration, completion checks | Engine finalization |
+| `/root/cinema_assets` | ASSETS.md evidence; asset-inspection images/source | Actual geometry checks completed | Six views and unsimplified matching cockpit; measured RAM/time | Missing instruments; no replacement passed |
+
+Exact inherited runtime model variants are not exposed. No application tests were rerun for documentation and external-asset diagnostics; no web application source changed. Deployment and production writes remain unauthorized.
+
+## Original pre-installation audit (historical)
+
+The sections below preserve the initial handoff. Their missing-reference, installation-authorization and software-discovery statements are superseded by the current updates above and the installation record. The remaining visual, animation, browser and deployment gates still apply.
 
 ## BUILT
 
