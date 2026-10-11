@@ -8,19 +8,19 @@ Architecture, source-asset/license manifest, reproducible 30-second Unreal scene
 
 ## VERIFIED
 
-Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, Unreal/Blender initially absent. Epic Games Launcher is now installed and updated to20.3.5; Unreal Engine itself is not installed. [Installation evidence](cinema/INSTALLATION.md). Initial disk values are historical. After Luis freed space, the latest check found C: 14.89 GiB free and D: 154.26 GiB free; Unreal is still not installed. Existing FFmpeg available. Luis confirmed this is his only laptop. The supplied 33secref.mp4 is now located and visually inspected: 32.70 seconds, 368x496, no audio, approximately nine-second repeated driving shot plus branded outro. [Reference review](cinema/REFERENCE.md). Original Cruise and all application source remain unchanged in this Cinema phase.
+Dell G7 7588: GTX1060 Max-Q6144MiB plus UHD630, approximately16GBRAM, Unreal/Blender initially absent. Epic Games Launcher is now installed and updated to20.3.5; Luis's sign-in is visually verified. Unreal Engine itself is not installed. [Installation evidence](cinema/INSTALLATION.md). Initial disk values are historical. Latest post-launcher check: C: approximately12.00 GiB free and D:154.26 GiB free. Existing FFmpeg available. Luis confirmed this is his only laptop. The supplied 33secref.mp4 is now located and visually inspected: 32.70 seconds, 368x496, no audio, approximately nine-second repeated driving shot plus branded outro. [Reference review](cinema/REFERENCE.md). Original Cruise and all application source remain unchanged in this Cinema phase.
 
 ## FAILED
 
-No render attempted. Photographic quality, hands, animation, browser decoding and new comparative performance are not verified. No proxy footage is labeled Unreal output.
+No render attempted. Epic's engine list remains empty after a launcher restart and library refresh; Install Engine has not opened the installer. No engine download started. Photographic quality, hands, animation, browser decoding and new comparative performance are not verified. No proxy footage is labeled Unreal output.
 
 ## BLOCKERS
 
-Luis authorized launcher/engine installation and the small local rendering trial. Launcher installed on C: despite requested D: location; Epic account setup/sign-in now requires Luis. Engine download to D:, GPU compatibility, hero/hand quality and acquisition gates remain pending. No paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
+Luis authorized launcher/engine installation and the small local rendering trial. Launcher installed on C: despite requested D: location; sign-in is complete. The empty engine catalog currently blocks installation; root cause is unverified. Engine download to D:, GPU compatibility, hero/hand quality and acquisition gates remain pending. No paid rendering, deployment or production writes authorized. Current Cinema deployment/security hold preserved.
 
 ## NEXT ACTION
 
-Reference reviewed. Luis completes Epic sign-in locally; then configure the core Unreal installation on D:, verify disk requirements and run a minimal compatibility test. Cockpit-first stills and a two-second motion test precede the full900-frame film. Browser integration follows visual/animation acceptance. No40-minute production is authorized.
+Luis tries Install Engine manually to distinguish launcher state from automation behavior. Once the engine catalog is available, configure the core Unreal installation on D:, verify disk requirements and run a minimal compatibility test. Cockpit-first stills and a two-second motion test precede the full900-frame film. Browser integration follows visual/animation acceptance. No40-minute production is authorized.
 
 Participants: `/root`, `/root/cinema_unreal`, `/root/cinema_assets`, `/root/cinema_playback`; exact inherited runtime model variants unavailable. See linked ledger for file ownership and evidence.
 

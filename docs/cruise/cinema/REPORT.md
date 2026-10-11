@@ -2,7 +2,7 @@
 
 October 10, 2026. Scope: one 30-second Unreal film, then an isolated `/cruise/cinematic-test` browser proof. **BLOCKED - SUITABLE GPU / UNREAL ENVIRONMENT REQUIRED.** No Unreal project, scene, animated hands, master, delivery video or new website route was produced. These are pending deliverables, not completed work.
 
-Update: the founder subsequently supplied 33secref.mp4 locally. [Actual reference review](REFERENCE.md) resolves the missing-reference blocker below; original inspection findings are retained as history. Rendering remains blocked.
+Current update: the founder supplied 33secref.mp4 locally, freed disk space, authorized a small local Unreal trial and completed Epic sign-in. [Actual reference review](REFERENCE.md) resolves the missing-reference blocker below. [Installation status](INSTALLATION.md): launcher20.3.5 installed; authenticated Unreal Library verified, but engine catalog remains empty after restart/refresh. No engine download or render has begun. Manual input comparison requested. The original inspection and authorization findings below are historical and superseded by these linked updates. Rendering remains blocked.
 
 ## BUILT
 
