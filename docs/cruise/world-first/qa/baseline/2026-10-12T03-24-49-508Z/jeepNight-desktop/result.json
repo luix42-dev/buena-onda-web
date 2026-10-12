@@ -1,0 +1,257 @@
+{
+  "target": {
+    "name": "jeepNight",
+    "url": "https://buena-onda-jeep-night.vercel.app"
+  },
+  "profile": {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1
+  },
+  "emulation": false,
+  "recording": "Silent Playwright page video; radio not recorded",
+  "readyMs": 5752,
+  "metrics": {
+    "at": 18566.70000000298,
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "raf": [
+      {
+        "at": 1368.6,
+        "seconds": 1.0078999999970197,
+        "callbacks": 60,
+        "longestGapMs": 33.299999999999955
+      },
+      {
+        "at": 2868.1,
+        "seconds": 1.4995,
+        "callbacks": 1,
+        "longestGapMs": 1499.5
+      },
+      {
+        "at": 4950.7,
+        "seconds": 2.0826,
+        "callbacks": 1,
+        "longestGapMs": 2082.6
+      },
+      {
+        "at": 5983.8,
+        "seconds": 1.0331000000000004,
+        "callbacks": 31,
+        "longestGapMs": 199.90000000000055
+      },
+      {
+        "at": 7000.2,
+        "seconds": 1.0163999999999995,
+        "callbacks": 47,
+        "longestGapMs": 33.5
+      },
+      {
+        "at": 8016.4,
+        "seconds": 1.0161999999999998,
+        "callbacks": 45,
+        "longestGapMs": 33.600000000000364
+      },
+      {
+        "at": 10198.8,
+        "seconds": 2.1823999999999995,
+        "callbacks": 6,
+        "longestGapMs": 2049.199999999999
+      },
+      {
+        "at": 11231.8,
+        "seconds": 1.033,
+        "callbacks": 54,
+        "longestGapMs": 33.5
+      },
+      {
+        "at": 12264.9,
+        "seconds": 1.0331000000000004,
+        "callbacks": 44,
+        "longestGapMs": 33.5
+      },
+      {
+        "at": 13298.1,
+        "seconds": 1.0332000000000008,
+        "callbacks": 44,
+        "longestGapMs": 33.5
+      },
+      {
+        "at": 14314.2,
+        "seconds": 1.0161000000000004,
+        "callbacks": 43,
+        "longestGapMs": 33.899999999999636
+      },
+      {
+        "at": 15330.5,
+        "seconds": 1.0162999999999993,
+        "callbacks": 43,
+        "longestGapMs": 33.600000000000364
+      },
+      {
+        "at": 16346.8,
+        "seconds": 1.0162999999999993,
+        "callbacks": 44,
+        "longestGapMs": 33.399999999999636
+      },
+      {
+        "at": 17379.8,
+        "seconds": 1.033,
+        "callbacks": 43,
+        "longestGapMs": 33.60000000000218
+      },
+      {
+        "at": 18396.1,
+        "seconds": 1.0162999999999993,
+        "callbacks": 44,
+        "longestGapMs": 33.599999999998545
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 586.2999999970198,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:pause",
+        "at": 587.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 588.2000000029802,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadstart",
+        "at": 625.6000000014901,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadeddata",
+        "at": 4961.29999999702,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:play",
+        "at": 5639.5,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "playing",
+        "at": 5710.10000000149,
+        "time": 0.016497
+      }
+    ],
+    "decoded": [],
+    "media": [
+      {
+        "id": 1,
+        "kind": "AUDIO",
+        "source": "https://streamer.radio.co/sd8ab6b5aa/listen",
+        "time": 12.873683,
+        "duration": null,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      }
+    ],
+    "world": null,
+    "worldFirst": null,
+    "worldSamples": [],
+    "ambience": null,
+    "noHorizontalOverflow": true,
+    "buttons": [
+      {
+        "label": "Toggle night and sunset",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Fullscreen",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause radio",
+        "disabled": false,
+        "pressed": "true"
+      },
+      {
+        "label": "Open radio controls",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Switch cockpit and chase camera",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause drive",
+        "disabled": false,
+        "pressed": null
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://buena-onda-jeep-night.vercel.app/cruise/traffic/classic-traffic.glb",
+        "durationMs": 67.39999999850988,
+        "transferSize": 102988,
+        "encodedBodySize": 102688,
+        "decodedBodySize": 137632
+      },
+      {
+        "url": "https://buena-onda-jeep-night.vercel.app/cruise/vehicle/wrangler/wrangler.glb",
+        "durationMs": 452.30000000447035,
+        "transferSize": 5335386,
+        "encodedBodySize": 5335086,
+        "decodedBodySize": 5815428
+      }
+    ]
+  },
+  "pass": true,
+  "blocked": [],
+  "errors": [],
+  "responses": [
+    {
+      "url": "https://buena-onda-jeep-night.vercel.app/cruise/traffic/classic-traffic.glb",
+      "status": 200
+    },
+    {
+      "url": "https://buena-onda-jeep-night.vercel.app/cruise/vehicle/wrangler/wrangler.glb",
+      "status": 200
+    }
+  ]
+}

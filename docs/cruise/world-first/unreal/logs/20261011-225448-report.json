@@ -1,0 +1,22 @@
+{
+  "status": "FOUR_FRAMES_WRITTEN",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "elapsed_s": 193.97,
+  "build_seconds": 3.7,
+  "map": "/Game/WorldFirst/L_NightDescent_v4",
+  "representative_times": [
+    0,
+    18,
+    36,
+    54
+  ],
+  "window_materials": 10,
+  "buildings": 540,
+  "mesh_instances": 3307,
+  "mesh_batch_actors": 21,
+  "level_actors": 155,
+  "shadow_policy": "Instanced environment geometry does not cast shadows or contribute distance fields; physical lamp illumination remains raster"
+}

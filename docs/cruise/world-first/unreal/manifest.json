@@ -1,0 +1,329 @@
+﻿{
+    "framePattern":  "world-first.%04d.png",
+    "queueIntervalSeconds":  29.125,
+    "map":  "/Game/WorldFirst/L_NightDescent_v4",
+    "editorShutdownEDT":  "2026-10-11T23:08:07-04:00",
+    "totalBytes":  97481942,
+    "qualityGate":  "FAILED",
+    "frames":  [
+                   {
+                       "sha256":  "d114a2e581fd0a0971f6dd8e9a7dee0542a04c8980b508b89812828cd1511069",
+                       "name":  "world-first.0000.png",
+                       "bytes":  1642782
+                   },
+                   {
+                       "sha256":  "053bd34f20616f6284ea57330a60bc4a94f2067b6ad5da73ae541f6b0b370045",
+                       "name":  "world-first.0001.png",
+                       "bytes":  1652564
+                   },
+                   {
+                       "sha256":  "3e1e9d819b39deafafde5d89b20b4e3ebd63c345ddf60c5ce569847aa0bd2c10",
+                       "name":  "world-first.0002.png",
+                       "bytes":  1665310
+                   },
+                   {
+                       "sha256":  "0ea881c946df5a93d68d547a0eb2797dc2ba5f66c67883ccf95df83b4b9a1715",
+                       "name":  "world-first.0003.png",
+                       "bytes":  1675444
+                   },
+                   {
+                       "sha256":  "de2fafc05d82bb9824b61a9b2ec32579c7e653d586aef1fc35c278e8ecd73813",
+                       "name":  "world-first.0004.png",
+                       "bytes":  1694934
+                   },
+                   {
+                       "sha256":  "0a7003d3855842e420d2286378f2bc5cad3b3382b84d5735164c323b72f9f197",
+                       "name":  "world-first.0005.png",
+                       "bytes":  1705316
+                   },
+                   {
+                       "sha256":  "aa7c1f1c4a9275ff845a6935779543eeb2491581465088c681698d74b9f2cceb",
+                       "name":  "world-first.0006.png",
+                       "bytes":  1674328
+                   },
+                   {
+                       "sha256":  "8e95d3b295f6cda4e902caa909059645f5f773e141b356ce32075740b3dafe8e",
+                       "name":  "world-first.0007.png",
+                       "bytes":  1680199
+                   },
+                   {
+                       "sha256":  "7e70c01ff64eb22a6c3fa0833c923f86cd78dfae8d348306b1be9fd03b96390b",
+                       "name":  "world-first.0008.png",
+                       "bytes":  1701868
+                   },
+                   {
+                       "sha256":  "a00e1c3d0af599d98499efde6e329083e73045e31d8941b3cb64ac1a5b54f986",
+                       "name":  "world-first.0009.png",
+                       "bytes":  1712887
+                   },
+                   {
+                       "sha256":  "4c03d524b03d00f7e6bafb9130d65e2f915e2da7c95c8f7e0a2274fa966fed1e",
+                       "name":  "world-first.0010.png",
+                       "bytes":  1726257
+                   },
+                   {
+                       "sha256":  "51dceb1e42a6a2a5fddc323bb7dfe900cb3aae58cefa4b19cd06985f349a8268",
+                       "name":  "world-first.0011.png",
+                       "bytes":  1731468
+                   },
+                   {
+                       "sha256":  "f0666acf5a8f6a0f64a4fc1c3dc6524ddc31c7bb113f3f7acaa09035f7a711bd",
+                       "name":  "world-first.0012.png",
+                       "bytes":  1745740
+                   },
+                   {
+                       "sha256":  "d4a156bba5d491c5f0607552bec4f606bb3b85dc4fbc9d6887324e0035644eb3",
+                       "name":  "world-first.0013.png",
+                       "bytes":  1743748
+                   },
+                   {
+                       "sha256":  "5a07c2288d8c5f4372b048724a9584941b40d5a57ead6a8ca4624761de1f4f0d",
+                       "name":  "world-first.0014.png",
+                       "bytes":  1746099
+                   },
+                   {
+                       "sha256":  "51a525ed5441911229e1251b58cfc1b8dfb636aedd011b0df2f84ea19762ead6",
+                       "name":  "world-first.0015.png",
+                       "bytes":  1736413
+                   },
+                   {
+                       "sha256":  "ecb6796259af6a45755b42d4762ec57c3758133276beb3001e2b55d2d602e445",
+                       "name":  "world-first.0016.png",
+                       "bytes":  1736639
+                   },
+                   {
+                       "sha256":  "8b03906eeb9e928f4ec50ff99747d4456c0c9dfae5194b28f466591b6c4bf092",
+                       "name":  "world-first.0017.png",
+                       "bytes":  1731541
+                   },
+                   {
+                       "sha256":  "b0b6c5e81d1dd09687dc3171d7f2bf45a61fc0e840da294ab5b292812a5bb4db",
+                       "name":  "world-first.0018.png",
+                       "bytes":  1726799
+                   },
+                   {
+                       "sha256":  "98067595706e2812100a596bae0a0ee4a784f73d8c01e15ac296820a2ae56df0",
+                       "name":  "world-first.0019.png",
+                       "bytes":  1707469
+                   },
+                   {
+                       "sha256":  "e0aeaf34bca4c558cd7ec9f362c5e99a5a1382495f074f88556c6de0d4e07414",
+                       "name":  "world-first.0020.png",
+                       "bytes":  1702168
+                   },
+                   {
+                       "sha256":  "b66110d09870310563ed327cffc53de0eb2dcda7a5c6151ed92a1ae8cbc2fdae",
+                       "name":  "world-first.0021.png",
+                       "bytes":  1684246
+                   },
+                   {
+                       "sha256":  "b8849026a6a8b4d00015d2fa52bad22c141634083059956a20cb65f1189d2f60",
+                       "name":  "world-first.0022.png",
+                       "bytes":  1674674
+                   },
+                   {
+                       "sha256":  "f2df5bae9df8fc7d733ad5d93a3959dbfed226e20a9d473e528249b0b24f9e21",
+                       "name":  "world-first.0023.png",
+                       "bytes":  1652461
+                   },
+                   {
+                       "sha256":  "aca9767980f9c1d9c20d13e32480489218fd2f6c66981bd2c0a6b4dfa2f2001e",
+                       "name":  "world-first.0024.png",
+                       "bytes":  1650813
+                   },
+                   {
+                       "sha256":  "7a2898186c70cf9930f58b2cca6988f5cbcbd0c222b19effe6eaf2fa6f037114",
+                       "name":  "world-first.0025.png",
+                       "bytes":  1639523
+                   },
+                   {
+                       "sha256":  "da1773a196a031f33e5862c98fa72d213700ac47cbde09b67f4fa55bf5aeb04d",
+                       "name":  "world-first.0026.png",
+                       "bytes":  1634019
+                   },
+                   {
+                       "sha256":  "bf45928a8ac23fc0c0a0494042667ed54e40ef7104f12276ad0f9d0256d41e03",
+                       "name":  "world-first.0027.png",
+                       "bytes":  1616357
+                   },
+                   {
+                       "sha256":  "ce2b04f7a307182a4946a5897fe65371120dddc77202d295f31bf94eef9d7c62",
+                       "name":  "world-first.0028.png",
+                       "bytes":  1608255
+                   },
+                   {
+                       "sha256":  "d5a38a7e5f7ec74fbe720c0d05a2fc09c6f13dfcf00eb3742f2f7fb435274cbb",
+                       "name":  "world-first.0029.png",
+                       "bytes":  1592659
+                   },
+                   {
+                       "sha256":  "ececa7ce292f97ee73e687d9dcc040610c087a3ab6246996ae4ca574fe63e562",
+                       "name":  "world-first.0030.png",
+                       "bytes":  1583788
+                   },
+                   {
+                       "sha256":  "9c3489148aa8a7d1e08131a63fa9a9570cd1f264ef2f82e3999c0ab6c9f88d49",
+                       "name":  "world-first.0031.png",
+                       "bytes":  1566326
+                   },
+                   {
+                       "sha256":  "acda49c2f06798746937b5549bd29a2c25c046fb8887d85f43134f996e824e53",
+                       "name":  "world-first.0032.png",
+                       "bytes":  1556943
+                   },
+                   {
+                       "sha256":  "3455b92ef017a53610531cabfe3019c08e6a506e2b4888dfadcbbff3de0eaa09",
+                       "name":  "world-first.0033.png",
+                       "bytes":  1540312
+                   },
+                   {
+                       "sha256":  "63b823697ddc39426d8076d02d7315dd34e96c7fc8d5f6867a5e1fc17c56da4e",
+                       "name":  "world-first.0034.png",
+                       "bytes":  1535669
+                   },
+                   {
+                       "sha256":  "2631fb8cdcacfffd0277e9bb78573319ecd817ea704cdcde05686d1e2710a25c",
+                       "name":  "world-first.0035.png",
+                       "bytes":  1519775
+                   },
+                   {
+                       "sha256":  "cbc6a09c7e750198f0ef4266aa3b9c4580f6d08fb4f4a4ac27156c46a3c4e5ac",
+                       "name":  "world-first.0036.png",
+                       "bytes":  1527159
+                   },
+                   {
+                       "sha256":  "72f253b3fc14ee8a5ae6b9967966d5bd9d012ea2e95fecd1fc22151b596824fb",
+                       "name":  "world-first.0037.png",
+                       "bytes":  1528554
+                   },
+                   {
+                       "sha256":  "f3cdca7eb46e3a6dd1e2dd73e909ff183e58e5cb6a10a27b77fc843782c0438a",
+                       "name":  "world-first.0038.png",
+                       "bytes":  1533321
+                   },
+                   {
+                       "sha256":  "9e88ed5ba4b779cc1611c1cda06e21360f5bcc155ae5d438effebfc7620c2270",
+                       "name":  "world-first.0039.png",
+                       "bytes":  1525040
+                   },
+                   {
+                       "sha256":  "53434dd7b68ff00ee0f240502d1ccb550e9ac43edf850bc9ad70afbe532b20b6",
+                       "name":  "world-first.0040.png",
+                       "bytes":  1530926
+                   },
+                   {
+                       "sha256":  "7febe23081d34702f0063859a8a4788c3d54b16775bc463e2f0ead2e5057b34e",
+                       "name":  "world-first.0041.png",
+                       "bytes":  1528687
+                   },
+                   {
+                       "sha256":  "36621cc54569bd2173e6ab999ff815e11ca4d005246e4829bc0b54f11f1b2930",
+                       "name":  "world-first.0042.png",
+                       "bytes":  1534919
+                   },
+                   {
+                       "sha256":  "353747b896c4df9cc81ec3636b1bc3297f89e4ae1870f395bda68392f78c4f14",
+                       "name":  "world-first.0043.png",
+                       "bytes":  1539922
+                   },
+                   {
+                       "sha256":  "607deb18293ae0152b170e20b4d3f3324ca28e729669fa7d9e812971df899c78",
+                       "name":  "world-first.0044.png",
+                       "bytes":  1546046
+                   },
+                   {
+                       "sha256":  "f30e7ac4978f60ab6e791c44363a1fad5b3d29a83cb6d37d095bbdb4bd11f248",
+                       "name":  "world-first.0045.png",
+                       "bytes":  1547894
+                   },
+                   {
+                       "sha256":  "f385d54f20867e021c82e6695cfbb5c117a3637af95d9f60fcf53125f140d54b",
+                       "name":  "world-first.0046.png",
+                       "bytes":  1560856
+                   },
+                   {
+                       "sha256":  "db1474168c90fd21fde4d3cbac948226397d2966367a1056dc0ce9b6e934df8c",
+                       "name":  "world-first.0047.png",
+                       "bytes":  1558557
+                   },
+                   {
+                       "sha256":  "dfd46db05b84e5956d485383054a0c70f367c34eb6220f08cd24cb0370a2d419",
+                       "name":  "world-first.0048.png",
+                       "bytes":  1568460
+                   },
+                   {
+                       "sha256":  "c676e8bcea20d382a30cf61fe07cda5db2c2064710da4eb99500c6d9292c939a",
+                       "name":  "world-first.0049.png",
+                       "bytes":  1572471
+                   },
+                   {
+                       "sha256":  "7c6b6fc3d929c8b44668464fff04548d2e7600ce186bf831394f02e22aa24fa0",
+                       "name":  "world-first.0050.png",
+                       "bytes":  1579744
+                   },
+                   {
+                       "sha256":  "54d11168be61b2f9f6e33af524e2f14364514635f5b72a8fdb2b84a26580191e",
+                       "name":  "world-first.0051.png",
+                       "bytes":  1578144
+                   },
+                   {
+                       "sha256":  "783ed838e3f9ce95093dab6d0c7b89e354c2c82f6c0f9aabe63e20d4bce8ff1a",
+                       "name":  "world-first.0052.png",
+                       "bytes":  1585102
+                   },
+                   {
+                       "sha256":  "89360909b202a75a9f754a15a08330735d7a880518ffd77a7b67b865655a465e",
+                       "name":  "world-first.0053.png",
+                       "bytes":  1588702
+                   },
+                   {
+                       "sha256":  "10ee31fc1a3fbbddfbd6686eded00a95d48e12cf9c30f67ef087478192b8ad6c",
+                       "name":  "world-first.0054.png",
+                       "bytes":  1597340
+                   },
+                   {
+                       "sha256":  "d8f4e976caaef8ea668858bd00069fc43b7410a0c578ccda3662f1932cc2699f",
+                       "name":  "world-first.0055.png",
+                       "bytes":  1598629
+                   },
+                   {
+                       "sha256":  "a1bc5523ad7609fd202bbf8cfdb73a3f15c78ec50d84f6bf89d7bb7083d617c8",
+                       "name":  "world-first.0056.png",
+                       "bytes":  1607880
+                   },
+                   {
+                       "sha256":  "1b7fec930dd90863cca5aaf51db32cff585c9f4fcaddebae90d54e0da443433b",
+                       "name":  "world-first.0057.png",
+                       "bytes":  1611303
+                   },
+                   {
+                       "sha256":  "dced954b1eff0a11a71ce9715479f69f79e1c99e86687132fea79e751209d2b2",
+                       "name":  "world-first.0058.png",
+                       "bytes":  1621489
+                   },
+                   {
+                       "sha256":  "d214987299e5b225ecaf1e967fd2af7b35e8ecc76966c1925b271b707f3f9b5a",
+                       "name":  "world-first.0059.png",
+                       "bytes":  1615004
+                   }
+               ],
+    "fps":  30,
+    "calibratedToBrowser":  false,
+    "height":  1080,
+    "frameDirectory":  ".vercel/world-first-unreal/runs/20261011-230451/render/frames",
+    "sourceProject":  ".vercel/world-first-unreal/WorldFirst.uproject",
+    "firstFrame":  0,
+    "scriptElapsedSeconds":  58.031,
+    "cockpitBaked":  false,
+    "imageEncoding":  "PNG display-referred; not linear EXR",
+    "kind":  "environmentOnly",
+    "lastFrame":  59,
+    "sequence":  "/Game/WorldFirst/LS_Descent60",
+    "authoredSequenceSeconds":  60,
+    "cameraMetadata":  "camera-per-frame.json",
+    "durationSeconds":  2,
+    "fullSequenceRendered":  false,
+    "purpose":  "two-second native raster feasibility diagnostic",
+    "frameCount":  60,
+    "width":  1920
+}

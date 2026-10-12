@@ -1,0 +1,39 @@
+{
+  "profile": {
+    "name": "landscape",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "emulated": true,
+  "sources": [],
+  "recording": "Silent page video; no radio/system audio capture.",
+  "failure": {
+    "name": "TimeoutError",
+    "message": "page.waitForFunction: Timeout 18000ms exceeded."
+  },
+  "errors": [],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    }
+  ],
+  "blocked": []
+}

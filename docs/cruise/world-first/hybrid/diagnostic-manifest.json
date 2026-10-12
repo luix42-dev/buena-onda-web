@@ -1,0 +1,54 @@
+{
+  "status": "diagnostic-reference-not-authored-world",
+  "source": "../33secref.mp4",
+  "sourceSha256": "a93baea8eeb6602e3d456fda73c33639266d096546ee00ea2e0450041c7c4ff2",
+  "sourceFrames": 981,
+  "sourceSeconds": 32.7,
+  "sourceWidth": 368,
+  "sourceHeight": 496,
+  "sourceAudioStreams": 0,
+  "clips": [
+    {
+      "id": "founder-diagnostic-a",
+      "url": "/cruise/experiments/world-first/hybrid/founder-diagnostic-a.webm",
+      "durationSeconds": 4.5,
+      "fps": 30,
+      "firstSourceFrame": 0,
+      "content": "diagnosticReference",
+      "provenance": "Founder-supplied33secref.mp4; local diagnostic use only; not licensed final authored world.",
+      "fileBytes": 598522,
+      "validation": {
+        "decodedFrames": 135,
+        "durationSeconds": 4.5,
+        "fps": 30,
+        "audioStreams": 0,
+        "method": "Actual VP8 decode/reencode frame counter and demuxer duration."
+      }
+    },
+    {
+      "id": "founder-diagnostic-b",
+      "url": "/cruise/experiments/world-first/hybrid/founder-diagnostic-b.webm",
+      "durationSeconds": 4.5,
+      "fps": 30,
+      "firstSourceFrame": 135,
+      "content": "diagnosticReference",
+      "provenance": "Founder-supplied33secref.mp4; local diagnostic use only; not licensed final authored world.",
+      "fileBytes": 586038,
+      "validation": {
+        "decodedFrames": 135,
+        "durationSeconds": 4.5,
+        "fps": 30,
+        "audioStreams": 0,
+        "method": "Actual VP8 decode/reencode frame counter and demuxer duration."
+      }
+    }
+  ],
+  "contiguousJoin": "A[0,135) then B[135,270); no duplicated or missing source frame by trim recipe; browser handoff must be measured.",
+  "loop": false,
+  "rights": "User-supplied reference retained locally for diagnostic comparison only. No distribution/deployment or final authorship claim.",
+  "tools": {
+    "decoder": "C:/Users/luix4/AppData/Local/CapCut/Apps/8.8.0.3774/ffmpeg.exe",
+    "encoder": "C:/Users/luix4/AppData/Local/ms-playwright/ffmpeg-1011/ffmpeg-win64.exe"
+  },
+  "generatedAt": "2026-10-12T02:37:52.679Z"
+}

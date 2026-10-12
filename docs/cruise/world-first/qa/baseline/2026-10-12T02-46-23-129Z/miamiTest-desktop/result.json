@@ -1,0 +1,57 @@
+{
+  "target": {
+    "name": "miamiTest",
+    "url": "https://www.buenaondalifestyle.com/cruise/miami-test"
+  },
+  "profile": {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1
+  },
+  "emulation": false,
+  "recording": "Silent Playwright page video; radio not recorded",
+  "pass": false,
+  "failure": "TimeoutError",
+  "blocked": [
+    {
+      "method": "GET",
+      "url": "https://www.googletagmanager.com/gtag/js",
+      "reason": "analytics-or-avenue"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.buenaondalifestyle.com/_vercel/insights/script.js",
+      "reason": "analytics-or-avenue"
+    }
+  ],
+  "errors": [],
+  "responses": [
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/traffic/classic-traffic.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/people/casual.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/people/suit.glb",
+      "status": 200
+    }
+  ]
+}

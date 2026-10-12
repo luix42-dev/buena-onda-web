@@ -1,0 +1,35 @@
+RUN 20261011-222722
+RUN 20261011-224032
+line 4778: Ran out of memory allocating 569704 (0.5 MiB) bytes with alignment 8. Last error msg: The paging file is too small for this operation to complete..
+line 4786: [2026.10.12-02.49.59:801][  0]LogWindows: Error: Ran out of memory allocating 569704 (0.5 MiB) bytes with alignment 8. Last error msg: The paging file is too small for this operation to complete..
+RUN 20261011-225145
+line 1423: [2026.10.12-02.53.55:145][  1]LogExit: Editor shut down
+line 1442: [2026.10.12-02.54.05:195][  1]LogExit: Exiting.
+RUN 20261011-225448
+line 1797: [2026.10.12-02.58.51:667][188]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1798: 	(Node ComponentMask) Missing ComponentMask input
+line 1800: [2026.10.12-02.58.51:677][188]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1801: 	(Node ComponentMask) Missing ComponentMask input
+line 1805: [2026.10.12-02.58.51:700][188]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1806: 	(Node ComponentMask) Missing ComponentMask input
+line 1839: [2026.10.12-02.59.27:291][285]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1840: 	(Node ComponentMask) Missing ComponentMask input
+line 1844: [2026.10.12-02.59.33:289][622]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1845: 	(Node ComponentMask) Missing ComponentMask input
+line 1849: [2026.10.12-02.59.39:288][960]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1850: 	(Node ComponentMask) Missing ComponentMask input
+line 1854: [2026.10.12-02.59.45:288][297]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1855: 	(Node ComponentMask) Missing ComponentMask input
+line 1888: [2026.10.12-03.02.53:171][433]LogExit: Editor shut down
+line 1907: [2026.10.12-03.02.53:385][433]LogExit: Exiting.
+RUN 20261011-230451
+line 1272: [2026.10.12-03.05.07:035][  0]LogMaterial: Warning: [AssetLog] D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\.vercel\world-first-unreal\Content\WorldFirst\Materials\M_Asphalt.uasset: Failed to compile Material for platform PCD3D_SM5, Default Material will be used in game.
+line 1273: 	(Node ComponentMask) Missing ComponentMask input
+line 1654: [2026.10.12-03.07.37:826][574]LogOutputDevice: Error: Invalid PlayerInput class in Input Settings. Manual reset required.
+line 1691: [2026.10.12-03.07.39:151][574]LogOutputDevice: Error: Invalid InputComponent class in Input Settings. Manual reset required.
+line 1749: Invalid PlayerInput class in Input Settings. Manual reset required.
+line 1776: Invalid InputComponent class in Input Settings. Manual reset required.
+line 1877: [2026.10.12-03.08.05:380][721]LogMovieRenderPipeline: [7721] Finished rendering last shot. Moving to Finalize to finish writing items to disk.
+line 1966: [2026.10.12-03.08.06:122][754]LogMovieRenderPipeline: MoviePipelineLinearExecutorBase finished 1 jobs in +00:00:29.106.
+line 2036: [2026.10.12-03.08.07:464][755]LogExit: Editor shut down
+line 2055: [2026.10.12-03.08.07:747][755]LogExit: Exiting.

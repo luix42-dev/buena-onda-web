@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "inspectedDate": "2026-10-11",
+  "agent": "/root/world_art",
+  "configuredModel": "gpt-6-astra",
+  "scope": "Availability and license evidence; not a claim these assets were loaded into the new render.",
+  "assets": [
+    {
+      "id": "clean-asphalt",
+      "role": "near road",
+      "author": "Dimitrios Savva / Poly Haven",
+      "source": "https://polyhaven.com/a/clean_asphalt",
+      "license": "CC0-1.0",
+      "licenseEvidence": [
+        "https://polyhaven.com/license",
+        "public/cruise/materials/clean-asphalt/provenance.json"
+      ],
+      "status": "local-files-and-hashes-verified",
+      "files": [
+        {
+          "path": "public/cruise/materials/clean-asphalt/color.webp",
+          "bytes": 228798,
+          "sha256": "67a31b8ca26be8ad8e8c0a3362889a2792c585f5107536936dd313f6176875ca"
+        },
+        {
+          "path": "public/cruise/materials/clean-asphalt/normal.webp",
+          "bytes": 315834,
+          "sha256": "476b874c0c6adc3c55dd579788ed700fb4a03881ce86d877de5fd2e66cfec6b1"
+        },
+        {
+          "path": "public/cruise/materials/clean-asphalt/roughness.webp",
+          "bytes": 125202,
+          "sha256": "1e461c2095a96b527b854dd1a19a3c7b6d0e09ccdeb10c65be08ce1ee6862cf3"
+        }
+      ],
+      "implementation": "2.1m tile; 1K color and512px normal/roughness. Color sRGB, other maps linear. UE may need local PNG conversion. Calibrate tangent/normal convention."
+    },
+    {
+      "id": "yughues-palm",
+      "role": "near silhouette",
+      "author": "Yughues / Nobiax",
+      "source": "https://opengameart.org/content/palm-tree-v2",
+      "license": "CC0-1.0",
+      "licenseEvidence": [
+        "https://opengameart.org/content/palm-tree-v2",
+        "public/cruise/environment/palms/yughues-provenance.json"
+      ],
+      "status": "local-file-hash-matches-existing-provenance",
+      "path": "public/cruise/environment/palms/yughues-palm.glb",
+      "bytes": 901120,
+      "sha256": "ff0bd1dd2ae21390c5ef5cdf6f4a307cee51adaa20831ac3e03b77764fc12d67",
+      "inheritedMetrics": {
+        "triangles": 1032,
+        "materials": 1,
+        "heightMeters": 11
+      },
+      "implementation": "MASK alpha0.45, double sided; preserve/bake node matrix when instancing. Meshopt/WebP compressed GLB requires compatible decode/conversion before Unreal. No claim of completed import."
+    },
+    {
+      "id": "kenney-city",
+      "role": "background midrise forms",
+      "author": "Kenney",
+      "source": "https://kenney.nl/assets/city-kit-commercial",
+      "license": "CC0-1.0",
+      "licenseEvidence": [
+        ".vercel/cinema-probe/world-assets/city/License.txt",
+        "docs/cruise/cinema/automatic-ride/proof/Kenney-City-License.txt",
+        "https://kenney.nl/assets/city-kit-commercial"
+      ],
+      "licenseFileSha256": "c38cee408d022e57e44e49f1cd655c2fe0dc881a07b881276b795215cdc0de69",
+      "status": "local-directory-and-original-license-read",
+      "sourceDirectory": ".vercel/cinema-probe/world-assets/city/Models/FBX format",
+      "selected": [
+        "building-a.fbx",
+        "building-b.fbx",
+        "building-d.fbx",
+        "building-h.fbx"
+      ],
+      "implementation": "Existing imported UE paths /Game/CruiseWorld/city/building_a etc recorded in previous world-imports.json. Native size report is~129.3cm high; scale from bounds to intended building height. Stylized; do not call near-photographic."
+    },
+    {
+      "id": "kenney-palms",
+      "role": "fallback background silhouettes",
+      "author": "Kenney",
+      "source": "https://kenney.nl/assets/nature-kit",
+      "license": "CC0-1.0",
+      "licenseEvidence": [
+        ".vercel/cinema-probe/world-assets/nature/License.txt",
+        "https://kenney.nl/assets/nature-kit"
+      ],
+      "licenseFileSha256": "cb96b75e3560ac78d7a53ce6f083f4cdb5c53faea6141b62d63458dcfe1e4b9d",
+      "status": "local-directory-and-original-license-read",
+      "sourceDirectory": ".vercel/cinema-probe/world-assets/nature/Models/FBX format",
+      "selected": [
+        "tree_palmDetailedTall.fbx",
+        "tree_palmBend.fbx"
+      ],
+      "implementation": "Original imported bounds ~14cm high; explicitly normalize units to9–12m height. Existing imports do not prove correct scale in a new map."
+    },
+    {
+      "id": "authored-palms",
+      "role": "alternative untextured silhouette",
+      "author": "Buena Onda",
+      "source": "public/cruise/environment/palms/manifest.json",
+      "license": "project-authored-per-local-manifest",
+      "status": "local-manifest-read",
+      "files": [
+        "public/cruise/environment/palms/coastal-tall.glb",
+        "public/cruise/environment/palms/boulevard-full.glb",
+        "public/cruise/environment/palms/courtyard-fan.glb"
+      ],
+      "implementation": "6528–9884 triangles per inherited manifest. Larger geometry cost than Yughues; not necessary for first proof."
+    },
+    {
+      "id": "existing-skyline-coastal",
+      "role": "potential skyline assets",
+      "author": "Inherited ledger attributes Quaternius Downtown City MegaKit adaptations",
+      "source": "docs/cruise/master/ASSETS.md",
+      "license": "inherited-CC0-claim-not-independently-completed",
+      "status": "local-files-exist-provenance-gap",
+      "files": [
+        "public/cruise/environment/skyline/skyline-terraced.glb",
+        "public/cruise/environment/skyline/skyline-glass.glb",
+        "public/cruise/environment/coastal/coastal-hotel.glb"
+      ],
+      "blocker": "Original source archive/license linkage not verified; referenced public/worlds/higgs/asset.json absent in this checkout. Avoid promoting inherited attribution to independent clearance."
+    },
+    {
+      "id": "city-sample-buildings",
+      "role": "future detailed native near facades",
+      "author": "Epic Games",
+      "source": "https://www.fab.com/listings/008fe959-5511-428e-93bd-f99b1179f6d5",
+      "license": "listing-explicitly-UE-only; actual acquisition terms not recorded",
+      "status": "research-only-not-acquired-in-this-pass",
+      "implementation": "No download or integration. Do not export source meshes to browser. Listing alone not proof of cinematic quality or laptop feasibility."
+    },
+    {
+      "id": "cithrus-content",
+      "role": "existing complete alternative city",
+      "author": "CiThruS2 / Tampere University and third-party sources",
+      "source": "https://github.com/ultravideo/CiThruS2",
+      "license": "repository-code-MIT; independent-content-notices-unresolved",
+      "status": "prior-download-local-preview-evidence-only",
+      "localDirectory": ".vercel/cithrus-test/Content",
+      "blocker": "Code license does not establish all city/vehicle rights; prior heavy map already presents memory risk. Do not use as shortcut to release clearance."
+    },
+    {
+      "id": "founder-reference",
+      "role": "artistic evidence only",
+      "author": "unverified original rights holder",
+      "source": "D:/10-VENTURES/12-buena-onda/33secref.mp4",
+      "license": "not-established",
+      "status": "reference-only-do-not-ship-as-finished-scene",
+      "sha256": "a93baea8eeb6602e3d456fda73c33639266d096546ee00ea2e0450041c7c4ff2"
+    },
+    {
+      "id": "new-world-geometry",
+      "role": "road, curbs, lamps, building envelopes and own light atlases",
+      "author": "Buena Onda task implementation",
+      "license": "new-project-authored",
+      "status": "specification-only-at-time-of-manifest",
+      "implementation": "If generated by sibling renderer, its manifest must list actually used assets and source scripts. Primitive generation establishes ownership, not near-photographic quality."
+    }
+  ]
+}

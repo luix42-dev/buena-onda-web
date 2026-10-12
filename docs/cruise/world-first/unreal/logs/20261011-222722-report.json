@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "elapsed_s": 146.36,
+  "error": "Traceback (most recent call last):\n  File \"D:/10-VENTURES/12-buena-onda/cruise-publish-20261006/.vercel/world-first-unreal/build.py\", line 137, in <module>\n    report();build();STATE.update(i=0,next=time.monotonic()+35);STATE['handle']=unreal.register_slate_post_tick_callback(tick)\n             ^^^^^^^\n  File \"D:/10-VENTURES/12-buena-onda/cruise-publish-20261006/.vercel/world-first-unreal/build.py\", line 104, in build\n    moon.directional_light_component.set_intensity(.12);moon.directional_light_component.set_light_color(unreal.LinearColor(.36,.51,1,1),False)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'DirectionalLight' object has no attribute 'directional_light_component'\n"
+}

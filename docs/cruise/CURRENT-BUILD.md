@@ -1,4 +1,18 @@
-# Buena Onda Cruise - Current Build: Project Cinema Gate A
+# Buena Onda Cruise - Current Build: World First Local Experiment
+
+October 11, 2026 EDT. **Native Unreal frames and isolated Original Cruise shell exist; photographic quality has not passed. No finished 60-second cockpit film or architecture winner is claimed.** Latest evidence and milestone ledger: [World First report](world-first/REPORT.md).
+
+Local preview: http://127.0.0.1:3060/cruise/world-test. Original `/cruise`, its garage, radio implementation and middleware remain unchanged. The experiment reuses the original shell with independent muted world playback and ambience. No deployment, purchase or production data write was authorized or performed.
+
+UE 5.8.3 runs on the GTX 1060 Max-Q using DX11/SM5 raster. Initial native skyline frames failed independent art review; asphalt shader and downhill-vista refinements are recorded in the native evidence. A shared-memory failure in the first large actor build was resolved with instancing, not a new GPU or cloud service. Lumen, hardware ray tracing and path tracing remain unverified.
+
+Nine targeted audio and hybrid contract checks pass. Browser measurements, actual media/render measurements and final dispositions are maintained in the linked report and its specialist evidence. Twelve playable stations, physical-device validation, realistic traffic/cockpit production and the 40-minute sunset sequence remain incomplete. The unverified historical Supabase service-role-key revocation remains a release blocker. Unrelated unfinished working-tree changes are preserved.
+
+The highest priority remains one accepted downhill night-city frame, then a short moving shot and the requested minute. The historical entries below are retained as history; they are superseded by the latest report.
+
+---
+
+# Historical Project Cinema Gate A
 
 October 10, 2026. **UNREAL 5.8.3 FINALIZING ON D:; GPU TEST PENDING. EXISTING GTO FAILS COCKPIT DETAIL GATE.** [Cinema handoff and milestone ledger](cinema/REPORT.md).
 

@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "elapsed_s": 37.5,
+  "error": "Traceback (most recent call last):\n  File \"D:/10-VENTURES/12-buena-onda/cruise-publish-20261006/.vercel/world-first-unreal/build-instanced.py\", line 32, in <module>\n    report();build()\n             ^^^^^^^\n  File \"<string>\", line 62, in build\n  File \"D:/10-VENTURES/12-buena-onda/cruise-publish-20261006/.vercel/world-first-unreal/build-instanced.py\", line 29, in mesh\n    transform=unreal.Transform(location=vec(xyz),rotation=unreal.Rotator(pitch=rotation[0],yaw=rotation[1],roll=rotation[2]).quaternion(),scale=vec(scale))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: Transform: Failed to convert parameter 'rotation' when calling function 'KismetMathLibrary.MakeTransform' on 'Default__KismetMathLibrary'\n  TypeError: NativizeProperty: Cannot nativize 'Quat' as 'Rotation' (StructProperty)\n    TypeError: NativizeStructInstance: Cannot nativize 'Quat' as 'Rotator'\n"
+}

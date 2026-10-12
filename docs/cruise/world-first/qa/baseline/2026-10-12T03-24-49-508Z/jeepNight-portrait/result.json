@@ -1,0 +1,241 @@
+{
+  "target": {
+    "name": "jeepNight",
+    "url": "https://buena-onda-jeep-night.vercel.app"
+  },
+  "profile": {
+    "name": "portrait",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "emulation": true,
+  "recording": "Silent Playwright page video; radio not recorded",
+  "readyMs": 1970,
+  "metrics": {
+    "at": 13202.29999999702,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "raf": [
+      {
+        "at": 1253,
+        "seconds": 1.06739999999851,
+        "callbacks": 44,
+        "longestGapMs": 349.79999999999995
+      },
+      {
+        "at": 2269.4,
+        "seconds": 1.0164000000000002,
+        "callbacks": 48,
+        "longestGapMs": 183.29999999999995
+      },
+      {
+        "at": 3285.8,
+        "seconds": 1.0164000000000002,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000009
+      },
+      {
+        "at": 4318.6,
+        "seconds": 1.0328000000000002,
+        "callbacks": 50,
+        "longestGapMs": 216.5
+      },
+      {
+        "at": 5335.2,
+        "seconds": 1.0165999999999995,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000000546
+      },
+      {
+        "at": 6351.4,
+        "seconds": 1.0161999999999998,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 7367.6,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000000546
+      },
+      {
+        "at": 8384.1,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000000546
+      },
+      {
+        "at": 9400.2,
+        "seconds": 1.0161000000000004,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 10416.7,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 11432.9,
+        "seconds": 1.0161999999999989,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 12449.3,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 17
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 402.69999999552965,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:pause",
+        "at": 406.5,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 406.79999999701977,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadstart",
+        "at": 443.69999999552965,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadeddata",
+        "at": 1494.6000000014901,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:play",
+        "at": 1922.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "playing",
+        "at": 1947.2999999970198,
+        "time": 0.01629
+      }
+    ],
+    "decoded": [],
+    "media": [
+      {
+        "id": 1,
+        "kind": "AUDIO",
+        "source": "https://streamer.radio.co/sd8ab6b5aa/listen",
+        "time": 11.217542,
+        "duration": null,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      }
+    ],
+    "world": null,
+    "worldFirst": null,
+    "worldSamples": [],
+    "ambience": null,
+    "noHorizontalOverflow": true,
+    "buttons": [
+      {
+        "label": "Toggle night and sunset",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Fullscreen",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause radio",
+        "disabled": false,
+        "pressed": "true"
+      },
+      {
+        "label": "Open radio controls",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Switch cockpit and chase camera",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause drive",
+        "disabled": false,
+        "pressed": null
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://buena-onda-jeep-night.vercel.app/cruise/traffic/classic-traffic.glb",
+        "durationMs": 55.600000001490116,
+        "transferSize": 102988,
+        "encodedBodySize": 102688,
+        "decodedBodySize": 137632
+      },
+      {
+        "url": "https://buena-onda-jeep-night.vercel.app/cruise/vehicle/wrangler/wrangler.glb",
+        "durationMs": 188.19999999552965,
+        "transferSize": 5335386,
+        "encodedBodySize": 5335086,
+        "decodedBodySize": 5815428
+      }
+    ]
+  },
+  "pass": true,
+  "blocked": [],
+  "errors": [],
+  "responses": [
+    {
+      "url": "https://buena-onda-jeep-night.vercel.app/cruise/traffic/classic-traffic.glb",
+      "status": 200
+    },
+    {
+      "url": "https://buena-onda-jeep-night.vercel.app/cruise/vehicle/wrangler/wrangler.glb",
+      "status": 200
+    }
+  ]
+}

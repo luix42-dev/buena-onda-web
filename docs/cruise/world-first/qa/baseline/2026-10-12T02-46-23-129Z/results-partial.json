@@ -1,0 +1,396 @@
+{
+  "state": "paused-native-render-resource-slot",
+  "condition": "Unreal editor and CPU shader compilation concurrent; not a clean benchmark",
+  "jeepNight": "not captured",
+  "records": [
+    {
+      "target": {
+        "name": "originalCruise",
+        "url": "https://www.buenaondalifestyle.com/cruise"
+      },
+      "profile": {
+        "name": "desktop",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "deviceScaleFactor": 1
+      },
+      "emulation": false,
+      "recording": "Silent Playwright page video; radio not recorded",
+      "readyMs": 15191,
+      "metrics": {
+        "at": 26324.69999999553,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+        "renderer": [
+          {
+            "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "vendor": "Google Inc. (Intel)",
+            "context": "webgl2"
+          }
+        ],
+        "raf": [
+          {
+            "at": 3384.1,
+            "seconds": 2.48280000000298,
+            "callbacks": 29,
+            "longestGapMs": 1732.6999999999998
+          },
+          {
+            "at": 4767,
+            "seconds": 1.3829,
+            "callbacks": 42,
+            "longestGapMs": 383.3000000000002
+          },
+          {
+            "at": 10714.9,
+            "seconds": 5.9479,
+            "callbacks": 1,
+            "longestGapMs": 5947.9
+          },
+          {
+            "at": 11797.9,
+            "seconds": 1.083,
+            "callbacks": 4,
+            "longestGapMs": 516.3999999999996
+          },
+          {
+            "at": 15146.8,
+            "seconds": 3.3488999999999995,
+            "callbacks": 2,
+            "longestGapMs": 3199
+          },
+          {
+            "at": 16179.8,
+            "seconds": 1.033,
+            "callbacks": 22,
+            "longestGapMs": 66.80000000000109
+          },
+          {
+            "at": 17196.1,
+            "seconds": 1.0162999999999993,
+            "callbacks": 26,
+            "longestGapMs": 50.100000000000364
+          },
+          {
+            "at": 18229,
+            "seconds": 1.0329000000000015,
+            "callbacks": 28,
+            "longestGapMs": 83.40000000000146
+          },
+          {
+            "at": 19245.4,
+            "seconds": 1.0164000000000015,
+            "callbacks": 29,
+            "longestGapMs": 50.099999999998545
+          },
+          {
+            "at": 20261.8,
+            "seconds": 1.0163999999999977,
+            "callbacks": 30,
+            "longestGapMs": 50
+          },
+          {
+            "at": 24493.6,
+            "seconds": 4.231799999999999,
+            "callbacks": 17,
+            "longestGapMs": 3681.899999999998
+          }
+        ],
+        "events": [
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 1158.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "loadstart",
+            "at": 1259.1999999955297,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "loadeddata",
+            "at": 1266.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 3408.5,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "loadstart",
+            "at": 3412.39999999851,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "loadeddata",
+            "at": 3781.2999999970198,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:play",
+            "at": 4319.79999999702,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "playing",
+            "at": 4395.10000000149,
+            "time": 0
+          }
+        ],
+        "decoded": [],
+        "media": [
+          {
+            "id": 1,
+            "kind": "AUDIO",
+            "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1780797809660-Moonrunner-Ping-Pong-Track.mp3",
+            "time": 15.543012,
+            "duration": 344.000522,
+            "paused": false,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 4,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          }
+        ],
+        "world": null,
+        "worldFirst": null,
+        "worldSamples": [],
+        "ambience": null,
+        "noHorizontalOverflow": true,
+        "buttons": [
+          {
+            "label": "Focus radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio help",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Along the Route",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Garage",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio stations",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Mute radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Change camera: Exterior",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Switch to Day Drive",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Fullscreen",
+            "disabled": false,
+            "pressed": null
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+            "durationMs": 132.79999999701977,
+            "transferSize": 26341,
+            "encodedBodySize": 26041,
+            "decodedBodySize": 132664
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+            "durationMs": 96.60000000149012,
+            "transferSize": 18437,
+            "encodedBodySize": 18137,
+            "decodedBodySize": 129108
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+            "durationMs": 212.5,
+            "transferSize": 640161,
+            "encodedBodySize": 639861,
+            "decodedBodySize": 732156
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+            "durationMs": 192.19999999552965,
+            "transferSize": 612690,
+            "encodedBodySize": 612390,
+            "decodedBodySize": 838720
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+            "durationMs": 207.39999999850988,
+            "transferSize": 898621,
+            "encodedBodySize": 898321,
+            "decodedBodySize": 901120
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+            "durationMs": 130.10000000149012,
+            "transferSize": 640161,
+            "encodedBodySize": 639861,
+            "decodedBodySize": 732156
+          },
+          {
+            "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+            "durationMs": 147.70000000298023,
+            "transferSize": 612690,
+            "encodedBodySize": 612390,
+            "decodedBodySize": 838720
+          }
+        ]
+      },
+      "pass": true,
+      "blocked": [
+        {
+          "method": "GET",
+          "url": "https://www.googletagmanager.com/gtag/js",
+          "reason": "analytics-or-avenue"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.buenaondalifestyle.com/_vercel/insights/script.js",
+          "reason": "analytics-or-avenue"
+        }
+      ],
+      "errors": [],
+      "responses": [
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+          "status": 200
+        }
+      ],
+      "savedSilentVideo": [
+        {
+          "file": "originalCruise-desktop/silent-video/de5f959f0dd15649de66e2633fe0e536.webm",
+          "bytes": 2916258
+        }
+      ]
+    },
+    {
+      "target": {
+        "name": "miamiTest",
+        "url": "https://www.buenaondalifestyle.com/cruise/miami-test"
+      },
+      "profile": {
+        "name": "desktop",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "deviceScaleFactor": 1
+      },
+      "emulation": false,
+      "recording": "Silent Playwright page video; radio not recorded",
+      "pass": false,
+      "failure": "TimeoutError",
+      "blocked": [
+        {
+          "method": "GET",
+          "url": "https://www.googletagmanager.com/gtag/js",
+          "reason": "analytics-or-avenue"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.buenaondalifestyle.com/_vercel/insights/script.js",
+          "reason": "analytics-or-avenue"
+        }
+      ],
+      "errors": [],
+      "responses": [
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/traffic/classic-traffic.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/people/casual.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+          "status": 200
+        },
+        {
+          "url": "https://www.buenaondalifestyle.com/cruise/people/suit.glb",
+          "status": 200
+        }
+      ],
+      "savedSilentVideo": [
+        {
+          "file": "miamiTest-desktop/silent-video/07a59499e106e6a8c753efab44f59ca0.webm",
+          "bytes": 17521612
+        }
+      ]
+    }
+  ]
+}
