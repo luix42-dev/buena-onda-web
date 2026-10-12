@@ -1,0 +1,129 @@
+{
+  "status": "COMPLETE",
+  "content": "environmentDirector",
+  "qualityAccepted": false,
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "base_map": "/Game/WorldFirst/L_NightDescent_v4",
+  "map": "/Game/WorldFirst/L_Director_v5",
+  "duration_seconds": 8,
+  "fps": 30,
+  "billboard_campaign": "vice-nights / Buena Onda house campaign",
+  "vehicle_included": false,
+  "elapsed_seconds": 82.641,
+  "active_world": "/Game/WorldFirst/L_Director_v5.L_Director_v5",
+  "billboards": [
+    {
+      "campaign": "vice-nights",
+      "kind": "house/demo",
+      "source": "public/cruise/campaigns/vice-nights/fallback.png",
+      "center_cm": [
+        6500,
+        2000,
+        7507.5
+      ],
+      "face_size_m": [
+        16,
+        9
+      ],
+      "revenue_or_analytics_claims": false
+    },
+    {
+      "campaign": "vice-nights",
+      "kind": "house/demo",
+      "source": "public/cruise/campaigns/vice-nights/fallback.png",
+      "center_cm": [
+        45000,
+        -2200,
+        5825.0
+      ],
+      "face_size_m": [
+        16,
+        9
+      ],
+      "revenue_or_analytics_claims": false
+    }
+  ],
+  "scene_actor_count": 190,
+  "shots": [
+    {
+      "name": "Ridge approach",
+      "start": [
+        -1400,
+        -1650,
+        8600
+      ],
+      "end": [
+        200,
+        -1400,
+        8400
+      ],
+      "target": [
+        13500,
+        500,
+        6500
+      ],
+      "fov": 70
+    },
+    {
+      "name": "House billboard one",
+      "start": [
+        3700,
+        -1200,
+        7850
+      ],
+      "end": [
+        4100,
+        -850,
+        7780
+      ],
+      "target": [
+        6500,
+        2000,
+        7507.5
+      ],
+      "fov": 58
+    },
+    {
+      "name": "City and elevated boulevard",
+      "start": [
+        28000,
+        -10000,
+        13700
+      ],
+      "end": [
+        29600,
+        -9300,
+        13100
+      ],
+      "target": [
+        48000,
+        0,
+        5600
+      ],
+      "fov": 70
+    },
+    {
+      "name": "House billboard two",
+      "start": [
+        42000,
+        650,
+        6550
+      ],
+      "end": [
+        42700,
+        450,
+        6350
+      ],
+      "target": [
+        45000,
+        -2200,
+        5825
+      ],
+      "fov": 60
+    }
+  ],
+  "render_start_seconds": 49.172,
+  "success": true,
+  "png_count": 240,
+  "output_bytes": 546870622
+}

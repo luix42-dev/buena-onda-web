@@ -1,0 +1,129 @@
+{
+  "at": "2026-10-12T04:14:07.527Z",
+  "contamination": "Initial desktop garage and initial mobile external-stream camera observations overlapped HMR; excluded from camera acceptance. Actual owned metadata persistence passed on initial mobile contexts before that contamination.",
+  "profiles": [
+    {
+      "profile": "desktop",
+      "fixture": false,
+      "controlEvidence": "2026-10-12T04-09-46-427Z",
+      "cameraEvidence": "2026-10-12T04-09-46-427Z",
+      "nativeBillboardEvidence": "2026-10-12T04-11-21-641Z",
+      "checks": {
+        "metadataOnlySave": true,
+        "saveKeepsRadio": true,
+        "persistRemove": true,
+        "unknownLiveSaveDisabled": true,
+        "cockpitKeepsRadio": true,
+        "liveDirectorKeepsRadio": true,
+        "billboardsKeepRadio": true,
+        "liveShotVariety": 3,
+        "nativeKeepsRadio": true,
+        "nativeEightSeconds": true,
+        "noOverflow": true,
+        "noSourceSwitchFailure": true
+      },
+      "native": {
+        "status": "ended",
+        "segmentId": "director-8s",
+        "segmentIndex": 0,
+        "mediaSeconds": 8,
+        "timelineSeconds": 8,
+        "presentedFrames": 240,
+        "droppedFrames": 0,
+        "bufferedAheadSeconds": 0,
+        "transitions": 0,
+        "lastTransitionGapMs": null,
+        "firstFrameMs": 147.19999999552965
+      },
+      "renderer": [
+        {
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "vendor": "Google Inc. (Intel)",
+          "context": "webgl2"
+        }
+      ]
+    },
+    {
+      "profile": "portrait",
+      "fixture": false,
+      "controlEvidence": "2026-10-12T04-04-04-846Z",
+      "cameraEvidence": "2026-10-12T04-11-21-641Z",
+      "nativeBillboardEvidence": "2026-10-12T04-11-21-641Z",
+      "checks": {
+        "metadataOnlySave": true,
+        "saveKeepsRadio": true,
+        "persistRemove": true,
+        "unknownLiveSaveDisabled": true,
+        "cockpitKeepsRadio": true,
+        "liveDirectorKeepsRadio": true,
+        "billboardsKeepRadio": true,
+        "liveShotVariety": 3,
+        "nativeKeepsRadio": true,
+        "nativeEightSeconds": true,
+        "noOverflow": true,
+        "noSourceSwitchFailure": true
+      },
+      "native": {
+        "status": "ended",
+        "segmentId": "director-8s",
+        "segmentIndex": 0,
+        "mediaSeconds": 8,
+        "timelineSeconds": 8,
+        "presentedFrames": 240,
+        "droppedFrames": 0,
+        "bufferedAheadSeconds": 0,
+        "transitions": 0,
+        "lastTransitionGapMs": null,
+        "firstFrameMs": 102
+      },
+      "renderer": [
+        {
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "vendor": "Google Inc. (Intel)",
+          "context": "webgl2"
+        }
+      ]
+    },
+    {
+      "profile": "landscape",
+      "fixture": false,
+      "controlEvidence": "2026-10-12T04-04-04-846Z",
+      "cameraEvidence": "2026-10-12T04-11-21-641Z",
+      "nativeBillboardEvidence": "2026-10-12T04-11-21-641Z",
+      "checks": {
+        "metadataOnlySave": true,
+        "saveKeepsRadio": true,
+        "persistRemove": true,
+        "unknownLiveSaveDisabled": true,
+        "cockpitKeepsRadio": true,
+        "liveDirectorKeepsRadio": true,
+        "billboardsKeepRadio": true,
+        "liveShotVariety": 2,
+        "nativeKeepsRadio": true,
+        "nativeEightSeconds": true,
+        "noOverflow": true,
+        "noSourceSwitchFailure": true
+      },
+      "native": {
+        "status": "ended",
+        "segmentId": "director-8s",
+        "segmentIndex": 0,
+        "mediaSeconds": 8,
+        "timelineSeconds": 8,
+        "presentedFrames": 240,
+        "droppedFrames": 0,
+        "bufferedAheadSeconds": 0,
+        "transitions": 0,
+        "lastTransitionGapMs": null,
+        "firstFrameMs": 94.30000000447035
+      },
+      "renderer": [
+        {
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "vendor": "Google Inc. (Intel)",
+          "context": "webgl2"
+        }
+      ]
+    }
+  ]
+}

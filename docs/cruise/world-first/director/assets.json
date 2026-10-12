@@ -1,0 +1,51 @@
+{
+  "billboards": [
+    {
+      "id": "vice-nights",
+      "kind": "existing-project-house-campaign",
+      "campaignDeclaration": "lib/cruise/campaigns.ts",
+      "source": "public/cruise/campaigns/vice-nights/fallback.png",
+      "bytes": 49936,
+      "sha256": "45945abe8ac8a190921a08386bf5eaa662982c8fa068e24ee60986a168165cb7",
+      "width": 1280,
+      "height": 720,
+      "placements": [
+        {
+          "campaign": "vice-nights",
+          "kind": "house/demo",
+          "source": "public/cruise/campaigns/vice-nights/fallback.png",
+          "center_cm": [
+            6500,
+            2000,
+            7507.5
+          ],
+          "face_size_m": [
+            16,
+            9
+          ],
+          "revenue_or_analytics_claims": false
+        },
+        {
+          "campaign": "vice-nights",
+          "kind": "house/demo",
+          "source": "public/cruise/campaigns/vice-nights/fallback.png",
+          "center_cm": [
+            45000,
+            -2200,
+            5825
+          ],
+          "face_size_m": [
+            16,
+            9
+          ],
+          "revenue_or_analytics_claims": false
+        }
+      ],
+      "rights": "Existing Buena Onda project house artwork; reused locally under user authorization. No third-party sponsor licensing claim.",
+      "analyticsMeasured": false
+    }
+  ],
+  "baseScene": "../unreal/README.md",
+  "newExternalDownloads": 0,
+  "newPurchases": 0
+}

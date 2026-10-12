@@ -1,5 +1,7 @@
 # Buena Onda Cruise - Current Build: World First Local Experiment
 
+October 12 follow-up: cockpit radio and local song bookmarks are integrated in `/cruise/world-test?radio=1`. New controls expose the latest Unreal world's eight-second director cut with two house billboards, plus the original scene's live director and advertising meshes. The Avenue remains hidden. [Restoration ledger and evidence](world-first/RESTORATION.md). TypeScript and two song-data checks pass; browser acceptance is recorded in the restoration QA report. No deployment or production writes.
+
 October 11, 2026 EDT. **Native Unreal frames and isolated Original Cruise shell exist; photographic quality has not passed. No finished 60-second cockpit film or architecture winner is claimed.** Latest evidence and milestone ledger: [World First report](world-first/REPORT.md).
 
 Local preview: http://127.0.0.1:3060/cruise/world-test. Original `/cruise`, its garage, radio implementation and middleware remain unchanged. The experiment reuses the original shell with independent muted world playback and ambience. No deployment, purchase or production data write was authorized or performed.

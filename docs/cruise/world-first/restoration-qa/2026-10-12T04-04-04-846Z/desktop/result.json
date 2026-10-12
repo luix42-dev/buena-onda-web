@@ -1,0 +1,971 @@
+{
+  "profile": {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1
+  },
+  "emulated": false,
+  "fixtureMode": false,
+  "recording": "Silent page pixels only; no radio/system/microphone capture.",
+  "phases": {},
+  "checks": {},
+  "failure": "TimeoutError",
+  "final": {
+    "at": 120340.89999999851,
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "raf": [
+      {
+        "at": 1278.4,
+        "seconds": 1.0155000000014902,
+        "callbacks": 32,
+        "longestGapMs": 133.3
+      },
+      {
+        "at": 3177.8,
+        "seconds": 1.8994000000000002,
+        "callbacks": 37,
+        "longestGapMs": 1233.0000000000002
+      },
+      {
+        "at": 4194.1,
+        "seconds": 1.0163000000000002,
+        "callbacks": 60,
+        "longestGapMs": 33.19999999999982
+      },
+      {
+        "at": 5210.4,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000000546
+      },
+      {
+        "at": 6226.8,
+        "seconds": 1.0164000000000006,
+        "callbacks": 61,
+        "longestGapMs": 16.800000000000182
+      },
+      {
+        "at": 7243.1,
+        "seconds": 1.0163000000000002,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 8259.3,
+        "seconds": 1.0161999999999989,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 9275.6,
+        "seconds": 1.016300000000001,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 10292,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 11308.5,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 12324.5,
+        "seconds": 1.016,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 13340.9,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 14357.2,
+        "seconds": 1.016300000000001,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 15373.6,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 17.100000000000364
+      },
+      {
+        "at": 16389.9,
+        "seconds": 1.016300000000001,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000109
+      },
+      {
+        "at": 17406.2,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.799999999999272
+      },
+      {
+        "at": 18422.5,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 19439,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 20455.1,
+        "seconds": 1.0160999999999984,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 21471.5,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 17.100000000002183
+      },
+      {
+        "at": 22487.8,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 23504.2,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 24520.4,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 25536.8,
+        "seconds": 1.0163999999999977,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 26553.2,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 27569.4,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999997817
+      },
+      {
+        "at": 28585.7,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 29602.1,
+        "seconds": 1.0163999999999977,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 30618.4,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 31634.7,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 32651.1,
+        "seconds": 1.0163999999999977,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999997817
+      },
+      {
+        "at": 33667.4,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 34683.6,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 35699.9,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 36716.3,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 37732.6,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 38748.9,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 39765.2,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 40781.6,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 41797.9,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 42814.3,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 43830.5,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 44846.8,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 45863.1,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 46879.5,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 47895.8,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 48912.2,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 49928.4,
+        "seconds": 1.0162000000000044,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 50944.8,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 51961.1,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 52977.4,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 53993.7,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 55010,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 56026.7,
+        "seconds": 1.016699999999997,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 57042.6,
+        "seconds": 1.0159000000000014,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 58059.1,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 59075.3,
+        "seconds": 1.0162000000000044,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 60091.7,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 61107.9,
+        "seconds": 1.0162000000000044,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 62124.2,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 63140.7,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 17.099999999998545
+      },
+      {
+        "at": 64156.9,
+        "seconds": 1.0162000000000044,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 65173.2,
+        "seconds": 1.0162999999999955,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 66189.5,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 67205.9,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 68222.2,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 69238.5,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 70254.8,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 71271.2,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 72287.5,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 73303.8,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 74320.1,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 75336.4,
+        "seconds": 1.0162999999999884,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 76352.7,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 17.29999999998836
+      },
+      {
+        "at": 77369.1,
+        "seconds": 1.0164000000000086,
+        "callbacks": 43,
+        "longestGapMs": 316.6000000000058
+      },
+      {
+        "at": 78385.5,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 79401.7,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 80418,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 81434.4,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 82450.8,
+        "seconds": 1.0164000000000086,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 83467.1,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 84483.4,
+        "seconds": 1.0162999999999884,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 85499.7,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 86515.9,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 87532.3,
+        "seconds": 1.0164000000000086,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 88548.7,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 89565,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 90581.3,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 91597.6,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 92613.8,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 93630.2,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 94646.6,
+        "seconds": 1.0164000000000086,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 95662.9,
+        "seconds": 1.0162999999999884,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 96679.1,
+        "seconds": 1.0162000000000115,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 97695.5,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 17.20000000001164
+      },
+      {
+        "at": 98711.9,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 99728.2,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 100744.5,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 101760.9,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 17.10000000000582
+      },
+      {
+        "at": 102777,
+        "seconds": 1.0161000000000058,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 103793.5,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 104809.8,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 105826.1,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 106842.4,
+        "seconds": 1.0162999999999884,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 107858.6,
+        "seconds": 1.0162000000000115,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 108875.1,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 109891.3,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 110907.7,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 111924.1,
+        "seconds": 1.0164000000000086,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 112940.3,
+        "seconds": 1.016199999999997,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 113956.6,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 114972.9,
+        "seconds": 1.0162999999999884,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 115989.2,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      },
+      {
+        "at": 117005.5,
+        "seconds": 1.0163000000000029,
+        "callbacks": 61,
+        "longestGapMs": 16.80000000000291
+      },
+      {
+        "at": 118021.9,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 119038.1,
+        "seconds": 1.0162000000000115,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000873
+      },
+      {
+        "at": 120054.5,
+        "seconds": 1.0163999999999942,
+        "callbacks": 61,
+        "longestGapMs": 16.89999999999418
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 693.7000000029802,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:pause",
+        "at": 696.2000000029802,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 696.2000000029802,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:load",
+        "at": 696.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadstart",
+        "at": 853.5,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadeddata",
+        "at": 855.5,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:load",
+        "at": 3211.60000000149,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadstart",
+        "at": 3215.89999999851,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadeddata",
+        "at": 3510.3000000044703,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:pause",
+        "at": 76629.89999999851,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:load",
+        "at": 76630.10000000149,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:load",
+        "at": 76630.60000000149,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadstart",
+        "at": 76656.60000000149,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadeddata",
+        "at": 76657,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:load",
+        "at": 77868.70000000298,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadstart",
+        "at": 77870.89999999851,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadeddata",
+        "at": 78071.80000000447,
+        "time": 0
+      }
+    ],
+    "decoded": [],
+    "media": [
+      {
+        "id": 1,
+        "kind": "AUDIO",
+        "source": "http://127.0.0.1:3060/cruise/world-test",
+        "time": 0,
+        "duration": null,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      },
+      {
+        "id": 2,
+        "kind": "AUDIO",
+        "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+        "time": 0,
+        "duration": null,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      },
+      {
+        "id": 3,
+        "kind": "AUDIO",
+        "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+        "time": 0,
+        "duration": 354.742875,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      }
+    ],
+    "world": null,
+    "worldFirst": null,
+    "worldSamples": [],
+    "jeepNight": null,
+    "ambience": null,
+    "noHorizontalOverflow": true,
+    "buttons": [
+      {
+        "label": "Credits",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Previous car",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Next car",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Salt paint",
+        "disabled": false,
+        "pressed": "true"
+      },
+      {
+        "label": "Lagoon paint",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Sand paint",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Sunset · planned",
+        "disabled": true,
+        "pressed": "false"
+      },
+      {
+        "label": "Night Drive",
+        "disabled": false,
+        "pressed": "true"
+      },
+      {
+        "label": "LET’S CRUISE",
+        "disabled": true,
+        "pressed": null
+      },
+      {
+        "label": "Coastal Coupe",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Classic Coupe",
+        "disabled": false,
+        "pressed": "false"
+      },
+      {
+        "label": "Island Trail",
+        "disabled": false,
+        "pressed": "true"
+      },
+      {
+        "label": "Reload Cruise",
+        "disabled": false,
+        "pressed": null
+      }
+    ],
+    "resources": [],
+    "restoration": {
+      "interactive": null,
+      "songStorage": null,
+      "libraryText": null,
+      "telemetry": null,
+      "failedWorld": [
+        "We couldn’t start the drive.3D may be unavailable or a car failed to load.Reload CruiseListen to Buena Onda Radio"
+      ]
+    }
+  },
+  "errors": [],
+  "blocked": [],
+  "responses": []
+}

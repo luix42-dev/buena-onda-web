@@ -1,0 +1,23 @@
+# Cockpit, radio, director and house billboard restoration
+
+October 12, 2026 EDT. Local experiment only; original `/cruise` is unchanged. No deployment, purchases or production writes.
+
+Open http://127.0.0.1:3060/cruise/world-test?radio=1 and choose LET'S CRUISE. The original garage and dashboard radio are retained. The Radio control opens the original headunit with power, four presets, seek, mute and volume knob/slider. Song bookmarks appear alongside it. Save preserves verified available Buena Onda catalog labels on this browser; Saved songs lists and removes them. These are metadata bookmarks, not audio downloads, replay links or account synchronization. Unknown external live tracks cannot be saved as identified songs. Original station discovery links remain available.
+
+Back to drive reveals Cockpit, Director cut, Live director and Billboards controls. Cockpit uses the previous two-second Unreal plate and fixed Island Trail browser interior. Director cut plays the new eight-second environmental film of the latest native world, four camera shots and two placed house billboards. It has no baked vehicle or cockpit. Live director and Billboards reuse the original real-time scene and selected garage car; they are companion views, not movable cameras in the native film. The film's camera cuts are intentional and its end holds; it is not a seamless or finished sixty-second journey. Radio ownership remains in the persistent original hook.
+
+The restored original advertising meshes use existing house creatives. Their local detail handler performs no ownership, claims, payments or exposure reporting. The new native signs are baked into footage and cannot be edited at runtime. The Avenue remains hidden; live Stripe/Supabase data is untouched. Historical service-role-key retirement remains an unresolved release blocker.
+
+| Owner | Files | Status | Evidence | Blockers |
+|---|---|---|---|---|
+| Lead `/root` | WorldExperience, WorldVisual, world-test.css, public manifest | Integrated and checked locally | Full TypeScript check passes; independent radio/cockpit and billboard screenshot review | Cinematic art quality remains unaccepted |
+| `/root/audio_music`, gpt-6.1-sol | SongLibrary, saved-songs, radio-restoration docs/test | Built, two data checks pass | [Radio audit](radio-restoration.md) | Hook exposes label only; external unknown tracks unavailable |
+| `/root/hybrid_playback`, gpt-6.1-sol | InteractiveWorld, shell generator | Built and browser-checked; generator syntax passes | Original scene cameras and house billboard visible; radio owner unchanged | No movable camera in baked footage |
+| `/root/unreal_director`, gpt-6-astra | director source, frames, web film, provenance | Native cut rendered and frame-reviewed | [Render evidence](director/README.md): 240 frames, 8s, 10,317,196 bytes | World photographic art gate remains failed |
+| `/root/qa_security`, gpt-6.1-sol | restoration harness and captures | Browser checks pass across three profiles | [QA](restoration-qa/README.md) | Desktop phone emulation, not physical devices |
+
+Actual Edge/Intel browser checks: desktop 1440x900, portrait 390x844 and landscape 844x390, DPR1. Real catalog metadata was used without synthetic fixtures. All profiles passed local save/reload/remove and disabled saving for unknown live tracks. Fresh owned-radio camera checks preserved the same media owner/source and advancing clock through cockpit, live director, billboard view and native film; live director changed shots. Native film reached eight seconds without page errors or horizontal overflow. Desktop's full fresh run passed all thirteen checks. Mobile targeted checks repaired the missing active-radio baseline in the first run; those and the HMR-contaminated initial desktop attempt are explicitly retained in QA evidence. Screenshots and silent page recordings are in that report; they do not establish physical-device performance or a listening-quality test.
+
+The corrected native render took 33.469 seconds for the render queue interval; complete script 82.641 seconds. PNG source totals 546,870,622 bytes. Failed attempts and original-map restoration are documented in the native report; the original map's archived hash matches after restoration. Eight-second web delivery averages about 10.32 Mbps excluding transfer overhead. No paid render services or new external assets were used.
+
+The scene still needs urban ground detail, continuous road art, more natural materials/lighting and less repeating architecture to approach the founder's footage. This restoration makes existing product features reviewable while that visual gate remains unmet. The next world task remains one convincing continuous minute, after visual review.

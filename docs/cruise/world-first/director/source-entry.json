@@ -1,0 +1,39 @@
+{
+  "id": "director",
+  "name": "City director / house billboards",
+  "status": "Actual 8-second native director cut with two Buena Onda house billboards. Latest world art gate remains failed.",
+  "content": "environmentOnly",
+  "qualityAccepted": false,
+  "posterUrl": "/cruise/experiments/world-first/director/poster.png",
+  "variableCamera": true,
+  "hybridOverlayAllowed": false,
+  "segments": [
+    {
+      "id": "director-8s",
+      "url": "/cruise/experiments/world-first/director/director-8s.webm",
+      "durationSeconds": 8,
+      "fps": 30,
+      "firstSourceFrame": 0,
+      "content": "environmentOnly",
+      "provenance": "Actual UE5.8 native raster frames of latest v4 world copied to v5; two existing Buena Onda/Vice Nights house billboards added as world geometry.",
+      "fileBytes": 10317196,
+      "camera": {
+        "horizontalFovDeg": 70,
+        "aspect": 1.7777777777777777,
+        "eyeHeightM": 13.37,
+        "speedMps": 8.15858443604036,
+        "poseUrl": "/cruise/experiments/world-first/director/camera.json",
+        "variable": true,
+        "note": "Four director shots: actual pose/lens/height varies. Numeric camera fields describe opening only; no cockpit calibration."
+      },
+      "validation": {
+        "decodedFrames": 240,
+        "durationSeconds": 8,
+        "fps": 30,
+        "width": 1920,
+        "height": 1080,
+        "audioStreams": 0
+      }
+    }
+  ]
+}
