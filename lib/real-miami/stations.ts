@@ -1,0 +1,84 @@
+import type { CruiseRadioMood, CruiseStation } from './types'
+
+export const CRUISE_STATIONS = [
+  {
+    id: 'buena-onda-radio',
+    name: 'Buena Onda Radio',
+    enabled: true,
+    source: '/api/radio/tracks',
+    provider: 'buena-onda',
+    rightsStatus: 'owned',
+    playback: 'playlist',
+    moods: ['miami-local'],
+  },
+  {
+    id: 'jolt-radio', name: 'Jolt Radio', provider: 'jolt',
+    // Published as Jolt's desktop/mobile ListenAction on its official homepage.
+    enabled: true, source: 'https://streamer.radio.co/sd8ab6b5aa/listen', rightsStatus: 'approved', playback: 'stream',
+    moods: ['miami-local'], externalUrl: 'https://www.joltradio.org/',
+  },
+  {
+    // NTS publishes these exact URLs for custom media players. This is direct
+    // listener playback, not permission to record, restream or sponsor NTS audio.
+    id: 'nts-radio', name: 'NTS 1', provider: 'nts',
+    enabled: true, source: 'https://stream-relay-geo.ntslive.net/stream?client=direct', rightsStatus: 'approved', playback: 'stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.nts.live/radio',
+  },
+  {
+    id: 'nts-radio-2', name: 'NTS 2', provider: 'nts',
+    enabled: true, source: 'https://stream-relay-geo.ntslive.net/stream2?client=direct', rightsStatus: 'approved', playback: 'stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.nts.live/radio',
+  },
+  {
+    id: 'poolsuite', name: 'Poolsuite', provider: 'poolsuite',
+    enabled: false, source: null, rightsStatus: 'permission-required', playback: 'external',
+    moods: ['poolside'], externalUrl: 'https://poolsuite.net/',
+    unavailableReason: 'Listen on Poolsuite',
+  },
+] as const satisfies readonly CruiseStation[]
+
+export const DEFAULT_CRUISE_STATION = CRUISE_STATIONS[0]
+
+/** Experimental route only. Public listener URLs are not rebroadcast/recording rights. */
+export const MIAMI_CRUISE_STATIONS: readonly CruiseStation[] = [
+  ...CRUISE_STATIONS,
+  { id: 'rinse-france', name: 'Rinse France', provider: 'custom', enabled: true,
+    source: 'https://radio10.pro-fhi.net/flux-trmqtiat/stream', playback: 'stream', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.rinse.fm/channels/france' },
+  { id: 'the-lot-radio', name: 'The Lot Radio', provider: 'custom', enabled: true,
+    source: 'https://livepeercdn.studio/hls/85c28sa2o8wppm58/index.m3u8', playback: 'hls', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.thelotradio.com/' },
+  { id: 'kiosk-radio', name: 'Kiosk Radio', provider: 'custom', enabled: true,
+    source: 'https://play.streamnerd.nl/kioskradio/kioskradio/playlist.m3u8', playback: 'hls', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.kioskradio.com/' },
+  { id: 'dublab', name: 'dublab', provider: 'custom', enabled: true,
+    source: 'https://dublab.out.airtime.pro/dublab_a', playback: 'stream', rightsStatus: 'public-stream',
+    moods: ['ambient', 'leftfield'], externalUrl: 'https://www.dublab.com/' },
+]
+
+export const CRUISE_RADIO_MOODS: readonly { id: CruiseRadioMood; name: string }[] = [
+  { id: 'miami-local', name: 'Miami Local' },
+  { id: 'leftfield', name: 'Leftfield' },
+  { id: 'poolside', name: 'Poolside' },
+  { id: 'night-drive', name: 'Night Drive' },
+  { id: 'tropical', name: 'Tropical' },
+  { id: 'ambient', name: 'Ambient' },
+  { id: 'global', name: 'Global' },
+  { id: 'guest', name: 'Guest' },
+]
+
+export function canPlayCruiseStation(station: CruiseStation): boolean {
+  return station.enabled &&
+    (station.rightsStatus === 'owned' || station.rightsStatus === 'approved' || station.rightsStatus === 'public-stream') &&
+    (station.playback === 'playlist' || station.playback === 'stream' || station.playback === 'hls') &&
+    typeof station.source === 'string' && station.source.trim().length > 0
+}
+
+export function getCruiseStation(id: string): CruiseStation | undefined {
+  return CRUISE_STATIONS.find(station => station.id === id)
+}
+
+export function getCruiseStationsForMood(mood: CruiseRadioMood | 'all'): readonly CruiseStation[] {
+  return mood === 'all' ? CRUISE_STATIONS : CRUISE_STATIONS.filter(station =>
+    (station.moods as readonly CruiseRadioMood[]).includes(mood))
+}

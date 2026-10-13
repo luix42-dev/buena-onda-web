@@ -1,0 +1,27 @@
+# Real Miami integration experiment
+
+Branch: `experiment/cruise-brand-new-rides-20261013`, based on production source HEAD `63012c231c3bfbefbd474a2a96159bd929f2bad4`. The original dirty checkout was left intact. Nothing has been deployed.
+
+The current geographic Cruise is isolated in `components/real-miami`, `lib/real-miami` and `public/real-miami`. Its imports and asset URLs are remapped within that namespace. Original milestone components, vehicle assets, campaign APIs and local production fonts remain intact. The imported CSS scopes its selectors to the Cruise interface; the missing experimental font-body variable is mapped to the existing production font-sans variable.
+
+The existing `/cruise` server route and campaign selection stay unchanged. Its client loads the new Jeep experience for the default `buena-onda` campaign. `?experience=legacy` explicitly loads the previous LaunchExperience. Every other campaign also retains LaunchExperience, preserving campaign creatives, video, CTA handling and its existing ad measurement rather than showing generic geographic house plots in their place.
+
+`CampaignBridge` retains the selected campaign and uses the existing production analytics hook with actual scene readiness, garage state, camera, radio station/playback and sunset/night telemetry. The new world retains its numbered geographically persistent house plots. Campaign image/video rendering, qualified ad occlusion and CTA placement have not been integrated into those plots. Therefore the new scene emits no sponsorship exposure measurements. Other campaigns continue through the existing measured advertising implementation.
+
+The radio uses one audio owner. Its metadata endpoint is added at `/api/cruise/now-playing`; the existing local radio-tracks API is retained. `hls.js` 1.7.3 is made an explicit dependency using the already locked package, without purchasing or downloading assets. For local verification, node_modules is a junction to the existing production installation; a clean install should use the committed package lock.
+
+The website Cast button gives the supported Chrome **Cast tab** steps. It does not claim a webpage can invoke Chrome's privileged full-tab picker using the restricted internal receiver. On October 13 the native Chrome dialog reported La Sala casting the tab, and the user confirmed the TV picture and radio worked. That hardware result applies to the existing native tab-mirroring session; the session was left intact throughout source integration.
+
+Run `npm run typecheck`, `npm run build`, then `npm run start -- -p 3064`. Test `/cruise`, `/cruise?experience=legacy` and `/cruise?campaign=vice-nights` separately. Visual, radio, device-picker, loading and FPS validation must be recorded against this source integration; results from the standalone experimental app do not automatically establish production-route correctness.
+
+`node scripts/sync-real-miami.mjs` refreshes only the isolated imported source/assets and the added metadata endpoint from the geographic working folder. It retains CampaignBridge, original milestone source and the route switch. It also reapplies the namespaced telemetry extension and font mapping. Prototype assets include their original author/license provenance under `public/real-miami/vehicle`.
+
+## Final verification — October 13, 2026
+
+**PASS for the branded three-car default Cruise route and native Chrome casting.** The full website `npm run build` passed after retrieving its existing public database configuration. Compilation, lint/type checking and all 34 generated static pages completed. Existing lint/configuration warnings remain; no production deployment occurred. Configuration files are ignored and were never staged. The local preview restores the original radio-only runtime configuration, so production database writes are unavailable locally.
+
+The final proof ran against `next start -p 3064`, not a development-only mock. Desktop 1280 × 720 and portrait 390 × 844 both passed all three loaded car previews, full-viewport cards, working drive, Cadillac radio close-up, return to garage, one retained audio owner, loaded thumbnails and accurate Chrome Cast guidance. Actual Jolt playback and nonzero live spectrum were recorded in both contexts. The `experience=legacy` and `campaign=vice-nights` checks retained the original Coastal Coupe, Classic Coupe and Island Trail with zero JavaScript errors. Full raw data and screenshots are in [route-results.json](route-results.json) and [review.html](review.html).
+
+The website's inherited body line height initially shifted the chooser layout. Cruise now explicitly uses normal line height within its own `.jn` scope; final screenshot review and card bounds passed without altering other website pages. Native casting was tested separately in Chrome with La Sala, and the user confirmed both TV picture and radio audio.
+
+No new sustained FPS, frame-time, TV latency or physical-mobile benchmark was performed for this UI integration. Snapshot FPS in the route data is diagnostic sampling, not a benchmark. Existing standalone driving benchmarks remain separate. Full commercial campaign plot rendering/viewability in the geographic world remains outside this change; other campaign routes keep their existing implementation.

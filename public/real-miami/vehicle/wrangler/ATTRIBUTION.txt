@@ -1,0 +1,18 @@
+Wrangler Jeep 2012 — funassets
+Source: https://sketchfab.com/3d-models/wrangler-jeep-2012-fd41538dbb6744b38d7037c4cc8b058f
+License displayed by publisher: Creative Commons Attribution (CC BY 4.0)
+License: https://creativecommons.org/licenses/by/4.0/
+Acquired by user through signed-in Sketchfab download on 2026-10-11.
+Archive: D:\10-VENTURES\12-buena-onda\wrangler-jeep-2012.zip
+SHA256: D36379538B094596DAA7526BC508E46C06245CA85A91B0B0952DA8AD021AFD74
+
+The downloaded source archive contains a nested ZIP called FordGalaxie1966.zip;
+its contents are Wrangler 2012 FBX and textures. Preserve this provenance rather
+than inferring a different vehicle from the nested ZIP filename.
+
+Local modifications: repair image references (including space/underscore tire
+texture name), export a corrected FBX with embedded textures, prepare scale and
+orientation for Unreal, and disable Nanite for the DX11 laptop profile. This
+asset has a basic textured cockpit; it has not passed a detailed cockpit gate.
+
+Browser edition: converted to GLB with embedded textures, scaled by 0.70, repaired opaque body/interior rendering and transparent glass. Original interactive cockpit authored separately by Buena Onda.

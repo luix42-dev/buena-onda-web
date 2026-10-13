@@ -1,0 +1,387 @@
+{
+  "method": "Actual integrated /cruise route in separate headless Edge. No mocked application, assets or audio. Mobile sizes are desktop emulation. Native Chrome TV session untouched.",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "errors": [],
+      "checks": {
+        "newGarage": true,
+        "imagesLoaded": true,
+        "noOverflow": true,
+        "cardsWithinViewport": true,
+        "cruising": true,
+        "radioFocused": true,
+        "returnGarage": true,
+        "audioOwnerRetained": true,
+        "truthfulCast": true
+      },
+      "cars": [
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 58.43319797942542,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.8180607054382563,
+          "drawCalls": 12,
+          "ready": true,
+          "vehicle": "wrangler",
+          "garage": true,
+          "timeMode": "night"
+        },
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 57.142857142857096,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.8310707025229931,
+          "drawCalls": 75,
+          "ready": true,
+          "vehicle": "eighties",
+          "garage": true,
+          "timeMode": "night"
+        },
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 56.57568238213397,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.6966153606772423,
+          "drawCalls": 21,
+          "ready": true,
+          "vehicle": "cadillac",
+          "garage": true,
+          "timeMode": "night"
+        }
+      ],
+      "layout": {
+        "height": 720,
+        "width": 1280,
+        "scene": {
+          "class": "jn jn-garage",
+          "x": 0,
+          "y": 0,
+          "right": 1280,
+          "bottom": 720,
+          "width": 1280,
+          "height": 720
+        },
+        "picker": {
+          "class": "rp",
+          "x": 0,
+          "y": 0,
+          "right": 1280,
+          "bottom": 720,
+          "width": 1280,
+          "height": 720
+        },
+        "cards": [
+          {
+            "class": "",
+            "x": 51.1875,
+            "y": 661.34375,
+            "right": 235.890625,
+            "bottom": 717.34375,
+            "width": 184.703125,
+            "height": 56
+          },
+          {
+            "class": "",
+            "x": 250.890625,
+            "y": 661.34375,
+            "right": 430.65625,
+            "bottom": 717.34375,
+            "width": 179.765625,
+            "height": 56
+          },
+          {
+            "class": "",
+            "x": 445.65625,
+            "y": 661.34375,
+            "right": 669.03125,
+            "bottom": 717.34375,
+            "width": 223.375,
+            "height": 56
+          }
+        ],
+        "credits": [
+          {
+            "class": "jn-credits",
+            "x": 36,
+            "y": 698.203125,
+            "right": 133.171875,
+            "bottom": 711,
+            "width": 97.171875,
+            "height": 12.796875
+          },
+          {
+            "class": "jn-extra-credit",
+            "x": 180,
+            "y": 698.203125,
+            "right": 228.390625,
+            "bottom": 711,
+            "width": 48.390625,
+            "height": 12.796875
+          }
+        ]
+      },
+      "started": {
+        "speed": 0.044912620793464864,
+        "rpm": 800.9356795998639,
+        "distance": 0.0006423446590768404,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 5.560962046428274,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 8.848627772182226,
+        "drawCalls": 156,
+        "ready": true,
+        "vehicle": "cadillac",
+        "garage": false,
+        "timeMode": "night"
+      },
+      "audioOwners": {
+        "created": 1
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "checks": {
+        "newGarage": true,
+        "imagesLoaded": true,
+        "noOverflow": true,
+        "cardsWithinViewport": true,
+        "cruising": true,
+        "radioFocused": true,
+        "returnGarage": true,
+        "audioOwnerRetained": true,
+        "truthfulCast": true
+      },
+      "cars": [
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 44.79394783953764,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.8038940075784922,
+          "drawCalls": 12,
+          "ready": true,
+          "vehicle": "wrangler",
+          "garage": true,
+          "timeMode": "night"
+        },
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 47.216210898660094,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.8443048615008593,
+          "drawCalls": 75,
+          "ready": true,
+          "vehicle": "eighties",
+          "garage": true,
+          "timeMode": "night"
+        },
+        {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 42.08311415082413,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.7402400337159634,
+          "drawCalls": 21,
+          "ready": true,
+          "vehicle": "cadillac",
+          "garage": true,
+          "timeMode": "night"
+        }
+      ],
+      "layout": {
+        "height": 844,
+        "width": 390,
+        "scene": {
+          "class": "jn jn-garage",
+          "x": 0,
+          "y": 0,
+          "right": 390,
+          "bottom": 844,
+          "width": 390,
+          "height": 844
+        },
+        "picker": {
+          "class": "rp",
+          "x": 0,
+          "y": 0,
+          "right": 390,
+          "bottom": 844,
+          "width": 390,
+          "height": 844
+        },
+        "cards": [
+          {
+            "class": "",
+            "x": 23.390625,
+            "y": 620,
+            "right": 134.453125,
+            "bottom": 673,
+            "width": 111.0625,
+            "height": 53
+          },
+          {
+            "class": "",
+            "x": 139.453125,
+            "y": 620,
+            "right": 250.53125,
+            "bottom": 673,
+            "width": 111.078125,
+            "height": 53
+          },
+          {
+            "class": "",
+            "x": 255.53125,
+            "y": 620,
+            "right": 366.609375,
+            "bottom": 673,
+            "width": 111.078125,
+            "height": 53
+          }
+        ],
+        "credits": [
+          {
+            "class": "jn-credits",
+            "x": 20,
+            "y": 823.8125,
+            "right": 107.28125,
+            "bottom": 835,
+            "width": 87.28125,
+            "height": 11.1875
+          },
+          {
+            "class": "jn-extra-credit",
+            "x": 145,
+            "y": 823.8125,
+            "right": 187.34375,
+            "bottom": 835,
+            "width": 42.34375,
+            "height": 11.1875
+          }
+        ]
+      },
+      "started": {
+        "speed": 18.199408766372624,
+        "rpm": 1179.1543492994297,
+        "distance": 10.293512731756241,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 56.97720911686266,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 9.052508020700998,
+        "drawCalls": 177,
+        "ready": true,
+        "vehicle": "cadillac",
+        "garage": false,
+        "timeMode": "night"
+      },
+      "audioOwners": {
+        "created": 1
+      }
+    },
+    {
+      "query": "experience=legacy",
+      "errors": [],
+      "checks": {
+        "legacyThreeCars": true,
+        "newSceneAbsent": true
+      },
+      "labels": [
+        "Coastal Coupe",
+        "Classic Coupe",
+        "Island Trail"
+      ]
+    },
+    {
+      "query": "campaign=vice-nights",
+      "errors": [],
+      "checks": {
+        "legacyThreeCars": true,
+        "newSceneAbsent": true
+      },
+      "labels": [
+        "Coastal Coupe",
+        "Classic Coupe",
+        "Island Trail"
+      ]
+    }
+  ]
+}

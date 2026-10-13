@@ -1,0 +1,44 @@
+{
+  "title": "1959 Cadillac El Dorado Biarritz",
+  "creator": "DisneyCars",
+  "creatorUrl": "https://sketchfab.com/supercarmodels",
+  "sourceUrl": "https://sketchfab.com/3d-models/1959-cadillac-el-dorado-biarritz-6b95a4fda1f44b07b65c5fdfc858627c",
+  "officialApiUrl": "https://api.sketchfab.com/v3/models/6b95a4fda1f44b07b65c5fdfc858627c",
+  "license": "CC-BY-4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "requirements": "Author must be credited. Commercial use is allowed.",
+  "licenseEvidence": "LICENSE.txt copied unchanged from the official converted glTF download; official GLB embedded asset metadata corroborates author, source and license.",
+  "acquisition": {
+    "dateUtc": "2026-10-13T15:22:22Z",
+    "method": "Normal authenticated Sketchfab Download 3D Model dialog, free official OBJ ZIP, converted GLB and converted glTF ZIP downloads.",
+    "purchasesMade": false,
+    "viewerFilesExtracted": false,
+    "runtimeGlbBytes": 5437452,
+    "runtimeGlbSha256": "571a456113546142eed90dd20c2cfb061b10df1fc9a933045b595a9098a44c32",
+    "officialGltfZipBytes": 3339245,
+    "officialGltfZipSha256": "f0c160265d551f6b70c9e164b48c40161fd03611d339b57dbc7147f0e4a5430f"
+  },
+  "geometry": {
+    "officialTriangles": 75411,
+    "officialVertices": 52167,
+    "meshes": 13,
+    "materials": 13,
+    "textures": 8,
+    "nativeBoundsMin": [52.58100128173828, 0.024706799536954142, -69.98750305175781],
+    "nativeBoundsMax": [62.59040069580078, 6.173649787902847, -42.16080093383789],
+    "runtimeLengthMeters": 5.715,
+    "runtimeWidthMetersApprox": 2.056,
+    "runtimeHeightMetersApprox": 1.263,
+    "orientation": "Y up, front -Z",
+    "nativeInteriorRetained": true,
+    "nativeInteriorEvidence": "Original open-top body, white bench seats, steering wheel, dashboard, instrument and radio texture atlas inspected in OBJ and GLB source."
+  },
+  "runtimeAdaptations": [
+    "Clone source scene and materials; normalize offset origin and units to 5.715m length without rewriting source GLB.",
+    "Retain native convertible body and cabin. No roof cutting or procedural replacement interior.",
+    "Hide two source windshield/glazing mesh groups only in cockpit view; restore both in exterior chase view.",
+    "Mount the existing interactive PhysicalRadio on the native center dashboard and add a 24-bar instanced spectrum using the shared live analyser. No additional audio owner.",
+    "Add vehicle-specific cockpit, radio closeup and chase camera profile plus bounded cabin/headlight illumination."
+  ],
+  "visualValidation": "Actual desktop 1280x720 and portrait 390x844 screenshots reviewed in combined Cruise. Original convertible cabin and complete chase car retained; corrected dashboard adapter and portrait camera keep the LCD, knobs, presets and live spectrum visible. Native gauges remain static source textures. Measured driving performance is reported separately."
+}

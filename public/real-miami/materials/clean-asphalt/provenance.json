@@ -1,0 +1,35 @@
+{
+  "asset": "Clean Asphalt",
+  "author": "Dimitrios Savva",
+  "source": "https://polyhaven.com/a/clean_asphalt",
+  "license": "CC0-1.0",
+  "downloadDate": "2026-09-08",
+  "sourceResolution": 1024,
+  "tileMeters": 2.1,
+  "maps": [
+    {
+      "channel": "color",
+      "resolution": 1024,
+      "sourceBytes": 697630,
+      "runtimeBytes": 228798,
+      "sourceSha256": "ddf9224e9cfa3eb2998d9097e4cd34bd3630c85e0e6798e5a0a000415a684083",
+      "runtimeSha256": "67a31b8ca26be8ad8e8c0a3362889a2792c585f5107536936dd313f6176875ca"
+    },
+    {
+      "channel": "normal",
+      "resolution": 512,
+      "sourceBytes": 776360,
+      "runtimeBytes": 315834,
+      "sourceSha256": "99cdf6b6f0b8a319d206e1d561bf2a5d9933d8d33e1d685f8e25388101d21310",
+      "runtimeSha256": "476b874c0c6adc3c55dd579788ed700fb4a03881ce86d877de5fd2e66cfec6b1"
+    },
+    {
+      "channel": "roughness",
+      "resolution": 512,
+      "sourceBytes": 641634,
+      "runtimeBytes": 125202,
+      "sourceSha256": "2280be133c104eb04370b625ebcc7f6709d2173b43ae2cd15a0074c26f492bf9",
+      "runtimeSha256": "1e461c2095a96b527b854dd1a19a3c7b6d0e09ccdeb10c65be08ce1ee6862cf3"
+    }
+  ]
+}
