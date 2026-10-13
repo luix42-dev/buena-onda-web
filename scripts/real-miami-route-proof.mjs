@@ -1,4 +1,5 @@
 import{createRequire}from'node:module';import{mkdir,writeFile}from'node:fs/promises'
+if(process.argv.includes('--ads')){await import('./miami-ads-proof.mjs');process.exit()}
 const require=createRequire(new URL('../../cruise-master-20261005/package.json',import.meta.url)),{chromium}=require('@playwright/test')
 const out='docs/cruise/real-miami-integration',result={method:'Actual integrated /cruise route in separate headless Edge. No mocked application, assets or audio. Mobile sizes are desktop emulation. Native Chrome TV session untouched.',runs:[]}
 await mkdir(out,{recursive:true})

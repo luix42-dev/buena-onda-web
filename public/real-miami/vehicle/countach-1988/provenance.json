@@ -1,0 +1,46 @@
+{
+  "modelId": "2f02b54e01fc428e8b19759c5970f882",
+  "modelName": "Lamborghini Countach 5000QV",
+  "sourceUrl": "https://sketchfab.com/3d-models/lamborghini-countach-5000qv-2f02b54e01fc428e8b19759c5970f882",
+  "creator": {
+    "name": "Randomness",
+    "username": "throwbackthursdaymodels",
+    "profileUrl": "https://sketchfab.com/throwbackthursdaymodels"
+  },
+  "downloadableAtVerification": true,
+  "license": {
+    "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+    "label": "CC Attribution",
+    "fullName": "Creative Commons Attribution",
+    "requirements": "Author must be credited. Commercial use is allowed.",
+    "url": "http://creativecommons.org/licenses/by/4.0/",
+    "slug": "by"
+  },
+  "acquiredUTC": "2026-10-13T17:34:29Z",
+  "acquisition": "Official Sketchfab authenticated Download dialog, free GLB converted format, 1k textures. No purchase.",
+  "sourceBytes": 16244620,
+  "sourceSHA256": "623644c4cb217ffce38e136169c1f69a4fee5e560aef9eb71384bb2746bb0bb5",
+  "runtimeBytes": 16243344,
+  "runtimeSHA256": "1cbcb71f0860083561babe7fb9f5f64b060154c6cf2816e3cf50f00a14b1432b",
+  "geometry": {
+    "sourceTriangles": 175061,
+    "sourceVertices": 101352,
+    "sourceMeshParts": 38,
+    "embeddedImages": 22,
+    "materials": 27
+  },
+  "adaptations": [
+    "KHR_materials_pbrSpecularGlossiness converted to core metallic-roughness using original diffuse colors/textures and approximate roughness; legacy specular-gloss maps omitted. Source geometry, UVs, normal maps and embedded images retained.",
+    "Runtime Y rotation -pi/2 establishes front -Z; normalize longitudinal extent to4.14m, preserving source proportions (~2.09m width including mirrors,1.07m height).",
+    "Existing Buena Onda physical interactive radio and live spectrum fitted to native cabin.",
+    "Original tinted glazing material Meshpart24Mtl hidden only while cockpit camera is inside."
+  ],
+  "dimensionReference": "https://www.lambocars.com/countach-lp500-quattrovalvole-specs-performance/",
+  "modelYear": "Unspecified by source; UI labels5000QV.",
+  "thumbnail": {
+    "path": "/real-miami/vehicle/garage/countach.png",
+    "method": "Actual Buena Onda garage WebGL render captured as a Playwright screenshot clip; no generated replacement image.",
+    "sha256": "ed3cc768003adf050c425fc0e48199cbe1457cc921f04c0a2545118b11f6b495"
+  },
+  "visualValidation": "Desktop1280x720 and portrait390x844 actual native exterior, driver, chase and radio screenshots reviewed. Radio and spectrum raised14cm above the original shift lever; closeup camera raised equally. Original cabin and native shift lever retained."
+}

@@ -56,3 +56,5 @@ refs/
 
 # Local Claude Code settings can hold credentials; never track them.
 .claude/settings.local.json
+.next-miami-ads-dev/
+.next-miami-ads-check/

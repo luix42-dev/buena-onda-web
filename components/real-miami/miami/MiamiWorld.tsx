@@ -186,21 +186,6 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n#ifdef USE_COLOR\ntotalEmissiveRadiance *= vColor.rgb;\n#endif')
   }
   const adMaterials: T.Material[] = []
-  for (const plot of data.advertisingPlots || []) {
-    const canvas = document.createElement('canvas'); canvas.width = 768; canvas.height = 384
-    const ctx = canvas.getContext('2d')!
-    ctx.fillStyle = '#13262d'; ctx.fillRect(0, 0, 768, 384)
-    ctx.strokeStyle = '#79cbb9'; ctx.lineWidth = 5; ctx.strokeRect(16, 16, 736, 352)
-    ctx.fillStyle = '#dfd9c7'; ctx.font = '500 32px sans-serif'; ctx.fillText('BUENA ONDA', 50, 80)
-    ctx.font = '600 52px sans-serif'; ctx.fillText('THE NIGHT IS YOURS', 50, 165)
-    ctx.font = '28px sans-serif'; ctx.fillStyle = '#89cfbd'; ctx.fillText(plot.id, 50, 280)
-    ctx.font = '22px sans-serif'; ctx.fillText('HOUSE / DEMO • GEOGRAPHIC PLOT', 50, 330)
-    const map = new T.CanvasTexture(canvas); map.colorSpace = T.SRGBColorSpace; textures.push(map)
-    const material = new T.MeshStandardMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: .3, roughness: .55, side: T.DoubleSide }); adMaterials.push(material)
-    const sign = new T.Mesh(new T.PlaneGeometry(3.2, 1.6), material); geometries.push(sign.geometry)
-    sign.position.set(plot.x, 2.15, plot.z); sign.rotation.y = plot.yaw || 0; group.add(sign)
-    const support = new T.Mesh(box, mats.poles); support.position.set(plot.x, 1.05, plot.z); support.scale.set(.12, 2.1, .12); group.add(support)
-  }
   const getCell = (p: number[]) => {
     const x = Math.floor(p[0] / CELL), z = Math.floor(p[1] / CELL), key = `${x}:${z}`
     if (!cells.has(key)) { const g = new T.Group(), detail = new T.Group(); g.add(detail); group.add(g); cells.set(key, { group: g, detail, x: (x + .5) * CELL, z: (z + .5) * CELL, built: false }) }

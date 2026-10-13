@@ -1,4 +1,4 @@
-export type RideVehicleId = 'wrangler' | 'eighties' | 'cadillac'
+export type RideVehicleId = 'countach' | 'wrangler' | 'eighties' | 'cadillac'
 export type RidePoint = [number, number, number]
 export type RideCameraProfile = {
   label: string

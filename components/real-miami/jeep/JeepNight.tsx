@@ -6,6 +6,9 @@ import StreetSky from '../master/StreetSky'
 import {pulse,updatePulse} from '../master/pulse'
 import NightWorld from '../nightdrive/NightWorld'
 import MiamiWorld from '../miami/MiamiWorld'
+import MiamiAds from '../miami/MiamiAds'
+import {MiamiAdCue,useRealMiamiAds,useRealMiamiCampaign} from '../CampaignBridge'
+import {DEFAULT_CRUISE_CAMPAIGN} from '@/lib/cruise/campaigns'
 import MiamiMap from '../miami/MiamiMap'
 import CruiseGlow from '../miami/CruiseGlow'
 import {createMiamiRoute,type MiamiGeoData} from '@/lib/real-miami/miami-geo'
@@ -21,6 +24,7 @@ import {MIAMI_CRUISE_STATIONS,canPlayCruiseStation} from '@/lib/real-miami/stati
 import {WRANGLER_CAMERA_PROFILE,type RideCameraProfile,type RideVehicleId} from '@/lib/real-miami/ride-vehicles'
 import {MusicAudio} from '@/lib/real-miami/music-audio'
 import Wrangler from './Wrangler'
+import Countach,{COUNTACH_CAMERA_PROFILE,COUNTACH_ATTRIBUTION} from './Countach'
 import EightiesCar,{EIGHTIES_CAMERA_PROFILE,EIGHTIES_ATTRIBUTION} from './EightiesCar'
 import CastControl from './CastControl'
 import RidePicker from './RidePicker'
@@ -44,8 +48,8 @@ function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,b
   if(garage){
     const cam=camera as T.PerspectiveCamera,canvas=gl.domElement.getBoundingClientRect(),stage=document.querySelector('.rp-showcase')?.getBoundingClientRect()
     const width=canvas.width||1,height=canvas.height||1,stageWidth=Math.max(140,(stage?.width||width)*.8),stageHeight=Math.max(100,(stage?.height||height)*.95)
-    const fov=40,vertical=Math.tan(fov*Math.PI/360),span=vehicle==='cadillac'?6.5:vehicle==='eighties'?4.8:4.9
-    const projectedHeight=vehicle==='wrangler'?2.4:vehicle==='eighties'?1.8:2.0
+    const fov=40,vertical=Math.tan(fov*Math.PI/360),span=vehicle==='cadillac'?6.5:vehicle==='eighties'||vehicle==='countach'?4.8:4.9
+    const projectedHeight=vehicle==='wrangler'?2.4:vehicle==='eighties'||vehicle==='countach'?1.8:2.0
     const distance=Math.max(span/(2*vertical*cam.aspect)*width/stageWidth,projectedHeight/(2*vertical)*height/stageHeight)
     cam.fov=fov;cam.setViewOffset(width,height,width/2-((stage?.left||canvas.left)-canvas.left+(stage?.width||width)/2),height/2-((stage?.top||canvas.top)-canvas.top+(stage?.height||height)/2),width,height)
     target.set(0,.85,0);p.set(-.65,.22,-.76).normalize().multiplyScalar(distance).add(target);camera.position.copy(p);camera.lookAt(target)
@@ -84,9 +88,10 @@ function Equalizer({music,active}:{music:MusicAudio;active:boolean}){
 }
 
 export default function JeepNight(){
+ const campaign=useRealMiamiCampaign()||DEFAULT_CRUISE_CAMPAIGN,advertising=useRealMiamiAds()
  const [enhanced,setEnhanced]=useState(true)
- const [vehicle,setVehicle]=useState<RideVehicleId>('wrangler')
- const profile=vehicle==='cadillac'?CLASSIC_CAMERA_PROFILE:vehicle==='eighties'?EIGHTIES_CAMERA_PROFILE:WRANGLER_CAMERA_PROFILE
+ const [vehicle,setVehicle]=useState<RideVehicleId>('countach')
+ const profile=vehicle==='countach'?COUNTACH_CAMERA_PROFILE:vehicle==='cadillac'?CLASSIC_CAMERA_PROFILE:vehicle==='eighties'?EIGHTIES_CAMERA_PROFILE:WRANGLER_CAMERA_PROFILE
  useEffect(()=>{if(new URLSearchParams(location.search).get('look')==='original')setEnhanced(false)},[])
  const state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
@@ -121,7 +126,8 @@ export default function JeepNight(){
    <Canvas className="jn-world" dpr={[1,1.25]} frameloop={visible?'always':'never'} camera={{position:[-.43,1.64,.43],fov:60,near:.04,far:500}} gl={{antialias:true,powerPreference:'high-performance',toneMapping:T.ACESFilmicToneMapping}}>
     <Suspense fallback={null}>
      {started?<><StreetSky time={night?'night':'sunset'} high={false} blend={baseline?undefined:blend}/>{route&&geo?<MiamiWorld state={state} night={night} data={geo} route={route} blend={blend} enhanced={enhanced}/>:baseline?<NightWorld state={state} night={night}/>:null}</>:<GarageEnvironment/>}
-     <group ref={car}><Suspense fallback={null}>{vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>}</Suspense></group>
+     {started&&route&&geo&&<MiamiAds vehicleId={vehicle} vehicleReady={ready} state={state} data={geo} route={route} campaign={campaign} measurementsEnabled={!radio&&!landmark&&visible} onSamples={advertising?.reportSamples||(()=>{})} onActivate={placement=>advertising?.activate(placement)}/>}
+     <group ref={car}><Suspense fallback={null}>{vehicle==='countach'?<Countach state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>}</Suspense></group>
      <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio}/>
     </Suspense>
    </Canvas>
@@ -129,6 +135,7 @@ export default function JeepNight(){
   {started&&<header className="jn-brand"><a href="/" aria-label="Buena Onda">BUENA ONDA<span>MIAMI / GEOGRAPHIC EXPERIMENT</span></a><p>{district}<span className="jn-dot"/> {profile.label.toUpperCase()}</p></header>}
   {!started&&<><RidePicker vehicle={vehicle} onSelect={selectVehicle} night={night} onNightChange={setNight} onStart={start} ready={ready} routeReady={!!route||baseline} castControl={<CastControl/>}/>{geoError&&<p className="rp-error" role="alert">{geoError}</p>}</>}
   {started&&<>
+   {!radio&&!landmark&&<MiamiAdCue/>}
    {nearbyLandmark&&!landmark&&!radio&&<button className="jn-landmark-peek" onClick={inspectLandmark} aria-label={`View landmark: ${nearbyLandmark.name}`}>View {nearbyLandmark.name}</button>}
    {landmark&&<div className="jn-radio-focus"><span>{landmark.name} / PARKED</span><button onClick={closeLandmark} aria-label="Back from landmark">Back to drive</button></div>}
    {geo&&route&&!radio&&<MiamiMap data={geo} route={route} getDistance={getDistance}/>}
@@ -151,9 +158,9 @@ export default function JeepNight(){
     <p className="jn-signal">{audio.playing?(audio.muted?'Muted':music.analysisActive?'Live spectrum':'Listening • spectrum available when the stream allows it'):'Turn the power on to listen.'}</p>
     <RadioSongPanel library={library} tune={audio.selectStation}/>
    </section>}
-   <div className="jn-mood"><button className="jn-choose-ride" type="button" aria-label="Return to garage" onClick={returnToGarage}>Choose ride</button><label>CAR<select aria-label="Cruise vehicle" value={vehicle} onChange={e=>selectVehicle(e.target.value as RideVehicleId)}><option value="wrangler">Wrangler 2012</option><option value="eighties">Fiero GT 1987</option><option value="cadillac">Cadillac 1959</option></select></label><label>PACE<select aria-label="Driving pace" value={tone} onChange={e=>setTone(e.target.value as typeof tone)}><option value="cruise">Easy</option><option value="night-drive">Cruise</option><option value="midnight-run">Midnight</option></select></label>{!ready&&<span role="status">Preparing {profile.label}...</span>}</div>
+   <div className="jn-mood"><button className="jn-choose-ride" type="button" aria-label="Return to garage" onClick={returnToGarage}>Choose ride</button><label>CAR<select aria-label="Cruise vehicle" value={vehicle} onChange={e=>selectVehicle(e.target.value as RideVehicleId)}><option value="countach">Countach 5000QV</option><option value="eighties">Fiero GT 1987</option><option value="cadillac">Cadillac 1959</option></select></label><label>PACE<select aria-label="Driving pace" value={tone} onChange={e=>setTone(e.target.value as typeof tone)}><option value="cruise">Easy</option><option value="night-drive">Cruise</option><option value="midnight-run">Midnight</option></select></label>{!ready&&<span role="status">Preparing {profile.label}...</span>}</div>
   </>}
   <a className="jn-map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">&copy; OpenStreetMap contributors &middot; ODbL</a><details className="jn-credits"><summary>Credits & controls</summary><p>V: camera · R: radio · Space: park. The drive follows the road automatically.</p><p>Wrangler Jeep 2012 by <a href="https://sketchfab.com/3d-models/wrangler-jeep-2012-fd41538dbb6744b38d7037c4cc8b058f" target="_blank" rel="noreferrer">funassets</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Repaired windows, scaled exterior, custom interactive cabin.</p><p>Asphalt: Dimitrios Savva / Poly Haven, CC0. Plaster and paving: <a href="https://polyhaven.com/license" target="_blank" rel="noreferrer">Poly Haven, CC0</a>. Radio plays directly from its stations.</p></details>
-  <div className="jn-extra-credit"><details><summary>Car credits</summary><p><a href={EIGHTIES_ATTRIBUTION.url} target="_blank" rel="noreferrer">{EIGHTIES_ATTRIBUTION.name}</a> by {EIGHTIES_ATTRIBUTION.creator}, <a href={EIGHTIES_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">CC BY 4.0</a>. Original cabin, fitted interactive radio.</p><p><a href={CLASSIC_ATTRIBUTION.url} target="_blank" rel="noreferrer">{CLASSIC_ATTRIBUTION.name}</a> by {CLASSIC_ATTRIBUTION.creator}, <a href={CLASSIC_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">CC BY 4.0</a>. Original convertible cabin, fitted interactive radio.</p></details></div>
+  <div className="jn-extra-credit"><details><summary>Car credits</summary><p><a href={COUNTACH_ATTRIBUTION.url} target="_blank" rel="noreferrer">{COUNTACH_ATTRIBUTION.name}</a> by {COUNTACH_ATTRIBUTION.creator}, <a href={COUNTACH_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">CC BY 4.0</a>. Original cabin, compatible materials, fitted interactive radio.</p><p><a href={EIGHTIES_ATTRIBUTION.url} target="_blank" rel="noreferrer">{EIGHTIES_ATTRIBUTION.name}</a> by {EIGHTIES_ATTRIBUTION.creator}, <a href={EIGHTIES_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">CC BY 4.0</a>. Original cabin, fitted interactive radio.</p><p><a href={CLASSIC_ATTRIBUTION.url} target="_blank" rel="noreferrer">{CLASSIC_ATTRIBUTION.name}</a> by {CLASSIC_ATTRIBUTION.creator}, <a href={CLASSIC_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">CC BY 4.0</a>. Original convertible cabin, fitted interactive radio.</p></details></div>
  </main>
 }

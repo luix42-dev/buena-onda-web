@@ -1,0 +1,9 @@
+Lamborghini Countach 5000QV by Randomness (@throwbackthursdaymodels)
+Source: https://sketchfab.com/3d-models/lamborghini-countach-5000qv-2f02b54e01fc428e8b19759c5970f882
+Creator: https://sketchfab.com/throwbackthursdaymodels
+Licensed under Creative Commons Attribution4.0 International (CCBY4.0).
+License: https://creativecommons.org/licenses/by/4.0/
+Legal code: https://creativecommons.org/licenses/by/4.0/legalcode.en
+Official source API declares commercial use allowed with author attribution.
+Changes: legacy materials converted for Three.js WebGL, scene reoriented and scaled, cockpit glazing visibility adjusted, existing interactive radio and live spectrum added.
+Original geometry, cabin and texture images retained. No endorsement by the creator is implied.

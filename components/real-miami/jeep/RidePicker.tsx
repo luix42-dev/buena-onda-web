@@ -5,7 +5,7 @@ import type { RideVehicleId } from '@/lib/real-miami/ride-vehicles'
 import './ride-picker.css'
 
 const rides: { id: RideVehicleId; name: string; year: string; mood: string; description: string }[] = [
-  { id: 'wrangler', name: 'Wrangler', year: '2012', mood: '01 / OPEN AIR', description: 'Open sky, warm dials and your favorite station. Take the long way along the coast.' },
+  { id: 'countach', name: 'Countach', year: '5000QV', mood: '01 / ITALIAN ICON', description: 'Lamborghini lines, an analog cabin and your favorite station. Take the long way along the coast.' },
   { id: 'eighties', name: 'Fiero GT', year: '1987', mood: '02 / EIGHTIES SPIRIT', description: 'A Pontiac classic with analog character. Find your rhythm on the streets of Miami.' },
   { id: 'cadillac', name: 'Eldorado Biarritz', year: '1959', mood: '03 / CLASSIC CONVERTIBLE', description: 'Cadillac curves, an open roof and room to slow down. Let the city roll past.' },
 ]
@@ -22,7 +22,7 @@ export type RidePickerProps = {
 }
 
 export default function RidePicker({ vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
-  const index = rides.findIndex(ride => ride.id === vehicle)
+  const index = Math.max(0, rides.findIndex(ride => ride.id === vehicle))
   const selected = rides[index]
   const selectNext = (step: number) => onSelect(rides[(index + step + rides.length) % rides.length].id)
   return <section className="rp" aria-label="Choose your ride">
