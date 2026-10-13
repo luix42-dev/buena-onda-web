@@ -8,8 +8,14 @@ import MiniMaxExperiment from '@/components/cruise/MiniMaxExperiment'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Buena Onda Cruise TV',
-  description: 'An endless Miami-inspired drive, tuned to Buena Onda Radio.',
+  title: 'Buena Onda Cruise',
+  description: 'An interactive Miami night drive powered by live radio.',
+  openGraph: {
+    title: 'Buena Onda Cruise',
+    description: 'An interactive Miami night drive powered by live radio.',
+    images: [{ url: '/real-miami/og/cruise-colony-night.jpg', width: 1200, height: 630, alt: 'The Colony Hotel on Ocean Drive at night, from the Buena Onda Cruise Director camera' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/real-miami/og/cruise-colony-night.jpg'] },
 }
 
 function publicBase() {

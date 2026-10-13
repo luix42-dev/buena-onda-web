@@ -303,7 +303,13 @@ export class CruiseDirector {
     }
   }
 
+  /** Portrait reframes like vertical video: cap the vertical FOV and accept side crop
+   * rather than filling half the frame with unlit road. */
+  private verticalFov(hfov: number, aspect: number) {
+    return T.MathUtils.clamp(T.MathUtils.radToDeg(2 * Math.atan(Math.tan(T.MathUtils.degToRad(hfov) / 2) / aspect)), 8, aspect < 1 ? 64 : 95)
+  }
   private carInFrame(position: Vec, target: Vec, hfov: number, aspect: number) {
+    hfov = T.MathUtils.radToDeg(2 * Math.atan(Math.tan(T.MathUtils.degToRad(this.verticalFov(hfov, aspect)) / 2) * aspect))
     const { a, b, c, d, anchor } = this.v
     a.subVectors(target, position).normalize()          // forward
     b.crossVectors(a, UP).normalize()                   // right
@@ -379,7 +385,7 @@ export class CruiseDirector {
       plan = this.plan!
     }
     this.out.shot = plan.id
-    this.out.fov = T.MathUtils.clamp(T.MathUtils.radToDeg(2 * Math.atan(Math.tan(T.MathUtils.degToRad(plan.hfov) / 2) / input.aspect)), 8, 95)
+    this.out.fov = this.verticalFov(plan.hfov, input.aspect)
     // World → render coordinates (MiamiWorld translates the city by -origin).
     this.out.position.x -= origin.x; this.out.position.z -= origin.z
     this.out.target.x -= origin.x; this.out.target.z -= origin.z

@@ -11,7 +11,7 @@ const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); r
 const base = arg('url', 'http://127.0.0.1:3067'), label = arg('label', 'capture'), route = Number(arg('route', '17.5'))
 const views = arg('views', 'driver,chase').split(','), fpsSeconds = Number(arg('fps', '0')), settle = Number(arg('settle', '2500'))
 const viewports = arg('viewports', '1280x720,390x844').split(',').map(v => { const [width, height] = v.split('x').map(Number); return { width, height } })
-const park = process.argv.includes('--park'), query = arg('query', ''), seed = arg('seed', '7'), out = `docs/cruise/opus/${label}`, sunset = process.argv.includes('--sunset')
+const clean = process.argv.includes('--clean'), park = process.argv.includes('--park'), query = arg('query', ''), seed = arg('seed', '7'), out = `docs/cruise/opus/${label}`, sunset = process.argv.includes('--sunset')
 await mkdir(out, { recursive: true })
 const result = { label, url: base, query, park, route, seed, date: new Date().toISOString(), method: 'Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.', runs: [] }
 const browser = await chromium.launch({ channel: 'msedge', headless: true, args: ['--enable-gpu', '--use-angle=d3d11', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] })
@@ -43,6 +43,7 @@ try {
       if (paused) await page.getByRole('button', { name: 'Resume drive', exact: true }).click().catch(() => {})
       await page.waitForTimeout(settle)
       if (park) { await page.getByRole('button', { name: 'Pause drive', exact: true }).click().catch(() => {}); await page.evaluate(m => window.__miamiInspect(m), route); await page.waitForTimeout(800) }
+      if (clean) await page.addStyleTag({ content: '.jn>*:not(.jn-world){display:none!important}' })
       await page.screenshot({ path: file })
       const entry = { view, file, director: await page.evaluate(() => window.__director?.() || null), chunks: await page.evaluate(() => document.documentElement.dataset.miamiChunks || null) }
       if (fpsSeconds > 0) {
