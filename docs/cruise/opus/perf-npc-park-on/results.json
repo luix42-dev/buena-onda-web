@@ -1,0 +1,319 @@
+{
+ "label": "perf-npc-park-on",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "park": true,
+ "route": 19300,
+ "seed": "7",
+ "date": "2026-10-13T19:18:45.802Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-npc-park-on/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":577178,\"geometries\":195,\"textures\":76}",
+     "fps": {
+      "samples": [
+       49.188391539596644,
+       49.2465281199121,
+       49.17871545180823,
+       49.2416781561025,
+       49.236829148202865,
+       48.98119122271353,
+       48.9070765542554,
+       47.18372161618069,
+       46.82674105794603,
+       48.42375728869745,
+       48.53888063397719,
+       48.611111111111114,
+       48.0769230767825,
+       48.44290657439444,
+       48.76107075301955
+      ],
+      "mean": 48.58970148698001,
+      "min": 46.82674105794603,
+      "below30": 0,
+      "rafMeanMs": 20.582585034013604,
+      "rafP95Ms": 33.400000000001455,
+      "rafMaxMs": 33.5
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.11790351496511878,
+      "active": 6,
+      "visible": 6,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-npc-park-on/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":588582,\"geometries\":209,\"textures\":77}",
+     "fps": {
+      "samples": [
+       59.856344773079776,
+       59.20078934385793,
+       58.78836189664649,
+       56.75029868628772,
+       57.556812543245485,
+       59.043495374753064,
+       58.636453985117505,
+       58.375383397473065,
+       59.07837731424984,
+       57.924697892911844,
+       58.26009677083673,
+       58.91751547797967,
+       58.16246056833597,
+       58.899870220449735,
+       56.64877757884238
+      ],
+      "mean": 58.40664905493781,
+      "min": 56.64877757884238,
+      "below30": 0,
+      "rafMeanMs": 17.131151241534987,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.599999999998545
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.07957405617296096,
+      "active": 6,
+      "visible": 6,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    }
+   ],
+   "readyMs": 2668,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-npc-park-on/390x844-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":519404,\"geometries\":189,\"textures\":76}",
+     "fps": {
+      "samples": [
+       60.0216471516077,
+       60.01574183357174,
+       60.02755363187918,
+       60.02164715072765,
+       60.01574183445161,
+       60.021647151607716,
+       60.02164715072767,
+       60.0216471516077,
+       60.01574183445161,
+       60.02164715072767,
+       60.01574183445161,
+       60.01574183357174,
+       60.02755363099896,
+       60.021647151607716,
+       60.0216471516077
+      ],
+      "mean": 60.02046624290653,
+      "min": 60.01574183357174,
+      "below30": 0,
+      "rafMeanMs": 16.66112334801762,
+      "rafP95Ms": 16.799999999999272,
+      "rafMaxMs": 17.100000000000364
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.04968224409708349,
+      "active": 6,
+      "visible": 6,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-npc-park-on/390x844-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":523768,\"geometries\":192,\"textures\":76}",
+     "fps": {
+      "samples": [
+       60.021647151607716,
+       60.02755363099896,
+       60.021647151607716,
+       60.01574183357174,
+       60.02755363099896,
+       60.00983767830796,
+       60.021647151607716,
+       60.0216471516077,
+       60.021647151607716,
+       60.027553630998945,
+       60.02164715160769,
+       60.01574183357174,
+       60.01574183357174,
+       60.021647151607716,
+       60.0216471516077
+      ],
+      "mean": 60.020860085658775,
+      "min": 60.00983767830796,
+      "below30": 0,
+      "rafMeanMs": 16.6610989010989,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 18
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.07851363395781957,
+      "active": 6,
+      "visible": 6,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    }
+   ],
+   "readyMs": 1559,
+   "playing": true
+  }
+ ]
+}

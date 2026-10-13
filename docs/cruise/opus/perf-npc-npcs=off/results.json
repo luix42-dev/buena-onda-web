@@ -1,0 +1,274 @@
+{
+ "label": "perf-npc-npcs=off",
+ "url": "http://127.0.0.1:3067",
+ "query": "npcs=off",
+ "route": 19285,
+ "seed": "7",
+ "date": "2026-10-13T19:13:45.035Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-npc-npcs=off/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":3,\"active\":26,\"total\":256,\"pending\":31,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":452985,\"geometries\":166,\"textures\":70}",
+     "fps": {
+      "samples": [
+       38.980509745127435,
+       49.82561036372695,
+       50.62537224508461,
+       50.87789305711779,
+       50.89820359281438,
+       50.565139797291216,
+       50.335570469650605,
+       52.89949096763445,
+       55.72139303482588,
+       53.30700888450145,
+       50.77152812344451,
+       50.76647421814264,
+       50.17215937038858,
+       50.811022083695796,
+       50.83225356339231,
+       48.848569434316886,
+       51.787670551049374,
+       51.746442431775876,
+       51.51575193229698,
+       52.72058092049291
+      ],
+      "mean": 50.70043223933853,
+      "min": 38.980509745127435,
+      "below30": 0,
+      "rafMeanMs": 19.46176753121998,
+      "rafP95Ms": 33.399999999999636,
+      "rafMaxMs": 66.70000000000073
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": null
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-npc-npcs=off/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":37,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":535587,\"geometries\":240,\"textures\":73}",
+     "fps": {
+      "samples": [
+       55.379746835279825,
+       57.73442165984854,
+       60.00983767830793,
+       60.03346127384889,
+       60.0216471516077,
+       56.699492688917715,
+       52.621127879113565,
+       58.80594039686559,
+       59.784774810148946,
+       58.45056469241391,
+       58.64228207879505,
+       58.06515106814891,
+       59.73120955699357,
+       60.503868279924305,
+       59.037685722892796,
+       59.52971524917668,
+       58.17393019111284,
+       58.700626803651275,
+       58.72399721292426,
+       60.0216471516077
+      ],
+      "mean": 58.533556419079005,
+      "min": 52.621127879113565,
+      "below30": 0,
+      "rafMeanMs": 17.039848357203034,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.599999999998545
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": null
+    }
+   ],
+   "readyMs": 2747,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-npc-npcs=off/390x844-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":3,\"active\":26,\"total\":256,\"pending\":31,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":452681,\"geometries\":160,\"textures\":70}",
+     "fps": {
+      "samples": [
+       51.875498802564664,
+       60.00393468459344,
+       60.03346127296851,
+       60.021647151607716,
+       60.0216471516077,
+       60.015741833571724,
+       59.037685722892824,
+       59.910134797803316,
+       60.1281419418433,
+       60.009837678307946,
+       60.027553630998945,
+       60.02755363099896,
+       60.0216471516077,
+       60.01574183445161,
+       59.844404547641105,
+       59.20663114321036,
+       60.00393468371392,
+       60.0393700787402,
+       60.0157418344516,
+       60.01574183357174
+      ],
+      "mean": 59.51380257035737,
+      "min": 51.875498802564664,
+      "below30": 0,
+      "rafMeanMs": 16.757663628831814,
+      "rafP95Ms": 16.800000000000182,
+      "rafMaxMs": 33.400000000000546
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": null
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-npc-npcs=off/390x844-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":37,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":509849,\"geometries\":218,\"textures\":72}",
+     "fps": {
+      "samples": [
+       60.02755363099896,
+       59.683676514650266,
+       60.34226926554509,
+       60.03346127296851,
+       60.00983767830796,
+       60.02755363099896,
+       60.021647151607716,
+       60.01574183445161,
+       60.02164715072767,
+       60.0216471516077,
+       60.0216471516077,
+       60.021647151607716,
+       60.0216471516077,
+       60.02164715072765,
+       60.009837678307946,
+       60.02755363187918,
+       60.02164715072767,
+       60.0216471516077,
+       60.01574183445161,
+       60.02164715072767
+      ],
+      "mean": 60.02048492425583,
+      "min": 59.683676514650266,
+      "below30": 0,
+      "rafMeanMs": 16.66098765432099,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 17
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "crowd": null
+    }
+   ],
+   "readyMs": 1529,
+   "playing": true
+  }
+ ]
+}

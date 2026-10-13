@@ -1,0 +1,33 @@
+{
+ "label": "baseline-3066",
+ "url": "http://127.0.0.1:3066",
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T18:52:37.287Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/baseline-3066/1280x720-driver.png",
+     "director": null,
+     "chunks": "{\"built\":2,\"active\":27,\"total\":256,\"pending\":30,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":350639,\"geometries\":134,\"textures\":56}"
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/baseline-3066/1280x720-chase.png",
+     "director": null,
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":522567,\"geometries\":165,\"textures\":56}"
+    }
+   ],
+   "readyMs": 4902,
+   "playing": true
+  }
+ ]
+}

@@ -76,6 +76,8 @@ class BeatClock {
 
 export class CruiseDirector {
   readonly history: DirectorHistory[] = []
+  /** Cumulative per-drive statistics; `history` keeps only the most recent 64 cuts. */
+  readonly totals = { cuts: 0, byShot: {} as Record<string, number>, byReason: {} as Record<string, number> }
   private index: BuildingIndex
   private approaches: Approach[] = []
   private ads: [number, number][]
@@ -115,7 +117,7 @@ export class CruiseDirector {
   reset() { this.plan = null; this.sinceAerial = 0; this.headingReady = false; this.shotLandmarks.clear() }
   snapshot() {
     const p = this.plan
-    return { shot: p?.id ?? null, label: p ? SHOT_LABEL[p.id] : null, elapsed: p ? this.now - p.start : 0, planned: p?.target ?? 0, beatInterval: this.beats.interval, beatAlive: this.beats.alive(this.now), tier: this.tier, landmark: p?.approach?.landmark.name ?? null, history: this.history.slice(-24) }
+    return { shot: p?.id ?? null, label: p ? SHOT_LABEL[p.id] : null, elapsed: p ? this.now - p.start : 0, planned: p?.target ?? 0, beatInterval: this.beats.interval, beatAlive: this.beats.alive(this.now), tier: this.tier, landmark: p?.approach?.landmark.name ?? null, history: this.history.slice(-24), totals: this.totals }
   }
 
   private findApproaches(landmarks: LandmarkInput[]) {
@@ -236,6 +238,8 @@ export class CruiseDirector {
     const previous = this.plan
     if (previous) {
       this.history.push({ shot: previous.id, seconds: +(this.now - previous.start).toFixed(2), reason })
+      this.totals.cuts++; this.totals.byShot[previous.id] = (this.totals.byShot[previous.id] || 0) + 1
+      this.totals.byReason[reason] = (this.totals.byReason[reason] || 0) + 1
       if (this.history.length > 64) this.history.shift()
     }
     this.plan = next || this.choose(input, reason, previous)
@@ -368,7 +372,7 @@ export class CruiseDirector {
     const beatLen = this.beats.alive(this.now) ? this.beats.interval : .5
     let reason = ''
     if (this.blocked > .35) reason = 'safety: line of sight'
-    else if (!fixed && this.lost > .6) reason = 'safety: car out of frame'
+    else if (!fixed && plan.id !== 'roofMount' && this.lost > .6) reason = 'safety: car out of frame'
     else if (fixed && !plan.seenCar && e > 6) reason = 'car never entered'
     else if ((plan.id === 'frontLow' || plan.id === 'windshield' || plan.id === 'reflection') && input.traffic.some(t => { const d = this.ahead(t.distance, input.distance); return d > 0 && d < 16 })) reason = 'safety: traffic ahead'
     if (!reason && fixed && plan.seenCar && !inFrame && !plan.exitAt) plan.exitAt = this.now
@@ -380,7 +384,10 @@ export class CruiseDirector {
       else if (e >= plan.target + this.beats.bar * 1.05 && beat) reason = 'beat (bar overdue)'
     }
     if (reason) {
-      this.cut(input, reason)
+      // After a safety cut, go to a car-locked shot that cannot be occluded, so one
+      // bad placement never chains into a run of sub-second shots.
+      const safe = reason.startsWith('safety') ? this.makePlan(plan.id === 'rearChase' ? 'roofMount' : 'rearChase', input) : null
+      this.cut(input, reason, safe)
       this.pose(this.plan!, input, this.out.position, this.out.target, 0)
       plan = this.plan!
     }

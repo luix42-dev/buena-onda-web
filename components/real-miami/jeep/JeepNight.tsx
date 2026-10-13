@@ -116,7 +116,7 @@ export default function JeepNight(){
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const shared=useRef<SharedDrive|null>(null);if(shared.current===null&&typeof window!=='undefined')shared.current=readShared(location.search)
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
- const director=useMemo(()=>{if(!geo||!route)return null;let ads:[number,number][]=[];try{ads=createMiamiAdPlacements(geo,route,campaign).map(a=>[a.x,a.z])}catch{}const seed=Number(new URLSearchParams(location.search).get('directorSeed'))||Date.now();return new CruiseDirector(route,geo,landmarkRegistry.landmarks as never,ads,seed)},[geo,route,campaign])
+ const director=useMemo(()=>{if(!geo||!route)return null;let ads:[number,number][]=[];try{ads=createMiamiAdPlacements(geo,route,campaign).map(a=>[a.x,a.z])}catch{}const seed=Number(new URLSearchParams(location.search).get('directorSeed'))||Date.now();return new CruiseDirector(route,geo,landmarkRegistry.landmarks as never,ads,seed)},[geo,route,campaign.id]) // eslint-disable-line react-hooks/exhaustive-deps -- one director per drive; a new campaign object identity must not reset the edit
  const [crowd,setCrowd]=useState(true),[qualityChoice,setQualityChoice]=useState<QualityChoice>('auto')
  useEffect(()=>{setQualityChoice(readChoice())},[])
  const quality=useMemo(()=>resolve(qualityChoice),[qualityChoice])

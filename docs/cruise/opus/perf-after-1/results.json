@@ -1,0 +1,406 @@
+{
+ "label": "perf-after-1",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T19:10:52.884Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-after-1/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":352609,\"geometries\":137,\"textures\":59}",
+     "fps": {
+      "samples": [
+       36.79029531713093,
+       51.55661312664986,
+       51.63340284014276,
+       51.17102932478598,
+       51.725852979363516,
+       51.29216808064004,
+       49.93009786269462,
+       49.39247258732312,
+       52.30951440963689,
+       49.90518015740346,
+       50.410200652961265,
+       50.68071151683974,
+       51.171029325536296,
+       51.66931637489271,
+       54.06999606747822,
+       53.683268715061104,
+       53.6299533217602,
+       52.67342476629201,
+       52.412974683389834,
+       52.54287697097886
+      ],
+      "mean": 50.93251895404807,
+      "min": 36.79029531713093,
+      "below30": 0,
+      "rafMeanMs": 19.408533077660596,
+      "rafP95Ms": 33.399999999999636,
+      "rafMaxMs": 66.60000000000036
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-after-1/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":524537,\"geometries\":195,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.03937007874014,
+       56.2685093780849,
+       58.782504733187956,
+       60.06301693527274,
+       60.009837678307925,
+       59.70743357601138,
+       60.33630069238379,
+       60.015741833571695,
+       60.03346127384888,
+       59.90415335409786,
+       60.02164715160767,
+       60.128141941843275,
+       59.98800239934137,
+       59.916117436125134,
+       60.151858790515945,
+       60.0157418344516,
+       60.03346127296846,
+       59.96854109302133,
+       60.05710347614054,
+       59.96402158651198
+      ],
+      "mean": 59.77024832580172,
+      "min": 56.2685093780849,
+      "below30": 0,
+      "rafMeanMs": 16.729776674937963,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.5
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     }
+    },
+    {
+     "view": "director",
+     "file": "docs/cruise/opus/perf-after-1/1280x720-director.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 2.356599999994041,
+      "planned": 6.6000000000000005,
+      "beatInterval": 0.55,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":499700,\"geometries\":210,\"textures\":59}",
+     "fps": {
+      "samples": [
+       56.95767455579863,
+       47.595438770451175,
+       59.43536404160475,
+       59.89817310554208,
+       59.65993835122026,
+       58.97640943675259,
+       56.21856198803128,
+       54.884742042038866,
+       53.91912131802296,
+       58.15672745194677,
+       58.85286783042393,
+       59.44125222869599,
+       59.19494869805923,
+       59.940059940059975,
+       60.10444378721231,
+       60.015741833571724,
+       59.986232668439705,
+       60.015741833571724,
+       59.99213217956218,
+       60.063016936154014
+      ],
+      "mean": 58.16542944985802,
+      "min": 47.595438770451175,
+      "below30": 0,
+      "rafMeanMs": 17.170603228547158,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 199.8000000000029
+     },
+     "directorAfter": {
+      "shot": "oceanSide",
+      "label": "Ocean side",
+      "elapsed": 11.697499999999941,
+      "planned": 7.382399999976215,
+      "beatInterval": 0.6162999999970182,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "aerial",
+        "seconds": 3.44,
+        "reason": "safety: line of sight"
+       },
+       {
+        "shot": "reflection",
+        "seconds": 7.33,
+        "reason": "bar"
+       }
+      ]
+     }
+    }
+   ],
+   "readyMs": 3624,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-after-1/390x844-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":352305,\"geometries\":131,\"textures\":59}",
+     "fps": {
+      "samples": [
+       40.63026459245087,
+       60.02164715072765,
+       60.0216471516077,
+       60.01574183445161,
+       60.027553630998945,
+       60.01574183357174,
+       60.01574183445161,
+       60.02755363099896,
+       60.015741833571724,
+       60.027553630998945,
+       60.00983767830796,
+       60.03346127384889,
+       60.00983767830796,
+       59.04349537475307,
+       60.00983767830796,
+       60.02755363099896,
+       60.01574183445161,
+       60.027553630998945,
+       59.03187721334924,
+       60.021647151607716
+      ],
+      "mean": 58.952501513438094,
+      "min": 40.63026459245087,
+      "below30": 0,
+      "rafMeanMs": 16.716129032258063,
+      "rafP95Ms": 16.80000000000109,
+      "rafMaxMs": 33.399999999999636
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-after-1/390x844-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":466673,\"geometries\":176,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.021647151607716,
+       60.0216471516077,
+       60.01574183357175,
+       60.02755363187918,
+       60.009837678307946,
+       60.02755363099896,
+       60.027553630998945,
+       60.009837678307946,
+       60.021647151607716,
+       60.03346127296851,
+       60.01574183445161,
+       60.021647151607716,
+       60.00983767830796,
+       60.02755363099896,
+       60.027553630998945,
+       60.009837678307946,
+       60.0216471516077,
+       60.021647151607716,
+       60.01574183357174,
+       59.81457481841946
+      ],
+      "mean": 60.010113168586805,
+      "min": 59.81457481841946,
+      "below30": 0,
+      "rafMeanMs": 16.66108821104699,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 17
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     }
+    },
+    {
+     "view": "director",
+     "file": "docs/cruise/opus/perf-after-1/390x844-director.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 2.11590000000596,
+      "planned": 6.6000000000000005,
+      "beatInterval": 1.2495999999940386,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":517779,\"geometries\":194,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.01574183445161,
+       52.76336970116507,
+       60.13406940027761,
+       60.01574183445161,
+       60.03346127296851,
+       60.01574183445161,
+       60.00393468371391,
+       60.04528004777723,
+       60.009837678307946,
+       60.02755363099896,
+       59.99213217956217,
+       60.03346127296848,
+       59.97001499250376,
+       60.07484735132671,
+       60.015741833571724,
+       60.02755363099893,
+       60.01574183445159,
+       60.03346127296848,
+       60.009837678307946,
+       60.02164715160769
+      ],
+      "mean": 59.66295855584159,
+      "min": 52.76336970116507,
+      "below30": 0,
+      "rafMeanMs": 16.771475953565506,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 149.90000000000146
+     },
+     "directorAfter": {
+      "shot": "oceanSide",
+      "label": "Ocean side",
+      "elapsed": 7.1307000000029,
+      "planned": 8.396799999952343,
+      "beatInterval": 0.7999999999999972,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "aerial",
+        "seconds": 3.42,
+        "reason": "safety: line of sight"
+       },
+       {
+        "shot": "reflection",
+        "seconds": 11.76,
+        "reason": "bar"
+       }
+      ]
+     }
+    }
+   ],
+   "readyMs": 1731,
+   "playing": true
+  }
+ ]
+}

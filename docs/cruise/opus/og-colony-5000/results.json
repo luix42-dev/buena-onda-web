@@ -1,0 +1,44 @@
+{
+ "label": "og-colony-5000",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "park": false,
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T19:34:07.756Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1200,
+    "height": 630
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "director:landmarkPass",
+     "file": "docs/cruise/opus/og-colony-5000/1200x630-director-landmarkPass.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 5.346900000005964,
+      "planned": 14,
+      "beatInterval": 0.633099999994041,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": "Colony Hotel",
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":320214,\"geometries\":143,\"textures\":56}"
+    }
+   ],
+   "readyMs": 2812,
+   "playing": true
+  }
+ ]
+}

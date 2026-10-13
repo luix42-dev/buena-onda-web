@@ -1,0 +1,677 @@
+{
+ "url": "http://127.0.0.1:3067",
+ "minutes": 4,
+ "viewport": "390x844 isMobile emulation",
+ "date": "2026-10-13T20:00:09.832Z",
+ "runs": [
+  {
+   "mode": "director",
+   "errors": [],
+   "samples": [
+    {
+     "t": 10,
+     "fps": 8.609144825021017,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 18862,
+     "shot": "aerial",
+     "heapMB": 110,
+     "crowd": 0
+    },
+    {
+     "t": 15,
+     "fps": 60.015741833571724,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 18876,
+     "shot": "aerial",
+     "heapMB": 153.5,
+     "crowd": 0
+    },
+    {
+     "t": 20,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 18922,
+     "shot": "oceanSide",
+     "heapMB": 152.3,
+     "crowd": 2
+    },
+    {
+     "t": 25,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 18988,
+     "shot": "landmarkPass",
+     "heapMB": 137.7,
+     "crowd": 2
+    },
+    {
+     "t": 30,
+     "fps": 60.074847351326724,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19056,
+     "shot": "frontLow",
+     "heapMB": 145.3,
+     "crowd": 2
+    },
+    {
+     "t": 35,
+     "fps": 60.027553630998945,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19116,
+     "shot": "frontLow",
+     "heapMB": 163.1,
+     "crowd": 1
+    },
+    {
+     "t": 40,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19166,
+     "shot": "sideTrack",
+     "heapMB": 147.1,
+     "crowd": 0
+    },
+    {
+     "t": 45,
+     "fps": 60.009837678307946,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19212,
+     "shot": "sideTrack",
+     "heapMB": 163.2,
+     "crowd": 6
+    },
+    {
+     "t": 50,
+     "fps": 60.02755363187918,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19258,
+     "shot": "windshield",
+     "heapMB": 168.4,
+     "crowd": 6
+    },
+    {
+     "t": 55,
+     "fps": 60.02164715072767,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19303,
+     "shot": "landmarkPass",
+     "heapMB": 164.9,
+     "crowd": 6
+    },
+    {
+     "t": 60,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19348,
+     "shot": "aerial",
+     "heapMB": 158.2,
+     "crowd": 9
+    },
+    {
+     "t": 65,
+     "fps": 60.02164715072765,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19393,
+     "shot": "landmarkPass",
+     "heapMB": 159.4,
+     "crowd": 9
+    },
+    {
+     "t": 70,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19438,
+     "shot": "landmarkPass",
+     "heapMB": 175.3,
+     "crowd": 2
+    },
+    {
+     "t": 75,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19483,
+     "shot": "sideTrack",
+     "heapMB": 179.3,
+     "crowd": 2
+    },
+    {
+     "t": 80,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19528,
+     "shot": "sideTrack",
+     "heapMB": 166.2,
+     "crowd": 2
+    },
+    {
+     "t": 85,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19573,
+     "shot": "reflection",
+     "heapMB": 176,
+     "crowd": 2
+    },
+    {
+     "t": 90,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 19618,
+     "shot": "sideTrack",
+     "heapMB": 159.3,
+     "crowd": 3
+    },
+    {
+     "t": 95,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 20,
+     "shot": "sideTrack",
+     "heapMB": 164.1,
+     "crowd": 1
+    },
+    {
+     "t": 100,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 66,
+     "shot": "landmarkPass",
+     "heapMB": 172.4,
+     "crowd": 1
+    },
+    {
+     "t": 105,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 111,
+     "shot": "rearChase",
+     "heapMB": 179.1,
+     "crowd": 1
+    },
+    {
+     "t": 110,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 156,
+     "shot": "aerial",
+     "heapMB": 182.7,
+     "crowd": 1
+    },
+    {
+     "t": 115,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 201,
+     "shot": "sideTrack",
+     "heapMB": 121.9,
+     "crowd": 0
+    },
+    {
+     "t": 120,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 246,
+     "shot": "rearChase",
+     "heapMB": 119.4,
+     "crowd": 0
+    },
+    {
+     "t": 125,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 291,
+     "shot": "sideTrack",
+     "heapMB": 125.6,
+     "crowd": 0
+    },
+    {
+     "t": 130,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 335,
+     "shot": "sideTrack",
+     "heapMB": 124.6,
+     "crowd": 0
+    },
+    {
+     "t": 135,
+     "fps": 60.02755363187918,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 369,
+     "shot": "windshield",
+     "heapMB": 138.2,
+     "crowd": 0
+    },
+    {
+     "t": 140,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "5th Street",
+     "routeMeters": 396,
+     "shot": "sideTrack",
+     "heapMB": 137.8,
+     "crowd": 0
+    },
+    {
+     "t": 145,
+     "fps": 60.03346127384889,
+     "camera": "director",
+     "playing": true,
+     "street": "5th Street",
+     "routeMeters": 444,
+     "shot": "aerial",
+     "heapMB": 133.2,
+     "crowd": 0
+    },
+    {
+     "t": 150,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 479,
+     "shot": "windshield",
+     "heapMB": 134.9,
+     "crowd": 0
+    },
+    {
+     "t": 155,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 514,
+     "shot": "windshield",
+     "heapMB": 139.8,
+     "crowd": 0
+    },
+    {
+     "t": 160,
+     "fps": 60.03346127296851,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 576,
+     "shot": "rearChase",
+     "heapMB": 138.2,
+     "crowd": 0
+    },
+    {
+     "t": 165,
+     "fps": 60.01574183357175,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 640,
+     "shot": "reflection",
+     "heapMB": 134.9,
+     "crowd": 0
+    },
+    {
+     "t": 170,
+     "fps": 60.02755363187918,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 692,
+     "shot": "sideTrack",
+     "heapMB": 140.7,
+     "crowd": 0
+    },
+    {
+     "t": 175,
+     "fps": 60.021647151607716,
+     "camera": "director",
+     "playing": true,
+     "street": "Collins Avenue",
+     "routeMeters": 739,
+     "shot": "rearChase",
+     "heapMB": 136.2,
+     "crowd": 0
+    },
+    {
+     "t": 180,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "3rd Street",
+     "routeMeters": 762,
+     "shot": "rearChase",
+     "heapMB": 146.8,
+     "crowd": 0
+    },
+    {
+     "t": 185,
+     "fps": 60.027553630998945,
+     "camera": "director",
+     "playing": true,
+     "street": "3rd Street",
+     "routeMeters": 802,
+     "shot": "aerial",
+     "heapMB": 145.6,
+     "crowd": 0
+    },
+    {
+     "t": 190,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "3rd Street",
+     "routeMeters": 851,
+     "shot": "aerial",
+     "heapMB": 145.8,
+     "crowd": 0
+    },
+    {
+     "t": 195,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 875,
+     "shot": "sideTrack",
+     "heapMB": 145.8,
+     "crowd": 0
+    },
+    {
+     "t": 200,
+     "fps": 60.03346127384889,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 926,
+     "shot": "sideTrack",
+     "heapMB": 145.3,
+     "crowd": 0
+    },
+    {
+     "t": 205,
+     "fps": 60.009837678307946,
+     "camera": "director",
+     "playing": true,
+     "street": "Ocean Drive",
+     "routeMeters": 984,
+     "shot": "frontLow",
+     "heapMB": 144.6,
+     "crowd": 0
+    },
+    {
+     "t": 210,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1007,
+     "shot": "reflection",
+     "heapMB": 153.8,
+     "crowd": 0
+    },
+    {
+     "t": 215,
+     "fps": 60.02755363099896,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1051,
+     "shot": "frontLow",
+     "heapMB": 162.7,
+     "crowd": 0
+    },
+    {
+     "t": 220,
+     "fps": 60.01574183357174,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1117,
+     "shot": "frontLow",
+     "heapMB": 122.3,
+     "crowd": 0
+    },
+    {
+     "t": 225,
+     "fps": 59.99803285208544,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1180,
+     "shot": "sideTrack",
+     "heapMB": 126.7,
+     "crowd": 0
+    },
+    {
+     "t": 230,
+     "fps": 60.021647151607716,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1218,
+     "shot": "rearChase",
+     "heapMB": 125.1,
+     "crowd": 0
+    },
+    {
+     "t": 235,
+     "fps": 60.0393700787402,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1273,
+     "shot": "rearChase",
+     "heapMB": 124.8,
+     "crowd": 0
+    },
+    {
+     "t": 240,
+     "fps": 60.01574183445161,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1324,
+     "shot": "rearChase",
+     "heapMB": 125.3,
+     "crowd": 0
+    },
+    {
+     "t": 245,
+     "fps": 60.0216471516077,
+     "camera": "director",
+     "playing": true,
+     "street": "2nd Street",
+     "routeMeters": 1371,
+     "shot": "rearChase",
+     "heapMB": 129.9,
+     "crowd": 0
+    }
+   ],
+   "summary": {
+    "samples": 48,
+    "meanFps": 58.95,
+    "minFps": 8.609144825021017,
+    "below30": 1,
+    "heapStartMB": 110,
+    "heapEndMB": 129.9,
+    "heapMaxMB": 182.7,
+    "playingThroughout": true,
+    "cameraHeld": true,
+    "cuts": 24,
+    "cutHistory": [
+     {
+      "shot": "aerial",
+      "seconds": 5.85,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 4.45,
+      "reason": "phrase"
+     },
+     {
+      "shot": "roofMount",
+      "seconds": 0.62,
+      "reason": "safety: car out of frame"
+     },
+     {
+      "shot": "rearChase",
+      "seconds": 6.61,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 5.61,
+      "reason": "bar"
+     },
+     {
+      "shot": "windshield",
+      "seconds": 6.26,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 6.05,
+      "reason": "bar"
+     },
+     {
+      "shot": "aerial",
+      "seconds": 6.9,
+      "reason": "time (no beat)"
+     },
+     {
+      "shot": "windshield",
+      "seconds": 6.46,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 1.03,
+      "reason": "safety: line of sight"
+     },
+     {
+      "shot": "rearChase",
+      "seconds": 7.88,
+      "reason": "bar"
+     },
+     {
+      "shot": "reflection",
+      "seconds": 4.82,
+      "reason": "phrase"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 3.03,
+      "reason": "safety: line of sight"
+     },
+     {
+      "shot": "rearChase",
+      "seconds": 11.06,
+      "reason": "bar"
+     },
+     {
+      "shot": "aerial",
+      "seconds": 8.7,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 8.58,
+      "reason": "bar"
+     },
+     {
+      "shot": "frontLow",
+      "seconds": 6.48,
+      "reason": "bar"
+     },
+     {
+      "shot": "reflection",
+      "seconds": 5.18,
+      "reason": "phrase"
+     },
+     {
+      "shot": "frontLow",
+      "seconds": 8.93,
+      "reason": "phrase"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 3.57,
+      "reason": "safety: line of sight"
+     },
+     {
+      "shot": "rearChase",
+      "seconds": 7.93,
+      "reason": "beat (bar overdue)"
+     },
+     {
+      "shot": "aerial",
+      "seconds": 1.28,
+      "reason": "safety: line of sight"
+     },
+     {
+      "shot": "rearChase",
+      "seconds": 7.68,
+      "reason": "bar"
+     },
+     {
+      "shot": "sideTrack",
+      "seconds": 0.5,
+      "reason": "safety: line of sight"
+     }
+    ],
+    "errors": 0
+   }
+  }
+ ]
+}
