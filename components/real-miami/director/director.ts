@@ -151,8 +151,13 @@ export class CruiseDirector {
     const ahead = (meters: number) => input.traffic.some(t => { const d = this.ahead(t.distance, input.distance); return d > 0 && d < meters })
     if (id === 'aerial') {
       plan.distance = 55 + rnd() * 18; plan.height = 34 + rnd() * 14; plan.hfov = 36
-      this.pose(plan, input, a, this.v.b, 0)
-      return this.poseOk(a, anchor) ? plan : null
+      // Prefer the open ocean side, and require the drift to stay clear ~5 s in.
+      for (const s of (rs.x >= 0 ? [1, -1] : [-1, 1]) as (1 | -1)[]) {
+        plan.side = s
+        this.pose(plan, input, a, this.v.b, 0); if (!this.poseOk(a, anchor)) continue
+        this.pose(plan, input, a, this.v.b, 5); if (this.poseOk(a, anchor)) return plan
+      }
+      return null
     }
     if (id === 'sideTrack') {
       // Prefer the ocean (east, +X) side on Ocean Drive: buildings compress behind the car.

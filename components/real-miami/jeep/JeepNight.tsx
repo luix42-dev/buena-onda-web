@@ -32,6 +32,7 @@ import GarageEnvironment from './GarageEnvironment'
 import ClassicConvertible,{CLASSIC_CAMERA_PROFILE,CLASSIC_ATTRIBUTION} from './ClassicConvertible'
 import {CruiseDirector,SHOT_LABEL,type DirectorShotId} from '../director/director'
 import DirectorOverlay from '../director/DirectorOverlay'
+import MiamiCrowd from '../people/MiamiCrowd'
 import {createMiamiAdPlacements} from '@/lib/real-miami/advertising'
 import './jeep.css'
 
@@ -112,6 +113,8 @@ export default function JeepNight(){
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
  const director=useMemo(()=>{if(!geo||!route)return null;let ads:[number,number][]=[];try{ads=createMiamiAdPlacements(geo,route,campaign).map(a=>[a.x,a.z])}catch{}const seed=Number(new URLSearchParams(location.search).get('directorSeed'))||Date.now();return new CruiseDirector(route,geo,landmarkRegistry.landmarks as never,ads,seed)},[geo,route,campaign])
+ const [crowd,setCrowd]=useState(true)
+ useEffect(()=>{if(new URLSearchParams(location.search).get('npcs')==='off')setCrowd(false)},[])
  const [letterbox,setLetterbox]=useState(true),[shot,setShot]=useState<DirectorShotId|null>(null)
  useEffect(()=>{if(new URLSearchParams(location.search).get('world')==='baseline'){setBaseline(true);return}const abort=new AbortController();fetch('/real-miami/miami/world.json',{signal:abort.signal}).then(r=>{if(!r.ok)throw Error(`Map unavailable (${r.status})`);return r.json()}).then(data=>{state.current.distance=landmarkRegistry.initialRouteMeters;state.current.traffic.forEach((car,i)=>{car.distance=state.current.distance+65+i*115;car.lateral=2});setGeo(data)}).catch(e=>{if(e.name!=='AbortError')setGeoError(e.message)});return()=>abort.abort()},[])
  const audio=useCruiseAudio(music,MIAMI_CRUISE_STATIONS),library=useRadioLibrary(audio),radioAudio=useMemo(()=>({...audio,trackTitle:library.displayTitle}),[audio,library.displayTitle]),[ready,setReady]=useState(false),[started,setStarted]=useState(false),[paused,setPaused]=useState(false),[view,setView]=useState<View>('driver'),[radio,setRadio]=useState(false),[night,setNight]=useState(true),[visible,setVisible]=useState(true),[speed,setSpeed]=useState(0),[district,setDistrict]=useState('Coastal boulevard'),[tone,setTone]=useState<'cruise'|'night-drive'|'midnight-run'>('night-drive')
@@ -144,6 +147,7 @@ export default function JeepNight(){
    <Canvas className="jn-world" dpr={[1,1.25]} frameloop={visible?'always':'never'} camera={{position:[-.43,1.64,.43],fov:60,near:.04,far:500}} gl={{antialias:true,powerPreference:'high-performance',toneMapping:T.ACESFilmicToneMapping}}>
     <Suspense fallback={null}>
      {started?<><StreetSky time={night?'night':'sunset'} high={false} blend={baseline?undefined:blend}/>{route&&geo?<MiamiWorld state={state} night={night} data={geo} route={route} blend={blend} enhanced={enhanced}/>:baseline?<NightWorld state={state} night={night}/>:null}</>:<GarageEnvironment/>}
+     {started&&route&&geo&&crowd&&<Suspense fallback={null}><MiamiCrowd state={state} route={route} blend={blend}/></Suspense>}
      {started&&route&&geo&&<MiamiAds vehicleId={vehicle} vehicleReady={ready} state={state} data={geo} route={route} campaign={campaign} measurementsEnabled={!radio&&!landmark&&visible&&view!=='director'} onSamples={advertising?.reportSamples||(()=>{})} onActivate={placement=>advertising?.activate(placement)}/>}
      <group ref={car}><Suspense fallback={null}>{vehicle==='countach'?<Countach state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>}</Suspense></group>
      <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle} director={director}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio} director={started&&view==='director'&&!radio&&!landmark}/>

@@ -1,0 +1,22 @@
+Buena Onda Cruise - NPC characters and animations
+Retrieved 2026-10-13. Author of all source models: Quaternius (https://quaternius.com/).
+
+LICENSE: CC0 1.0 Universal (public domain dedication).
+Full text: https://creativecommons.org/publicdomain/zero/1.0/
+Each source page (poly.pizza) shows "Public Domain (CC0)" and metadata Licence "CC0 1.0", creator "Quaternius".
+The Quaternius pack page for the same character family (Ultimate Animated Character Pack,
+https://quaternius.com/packs/ultimatedanimatedcharacter.html) shows "License CC0".
+
+Source models (via poly.pizza, downloaded as GLB from static.poly.pizza):
+  npc_man_tee.glb         <- "Man"                 https://poly.pizza/m/fjHyMd5Wxw
+  npc_man_longsleeve.glb  <- "Man in Long Sleeves" https://poly.pizza/m/DLptRuewTn
+  npc_man_suit.glb        <- "Man in Suit"         https://poly.pizza/m/mQnGoME1ez
+  npc_woman_jacket.glb    <- "Woman"               https://poly.pizza/m/AQsd9ngvKU
+  npc_woman_tank.glb      <- "Woman in Tank Top"   https://poly.pizza/m/XqzeZGB7iU
+  npc_woman_dress.glb     <- "Woman in Dress"      https://poly.pizza/m/zMyPlQXBzq
+  npc_anims_male.glb      <- animations from "Man"   (https://poly.pizza/m/fjHyMd5Wxw)
+  npc_anims_female.glb    <- animations from "Woman" (https://poly.pizza/m/AQsd9ngvKU)
+
+Modifications: animations stripped from character files; unused clips removed and the rest
+renamed/resampled into the two animation files; unused buffers pruned (gltf-transform 4.1.1).
+Attribution is not required under CC0 but is credited here.
