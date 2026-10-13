@@ -67,11 +67,18 @@ Matched frames: `docs/cruise/opus/baseline-3066/1280x720-chase.png` (before) vs 
 | G1 | Night reads as uniform navy/violet; pastels lost | yes | steel sky, warm bounce, pastels visible | **closed** |
 | G2 | Landmarks gray against neighbors at night | yes | landmarks share the street wash | **closed** |
 | G3 | Only 4 hero landmarks | 4 | 5 (The Leslie added) | **closed** |
-| G4 | Sidewalk props (tables, umbrellas, planters) | none | none | open |
-| G5 | Lummus Park / beach is unlit black from aerials | yes | yes | open (needs palm uplights or path lamps) |
+| G4 | Sidewalk props (tables, umbrellas, planters) | none | cafe tables + pastel umbrellas on Ocean Drive's hotel side (v2) | **partial** (no planters/valet stands) |
+| G5 | Lummus Park / beach is unlit black from aerials | yes | promenade lamps + pools every 26 m, palm uplights (v2) | **partial** (beach still dark) |
 | G6 | No parked period cars or valet stands | yes | yes | open |
 | G7 | Wet-street reflections at night | roughness-only sheen | unchanged | open (planar reflector, hero corridor only, is the plan) |
 | G8 | Car body very dark in the windshield shot | n/a | dark | open (needs a front fill or exposure lift for that shot) |
 | G9 | Ocean / Atlantic horizon | flat colored plane | unchanged | open (tidewater, MIT, is the candidate) |
 | G10 | Beach City "finish" comparison | n/a | no reference supplied | blocked on screenshots |
-| G11 | Asphalt between streetlight pools reads pure black from low/fixed shots | yes | yes | open (lift road albedo at night or add wider/softer pools) |
+| G11 | Asphalt between streetlight pools reads pure black from low/fixed shots | yes | warm sodium spill + wider pools (v2) | **closed** |
+
+## v2 corrections from licensed photo references (`docs/cruise/refs/ocean-drive/REFERENCES.md`)
+
+- **The Leslie:** v1 was wrong. It's cream walls with *yellow* eyebrows, fluted fins and terrace railing, a stepped central pylon with a pale yellow panel and flagpole, and a small horizontal "LESLIE" over the entrance lit white. No vertical name fin today (that's historical, 1950).
+- **The Carlyle:** the sign is now script "The CARLYLE" in pink-red neon over the entrance (was a green name on the parapet).
+- **Colony:** the paint varies by year (white with mint eyebrows in 2011; pale sky-blue in 2025). We keep the 2011–2019 white plus blue neon. Pick a year if exactness matters.
+- **Still to correct:** the Clevelander's ground-level coral canopy with black block letters, picket fence and pool; the Breakwater's horizontal name over the entrance and amber under-eyebrow light; the Cardozo (not modeled); white string lights on Ocean Drive palm trunks; the green park-side bike lane.

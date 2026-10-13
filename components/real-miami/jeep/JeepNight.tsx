@@ -47,7 +47,7 @@ class Guard extends Component<{children:ReactNode},{failed:boolean}>{state={fail
 
 type GeoRoute=ReturnType<typeof createMiamiRoute>
 type Landmark=typeof landmarkRegistry.landmarks[number]
-function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,blend,cycleStart,night,garage,vehicle,profile=WRANGLER_CAMERA_PROFILE,director=null}:{director?:CruiseDirector|null;state:MutableRefObject<NightState>;car:MutableRefObject<T.Group|null>;view:View;radioFocused:boolean;landmark:Landmark|null;music:MusicAudio;playing:boolean;report:MutableRefObject<{fps:number;drawCalls:number}>;route:GeoRoute|null;blend:MutableRefObject<number>;cycleStart:MutableRefObject<number>;night:boolean;garage:boolean;vehicle:RideVehicleId;profile?:RideCameraProfile}){
+function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,blend,cycleStart,night,garage,vehicle,profile=WRANGLER_CAMERA_PROFILE,director=null,motion,speedFx}:{speedFx?:MutableRefObject<boolean>;motion?:MutableRefObject<number>;director?:CruiseDirector|null;state:MutableRefObject<NightState>;car:MutableRefObject<T.Group|null>;view:View;radioFocused:boolean;landmark:Landmark|null;music:MusicAudio;playing:boolean;report:MutableRefObject<{fps:number;drawCalls:number}>;route:GeoRoute|null;blend:MutableRefObject<number>;cycleStart:MutableRefObject<number>;night:boolean;garage:boolean;vehicle:RideVehicleId;profile?:RideCameraProfile}){
  const {camera,gl}=useThree(),p=useMemo(()=>new T.Vector3(),[]),target=useMemo(()=>new T.Vector3(),[]),frames=useRef(0),duration=useRef(0)
  const focusMix=useRef(0),radioPosition=useMemo(()=>new T.Vector3(),[]),radioTarget=useMemo(()=>new T.Vector3(),[])
  const carBounds=useMemo(()=>({box:new T.Box3(),age:0,vehicle:''}),[]),directing=useRef(false)
@@ -72,7 +72,11 @@ function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,b
   if(car.current){car.current.position.set(cx,0,cz);car.current.rotation.set(route?0:Math.atan(('dy' in road?road.dy:0)/Math.sqrt(1+('dx' in road?road.dx:0)**2)),yaw,0,'YXZ')}
   const cam=camera as T.PerspectiveCamera,driver=view==='driver',portrait=cam.aspect<1
   focusMix.current=s.reduced?(radioFocused?1:0):T.MathUtils.damp(focusMix.current,radioFocused?1:0,6,Math.min(delta,.1));if(Math.abs(focusMix.current-(radioFocused?1:0))<.001)focusMix.current=radioFocused?1:0
-  const fov=landmark&&!radioFocused?(portrait?70:58):T.MathUtils.lerp(driver?(portrait?90:62):(portrait?64:58),portrait?(profile.radioPortraitFov||58):(profile.radioFov||43),focusMix.current);if(Math.abs(cam.fov-fov)>.001){cam.fov=fov;cam.updateProjectionMatrix()}
+  // Speed feel: the lens widens with speed (FOV only; documented camera positions are unchanged).
+  const rush=s.reduced||s.paused||landmark||speedFx?.current===false?0:T.MathUtils.clamp((s.speed-9)/19,0,1)
+  if(motion)motion.current=T.MathUtils.damp(motion.current,radioFocused?0:rush,3,Math.min(delta,.1))
+  const kick=(motion?.current??0)*(driver?(portrait?5:8):(portrait?6:10))
+  const fov=landmark&&!radioFocused?(portrait?70:58):T.MathUtils.lerp((driver?(portrait?90:62):(portrait?64:58))+kick,portrait?(profile.radioPortraitFov||58):(profile.radioFov||43),focusMix.current);if(Math.abs(cam.fov-fov)>.001){cam.fov=fov;cam.updateProjectionMatrix()}
   if(driver){p.fromArray(portrait?(profile.driverPortrait||profile.driver):profile.driver);target.fromArray(portrait?(profile.targetPortrait||profile.target):profile.target)}else{p.fromArray(portrait?(profile.chasePortrait||profile.chase):profile.chase);target.fromArray(profile.chaseTarget||[0,1.05,0])}
   radioPosition.fromArray(profile.radioPosition);radioTarget.fromArray(profile.radioTarget);p.lerp(radioPosition,focusMix.current);target.lerp(radioTarget,focusMix.current)
   for(const v of[p,target]){if(car.current)v.applyEuler(car.current.rotation);v.x+=cx;v.z+=cz}
@@ -91,6 +95,8 @@ function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,b
    if(!directing.current)director.reset()
    const frame=director.update({dt:delta,distance:s.distance,speed:s.speed,lateral:s.lateral,aspect:cam.aspect,reduced:s.reduced,carMin:carBounds.box.min,carMax:carBounds.box.max,traffic:s.traffic,kick:pulse.kick,phrase:music.director.signal.phrase,beatLive:pulse.source==='live',night:blend.current})
    p.copy(frame.position);target.copy(frame.target)
+   // Radial speed blur belongs to car-near shots; far/static shots stay crisp.
+   if(motion&&(frame.shot==='aerial'||frame.shot==='landmarkPass'||frame.shot==='oceanSide'||frame.shot==='sideTrack'))motion.current=0
    if(Math.abs(cam.fov-frame.fov)>.001){cam.fov=frame.fov;cam.updateProjectionMatrix()}
   }
   directing.current=directorActive
@@ -112,7 +118,7 @@ export default function JeepNight(){
  const [vehicle,setVehicle]=useState<RideVehicleId>('countach')
  const profile=vehicle==='countach'?COUNTACH_CAMERA_PROFILE:vehicle==='cadillac'?CLASSIC_CAMERA_PROFILE:vehicle==='eighties'?EIGHTIES_CAMERA_PROFILE:WRANGLER_CAMERA_PROFILE
  useEffect(()=>{if(new URLSearchParams(location.search).get('look')==='original')setEnhanced(false)},[])
- const state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
+ const speedFx=useRef(true),motion=useRef(0),state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const shared=useRef<SharedDrive|null>(null);if(shared.current===null&&typeof window!=='undefined')shared.current=readShared(location.search)
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
@@ -141,6 +147,7 @@ export default function JeepNight(){
  useEffect(()=>{const id=shared.current?.station;audio.selectStation(id&&RADIO_PRESETS.some(s=>s.id===id)?id:'jolt-radio')},[])
  useEffect(()=>{if(shared.current?.time)setNight(shared.current.time==='night')},[]) // eslint-disable-line react-hooks/exhaustive-deps
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)'),changed=()=>{state.current.reduced=media.matches};changed();media.addEventListener('change',changed);return()=>media.removeEventListener('change',changed)},[])
+ useEffect(()=>{const q=new URLSearchParams(location.search),pace=q.get('pace');if(pace==='cruise'||pace==='night-drive'||pace==='midnight-run')setTone(pace);if(q.get('speedfx')==='off')speedFx.current=false},[])
  useEffect(()=>{state.current.mood=tone},[tone])
  useEffect(()=>{const changed=()=>setVisible(!document.hidden);document.addEventListener('visibilitychange',changed);return()=>document.removeEventListener('visibilitychange',changed)},[])
  useEffect(()=>{state.current.paused=!started||paused||!visible},[started,paused,visible])
@@ -160,7 +167,7 @@ export default function JeepNight(){
      {started&&route&&geo&&crowd&&<Suspense fallback={null}><MiamiCrowd state={state} route={route} blend={blend} density={quality.crowdDensity}/></Suspense>}
      {started&&route&&geo&&<MiamiAds vehicleId={vehicle} vehicleReady={ready} state={state} data={geo} route={route} campaign={campaign} measurementsEnabled={!radio&&!landmark&&visible&&view!=='director'} onSamples={advertising?.reportSamples||(()=>{})} onActivate={placement=>advertising?.activate(placement)}/>}
      <group ref={car}><Suspense fallback={null}>{vehicle==='countach'?<Countach state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>}</Suspense></group>
-     <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle} director={director}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio} director={started&&view==='director'&&!radio&&!landmark} filmic={quality.filmic}/>
+     <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle} director={director} motion={motion} speedFx={speedFx}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio} director={started&&view==='director'&&!radio&&!landmark} filmic={quality.filmic} motion={quality.filmic&&view!=='driver'?motion:undefined}/>
     </Suspense>
    </Canvas>
   </CockpitProvider></Guard>

@@ -9,7 +9,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 /** Bloom/halation adapted to our existing WebGL renderer; no upstream code/assets. */
-export default function CruiseGlow({ enabled, blend, radioFocused, director = false, filmic = true }: { enabled: boolean; blend: MutableRefObject<number>; radioFocused: boolean; director?: boolean; filmic?: boolean }) {
+export default function CruiseGlow({ enabled, blend, radioFocused, director = false, filmic = true, motion }: { enabled: boolean; blend: MutableRefObject<number>; radioFocused: boolean; director?: boolean; filmic?: boolean; motion?: MutableRefObject<number> }) {
   const { gl, scene, camera, size } = useThree()
   useEffect(() => { const previous = gl.info.autoReset; gl.info.autoReset = false; return () => { gl.info.autoReset = previous } }, [gl])
   const pipeline = useMemo(() => {
@@ -18,13 +18,16 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
     const render = new RenderPass(scene, camera)
     // One small HDR gather instead of a multi-resolution blur pyramid.
     const glow = new ShaderPass({
-      uniforms: { tDiffuse: { value: null }, texel: { value: new T.Vector2() }, strength: { value: .22 }, toneMappingExposure: { value: 1 }, hueKeep: { value: .35 }, grade: { value: 0 }, flare: { value: 0 }, warm: { value: 0 }, grain: { value: 0 }, seed: { value: 0 } },
+      uniforms: { tDiffuse: { value: null }, texel: { value: new T.Vector2() }, strength: { value: .22 }, toneMappingExposure: { value: 1 }, hueKeep: { value: .35 }, grade: { value: 0 }, flare: { value: 0 }, warm: { value: 0 }, grain: { value: 0 }, seed: { value: 0 }, rush: { value: 0 } },
       vertexShader: 'varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-      fragmentShader: `uniform sampler2D tDiffuse; uniform vec2 texel; uniform float strength, hueKeep, grade, flare, warm, grain, seed;
+      fragmentShader: `uniform sampler2D tDiffuse; uniform vec2 texel; uniform float strength, hueKeep, grade, flare, warm, grain, seed, rush;
         varying vec2 vUv;
         #include <tonemapping_pars_fragment>
         vec3 bright(vec2 offset){vec3 c=texture2D(tDiffuse,vUv+offset*texel).rgb;return c*smoothstep(.45,1.3,dot(c,vec3(.2126,.7152,.0722)));}
         void main(){vec3 color=texture2D(tDiffuse,vUv).rgb;
+          // Speed: radial streak toward the edges only; the road ahead and the dash stay sharp.
+          if(rush>.001){vec2 d=vUv-vec2(.5,.47);float m=smoothstep(.12,.55,length(d*vec2(1.6,1.)))*rush;
+            if(m>.002){vec3 acc=color;for(int i=1;i<=4;i++){acc+=texture2D(tDiffuse,vUv-d*m*.035*float(i)).rgb;}color=acc/5.;}}
           vec3 halo=bright(vec2(3.,0.))+bright(vec2(-3.,0.))+bright(vec2(0.,3.))+bright(vec2(0.,-3.));
           halo+=(bright(vec2(7.,7.))+bright(vec2(-7.,7.))+bright(vec2(7.,-7.))+bright(vec2(-7.,-7.)))*.5;
           color+=halo*strength/6.;
@@ -73,6 +76,7 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
     u.grain.value = filmic ? u.grade.value * .035 : 0
     u.warm.value = 1 - blend.current
     u.seed.value = (u.seed.value + 17.13) % 1000
+    u.rush.value = radioFocused ? 0 : motion?.current ?? 0
     pipeline.composer.render(dt)
   }, 1)
   return null

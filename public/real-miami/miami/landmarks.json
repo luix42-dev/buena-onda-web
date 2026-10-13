@@ -381,9 +381,9 @@
         "horizontal bands and window eyebrows"
       ],
       "sign": {
-        "text": "THE CARLYLE",
-        "layout": "restrained facade name integrated with central columns; exact letterface and current illumination approximate",
-        "color": "subdued warm/pink accent used artistically"
+        "text": "The CARLYLE",
+        "layout": "script lettering over the entrance in pink-red neon (per Commons refs)",
+        "color": "#ff5a7a"
       },
       "details": [
         "white and sea-foam green appearance",
@@ -507,21 +507,21 @@
       "bodyHeight": 10.4,
       "levels": 3,
       "palette": {
-        "stucco": "#f1d35a",
-        "trim": "#fbf6e6",
-        "accent": "#e1a43c",
-        "neon": "#7fd8ff"
+        "stucco": "#efe8d4",
+        "trim": "#f6f1e2",
+        "accent": "#f0c93a",
+        "neon": "#f4f1e6"
       },
       "silhouette": [
-        "three-story symmetrical frontage",
-        "deep continuous white eyebrows across the full facade",
-        "central vertical name fin breaking the roofline",
-        "stepped parapet"
+        "ground floor plus two upper floors",
+        "bright yellow eyebrows and fluted vertical fins on cream walls",
+        "stepped central pylon with a pale yellow panel and a flagpole",
+        "low yellow terrace railing on a dark base"
       ],
       "sign": {
         "text": "LESLIE",
-        "layout": "vertical lettering on the central fin plus a small horizontal name over the entrance; exact sign face and illumination approximate",
-        "color": "cool neon artistically chosen; unverified"
+        "layout": "small horizontal grey letters above the entrance, lit white at night; a vertical sign existed historically (1950 postcard) but not today",
+        "color": "white"
       },
       "details": [
         "lemon-yellow stucco with white trim is the hotel's best-known public appearance",
@@ -529,7 +529,8 @@
       ],
       "sources": [
         "https://www.openstreetmap.org/way/380861927",
-        "https://mdpl.org/design-style/art-deco-design-style/"
+        "https://mdpl.org/design-style/art-deco-design-style/",
+        "docs/cruise/refs/ocean-drive/REFERENCES.md"
       ],
       "referenceImages": [],
       "streetFacing": {

@@ -148,12 +148,13 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     }
   }
   const geometries: T.BufferGeometry[] = [], textures: T.Texture[] = []
-  const box = new T.BoxGeometry(1, 1, 1), trunk = new T.CylinderGeometry(.14, .2, 1, 6), leaf = curvedFrond(), frameGeometry = framedWindow(), paneGeometry = framedWindow(true)
+  const cone = new T.ConeGeometry(1, 1, 8, 1, true), box = new T.BoxGeometry(1, 1, 1), trunk = new T.CylinderGeometry(.14, .2, 1, 6), leaf = curvedFrond(), frameGeometry = framedWindow(), paneGeometry = framedWindow(true)
   const fullWindowDetail = new URLSearchParams(globalThis.window.location.search).get('windowLod') === 'full'
   // Lamps share the window material; give their box a white vertex tint so the
   // framed-window color attribute cannot leave lamp attributes unspecified.
   box.setAttribute('color', new T.Float32BufferAttribute(new Float32Array(box.getAttribute('position').count * 3).fill(1), 3))
-  geometries.push(box, trunk, leaf, frameGeometry, paneGeometry)
+  geometries.push(cone, box, trunk, leaf, frameGeometry, paneGeometry)
+  const landmarkSpots = (landmarkRegistry.landmarks as unknown as { streetFacing: { edge: number[][] } }[]).map(l => [(l.streetFacing.edge[0][0] + l.streetFacing.edge[1][0]) / 2, (l.streetFacing.edge[0][1] + l.streetFacing.edge[1][1]) / 2])
   const asphalt = asphaltSource.clone(); asphalt.wrapS = asphalt.wrapT = T.RepeatWrapping
   asphalt.anisotropy = 4; asphalt.needsUpdate = true; textures.push(asphalt)
   const glow = glowTex(); textures.push(glow)
@@ -180,6 +181,8 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     land: new T.MeshStandardMaterial({ color: '#626663', roughness: 1, side: T.DoubleSide }),
     beach: new T.MeshStandardMaterial({ color: '#c5ab89', roughness: 1, side: T.DoubleSide }),
     water: new T.MeshStandardMaterial({ color: '#163b51', roughness: .38, metalness: .18, side: T.DoubleSide }),
+    umbrellas: new T.MeshStandardMaterial({ color: 'white', roughness: .85, side: T.DoubleSide }),
+    uplights: new T.MeshBasicMaterial({ color: '#ffcf8a', map: glow, transparent: true, opacity: 0, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1 }),
     pools: new T.MeshBasicMaterial({ color: '#ffc77c', map: glow, transparent: true, opacity: .13, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1 }),
   }
   applyOceanDriveFacade(mats.building, streetNight)
@@ -192,7 +195,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     if (!cells.has(key)) { const g = new T.Group(), detail = new T.Group(); g.add(detail); group.add(g); cells.set(key, { group: g, detail, x: (x + .5) * CELL, z: (z + .5) * CELL, built: false }) }
     return cells.get(key)!
   }
-  type Palm = { x: number; z: number; height: number; crown: number; yaw: number }
+  type Palm = { x: number; z: number; height: number; crown: number; yaw: number; uplit?: boolean }
   type Contents = { roads: typeof data.roads; buildings: typeof data.buildings; palms: Palm[] }
   const contents = new Map<Cell, Contents>()
   const forCell = (p: number[]) => { const cell = getCell(p); if (!contents.has(cell)) contents.set(cell, { roads: [], buildings: [], palms: [] }); return contents.get(cell)! }
@@ -243,7 +246,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
         const setback = (r.width || 8) / 2 + 3.1 + roadRandom(seed + tree, 177) * 1.2
         const p: MiamiPoint = [x - dz / Math.max(.01, len) * setback * side, z + dx / Math.max(.01, len) * setback * side]
         if (!junctions.some(j => Math.hypot(j[0] - x, j[1] - z) < 14) && clearsBuildings(p)) {
-          forCell(p).palms.push({ x: p[0], z: p[1], height: 6.9 + roadRandom(seed + tree, 155) * 2.8, crown: .84 + roadRandom(seed + tree, 933) * .3, yaw: roadRandom(seed + tree, 442) * Math.PI * 2 })
+          forCell(p).palms.push({ x: p[0], z: p[1], height: 6.9 + roadRandom(seed + tree, 155) * 2.8, crown: .84 + roadRandom(seed + tree, 933) * .3, yaw: roadRandom(seed + tree, 442) * Math.PI * 2, uplit: promenade })
         }
         station += promenade ? 48 + roadRandom(seed + tree, 254) * 30 : 95 + roadRandom(seed + tree, 254) * 55
         tree++
@@ -266,6 +269,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     const content = contents.get(cell); if (!content || cell.built) return
     const started = performance.now()
     const roads: T.BufferGeometry[] = [], sidewalks: T.BufferGeometry[] = [], bodies: T.BufferGeometry[] = []
+    const tables: Placement[] = [], umbrellas: Placement[] = [], uplights: Placement[] = [], promenadePoles: Placement[] = [], promenadeLamps: Placement[] = []
     const windows: Placement[] = [], bands: Placement[] = [], neons: Placement[] = [], trunks: Placement[] = [], fronds: Placement[] = [], poles: Placement[] = [], lamps: Placement[] = [], marks: Placement[] = [], pools: Placement[] = [], curbs: Placement[] = []
     content.roads.forEach(r => {
       const width = r.width || 8, road = ribbon(r.points, width, .025)
@@ -295,13 +299,34 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
         for (const side of [-1, 1]) {
           const px = x - dz / len * (width / 2 + 1.3) * side, pz = z + dx / len * (width / 2 + 1.3) * side
           poles.push({ p: [px, 3.6, pz], s: [.1, 7.2, .1] }); lamps.push({ p: [px, 7.22, pz], s: [.6, .12, .45] })
-          pools.push({ p: [x - dz / len * width * .25 * side, .044, z + dx / len * width * .25 * side], s: [4.5, 1, 7], yaw: yaw + Math.PI / 2 })
+          pools.push({ p: [x - dz / len * width * .25 * side, .044, z + dx / len * width * .25 * side], s: [6.5, 1, 10], yaw: yaw + Math.PI / 2 })
         }
       }
       if (width >= 6) for (let s = 3; s < len; s += 6) marks.push({ p: [a[0] + dx * s / len, .038, a[1] + dz * s / len], s: [2.7, .012, .11], yaw })
+      if (r.name === 'Ocean Drive') {
+        // Look Bible G4/G5: cafe tables under pastel umbrellas on the hotel (west) side,
+        // and lamp posts along the Lummus Park promenade (east side, ~20 m out).
+        const ex = -dz / len, ez = dx / len, east = ex >= 0 ? 1 : -1
+        for (let s = 4; s < len - 2; s += 9) {
+          const x = a[0] + dx * s / len, z = a[1] + dz * s / len, seedT = Number(r.id) * 31 + Math.floor(s)
+          const tx = x - ex * east * (width / 2 + 4.3), tz = z - ez * east * (width / 2 + 4.3)
+          if (!landmarkSpots.some(([lx, lz]) => Math.hypot(lx - tx, lz - tz) < 16) && clearsBuildings([tx, tz])) {
+            tables.push({ p: [tx, .74, tz], s: [.8, .05, .8], yaw }, { p: [tx, .37, tz], s: [.07, .74, .07], yaw })
+            umbrellas.push({ p: [tx, 2.25, tz], s: [1.35, .45, 1.35], tint: PASTELS[Math.floor(roadRandom(seedT, 77) * PASTELS.length)] })
+            tables.push({ p: [tx, 1.15, tz], s: [.045, 2.1, .045], yaw })
+          }
+        }
+        for (let s = 10; s < len; s += 26) {
+          const x = a[0] + dx * s / len, z = a[1] + dz * s / len, px = x + ex * east * 20, pz = z + ez * east * 20
+          if (!clearsBuildings([px, pz])) continue
+          promenadePoles.push({ p: [px, 2.1, pz], s: [.08, 4.2, .08] }); promenadeLamps.push({ p: [px, 4.22, pz], s: [.34, .16, .34] })
+          pools.push({ p: [px, .046, pz], s: [5.5, 1, 5.5] })
+        }
+      }
     })
     content.palms.forEach(palm => {
       trunks.push({ p: [palm.x, palm.height / 2, palm.z], s: [1, palm.height, 1] })
+      if (palm.uplit) uplights.push({ p: [palm.x, .05, palm.z], s: [2.6, 1, 2.6] })
       for (let f = 0; f < 8; f++) {
         const angle = palm.yaw + f * Math.PI * 2 / 8
         fronds.push({ p: [palm.x + Math.cos(angle) * 1.25 * palm.crown, palm.height, palm.z + Math.sin(angle) * 1.25 * palm.crown], s: [1.8 * palm.crown, 2 * palm.crown, .75 * palm.crown], yaw: -angle })
@@ -346,6 +371,9 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     instances(cell.detail, box, mats.poles, poles); instances(cell.detail, box, mats.lamps, lamps); instances(cell.detail, box, mats.marks, marks)
     const poolGeometry = new T.CircleGeometry(1, 20); poolGeometry.rotateX(-Math.PI / 2); geometries.push(poolGeometry)
     instances(cell.detail, poolGeometry, mats.pools, pools)
+    instances(cell.detail, poolGeometry, mats.uplights, uplights)
+    instances(cell.detail, box, mats.deco, tables); instances(cell.detail, cone, mats.umbrellas, umbrellas)
+    instances(cell.detail, box, mats.poles, promenadePoles); instances(cell.detail, box, mats.lamps, promenadeLamps)
     cell.built = true
     return performance.now() - started
   }
@@ -441,7 +469,10 @@ export default function MiamiWorld({ state, night, data, route, blend, enhanced 
     world.mats.windows.emissiveIntensity = .12 + darkness * .6 + (pulse.source === 'live' ? pulse.energy * .06 : 0)
     world.mats.lamps.emissiveIntensity = .1 + darkness * 1.3
     world.mats.neon.emissiveIntensity = .15 + darkness * 1.15
-    world.mats.pools.opacity = (enhanced ? .2 : .13) * darkness
+    world.mats.pools.opacity = (enhanced ? .26 : .13) * darkness
+    world.mats.uplights.opacity = .5 * darkness
+    // G11: faint sodium spill so asphalt between light pools never reads as a black hole.
+    world.mats.road.emissive.set('#2a1d12'); world.mats.road.emissiveIntensity = darkness * (enhanced ? .55 : .3)
     world.mats.water.color.set('#23798a').lerp(new T.Color('#163b51'), darkness)
     world.headlights.emissiveIntensity = .25 + darkness * 5.75
     world.taillights.forEach(m => { m.emissiveIntensity = .6 + darkness * 2.4 })

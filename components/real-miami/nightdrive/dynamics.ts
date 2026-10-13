@@ -2,6 +2,8 @@ import type { NightState } from './state'
 import { roadSample, districtAt } from './road'
 
 const clamp = (n: number, a: number, b: number) => Math.max(a, Math.min(b, n))
+/** Touring speed ceilings (m/s) per pace. Was a flat 13.5 m/s (~49 km/h) for every pace. */
+const TOURING_CAP: Record<NightState['mood'], number> = { cruise: 14, 'night-drive': 22, 'midnight-run': 30 }
 const transitions = new WeakMap<NightState, { from: number; start: number }>()
 function changeLane(s: NightState, target: number) {
   transitions.set(s, { from: s.lateral, start: s.elapsed })
@@ -22,12 +24,21 @@ export function stepNight(s: NightState, elapsed: number, geography?: {
     const dt = Math.min(remaining, .025); remaining -= dt
     s.elapsed += dt
     for (const car of s.traffic) {
+      // Touring never overtakes, so the same-lane car paces ~90-160 m ahead
+      // instead of trapping the drive behind a 32 km/h leader.
+      if (geography?.touring && car.lateral > 0) {
+        const gap = car.distance - s.distance
+        car.speed = gap < 90 ? s.speed + 2.5 : gap > 160 ? Math.max(6, s.speed * .85) : Math.max(6, s.speed)
+      }
       car.distance += car.speed * dt / sample(car.distance, s.seed).metric
       if (s.distance - car.distance > 380) car.distance = s.distance + 550 + car.id * 110
     }
     const frame = sample(s.distance, s.seed)
     const phase = .5 + .5 * Math.sin(s.elapsed / 23)
-    const desired = s.mood === 'cruise' ? 8 + 4 * phase : s.mood === 'night-drive' ? 12 + 8 * phase : 18 + 7 * Math.pow(phase, 4)
+    const desired = geography?.touring
+      // Real-street touring: Easy ~45-50, Cruise ~60-80, Midnight ~85-110 km/h on straights.
+      ? s.mood === 'cruise' ? 12.5 + 1.5 * phase : s.mood === 'night-drive' ? 17 + 5 * phase : 24 + 6 * phase
+      : s.mood === 'cruise' ? 8 + 4 * phase : s.mood === 'night-drive' ? 12 + 8 * phase : 18 + 7 * Math.pow(phase, 4)
     const leftSafe = s.traffic.every(car => car.lateral > 0 || Math.abs(car.distance - s.distance) > 45 + Math.max(0, car.speed - s.speed) * 5)
     const leader = s.traffic.find(car => car.lateral > 0 && car.distance > s.distance && car.distance - s.distance < 55)
     // An established follower can be speed-matched after braking while the
@@ -49,15 +60,18 @@ export function stepNight(s: NightState, elapsed: number, geography?: {
         if (s.maneuver === 'returning') { s.maneuver = 'follow'; s.overtakes++ }
       }
     }
-    let target = Math.min(desired, Math.sqrt(1.3 / Math.max(.00001, Math.abs(frame.curvature))))
+    const grip = geography?.touring ? 2.2 : 1.3 // lateral comfort, m/s^2; touring drives with intent
+    let target = Math.min(desired, Math.sqrt(grip / Math.max(.00001, Math.abs(frame.curvature))))
     if (geography?.touring) {
       // Preview real intersections before braking; reacting only at the vertex
       // would carry highway speed through a short mapped right-angle turn.
-      target = Math.min(target, 13.5)
-      for (let ahead=2; ahead<=Math.max(35,s.speed*4); ahead+=2) {
+      target = Math.min(target, TOURING_CAP[s.mood])
+      // Look far enough ahead to brake from cruising speed (v^2 / 2a + margin).
+      const horizon = Math.min(220, Math.max(35, s.speed * s.speed / 5.6 + 25))
+      for (let ahead=2; ahead<=horizon; ahead+=ahead<60?2:4) {
         const bend = Math.abs(sample(s.distance+ahead,s.seed).curvature)
-        const cornerSpeedSquared = 1.3 / Math.max(.00001,bend)
-        target = Math.min(target,Math.sqrt(cornerSpeedSquared+2*1.8*Math.max(0,ahead-5)))
+        const cornerSpeedSquared = grip / Math.max(.00001,bend)
+        target = Math.min(target,Math.sqrt(cornerSpeedSquared+2*2.8*Math.max(0,ahead-5)))
       }
     }
     for (const car of s.traffic) {
@@ -70,8 +84,9 @@ export function stepNight(s: NightState, elapsed: number, geography?: {
       if (Math.abs(car.lateral - s.lateral) < 1.9) s.minTrafficGap = Math.min(s.minTrafficGap, Math.abs(gap))
     }
     s.targetSpeed = target
-    const requested = clamp((target - s.speed) * .9, -2.6, s.reduced ? .65 : 1.25)
-    s.acceleration += clamp(requested - s.acceleration, -1.8 * dt, 1.8 * dt)
+    const requested = clamp((target - s.speed) * (geography?.touring ? 1.2 : .9), geography?.touring ? -3.4 : -2.6, s.reduced ? .65 : geography?.touring ? 2.4 : 1.25)
+    const jerk = geography?.touring ? 2.6 : 1.8
+    s.acceleration += clamp(requested - s.acceleration, -jerk * dt, jerk * dt)
     s.speed = Math.max(0, s.speed + s.acceleration * dt)
     const travel = s.speed * dt
     s.odometer += travel; s.distance += travel / frame.metric

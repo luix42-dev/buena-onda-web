@@ -1,0 +1,579 @@
+{
+ "label": "perf-speed-v3",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "park": false,
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T21:06:16.827Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-speed-v3/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":354297,\"geometries\":138,\"textures\":59}",
+     "fps": {
+      "samples": [
+       40.40603133978679,
+       50.87789305636147,
+       50.80693365227277,
+       51.32760833041269,
+       50.28593965746346,
+       49.265937530501866,
+       51.413881747768976,
+       49.10626596011135,
+       49.97501249375311,
+       52.16022045028408,
+       53.71530886318518,
+       53.80629732993295,
+       52.16022045028408,
+       53.507728894015585,
+       53.12346286276438,
+       53.24918647107525,
+       54.075312162346215,
+       53.90297464499643,
+       53.222945003269494,
+       52.841475573280164
+      ],
+      "mean": 51.46153182369333,
+      "min": 40.40603133978679,
+      "below30": 0,
+      "rafMeanMs": 19.229210275927688,
+      "rafP95Ms": 33.39999999999782,
+      "rafMaxMs": 66.70000000000073
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.014266680148884383,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-speed-v3/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":36,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":527761,\"geometries\":215,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.52788251655127,
+       55.43456741223003,
+       59.654006760964215,
+       59.79073243647235,
+       59.97001499250375,
+       60.12814194184326,
+       59.04930617099886,
+       60.15779092702172,
+       60.033461272968474,
+       59.994000600297554,
+       60.039370078740184,
+       60.01574183357171,
+       60.02755363187915,
+       60.02164715072764,
+       60.027553631879165,
+       60.015741833571695,
+       59.952038369483105,
+       59.65993835122024,
+       55.483998811220985,
+       53.763440859896
+      ],
+      "mean": 59.18734647920208,
+      "min": 53.763440859896,
+      "below30": 0,
+      "rafMeanMs": 16.968597816960543,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.5
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.0006682502001791955,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "director",
+     "file": "docs/cruise/opus/perf-speed-v3/1280x720-director.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 2.33869999998808,
+      "planned": 6.6000000000000005,
+      "beatInterval": 1.01370000000298,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":39,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":521758,\"geometries\":240,\"textures\":59}",
+     "fps": {
+      "samples": [
+       54.471625235861495,
+       55.13981882582416,
+       55.25407005426739,
+       53.843852827282284,
+       54.21389847215377,
+       54.884742041222715,
+       58.46794173060004,
+       60.31243820411363,
+       54.18185400484973,
+       60.015741833571724,
+       58.9823053085832,
+       60.039370078740156,
+       60,
+       60.06301693615401,
+       59.37067088805583,
+       53.94605394605394,
+       57.43142885485048,
+       51.41896568712255,
+       50.48505246545418,
+       51.1508951402151
+      ],
+      "mean": 56.18368712674883,
+      "min": 50.48505246545418,
+      "below30": 0,
+      "rafMeanMs": 17.806878306878314,
+      "rafP95Ms": 33.299999999995634,
+      "rafMaxMs": 116.60000000000582
+     },
+     "directorAfter": {
+      "shot": "rearChase",
+      "label": "Rear chase",
+      "elapsed": 3.8649000000058855,
+      "planned": 6.040000000000006,
+      "beatInterval": 0.6189999999999856,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "aerial",
+        "seconds": 10.36,
+        "reason": "bar"
+       },
+       {
+        "shot": "reflection",
+        "seconds": 8.32,
+        "reason": "bar"
+       }
+      ],
+      "totals": {
+       "cuts": 2,
+       "byShot": {
+        "aerial": 1,
+        "reflection": 1
+       },
+       "byReason": {
+        "bar": 2
+       }
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.007225033891887079,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    }
+   ],
+   "readyMs": 4155,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-speed-v3/390x844-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "medium",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":353993,\"geometries\":132,\"textures\":59}",
+     "fps": {
+      "samples": [
+       52.62635289398223,
+       60.01574183445159,
+       60.02164715072767,
+       60.01574183445161,
+       60.027553630998945,
+       60.02164715160769,
+       60.01574183357174,
+       60.0216471516077,
+       60.0216471516077,
+       59.037685722892824,
+       60.01574183357174,
+       60.027553630998945,
+       59.0318772142147,
+       60.02164715072767,
+       60.0157418344516,
+       60.021647151607716,
+       60.02164715072764,
+       59.86828976323461,
+       59.18327086140709,
+       60.0216471516077
+      ],
+      "mean": 59.50272350492245,
+      "min": 52.62635289398223,
+      "below30": 0,
+      "rafMeanMs": 16.729752066115704,
+      "rafP95Ms": 16.80000000000109,
+      "rafMaxMs": 33.30000000000018
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "medium",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.009477080050292484,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-speed-v3/390x844-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "medium",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":36,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":470715,\"geometries\":194,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.00983767830796,
+       60.02755363099896,
+       60.02755363187918,
+       60.01574183357174,
+       60.00393468459344,
+       60.0393700787402,
+       60.01574183357174,
+       60.01574183357174,
+       60.02755363187918,
+       60.015741833571724,
+       60.01574183357175,
+       60.0216471516077,
+       60.021647151607716,
+       60.021647151607716,
+       60.02755363099896,
+       60.009837678307946,
+       60.02755363099896,
+       60.0216471516077,
+       60.0216471516077,
+       60.021647151607716
+      ],
+      "mean": 60.02046701771049,
+      "min": 60.00393468459344,
+      "below30": 0,
+      "rafMeanMs": 16.660873146622738,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 16.900000000001455
+     },
+     "directorAfter": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "medium",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.014667332254846514,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    },
+    {
+     "view": "director",
+     "file": "docs/cruise/opus/perf-speed-v3/390x844-director.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 2.1159000000059613,
+      "planned": 6.6000000000000005,
+      "beatInterval": 1.0497000000029801,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":39,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":578017,\"geometries\":222,\"textures\":59}",
+     "fps": {
+      "samples": [
+       60.021647151607716,
+       60.009837678307946,
+       60.0216471516077,
+       60.021647151607716,
+       60.015741833571724,
+       60.02755363099896,
+       60.01574183445161,
+       60.02755363099896,
+       54.112554112236815,
+       60.0157418344516,
+       60.01574183357171,
+       60.027553630998945,
+       60.0216471516077,
+       60.01574183357171,
+       60.0216471516077,
+       60.01574183445161,
+       60.027553630998916,
+       60.015741833571724,
+       60.01574183445161,
+       59.952038368590465
+      ],
+      "mean": 59.720940755663136,
+      "min": 54.112554112236815,
+      "below30": 0,
+      "rafMeanMs": 16.743708609271525,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 116.5
+     },
+     "directorAfter": {
+      "shot": "rearChase",
+      "label": "Rear chase",
+      "elapsed": 4.016499999999944,
+      "planned": 8.129600000023842,
+      "beatInterval": 0.7164000000059438,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "aerial",
+        "seconds": 9.96,
+        "reason": "bar"
+       },
+       {
+        "shot": "reflection",
+        "seconds": 8.36,
+        "reason": "bar"
+       }
+      ],
+      "totals": {
+       "cuts": 2,
+       "byShot": {
+        "aerial": 1,
+        "reflection": 1
+       },
+       "byReason": {
+        "bar": 2
+       }
+      }
+     },
+     "crowd": {
+      "total": 16,
+      "ms": 0.005932746944511514,
+      "active": 0,
+      "visible": 0,
+      "vignettes": [
+       "valet",
+       "couple",
+       "conversation",
+       "bar crowd",
+       "server",
+       "evening walk",
+       "jogger",
+       "skater",
+       "beachgoer"
+      ]
+     }
+    }
+   ],
+   "readyMs": 1530,
+   "playing": true
+  }
+ ]
+}

@@ -24,7 +24,7 @@ const palette = {
   breakwater: { wall: '#c6e0de', trim: '#faf2d0', accent: '#e6c05f', neon: '#51c4ff' },
   clevelander: { wall: '#e4e2d5', trim: '#f7f2de', accent: '#63aaa9', neon: '#ff6abf' },
   carlyle: { wall: '#d9e6da', trim: '#fcf3de', accent: '#75b4b1', neon: '#8ae3ca' },
-  leslie: { wall: '#f1d35a', trim: '#fbf6e6', accent: '#e1a43c', neon: '#7fd8ff' },
+  leslie: { wall: '#efe8d4', trim: '#f6f1e2', accent: '#f0c93a', neon: '#f4f1e6' },
 }
 
 /** Original procedural interpretations of documented architectural traits.
@@ -280,25 +280,25 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
     c.rotateZ(Math.PI * .15); c.translate(patioX - patioWidth / 2 + 2, 4.84, .96); add(c, neon)
     sign('L E V E L A N D E R', patioX + 2.2, 4.36, .98, patioWidth - 5.8, 1.22, false, false, '#ff648e')
   } else if (config.kind === 'leslie') {
-    // Leslie: lemon stucco, deep white eyebrows running the full frontage, a
-    // central vertical name fin breaking a stepped parapet. Proportions are an
-    // original interpretation; exact sign face/illumination is approximate.
-    for (const y of [floor + .02, floor * 2 + .02, bodyHeight - .3]) {
-      box(0, y + 1.0, .5, width * .99, .13, 1.15, trim)
-      box(0, y + .93, 1.06, width * .99, .045, .045, neon)
-    }
-    for (let i = 0; i < 2; i++) box(0, bodyHeight + .3 + i * .42, -.8, width * (.42 - i * .14), .6, 1.6, trim)
-    const finTop = bodyHeight + 2.6
-    box(0, 3.2 + (finTop - 3.2) / 2, .2, 1.25, finTop - 3.2, .55, trim)
-    box(0, 3.2 + (finTop - 3.2) / 2, .5, .9, finTop - 3.5, .08, accent)
-    sign('LESLIE', 0, 3.2 + (finTop - 3.2) / 2 + .1, .56, .8, finTop - 4.3, true, false, p.neon)
-    sign('LESLIE', 0, 3.58, .78, Math.min(4.6, width * .3), .72, false, false, '#ffe7a3')
-    for (const side of [-1, 1]) box(side * width * .49, bodyHeight / 2 + 1.55, .2, .07, bodyHeight - 3.1, .07, neon)
+    // Leslie (per Commons photo refs, docs/cruise/refs/ocean-drive): cream walls,
+    // bright yellow eyebrows and fluted fins, a stepped central pylon with a pale
+    // yellow panel and flagpole, small horizontal grey "LESLIE" over the entrance
+    // lit white at night, low yellow terrace railing. No vertical name sign today.
+    for (const y of [floor + .02, floor * 2 + .02]) box(0, y + 1.0, .5, width * .99, .13, 1.15, accent)
+    for (let i = 0; i < 3; i++) box(0, bodyHeight + .25 + i * .4, -.6, width * (.34 - i * .09), .5, 1.4, trim)
+    box(0, bodyHeight / 2 + 1.6, .22, width * .2, bodyHeight - 3.0, .3, trim)
+    box(0, bodyHeight / 2 + 1.6, .4, width * .14, bodyHeight - 3.6, .06, accent)
+    for (const side of [-1, 1]) for (const x of [.32, .44]) box(side * width * x, bodyHeight / 2 + 1.5, .24, .16, bodyHeight - 3.2, .3, accent)
+    cylinder(0, bodyHeight + 3.2, -.6, .03, 3.2, metal)
+    sign('LESLIE', 0, 3.42, .9, Math.min(3.4, width * .24), .55, false, false, '#f4f1e6')
+    box(0, .55, 1.6, width * .9, .5, .08, accent)
+    box(0, .28, 1.6, width * .9, .32, .1, shadow)
   } else {
     // Carlyle's central vertical gesture, stepped parapet and rounded return.
     for (let i = 0; i < 3; i++) box(0, bodyHeight + .18 + i * .28, -1.15, width * (.52 - i * .1), .42, 2.4, trim)
     for (const x of [-.92, -.46, 0, .46, .92]) box(x, bodyHeight * .62, .19, .14, bodyHeight * .71, .27, accent)
-    sign('THE CARLYLE', 0, bodyHeight + .36, .3, width * .86, 1.15, false, false, '#a2e1bc')
+    // Per Commons refs: script 'The CARLYLE' in pink-red neon over the entrance.
+    sign('The CARLYLE', 0, 3.55, .74, Math.min(7.5, width * .42), .95, false, false, '#ff5a7a')
     for (const y of [floor + .38, floor * 2 + .38]) {
       box(0, y, .23, width * .99, .14, .62, trim)
       const arc = new T.TorusGeometry(.65, .09, 6, 14, Math.PI); arc.rotateX(Math.PI / 2); arc.rotateY(Math.PI / 2); arc.translate(-width / 2 + .65, y, -.05); add(arc, trim)

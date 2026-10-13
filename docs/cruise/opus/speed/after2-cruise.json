@@ -1,0 +1,617 @@
+{
+ "summary": {
+  "label": "after2-cruise",
+  "url": "http://127.0.0.1:3067",
+  "pace": "night-drive",
+  "seconds": 120,
+  "meanKmh": 53.3,
+  "maxKmh": 79,
+  "p90Kmh": 79,
+  "below30s": 24,
+  "above60s": 59,
+  "meanFps": 48.3,
+  "minFps": 0
+ },
+ "samples": [
+  {
+   "kmh": 0,
+   "fps": 8,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 0,
+   "fps": 9,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 4,
+   "fps": 0,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 10,
+   "fps": 24,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 19,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 28,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 36,
+   "fps": 42,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 45,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 54,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 62,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 70,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 73,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 74,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 74,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 75,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 75,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 75,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 74,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 66,
+   "fps": 53,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 61,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 65,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 73,
+   "fps": 53,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 76,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 77,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 77,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 47,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 47,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 46,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 47,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 47,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 79,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 78,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 77,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 77,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 74,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 66,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 55,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 44,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 40,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 37,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 36,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 30,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 24,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 23,
+   "fps": 48,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 22,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 24,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 30,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 39,
+   "fps": 48,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 48,
+   "fps": 49,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 55,
+   "fps": 50,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 55,
+   "fps": 49,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 45,
+   "fps": 49,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 33,
+   "fps": 49,
+   "street": "5th Street"
+  },
+  {
+   "kmh": 21,
+   "fps": 48,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 17,
+   "fps": 50,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 23,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 32,
+   "fps": 50,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 41,
+   "fps": 50,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 49,
+   "fps": 51,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 58,
+   "fps": 51,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 64,
+   "fps": 50,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 66,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 66,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 66,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 66,
+   "fps": 48,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 66,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 65,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 65,
+   "fps": 48,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 64,
+   "fps": 48,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 57,
+   "fps": 49,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 46,
+   "fps": 47,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 34,
+   "fps": 48,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 22,
+   "fps": 46,
+   "street": "Collins Avenue"
+  },
+  {
+   "kmh": 14,
+   "fps": 45,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 16,
+   "fps": 51,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 25,
+   "fps": 51,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 33,
+   "fps": 50,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 42,
+   "fps": 50,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 51,
+   "fps": 51,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 58,
+   "fps": 50,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 55,
+   "fps": 53,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 44,
+   "fps": 54,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 32,
+   "fps": 56,
+   "street": "3rd Street"
+  },
+  {
+   "kmh": 20,
+   "fps": 55,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 16,
+   "fps": 49,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 21,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 30,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 38,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 47,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 56,
+   "fps": 50,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 60,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 60,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 54,
+   "fps": 53,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 43,
+   "fps": 52,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 31,
+   "fps": 53,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 19,
+   "fps": 51,
+   "street": "Ocean Drive"
+  },
+  {
+   "kmh": 14,
+   "fps": 49,
+   "street": "2nd Street"
+  },
+  {
+   "kmh": 19,
+   "fps": 49,
+   "street": "2nd Street"
+  },
+  {
+   "kmh": 27,
+   "fps": 49,
+   "street": "2nd Street"
+  }
+ ]
+}

@@ -1,0 +1,132 @@
+{
+ "label": "look-v2",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "park": false,
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T20:54:07.339Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/look-v2/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":354297,\"geometries\":138,\"textures\":59}"
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/look-v2/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [],
+      "totals": {
+       "cuts": 0,
+       "byShot": {},
+       "byReason": {}
+      }
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":527761,\"geometries\":169,\"textures\":59}"
+    },
+    {
+     "view": "director:landmarkPass",
+     "file": "docs/cruise/opus/look-v2/1280x720-director-landmarkPass.png",
+     "director": {
+      "shot": "sideTrack",
+      "label": "Long lens",
+      "elapsed": 0.1702999999970194,
+      "planned": 4.4,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "landmarkPass",
+        "seconds": 4.4,
+        "reason": "held one beat after exit"
+       }
+      ],
+      "totals": {
+       "cuts": 1,
+       "byShot": {
+        "landmarkPass": 1
+       },
+       "byReason": {
+        "held one beat after exit": 1
+       }
+      }
+     },
+     "chunks": "{\"built\":32,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":316052,\"geometries\":183,\"textures\":59}"
+    },
+    {
+     "view": "director:aerial",
+     "file": "docs/cruise/opus/look-v2/1280x720-director-aerial.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 4.597799999997027,
+      "planned": 8.8,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "landmarkPass",
+        "seconds": 4.4,
+        "reason": "held one beat after exit"
+       }
+      ],
+      "totals": {
+       "cuts": 1,
+       "byShot": {
+        "landmarkPass": 1
+       },
+       "byReason": {
+        "held one beat after exit": 1
+       }
+      }
+     },
+     "chunks": "{\"built\":32,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":546591,\"geometries\":196,\"textures\":59}"
+    }
+   ],
+   "readyMs": 3010,
+   "playing": true
+  }
+ ]
+}
