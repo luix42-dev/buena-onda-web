@@ -23,7 +23,7 @@ export default function CampaignBridge({campaign,campaignValid,children}:{campai
  const store=useRef<AdStore>({candidate:null,lastSeenAt:0,listeners:new Set(),samples:new Map()})
  const exposure=useRef(new Map<string,{duration:number;at:number;qualified:boolean;readableSince:number|null;presenceSince:number|null}>())
  useEffect(()=>{const poll=()=>setSnapshot(window.__jeepNight?.()??null);poll();const timer=setInterval(poll,1000);return()=>clearInterval(timer)},[])
- const analytics=useCruiseAnalytics({active:!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera??'driver',cinematic:false,radioPlaying:snapshot?.playing??false,stationId:snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
+ const analytics=useCruiseAnalytics({active:!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera==='director'?'chase':snapshot?.camera??'driver',cinematic:snapshot?.camera==='director',radioPlaying:snapshot?.playing??false,stationId:snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
  const latest=useRef(analytics);latest.current=analytics
  const context=useMemo<AdsContext>(()=>({store:store.current,reportSamples(samples){
   const current=window.__jeepNight?.(),enabled=!!current?.ready&&!current.garage&&!current.radioFocused&&!document.hidden

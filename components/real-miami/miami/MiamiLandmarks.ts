@@ -1,9 +1,9 @@
 import * as T from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { applyPaintedPlaster } from './paintedPlaster'
+import { applyOceanDriveFacade } from './paintedPlaster'
 
 type Point = [number, number]
-export type LandmarkKind = 'colony' | 'breakwater' | 'clevelander' | 'carlyle'
+export type LandmarkKind = 'colony' | 'breakwater' | 'clevelander' | 'carlyle' | 'leslie'
 export type LandmarkConfig = {
   id?: string | number
   osmBuildingId?: number
@@ -24,6 +24,7 @@ const palette = {
   breakwater: { wall: '#c6e0de', trim: '#faf2d0', accent: '#e6c05f', neon: '#51c4ff' },
   clevelander: { wall: '#e4e2d5', trim: '#f7f2de', accent: '#63aaa9', neon: '#ff6abf' },
   carlyle: { wall: '#d9e6da', trim: '#fcf3de', accent: '#75b4b1', neon: '#8ae3ca' },
+  leslie: { wall: '#f1d35a', trim: '#fbf6e6', accent: '#e1a43c', neon: '#7fd8ff' },
 }
 
 /** Original procedural interpretations of documented architectural traits.
@@ -54,7 +55,7 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
     paint.normalMap.colorSpace = T.NoColorSpace
     paint.roughnessMap.colorSpace = T.NoColorSpace
     paint.normalScale.set(.25, .25)
-    applyPaintedPlaster(paint)
+    applyOceanDriveFacade(paint)
   }
   const trim = new T.MeshStandardMaterial({ color: p.trim, roughness: .8 })
   const accent = new T.MeshStandardMaterial({ color: p.accent, roughness: .72 })
@@ -151,7 +152,7 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
     for (let column = 0; column < columns; column++) {
       const x = -width / 2 + margin + pitch * (column + .5)
       // Leave the central Breakwater sign tower unperforated.
-      if (config.kind === 'breakwater' && Math.abs(x) < width * .09) continue
+      if ((config.kind === 'breakwater' && Math.abs(x) < width * .09) || (config.kind === 'leslie' && Math.abs(x) < .9)) continue
       windowUnit(x, floor * row + floor * .48, windowWidth, Math.min(1.65, floor * .48), (column + row) % 5 !== 0)
       box(x, floor * row + floor * .48 + 1.1, .34, pitch * .9, .13, .8, trim)
     }
@@ -278,6 +279,21 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
     const c = new T.TorusGeometry(1.4, .067, 8, 36, Math.PI * 1.7)
     c.rotateZ(Math.PI * .15); c.translate(patioX - patioWidth / 2 + 2, 4.84, .96); add(c, neon)
     sign('L E V E L A N D E R', patioX + 2.2, 4.36, .98, patioWidth - 5.8, 1.22, false, false, '#ff648e')
+  } else if (config.kind === 'leslie') {
+    // Leslie: lemon stucco, deep white eyebrows running the full frontage, a
+    // central vertical name fin breaking a stepped parapet. Proportions are an
+    // original interpretation; exact sign face/illumination is approximate.
+    for (const y of [floor + .02, floor * 2 + .02, bodyHeight - .3]) {
+      box(0, y + 1.0, .5, width * .99, .13, 1.15, trim)
+      box(0, y + .93, 1.06, width * .99, .045, .045, neon)
+    }
+    for (let i = 0; i < 2; i++) box(0, bodyHeight + .3 + i * .42, -.8, width * (.42 - i * .14), .6, 1.6, trim)
+    const finTop = bodyHeight + 2.6
+    box(0, 3.2 + (finTop - 3.2) / 2, .2, 1.25, finTop - 3.2, .55, trim)
+    box(0, 3.2 + (finTop - 3.2) / 2, .5, .9, finTop - 3.5, .08, accent)
+    sign('LESLIE', 0, 3.2 + (finTop - 3.2) / 2 + .1, .56, .8, finTop - 4.3, true, false, p.neon)
+    sign('LESLIE', 0, 3.58, .78, Math.min(4.6, width * .3), .72, false, false, '#ffe7a3')
+    for (const side of [-1, 1]) box(side * width * .49, bodyHeight / 2 + 1.55, .2, .07, bodyHeight - 3.1, .07, neon)
   } else {
     // Carlyle's central vertical gesture, stepped parapet and rounded return.
     for (let i = 0; i < 3; i++) box(0, bodyHeight + .18 + i * .28, -1.15, width * (.52 - i * .1), .42, 2.4, trim)

@@ -58,3 +58,5 @@ refs/
 .claude/settings.local.json
 .next-miami-ads-dev/
 .next-miami-ads-check/
+.next-opus-dev/
+.next-opus-check/

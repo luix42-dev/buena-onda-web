@@ -23,9 +23,11 @@ export const SKY = {
     sunDir: [-0.35, 0.72, -0.6] as const, sunIntensity: 2.4, hemiIntensity: 1.0, cloud: 0.55, stars: 0, exposure: 1.0,
   },
   night: {
-    top: '#060a24', mid: '#1b1d4f', horizon: '#4a2d63', sun: '#9fb4ff', sunLight: '#7d8fd8',
-    cloudLit: '#3a3466', cloudShade: '#141532', fog: '#231f45', hemiSky: '#5562a8', hemiGround: '#20182c',
-    sunDir: [-0.45, 0.32, -0.83] as const, sunIntensity: 0.35, hemiIntensity: 0.5, cloud: 0.45, stars: 1, exposure: 1.25,
+    // Look Bible v1 (Ocean Drive night): steel-blue sky over a sodium/magenta city
+    // glow; warm street bounce instead of violet fill. Previous values are in LOOK-BIBLE.md.
+    top: '#03070f', mid: '#0d1a33', horizon: '#3d2a3f', sun: '#a9bcd8', sunLight: '#8ea4c6',
+    cloudLit: '#2f3550', cloudShade: '#0d111d', fog: '#141a27', hemiSky: '#3e5070', hemiGround: '#5b3b24',
+    sunDir: [-0.45, 0.32, -0.83] as const, sunIntensity: 0.32, hemiIntensity: 0.58, cloud: 0.4, stars: 1, exposure: 1.25,
   },
 }
 

@@ -496,6 +496,135 @@
       },
       "dimensionsApproximate": true,
       "paletteApproximate": true
+    },
+    {
+      "kind": "leslie",
+      "name": "The Leslie",
+      "osmBuildingId": 380861927,
+      "address": "1244 Ocean Drive, Miami Beach, FL 33139",
+      "height": 12.5,
+      "heightSource": "OSM tagged ~9.9 m roof; body raised to a three-story envelope, central fin/parapet estimated",
+      "bodyHeight": 10.4,
+      "levels": 3,
+      "palette": {
+        "stucco": "#f1d35a",
+        "trim": "#fbf6e6",
+        "accent": "#e1a43c",
+        "neon": "#7fd8ff"
+      },
+      "silhouette": [
+        "three-story symmetrical frontage",
+        "deep continuous white eyebrows across the full facade",
+        "central vertical name fin breaking the roofline",
+        "stepped parapet"
+      ],
+      "sign": {
+        "text": "LESLIE",
+        "layout": "vertical lettering on the central fin plus a small horizontal name over the entrance; exact sign face and illumination approximate",
+        "color": "cool neon artistically chosen; unverified"
+      },
+      "details": [
+        "lemon-yellow stucco with white trim is the hotel's best-known public appearance",
+        "sits directly south of The Carlyle; both share the block with the Cardozo"
+      ],
+      "sources": [
+        "https://www.openstreetmap.org/way/380861927",
+        "https://mdpl.org/design-style/art-deco-design-style/"
+      ],
+      "referenceImages": [],
+      "streetFacing": {
+        "edge": [
+          [
+            490.19,
+            711.57
+          ],
+          [
+            487.97,
+            726.95
+          ]
+        ],
+        "normal": [
+          0.9897425159331696,
+          0.1428627038603126
+        ],
+        "yaw": 1.4274431392555682,
+        "width": 15.539395097622036,
+        "convention": "edge north->south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          490.19,
+          711.57
+        ],
+        [
+          487.97,
+          726.95
+        ]
+      ],
+      "id": 380861927,
+      "footprint": [
+        [
+          451.05,
+          707.45
+        ],
+        [
+          480.92,
+          711.77
+        ],
+        [
+          481.13,
+          710.25
+        ],
+        [
+          490.19,
+          711.57
+        ],
+        [
+          487.97,
+          726.95
+        ],
+        [
+          475.83,
+          725.19
+        ],
+        [
+          476.02,
+          723.85
+        ],
+        [
+          457.89,
+          721.22
+        ],
+        [
+          457.76,
+          722.11
+        ],
+        [
+          449.12,
+          720.85
+        ],
+        [
+          451.05,
+          707.45
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/380861927",
+      "position": {
+        "x": 489.08000000000004,
+        "z": 719.26,
+        "lat": 25.78353880704276,
+        "lon": -80.13012051748217
+      },
+      "encounter": {
+        "routeMeters": 19018.3,
+        "streetName": "Ocean Drive",
+        "yaw": 3.003552133791543,
+        "distanceFromFacadeMeters": 11.007425803652685,
+        "recommendedApproachMeters": 18968.3
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true,
+      "addedBy": "Opus 5.5, 2026-10-13"
     }
   ],
   "optionalDeferred": [

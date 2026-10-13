@@ -30,19 +30,23 @@ import CastControl from './CastControl'
 import RidePicker from './RidePicker'
 import GarageEnvironment from './GarageEnvironment'
 import ClassicConvertible,{CLASSIC_CAMERA_PROFILE,CLASSIC_ATTRIBUTION} from './ClassicConvertible'
+import {CruiseDirector,SHOT_LABEL,type DirectorShotId} from '../director/director'
+import DirectorOverlay from '../director/DirectorOverlay'
+import {createMiamiAdPlacements} from '@/lib/real-miami/advertising'
 import './jeep.css'
 
-type View='driver'|'chase'
+type View='driver'|'chase'|'director'
 const RADIO_PRESETS=MIAMI_CRUISE_STATIONS.filter(canPlayCruiseStation)
 type Snapshot={speed:number;rpm:number;distance:number;paused:boolean;camera:View;radioFocused:boolean;district:string;fps:number;station:string;playing:boolean;muted:boolean;volume:number;analysis:string;spectrum:number;drawCalls:number;ready:boolean;vehicle:RideVehicleId;garage:boolean;timeMode:'night'|'sunset'}
-declare global{interface Window{__jeepNight?:()=>Snapshot;__miamiGeo?:()=>Record<string,unknown>;__miamiInspect?:(meters:number)=>void}}
+declare global{interface Window{__director?:()=>ReturnType<CruiseDirector['snapshot']>;__directorForce?:(shot:DirectorShotId|null)=>void;__jeepNight?:()=>Snapshot;__miamiGeo?:()=>Record<string,unknown>;__miamiInspect?:(meters:number)=>void}}
 class Guard extends Component<{children:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return{failed:true}}render(){return this.state.failed?<div className="jn-failure"><h1>The road could not load.</h1><p>Please reload to try again.</p><button onClick={()=>location.reload()}>Reload</button></div>:this.props.children}}
 
 type GeoRoute=ReturnType<typeof createMiamiRoute>
 type Landmark=typeof landmarkRegistry.landmarks[number]
-function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,blend,cycleStart,night,garage,vehicle,profile=WRANGLER_CAMERA_PROFILE}:{state:MutableRefObject<NightState>;car:MutableRefObject<T.Group|null>;view:View;radioFocused:boolean;landmark:Landmark|null;music:MusicAudio;playing:boolean;report:MutableRefObject<{fps:number;drawCalls:number}>;route:GeoRoute|null;blend:MutableRefObject<number>;cycleStart:MutableRefObject<number>;night:boolean;garage:boolean;vehicle:RideVehicleId;profile?:RideCameraProfile}){
+function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,blend,cycleStart,night,garage,vehicle,profile=WRANGLER_CAMERA_PROFILE,director=null}:{director?:CruiseDirector|null;state:MutableRefObject<NightState>;car:MutableRefObject<T.Group|null>;view:View;radioFocused:boolean;landmark:Landmark|null;music:MusicAudio;playing:boolean;report:MutableRefObject<{fps:number;drawCalls:number}>;route:GeoRoute|null;blend:MutableRefObject<number>;cycleStart:MutableRefObject<number>;night:boolean;garage:boolean;vehicle:RideVehicleId;profile?:RideCameraProfile}){
  const {camera,gl}=useThree(),p=useMemo(()=>new T.Vector3(),[]),target=useMemo(()=>new T.Vector3(),[]),frames=useRef(0),duration=useRef(0)
  const focusMix=useRef(0),radioPosition=useMemo(()=>new T.Vector3(),[]),radioTarget=useMemo(()=>new T.Vector3(),[])
+ const carBounds=useMemo(()=>({box:new T.Box3(),age:0,vehicle:''}),[]),directing=useRef(false)
  useFrame((_,delta)=>{
   const s=state.current;if(!garage)stepNight(s,Math.min(delta,.1),route?{sample:route.sample,touring:true}:undefined);updatePulse(music,playing&&music.analysisActive,Math.min(delta,.05))
   if(garage){
@@ -75,6 +79,17 @@ function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,b
     const distance=portrait?Math.max(26,width/(2*Math.tan(35*Math.PI/180)*cam.aspect)*1.2):32
     p.set(x+n[0]*distance,Math.max(5,landmark.bodyHeight*.6),z+n[1]*distance);target.set(x,landmark.bodyHeight*.52,z)
   }
+  // Director mode: the existing driver/chase math above is untouched; the director
+  // replaces the final pose only when no radio/landmark focus owns the camera.
+  const directorActive=view==='director'&&!!director&&!!route&&!landmark&&focusMix.current===0
+  if(directorActive&&director&&car.current){
+   if(carBounds.vehicle!==vehicle||--carBounds.age<=0){const r=car.current.rotation.clone(),q=car.current.position.clone();car.current.rotation.set(0,0,0);car.current.position.set(0,0,0);car.current.updateMatrixWorld(true);carBounds.box.setFromObject(car.current);car.current.rotation.copy(r);car.current.position.copy(q);car.current.updateMatrixWorld(true);if(carBounds.box.isEmpty())carBounds.box.set(new T.Vector3(-1,0,-2.1),new T.Vector3(1,1.1,2.1));carBounds.vehicle=vehicle;carBounds.age=120}
+   if(!directing.current)director.reset()
+   const frame=director.update({dt:delta,distance:s.distance,speed:s.speed,lateral:s.lateral,aspect:cam.aspect,reduced:s.reduced,carMin:carBounds.box.min,carMax:carBounds.box.max,traffic:s.traffic,kick:pulse.kick,phrase:music.director.signal.phrase,beatLive:pulse.source==='live',night:blend.current})
+   p.copy(frame.position);target.copy(frame.target)
+   if(Math.abs(cam.fov-frame.fov)>.001){cam.fov=frame.fov;cam.updateProjectionMatrix()}
+  }
+  directing.current=directorActive
   camera.position.copy(p);camera.lookAt(target)
   frames.current++;duration.current+=delta;if(duration.current>=1){report.current={fps:frames.current/duration.current,drawCalls:gl.info.render.calls};frames.current=0;duration.current=0}
  },-2)
@@ -96,6 +111,8 @@ export default function JeepNight(){
  const state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
+ const director=useMemo(()=>{if(!geo||!route)return null;let ads:[number,number][]=[];try{ads=createMiamiAdPlacements(geo,route,campaign).map(a=>[a.x,a.z])}catch{}const seed=Number(new URLSearchParams(location.search).get('directorSeed'))||Date.now();return new CruiseDirector(route,geo,landmarkRegistry.landmarks as never,ads,seed)},[geo,route,campaign])
+ const [letterbox,setLetterbox]=useState(true),[shot,setShot]=useState<DirectorShotId|null>(null)
  useEffect(()=>{if(new URLSearchParams(location.search).get('world')==='baseline'){setBaseline(true);return}const abort=new AbortController();fetch('/real-miami/miami/world.json',{signal:abort.signal}).then(r=>{if(!r.ok)throw Error(`Map unavailable (${r.status})`);return r.json()}).then(data=>{state.current.distance=landmarkRegistry.initialRouteMeters;state.current.traffic.forEach((car,i)=>{car.distance=state.current.distance+65+i*115;car.lateral=2});setGeo(data)}).catch(e=>{if(e.name!=='AbortError')setGeoError(e.message)});return()=>abort.abort()},[])
  const audio=useCruiseAudio(music,MIAMI_CRUISE_STATIONS),library=useRadioLibrary(audio),radioAudio=useMemo(()=>({...audio,trackTitle:library.displayTitle}),[audio,library.displayTitle]),[ready,setReady]=useState(false),[started,setStarted]=useState(false),[paused,setPaused]=useState(false),[view,setView]=useState<View>('driver'),[radio,setRadio]=useState(false),[night,setNight]=useState(true),[visible,setVisible]=useState(true),[speed,setSpeed]=useState(0),[district,setDistrict]=useState('Coastal boulevard'),[tone,setTone]=useState<'cruise'|'night-drive'|'midnight-run'>('night-drive')
  const current=useRef({audio,view,ready,radio,vehicle,started});current.current={audio,view,ready,radio,vehicle,started}
@@ -110,44 +127,47 @@ export default function JeepNight(){
  useEffect(()=>{if(!route)return;const update=()=>{const p=route.sample(state.current.distance);const nearest=landmarkRegistry.landmarks.reduce((a,b)=>Math.hypot(a.position.x-p.x,a.position.z-p.z)<Math.hypot(b.position.x-p.x,b.position.z-p.z)?a:b);setNearbyLandmark(Math.hypot(nearest.position.x-p.x,nearest.position.z-p.z)<180?nearest:null)};update();const timer=setInterval(update,200);return()=>clearInterval(timer)},[route])
  const onReady=useCallback(()=>setReady(true),[])
  useEffect(()=>{if(!route||!geo)return;window.__miamiGeo=()=>{const s=state.current,p=route.sample(s.distance);return{latitude:p.lat,longitude:p.lon,street:p.streetName,routeMeters:s.distance%route.length,routeLength:route.length,worldExtentMeters:geo.extentMeters,totalChunks:Object.keys(geo.chunks).length,chunksGenerated:s.chunksGenerated,generationMs:s.generationMs,maxGenerationMs:s.maxGenerationMs,chunkState:document.documentElement.dataset.miamiChunks,elapsed:s.elapsed,nightBlend:blend.current,transitionSeconds:2400,position:{x:p.x,z:p.z,yaw:p.yaw}}};if(new URLSearchParams(location.search).get('diagnostics')==='1'){window.__miamiInspect=meters=>{state.current.distance=meters;state.current.traffic.forEach((t,i)=>{t.distance=meters+65+i*115})}}return()=>{delete window.__miamiGeo;delete window.__miamiInspect}},[route,geo])
+ useEffect(()=>{if(!director)return;window.__director=()=>director.snapshot();if(new URLSearchParams(location.search).get('diagnostics')==='1')window.__directorForce=shot=>director.force(shot);const timer=setInterval(()=>setShot(director.snapshot().shot as DirectorShotId|null),250);return()=>{clearInterval(timer);delete window.__director;delete window.__directorForce}},[director])
  useEffect(()=>{audio.selectStation('jolt-radio')},[]) // eslint-disable-line react-hooks/exhaustive-deps
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)'),changed=()=>{state.current.reduced=media.matches};changed();media.addEventListener('change',changed);return()=>media.removeEventListener('change',changed)},[])
  useEffect(()=>{state.current.mood=tone},[tone])
  useEffect(()=>{const changed=()=>setVisible(!document.hidden);document.addEventListener('visibilitychange',changed);return()=>document.removeEventListener('visibilitychange',changed)},[])
  useEffect(()=>{state.current.paused=!started||paused||!visible},[started,paused,visible])
  useEffect(()=>{const timer=setInterval(()=>{setSpeed(Math.round(state.current.speed*3.6));setDuskNight(blend.current>=.5);setDistrict(route?route.sample(state.current.distance).streetName:(state.current.district==='coast'?'Coastal boulevard':'Neon quarter'))},200);window.__jeepNight=()=>{const s=state.current,c=current.current;return{speed:s.speed*3.6,rpm:s.paused?0:800+s.speed*75,distance:s.odometer,paused:s.paused,camera:c.view,radioFocused:c.radio,district:s.district,fps:report.current.fps,station:c.audio.stationId,playing:c.audio.playing,muted:c.audio.muted,volume:c.audio.volume,analysis:music.status,spectrum:Array.from(pulse.spectrum).reduce((a,b)=>a+b,0),drawCalls:report.current.drawCalls,ready:c.ready,vehicle:c.vehicle,garage:!c.started,timeMode:blend.current>=.5?'night':'sunset'}};return()=>{clearInterval(timer);delete window.__jeepNight}},[music,route])
- useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){closeLandmark();setRadio(false);return}if(!started)return;if((e.target as HTMLElement).matches('input,select,button'))return;if(e.key.toLowerCase()==='v'){closeLandmark();setView(v=>v==='driver'?'chase':'driver')}if(e.key.toLowerCase()==='r'){closeLandmark();setRadioPanel(false);setRadio(v=>!v)}if(e.key==='Escape'){closeLandmark();setRadio(false)}if(e.key===' '){e.preventDefault();if(landmarkRef.current){closeLandmark();setPaused(false)}else setPaused(v=>!v)}};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[closeLandmark,started])
+ useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){closeLandmark();setRadio(false);return}if(!started)return;if((e.target as HTMLElement).matches('input,select,button'))return;if(e.key.toLowerCase()==='v'){closeLandmark();setView(v=>v==='driver'?'chase':'driver')}if(e.key.toLowerCase()==='d'){closeLandmark();setRadio(false);setView(v=>v==='director'?'driver':'director')}if(e.key.toLowerCase()==='r'){closeLandmark();setRadioPanel(false);setRadio(v=>!v)}if(e.key==='Escape'){closeLandmark();setRadio(false)}if(e.key===' '){e.preventDefault();if(landmarkRef.current){closeLandmark();setPaused(false)}else setPaused(v=>!v)}};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[closeLandmark,started])
  const selectVehicle=(next:RideVehicleId)=>{if(next===vehicle)return;closeLandmark();setRadio(false);setRadioPanel(false);setReady(false);setVehicle(next)}
  const returnToGarage=()=>{closeLandmark();setRadio(false);setRadioPanel(false);setStarted(false);setPaused(true);state.current.paused=true}
  const start=()=>{audio.start();setPaused(false);state.current.paused=false;cycleStart.current=state.current.elapsed;setStarted(true)}
  const seek=(direction:number)=>{const i=RADIO_PRESETS.findIndex(s=>s.id===audio.stationId);audio.selectStation(RADIO_PRESETS[(i+direction+RADIO_PRESETS.length)%RADIO_PRESETS.length].id)}
- return <main className={`jn ${!started?'jn-garage':''}`} data-ready={ready} data-started={started} data-view={view} data-vehicle={vehicle}>
+ return <main className={`jn ${!started?'jn-garage':''} ${started&&view==='director'&&!radio&&!landmark?'jn-directing':''}`} data-ready={ready} data-started={started} data-view={view} data-vehicle={vehicle}>
   <Guard><CockpitProvider audio={radioAudio} stations={MIAMI_CRUISE_STATIONS} nowPlaying={library.nowPlaying} vehicleId="island-trail" autoLights={night||duskNight} instant radioFocused={radio} focusRadio={openRadio}>
    <Canvas className="jn-world" dpr={[1,1.25]} frameloop={visible?'always':'never'} camera={{position:[-.43,1.64,.43],fov:60,near:.04,far:500}} gl={{antialias:true,powerPreference:'high-performance',toneMapping:T.ACESFilmicToneMapping}}>
     <Suspense fallback={null}>
      {started?<><StreetSky time={night?'night':'sunset'} high={false} blend={baseline?undefined:blend}/>{route&&geo?<MiamiWorld state={state} night={night} data={geo} route={route} blend={blend} enhanced={enhanced}/>:baseline?<NightWorld state={state} night={night}/>:null}</>:<GarageEnvironment/>}
-     {started&&route&&geo&&<MiamiAds vehicleId={vehicle} vehicleReady={ready} state={state} data={geo} route={route} campaign={campaign} measurementsEnabled={!radio&&!landmark&&visible} onSamples={advertising?.reportSamples||(()=>{})} onActivate={placement=>advertising?.activate(placement)}/>}
-     <group ref={car}><Suspense fallback={null}>{vehicle==='countach'?<Countach state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||(view==='driver'&&!landmark))} onReady={onReady}/>}</Suspense></group>
-     <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio}/>
+     {started&&route&&geo&&<MiamiAds vehicleId={vehicle} vehicleReady={ready} state={state} data={geo} route={route} campaign={campaign} measurementsEnabled={!radio&&!landmark&&visible&&view!=='director'} onSamples={advertising?.reportSamples||(()=>{})} onActivate={placement=>advertising?.activate(placement)}/>}
+     <group ref={car}><Suspense fallback={null}>{vehicle==='countach'?<Countach state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='cadillac'?<ClassicConvertible state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:vehicle==='eighties'?<EightiesCar state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>:<Wrangler state={state} cockpit={started&&(radio||((view==='driver'||(view==='director'&&shot==='windshield'))&&!landmark))} onReady={onReady}/>}</Suspense></group>
+     <Ride state={state} car={car} view={view} radioFocused={radio} landmark={landmark} music={music} playing={audio.playing} report={report} route={route} blend={blend} cycleStart={cycleStart} night={night} profile={profile} garage={!started} vehicle={vehicle} director={director}/><CruiseGlow enabled={started&&enhanced} blend={blend} radioFocused={radio} director={started&&view==='director'&&!radio&&!landmark}/>
     </Suspense>
    </Canvas>
   </CockpitProvider></Guard>
+  {started&&view==='director'&&!radio&&!landmark&&<DirectorOverlay station={audio.station.name} letterbox={letterbox} onLetterbox={setLetterbox}/>}
   {started&&<header className="jn-brand"><a href="/" aria-label="Buena Onda">BUENA ONDA<span>MIAMI / GEOGRAPHIC EXPERIMENT</span></a><p>{district}<span className="jn-dot"/> {profile.label.toUpperCase()}</p></header>}
   {!started&&<><RidePicker vehicle={vehicle} onSelect={selectVehicle} night={night} onNightChange={setNight} onStart={start} ready={ready} routeReady={!!route||baseline} castControl={<CastControl/>}/>{geoError&&<p className="rp-error" role="alert">{geoError}</p>}</>}
   {started&&<>
-   {!radio&&!landmark&&<MiamiAdCue/>}
+   {!radio&&!landmark&&view!=='director'&&<MiamiAdCue/>}
    {nearbyLandmark&&!landmark&&!radio&&<button className="jn-landmark-peek" onClick={inspectLandmark} aria-label={`View landmark: ${nearbyLandmark.name}`}>View {nearbyLandmark.name}</button>}
    {landmark&&<div className="jn-radio-focus"><span>{landmark.name} / PARKED</span><button onClick={closeLandmark} aria-label="Back from landmark">Back to drive</button></div>}
-   {geo&&route&&!radio&&<MiamiMap data={geo} route={route} getDistance={getDistance}/>}
+   {geo&&route&&!radio&&view!=='director'&&<MiamiMap data={geo} route={route} getDistance={getDistance}/>}
    {radio&&<div className="jn-radio-focus"><span>IN THE DASH / LIVE RADIO</span><button onClick={()=>setRadioPanel(v=>!v)} aria-expanded={radioPanel}>Station controls</button><button onClick={()=>setRadio(false)} aria-label="Back to drive">Back to drive</button></div>}
    <div className="jn-top"><button onClick={()=>setEnhanced(v=>!v)} aria-label="Toggle cinematic glow" aria-pressed={enhanced}>{enhanced?'Glow on':'Glow off'}</button><button onClick={()=>{cycleStart.current=state.current.elapsed;setNight(v=>!v)}} aria-label="Toggle night and sunset"><span>{night?'☾':'☀'}</span><span className="jn-time-label"> {night?'Night':'Sunset'}</span></button><CastControl/><button onClick={()=>{void document.documentElement.requestFullscreen?.().catch(()=>{})}} aria-label="Fullscreen">⛶</button></div>
-   <aside className="jn-readout"><span>{landmark?'03 / LANDMARK VIEW':view==='driver'?'01 / IN THE CABIN':'02 / ON THE ROAD'}</span><b>{landmark?0:speed}<small>KM/H</small></b><p>{paused?'Parked for a moment':'AUTOMATIC CRUISE'}<span> {night?'23:48':'19:42'}</span></p></aside>
+   <aside className="jn-readout"><span>{landmark?'03 / LANDMARK VIEW':view==='driver'?'01 / IN THE CABIN':view==='director'?`04 / DIRECTOR${shot?' · '+SHOT_LABEL[shot].toUpperCase():''}`:'02 / ON THE ROAD'}</span><b>{landmark?0:speed}<small>KM/H</small></b><p>{paused?'Parked for a moment':'AUTOMATIC CRUISE'}<span> {night?'23:48':'19:42'}</span></p></aside>
    <div className="jn-dock" role="toolbar" aria-label="Drive and radio controls">
     <button className="jn-power" aria-label={audio.requested?'Pause radio':'Play radio'} aria-pressed={audio.requested} onClick={audio.toggle}>{audio.requested?'Ⅱ':'▶'}</button>
     <button className="jn-now" onClick={toggleRadio} aria-label="Open radio controls" aria-expanded={radio}><span>{audio.error?'SIGNAL UNAVAILABLE':audio.tuning||audio.loading?'TUNING IN':audio.playing?'ON AIR':'RADIO OFF'} / {audio.station.name}</span><b>{library.displayTitle||audio.station.name}</b></button>
     <div className="jn-mini-eq"><Equalizer music={music} active={audio.playing&&!audio.muted}/></div>
     <button onClick={toggleRadio} aria-pressed={radio}>Radio</button>
     <button onClick={()=>{closeLandmark();setRadio(false);setView(v=>v==='driver'?'chase':'driver')}} aria-label="Switch cockpit and chase camera">{view==='driver'?'Chase view':'Cockpit'}</button>
+    <button className="jn-director-toggle" onClick={()=>{closeLandmark();setRadio(false);setView(v=>v==='director'?'driver':'director')}} aria-label="Director camera" aria-pressed={view==='director'}>Director</button>
     <button onClick={()=>{if(landmark){closeLandmark();setPaused(false)}else setPaused(v=>!v)}} aria-label={paused?'Resume drive':'Pause drive'}>{paused?'Resume':'Park'}</button>
    </div>
    {radio&&radioPanel&&<section className="jn-radio" aria-label="Radio controls"><header><span>BUENA ONDA <small>HIGH FIDELITY / STEREO</small></span><button aria-label="Close radio controls" onClick={()=>setRadioPanel(false)}>×</button></header>

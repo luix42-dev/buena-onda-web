@@ -12,7 +12,7 @@ import { glowTex } from '../master/cockpit/textures'
 import landmarkRegistry from '../../../public/real-miami/miami/landmarks.json'
 import { createMiamiLandmark, type LandmarkConfig } from './MiamiLandmarks'
 import { wetAsphaltTexture } from './wetAsphalt'
-import { applyPaintedPlaster } from './paintedPlaster'
+import { applyOceanDriveFacade, streetNight } from './paintedPlaster'
 import { createMiamiStreetDetail } from './MiamiStreetDetail'
 import { roomWindowTexture, palmLeafTexture } from './streetDetailTextures'
 
@@ -26,6 +26,7 @@ export type MiamiData = {
 export type MiamiRoute = { sample: (distance: number) => { x: number; y: number; z: number; yaw: number } }
 type StreetSurfaces = { plasterColor: T.Texture; plasterNormal: T.Texture; plasterRoughness: T.Texture; pavementColor: T.Texture; pavementNormal: T.Texture; pavementRoughness: T.Texture }
 const CELL = 250
+const PASTELS = ['#f2c4c8', '#bfe2d4', '#f3e1a4', '#cec3e5', '#b8dbe9', '#f5d0ad', '#eef0e4', '#f6d9e4']
 const temp = new T.Object3D()
 type Placement = { p: number[]; s: number[]; yaw?: number; tint?: string }
 type Cell = { group: T.Group; x: number; z: number; detail: T.Group; built: boolean; windows?: T.InstancedMesh; paneLod?: boolean }
@@ -181,7 +182,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     water: new T.MeshStandardMaterial({ color: '#163b51', roughness: .38, metalness: .18, side: T.DoubleSide }),
     pools: new T.MeshBasicMaterial({ color: '#ffc77c', map: glow, transparent: true, opacity: .13, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1 }),
   }
-  applyPaintedPlaster(mats.building)
+  applyOceanDriveFacade(mats.building, streetNight)
   mats.windows.onBeforeCompile = shader => {
     shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n#ifdef USE_COLOR\ntotalEmissiveRadiance *= vColor.rgb;\n#endif')
   }
@@ -311,7 +312,8 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
       const height = Math.max(3, b.height || 9), geo = polygon(b.points, height)
       if (!geo) return
       const centroid = center(b.points), oceanFront = height < 25 && oceanSegments.some(([a, c]) => pointSegmentDistance(centroid, a, c) < 85)
-      const tint = new T.Color().setHSL(.055 + roadRandom(Number(b.id) || index, 1984) * .08, .13, .56)
+      // Look Bible: Ocean Drive frontage carries the district's pastel paint; inland blocks stay sun-bleached neutrals.
+      const tint = oceanFront ? new T.Color(PASTELS[Math.floor(roadRandom(Number(b.id) || index, 1984) * PASTELS.length)]).multiplyScalar(.82) : new T.Color().setHSL(.055 + roadRandom(Number(b.id) || index, 1984) * .08, .16, .56)
       const colors = new Float32Array(geo.getAttribute('position').count * 3)
       for (let i = 0; i < colors.length; i += 3) { colors[i] = tint.r; colors[i + 1] = tint.g; colors[i + 2] = tint.b }
       geo.setAttribute('color', new T.BufferAttribute(colors, 3)); bodies.push(geo)
@@ -379,7 +381,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     group.add(car); return car
   })
   const streetDetail = createMiamiStreetDetail(data); group.add(streetDetail.group)
-  return { group, cells, mats, wetness, streetDetail, traffic, buildCell, geometries, textures, adMaterials, trafficMaterials, taillights, headlights, frameGeometry, paneGeometry, fullWindowDetail, landmarkAssets, lastTelemetry: 0 }
+  return { group, cells, mats, streetNight, wetness, streetDetail, traffic, buildCell, geometries, textures, adMaterials, trafficMaterials, taillights, headlights, frameGeometry, paneGeometry, fullWindowDetail, landmarkAssets, lastTelemetry: 0 }
 }
 
 export default function MiamiWorld({ state, night, data, route, blend, enhanced = true }: { state: MutableRefObject<NightState>; night: boolean; data: MiamiData; route: MiamiRoute; blend?: MutableRefObject<number>; enhanced?: boolean }) {
@@ -435,6 +437,7 @@ export default function MiamiWorld({ state, night, data, route, blend, enhanced 
       asset.group.visible = Math.hypot(asset.group.position.x - p.x, asset.group.position.z - p.z) < 850
       asset.setBlend(darkness)
     })
+    world.streetNight.value = darkness
     world.mats.windows.emissiveIntensity = .12 + darkness * .6 + (pulse.source === 'live' ? pulse.energy * .06 : 0)
     world.mats.lamps.emissiveIntensity = .1 + darkness * 1.3
     world.mats.neon.emissiveIntensity = .15 + darkness * 1.15
