@@ -72,7 +72,7 @@ function Ride({state,car,view,radioFocused,landmark,music,playing,report,route,b
   if(car.current){car.current.position.set(cx,0,cz);car.current.rotation.set(route?0:Math.atan(('dy' in road?road.dy:0)/Math.sqrt(1+('dx' in road?road.dx:0)**2)),yaw,0,'YXZ')}
   const cam=camera as T.PerspectiveCamera,driver=view==='driver',portrait=cam.aspect<1
   focusMix.current=s.reduced?(radioFocused?1:0):T.MathUtils.damp(focusMix.current,radioFocused?1:0,6,Math.min(delta,.1));if(Math.abs(focusMix.current-(radioFocused?1:0))<.001)focusMix.current=radioFocused?1:0
-  // Speed feel: the lens widens with speed (FOV only; documented camera positions are unchanged).
+  // Speed feel (FOV widening + edge blur) is off: Luis 2026-10-13, the real speed reads fine. ?speedfx=on for A/B only.
   const rush=s.reduced||s.paused||landmark||speedFx?.current===false?0:T.MathUtils.clamp((s.speed-9)/19,0,1)
   if(motion)motion.current=T.MathUtils.damp(motion.current,radioFocused?0:rush,3,Math.min(delta,.1))
   const kick=(motion?.current??0)*(driver?(portrait?5:8):(portrait?6:10))
@@ -118,7 +118,7 @@ export default function JeepNight(){
  const [vehicle,setVehicle]=useState<RideVehicleId>('countach')
  const profile=vehicle==='countach'?COUNTACH_CAMERA_PROFILE:vehicle==='cadillac'?CLASSIC_CAMERA_PROFILE:vehicle==='eighties'?EIGHTIES_CAMERA_PROFILE:WRANGLER_CAMERA_PROFILE
  useEffect(()=>{if(new URLSearchParams(location.search).get('look')==='original')setEnhanced(false)},[])
- const speedFx=useRef(true),motion=useRef(0),state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
+ const speedFx=useRef(false),motion=useRef(0),state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0}),music=useMemo(()=>new MusicAudio(),[])
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const shared=useRef<SharedDrive|null>(null);if(shared.current===null&&typeof window!=='undefined')shared.current=readShared(location.search)
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
@@ -147,7 +147,7 @@ export default function JeepNight(){
  useEffect(()=>{const id=shared.current?.station;audio.selectStation(id&&RADIO_PRESETS.some(s=>s.id===id)?id:'jolt-radio')},[])
  useEffect(()=>{if(shared.current?.time)setNight(shared.current.time==='night')},[]) // eslint-disable-line react-hooks/exhaustive-deps
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)'),changed=()=>{state.current.reduced=media.matches};changed();media.addEventListener('change',changed);return()=>media.removeEventListener('change',changed)},[])
- useEffect(()=>{const q=new URLSearchParams(location.search),pace=q.get('pace');if(pace==='cruise'||pace==='night-drive'||pace==='midnight-run')setTone(pace);if(q.get('speedfx')==='off')speedFx.current=false},[])
+ useEffect(()=>{const q=new URLSearchParams(location.search),pace=q.get('pace');if(pace==='cruise'||pace==='night-drive'||pace==='midnight-run')setTone(pace);if(q.get('speedfx')==='on')speedFx.current=true},[])
  useEffect(()=>{state.current.mood=tone},[tone])
  useEffect(()=>{const changed=()=>setVisible(!document.hidden);document.addEventListener('visibilitychange',changed);return()=>document.removeEventListener('visibilitychange',changed)},[])
  useEffect(()=>{state.current.paused=!started||paused||!visible},[started,paused,visible])

@@ -6,6 +6,7 @@ import * as T from 'three'
 import type {NightState} from '../nightdrive/state'
 import type {RideCameraProfile} from '../../../lib/real-miami/ride-vehicles'
 import PhysicalRadio from '../vehicle/PhysicalRadio'
+import {RollingWheels,rigRollingWheels} from '../vehicle/rollingWheels'
 import {useCockpit} from '../vehicle/CockpitContext'
 import {pulse} from '../master/pulse'
 
@@ -53,14 +54,15 @@ export default function ClassicConvertible({state,cockpit,onReady}:{state:Mutabl
    const clone=(m:T.Material)=>{const copy=m.clone();owned.add(copy);return copy}
    o.material=Array.isArray(o.material)?o.material.map(clone):clone(o.material)
   }})
-  return{scene,owned,glazing}
+  const wheels=rigRollingWheels(scene,/^Tire1Mtl$/)
+  return{scene,owned,wheels,glazing}
  },[asset.scene])
  const target=useMemo(()=>{const object=new T.Object3D();object.position.set(0,.25,-32);return object},[])
  useEffect(()=>{vehicle.glazing.forEach(mesh=>{mesh.visible=!cockpit})},[vehicle,cockpit])
  useEffect(()=>{onReady()},[onReady])
  useEffect(()=>()=>vehicle.owned.forEach(material=>material.dispose()),[vehicle])
  return <group name="Cadillac1959ConvertibleRide" userData={{speed:state.current.speed}}>
-  <primitive object={vehicle.scene} dispose={null}/>
+  <primitive object={vehicle.scene} dispose={null}/><RollingWheels rig={vehicle.wheels} state={state}/>
   <group name="CadillacNativeRadioAdapter" visible={cockpit}>
    {/* Native dash lip protrudes to Z≈−.84. Fit the adapter on its cabin-facing
        side; all LCD, controls and spectrum corner rays clear source geometry. */}

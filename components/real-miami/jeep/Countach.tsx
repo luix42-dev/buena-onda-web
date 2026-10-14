@@ -6,6 +6,7 @@ import * as T from 'three'
 import type {NightState} from '../nightdrive/state'
 import type {RideCameraProfile} from '../../../lib/real-miami/ride-vehicles'
 import PhysicalRadio from '../vehicle/PhysicalRadio'
+import {RollingWheels,rigRollingWheels} from '../vehicle/rollingWheels'
 import {useCockpit} from '../vehicle/CockpitContext'
 import {pulse} from '../master/pulse'
 
@@ -37,13 +38,14 @@ export default function Countach({state,cockpit,onReady}:{state:MutableRefObject
   const bounds=new T.Box3().setFromObject(scene),center=bounds.getCenter(new T.Vector3()),size=bounds.getSize(new T.Vector3()),scale=4.14/size.z
   scene.scale.multiplyScalar(scale);scene.position.set(-center.x*scale,-bounds.min.y*scale+.015,-center.z*scale)
   scene.traverse(o=>{if(o instanceof T.Mesh){const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.some(m=>m.name==='Meshpart24Mtl'))glazing.push(o);const clone=(material:T.Material)=>{const copy=material.clone();owned.add(copy);return copy};o.material=Array.isArray(o.material)?o.material.map(clone):clone(o.material)}})
-  return {scene,owned,glazing}
+  const wheels=rigRollingWheels(scene,/^Meshpart2Mtl$/)
+  return {scene,owned,wheels,glazing}
  },[asset.scene])
  useEffect(()=>{vehicle.glazing.forEach(mesh=>{mesh.visible=!cockpit})},[vehicle,cockpit])
  useEffect(()=>{onReady()},[onReady])
  useEffect(()=>()=>vehicle.owned.forEach(material=>material.dispose()),[vehicle])
  const target=useMemo(()=>{const object=new T.Object3D();object.position.set(0,.2,-30);return object},[])
- return <group name="Countach5000QV" userData={{speed:state.current.speed}}><primitive object={vehicle.scene} dispose={null}/>
+ return <group name="Countach5000QV" userData={{speed:state.current.speed}}><primitive object={vehicle.scene} dispose={null}/><RollingWheels rig={vehicle.wheels} state={state}/>
   <group visible={cockpit} name="CountachOriginalCabinRadioAdapter"><PhysicalRadio position={[0,.72,-.48]} scale={.60} night/><CountachSpectrum/><pointLight position={[-.12,.94,.03]} color="#d5dee4" intensity={.65} distance={1.6} decay={2}/></group>
   <pointLight visible={!cockpit} position={[0,2.2,1.5]} color="#c2cbde" intensity={5} distance={6} decay={1.5}/>
   <primitive object={target}/><spotLight position={[0,.36,-1.91]} target={target} color="#ffe1b4" intensity={controls?.lights?22:0} distance={55} angle={.55} penumbra={.65} decay={1.3}/>

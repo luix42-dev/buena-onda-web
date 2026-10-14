@@ -6,6 +6,7 @@ import * as T from 'three'
 import type {NightState} from '../nightdrive/state'
 import type {RideCameraProfile} from '../../../lib/real-miami/ride-vehicles'
 import PhysicalRadio from '../vehicle/PhysicalRadio'
+import {RollingWheels,rigRollingWheels} from '../vehicle/rollingWheels'
 import {useCockpit} from '../vehicle/CockpitContext'
 import {pulse} from '../master/pulse'
 
@@ -54,14 +55,15 @@ export default function EightiesCar({state,cockpit,onReady}:{state:MutableRefObj
    // suppress its overlapping surfaces only while the camera is inside it.
    if(o.name.startsWith('Stekla'))windows.push(o)
   }})
-  return {scene,owned,windows}
+  const wheels=rigRollingWheels(scene,/^Tires/)
+  return {scene,owned,wheels,windows}
  },[asset.scene])
  const target=useMemo(()=>{const object=new T.Object3D();object.position.set(0,.3,-30);return object},[])
  useEffect(()=>{vehicle.windows.forEach(mesh=>{mesh.visible=!cockpit})},[vehicle,cockpit])
  useEffect(()=>{onReady()},[onReady])
  useEffect(()=>()=>vehicle.owned.forEach(material=>material.dispose()),[vehicle])
  return <group name="Fiero1987Ride" userData={{speed:state.current.speed}}>
-  <primitive object={vehicle.scene} dispose={null}/>
+  <primitive object={vehicle.scene} dispose={null}/><RollingWheels rig={vehicle.wheels} state={state}/>
   <group visible={cockpit} name="FieroNativeRadioAdapter">
    <PhysicalRadio position={[0,.73,-.34]} scale={.70} night/>
    <NativeSpectrum/>

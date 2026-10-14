@@ -1,0 +1,308 @@
+{
+ "label": "wheels",
+ "url": "http://127.0.0.1:3067",
+ "date": "2026-10-14T01:24:38.405Z",
+ "method": "Headless Edge, D3D11, 1280x720, Director forced shots while driving.",
+ "cars": [
+  {
+   "car": "countach",
+   "rig": [
+    {
+     "radius": 0.3,
+     "center": [
+      -0.82,
+      0.331,
+      -1.169
+     ],
+     "parts": 6,
+     "triangles": 5826,
+     "angle": -1.046
+    },
+    {
+     "radius": 0.3,
+     "center": [
+      0.812,
+      0.324,
+      -1.16
+     ],
+     "parts": 6,
+     "triangles": 5823,
+     "angle": -1.046
+    },
+    {
+     "radius": 0.308,
+     "center": [
+      -0.785,
+      0.342,
+      1.297
+     ],
+     "parts": 7,
+     "triangles": 7430,
+     "angle": -4.117
+    },
+    {
+     "radius": 0.308,
+     "center": [
+      0.774,
+      0.323,
+      1.301
+     ],
+     "parts": 6,
+     "triangles": 7582,
+     "angle": -1.825
+    }
+   ],
+   "shots": [
+    {
+     "shot": "sideTrack",
+     "file": "docs/cruise/opus/wheels/countach-sideTrack.png",
+     "speed": 20.105115343200744,
+     "metres": [
+      18868.142218712248,
+      18873.980332318883
+     ],
+     "angles": [
+      [
+       -4.343,
+       -4.343,
+       -0.543,
+       -4.534
+      ],
+      [
+       -4.959,
+       -4.959,
+       -0.643,
+       -4.634
+      ]
+     ],
+     "director": "sideTrack"
+    },
+    {
+     "shot": "frontLow",
+     "file": "docs/cruise/opus/wheels/countach-frontLow.png",
+     "speed": 48.95666734319925,
+     "metres": [
+      18900.24536434734,
+      18911.902401903244
+     ],
+     "angles": [
+      [
+       -4.57,
+       -4.57,
+       -4.214,
+       -1.918
+      ],
+      [
+       -5.738,
+       -5.738,
+       -4.351,
+       -2.054
+      ]
+     ],
+     "director": "frontLow"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "car": "eighties",
+   "rig": [
+    {
+     "radius": 0.302,
+     "center": [
+      -0.754,
+      0.318,
+      -1.109
+     ],
+     "parts": 7,
+     "triangles": 4642,
+     "angle": -2
+    },
+    {
+     "radius": 0.302,
+     "center": [
+      0.756,
+      0.319,
+      -1.107
+     ],
+     "parts": 7,
+     "triangles": 4633,
+     "angle": -2
+    },
+    {
+     "radius": 0.302,
+     "center": [
+      -0.756,
+      0.328,
+      1.318
+     ],
+     "parts": 7,
+     "triangles": 4753,
+     "angle": -1.686
+    },
+    {
+     "radius": 0.302,
+     "center": [
+      0.754,
+      0.328,
+      1.32
+     ],
+     "parts": 7,
+     "triangles": 4751,
+     "angle": -1.686
+    }
+   ],
+   "shots": [
+    {
+     "shot": "sideTrack",
+     "file": "docs/cruise/opus/wheels/eighties-sideTrack.png",
+     "speed": 20.290287232797606,
+     "metres": [
+      18868.263688414987,
+      18873.80972265575
+     ],
+     "angles": [
+      [
+       -5.523,
+       -5.523,
+       -5.209,
+       -5.209
+      ],
+      [
+       -5.018,
+       -5.018,
+       -4.703,
+       -4.703
+      ]
+     ],
+     "director": "sideTrack"
+    },
+    {
+     "shot": "frontLow",
+     "file": "docs/cruise/opus/wheels/eighties-frontLow.png",
+     "speed": 49.20836723279773,
+     "metres": [
+      18900.643498246594,
+      18913.406582795713
+     ],
+     "angles": [
+      [
+       -5.81,
+       -5.81,
+       -5.496,
+       -5.496
+      ],
+      [
+       -4.044,
+       -4.044,
+       -3.729,
+       -3.729
+      ]
+     ],
+     "director": "frontLow"
+    }
+   ],
+   "errors": []
+  },
+  {
+   "car": "cadillac",
+   "rig": [
+    {
+     "radius": 0.282,
+     "center": [
+      -0.922,
+      0.297,
+      -1.954
+     ],
+     "parts": 5,
+     "triangles": 1889,
+     "angle": -2.597
+    },
+    {
+     "radius": 0.282,
+     "center": [
+      0.922,
+      0.297,
+      -1.954
+     ],
+     "parts": 5,
+     "triangles": 1889,
+     "angle": -3.894
+    },
+    {
+     "radius": 0.282,
+     "center": [
+      -0.86,
+      0.297,
+      1.332
+     ],
+     "parts": 4,
+     "triangles": 1865,
+     "angle": -2.783
+    },
+    {
+     "radius": 0.282,
+     "center": [
+      0.86,
+      0.297,
+      1.291
+     ],
+     "parts": 4,
+     "triangles": 1865,
+     "angle": -2.783
+    }
+   ],
+   "shots": [
+    {
+     "shot": "sideTrack",
+     "file": "docs/cruise/opus/wheels/cadillac-sideTrack.png",
+     "speed": 20.25284716799917,
+     "metres": [
+      18868.23673104773,
+      18874.181578478132
+     ],
+     "angles": [
+      [
+       -1.383,
+       -2.681,
+       -1.569,
+       -1.569
+      ],
+      [
+       -3.641,
+       -4.939,
+       -3.827,
+       -3.827
+      ]
+     ],
+     "director": "sideTrack"
+    },
+    {
+     "shot": "frontLow",
+     "file": "docs/cruise/opus/wheels/cadillac-frontLow.png",
+     "speed": 49.31521516800091,
+     "metres": [
+      18900.810328534786,
+      18912.80691862704
+     ],
+     "angles": [
+      [
+       -3.94,
+       -5.24,
+       -4.127,
+       -4.127
+      ],
+      [
+       -2.552,
+       -3.853,
+       -2.739,
+       -2.739
+      ]
+     ],
+     "director": "frontLow"
+    }
+   ],
+   "errors": []
+  }
+ ]
+}
