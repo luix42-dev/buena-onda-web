@@ -14,7 +14,7 @@ const actualVisible=(object:T.Object3D)=>{let node:T.Object3D|null=object;while(
 type OccluderDiagnostic={probe:[number,number];mesh:string;material:string;distance:number;uv:[number,number]|null;transparent:boolean;opacity:number;alphaTest:number;depthWrite:boolean;colorWrite:boolean;transmission:number;map:boolean;alphaMap:boolean}
 const hitMaterial=(hit:T.Intersection)=>{const mesh=hit.object as T.Mesh;return Array.isArray(mesh.material)?mesh.material[hit.face?.materialIndex||0]:mesh.material}
 const opaqueMaterial=(material:T.Material)=>{
- if(!material.visible||material.colorWrite===false||(material.transparent&&material.opacity<.2)||('transmission'in material&&Number(material.transmission)>.05))return false
+ if(!material.visible||material.colorWrite===false||material.blending===T.AdditiveBlending||(material.transparent&&material.opacity<.2)||('transmission'in material&&Number(material.transmission)>.05))return false
  const surface=material as T.MeshStandardMaterial
  // Native Fiero Corpus_1/door_2 use this clear, untextured GLB glass.
  // Its 0.709 BLEND overlay does not geometrically hide the billboard in the
@@ -39,7 +39,12 @@ function drawCreative(canvas:HTMLCanvasElement,placement:MiamiAdPlacement,image?
  }
  c.fillStyle=image?'#f2e6cc':'#59635c';c.font='18px Outfit, Arial, sans-serif';c.fillText(`${placement.kind.toUpperCase()} / ${placement.id}`,42,h-22,w-84)
 }
-function AdFace({placement,onActivate,enabled}:{placement:MiamiAdPlacement;onActivate:(placement:MiamiAdPlacement)=>void;enabled:boolean}){
+function AdFace({placement,onActivate,enabled,night,active,video}:{placement:MiamiAdPlacement;onActivate:(placement:MiamiAdPlacement)=>void;enabled:boolean;night:MutableRefObject<number>;active:MutableRefObject<string|null>;video:boolean}){
+ if(placement.surface==='projection')return <ProjectionFace placement={placement} onActivate={onActivate} enabled={enabled} night={night} active={active} video={video}/>
+ if(placement.surface==='blade')return <BladeFace placement={placement} onActivate={onActivate} enabled={enabled} night={night}/>
+ return <BoardFace placement={placement} onActivate={onActivate} enabled={enabled}/>
+}
+function BoardFace({placement,onActivate,enabled}:{placement:MiamiAdPlacement;onActivate:(placement:MiamiAdPlacement)=>void;enabled:boolean}){
  const texture=useMemo(()=>{const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=422;drawCreative(canvas,placement);const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;map.anisotropy=4;return map},[placement])
  useEffect(()=>{let alive=true,loadedImage:HTMLImageElement|undefined;void document.fonts.ready.then(()=>{if(alive){drawCreative(texture.image,placement,loadedImage);texture.needsUpdate=true}});const imageUrl=placement.campaign.billboardImage||placement.campaign.digitalFallbackImage;let image:HTMLImageElement|undefined;if(imageUrl){image=new Image();image.onload=()=>{if(alive){loadedImage=image;drawCreative(texture.image,placement,loadedImage);texture.needsUpdate=true}};image.src=imageUrl}return()=>{alive=false;if(image)image.onload=null;texture.dispose()}},[texture,placement])
  const activate=(event:ThreeEvent<MouseEvent>)=>{if(enabled){event.stopPropagation();onActivate(placement)}}
@@ -50,8 +55,65 @@ function AdFace({placement,onActivate,enabled}:{placement:MiamiAdPlacement;onAct
  </group>
 }
 
-export default function MiamiAds({state,route,data,campaign,onSamples,onActivate,measurementsEnabled,vehicleId,vehicleReady}:{state:MutableRefObject<NightState>;route:MiamiAdRoute;data:MiamiGeoData;campaign:CruiseCampaign;onSamples:(samples:MiamiAdSample[])=>void;onActivate:(placement:MiamiAdPlacement)=>void;measurementsEnabled:boolean;vehicleId?:string;vehicleReady?:boolean}){
- const group=useRef<T.Group>(null),{camera,scene,size}=useThree(),placements=useMemo(()=>createMiamiAdPlacements(data,route,campaign),[data,route,campaign]),duration=useRef(new Map<string,number>()),last=useRef(0),latest=useRef<MiamiAdSample[]>([])
+/** One <video> per creative URL, shared by every projection of that campaign; it plays only while a projection using it is the active one. */
+const videos=new Map<string,{video:HTMLVideoElement;texture:T.VideoTexture;users:number}>()
+function shareVideo(url:string){let entry=videos.get(url);if(!entry){const video=document.createElement('video');video.src=url;video.muted=true;video.loop=true;video.playsInline=true;video.crossOrigin='anonymous';video.preload='auto';const texture=new T.VideoTexture(video);texture.colorSpace=T.SRGBColorSpace;entry={video,texture,users:0};videos.set(url,entry)}entry.users++;return entry}
+function releaseVideo(url:string){const entry=videos.get(url);if(!entry||--entry.users>0)return;entry.video.pause();entry.video.removeAttribute('src');entry.video.load();entry.texture.dispose();videos.delete(url)}
+let softEdge:T.CanvasTexture|null=null
+/** Projected light falls off at the edges instead of reading as a pasted screen. */
+function projectorMask(){if(softEdge)return softEdge;const canvas=document.createElement('canvas');canvas.width=256;canvas.height=144;const c=canvas.getContext('2d')!,g=c.createRadialGradient(128,72,40,128,72,150);g.addColorStop(0,'#fff');g.addColorStop(.62,'#fff');g.addColorStop(1,'#000');c.fillStyle=g;c.fillRect(0,0,256,144);softEdge=new T.CanvasTexture(canvas);return softEdge}
+const reducedMotion=()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches
+function ProjectionFace({placement,onActivate,enabled,night,active,video}:{placement:MiamiAdPlacement;onActivate:(placement:MiamiAdPlacement)=>void;enabled:boolean;night:MutableRefObject<number>;active:MutableRefObject<string|null>;video:boolean}){
+ const material=useRef<T.MeshBasicMaterial>(null),mesh=useRef<T.Mesh>(null),lastDraw=useRef(0)
+ const url=video&&!reducedMotion()?placement.campaign.digitalVideo:undefined
+ const still=useMemo(()=>{const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=576;drawCreative(canvas,placement);return canvas},[placement])
+ const motion=useMemo(()=>{const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=576;canvas.getContext('2d')!.drawImage(still,0,0);const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;return map},[still])
+ const shared=useMemo(()=>url?shareVideo(url):null,[url])
+ useEffect(()=>()=>{if(url)releaseVideo(url)},[url])
+ useEffect(()=>{let alive=true;void document.fonts.ready.then(()=>{if(!alive)return;drawCreative(still,placement);(motion.image as HTMLCanvasElement).getContext('2d')!.drawImage(still,0,0);motion.needsUpdate=true});return()=>{alive=false;motion.dispose()}},[still,motion,placement])
+ useFrame(({clock})=>{
+  const m=material.current;if(!m||!mesh.current)return
+  const playing=active.current===placement.id,target=Math.max(0,(night.current-.3)/.7)*(playing?.95:.42)
+  m.opacity+=(target-m.opacity)*.06;mesh.current.visible=m.opacity>.02
+  if(shared){const wanted=playing&&mesh.current.visible?shared.texture:motion;if(m.map!==wanted){m.map=wanted;m.needsUpdate=true}
+   // The element is shared per campaign: the active projection starts it; it stops once no projection is active.
+   if(playing&&shared.video.paused)void shared.video.play().catch(()=>{});else if(active.current===null&&!shared.video.paused)shared.video.pause();return}
+  if(!playing||reducedMotion())return
+  const now=clock.elapsedTime;if(now-lastDraw.current<.1)return;lastDraw.current=now
+  // Motion poster for campaigns without a video: a slow light sweep and a breathing accent.
+  const c=(motion.image as HTMLCanvasElement).getContext('2d')!,w=1024,h=576,x=((now*.22)%1.6-.3)*w
+  c.globalCompositeOperation='source-over';c.drawImage(still,0,0)
+  const g=c.createLinearGradient(x-180,0,x+180,0);g.addColorStop(0,'#fff0');g.addColorStop(.5,'#fff5');g.addColorStop(1,'#fff0');c.globalCompositeOperation='lighter';c.fillStyle=g;c.fillRect(0,0,w,h)
+  c.globalCompositeOperation='source-over';c.globalAlpha=.5+.5*Math.sin(now*2.4);c.fillStyle=placement.campaign.creatives.wall.accent;c.fillRect(0,h-10,w,10);c.globalAlpha=1;motion.needsUpdate=true
+ })
+ const activate=(event:ThreeEvent<MouseEvent>)=>{if(enabled&&mesh.current?.visible){event.stopPropagation();onActivate(placement)}}
+ return <group position={[placement.x,placement.y,placement.z]} rotation-y={placement.yaw} userData={{miamiAdId:placement.id}}>
+  <mesh ref={mesh} onClick={activate} userData={{miamiAdFace:placement.id}} renderOrder={2}><planeGeometry args={[placement.width,placement.height]}/><meshBasicMaterial ref={material} map={motion} alphaMap={projectorMask()} transparent opacity={0} blending={T.AdditiveBlending} depthWrite={false} toneMapped={false} polygonOffset polygonOffsetFactor={-2}/></mesh>
+ </group>
+}
+function drawBlade(canvas:HTMLCanvasElement,placement:MiamiAdPlacement){
+ const c=canvas.getContext('2d')!,w=canvas.width,h=canvas.height,creative=placement.campaign.creatives.wall,text=placement.campaign.name.replace(/\s+(house|motel|service|vintage house)$/i,'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,9)
+ c.fillStyle='#0d0f12';c.fillRect(0,0,w,h);c.strokeStyle=creative.accent;c.lineWidth=10;c.strokeRect(14,14,w-28,h-28)
+ const letters=[...text],step=(h-80)/letters.length,size=Math.min(150,step*.9);c.font=`700 ${size}px Outfit, Arial, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillStyle=creative.foreground;c.shadowColor=creative.accent;c.shadowBlur=26
+ letters.forEach((letter,i)=>c.fillText(letter,w/2,40+step*(i+.5),w-40))
+ c.shadowBlur=0
+}
+function BladeFace({placement,onActivate,enabled,night}:{placement:MiamiAdPlacement;onActivate:(placement:MiamiAdPlacement)=>void;enabled:boolean;night:MutableRefObject<number>}){
+ const front=useRef<T.MeshStandardMaterial>(null),back=useRef<T.MeshStandardMaterial>(null)
+ const texture=useMemo(()=>{const canvas=document.createElement('canvas');canvas.width=256;canvas.height=1280;drawBlade(canvas,placement);const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;map.anisotropy=4;return map},[placement])
+ useEffect(()=>{let alive=true;void document.fonts.ready.then(()=>{if(alive){drawBlade(texture.image as HTMLCanvasElement,placement);texture.needsUpdate=true}});return()=>{alive=false;texture.dispose()}},[texture,placement])
+ useFrame(()=>{const glow=.35+1.25*night.current;if(front.current)front.current.emissiveIntensity=glow;if(back.current)back.current.emissiveIntensity=glow})
+ const activate=(event:ThreeEvent<MouseEvent>)=>{if(enabled){event.stopPropagation();onActivate(placement)}}
+ const {width,height}=placement
+ return <group position={[placement.x,placement.y,placement.z]} rotation-y={placement.yaw} userData={{miamiAdId:placement.id}}>
+  <mesh><boxGeometry args={[width+.12,height+.12,.22]}/><meshStandardMaterial color="#1b1e22" metalness={.5} roughness={.5}/></mesh>
+  <mesh position-z={.115} onClick={activate} userData={{miamiAdFace:placement.id}}><planeGeometry args={[width,height]}/><meshStandardMaterial ref={front} map={texture} emissiveMap={texture} emissive="#ffffff" roughness={.6}/></mesh>
+  <mesh position-z={-.115} rotation-y={Math.PI}><planeGeometry args={[width,height]}/><meshStandardMaterial ref={back} map={texture} emissiveMap={texture} emissive="#ffffff" roughness={.6}/></mesh>
+ </group>
+}
+
+export default function MiamiAds({state,route,data,campaign,onSamples,onActivate,measurementsEnabled,vehicleId,vehicleReady,night,video=true}:{night:MutableRefObject<number>;video?:boolean;state:MutableRefObject<NightState>;route:MiamiAdRoute;data:MiamiGeoData;campaign:CruiseCampaign;onSamples:(samples:MiamiAdSample[])=>void;onActivate:(placement:MiamiAdPlacement)=>void;measurementsEnabled:boolean;vehicleId?:string;vehicleReady?:boolean}){
+ const group=useRef<T.Group>(null),{camera,scene,size}=useThree(),placements=useMemo(()=>createMiamiAdPlacements(data,route,campaign),[data,route,campaign]),duration=useRef(new Map<string,number>()),last=useRef(0),activeProjection=useRef<string|null>(null),latest=useRef<MiamiAdSample[]>([])
  const trees=useMemo(()=>new Map<T.BufferGeometry,PrivateTree>(),[]),objects=useMemo(()=>new WeakMap<T.Mesh,OcclusionObject>(),[])
  const performanceStats=useRef<AdMeasurementPerformance>({measurements:0,averageMs:0,maxMs:0,lastMs:0,lastRayCount:0,lastBlockerCount:0,bvhGeometries:0,bvhBuildMs:0})
  const math=useMemo(()=>({center:new T.Vector3(),normal:new T.Vector3(),eye:new T.Vector3(),direction:new T.Vector3(),corner:new T.Vector3(),ray:new T.Raycaster(),localRay:new T.Ray(),boxHit:new T.Vector3(),worldScale:new T.Vector3(),scaledDirection:new T.Vector3(),sphere:new T.Sphere(),matrix:new T.Matrix4(),frustum:new T.Frustum()}),[])
@@ -83,9 +145,12 @@ export default function MiamiAds({state,route,data,campaign,onSamples,onActivate
    const centerNdc=math.center.clone().project(camera);let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,front=true
    for(const x of[-.5,.5])for(const y of[-.5,.5]){math.corner.set(math.center.x+Math.cos(placement.yaw)*placement.width*x,math.center.y+placement.height*y,math.center.z-Math.sin(placement.yaw)*placement.width*x).project(camera);front&&=math.corner.z>=-1&&math.corner.z<=1;minX=Math.min(minX,math.corner.x);maxX=Math.max(maxX,math.corner.x);minY=Math.min(minY,math.corner.y);maxY=Math.max(maxY,math.corner.y)}
    const clippedWidth=Math.max(0,Math.min(1,maxX)-Math.max(-1,minX))*size.width/2,clippedHeight=Math.max(0,Math.min(1,maxY)-Math.max(-1,minY))*size.height/2,projectedArea=clippedWidth*clippedHeight/(size.width*size.height)
-   const visible=measurementsEnabled&&front&&facing>.15&&centerNdc.z>=-1&&centerNdc.z<=1&&math.frustum.containsPoint(math.center)&&clippedWidth>1&&clippedHeight>1&&distance<150
+   const lit=placement.surface!=='projection'||night.current>=.3
+   const visible=measurementsEnabled&&lit&&front&&facing>.15&&centerNdc.z>=-1&&centerNdc.z<=1&&math.frustum.containsPoint(math.center)&&clippedWidth>1&&clippedHeight>1&&distance<150
    return{placement,visible,viewable:false,readable:false,distance,facing,projectedArea,pixelWidth:clippedWidth,pixelHeight:clippedHeight,occlusion:1,visibleDurationMs:0,sampledAt:now,fullyFramed:minX>=-1&&maxX<=1&&minY>=-1&&maxY<=1,occluders:[]}
   })
+  // Pollution guard: only the nearest framed projection plays motion; the rest hold a dim still.
+  activeProjection.current=samples.filter(s=>s.placement.surface==='projection'&&s.distance<170&&s.facing>.2&&s.pixelWidth>1&&night.current>=.3).sort((a,b)=>a.distance-b.distance)[0]?.placement.id??null
   const candidates=samples.filter(s=>s.visible).sort((a,b)=>a.distance-b.distance).slice(0,2)
   // Raycast only currently visible, opaque meshes; invisible chunks and helper
   // hitboxes cannot produce occlusion. Vehicle and windshield frame remain included.
@@ -134,5 +199,5 @@ export default function MiamiAds({state,route,data,campaign,onSamples,onActivate
   latest.current=samples;onSamples(samples)
   const stats=performanceStats.current,elapsed=performance.now()-measuredAt;stats.measurements++;stats.averageMs+=(elapsed-stats.averageMs)/stats.measurements;stats.lastMs=elapsed;stats.maxMs=Math.max(stats.maxMs,elapsed);stats.lastRayCount=rayCount;stats.lastBlockerCount=blockers.length
  })
- return <group ref={group} name="MiamiMeasuredAdvertisements">{placements.map(placement=><AdFace key={placement.id} placement={placement} onActivate={onActivate} enabled={measurementsEnabled}/>)}</group>
+ return <group ref={group} name="MiamiMeasuredAdvertisements">{placements.map(placement=><AdFace key={placement.id} placement={placement} onActivate={onActivate} enabled={measurementsEnabled} night={night} active={activeProjection} video={video}/>)}</group>
 }

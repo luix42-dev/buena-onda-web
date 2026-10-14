@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import type { RealtimeChannel } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 
-export const PRESENCE_CHANNEL = 'cruise:presence'
+/** Production keeps the bare channel so the live count is real visitors only.
+ * Local and preview runs share the same Supabase project, so they join a separate channel. */
+const PRESENCE_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? '' : `:${process.env.NEXT_PUBLIC_VERCEL_ENV || 'local'}`
+export const PRESENCE_CHANNEL = `cruise:presence${PRESENCE_ENV}`
 export const VISITOR_STORAGE_KEY = 'buena-onda:visitor:v1'
 const TAB_STORAGE_KEY = 'buena-onda:tab:v1'
 const SUBSCRIBE_TIMEOUT_MS = 8000

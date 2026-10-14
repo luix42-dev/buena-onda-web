@@ -1,0 +1,240 @@
+{
+ "label": "ads-v2",
+ "url": "http://127.0.0.1:3067",
+ "lead": 45,
+ "date": "2026-10-14T01:02:11.756Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU, 1280x720, night, chase camera, drive paused at routeMeters - lead.",
+ "shots": [
+  {
+   "target": {
+    "id": "MB-PROJ-435577870",
+    "surface": "projection",
+    "campaign": "vice-nights",
+    "street": "Ocean Drive",
+    "routeMeters": 920
+   },
+   "file": "docs/cruise/opus/ads-v2/projection-MB-PROJ-435577870.png",
+   "visible": [],
+   "night": 1
+  },
+  {
+   "target": {
+    "id": "MB-PROJ-435732802",
+    "surface": "projection",
+    "campaign": "vice-nights",
+    "street": "Collins Avenue",
+    "routeMeters": 9512
+   },
+   "file": "docs/cruise/opus/ads-v2/projection-MB-PROJ-435732802.png",
+   "visible": [
+    {
+     "id": "MB-PROJ-435732802",
+     "surface": "projection",
+     "distance": 56.8,
+     "viewable": true,
+     "readable": false,
+     "occlusion": 0,
+     "px": [
+      94,
+      168
+     ]
+    }
+   ],
+   "night": 1
+  },
+  {
+   "target": {
+    "id": "MB-BLADE-567675306",
+    "surface": "blade",
+    "campaign": "branches-house",
+    "street": "Ocean Drive",
+    "routeMeters": 352
+   },
+   "file": "docs/cruise/opus/ads-v2/blade-MB-BLADE-567675306.png",
+   "visible": [
+    {
+     "id": "MB-PROJ-436031596",
+     "surface": "projection",
+     "distance": 114.3,
+     "viewable": false,
+     "readable": false,
+     "occlusion": 1,
+     "px": [
+      94,
+      59
+     ]
+    },
+    {
+     "id": "MB-BLADE-567675306",
+     "surface": "blade",
+     "distance": 43,
+     "viewable": false,
+     "readable": false,
+     "occlusion": 0.2,
+     "px": [
+      20,
+      74
+     ]
+    }
+   ],
+   "night": 1
+  },
+  {
+   "target": {
+    "id": "MB-BLADE-255394260",
+    "surface": "blade",
+    "campaign": "buena-onda",
+    "street": "Collins Avenue",
+    "routeMeters": 520
+   },
+   "file": "docs/cruise/opus/ads-v2/blade-MB-BLADE-255394260.png",
+   "visible": [
+    {
+     "id": "MB-ROUTE-00614",
+     "surface": "billboard",
+     "distance": 144.9,
+     "viewable": false,
+     "readable": false,
+     "occlusion": 0,
+     "px": [
+      66,
+      21
+     ]
+    },
+    {
+     "id": "MB-BLADE-255394260",
+     "surface": "blade",
+     "distance": 51.7,
+     "viewable": false,
+     "readable": false,
+     "occlusion": 0.2,
+     "px": [
+      28,
+      71
+     ]
+    }
+   ],
+   "night": 1
+  },
+  {
+   "target": {
+    "id": "MB-ROUTE-00174",
+    "surface": "billboard",
+    "campaign": "onda-tropical",
+    "street": "Ocean Drive",
+    "routeMeters": 173.53734324078687
+   },
+   "file": "docs/cruise/opus/ads-v2/billboard-MB-ROUTE-00174.png",
+   "visible": [
+    {
+     "id": "MB-ROUTE-00174",
+     "surface": "billboard",
+     "distance": 53.4,
+     "viewable": true,
+     "readable": false,
+     "occlusion": 0,
+     "px": [
+      112,
+      48
+     ]
+    }
+   ],
+   "night": 1
+  },
+  {
+   "target": {
+    "id": "MB-ROUTE-00614",
+    "surface": "billboard",
+    "campaign": "buena-onda",
+    "street": "Collins Avenue",
+    "routeMeters": 613.5373432407869
+   },
+   "file": "docs/cruise/opus/ads-v2/billboard-MB-ROUTE-00614.png",
+   "visible": [
+    {
+     "id": "MB-ROUTE-00614",
+     "surface": "billboard",
+     "distance": 53,
+     "viewable": true,
+     "readable": false,
+     "occlusion": 0,
+     "px": [
+      96,
+      44
+     ]
+    },
+    {
+     "id": "MB-BLADE-435732487",
+     "surface": "blade",
+     "distance": 111.1,
+     "viewable": false,
+     "readable": false,
+     "occlusion": 0.2,
+     "px": [
+      10,
+      40
+     ]
+    }
+   ],
+   "night": 1
+  }
+ ],
+ "roster": {
+  "total": 55,
+  "bySurface": {
+   "poster": 3,
+   "billboard": 10,
+   "projection": 14,
+   "blade": 28
+  },
+  "byCampaign": {
+   "buena-onda": 21,
+   "vice-nights": 13,
+   "onda-tropical": 6,
+   "natsu-service": 5,
+   "branches-house": 5,
+   "tideway-house": 5
+  }
+ },
+ "fps": {
+  "samples": [
+   59.9940005999484,
+   60.0511911793633,
+   60.02164715142895,
+   60.02164715142895,
+   60.009837678307946,
+   60.027553631177746,
+   59.03187721370082,
+   60.00983767830793,
+   60.03346127349122,
+   60.00983767830793,
+   60.03346127350498,
+   60.015741833915435,
+   60.02164715142892,
+   60.01574183392918,
+   60.02164715142895
+  ],
+  "mean": 59.954608698644705,
+  "min": 59.03187721370082,
+  "below30": 0,
+  "adMeasurement": {
+   "measurements": 211,
+   "averageMs": 17.00521327013711,
+   "maxMs": 215.30000000004657,
+   "lastMs": 1.3999999999068677,
+   "lastRayCount": 0,
+   "lastBlockerCount": 0,
+   "bvhGeometries": 19,
+   "bvhBuildMs": 75
+  }
+ },
+ "errors": [
+  "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "console: Failed to load resource: net::ERR_CONNECTION_TIMED_OUT",
+  "console: Failed to load resource: net::ERR_CONNECTION_TIMED_OUT",
+  "console: Failed to load resource: net::ERR_CONNECTION_TIMED_OUT"
+ ]
+}
