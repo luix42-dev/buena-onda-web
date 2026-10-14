@@ -11,6 +11,7 @@ const rides: { id: RideVehicleId; name: string; year: string; mood: string; desc
 ]
 
 export type RidePickerProps = {
+  driveLabel?: string
   vehicle: RideVehicleId
   onSelect: (id: RideVehicleId) => void
   night: boolean
@@ -21,7 +22,7 @@ export type RidePickerProps = {
   castControl?: ReactNode
 }
 
-export default function RidePicker({ vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
+export default function RidePicker({ driveLabel = 'Miami Beach / Real streets', vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
   const index = Math.max(0, rides.findIndex(ride => ride.id === vehicle))
   const selected = rides[index]
   const selectNext = (step: number) => onSelect(rides[(index + step + rides.length) % rides.length].id)
@@ -47,7 +48,7 @@ export default function RidePicker({ vehicle, onSelect, night, onNightChange, on
         <p className="rp-description">{selected.description}</p>
       </div>
       <div className="rp-departure">
-        <div className="rp-route"><span>Your drive</span><strong>Miami Beach / Real streets</strong></div>
+        <div className="rp-route"><span>Your drive</span><strong>{driveLabel}</strong></div>
         <div className="rp-times" role="group" aria-label="Choose lighting">
           <button type="button" aria-pressed={!night} onClick={() => onNightChange(false)}><span aria-hidden="true">☀</span> Sunset drive</button>
           <button type="button" aria-pressed={night} onClick={() => onNightChange(true)}><span aria-hidden="true">☾</span> Night drive</button>

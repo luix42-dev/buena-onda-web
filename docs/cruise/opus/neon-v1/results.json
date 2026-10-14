@@ -1,0 +1,223 @@
+{
+ "label": "neon-v1",
+ "url": "http://127.0.0.1:3067",
+ "query": "world=neon&hostFirst=4",
+ "park": false,
+ "route": 300,
+ "seed": "7",
+ "date": "2026-10-14T01:47:59.210Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "console: Failed to load resource: the server responded with a status of 400 (Bad Request)"
+   ],
+   "views": [
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/neon-v1/1280x720-chase.png",
+     "director": {
+      "shot": "sideTrack",
+      "remaining": 0
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.02755363116395,
+       60.01574183395664,
+       60.02164715138768,
+       60.027553631218986,
+       60.01574183390165,
+       60.021647151442664,
+       59.940059940059975,
+       60.09852216748768
+      ],
+      "mean": 60.02105841757741,
+      "min": 59.940059940059975,
+      "below30": 0,
+      "rafMeanMs": 16.660455486542443,
+      "rafP95Ms": 16.80000000000109,
+      "rafMaxMs": 16.900000000001455
+     },
+     "directorAfter": {
+      "shot": "sideTrack",
+      "remaining": 0
+     },
+     "crowd": null
+    },
+    {
+     "view": "director:sideTrack",
+     "file": "docs/cruise/opus/neon-v1/1280x720-director-sideTrack.png",
+     "director": {
+      "shot": "sideTrack",
+      "remaining": 2.7645649835565744
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.027553631163975,
+       60.01574183395667,
+       60.01574183390165,
+       59.99803285137093,
+       58.84112895187378,
+       60.1993486627407,
+       55.67707297674525,
+       60.40202000201385
+      ],
+      "mean": 59.39708009297085,
+      "min": 55.67707297674525,
+      "below30": 0,
+      "rafMeanMs": 16.834375,
+      "rafP95Ms": 16.799999999999272,
+      "rafMaxMs": 33.400000000001455
+     },
+     "directorAfter": {
+      "shot": "sideTrack",
+      "remaining": 1.1648649835573242
+     },
+     "crowd": null
+    },
+    {
+     "view": "director:wheelLow",
+     "file": "docs/cruise/opus/neon-v1/1280x720-director-wheelLow.png",
+     "director": {
+      "shot": "wheelLow",
+      "remaining": 0.4970099890381423
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.31840205676975,
+       59.36479667556045,
+       52.50643946902055,
+       57.221783741089205,
+       56.874875274438594,
+       56.980056980036125,
+       56.693853192738075,
+       59.38242280288319
+      ],
+      "mean": 57.41782877406699,
+      "min": 52.50643946902055,
+      "below30": 0,
+      "rafMeanMs": 17.416846652267818,
+      "rafP95Ms": 16.900000000001455,
+      "rafMaxMs": 33.5
+     },
+     "directorAfter": {
+      "shot": "wheelLow",
+      "remaining": 1.117309989037981
+     },
+     "crowd": null
+    },
+    {
+     "view": "director:crane",
+     "file": "docs/cruise/opus/neon-v1/1280x720-director-crane.png",
+     "director": {
+      "shot": "crane",
+      "remaining": 3.7327649835568266
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.01574183390164,
+       60.02164715144268,
+       59.99400059990649,
+       60.05710347547971,
+       60.00393468420863,
+       59.92210126836229,
+       60.11036657470556,
+       60.03937007874014
+      ],
+      "mean": 60.02053320834339,
+      "min": 59.92210126836229,
+      "below30": 0,
+      "rafMeanMs": 16.66144329896908,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 18.39999999999418
+     },
+     "directorAfter": {
+      "shot": "crane",
+      "remaining": 3.1642649835568832
+     },
+     "crowd": null
+    },
+    {
+     "view": "director:frontLow",
+     "file": "docs/cruise/opus/neon-v1/1280x720-director-frontLow.png",
+     "director": {
+      "shot": "frontLow",
+      "remaining": 1.777509989037263
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.15779092702169,
+       60.02164715144266,
+       60.02164715144266,
+       60.02164715144266,
+       60.02164715144266,
+       60.021647151387654,
+       60.01574183395665,
+       59.998032851370944
+      ],
+      "mean": 60.03497517118845,
+      "min": 59.998032851370944,
+      "below30": 0,
+      "rafMeanMs": 16.66103092783505,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 16.900000000001455
+     },
+     "directorAfter": {
+      "shot": "frontLow",
+      "remaining": 4.38720998903743
+     },
+     "crowd": null
+    },
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/neon-v1/1280x720-driver.png",
+     "director": {
+      "shot": "frontLow",
+      "remaining": 0
+     },
+     "chunks": null,
+     "fps": {
+      "samples": [
+       60.02164715144268,
+       60.01574183395664,
+       60.027553631163975,
+       60.009837678307925,
+       60.02164715144268,
+       60.02755363116395,
+       60.03346127346371,
+       60.00983767830793
+      ],
+      "mean": 60.020910003656184,
+      "min": 60.009837678307925,
+      "below30": 0,
+      "rafMeanMs": 16.661030927835032,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 16.90000000000873
+     },
+     "directorAfter": {
+      "shot": "frontLow",
+      "remaining": 0
+     },
+     "crowd": null
+    }
+   ],
+   "readyMs": 3172,
+   "playing": true
+  }
+ ]
+}
