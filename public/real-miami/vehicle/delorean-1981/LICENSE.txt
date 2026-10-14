@@ -1,0 +1,10 @@
+DMC DeLorean by tiunov.se
+Source: https://sketchfab.com/3d-models/dmc-delorean-4d4af57068b146cca160ed2691c05633
+Creator: https://sketchfab.com/tiunov.se
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+License: https://creativecommons.org/licenses/by/4.0/
+Legal code: https://creativecommons.org/licenses/by/4.0/legalcode.en
+Changes: scaled to 4.27 m, body/glass/lamp materials retuned for Three.js, wheels split into rolling pivots at runtime,
+a plain fitted cabin (dash, console, seats) and the existing interactive radio added for the cockpit view.
+Original geometry retained. No endorsement by the creator is implied. "DeLorean" and "DMC" are trademarks of their owners;
+the model is used as a depiction of a real car, not as a brand endorsement.

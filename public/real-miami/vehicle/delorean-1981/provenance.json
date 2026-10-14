@@ -1,0 +1,11 @@
+{
+  "modelId": "4d4af57068b146cca160ed2691c05633",
+  "modelName": "DMC DeLorean",
+  "sourceUrl": "https://sketchfab.com/3d-models/dmc-delorean-4d4af57068b146cca160ed2691c05633",
+  "creator": { "name": "tiunov.se", "username": "tiunov.se", "profileUrl": "https://sketchfab.com/tiunov.se" },
+  "license": { "label": "CC Attribution", "url": "http://creativecommons.org/licenses/by/4.0/", "slug": "by", "verifiedVia": "Sketchfab public API v3 and the GLB asset.extras block, 2026-10-13" },
+  "acquisition": "Downloaded by Luis via Sketchfab (logged in) on 2026-10-13 as GLB (dmc_delorean.glb) plus FBX source zip; copied unmodified.",
+  "runtimeBytes": 5715052,
+  "runtimeSHA256": "531816625a459aa61f0f3e8333fb93b7180c8f8ada37b604767509e54ba3de47",
+  "geometry": { "meshParts": 64, "embeddedImages": 0, "wheels": "separate nodes wheel..wheel003, tire material material_13" }
+}

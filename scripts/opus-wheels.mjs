@@ -18,7 +18,7 @@ try {
     page.on('pageerror', e => errors.push(e.message))
     await page.goto(`${base}/cruise?diagnostics=1&directorSeed=7`, { timeout: 240000 })
     await until(page, async () => (await snap(page)).ready, 120000)
-    const name = { countach: 'Countach', eighties: 'Fiero', cadillac: 'Eldorado' }[car]
+    const name = { countach: 'Countach', eighties: 'Fiero', cadillac: 'Eldorado', delorean: 'DeLorean' }[car]
     await page.getByRole('button', { name: new RegExp(`^Choose .*${name}`, 'i') }).first().click().catch(e => errors.push('pick: ' + e.message))
     await page.waitForTimeout(1500)
     await until(page, async () => (await snap(page)).ready, 60000)

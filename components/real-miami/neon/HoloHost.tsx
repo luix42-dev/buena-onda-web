@@ -62,16 +62,16 @@ export default function HoloHost({ state, enabled, onEvent }: { state: MutableRe
     uniforms.uTime.value = frame.clock.elapsedTime
     if (!enabled || s.paused) { if (host.holder.visible) { host.holder.visible = false; onEvent({ phase: 'gone' }) } return }
     if (!host.holder.visible && now >= sh.next) {
-      // Every third appearance is a giant between the towers. Otherwise she forms on the barrier on the
-      // car's side, rides along just ahead while she speaks, then stays put and the car passes her.
-      sh.giant = (sh.line % 3) === 2; sh.at = s.distance + (sh.giant ? 150 : RIDE_LEAD); sh.lateral = sh.giant ? (sh.line % 2 ? 1 : -1) * 34 : (s.lateral >= 0 ? 1 : -1) * 7.45
+      // Every third appearance she straddles the avenue ahead, forty metres tall, and the car drives
+      // through her. Otherwise she forms on the sidewalk on the car's side, rides along just ahead while she speaks, then stays put and the car passes her.
+      sh.giant = (sh.line % 3) === 2; sh.at = s.distance + (sh.giant ? 170 : RIDE_LEAD); sh.lateral = sh.giant ? 0 : (s.lateral >= 0 ? 1 : -1) * 7.6
       sh.scale = sh.giant ? 22 : 1.15; sh.start = now; sh.until = now + HOST_TIMING.stay + (sh.giant ? 3 : 0); sh.spoke = false
       host.holder.visible = true; uniforms.uFade.value = 0
     }
     if (!host.holder.visible) return
     if (!sh.giant && now - sh.start < RIDE_SECONDS) sh.at = s.distance + RIDE_LEAD
     const origin = roadSample(s.distance, s.seed), p = roadSample(sh.at, s.seed)
-    host.holder.position.set(p.x - origin.x + Math.cos(p.yaw) * sh.lateral, p.y - origin.y + (sh.giant ? -6 : .9), p.z - origin.z - Math.sin(p.yaw) * sh.lateral)
+    host.holder.position.set(p.x - origin.x + Math.cos(p.yaw) * sh.lateral, p.y - origin.y + (sh.giant ? 0 : .16), p.z - origin.z - Math.sin(p.yaw) * sh.lateral)
     host.holder.scale.setScalar(sh.scale)
     // Face the approaching car.
     const toCar = Math.atan2(-host.holder.position.x, -host.holder.position.z); host.holder.rotation.y = toCar

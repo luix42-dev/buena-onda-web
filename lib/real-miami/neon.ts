@@ -2,7 +2,7 @@ import type { CruiseStation } from './types'
 
 /** Neon Run: an imaginary retrowave/cyberpunk world (Syd Mead futurism under a smog sunset).
  * Everything here is original: no film characters, logos, props or locations are reproduced. */
-export const NEON_WORLD = { id: 'neon', label: 'NEON RUN', subtitle: 'RETROWAVE / IMAGINARY CITY', district: 'Skyway 9' } as const
+export const NEON_WORLD = { id: 'neon', label: 'NEON RUN', subtitle: 'RETROWAVE / IMAGINARY CITY', district: 'Neon Avenue 9' } as const
 
 /** Only these stations play in Neon Run. Nightride FM publishes these listener streams
  * (CORS open, so the live spectrum works). Public listener URLs are not rebroadcast rights. */
