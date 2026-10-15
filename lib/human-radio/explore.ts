@@ -7,8 +7,12 @@ export function randomStation(ids: readonly string[], current: string, random = 
   return choices[Math.min(choices.length - 1, Math.max(0, Math.floor(random() * choices.length)))]
 }
 
-export function stationShareUrl(origin: string, stationId: string) {
-  return `${origin}/cruise/human-radio?${new URLSearchParams({ station: stationId })}`
+export type RadioSharePath = '/cruise/human-radio' | '/cruise/experience'
+export function stationShareUrl(origin: string, stationId: string, path: RadioSharePath = '/cruise/human-radio') {
+  const safePath = path === '/cruise/experience' ? path : '/cruise/human-radio'
+  const url = new URL(safePath, origin)
+  url.search = new URLSearchParams({ station: stationId }).toString()
+  return url.href
 }
 
 const xml = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[char]!)

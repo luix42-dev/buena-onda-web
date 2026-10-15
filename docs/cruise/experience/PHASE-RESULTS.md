@@ -20,11 +20,13 @@ Six atmosphere/camera unit tests passed. evidence/phase2/results.json: all nine 
 
 ## Phase3 — Effortless Radio Discovery
 
-Implementation in progress after Phase2 gate. Existing Human Radio remains working and preserved.
+Passed focused radio gate: searchable editorial directory, one-action deck seek, opt-in last-station memory without autoplay, explicit station-link precedence and experience sharing path. Existing favorites/manual order, Surprise Me, My Finds, source attribution, export and audio owner reused. Client metadata now validates shape, exact official source, provenance and fresh timestamps.
+
+27 focused radio tests passed plus six prior atmosphere tests; full TypeScript check passed. evidence/phase3/results.json: all12 browser assertions passed, including real Jolt audio, search, manual presets, remembered station without autoplay, explicit link override, marked fixture save/export/persistence and metadata-outage fallback with disabled song save. Manufactured fixture data is not live identification evidence. External stream and licensing blockers remain in research/RADIO-RELIABILITY.md.
 
 ## Phase4 — Sharing, Presence and Simple Analytics
 
-Not started; no audience metrics or counts fabricated.
+Implementation in progress after Phase3 gate. Local opt-in metrics only; no audience metrics or counts fabricated.
 
 ## Phase5 — Public Playtest and Launch Validation
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import type { HumanRadioMetadata } from '@/lib/human-radio/metadata'
+import { parseHumanRadioMetadata } from '@/lib/human-radio/metadata-validation'
 
 export function useHumanMetadata(stationId: string, enabled: boolean) {
   const [value, setValue] = useState<HumanRadioMetadata | null>(null)
@@ -22,9 +23,9 @@ export function useHumanMetadata(stationId: string, enabled: boolean) {
       try {
         const response = await fetch(`/api/cruise/human-radio/now-playing?station=${encodeURIComponent(stationId)}`, { signal: requestController.signal, cache: 'no-store' })
         if (!response.ok) throw new Error('Metadata unavailable')
-        const data = await response.json() as HumanRadioMetadata
-        nextDelay = Math.min(20000, Math.max(1000, Date.parse(data.expiresAt) - Date.now() + 100)) || 20000
-        if (!disposed && request === revision) setValue(data.stationId === stationId && Date.parse(data.expiresAt) > Date.now() ? data : null)
+        const data = parseHumanRadioMetadata(await response.json(), stationId)
+        if (data) nextDelay = Math.min(20000, Math.max(1000, Date.parse(data.expiresAt) - Date.now() + 100))
+        if (!disposed && request === revision) setValue(data)
       } catch { if (!disposed && request === revision) setValue(null) }
       finally { clearTimeout(timeout); if (!disposed && request === revision) timer = setTimeout(refresh, nextDelay) }
     }

@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-15T15:52:49.268Z",
+  "browser": "155.0.4283.45",
+  "environment": "Windows desktop Edge; actual Jolt playback, marked metadata fixtures",
+  "checks": {
+    "noAutoplay": true,
+    "realAudio": true,
+    "search": true,
+    "manualOrder": true,
+    "rememberedWithoutAutoplay": true,
+    "explicitLinkWins": true,
+    "verifiedFixtureSaveExport": true,
+    "persistence": true,
+    "metadataFallback": true,
+    "noUnverifiedSave": true,
+    "stationRetainedOnFailure": true,
+    "noPageExceptions": true
+  },
+  "errors": []
+}

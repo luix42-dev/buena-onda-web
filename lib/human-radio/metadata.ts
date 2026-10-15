@@ -1,4 +1,5 @@
 import type { CruiseNowPlaying } from '../real-miami/now-playing'
+import { HUMAN_RADIO_METADATA_SOURCES, HUMAN_RADIO_METADATA_TTL_MS } from './metadata-validation'
 
 /** Provider-published information, not independent identification of the audio. */
 export type HumanRadioMetadata = {
@@ -17,13 +18,8 @@ export type HumanRadioMetadata = {
   message: string
 }
 
-const SOURCES: Record<string, string> = {
-  'jolt-radio': 'https://public.radio.co/stations/sd8ab6b5aa/status',
-  'nts-radio': 'https://www.nts.live/api/v2/live',
-  'nts-radio-2': 'https://www.nts.live/api/v2/live',
-  dublab: 'https://dublab.airtime.pro/api/live-info',
-}
-const TTL = 20_000
+const SOURCES = HUMAN_RADIO_METADATA_SOURCES
+const TTL = HUMAN_RADIO_METADATA_TTL_MS
 const MAX_BYTES = 262_144
 const object = (value: unknown): Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {}
 const clean = (value: unknown): string | null => {
