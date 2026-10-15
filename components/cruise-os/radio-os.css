@@ -52,3 +52,17 @@
 @media(max-width:700px){.cruise-os .os-radio-deck{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));padding:10px;gap:8px}.cruise-os .os-radio-status{min-width:100px}.cruise-os .os-radio-deck>.os-radio-controls{width:100%;order:3;display:grid;grid-template-columns:auto auto auto 1fr auto;gap:6px}.cruise-os .os-radio-deck .os-radio-volume{min-width:0;gap:5px}.cruise-os .os-radio-deck .os-radio-volume input{width:100%;min-width:36px}.cruise-os .os-radio button{padding:10px;font-size:12px}.cruise-os .os-radio-dialog{width:calc(100vw - 16px);height:calc(100dvh - 16px);max-height:calc(100dvh - 16px)}.cruise-os .os-radio-header{padding:16px}.cruise-os .os-radio-content{padding:16px}.cruise-os .os-radio-dialog-footer{padding:10px 16px 14px}.cruise-os .os-radio-dialog-footer .os-radio-volume{flex:1}.cruise-os .os-radio-dialog-footer .os-radio-volume input{width:100%;min-width:80px}.cruise-os .os-radio-list li{align-items:flex-start}.cruise-os .os-radio>.os-radio-note{bottom:170px;left:12px;right:12px}}
 @media(max-height:500px) and (min-width:701px){.cruise-os .os-radio-header{padding:10px 16px}.cruise-os .os-radio-header h2{font-size:26px}.cruise-os .os-radio-dialog-footer{padding:8px 16px}.cruise-os .os-radio-dialog-footer>.os-radio-caption{display:none}}
 @media(max-width:360px){.cruise-os .os-radio-deck>.os-radio-controls{grid-template-columns:repeat(4,minmax(0,1fr))}.cruise-os .os-radio-deck .os-radio-volume{grid-column:1/-1;grid-row:2;min-height:44px}.cruise-os .os-radio-deck .os-radio-volume input{flex:1;min-width:80px}.cruise-os .os-radio-deck .os-radio-controls>button:last-child{grid-column:4;grid-row:1}.cruise-os .os-radio-status{min-width:90px}.cruise-os .os-radio-status small{max-width:15ch}}
+.cruise-os .os-radio-deck{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(100px,160px);gap:12px;max-width:760px;left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 32px);padding:10px 12px}
+.cruise-os .os-radio-deck .os-radio-status{min-width:0;text-align:left;align-items:flex-start;background:transparent;border-color:transparent;padding:4px 8px}
+.cruise-os .os-radio-deck .os-radio-status strong{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.cruise-os .os-radio-deck .os-radio-status span{font-size:11px;letter-spacing:0}
+.cruise-os .os-radio .os-deck-play{background:#e6bd91;color:#142b28;border-color:#e6bd91;min-width:64px}
+.cruise-os .os-deck-volume{display:flex;align-items:center;gap:8px;font-size:12px;min-width:0}
+.cruise-os .os-deck-volume input{width:100%;min-width:60px;min-height:44px;accent-color:#efc99d}
+.cruise-os .os-radio-program{margin:0 0 12px;padding:0 0 8px}
+.cruise-os .os-radio-program summary{font-size:13px}
+.cruise-os .os-radio-program:not([open])~.os-radio-directory{margin-top:0}
+.cruise-os .os-radio-filter{margin:8px 0;font-size:13px}
+.cruise-os .os-radio-options{display:block}
+.cruise-os .os-radio-options>button{margin:6px}
+@media(max-width:600px){.cruise-os .os-radio-deck{grid-template-columns:auto minmax(0,1fr) auto;gap:6px;width:calc(100% - 24px)}.cruise-os .os-deck-volume{grid-column:1/-1;border-top:1px solid #526c5f;padding-top:2px}.cruise-os .os-deck-volume input{flex:1}.cruise-os .os-radio-status{min-width:0}.cruise-os .os-radio-deck .os-radio-status span{font-size:10px}.cruise-os .os-radio>.os-radio-note{bottom:150px}}

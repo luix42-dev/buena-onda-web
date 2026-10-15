@@ -21,11 +21,11 @@ function download(text: string, name: string, type: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
-export default function DiscoveryConsole({ audio, metadata, listeningOnly, onListeningOnly, presence, onPresence, onFocusRadio, credits, experienceMode = false, sharePath = '/cruise/human-radio', onAction, osPanel = null, onOsPanel, onOsBack, osCanFocusRadio = true }: {
+export default function DiscoveryConsole({ audio, metadata, listeningOnly, onListeningOnly, presence, onPresence, onFocusRadio, credits, experienceMode = false, sharePath = '/cruise/human-radio', onAction, osPanel = null, onOsPanel, onOsBack, osCanFocusRadio = true, osShowDeck = true }: {
   audio: Audio; metadata: HumanRadioMetadata | null; listeningOnly: boolean; onListeningOnly: () => void
   presence: boolean; onPresence: () => void; onFocusRadio: () => void; credits?: ReactNode
   experienceMode?: boolean; sharePath?: RadioSharePath; onAction?: (event: 'station_change' | 'station_save' | 'verified_song_save' | 'share') => void
-  osPanel?: OsRadioPanel; onOsPanel?: (value: OsRadioPanel) => void; onOsBack?: () => void; osCanFocusRadio?: boolean
+  osPanel?: OsRadioPanel; onOsPanel?: (value: OsRadioPanel) => void; onOsBack?: () => void; osCanFocusRadio?: boolean; osShowDeck?: boolean
 }) {
   const library = useDiscoveries({ metadata, stationName: audio.station.name, playing: audio.playing, loading: audio.loading })
   const [open, setOpen] = useState(false), [tab, setTab] = useState<'stations' | 'finds' | 'presets'>('stations')
@@ -103,7 +103,7 @@ export default function DiscoveryConsole({ audio, metadata, listeningOnly, onLis
   const favorites = library.favorites.map(id => HUMAN_RADIO_STATIONS.find(station => station.id === id)).filter((station): station is typeof HUMAN_RADIO_STATIONS[number] => !!station)
 
   if (osMode) {
-    const panelName = osPanel === 'presets' ? 'Saved stations' : osPanel === 'finds' ? 'My Finds' : 'Radio'
+    const panelName = osPanel === 'presets' ? 'Saved stations' : osPanel === 'finds' ? 'Saved music' : 'Choose a station'
     const verifiedSong = library.canSave && metadata?.kind === 'track'
     const broadcast = library.canSave && metadata?.kind === 'show'
     const osTitle = metadata?.kind === 'track' && metadata.artist && metadata.title ? `${metadata.artist} - ${metadata.title}` : 'Track information unavailable'
@@ -116,10 +116,10 @@ export default function DiscoveryConsole({ audio, metadata, listeningOnly, onLis
     </div>
     return <div className="os-radio">
       {osOpen && <dialog ref={osDialog} className="os-radio-dialog" aria-labelledby="os-radio-title" onCancel={event => { event.preventDefault(); event.stopPropagation(); onOsPanel?.(null) }}>
-        <header className="os-radio-header"><div><span className="os-radio-kicker">BUENA ONDA</span><h2 ref={osHeading} tabIndex={-1} id="os-radio-title">{panelName}</h2></div><div className="os-radio-actions">{osPanel !== 'stations' && onOsBack && <button type="button" onClick={onOsBack}>Back to Glovebox</button>}<button type="button" autoFocus aria-label={`Close ${panelName}`} onClick={() => onOsPanel?.(null)}>Close</button></div></header>
+        <header className="os-radio-header"><div><span className="os-radio-kicker">BUENA ONDA</span><h2 ref={osHeading} tabIndex={-1} id="os-radio-title">{panelName}</h2></div><div className="os-radio-actions">{osPanel !== 'stations' && onOsBack && <button type="button" onClick={onOsBack}>Back to menu</button>}<button type="button" autoFocus aria-label={`Close ${panelName}`} onClick={() => onOsPanel?.(null)}>Close</button></div></header>
         <div className="os-radio-content">
           {osPanel === 'stations' && <>
-            <section className="os-radio-program" aria-label="Current station">
+            <details className="os-radio-program"><summary>Now playing and station details</summary>
               <span className="os-radio-kicker">{audio.tuning || audio.loading ? 'TUNING IN' : audio.playing ? 'ON AIR' : 'READY WHEN YOU ARE'}</span>
               <h3>{audio.station.name}</h3><p>{details?.city}{details?.country ? ` / ${details.country}` : ''}</p>
               <div className="os-tuning-scale" aria-hidden="true"><span>HUMAN SELECTED</span><span>INDEPENDENT / LIVE</span></div>
@@ -128,16 +128,16 @@ export default function DiscoveryConsole({ audio, metadata, listeningOnly, onLis
               <div className="os-radio-actions"><button type="button" aria-label="Save station" aria-pressed={library.favorites.includes(audio.stationId)} onClick={() => favorite(audio.stationId)}>{library.favorites.includes(audio.stationId) ? 'Station saved' : 'Save station'}</button>{verifiedSong && <button type="button" onClick={save} aria-label="Save current song" aria-pressed={library.isSaved}>{library.isSaved ? 'Song saved' : 'Save song'}</button>}{broadcast && <button type="button" onClick={save} aria-label="Bookmark current broadcast" aria-pressed={library.isSaved}>{library.isSaved ? 'Broadcast bookmarked' : 'Bookmark broadcast'}</button>}{details && <a href={details.website} target="_blank" rel="noreferrer">Visit &amp; support station</a>}</div>
               {metadata?.kind === 'show' && <p className="os-radio-caption">An on-air label is not a verified song. A broadcast bookmark keeps this station and label.</p>}
               {metadata?.source && metadata.available && <p className="os-radio-caption"><a href={metadata.source} target="_blank" rel="noreferrer">Source: station-published {metadata.kind === 'track' ? 'track' : 'on-air'} metadata</a></p>}
-            </section>
+            </details>
             <section className="os-radio-directory" aria-label="Station directory">
               <div className="os-radio-search"><label htmlFor="os-station-search">Search stations</label><input id="os-station-search" type="search" maxLength={120} value={query} onChange={event => setQuery(event.target.value)} placeholder="Name, city or sound" autoComplete="off"/>{query && <button type="button" onClick={() => setQuery('')}>Clear search</button>}</div>
-              <label className="os-radio-filter">Explore by place or sound<select aria-label="Station category" value={filter} onChange={event => setFilter(event.target.value)}>{categories.map(category => <option key={category}>{category}</option>)}</select></label>
+              <details className="os-radio-filter"><summary>Browse by city or genre</summary><label>Explore by place or sound<select aria-label="Station category" value={filter} onChange={event => setFilter(event.target.value)}>{categories.map(category => <option key={category}>{category}</option>)}</select></label></details>
               <div className="os-radio-actions"><p className="os-radio-caption" role="status">{results.length} {results.length === 1 ? 'station' : 'stations'}</p><button type="button" onClick={surprise}>Surprise me</button></div>
               <ul className="os-radio-list">{results.map(station => <li key={station.id}><div><strong>{station.name}</strong><small>{STATION_DETAILS[station.id]?.city} / {STATION_DETAILS[station.id]?.genres.join(' / ')}</small></div><div className="os-radio-actions">{canPlayCruiseStation(station) ? <button type="button" onClick={() => tune(station.id)} aria-pressed={audio.stationId === station.id} aria-label={`Tune ${station.name}`}>{audio.stationId === station.id ? 'Tuned' : 'Tune'}</button> : <a href={STATION_DETAILS[station.id]?.website || station.externalUrl} target="_blank" rel="noreferrer">Station site</a>}<button type="button" aria-label={`Favorite ${station.name}`} aria-pressed={library.favorites.includes(station.id)} onClick={() => favorite(station.id)}>{library.favorites.includes(station.id) ? 'Saved' : 'Save'}</button></div></li>)}</ul>
               {!results.length && <p>No stations match. Try another name, city or sound, or choose All stations.</p>}
               <p className="os-radio-caption">An editorial directory, in your control. Some stations open on their own website while direct playback is unavailable or under review.</p>
             </section>
-            <div className="os-radio-options"><button type="button" onClick={() => void share()}>Share station</button><button type="button" disabled={!osCanFocusRadio} onClick={()=>{onOsPanel?.(null);onFocusRadio()}}>Focus dashboard radio</button><label><input type="checkbox" checked={memory.enabled} onChange={memory.toggle}/> Remember my last station</label><p className="os-radio-caption">Your choice stays in this browser. Restoring a station never starts playback.</p></div>
+            <details className="os-radio-options"><summary>Station options</summary><button type="button" onClick={() => void share()}>Share station</button><button type="button" disabled={!osCanFocusRadio} onClick={()=>{onOsPanel?.(null);onFocusRadio()}}>Focus dashboard radio</button><label><input type="checkbox" checked={memory.enabled} onChange={memory.toggle}/> Remember my last station</label><p className="os-radio-caption">Your choice stays in this browser. Restoring a station never starts playback.</p></details>
           </>}
           {osPanel === 'presets' && <section aria-label="Saved station collection">
             <p className="os-radio-caption">Your stations, in your order.</p>
@@ -156,13 +156,12 @@ export default function DiscoveryConsole({ audio, metadata, listeningOnly, onLis
         </div>
         <footer className="os-radio-dialog-footer"><p className="os-radio-caption">{audio.station.name}{audio.loading || audio.tuning ? ' / Tuning in' : audio.playing ? ' / On air' : ' / Paused'}</p>{controls()}{note && <p role="status" className="os-radio-note">{note}</p>}</footer>
       </dialog>}
-      <div className="os-radio-deck" role="region" aria-label="Persistent radio controls">
-        <button ref={osOpener} className="os-radio-opener" type="button" aria-haspopup="dialog" aria-expanded={osOpen && osPanel === 'stations'} onClick={() => onOsPanel?.('stations')}>Radio</button>
-        <div className="os-radio-status"><span>{audio.error ? 'Signal unavailable' : audio.loading || audio.tuning ? 'Tuning in' : audio.playing ? 'On air' : 'Ready when you are'}</span><strong>{audio.station.name}</strong>{(metadata?.kind==='track'||show)&&<small title={metadata?.kind==='track'?osTitle:show||undefined}>{metadata?.kind==='track'?osTitle:show}</small>}</div>
-        {controls()}
-        <button type="button" aria-label="Save station" aria-pressed={library.favorites.includes(audio.stationId)} onClick={() => favorite(audio.stationId)}>{library.favorites.includes(audio.stationId) ? 'Station saved' : 'Save station'}</button>
-        {verifiedSong && <button type="button" onClick={save} aria-label="Save current song" aria-pressed={library.isSaved}>{library.isSaved ? 'Song saved' : 'Save song'}</button>}
-      </div>
+      {osShowDeck && <div className="os-radio-deck" role="region" aria-label="Persistent radio controls">
+        <button className="os-deck-play" type="button" aria-label={audio.requested?'Pause radio':'Play radio'} onClick={audio.toggle}>{audio.requested?'Pause':'Play'}</button>
+        <button ref={osOpener} className="os-radio-status os-radio-opener" type="button" aria-label="Choose station" aria-haspopup="dialog" aria-expanded={osOpen && osPanel === 'stations'} onClick={()=>onOsPanel?.('stations')}><strong>{audio.station.name}</strong><span>{audio.error?'Signal unavailable - choose another station':audio.loading||audio.tuning?'Connecting...':'Change station'}</span></button>
+        <button type="button" aria-label="Save station" aria-pressed={library.favorites.includes(audio.stationId)} onClick={()=>favorite(audio.stationId)}>{library.favorites.includes(audio.stationId)?'Saved':'Save'}</button>
+        <label className="os-deck-volume">Volume<input aria-label="Radio volume" type="range" min="0" max="1" step="0.01" value={audio.volume} onChange={event=>audio.setVolume(Number(event.target.value))}/></label>
+      </div>}
       {(library.storageError || note) && !osOpen && <p role="status" className="os-radio-note">{library.storageError || note}</p>}
     </div>
   }

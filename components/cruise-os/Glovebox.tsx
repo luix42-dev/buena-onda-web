@@ -11,7 +11,7 @@ export type GloveboxProps = {
   children?: ReactNode
   listeningControls?: ReactNode
 }
-const titles: Record<GloveboxPage, string> = { home: 'Glovebox', garage: 'Garage', places: 'Places', settings: 'Settings', postcards: 'Postcards' }
+const titles: Record<GloveboxPage, string> = { home: 'Menu', garage: 'Change car', places: 'Places', settings: 'Settings', postcards: 'Take a photo' }
 
 /** Controlled native modal. The parent owns navigation, collections and playback. */
 export default function Glovebox({ page, onPage, onCollection, children, listeningControls }: GloveboxProps) {
@@ -66,16 +66,16 @@ export default function Glovebox({ page, onPage, onCollection, children, listeni
     onClose={() => { if (latest.current.page !== null) latest.current.onPage(null) }}>
     <div className="os-glovebox-shell">
       <header className="os-glovebox-header">
-        <div className="os-glovebox-heading"><p>BUENA ONDA / CRUISE</p><h2 ref={heading} tabIndex={-1} id="os-glovebox-title">{titles[page || 'home']}</h2>{page === 'home' && <span>Your finds, your ride, your way.</span>}</div>
-        <div className="os-glovebox-header-actions">{page !== null && page !== 'home' && <button type="button" className="os-glovebox-back" aria-label="Back to Glovebox" onClick={() => onPage('home')}>Glovebox</button>}<button type="button" className="os-glovebox-close" aria-label="Close Glovebox" onClick={() => onPage(null)}>Close</button></div>
+        <div className="os-glovebox-heading"><p>BUENA ONDA / CRUISE</p><h2 ref={heading} tabIndex={-1} id="os-glovebox-title">{titles[page || 'home']}</h2>{page === 'home' && <span></span>}</div>
+        <div className="os-glovebox-header-actions">{page !== null && page !== 'home' && <button type="button" className="os-glovebox-back" aria-label="Back to menu" onClick={() => onPage('home')}>Menu</button>}<button type="button" className="os-glovebox-close" aria-label="Close menu" onClick={() => onPage(null)}>Close</button></div>
       </header>
       <div ref={body} className="os-glovebox-body">
-        {page === 'home' ? <nav className="os-glovebox-nav" aria-label="Glovebox sections">
-          <button type="button" aria-label="My Finds" onClick={() => collection('finds')}><span className="os-glovebox-number" aria-hidden="true">01</span><span><strong>My Finds</strong><small>Music discovered along the way.</small></span><span aria-hidden="true">↗</span></button>
+        {page === 'home' ? <nav className="os-glovebox-nav" aria-label="Menu sections">
+          <button type="button" aria-label="Saved music" onClick={() => collection('finds')}><span className="os-glovebox-number" aria-hidden="true">01</span><span><strong>Saved music</strong><small>Music discovered along the way.</small></span><span aria-hidden="true">↗</span></button>
           <button type="button" aria-label="Saved stations" onClick={() => collection('presets')}><span className="os-glovebox-number" aria-hidden="true">02</span><span><strong>Saved stations</strong><small>Your radio presets, in your order.</small></span><span aria-hidden="true">↗</span></button>
-          <button type="button" aria-label="Postcards" onClick={() => onPage('postcards')}><span className="os-glovebox-number" aria-hidden="true">03</span><span><strong>Postcards</strong><small>Scenes from your own drive.</small></span><span aria-hidden="true">↗</span></button>
+          <button type="button" aria-label="Take a photo" onClick={() => onPage('postcards')}><span className="os-glovebox-number" aria-hidden="true">03</span><span><strong>Take a photo</strong><small>Scenes from your own drive.</small></span><span aria-hidden="true">↗</span></button>
           <button type="button" aria-label="Places" onClick={() => onPage('places')}><span className="os-glovebox-number" aria-hidden="true">04</span><span><strong>Places</strong><small>A few stops worth slowing down for.</small></span><span aria-hidden="true">↗</span></button>
-          <button type="button" aria-label="Garage" onClick={() => onPage('garage')}><span className="os-glovebox-number" aria-hidden="true">05</span><span><strong>Garage</strong><small>Change your ride. Keep your frequency.</small></span><span aria-hidden="true">↗</span></button>
+          <button type="button" aria-label="Change car" onClick={() => onPage('garage')}><span className="os-glovebox-number" aria-hidden="true">05</span><span><strong>Change car</strong><small>Change your ride. Keep your frequency.</small></span><span aria-hidden="true">↗</span></button>
           <button type="button" aria-label="Settings" onClick={() => onPage('settings')}><span className="os-glovebox-number" aria-hidden="true">06</span><span><strong>Settings</strong><small>Make the drive comfortable.</small></span><span aria-hidden="true">↗</span></button>
         </nav> : page !== null ? children : null}
       </div>
