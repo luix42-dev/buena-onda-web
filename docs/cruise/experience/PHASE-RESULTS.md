@@ -26,8 +26,12 @@ Passed focused radio gate: searchable editorial directory, one-action deck seek,
 
 ## Phase4 — Sharing, Presence and Simple Analytics
 
-Implementation in progress after Phase3 gate. Local opt-in metrics only; no audience metrics or counts fabricated.
+Postcard/local diagnostics gate passed: actual rendered1280x1040 PNG with car/location/station, credits and scene/car/station link; preview/download/share/copy, no broadcast audio. Social preview uses an actual captured gameplay image. Local technical counters default off, omit taste/identity fields, retain30days, export/delete and report explicitly per-browser. No collector or audience dashboard claim.
+
+All48 focused tests passed (atmosphere6, radio27, postcards4, metrics10, lease1). evidence/phase4/results.json: eight browser checks passed including nonblank actualPNG, scene-preserving copiedlink, consented15/60second counters, localexport/deletion and no marketing hosts on fresh direct entry. Native mobile share-sheet delivery was not tested. The exact14second current-station retune failure was reproduced and fixed in sharedaudio; evidence/mobile-portrait-fixed passes. Realtime presence browser gate passed five checks: two genuinely connected, consenting QA browser sessions observed2; explicit opt-out returned the count to1, then hid it. No persistent presence IDs were written. Raw evidence: evidence/presence/results.json. Disconnected-transport expiry is unit-tested, not a reproduced network partition. Fullbuild pending.
+
+Leased presence uses existing infrastructure, isolated environment-specific channel, ephemeral browser-session IDs,15sheartbeat/45slease/5sexpirycheck, hidden on failure. Counts cover consenting active browser sessions, not people, multiplayer or total visitors. Source-reviewed and real two-context join/opt-out tested; counts are QA sessions, not audience traffic. Advertising contracts/renderers preserved and experience firstminute remains clear. Cross-tab metrics are diagnostic estimates with nonatomic localStorage concurrency; BFCache presence recovery can require re-enable/remount.
 
 ## Phase5 — Public Playtest and Launch Validation
 
-Not started; no deployment or real participant study authorized/performed.
+Launch package in progress after Phase4 critical gates. No deployment or real participant study authorized/performed.

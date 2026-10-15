@@ -21,3 +21,7 @@ Same Edge/Intel UHD630/1280x720/DPR1 development setup, moving scene for 90 seco
 ## Phase2 desktop regression
 
 Same moving90second method:45.49averageFPS,32.35minimum,36.01p5;zero/80 below30. JS heap peak276,037,554bytes. Allnine functional checks passed. Scene timing differs and render work increased in sightline; no speedup claim. Raw `evidence/phase2/results.json`.
+
+## Host and limitations
+
+Host query: Intel Core i7-8750H at2.20GHz,12logicalprocessors,16,964,153,344bytes installedRAM (approximately15.8GiB). Renderer reports integratedIntelUHD630 viaANGLE/D3D11. HeadlessEdge155.0.4283.45. FPS is application scene-frame sampling, not a physical display measurement. No GPU-memory, power, thermal, end-to-end audio latency or cold mobile-network results. Concurrent unit/build/browser work is excluded from final performance comparisons; functional tests that overlap work are not FPS benchmarks.

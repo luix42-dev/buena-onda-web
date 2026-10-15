@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { RideVehicleId } from '@/lib/real-miami/ride-vehicles'
 import type { QualityChoice } from '@/lib/real-miami/quality'
 import './experience.css'
@@ -12,6 +12,7 @@ export type OpeningMinuteProps = {
   view: CameraView; onView: (view: CameraView) => void
   night: boolean; onNight: () => void; onListen: () => void
   quality: QualityChoice; onQuality: (quality: QualityChoice) => void
+  extraControls?: ReactNode
   paused?: boolean; onPark?: () => void; showMap?: boolean; onMap?: () => void
 }
 const rides: { id: RideVehicleId; label: string }[] = [
@@ -20,7 +21,7 @@ const rides: { id: RideVehicleId; label: string }[] = [
 ]
 const views: { id: CameraView; label: string }[] = [{ id: 'driver', label: 'Cockpit' }, { id: 'chase', label: 'Coastal view' }, { id: 'director', label: 'Cinematic' }]
 
-export default function OpeningMinute({ ready, started, elapsed, onStart, vehicle, onVehicle, view, onView, night, onNight, onListen, quality, onQuality, paused, onPark, showMap, onMap }: OpeningMinuteProps) {
+export default function OpeningMinute({ ready, started, elapsed, onStart, vehicle, onVehicle, view, onView, night, onNight, onListen, quality, onQuality, extraControls, paused, onPark, showMap, onMap }: OpeningMinuteProps) {
   const [options, setOptions] = useState(false), [camera, setCamera] = useState(false), [dismissed, setDismissed] = useState(false)
   const optionsButton = useRef<HTMLButtonElement>(null), cameraButton = useRef<HTMLButtonElement>(null)
   const optionsPanel = useRef<HTMLDivElement>(null), cameraPanel = useRef<HTMLDivElement>(null)
@@ -66,6 +67,7 @@ export default function OpeningMinute({ ready, started, elapsed, onStart, vehicl
       {started && onPark && <button type="button" aria-pressed={paused === true} onClick={onPark}>{paused ? 'Continue cruising' : 'Park for a moment'}</button>}
       {onMap && <button type="button" aria-pressed={showMap === true} onClick={onMap}>{showMap ? 'Hide Miami map' : 'Show Miami map'}</button>}
       <button type="button" className="opening-listen" onClick={onListen}>Listen without 3D</button>
+      {extraControls}
       <button type="button" className="opening-done" onClick={() => { setOptions(false); optionsButton.current?.focus() }}>Done</button>
     </div>}
     {started && !ready && <p className="opening-guidance" role="status">Preparing your ride. The radio controls stay below.</p>}

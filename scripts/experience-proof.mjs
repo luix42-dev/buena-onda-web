@@ -6,6 +6,7 @@ try { ({ chromium } = require('@playwright/test')) } catch { ({ chromium } = cre
 const baseline = process.argv.includes('--baseline')
 const phase = process.env.EXPERIENCE_PHASE || (baseline ? 'baseline' : 'phase1')
 const base = process.env.EXPERIENCE_URL || (baseline ? 'http://127.0.0.1:3074/cruise/human-radio' : 'http://127.0.0.1:3076/cruise/experience')
+const seconds = Math.min(300, Math.max(60, Number(process.env.EXPERIENCE_SECONDS) || 90))
 const out = `docs/cruise/experience/evidence/${phase}`
 await mkdir(out, { recursive: true })
 const browser = await chromium.launch({ channel: 'msedge', headless: true, args: ['--enable-webgl', '--autoplay-policy=document-user-activation-required'] })
@@ -31,11 +32,11 @@ try {
   await page.screenshot({ path: `${out}/ready.png` })
   const launched = Date.now()
   await start.click()
-  for (let second = 1; second <= (baseline ? 90 : 90); second++) {
+  for (let second = 1; second <= seconds; second++) {
     await page.waitForTimeout(1000)
     const sample = await state(); sample.wallSeconds = (Date.now() - launched) / 1000
     result.samples.push(sample)
-    if ([5,15,30,45,60,90].includes(second)) await page.screenshot({ path: `${out}/drive-${second}s.png` })
+    if ([5,15,30,45,60,90,seconds].includes(second)) await page.screenshot({ path: `${out}/drive-${second}s.png` })
   }
   const first = result.samples[0], last = result.samples.at(-1)
   result.firstVehicleReadySeconds = result.samples.find(s=>s.drive?.ready)?.wallSeconds ?? null

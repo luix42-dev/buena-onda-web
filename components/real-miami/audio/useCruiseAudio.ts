@@ -229,6 +229,16 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
     if (!audio.src && !hlsLoadingRef.current) prepareTrack(trackIndexRef.current)
     const revision = sourceRevisionRef.current
+    // play() on an already-playing element need not emit another playing event.
+    // Do not arm a timeout that would later stop a healthy current station.
+    const expected = tracksRef.current[trackIndexRef.current]?.src
+    if (!hlsLoadingRef.current && !audio.paused && !audio.ended && !audio.error && audio.readyState >= 3 && expected && (hlsRef.current || audio.currentSrc === new URL(expected, window.location.href).href)) {
+      clearLoadingTimeout()
+      setError(null)
+      setLoading(false)
+      setPlaying(true)
+      return
+    }
     setError(null)
     setLoading(true)
     armPlaybackLoadingTimeout(revision)
@@ -261,7 +271,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         setError('Radio signal unavailable. Try again.')
       }
     })
-  }, [armPlaybackLoadingTimeout, prepareTrack])
+  }, [armPlaybackLoadingTimeout, prepareTrack, clearLoadingTimeout])
 
   const unlockMedia = useCallback(() => {
     const audio = audioRef.current

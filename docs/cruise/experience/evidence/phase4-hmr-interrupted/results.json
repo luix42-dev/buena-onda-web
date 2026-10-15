@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-15T15:59:41.317Z",
+  "browser": "155.0.4283.45",
+  "environment": "Desktop Windows Edge, local development, genuine scene capture and opted-in QA counters; not audience data",
+  "checks": {
+    "metricsOffByDefault": true
+  },
+  "errors": [],
+  "requestHosts": [],
+  "failure": "locator.waitFor: Timeout 160000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Capture postcard', exact: true }) to be visible\u001b[22m\n\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-experience-20261015\\scripts\\experience-sharing-proof.mjs:20:70"
+}

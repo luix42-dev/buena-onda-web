@@ -35,7 +35,8 @@
     ".next/types/**/*.ts",
     ".next-human-radio-dev/types/**/*.ts",
     ".next-human-radio-build/types/**/*.ts",
-    ".next-experience-dev/types/**/*.ts"
+    ".next-experience-dev/types/**/*.ts",
+    ".next-experience-build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
