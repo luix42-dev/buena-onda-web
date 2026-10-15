@@ -1,0 +1,6611 @@
+{
+  "at": "2026-10-15T15:35:28.084Z",
+  "phase": "phase1",
+  "url": "http://127.0.0.1:3076/cruise/experience",
+  "browser": "155.0.4283.45",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "dpr": 1,
+  "mode": "development server; desktop Windows, no physical mobile",
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3076' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "Failed to load resource: net::ERR_FAILED",
+    "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3076' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "samples": [
+    {
+      "drive": {
+        "speed": 0,
+        "rpm": 800,
+        "distance": 0,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 0,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 0.491075674071908,
+        "drawCalls": 0,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784920146776543,
+        "longitude": -80.12979407679079,
+        "street": "Ocean Drive",
+        "routeMeters": 18861.5,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 0,
+        "generationMs": 0,
+        "maxGenerationMs": 0,
+        "elapsed": 0,
+        "nightBlend": 0,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 521.7997838615732,
+          "z": 565.4892608350825,
+          "yaw": 3.0013627970024506
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.460734,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 185446254,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 1.872
+    },
+    {
+      "drive": {
+        "speed": 0.0585,
+        "rpm": 801.21875,
+        "distance": 0.0008125000000000001,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 12.88276682199662,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 11.066841572523117,
+        "drawCalls": 3,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78492013954941,
+        "longitude": -80.12979407792379,
+        "street": "Ocean Drive",
+        "routeMeters": 18861.500812500002,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 1,
+        "generationMs": 11.100000001490116,
+        "maxGenerationMs": 11.100000001490116,
+        "chunkState": "{\"built\":1,\"active\":26,\"total\":256,\"pending\":33,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":2210,\"geometries\":14,\"textures\":11}",
+        "elapsed": 0.1,
+        "nightBlend": 0.00004166666666666667,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 521.799670297864,
+          "z": 565.4900653594995,
+          "yaw": 3.0013627970024666
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 3.862093,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 136954059,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 4.28
+    },
+    {
+      "drive": {
+        "speed": 6.491213373587084,
+        "rpm": 935.2336119497309,
+        "distance": 0.779992441027191,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 50.877893056739644,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.895949482917786,
+        "drawCalls": 190,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784913208796365,
+        "longitude": -80.12979516446906,
+        "street": "Ocean Drive",
+        "routeMeters": 18862.27999244104,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":317532,\"geometries\":134,\"textures\":43}",
+        "elapsed": 1.20239999999851,
+        "nightBlend": 0.0005009999999993791,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 521.6907637575662,
+          "z": 566.261596788542,
+          "yaw": 3.0013627970024506
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 4.871745,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 176088184,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 5.288
+    },
+    {
+      "drive": {
+        "speed": 15.272045373625707,
+        "rpm": 1118.1676119505355,
+        "distance": 3.872261542706498,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.02164715116765,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.12775832414627,
+        "drawCalls": 190,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784885703271176,
+        "longitude": -80.12979947655434,
+        "street": "Ocean Drive",
+        "routeMeters": 18865.372261542718,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":317532,\"geometries\":134,\"textures\":43}",
+        "elapsed": 2.218700000002981,
+        "nightBlend": 0.0009244583333345754,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 521.2585550830415,
+          "z": 569.3235118524913,
+          "yaw": 3.0013627970024506
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 5.892514,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 159709529,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 6.307
+    },
+    {
+      "drive": {
+        "speed": 24.052013373587094,
+        "rpm": 1301.0836119497312,
+        "distance": 9.442732652864928,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.02755363143905,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.596341609954834,
+        "drawCalls": 189,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784836154306195,
+        "longitude": -80.12980724442504,
+        "street": "Ocean Drive",
+        "routeMeters": 18870.94273265287,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":317708,\"geometries\":134,\"textures\":43}",
+        "elapsed": 3.2348999999985115,
+        "nightBlend": 0.0013478749999993797,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 520.479966332892,
+          "z": 574.8393026341685,
+          "yaw": 3.001362797002354
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 6.903181,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 167643868,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 7.319
+    },
+    {
+      "drive": {
+        "speed": 35.1362693736386,
+        "rpm": 1532.005611950804,
+        "distance": 20.014599007194178,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.02164715116767,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.26571798324585,
+        "drawCalls": 189,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784742118267697,
+        "longitude": -80.12982198660556,
+        "street": "Ocean Drive",
+        "routeMeters": 18881.514599007194,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":317708,\"geometries\":134,\"textures\":43}",
+        "elapsed": 4.5178000000044705,
+        "nightBlend": 0.0018824166666685294,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 519.002328975335,
+          "z": 585.3073944398998,
+          "yaw": 3.0013627970024666
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 8.287717,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 180503216,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 8.703
+    },
+    {
+      "drive": {
+        "speed": 44.6065733736515,
+        "rpm": 1729.303611951073,
+        "distance": 32.17753332000297,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 53.118237261381935,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.888357996940613,
+        "drawCalls": 184,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78463392978697,
+        "longitude": -80.12983894748716,
+        "street": "Ocean Drive",
+        "routeMeters": 18893.677533320017,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":316864,\"geometries\":135,\"textures\":44}",
+        "elapsed": 5.613900000005962,
+        "nightBlend": 0.002339125000002484,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 517.3023069058376,
+          "z": 597.3509361142196,
+          "yaw": 3.0013627970024506
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 9.294777,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 163160969,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 9.707
+    },
+    {
+      "drive": {
+        "speed": 53.243981373677244,
+        "rpm": 1909.2496119516093,
+        "distance": 45.78380816361364,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.015741834011656,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.539895594120026,
+        "drawCalls": 193,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78451290288953,
+        "longitude": -80.12985792106791,
+        "street": "Ocean Drive",
+        "routeMeters": 18907.283808163622,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":303608,\"geometries\":147,\"textures\":49}",
+        "elapsed": 6.613600000008941,
+        "nightBlend": 0.002755666666670392,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 515.4005480931296,
+          "z": 610.823650337349,
+          "yaw": 3.0013627970024666
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 10.297005,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 176314603,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 10.712
+    },
+    {
+      "drive": {
+        "speed": 62.02394937363858,
+        "rpm": 2092.165611950804,
+        "distance": 62.073699345739534,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 58.835261268623206,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.874220818281174,
+        "drawCalls": 191,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78436800540568,
+        "longitude": -80.12988063687878,
+        "street": "Ocean Drive",
+        "routeMeters": 18923.573699345747,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":298034,\"geometries\":154,\"textures\":53}",
+        "elapsed": 7.629800000004471,
+        "nightBlend": 0.003179083333335196,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 513.1236982962721,
+          "z": 626.953638239639,
+          "yaw": 3.0013627970024666
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 11.305167,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 189255730,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 11.722
+    },
+    {
+      "drive": {
+        "speed": 69.63683581525208,
+        "rpm": 2250.7674128177514,
+        "distance": 80.7815768246763,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 58.24859314847155,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.503283262252808,
+        "drawCalls": 185,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784201600096733,
+        "longitude": -80.12990672450587,
+        "street": "Ocean Drive",
+        "routeMeters": 18942.281576824673,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":1,\"windowLod\":\"distance\",\"renderedTriangles\":296110,\"geometries\":156,\"textures\":53}",
+        "elapsed": 8.646200000002988,
+        "nightBlend": 0.0036025833333345786,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 510.5088848170839,
+          "z": 645.4778772317155,
+          "yaw": 3.00136279700241
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 12.324573,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 172694538,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 12.739
+    },
+    {
+      "drive": {
+        "speed": 72.53426847863454,
+        "rpm": 2311.130593304886,
+        "distance": 100.92767028336691,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.01574183357174,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.651997953653336,
+        "drawCalls": 196,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.784022401953603,
+        "longitude": -80.12993481768609,
+        "street": "Ocean Drive",
+        "routeMeters": 18962.427670283363,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 33,
+        "generationMs": 11.5,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":33,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":316014,\"geometries\":165,\"textures\":53}",
+        "elapsed": 9.662500000007475,
+        "nightBlend": 0.004026041666669781,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 507.6930508568649,
+          "z": 665.4262145247059,
+          "yaw": 3.0013627970024666
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 13.338779,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 182286467,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 13.752
+    },
+    {
+      "drive": {
+        "speed": 73.62412089556445,
+        "rpm": 2333.835851990926,
+        "distance": 121.24403812072448,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.021647151607716,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.34400498867035,
+        "drawCalls": 187,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.783841659939267,
+        "longitude": -80.12996291535535,
+        "street": "Ocean Drive",
+        "routeMeters": 18982.744038120723,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 36,
+        "generationMs": 25.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":312222,\"geometries\":165,\"textures\":53}",
+        "elapsed": 10.662200000003018,
+        "nightBlend": 0.004442583333334591,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 504.87676695216106,
+          "z": 685.5464155607542,
+          "yaw": 3.0035521337915516
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 14.349614,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 166485228,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 14.764
+    },
+    {
+      "drive": {
+        "speed": 74.20116938252852,
+        "rpm": 2345.857695469344,
+        "distance": 142.1156476036086,
+        "paused": false,
+        "camera": "chase",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.0216471516077,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.410615026950836,
+        "drawCalls": 198,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.783655951451472,
+        "longitude": -80.12999156876123,
+        "street": "Ocean Drive",
+        "routeMeters": 19003.6156476036,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 36,
+        "generationMs": 25.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":36,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":319740,\"geometries\":167,\"textures\":53}",
+        "elapsed": 11.678400000006011,
+        "nightBlend": 0.004866000000002505,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 502.0047804869178,
+          "z": 706.2194844221863,
+          "yaw": 3.003552133791536
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 15.360374,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 176402754,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 15.773
+    },
+    {
+      "drive": {
+        "speed": 74.61500608455111,
+        "rpm": 2354.479293428148,
+        "distance": 163.1264941824495,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 59.99803285120608,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.856827080249786,
+        "drawCalls": 182,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.783469004079315,
+        "longitude": -80.13002041331754,
+        "street": "Ocean Drive",
+        "routeMeters": 19024.626494182456,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 36,
+        "generationMs": 25.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":36,\"active\":25,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":313416,\"geometries\":176,\"textures\":53}",
+        "elapsed": 12.694800000004529,
+        "nightBlend": 0.005289500000001887,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 499.1136346436975,
+          "z": 727.0304658904695,
+          "yaw": 3.003552133791536
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 16.376427,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 186598114,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 16.788
+    },
+    {
+      "drive": {
+        "speed": 74.97485574144775,
+        "rpm": 2361.9761612801613,
+        "distance": 184.24516864686137,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.04528004733686,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.01355117559433,
+        "drawCalls": 173,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.783281097291283,
+        "longitude": -80.13004940590442,
+        "street": "Ocean Drive",
+        "routeMeters": 19045.745168646863,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 37,
+        "generationMs": 15.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":36,\"active\":23,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":307444,\"geometries\":177,\"textures\":53}",
+        "elapsed": 13.711200000003053,
+        "nightBlend": 0.005713000000001273,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 496.20765140961134,
+          "z": 747.9482495344604,
+          "yaw": 3.003552133791608
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 17.387918,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 181592645,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 17.8
+    },
+    {
+      "drive": {
+        "speed": 61.27183844410642,
+        "rpm": 2076.496634252217,
+        "distance": 267.8096538017708,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.027553630998945,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.11203646659851,
+        "drawCalls": 155,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.782538886209693,
+        "longitude": -80.13017281127358,
+        "street": "Ocean Drive",
+        "routeMeters": 19129.309653801793,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 38,
+        "generationMs": 28.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":38,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":275172,\"geometries\":188,\"textures\":53}",
+        "elapsed": 17.97620000000308,
+        "nightBlend": 0.007490083333334616,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 483.8384918252702,
+          "z": 830.5711871370377,
+          "yaw": 2.9465179430713295
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 21.668289,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 177944716,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 22.076
+    },
+    {
+      "drive": {
+        "speed": 67.24312581512166,
+        "rpm": 2200.8984544817013,
+        "distance": 285.7687162931503,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.01574183401167,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.161097407341003,
+        "drawCalls": 156,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.782380617826895,
+        "longitude": -80.13020754253384,
+        "street": "Ocean Drive",
+        "routeMeters": 19147.268716293165,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 38,
+        "generationMs": 28.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":38,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":263410,\"geometries\":194,\"textures\":53}",
+        "elapsed": 18.992500000007546,
+        "nightBlend": 0.007913541666669811,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 480.3573102229136,
+          "z": 848.1896235097782,
+          "yaw": 2.9465179430712736
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 22.668876,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 186280133,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 23.088
+    },
+    {
+      "drive": {
+        "speed": 73.99566063939429,
+        "rpm": 2341.576263320714,
+        "distance": 305.8637602146469,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.009837678307946,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.65824082493782,
+        "drawCalls": 166,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.782203525614808,
+        "longitude": -80.13024640459587,
+        "street": "Ocean Drive",
+        "routeMeters": 19167.363760214655,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 38,
+        "generationMs": 28.700000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":38,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":293876,\"geometries\":196,\"textures\":53}",
+        "elapsed": 20.008900000006047,
+        "nightBlend": 0.008337041666669187,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 476.462090345391,
+          "z": 867.9035285595781,
+          "yaw": 2.9465179430713513
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 23.692805,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 194631111,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 24.101
+    },
+    {
+      "drive": {
+        "speed": 76.2671274834698,
+        "rpm": 2388.8984892389544,
+        "distance": 326.79643680979297,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.02755363099896,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.90547490119934,
+        "drawCalls": 161,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78201905157147,
+        "longitude": -80.13028688656642,
+        "street": "Ocean Drive",
+        "routeMeters": 19188.296436809804,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 39,
+        "generationMs": 23,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":38,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":275578,\"geometries\":196,\"textures\":53}",
+        "elapsed": 21.00900000000754,
+        "nightBlend": 0.008753750000003141,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 472.40450389364105,
+          "z": 888.4391790636075,
+          "yaw": 2.9465179430713513
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 24.695906,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 193117344,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 25.106
+    },
+    {
+      "drive": {
+        "speed": 77.14424766959414,
+        "rpm": 2407.1718264498777,
+        "distance": 349.4866496350334,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.00393468415366,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.246303737163544,
+        "drawCalls": 169,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.781819088834506,
+        "longitude": -80.13033076745873,
+        "street": "Ocean Drive",
+        "routeMeters": 19210.986649635033,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 39,
+        "generationMs": 23,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":39,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":277110,\"geometries\":207,\"textures\":58}",
+        "elapsed": 22.072900000006047,
+        "nightBlend": 0.009197041666669186,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 468.00623691958725,
+          "z": 910.6990309427042,
+          "yaw": 2.9465179430713513
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 25.757049,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 180777761,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 26.168
+    },
+    {
+      "drive": {
+        "speed": 77.2792120511666,
+        "rpm": 2409.983584399304,
+        "distance": 355.57620214360225,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 60.00393468415366,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.69852763414383,
+        "drawCalls": 169,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.781765423247677,
+        "longitude": -80.13034254412207,
+        "street": "Ocean Drive",
+        "routeMeters": 19217.076202143602,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 39,
+        "generationMs": 23,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":39,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":282044,\"geometries\":223,\"textures\":65}",
+        "elapsed": 22.356800000004547,
+        "nightBlend": 0.009315333333335228,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 466.8258391026305,
+          "z": 916.6730840683717,
+          "yaw": 2.9465179430712736
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 29.800085,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 252239444,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 30.209
+    },
+    {
+      "drive": {
+        "speed": 77.64964760671533,
+        "rpm": 2417.7009918065696,
+        "distance": 379.3182741005294,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 40.87329279228302,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.15300142765045,
+        "drawCalls": 280,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.781556194543246,
+        "longitude": -80.1303884794207,
+        "street": "Ocean Drive",
+        "routeMeters": 19240.818274100533,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 41,
+        "generationMs": 18.200000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":41,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":519642,\"geometries\":292,\"textures\":85}",
+        "elapsed": 23.459900000006,
+        "nightBlend": 0.009774958333335833,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 462.2216549973059,
+          "z": 939.9644234458339,
+          "yaw": 2.946452971318302
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 30.809817,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 242464365,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 31.221
+    },
+    {
+      "drive": {
+        "speed": 77.89068930190172,
+        "rpm": 2422.722693789619,
+        "distance": 401.0440052124452,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 41.76610978514097,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.46816635131836,
+        "drawCalls": 287,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.781364737223935,
+        "longitude": -80.13043052687088,
+        "street": "Ocean Drive",
+        "routeMeters": 19262.54400521243,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 41,
+        "generationMs": 18.200000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":41,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":525630,\"geometries\":297,\"textures\":86}",
+        "elapsed": 24.465500000007463,
+        "nightBlend": 0.010193958333336443,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 458.0071574842619,
+          "z": 961.2774522313988,
+          "yaw": 2.946189661180523
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 31.819816,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 235147200,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 32.229
+    },
+    {
+      "drive": {
+        "speed": 78.09161481717152,
+        "rpm": 2426.9086420244066,
+        "distance": 422.41691507944984,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 41.76610978514097,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.36424297094345,
+        "drawCalls": 287,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78117639575089,
+        "longitude": -80.13047192888529,
+        "street": "Ocean Drive",
+        "routeMeters": 19283.91691507944,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 41,
+        "generationMs": 18.200000002980232,
+        "maxGenerationMs": 35.100000001490116,
+        "chunkState": "{\"built\":41,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":524966,\"geometries\":297,\"textures\":86}",
+        "elapsed": 25.452000000007416,
+        "nightBlend": 0.01060500000000309,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 453.8573532520435,
+          "z": 982.2436250108508,
+          "yaw": 2.946189661180523
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 32.824609,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 255053330,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 33.237
+    },
+    {
+      "drive": {
+        "speed": 78.28074536794894,
+        "rpm": 2430.84886183227,
+        "distance": 444.96164877816767,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 41.73290938002999,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.926696717739105,
+        "drawCalls": 276,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.780977727980304,
+        "longitude": -80.13051560086983,
+        "street": "Ocean Drive",
+        "routeMeters": 19306.461648778142,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 42,
+        "generationMs": 41.600000001490116,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":523018,\"geometries\":305,\"textures\":86}",
+        "elapsed": 26.490000000007388,
+        "nightBlend": 0.011037500000003078,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 449.4800255086893,
+          "z": 1004.3593212325951,
+          "yaw": 2.9461896611805787
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 33.839581,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 259226936,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 34.248
+    },
+    {
+      "drive": {
+        "speed": 78.44568505890985,
+        "rpm": 2434.2851053939553,
+        "distance": 466.77143705144897,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.91655853884165,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.299589931964874,
+        "drawCalls": 278,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78078553666542,
+        "longitude": -80.13055784917265,
+        "street": "Ocean Drive",
+        "routeMeters": 19328.27143705144,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 42,
+        "generationMs": 41.600000001490116,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":528565,\"geometries\":310,\"textures\":88}",
+        "elapsed": 27.49190000000587,
+        "nightBlend": 0.011454958333335779,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 445.245396146405,
+          "z": 1025.7540584053247,
+          "yaw": 2.946189661180523
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 34.852495,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 252672348,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 35.264
+    },
+    {
+      "drive": {
+        "speed": 78.59895903474084,
+        "rpm": 2437.4783132237676,
+        "distance": 489.3278234963871,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.73928606926885,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.292516589164734,
+        "drawCalls": 282,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.780586766208984,
+        "longitude": -80.13060154373002,
+        "street": "Ocean Drive",
+        "routeMeters": 19350.82782349638,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 42,
+        "generationMs": 41.600000001490116,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":487746,\"geometries\":318,\"textures\":89}",
+        "elapsed": 28.526000000007322,
+        "nightBlend": 0.011885833333336385,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 440.86580588400295,
+          "z": 1047.8811856157668,
+          "yaw": 2.946189661180523
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 35.87542,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 247742240,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 36.284
+    },
+    {
+      "drive": {
+        "speed": 78.73164192599317,
+        "rpm": 2440.2425401248574,
+        "distance": 511.2980807417458,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 42.314505018883246,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.96952122449875,
+        "drawCalls": 268,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.780393166613525,
+        "longitude": -80.13064413538795,
+        "street": "Ocean Drive",
+        "routeMeters": 19372.798080741748,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 42,
+        "generationMs": 41.600000001490116,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":570668,\"geometries\":319,\"textures\":89}",
+        "elapsed": 29.531400000005817,
+        "nightBlend": 0.012304750000002423,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 436.59676137260686,
+          "z": 1069.4326925822045,
+          "yaw": 2.946074239102037
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 36.8839,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 240811449,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 37.291
+    },
+    {
+      "drive": {
+        "speed": 78.84926457214053,
+        "rpm": 2442.693011919594,
+        "distance": 533.5943175347901,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 42.71806079866515,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.764843106269836,
+        "drawCalls": 258,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.780196582491183,
+        "longitude": -80.1306867256784,
+        "street": "Ocean Drive",
+        "routeMeters": 19395.094317534782,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 42,
+        "generationMs": 41.600000001490116,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":541872,\"geometries\":325,\"textures\":89}",
+        "elapsed": 30.550100000008765,
+        "nightBlend": 0.012729208333336985,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 432.32785392639215,
+          "z": 1091.3164370815234,
+          "yaw": 2.9492870985031803
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 37.890966,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 260209980,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 38.308
+    },
+    {
+      "drive": {
+        "speed": 78.94870342737651,
+        "rpm": 2444.764654737011,
+        "distance": 555.6012318476228,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 41.29387474185278,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.336097180843353,
+        "drawCalls": 247,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.78000253610889,
+        "longitude": -80.13072868850483,
+        "street": "Ocean Drive",
+        "routeMeters": 19417.10123184761,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 43,
+        "generationMs": 16.80000000447035,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":42,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":531974,\"geometries\":325,\"textures\":89}",
+        "elapsed": 31.554200000002773,
+        "nightBlend": 0.01314758333333449,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 428.1218384165285,
+          "z": 1112.9176803583025,
+          "yaw": 2.9492870985031803
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 38.906082,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 238866786,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 39.313
+    },
+    {
+      "drive": {
+        "speed": 79.05760503038975,
+        "rpm": 2447.0334381331195,
+        "distance": 585.7027371482293,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.46353034209873,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.124532520771027,
+        "drawCalls": 224,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.779737115517793,
+        "longitude": -80.13078608611289,
+        "street": "Ocean Drive",
+        "routeMeters": 19447.20273714821,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 44,
+        "generationMs": 19,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":44,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":510313,\"geometries\":325,\"textures\":89}",
+        "elapsed": 32.92580000000421,
+        "nightBlend": 0.013719083333335087,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 422.36876479771445,
+          "z": 1142.4643005592463,
+          "yaw": 2.949287098503224
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 40.271788,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 255129277,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 40.688
+    },
+    {
+      "drive": {
+        "speed": 79.11796438713107,
+        "rpm": 2448.290924731897,
+        "distance": 608.0236636489824,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 44.90569803406156,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.74071228504181,
+        "drawCalls": 226,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.779540300327106,
+        "longitude": -80.13082864769835,
+        "street": "Ocean Drive",
+        "routeMeters": 19469.52366364896,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 44,
+        "generationMs": 19,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":44,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":468154,\"geometries\":331,\"textures\":89}",
+        "elapsed": 33.941800000004214,
+        "nightBlend": 0.014142416666668423,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 418.1027345073159,
+          "z": 1164.3737675863888,
+          "yaw": 2.949287098503224
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 41.29567,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 247820018,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 41.703
+    },
+    {
+      "drive": {
+        "speed": 79.160205238652,
+        "rpm": 2449.1709424719165,
+        "distance": 629.9105340752973,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.4815107772076,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.109077870845795,
+        "drawCalls": 232,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.779347312434048,
+        "longitude": -80.13087038162487,
+        "street": "Ocean Drive",
+        "routeMeters": 19491.410534075287,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 45,
+        "generationMs": 9.200000002980232,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":44,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":456657,\"geometries\":331,\"textures\":89}",
+        "elapsed": 34.93740000000572,
+        "nightBlend": 0.014557250000002383,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 413.9196620798535,
+          "z": 1185.8571798415499,
+          "yaw": 2.949287098503224
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 42.295574,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 245899987,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 42.713
+    },
+    {
+      "drive": {
+        "speed": 79.18583459353708,
+        "rpm": 2449.7048873653557,
+        "distance": 652.0486680362936,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.83042741841528,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.65880674123764,
+        "drawCalls": 225,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77915211055082,
+        "longitude": -80.13091260311415,
+        "street": "Ocean Drive",
+        "routeMeters": 19513.54866803628,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 45,
+        "generationMs": 9.200000002980232,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":45,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":476443,\"geometries\":332,\"textures\":89}",
+        "elapsed": 35.94400000000718,
+        "nightBlend": 0.014976666666669658,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 409.68772028975434,
+          "z": 1207.5870534822886,
+          "yaw": 2.9471699149268322
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 43.310841,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 265203029,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 43.718
+    },
+    {
+      "drive": {
+        "speed": 79.19424678029117,
+        "rpm": 2449.880141256066,
+        "distance": 674.6358803077864,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.103448275987894,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.43974870443344,
+        "drawCalls": 234,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77895304747498,
+        "longitude": -80.13095623949664,
+        "street": "Ocean Drive",
+        "routeMeters": 19536.135880307767,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 46,
+        "generationMs": 19.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":45,\"active\":25,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":519313,\"geometries\":342,\"textures\":89}",
+        "elapsed": 36.97080000000418,
+        "nightBlend": 0.015404500000001743,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 405.31396100966435,
+          "z": 1229.7467550848844,
+          "yaw": 2.946645069266157
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 44.314757,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 244389288,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 44.732
+    },
+    {
+      "drive": {
+        "speed": 79.18497817492734,
+        "rpm": 2449.687045310986,
+        "distance": 696.9281377223056,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.775699074602656,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.123537063598633,
+        "drawCalls": 229,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77875658687882,
+        "longitude": -80.13099932304009,
+        "street": "Ocean Drive",
+        "routeMeters": 19558.428137722294,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 46,
+        "generationMs": 19.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":46,\"active\":25,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":506216,\"geometries\":345,\"textures\":89}",
+        "elapsed": 37.984200000002694,
+        "nightBlend": 0.01582675000000112,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 400.99561385853326,
+          "z": 1251.6167486495347,
+          "yaw": 2.946645069266157
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 45.337562,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 263462530,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 45.744
+    },
+    {
+      "drive": {
+        "speed": 79.15843151765222,
+        "rpm": 2449.1339899510876,
+        "distance": 719.0987334175287,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.09803921568627,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.3956698179245,
+        "drawCalls": 228,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77856119848156,
+        "longitude": -80.13104217145177,
+        "street": "Ocean Drive",
+        "routeMeters": 19580.598733417522,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 46,
+        "generationMs": 19.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":46,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":542762,\"geometries\":353,\"textures\":91}",
+        "elapsed": 38.99230000000417,
+        "nightBlend": 0.016246791666668405,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 396.70083442103316,
+          "z": 1273.3673850325122,
+          "yaw": 2.9466450692661454
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 46.333861,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 255614631,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 46.751
+    },
+    {
+      "drive": {
+        "speed": 79.11504010884504,
+        "rpm": 2448.230002267605,
+        "distance": 741.1121938336199,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 40.93041828878709,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.195328891277313,
+        "drawCalls": 241,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.778367194909986,
+        "longitude": -80.13108471617305,
+        "street": "Ocean Drive",
+        "routeMeters": 19602.612193833615,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 46,
+        "generationMs": 19.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":46,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":544864,\"geometries\":354,\"textures\":91}",
+        "elapsed": 39.993700000002654,
+        "nightBlend": 0.016664041666667774,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 392.436494461796,
+          "z": 1294.9638626203714,
+          "yaw": 2.946645069266157
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 47.356759,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 247019513,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 47.763
+    },
+    {
+      "drive": {
+        "speed": 79.05357351541265,
+        "rpm": 2446.9494482377636,
+        "distance": 763.4932780947506,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 44.96402877711231,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.870246946811676,
+        "drawCalls": 242,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.778169951487083,
+        "longitude": -80.13112797138935,
+        "street": "Ocean Drive",
+        "routeMeters": 19624.993278094746,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 47,
+        "generationMs": 19.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":47,\"active\":26,\"total\":256,\"pending\":1,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":525038,\"geometries\":362,\"textures\":93}",
+        "elapsed": 41.012500000007115,
+        "nightBlend": 0.01708854166666963,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 388.10094020808845,
+          "z": 1316.9210004579215,
+          "yaw": 2.9466450692661015
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 48.356496,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 249653866,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 48.773
+    },
+    {
+      "drive": {
+        "speed": 78.975913985645,
+        "rpm": 2445.3315413676037,
+        "distance": 785.5341488446213,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 44.910179640718574,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.051791965961456,
+        "drawCalls": 234,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77797569881057,
+        "longitude": -80.13117052656199,
+        "street": "Ocean Drive",
+        "routeMeters": 4.071492085400678,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 48,
+        "generationMs": 15.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":48,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":511804,\"geometries\":362,\"textures\":93}",
+        "elapsed": 42.01670000000267,
+        "nightBlend": 0.017506958333334446,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 383.8355526872201,
+          "z": 1338.5452084069486,
+          "yaw": 2.947712017753139
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 49.370281,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 254440692,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 49.776
+    },
+    {
+      "drive": {
+        "speed": 78.88035224375533,
+        "rpm": 2443.3406717449025,
+        "distance": 807.8116960607902,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 40.54989615264521,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.26312980055809,
+        "drawCalls": 235,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.7777793832387,
+        "longitude": -80.13121366749128,
+        "street": "Ocean Drive",
+        "routeMeters": 26.349039301570883,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 48,
+        "generationMs": 15.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":48,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":501522,\"geometries\":368,\"textures\":93}",
+        "elapsed": 43.032800000004116,
+        "nightBlend": 0.017930333333335047,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 379.5114536418964,
+          "z": 1360.399057867932,
+          "yaw": 2.946660987952416
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 50.375343,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 246854808,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 50.792
+    },
+    {
+      "drive": {
+        "speed": 78.77054483117178,
+        "rpm": 2441.0530173160787,
+        "distance": 829.5675510358648,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.781094527363166,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.34717607498169,
+        "drawCalls": 233,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77758764932889,
+        "longitude": -80.13125571095685,
+        "street": "Ocean Drive",
+        "routeMeters": 48.10489427663197,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 48,
+        "generationMs": 15.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":48,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":500154,\"geometries\":368,\"textures\":93}",
+        "elapsed": 44.026400000005616,
+        "nightBlend": 0.018344333333335672,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 375.2973555146505,
+          "z": 1381.742876707817,
+          "yaw": 2.946660987952416
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 51.390776,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 266203619,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 51.797
+    },
+    {
+      "drive": {
+        "speed": 78.64244391169635,
+        "rpm": 2438.3842481603406,
+        "distance": 851.6621804979155,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 42.85002491280519,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.804668307304382,
+        "drawCalls": 229,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.777392929806382,
+        "longitude": -80.13129840910841,
+        "street": "Ocean Drive",
+        "routeMeters": 70.19952373868,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 48,
+        "generationMs": 15.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":48,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":501024,\"geometries\":368,\"textures\":93}",
+        "elapsed": 45.03700000000711,
+        "nightBlend": 0.01876541666666963,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 371.0176369402741,
+          "z": 1403.419053953571,
+          "yaw": 2.9466609879524714
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 52.395085,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 258684923,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 52.803
+    },
+    {
+      "drive": {
+        "speed": 78.4992231197288,
+        "rpm": 2435.400481661017,
+        "distance": 873.5440629960199,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.26450344149459,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 15.995029300451279,
+        "drawCalls": 206,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77720008521856,
+        "longitude": -80.13134069612377,
+        "street": "Ocean Drive",
+        "routeMeters": 92.081406236779,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 48,
+        "generationMs": 15.5,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":48,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":517144,\"geometries\":368,\"textures\":93}",
+        "elapsed": 46.03960000000861,
+        "nightBlend": 0.019183166666670255,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 366.779127345429,
+          "z": 1424.8865134696623,
+          "yaw": 2.946660987952416
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 53.396672,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 250167484,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 53.806
+    },
+    {
+      "drive": {
+        "speed": 78.33685590629949,
+        "rpm": 2432.0178313812394,
+        "distance": 895.8233489638501,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 42.773301501849,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.692157924175262,
+        "drawCalls": 221,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.777003738322,
+        "longitude": -80.13138375112636,
+        "street": "Ocean Drive",
+        "routeMeters": 114.36069220461286,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 49,
+        "generationMs": 8,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":49,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":537563,\"geometries\":375,\"textures\":93}",
+        "elapsed": 47.06240000000562,
+        "nightBlend": 0.019609333333335675,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 362.46364089908855,
+          "z": 1446.7438499946823,
+          "yaw": 2.946660987952416
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 54.414901,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 247489128,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 54.822
+    },
+    {
+      "drive": {
+        "speed": 78.10309742126745,
+        "rpm": 2427.147862943072,
+        "distance": 924.5867103116154,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.4010652990031,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.960595548152924,
+        "drawCalls": 226,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.776750242170063,
+        "longitude": -80.13143930721924,
+        "street": "Ocean Drive",
+        "routeMeters": 143.12405355237206,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 50,
+        "generationMs": 35.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":50,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":497194,\"geometries\":380,\"textures\":93}",
+        "elapsed": 48.38620000000261,
+        "nightBlend": 0.020160916666667753,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 356.8951459191658,
+          "z": 1474.9630416285697,
+          "yaw": 2.947358896201885
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 55.748212,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 268535894,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 56.16
+    },
+    {
+      "drive": {
+        "speed": 77.9028710233075,
+        "rpm": 2422.9764796522395,
+        "distance": 946.9126473786735,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.66057959501136,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.966422080993652,
+        "drawCalls": 227,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.776553406470324,
+        "longitude": -80.13148201293005,
+        "street": "Ocean Drive",
+        "routeMeters": 165.44999061943963,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 50,
+        "generationMs": 35.899999998509884,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":50,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":491314,\"geometries\":383,\"textures\":93}",
+        "elapsed": 49.41660000000857,
+        "nightBlend": 0.02059025000000357,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 352.614669667424,
+          "z": 1496.8747917235407,
+          "yaw": 2.949126765656896
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 56.762709,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 261315475,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 57.174
+    },
+    {
+      "drive": {
+        "speed": 77.69352931514163,
+        "rpm": 2418.615194065451,
+        "distance": 968.5510560858004,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.29788281634664,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.87823510169983,
+        "drawCalls": 231,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77636261535205,
+        "longitude": -80.13152330706389,
+        "street": "Ocean Drive",
+        "routeMeters": 187.0883993265743,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 51,
+        "generationMs": 24,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":50,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":501236,\"geometries\":394,\"textures\":93}",
+        "elapsed": 50.4179000000056,
+        "nightBlend": 0.021007458333335668,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 348.475678512695,
+          "z": 1518.1136590096764,
+          "yaw": 2.949126765656896
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 57.770159,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 235023604,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 58.182
+    },
+    {
+      "drive": {
+        "speed": 77.46707432711388,
+        "rpm": 2413.8973818148725,
+        "distance": 990.402498134081,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.69839062182784,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.312426269054413,
+        "drawCalls": 229,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.776169945866936,
+        "longitude": -80.1315650077446,
+        "street": "Ocean Drive",
+        "routeMeters": 208.93984137485313,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 51,
+        "generationMs": 24,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":51,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":500094,\"geometries\":395,\"textures\":93}",
+        "elapsed": 51.431900000005605,
+        "nightBlend": 0.021429958333335667,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 344.2959383765326,
+          "z": 1539.561626092443,
+          "yaw": 2.9491267656567963
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 58.780465,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 254582537,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 59.191
+    },
+    {
+      "drive": {
+        "speed": 77.2287682686451,
+        "rpm": 2408.9326722634396,
+        "distance": 1011.9843217188028,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 46.44268774703557,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.07516038417816,
+        "drawCalls": 218,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.775979653673467,
+        "longitude": -80.13160619389298,
+        "street": "Ocean Drive",
+        "routeMeters": 230.52166495958227,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 52,
+        "generationMs": 34.79999999701977,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":51,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":489312,\"geometries\":395,\"textures\":93}",
+        "elapsed": 52.43640000000561,
+        "nightBlend": 0.02184850000000234,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 340.1677708144391,
+          "z": 1560.744953069612,
+          "yaw": 2.949126765656896
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 59.786792,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 212103739,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 60.199
+    },
+    {
+      "drive": {
+        "speed": 76.70837683260089,
+        "rpm": 2398.0911840125186,
+        "distance": 1033.8156663596267,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.77114427860695,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.2497136592865,
+        "drawCalls": 213,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77578716139209,
+        "longitude": -80.13164785622037,
+        "street": "Ocean Drive",
+        "routeMeters": 252.35300960040695,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 52,
+        "generationMs": 34.79999999701977,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":52,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":480902,\"geometries\":395,\"textures\":93}",
+        "elapsed": 53.45630000000411,
+        "nightBlend": 0.022273458333335047,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 335.9918749069726,
+          "z": 1582.1731938325972,
+          "yaw": 2.9491267656568523
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 60.803362,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 204691618,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 61.214
+    },
+    {
+      "drive": {
+        "speed": 71.94467792499293,
+        "rpm": 2298.847456770686,
+        "distance": 1054.7672818275628,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.61187667314308,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.447368144989014,
+        "drawCalls": 212,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77560242589703,
+        "longitude": -80.13168783969721,
+        "street": "Ocean Drive",
+        "routeMeters": 273.304625068351,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 52,
+        "generationMs": 34.79999999701977,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":52,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":477835,\"geometries\":401,\"textures\":93}",
+        "elapsed": 54.46410000000857,
+        "nightBlend": 0.022693375000003572,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 331.98425344678134,
+          "z": 1602.7379491423112,
+          "yaw": 2.9489058736196365
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 61.813277,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 223332687,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 62.225
+    },
+    {
+      "drive": {
+        "speed": 63.128257619840134,
+        "rpm": 2115.1720337466695,
+        "distance": 1073.4932467695073,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.61187667281356,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.333624958992004,
+        "drawCalls": 205,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.775438563349574,
+        "longitude": -80.13173002895435,
+        "street": "Ocean Drive",
+        "routeMeters": 292.0305900102976,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 52,
+        "generationMs": 34.79999999701977,
+        "maxGenerationMs": 41.600000001490116,
+        "chunkState": "{\"built\":52,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":1,\"windowLod\":\"distance\",\"renderedTriangles\":501608,\"geometries\":401,\"textures\":93}",
+        "elapsed": 55.46050000000707,
+        "nightBlend": 0.023108541666669615,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 327.7555423473994,
+          "z": 1620.979127925154,
+          "yaw": 2.9090052870556873
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 62.822398,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 214793366,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 63.234
+    },
+    {
+      "drive": {
+        "speed": 51.97565169953178,
+        "rpm": 1882.8260770735787,
+        "distance": 1089.955763918123,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.66210045668856,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.332910478115082,
+        "drawCalls": 205,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.775294660767116,
+        "longitude": -80.13176788658906,
+        "street": "Ocean Drive",
+        "routeMeters": 308.4931071589235,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 53,
+        "generationMs": 43.100000001490116,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":53,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":501608,\"geometries\":401,\"textures\":93}",
+        "elapsed": 56.49020000000259,
+        "nightBlend": 0.023537583333334413,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 323.9609981679483,
+          "z": 1636.998363404383,
+          "yaw": 2.9090052870556873
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 63.83954,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 210972200,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 64.248
+    },
+    {
+      "drive": {
+        "speed": 42.190871146800696,
+        "rpm": 1678.9764822250145,
+        "distance": 1102.932005528282,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.58065794675402,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.48207813501358,
+        "drawCalls": 211,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.7751826608619,
+        "longitude": -80.13180206897859,
+        "street": "Ocean Drive",
+        "routeMeters": 321.469348769082,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 53,
+        "generationMs": 43.100000001490116,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":53,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":509136,\"geometries\":410,\"textures\":93}",
+        "elapsed": 57.49640000000557,
+        "nightBlend": 0.023956833333335655,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 320.5348309451129,
+          "z": 1649.4661928528994,
+          "yaw": 2.7178975603571915
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 64.846419,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 202473684,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 65.257
+    },
+    {
+      "drive": {
+        "speed": 39.21716196759869,
+        "rpm": 1617.024207658306,
+        "distance": 1114.2775691458128,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.662100456688556,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.7700292468071,
+        "drawCalls": 225,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77509162394108,
+        "longitude": -80.13185289487697,
+        "street": "Ocean Drive",
+        "routeMeters": 332.81491238662784,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 53,
+        "generationMs": 43.100000001490116,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":53,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":539764,\"geometries\":414,\"textures\":93}",
+        "elapsed": 58.50290000000555,
+        "nightBlend": 0.024376208333335647,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 315.4404525368524,
+          "z": 1659.6004228787956,
+          "yaw": 2.6735892720445076
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 65.86204,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 220656295,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 66.271
+    },
+    {
+      "drive": {
+        "speed": 36.08540046751689,
+        "rpm": 1551.779176406602,
+        "distance": 1124.7904070690977,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.199980355499584,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.39636218547821,
+        "drawCalls": 232,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77500390478086,
+        "longitude": -80.13188891360954,
+        "street": "Ocean Drive",
+        "routeMeters": 343.3277503099198,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 53,
+        "generationMs": 43.100000001490116,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":53,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":518032,\"geometries\":420,\"textures\":93}",
+        "elapsed": 59.51940000000554,
+        "nightBlend": 0.02479975000000231,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 311.8302250875455,
+          "z": 1669.3653197945157,
+          "yaw": 2.9579866958185796
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 66.867989,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 211468760,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 67.278
+    },
+    {
+      "drive": {
+        "speed": 36.138806442371624,
+        "rpm": 1552.8918008827422,
+        "distance": 1132.9304332796203,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 41.983206717375616,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.27471673488617,
+        "drawCalls": 203,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774932011083333,
+        "longitude": -80.13190374096139,
+        "street": "Ocean Drive",
+        "routeMeters": 351.467776520436,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 54,
+        "generationMs": 6.899999998509884,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":53,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":477810,\"geometries\":420,\"textures\":93}",
+        "elapsed": 60.325700000002556,
+        "nightBlend": 0.025135708333334398,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 310.34405084329893,
+          "z": 1677.3685262034264,
+          "yaw": 2.9579866958185654
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 67.894076,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 207102753,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 68.311
+    },
+    {
+      "drive": {
+        "speed": 28.948269190938095,
+        "rpm": 1403.088941477877,
+        "distance": 1142.1666405958838,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 29.597474348812057,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.959512948989868,
+        "drawCalls": 206,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77485043578149,
+        "longitude": -80.13192056504673,
+        "street": "Ocean Drive",
+        "routeMeters": 360.70398383669453,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 54,
+        "generationMs": 6.899999998509884,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":54,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":483042,\"geometries\":428,\"textures\":95}",
+        "elapsed": 61.329200000002544,
+        "nightBlend": 0.025553833333334393,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 308.6577401272214,
+          "z": 1686.4494888042607,
+          "yaw": 2.9579866958186214
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 68.90907,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 221390321,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 69.316
+    },
+    {
+      "drive": {
+        "speed": 23.56985915968186,
+        "rpm": 1291.0387324933722,
+        "distance": 1149.4091636772573,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 42.13207916936227,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.01739376783371,
+        "drawCalls": 215,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774790786747033,
+        "longitude": -80.13194543520379,
+        "street": "Ocean Drive",
+        "routeMeters": 367.94650691808056,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 56,
+        "generationMs": 4,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":54,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":483390,\"geometries\":428,\"textures\":95}",
+        "elapsed": 62.35240000000551,
+        "nightBlend": 0.025980166666668962,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 306.16495603125304,
+          "z": 1693.0896193202307,
+          "yaw": 2.5458860422147778
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 69.915548,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 210584918,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 70.332
+    },
+    {
+      "drive": {
+        "speed": 22.333238932778805,
+        "rpm": 1265.2758110995583,
+        "distance": 1158.0186578604391,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 39.860488290981564,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.546805322170258,
+        "drawCalls": 249,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774735533702625,
+        "longitude": -80.13200398411384,
+        "street": "Ocean Drive",
+        "routeMeters": 376.5560011012676,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 56,
+        "generationMs": 4,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":56,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":558586,\"geometries\":434,\"textures\":96}",
+        "elapsed": 63.69660000000099,
+        "nightBlend": 0.026540250000000414,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 300.29648518008077,
+          "z": 1699.2403882236545,
+          "yaw": 2.076441478524975
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 71.281392,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 219184024,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 71.688
+    },
+    {
+      "drive": {
+        "speed": 22.8667694492154,
+        "rpm": 1276.3910301919875,
+        "distance": 1164.2810191349515,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 38.97271909651629,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.041469514369965,
+        "drawCalls": 241,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774712516653562,
+        "longitude": -80.13206075586523,
+        "street": "Ocean Drive",
+        "routeMeters": 382.8183623757868,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 57,
+        "generationMs": 6.799999997019768,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":56,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":561450,\"geometries\":444,\"textures\":97}",
+        "elapsed": 64.7062000000026,
+        "nightBlend": 0.026960916666667747,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 294.6061423900003,
+          "z": 1701.8026461252173,
+          "yaw": 1.9055331641117768
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 72.291804,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 220262299,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 72.7
+    },
+    {
+      "drive": {
+        "speed": 25.93107528215917,
+        "rpm": 1340.2307350449828,
+        "distance": 1171.1404961887106,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 39.09304143879472,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.988968282938004,
+        "drawCalls": 243,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774699786208235,
+        "longitude": -80.13212727242676,
+        "street": "Ocean Drive",
+        "routeMeters": 389.6778394295361,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 57,
+        "generationMs": 6.799999997019768,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":57,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":578871,\"geometries\":444,\"textures\":97}",
+        "elapsed": 65.72349999999972,
+        "nightBlend": 0.02738479166666655,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 287.9390583704395,
+          "z": 1703.219799299346,
+          "yaw": 1.6790444669347888
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 73.30065,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 217438604,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 73.707
+    },
+    {
+      "drive": {
+        "speed": 34.24130627353804,
+        "rpm": 1513.3605473653756,
+        "distance": 1179.5928277487926,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 41.65013883354993,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.28356871008873,
+        "drawCalls": 252,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774693555816558,
+        "longitude": -80.13221125208986,
+        "street": "5th Street",
+        "routeMeters": 398.13017098961063,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 57,
+        "generationMs": 6.799999997019768,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":57,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":615294,\"geometries\":445,\"textures\":97}",
+        "elapsed": 66.7378000000043,
+        "nightBlend": 0.027807416666668458,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 279.5216137995492,
+          "z": 1703.9133665004533,
+          "yaw": 1.599477994109349
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 74.307795,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 213962950,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 74.716
+    },
+    {
+      "drive": {
+        "speed": 42.857978273512316,
+        "rpm": 1692.87454736484,
+        "distance": 1190.2996006219241,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 42.31034143473984,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.422967433929443,
+        "drawCalls": 242,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774691204954895,
+        "longitude": -80.13231803992775,
+        "street": "5th Street",
+        "routeMeters": 408.83694386274146,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 57,
+        "generationMs": 6.799999997019768,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":57,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":601852,\"geometries\":446,\"textures\":97}",
+        "elapsed": 67.73510000000132,
+        "nightBlend": 0.028222958333333884,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 268.8180616168061,
+          "z": 1704.1750644211652,
+          "yaw": 1.5951921707866612
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 75.321919,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 209799197,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 75.729
+    },
+    {
+      "drive": {
+        "speed": 51.53426627353809,
+        "rpm": 1873.6305473653767,
+        "distance": 1203.4916549934826,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.538491984895224,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.05849391222,
+        "drawCalls": 222,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774688098369307,
+        "longitude": -80.13244960927506,
+        "street": "5th Street",
+        "routeMeters": 422.0289982342874,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 58,
+        "generationMs": 24.399999998509884,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":58,\"active\":27,\"total\":256,\"pending\":1,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":594337,\"geometries\":446,\"textures\":97}",
+        "elapsed": 68.73930000000443,
+        "nightBlend": 0.028641375000001846,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 255.63061066362025,
+          "z": 1704.5208895285248,
+          "yaw": 1.6027425871290024
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 76.326907,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 226884527,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 76.736
+    },
+    {
+      "drive": {
+        "speed": 56.24650709593812,
+        "rpm": 1971.8022311653776,
+        "distance": 1219.1086120907437,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.40962904492435,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.65173876285553,
+        "drawCalls": 221,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774683606571145,
+        "longitude": -80.13260533757911,
+        "street": "5th Street",
+        "routeMeters": 437.64595533155443,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 58,
+        "generationMs": 24.399999998509884,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":58,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":568017,\"geometries\":446,\"textures\":97}",
+        "elapsed": 69.76620000000297,
+        "nightBlend": 0.029069250000001236,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 240.0216606026616,
+          "z": 1705.0209165001745,
+          "yaw": 1.6028200074036785
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 77.341968,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 223832233,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 77.748
+    },
+    {
+      "drive": {
+        "speed": 51.42288638475194,
+        "rpm": 1871.3101330156653,
+        "distance": 1234.1941746356288,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.10688370281863,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.590859830379486,
+        "drawCalls": 208,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774679267614346,
+        "longitude": -80.13275576695251,
+        "street": "5th Street",
+        "routeMeters": 452.73151787644383,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":538308,\"geometries\":449,\"textures\":97}",
+        "elapsed": 70.761700000003,
+        "nightBlend": 0.029484041666667918,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 224.94383264052584,
+          "z": 1705.503929170823,
+          "yaw": 1.602820007403451
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 78.353636,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 225313585,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 78.761
+    },
+    {
+      "drive": {
+        "speed": 39.35247495439286,
+        "rpm": 1619.843228216518,
+        "distance": 1247.04689255937,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.37432205890334,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.160271406173706,
+        "drawCalls": 202,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77467585078902,
+        "longitude": -80.13288393610505,
+        "street": "5th Street",
+        "routeMeters": 465.58423580018643,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":532931,\"geometries\":449,\"textures\":97}",
+        "elapsed": 71.78050000000006,
+        "nightBlend": 0.02990854166666669,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 212.09718980703144,
+          "z": 1705.8842901660346,
+          "yaw": 1.5847974937442917
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 79.366866,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 222897461,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 79.773
+    },
+    {
+      "drive": {
+        "speed": 26.755066954356348,
+        "rpm": 1357.3972282157572,
+        "distance": 1256.4557808671307,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 41.70804369414102,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 20.154689073562622,
+        "drawCalls": 203,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774669223959794,
+        "longitude": -80.13297208730103,
+        "street": "5th Street",
+        "routeMeters": 474.9931241079503,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":30,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":522010,\"geometries\":449,\"textures\":97}",
+        "elapsed": 72.80970000000308,
+        "nightBlend": 0.03033737500000128,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 203.26162440219693,
+          "z": 1706.6219887956072,
+          "yaw": 2.24076192830388
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 80.374165,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 218238567,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 80.791
+    },
+    {
+      "drive": {
+        "speed": 17.939723687541793,
+        "rpm": 1173.744243490454,
+        "distance": 1262.4782258816367,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 41.91616766467065,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.924651473760605,
+        "drawCalls": 251,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774623032610997,
+        "longitude": -80.13299093252697,
+        "street": "Collins Avenue",
+        "routeMeters": 481.01556912245724,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":583470,\"geometries\":468,\"textures\":99}",
+        "elapsed": 73.81790000000613,
+        "nightBlend": 0.030757458333335888,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 201.37273084169527,
+          "z": 1711.7640097437193,
+          "yaw": 2.9251422287572284
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 81.381054,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 217252143,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 81.798
+    },
+    {
+      "drive": {
+        "speed": 18.591403189563543,
+        "rpm": 1187.3208997825739,
+        "distance": 1267.405837702638,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.341213554170366,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.678961753845215,
+        "drawCalls": 250,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77457980021301,
+        "longitude": -80.13300149078592,
+        "street": "Collins Avenue",
+        "routeMeters": 485.94318094346454,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":586830,\"geometries\":468,\"textures\":99}",
+        "elapsed": 74.83340000000615,
+        "nightBlend": 0.031180583333335895,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 200.31445606245242,
+          "z": 1716.5766402874187,
+          "yaw": 2.9251422287571796
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 82.396277,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 216488867,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 82.812
+    },
+    {
+      "drive": {
+        "speed": 26.686063427318576,
+        "rpm": 1355.9596547358037,
+        "distance": 1273.6714618051885,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.66812227067779,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.29072630405426,
+        "drawCalls": 249,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77452480950108,
+        "longitude": -80.13301481413639,
+        "street": "Collins Avenue",
+        "routeMeters": 492.20880504602246,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":586830,\"geometries\":468,\"textures\":99}",
+        "elapsed": 75.83540000000615,
+        "nightBlend": 0.03159808333333589,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 198.9790307943344,
+          "z": 1722.6982063395858,
+          "yaw": 2.9332071917937927
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 83.400212,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 240390542,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 83.818
+    },
+    {
+      "drive": {
+        "speed": 35.453071427279966,
+        "rpm": 1538.6056547349992,
+        "distance": 1282.4551551339496,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.286979627924424,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.20987096428871,
+        "drawCalls": 243,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774447475790794,
+        "longitude": -80.13303220758691,
+        "street": "Collins Avenue",
+        "routeMeters": 500.9924983747769,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 59,
+        "generationMs": 4.200000002980232,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":59,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":566934,\"geometries\":468,\"textures\":99}",
+        "elapsed": 76.85010000000172,
+        "nightBlend": 0.03202087500000072,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 197.23565150224138,
+          "z": 1731.3069949686337,
+          "yaw": 2.943851551251922
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 84.446207,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 236568308,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 84.86
+    },
+    {
+      "drive": {
+        "speed": 44.46372742726711,
+        "rpm": 1726.3276547347314,
+        "distance": 1294.0578211329068,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.80286738357903,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.565278708934784,
+        "drawCalls": 238,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774345286924135,
+        "longitude": -80.13305499351833,
+        "street": "Collins Avenue",
+        "routeMeters": 512.5951643737244,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":7,\"windowLod\":\"distance\",\"renderedTriangles\":562435,\"geometries\":468,\"textures\":99}",
+        "elapsed": 77.89300000000026,
+        "nightBlend": 0.03245541666666677,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 194.95177338599592,
+          "z": 1742.6826596052329,
+          "yaw": 2.9436508248114124
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 85.462853,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 218087530,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 85.873
+    },
+    {
+      "drive": {
+        "speed": 53.20135942730573,
+        "rpm": 1908.361654735536,
+        "distance": 1307.802404965416,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.7850318469345,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.076125025749207,
+        "drawCalls": 231,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774224228398605,
+        "longitude": -80.13308195812952,
+        "street": "Collins Avenue",
+        "routeMeters": 526.3397482062283,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":550204,\"geometries\":469,\"textures\":99}",
+        "elapsed": 78.90430000000474,
+        "nightBlend": 0.03287679166666864,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 192.24905808869988,
+          "z": 1756.1588946672794,
+          "yaw": 2.943975493791749
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 86.477076,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 235776340,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 86.886
+    },
+    {
+      "drive": {
+        "speed": 61.72992701963659,
+        "rpm": 2086.040146242429,
+        "distance": 1323.9439634207663,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.83401519604643,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.240900695323944,
+        "drawCalls": 229,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.774082042452804,
+        "longitude": -80.13311353891741,
+        "street": "Collins Avenue",
+        "routeMeters": 542.4813066615825,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":28,\"total\":256,\"pending\":0,\"paneLod\":6,\"windowLod\":\"distance\",\"renderedTriangles\":546169,\"geometries\":469,\"textures\":99}",
+        "elapsed": 79.91250000000025,
+        "nightBlend": 0.03329687500000011,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 189.08365444525037,
+          "z": 1771.9870341538956,
+          "yaw": 2.943533670573212
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 87.484465,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 229953274,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 87.895
+    },
+    {
+      "drive": {
+        "speed": 65.46234787727917,
+        "rpm": 2163.7989141099824,
+        "distance": 1341.7193645648904,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 45.73928606926887,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.216863691806793,
+        "drawCalls": 226,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.773925486122582,
+        "longitude": -80.13314843640718,
+        "street": "Collins Avenue",
+        "routeMeters": 560.2567078056964,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":585685,\"geometries\":469,\"textures\":99}",
+        "elapsed": 80.91170000000321,
+        "nightBlend": 0.03371320833333467,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 185.58581133617656,
+          "z": 1789.414884834205,
+          "yaw": 2.943500689498148
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 88.491237,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 227669321,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 88.903
+    },
+    {
+      "drive": {
+        "speed": 66.31532185304131,
+        "rpm": 2181.569205271694,
+        "distance": 1360.1863700647027,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 44.269552385637,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.56564038991928,
+        "drawCalls": 237,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.773762839139213,
+        "longitude": -80.13318469518477,
+        "street": "Collins Avenue",
+        "routeMeters": 578.7237133055169,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":30,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":604469,\"geometries\":478,\"textures\":99}",
+        "elapsed": 81.91870000000321,
+        "nightBlend": 0.03413279166666801,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 181.95152371048997,
+          "z": 1807.5207470225732,
+          "yaw": 2.9435006894981033
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 89.496762,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 223473440,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 89.907
+    },
+    {
+      "drive": {
+        "speed": 66.31142008502832,
+        "rpm": 2181.4879184380898,
+        "distance": 1378.8617175637237,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 42.7860696517413,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.045521795749664,
+        "drawCalls": 233,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77359835719686,
+        "longitude": -80.13322136302844,
+        "street": "Collins Avenue",
+        "routeMeters": 597.3990608045424,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":30,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":592647,\"geometries\":478,\"textures\":99}",
+        "elapsed": 82.93200000000026,
+        "nightBlend": 0.034555000000000106,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 178.27623459435446,
+          "z": 1825.83087684522,
+          "yaw": 2.943500689498148
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 90.498343,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 217844200,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 90.911
+    },
+    {
+      "drive": {
+        "speed": 66.06633649390322,
+        "rpm": 2176.3820102896507,
+        "distance": 1397.0747385653094,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 40.74331710237646,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.40913450717926,
+        "drawCalls": 225,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77343795499678,
+        "longitude": -80.13325716364837,
+        "street": "Collins Avenue",
+        "routeMeters": 615.6120818061208,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":31,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":584667,\"geometries\":478,\"textures\":99}",
+        "elapsed": 83.92250000000035,
+        "nightBlend": 0.03496770833333348,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 174.6878689987392,
+          "z": 1843.6868497581881,
+          "yaw": 2.949266581512036
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 91.501403,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 230145545,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 91.915
+    },
+    {
+      "drive": {
+        "speed": 65.7494380302809,
+        "rpm": 2169.7799589641854,
+        "distance": 1415.5963562249055,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.26024972956007,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.362636148929596,
+        "drawCalls": 229,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.773274531925246,
+        "longitude": -80.13329185592416,
+        "street": "Collins Avenue",
+        "routeMeters": 634.1336994657177,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":31,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":579542,\"geometries\":484,\"textures\":99}",
+        "elapsed": 84.93420000000334,
+        "nightBlend": 0.03538925000000139,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 171.21059488597743,
+          "z": 1861.8791060815145,
+          "yaw": 2.9526076677404816
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 92.506341,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 212000371,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 92.922
+    },
+    {
+      "drive": {
+        "speed": 65.42000985683306,
+        "rpm": 2162.9168720173557,
+        "distance": 1433.9627326753339,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "neon",
+        "fps": 43.76367614886137,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.222842812538147,
+        "drawCalls": 232,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77311248224056,
+        "longitude": -80.13332627953322,
+        "street": "Collins Avenue",
+        "routeMeters": 652.5000759161412,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":31,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":595723,\"geometries\":484,\"textures\":99}",
+        "elapsed": 85.94240000000637,
+        "nightBlend": 0.03580933333333599,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 167.7602497610506,
+          "z": 1879.9184769806773,
+          "yaw": 2.952607667740439
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 93.516087,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 220045686,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 93.93
+    },
+    {
+      "drive": {
+        "speed": 65.08850497211537,
+        "rpm": 2156.0105202524037,
+        "distance": 1452.510047168493,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.95604395604396,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.646498441696167,
+        "drawCalls": 221,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77294883610854,
+        "longitude": -80.13336104226961,
+        "street": "Collins Avenue",
+        "routeMeters": 671.0473904092905,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":31,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":592201,\"geometries\":484,\"textures\":99}",
+        "elapsed": 86.96570000000337,
+        "nightBlend": 0.03623570833333473,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 164.27591324455466,
+          "z": 1898.135564397375,
+          "yaw": 2.952607667740439
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 94.529671,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 224136972,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 94.945
+    },
+    {
+      "drive": {
+        "speed": 64.77272704270405,
+        "rpm": 2149.4318133896677,
+        "distance": 1470.528890786739,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.890274314214466,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 19.227570295333862,
+        "drawCalls": 212,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77278985276555,
+        "longitude": -80.13339481450716,
+        "street": "Collins Avenue",
+        "routeMeters": 689.066234027523,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 60,
+        "generationMs": 3.8000000044703484,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":60,\"active\":31,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":589155,\"geometries\":490,\"textures\":99}",
+        "elapsed": 87.96480000000491,
+        "nightBlend": 0.036652000000002044,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 160.89085634980975,
+          "z": 1915.8335901391818,
+          "yaw": 2.9526076677404816
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 95.534894,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 220127446,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 95.948
+    },
+    {
+      "drive": {
+        "speed": 61.5059149455117,
+        "rpm": 2081.3732280314935,
+        "distance": 1488.2002899495217,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 45.12458308782719,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 17.942616641521454,
+        "drawCalls": 222,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.772633934984487,
+        "longitude": -80.13342793553885,
+        "street": "Collins Avenue",
+        "routeMeters": 706.7376331903179,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 61,
+        "generationMs": 0.7999999970197678,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":61,\"active\":30,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":507382,\"geometries\":491,\"textures\":99}",
+        "elapsed": 88.96250000000038,
+        "nightBlend": 0.03706770833333349,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 157.57107108260868,
+          "z": 1933.1903575268752,
+          "yaw": 2.9526076677404816
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 96.541056,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 218039979,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 96.956
+    },
+    {
+      "drive": {
+        "speed": 52.389546890400126,
+        "rpm": 1891.4488935500026,
+        "distance": 1504.4826177864509,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 44.771664511259445,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.701919198036194,
+        "drawCalls": 211,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.772490273217613,
+        "longitude": -80.13345845307123,
+        "street": "Collins Avenue",
+        "routeMeters": 723.0199610272575,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 61,
+        "generationMs": 0.7999999970197678,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":61,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":466399,\"geometries\":496,\"textures\":99}",
+        "elapsed": 89.98840000000632,
+        "nightBlend": 0.0374951666666693,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 154.512239601816,
+          "z": 1949.1827854151509,
+          "yaw": 2.952607667740439
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 97.549165,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 217083288,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 97.965
+    },
+    {
+      "drive": {
+        "speed": 41.07455406601564,
+        "rpm": 1655.7198763753258,
+        "distance": 1517.5564084895088,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 43.12034496250782,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.881329655647278,
+        "drawCalls": 210,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77237492092334,
+        "longitude": -80.1334829569281,
+        "street": "Collins Avenue",
+        "routeMeters": 736.093751730321,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 62,
+        "generationMs": 2.2000000029802322,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":62,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":507452,\"geometries\":496,\"textures\":99}",
+        "elapsed": 90.99540000000633,
+        "nightBlend": 0.037914750000002634,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 152.05617048342503,
+          "z": 1962.0238028138303,
+          "yaw": 2.952607667740439
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 98.560343,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 215685865,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 98.975
+    },
+    {
+      "drive": {
+        "speed": 28.943239924872923,
+        "rpm": 1402.9841651015192,
+        "distance": 1527.1939462820776,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 40.22762951352025,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 18.13311940431595,
+        "drawCalls": 214,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.77228989156648,
+        "longitude": -80.13350104516257,
+        "street": "Collins Avenue",
+        "routeMeters": 745.7312895228933,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 62,
+        "generationMs": 2.2000000029802322,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":62,\"active\":29,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":507463,\"geometries\":496,\"textures\":99}",
+        "elapsed": 91.99010000000195,
+        "nightBlend": 0.03832920833333414,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 150.24315164764047,
+          "z": 1971.4892708193188,
+          "yaw": 2.9518244422039808
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 99.569178,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 211436720,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 99.986
+    },
+    {
+      "drive": {
+        "speed": 17.362292299241936,
+        "rpm": 1161.7144229008736,
+        "distance": 1533.6065048596715,
+        "paused": false,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 41.42420357043271,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 16.67977011203766,
+        "drawCalls": 205,
+        "ready": true,
+        "vehicle": "countach",
+        "garage": false,
+        "timeMode": "sunset"
+      },
+      "geo": {
+        "latitude": 25.772234528398315,
+        "longitude": -80.13351112702341,
+        "street": "Collins Avenue",
+        "routeMeters": 752.143848100488,
+        "routeLength": 19642.962656759213,
+        "worldExtentMeters": 5000,
+        "totalChunks": 310,
+        "chunksGenerated": 62,
+        "generationMs": 2.2000000029802322,
+        "maxGenerationMs": 43.100000001490116,
+        "chunkState": "{\"built\":62,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":503971,\"geometries\":499,\"textures\":99}",
+        "elapsed": 93.00680000000494,
+        "nightBlend": 0.038752833333335394,
+        "transitionSeconds": 2400,
+        "position": {
+          "x": 149.23262717473455,
+          "z": 1977.6522986994855,
+          "yaw": -2.9555605493171084
+        }
+      },
+      "media": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 100.580486,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "heap": 232588475,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "overflow": false,
+      "wallSeconds": 100.995
+    }
+  ],
+  "checks": {
+    "actuallyMoved": true,
+    "audioAdvanced": true,
+    "noPageErrors": true,
+    "noOverflow": true,
+    "stationSwitch": true
+  },
+  "domReadyMs": 92871,
+  "startReadyMs": 94947,
+  "performance": {
+    "averageSceneFps": 45.58802384689231,
+    "minSceneFps": 29.597474348812057,
+    "p5SceneFps": 40.22762951352025,
+    "below30Samples": 1,
+    "samples": 80,
+    "maxHeapBytes": 268535894,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Listen without 3D', exact: true }).first()\u001b[22m\n\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-experience-20261015\\scripts\\experience-proof.mjs:56:88"
+}
