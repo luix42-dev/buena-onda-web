@@ -1,0 +1,103 @@
+{
+  "at": "2026-10-15T17:18:50.334Z",
+  "checks": {
+    "diagnosticArrival": true,
+    "dismiss": true
+  },
+  "limitations": "Diagnostic setter probe, not natural full traversal.",
+  "before": {
+    "drive": {
+      "speed": 2.1656633543910426,
+      "rpm": 845.1179865498134,
+      "distance": 0.14302367011317677,
+      "paused": false,
+      "camera": "chase",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 3.112275332622021,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 15.825406581163406,
+      "drawCalls": 277,
+      "renderDpr": 1,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "geo": {
+      "latitude": 25.78491879076505,
+      "longitude": -80.12979428937489,
+      "street": "Ocean Drive",
+      "routeMeters": 18861.652447641427,
+      "routeLength": 19642.962656759213,
+      "worldExtentMeters": 5000,
+      "totalChunks": 310,
+      "chunksGenerated": 33,
+      "generationMs": 10.699999995529652,
+      "maxGenerationMs": 31.599999994039536,
+      "chunkState": "{\"built\":16,\"active\":26,\"total\":256,\"pending\":18,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":558543,\"geometries\":191,\"textures\":64}",
+      "elapsed": 0.6843999999985099,
+      "nightBlend": 0.00028516666666604577,
+      "transitionSeconds": 2400,
+      "position": {
+        "x": 521.7784761451782,
+        "z": 565.6402120344771,
+        "yaw": 3.0013627970024666
+      }
+    },
+    "inspectType": "function",
+    "text": "FOLLOW THE FREQUENCY / EXPERIMENTThe Carlyle130 m ahead on the existing coastal loop.Dismiss guide"
+  },
+  "after": {
+    "drive": {
+      "speed": 7.95999300483951,
+      "rpm": 965.8331876008231,
+      "distance": 1.1256292840130706,
+      "paused": false,
+      "camera": "chase",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 29.970029970029973,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 16.471577912569046,
+      "drawCalls": 282,
+      "renderDpr": 1,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "geo": {
+      "latitude": 25.783844069928158,
+      "longitude": -80.1299625435124,
+      "street": "Ocean Drive",
+      "routeMeters": 18982.47318164259,
+      "routeLength": 19642.962656759213,
+      "worldExtentMeters": 5000,
+      "totalChunks": 310,
+      "chunksGenerated": 36,
+      "generationMs": 28.599999994039536,
+      "maxGenerationMs": 31.599999994039536,
+      "chunkState": "{\"built\":36,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":557877,\"geometries\":228,\"textures\":74}",
+      "elapsed": 1.37180000000447,
+      "nightBlend": 0.0005715833333351959,
+      "transitionSeconds": 2400,
+      "position": {
+        "x": 504.9140374913529,
+        "z": 685.2781355975513,
+        "yaw": 3.003552133791536
+      }
+    },
+    "inspectType": "function",
+    "text": "FOLLOW THE FREQUENCY / EXPERIMENTThe CarlyleYou are here. Enjoy the view as you cruise past.Dismiss guide"
+  },
+  "passed": true
+}

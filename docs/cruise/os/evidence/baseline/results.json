@@ -1,0 +1,1137 @@
+{
+  "date": "2026-10-15T16:56:57.394Z",
+  "url": "http://127.0.0.1:3077/cruise/experience",
+  "browser": "155.0.4283.45",
+  "mode": "preserved production experience",
+  "limitations": "Windows Edge viewport emulation; automated interaction latencies, not human usability or physical-phone validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3077' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3077' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "checks": {
+        "audioAdvances": true,
+        "noOverflowStarted": true,
+        "favorite": true,
+        "stationSelected": true,
+        "radioEscClosed": true,
+        "sameAudioElement": true,
+        "audioContinuesAfterPanels": true,
+        "noOverflowAfterPanels": true,
+        "noPageErrors": true
+      },
+      "latenciesMs": {
+        "domReady": 97,
+        "start": 531,
+        "vehicleReady": 11186,
+        "openRadio": 155,
+        "favorite": 76,
+        "tuneSelection": 127
+      },
+      "samples": [
+        {
+          "label": "started5",
+          "drive": {
+            "speed": 0.0585,
+            "rpm": 801.21875,
+            "distance": 0.0008125000000000001,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 0.2776852160394428,
+            "station": "jolt-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Analyzing current radio",
+            "spectrum": 0.18404517183080316,
+            "drawCalls": 219,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 2.056717,
+              "paused": false,
+              "ready": 4
+            }
+          ],
+          "overflow": false,
+          "focus": "BUENA ONDANO ALGORITHMS. JUST FREQUENCIES.Ocean Drive COUNTACH 5000QVView The Ca",
+          "surfaces": []
+        },
+        {
+          "label": "optionsCast",
+          "drive": {
+            "speed": 72.5106642071895,
+            "rpm": 2310.6388376497816,
+            "distance": 100.58302854879905,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 45.31573244008716,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.5286245513707399,
+            "drawCalls": 289,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 4.185917,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cast Cruise to a TV or display",
+          "surfaces": [
+            {
+              "id": "opening-options",
+              "label": "Cruise options"
+            },
+            {
+              "id": "cruise-cast-menu",
+              "label": "Cast Cruise"
+            }
+          ]
+        },
+        {
+          "label": "escapeCast",
+          "drive": {
+            "speed": 72.5106642071895,
+            "rpm": 2310.6388376497816,
+            "distance": 100.58302854879905,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 45.31573244008716,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.5286245513707399,
+            "drawCalls": 289,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 4.19096,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cruise options",
+          "surfaces": []
+        },
+        {
+          "label": "journey15",
+          "drive": {
+            "speed": 78.39506842937665,
+            "rpm": 2433.23059227868,
+            "distance": 459.9035134719995,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 40.73926868050548,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.64538848772645,
+            "drawCalls": 276,
+            "renderDpr": 0.85,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 21.792846,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey30",
+          "drive": {
+            "speed": 78.96109826688867,
+            "rpm": 2445.022880560181,
+            "distance": 789.3491144904165,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 43.973615830436216,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.6125656310468912,
+            "drawCalls": 234,
+            "renderDpr": 0.85,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 36.803166,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey45",
+          "drive": {
+            "speed": 44.32049657311651,
+            "rpm": 1723.3436786065938,
+            "distance": 1099.3903347511375,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 53.65126676602089,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7902937717735767,
+            "drawCalls": 208,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 51.810633,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey60",
+          "drive": {
+            "speed": 36.96441993911499,
+            "rpm": 1570.0920820648955,
+            "distance": 1249.0308956463339,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 51.79282868525896,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.4856613166630268,
+            "drawCalls": 202,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 66.819067,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey75",
+          "drive": {
+            "speed": 65.08802511163927,
+            "rpm": 2156.0005231591513,
+            "distance": 1452.8468388134493,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 48.85831089846723,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.8484719339758158,
+            "drawCalls": 220,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 81.835687,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey90",
+          "drive": {
+            "speed": 40.06124239363944,
+            "rpm": 1634.609216534155,
+            "distance": 1627.1900353174046,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 54.34782608695652,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.518501540645957,
+            "drawCalls": 174,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 96.84127,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey105",
+          "drive": {
+            "speed": 14.190078183306463,
+            "rpm": 1095.6266288188847,
+            "distance": 1779.9069868137226,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 55.75467941067608,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7572581730782986,
+            "drawCalls": 223,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 111.86291,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey120",
+          "drive": {
+            "speed": 27.611933119688786,
+            "rpm": 1375.248606660183,
+            "distance": 1981.6987404853176,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 51.28710918244051,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.652146253734827,
+            "drawCalls": 202,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 126.881242,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey135",
+          "drive": {
+            "speed": 70.86664962173994,
+            "rpm": 2276.3885337862484,
+            "distance": 2231.7639928839812,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 53.66192984215436,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.6095501966774464,
+            "drawCalls": 190,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 141.900112,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey150",
+          "drive": {
+            "speed": 67.36669326005183,
+            "rpm": 2203.47277625108,
+            "distance": 2422.8351203095835,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 53.70462456489309,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7931242790073156,
+            "drawCalls": 205,
+            "renderDpr": 0.78,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 156.910364,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey165",
+          "drive": {
+            "speed": 43.67331492480652,
+            "rpm": 1709.8607276001358,
+            "distance": 2613.0777799349003,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 53.12346286276443,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.4950231555849314,
+            "drawCalls": 166,
+            "renderDpr": 0.86,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 171.930356,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey180",
+          "drive": {
+            "speed": 18.44444553711619,
+            "rpm": 1184.259282023254,
+            "distance": 2701.2850045243754,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 51.45458143669437,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.8535047173500061,
+            "drawCalls": 201,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 186.949135,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey195",
+          "drive": {
+            "speed": 43.61411904136545,
+            "rpm": 1708.6274800284468,
+            "distance": 2840.27917096165,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 53.544868616757576,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.5008582100272179,
+            "drawCalls": 199,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 201.950477,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey210",
+          "drive": {
+            "speed": 17.258201388803997,
+            "rpm": 1159.54586226675,
+            "distance": 3060.7986353658184,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 52.74156632508568,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7877098079770803,
+            "drawCalls": 185,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 216.98199,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey225",
+          "drive": {
+            "speed": 46.382135082620806,
+            "rpm": 1766.2944808879333,
+            "distance": 3194.3224033833976,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 48.936382702268304,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.6143162958323956,
+            "drawCalls": 185,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 232.006084,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey240",
+          "drive": {
+            "speed": 61.18885003122506,
+            "rpm": 2074.7677089838553,
+            "distance": 3405.4516353325967,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 52.89421157684632,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.6441326197236776,
+            "drawCalls": 196,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 247.023491,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey255",
+          "drive": {
+            "speed": 62.69978033651171,
+            "rpm": 2106.2454236773274,
+            "distance": 3662.471248559982,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 51.72070817592706,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7655414137989283,
+            "drawCalls": 203,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 262.030917,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey270",
+          "drive": {
+            "speed": 67.25639354212139,
+            "rpm": 2201.1748654608623,
+            "distance": 3932.6429097506552,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 53.79557680788953,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.5137319732457399,
+            "drawCalls": 196,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 277.035732,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey285",
+          "drive": {
+            "speed": 73.01915554504846,
+            "rpm": 2321.2324071885096,
+            "distance": 4224.91507190517,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 51.332675222112556,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.851080471649766,
+            "drawCalls": 191,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 292.047103,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        },
+        {
+          "label": "journey300",
+          "drive": {
+            "speed": 77.62902499155935,
+            "rpm": 2417.27135399082,
+            "distance": 4539.987375527921,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "neon",
+            "fps": 46.23708804722086,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.4870919995009899,
+            "drawCalls": 199,
+            "renderDpr": 0.94,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 307.066822,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Camera",
+          "surfaces": []
+        }
+      ],
+      "optional": {},
+      "final": {
+        "drive": {
+          "speed": 77.72828941960525,
+          "rpm": 2419.3393629084426,
+          "distance": 4549.855040661721,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "neon",
+          "fps": 46.23708804722086,
+          "station": "nts-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Capture restricted; radio playback unaffected",
+          "spectrum": 0.48146683908998966,
+          "drawCalls": 199,
+          "renderDpr": 0.94,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+            "time": 307.52394,
+            "paused": false,
+            "ready": 3
+          }
+        ],
+        "overflow": false,
+        "focus": "Camera",
+        "surfaces": []
+      }
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3077' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3077' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "checks": {
+        "audioAdvances": true,
+        "noOverflowStarted": true,
+        "favorite": true,
+        "stationSelected": true,
+        "radioEscClosed": true,
+        "sameAudioElement": true,
+        "audioContinuesAfterPanels": true,
+        "noOverflowAfterPanels": true,
+        "noPageErrors": true
+      },
+      "latenciesMs": {
+        "domReady": 46,
+        "start": 4875,
+        "vehicleReady": 10985,
+        "openRadio": 113,
+        "favorite": 48,
+        "tuneSelection": 82
+      },
+      "samples": [
+        {
+          "label": "started5",
+          "drive": {
+            "speed": 40.08644771754796,
+            "rpm": 1635.1343274489159,
+            "distance": 26.02248775613919,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 60.021647151607716,
+            "station": "jolt-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Analyzing current radio",
+            "spectrum": 16.019683718681335,
+            "drawCalls": 258,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 4.746324,
+              "paused": false,
+              "ready": 4
+            }
+          ],
+          "overflow": false,
+          "focus": "BUENA ONDANO ALGORITHMS. JUST FREQUENCIES.Ocean Drive COUNTACH 5000QVView The Ca",
+          "surfaces": []
+        },
+        {
+          "label": "optionsCast",
+          "drive": {
+            "speed": 74.31540703901238,
+            "rpm": 2348.237646646091,
+            "distance": 147.48869382096646,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 60.01574183401167,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7918482478708029,
+            "drawCalls": 264,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 2.404068,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cast Cruise to a TV or display",
+          "surfaces": [
+            {
+              "id": "opening-options",
+              "label": "Cruise options"
+            },
+            {
+              "id": "cruise-cast-menu",
+              "label": "Cast Cruise"
+            }
+          ]
+        },
+        {
+          "label": "escapeCast",
+          "drive": {
+            "speed": 74.32272343523128,
+            "rpm": 2348.3900715673185,
+            "distance": 147.84379127744077,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 60.01574183401167,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.7932851947844028,
+            "drawCalls": 264,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 2.414365,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cruise options",
+          "surfaces": []
+        }
+      ],
+      "optional": {},
+      "final": {
+        "drive": {
+          "speed": 75.13453293510321,
+          "rpm": 2365.3027694813172,
+          "distance": 194.1893034762963,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.015741834011685,
+          "station": "nts-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Capture restricted; radio playback unaffected",
+          "spectrum": 0.8303564619272947,
+          "drawCalls": 229,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+            "time": 4.647658,
+            "paused": false,
+            "ready": 3
+          }
+        ],
+        "overflow": false,
+        "focus": "Camera",
+        "surfaces": []
+      }
+    }
+  ],
+  "passed": true
+}

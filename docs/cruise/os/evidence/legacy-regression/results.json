@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-15T17:31:33.965Z",
+  "url": "http://127.0.0.1:3081/cruise/experience",
+  "browser": "155.0.4283.45",
+  "mode": "preserved production experience",
+  "limitations": "Windows Edge viewport emulation; automated interaction latencies, not human usability or physical-phone validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3081' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3081' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "networkErrors": [
+        {
+          "url": "http://127.0.0.1:3081/api/radio/tracks",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        }
+      ],
+      "checks": {
+        "audioAdvances": true,
+        "noOverflowStarted": true,
+        "favorite": true,
+        "stationSelected": true,
+        "radioEscClosed": true,
+        "sameAudioElement": true,
+        "audioContinuesAfterPanels": true,
+        "noOverflowAfterPanels": true,
+        "noPageErrors": true
+      },
+      "latenciesMs": {
+        "domReady": 234,
+        "start": 6081,
+        "vehicleReady": 12815,
+        "openRadio": 117,
+        "favorite": 68,
+        "tuneSelection": 111
+      },
+      "samples": [
+        {
+          "label": "started5",
+          "drive": {
+            "speed": 40.07824856634841,
+            "rpm": 1634.963511798925,
+            "distance": 26.004442759986123,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 49.20291281265496,
+            "station": "jolt-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Analyzing current radio",
+            "spectrum": 18.166412889957428,
+            "drawCalls": 279,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 9.090178,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "BUENA ONDANO ALGORITHMS. JUST FREQUENCIES.Ocean Drive COUNTACH 5000QVView The Ca",
+          "surfaces": []
+        },
+        {
+          "label": "optionsCast",
+          "drive": {
+            "speed": 74.89912451279424,
+            "rpm": 2360.39842734988,
+            "distance": 179.5942042346982,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 44.87435181471819,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.8510010447353125,
+            "drawCalls": 261,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 3.341778,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cast Cruise to a TV or display",
+          "surfaces": [
+            {
+              "id": "opening-options",
+              "label": "Cruise options"
+            },
+            {
+              "id": "cruise-cast-menu",
+              "label": "Cast Cruise"
+            }
+          ]
+        },
+        {
+          "label": "escapeCast",
+          "drive": {
+            "speed": 74.89912451279424,
+            "rpm": 2360.39842734988,
+            "distance": 179.5942042346982,
+            "paused": false,
+            "camera": "driver",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 44.87435181471819,
+            "station": "nts-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Capture restricted; radio playback unaffected",
+            "spectrum": 0.8510010447353125,
+            "drawCalls": 261,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+              "time": 3.347331,
+              "paused": false,
+              "ready": 3
+            }
+          ],
+          "overflow": false,
+          "focus": "Cruise options",
+          "surfaces": []
+        }
+      ],
+      "optional": {},
+      "final": {
+        "drive": {
+          "speed": 72.56552680882027,
+          "rpm": 2311.781808517089,
+          "distance": 232.48264518708595,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 44.84751843704673,
+          "station": "nts-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Capture restricted; radio playback unaffected",
+          "spectrum": 0.6453779116272926,
+          "drawCalls": 250,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+            "time": 5.873338,
+            "paused": false,
+            "ready": 3
+          }
+        ],
+        "overflow": false,
+        "focus": "Camera",
+        "surfaces": []
+      }
+    }
+  ],
+  "passed": true
+}

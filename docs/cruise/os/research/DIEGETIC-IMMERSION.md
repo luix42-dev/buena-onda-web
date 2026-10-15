@@ -1,0 +1,34 @@
+# Diegetic immersion: evidence and Cruise decisions
+
+Research checked October 15, 2026, before CruiseOS application changes. This is a bounded document review, not a replay or usability study of these games. GDC evidence below is the accessible session abstract, not a claim to have watched its full talk. No game assets, binaries or interface artwork were imported.
+
+## Verified source evidence
+
+| Reference | Accessible evidence actually checked | Boundary |
+| --- | --- | --- |
+| [Dead Space: Dino Ignacio, GDC 2013](https://www.gdcvault.com/play/1017723/Crafting-Destruction-The-Evolution-of) | Lead UI designer describes early attempts, evolution and reasons behind the shipped diegetic interface. | Abstract verified through indexed GDC contents; direct open initially failed. No detailed implementation claims. |
+| [Journey: Jenova Chen interview, 2011](https://blog.playstation.com/?p=43269) | Creator explains removing lobbies, preserving solo completion, two principal buttons and concerns about simultaneous movement/camera control. | Pre-release account, not proof of every shipped control or accessibility outcome. |
+| [Designing Journey, GDC 2013](https://www.gdcvault.com/play/1017700/Designing) | Abstract identifies failed experiments and iteration toward an emotional arc. | Establishes process, not a universal recipe for emotion. |
+| [Firewatch: Armstrong/Ewing, GDC 2017](https://www.gdcvault.com/play/1024415/Do-You-Copy-Dialog-System) | Abstract describes interruptible, restarting conversations and the dialogue tooling/workflow. | Does not establish accessible interaction quality. |
+| [Firewatch: TIME review, 2016](https://time.com/4211182/firewatch-review/) | PS4 reviewer criticizes accelerating camera motion, scenery hitches and timed trigger-based radio replies that misread failed input as silence. | One critic's experience, platform and version; not a population study. |
+| [Ghost of Tsushima: developer world commentary, 2020](https://blog.playstation.com/2020/07/09/crafting-the-world-of-tsushima/) | Limited foliage variety, reduced texture noise and coherent wind across foliage, cloth and particles support identity and direction. | Artistic interpretation of geography; not literal geographic reproduction. |
+| [Ghost Director's Cut: Can I Play That?, 2021](https://caniplaythat.com/2021/08/19/ghost-of-tsushima-directors-cut-accessibility-review-can-i-play-that/) | Reviewer values larger text, stronger wind visibility and directional haptics, but criticizes touchpad swiping and timed inputs. | Specific disabled reviewer's findings; does not certify universal access. |
+| [Slow Roads: creator case study, 2023](https://web.dev/case-studies/slow-roads) | Explains explicit start, scene-load deferral, recycled allocations, quality settings and responding to observed poor performance. | Its historical load/FPS statistics do not transfer to Cruise. |
+
+## Five enduring principles, applied
+
+**1. Give the radio a believable place and a dependable interface.** Dead Space supports researching interface as part of the world; it does not establish that every function belongs exclusively inside scenery. Cruise should adopt the existing dashboard as its emotional anchor, then improve its consistency with one shared playback state and a compact accessible control surface. Station identity, playback state, volume and tuning must remain operable in cinematic and listening-only views. Reject tiny perspective knobs as the only targets. The proposed balance is our design inference, not a Dead Space claim.
+
+**2. Author attention through a coherent world.** Ghost's developer commentary provides a stronger model than adding a constant mission HUD: repeat a small visual language and let motion reinforce it. Adopt a recognizable coastal horizon, a restrained Miami palette and a few memorable landmarks. Improve legibility by reducing decorative noise around the cockpit. Reject station recommendations disguised as environmental guidance: listeners choose their music. A palm, neon reflection or passing sign can enrich place without becoming an instruction.
+
+**3. Make quiet participation complete.** Journey's creator explicitly protects an experience that works alone while enabling encounters. Adopt this principle for optional presence and simple sharing; never require a room, login or chat before listening. Improve Cruise's opening by teaching the next meaningful action when needed, then allowing attention to return to music. Reject permanent achievement counters, pressure to socialize and automatic camera changes after a listener manually chooses a view. Amber hardware styling is a Buena Onda art decision, not something these sources prove increases engagement.
+
+**4. Physical metaphor must yield to usable input.** Firewatch's criticism demonstrates a concrete failure: an evocative radio gesture can obstruct the central conversation. Ghost's accessibility criticism supplies a parallel warning about gesture-only activation. Cruise should offer ordinary buttons, keyboard access, visible focus and direct volume adjustment alongside tactile tuning. Provide readable labels, contrast, larger-text resilience, reduced motion and camera alternatives. Avoid timed replies, repeated holds, drag-only tuning and sound-only status. Do not claim gamepad support until mappings, focus, reconnect and user input conflicts are tested.
+
+**5. Preserve continuity before adding spectacle.** Firewatch's hitches and Slow Roads' creator account favor a stable experience over maximal detail. Reuse Cruise's existing quality adaptation and independent audio lifecycle. Opening panels, changing camera or disabling 3D must leave the station playing. Show actual loading/failure and verified metadata provenance; scenery must never imply playback success. Add no second animated visualizer or expensive UI renderer merely to look immersive.
+
+## Reuse, unknowns and acceptance
+
+The existing [competitor comparison](../../experience/COMPETITOR-RESEARCH.md) already records RoamVista's observed compact radio and immediate autodrive, Partyvia's crowded social entry, and NIGHTDRIVE's author-described automatic tuning. Reuse those findings; adopt calm entry and explicit controls, reject automatic station switching and scoring pressure. No competitor browser was rerun for this document.
+
+Validate CruiseOS with first-minute screenshots, audio continuity while panels/cameras change, keyboard-only operation, portrait/landscape emulation, reduced motion, and sustained performance against the preserved experience. Physical phones, screen-reader behavior, gamepads, representative user comprehension and retention remain unverified until actually tested. These sources establish useful principles and failure modes; they establish neither Cruise's accessibility compliance nor station licensing.

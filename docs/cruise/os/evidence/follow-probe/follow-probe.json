@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-15T17:18:12.164Z",
+  "checks": {
+    "diagnosticArrival": false,
+    "dismiss": true
+  },
+  "limitations": "Diagnostic setter probe, not natural full traversal.",
+  "before": {
+    "drive": {
+      "speed": 2.6332495487591348,
+      "rpm": 854.8593655991486,
+      "distance": 0.19103851610571757,
+      "paused": false,
+      "camera": "chase",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 2.768618962521929,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 18.365375876426697,
+      "drawCalls": 277,
+      "renderDpr": 1,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "text": "FOLLOW THE FREQUENCY / EXPERIMENTThe Carlyle130 m ahead on the existing coastal loop.Dismiss guide"
+  },
+  "after": {
+    "drive": {
+      "speed": 8.671512535200792,
+      "rpm": 980.6565111500165,
+      "distance": 1.3188890821775048,
+      "paused": false,
+      "camera": "chase",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 28.74132804757185,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 15.203719705343246,
+      "drawCalls": 221,
+      "renderDpr": 1,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "text": "FOLLOW THE FREQUENCY / EXPERIMENTThe Carlyle18881 m ahead on the existing coastal loop.Dismiss guide"
+  },
+  "passed": false
+}
