@@ -1,5 +1,7 @@
 # Cruise OS delivery
 
+**Latest update:** listener feedback identified overload and a blocked Play button. The interface was simplified in `34ff268`; production build is now `h_LNOKPQjEQ_1lCmdO9sQ`. See [simplification findings and evidence](simplification/RESULTS.md). The report below records the earlier OS implementation and its historical measurements.
+
 Local production: **http://127.0.0.1:3081/cruise/os**. Optional guide: **http://127.0.0.1:3081/cruise/os?follow=1**. Compare the preserved interface at **http://127.0.0.1:3077/cruise/experience**; the previous Human Radio build remains on **http://127.0.0.1:3074/cruise/human-radio**.
 
 Branch: `feature/cruise-os-20261015`, isolated worktree `cruise-os-20261015`, based on `1e9a319`. Implementation commit: `d725c898ac8f17d108985eb89fc96db5d98a9504`. Production build ID: `xIOfRl6VF9vnd47j3jC9T`. No deployment, external messages, purchase, new dependency or paid API activation.

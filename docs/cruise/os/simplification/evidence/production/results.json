@@ -1,0 +1,812 @@
+{
+  "at": "2026-10-15T17:56:05.863Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Windows headless Edge viewport reflow emulation at DPR 1. 683×384 approximates the CSS viewport of 1366×768 at 200% zoom; this does not test actual Chrome browser zoom or physical phones. No FPS benchmark or representative user study.",
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 68.296875,
+            "y": 427.734375,
+            "width": 206.765625,
+            "height": 52,
+            "top": 427.734375,
+            "right": 275.0625,
+            "bottom": 479.734375,
+            "left": 68.296875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 316,
+            "y": 696.875,
+            "width": 64,
+            "height": 44,
+            "top": 696.875,
+            "right": 380,
+            "bottom": 740.875,
+            "left": 316
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 316,
+            "y": 696.875,
+            "width": 64,
+            "height": 44,
+            "top": 696.875,
+            "right": 380,
+            "bottom": 740.875,
+            "left": 316
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 1270.96875,
+            "y": 20,
+            "width": 71.03125,
+            "height": 44,
+            "top": 20,
+            "right": 1342,
+            "bottom": 64,
+            "left": 1270.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA\nCRUISE / MIAMI\nMenu\nTake the long way.\n\nA Miami drive with live radio.\nThe car drives itself.\n\nPlay and start cruising\n\nScenery is loading. You can start the radio now.\n\n© OpenStreetMap contributors · ODbL",
+      "entryAction": "Play and start cruising",
+      "credit": {
+        "x": 24,
+        "y": 647,
+        "width": 192.4375,
+        "height": 16
+      },
+      "startToDeckMs": 498,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.011952,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.216716,
+          "paused": false,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "name": "laptop",
+      "viewport": {
+        "width": 1280,
+        "height": 600
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 64,
+            "y": 337.546875,
+            "width": 206.765625,
+            "height": 52,
+            "top": 337.546875,
+            "right": 270.765625,
+            "bottom": 389.546875,
+            "left": 64
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 273,
+            "y": 528.875,
+            "width": 64,
+            "height": 44,
+            "top": 528.875,
+            "right": 337,
+            "bottom": 572.875,
+            "left": 273
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 273,
+            "y": 528.875,
+            "width": 64,
+            "height": 44,
+            "top": 528.875,
+            "right": 337,
+            "bottom": 572.875,
+            "left": 273
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 1184.96875,
+            "y": 20,
+            "width": 71.03125,
+            "height": 44,
+            "top": 20,
+            "right": 1256,
+            "bottom": 64,
+            "left": 1184.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA CRUISE\n\nTAKE THE LONG WAY.\n\nPreparing Miami and the radio...",
+      "entryAction": "Play and start cruising",
+      "credit": {
+        "x": 24,
+        "y": 479,
+        "width": 192.4375,
+        "height": 16
+      },
+      "startToDeckMs": 1838,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.27537,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.484077,
+          "paused": false,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "name": "short",
+      "viewport": {
+        "width": 1024,
+        "height": 480
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 51.1875,
+            "y": 273.140625,
+            "width": 206.765625,
+            "height": 52,
+            "top": 273.140625,
+            "right": 257.953125,
+            "bottom": 325.140625,
+            "left": 51.1875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 145,
+            "y": 408.875,
+            "width": 64,
+            "height": 44,
+            "top": 408.875,
+            "right": 209,
+            "bottom": 452.875,
+            "left": 145
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 145,
+            "y": 408.875,
+            "width": 64,
+            "height": 44,
+            "top": 408.875,
+            "right": 209,
+            "bottom": 452.875,
+            "left": 145
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 928.96875,
+            "y": 8,
+            "width": 71.03125,
+            "height": 44,
+            "top": 8,
+            "right": 1000,
+            "bottom": 52,
+            "left": 928.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA CRUISE\n\nTAKE THE LONG WAY.\n\nPreparing Miami and the radio...",
+      "entryAction": "Play and start cruising",
+      "credit": null,
+      "startToDeckMs": 1715,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.202255,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.406791,
+          "paused": false,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 19.5,
+            "y": 451.75,
+            "width": 206.765625,
+            "height": 52,
+            "top": 451.75,
+            "right": 226.265625,
+            "bottom": 503.75,
+            "left": 19.5
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 25,
+            "y": 726,
+            "width": 64,
+            "height": 44,
+            "top": 726,
+            "right": 89,
+            "bottom": 770,
+            "left": 25
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 25,
+            "y": 726,
+            "width": 64,
+            "height": 44,
+            "top": 726,
+            "right": 89,
+            "bottom": 770,
+            "left": 25
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 306.96875,
+            "y": 12,
+            "width": 71.03125,
+            "height": 44,
+            "top": 12,
+            "right": 378,
+            "bottom": 56,
+            "left": 306.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA CRUISE\n\nTAKE THE LONG WAY.\n\nPreparing Miami and the radio...",
+      "entryAction": "Play and start cruising",
+      "credit": null,
+      "startToDeckMs": 1727,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.218347,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.421362,
+          "paused": false,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "name": "zoom-reflow",
+      "viewport": {
+        "width": 683,
+        "height": 384
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 20,
+            "y": 218,
+            "width": 206.765625,
+            "height": 50,
+            "top": 218,
+            "right": 226.765625,
+            "bottom": 268,
+            "left": 20
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 29,
+            "y": 318.875,
+            "width": 64,
+            "height": 44,
+            "top": 318.875,
+            "right": 93,
+            "bottom": 362.875,
+            "left": 29
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 29,
+            "y": 318.875,
+            "width": 64,
+            "height": 44,
+            "top": 318.875,
+            "right": 93,
+            "bottom": 362.875,
+            "left": 29
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 587.96875,
+            "y": 8,
+            "width": 71.03125,
+            "height": 44,
+            "top": 8,
+            "right": 659,
+            "bottom": 52,
+            "left": 587.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA CRUISE\n\nTAKE THE LONG WAY.\n\nPreparing Miami and the radio...",
+      "entryAction": "Play and start cruising",
+      "credit": null,
+      "startToDeckMs": 1720,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.272509,
+          "paused": false,
+          "ready": 4
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.470814,
+          "paused": false,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "name": "compact-reflow",
+      "viewport": {
+        "width": 512,
+        "height": 384
+      },
+      "checks": {
+        "singleStartAction": true,
+        "noDeckBeforeStart": true,
+        "noCompetingJustListen": true,
+        "startFullyVisible": true,
+        "startCenterUncovered": true,
+        "creditIntrinsicWidth": true,
+        "creditDoesNotCoverStart": true,
+        "noEntryOverflow": true,
+        "actualAudioAdvances": true,
+        "chooseStationVisible": true,
+        "saveStationVisible": true,
+        "pauseFullyVisible": true,
+        "pauseCenterUncovered": true,
+        "playFullyVisible": true,
+        "playCenterUncovered": true,
+        "pauseStopsAudio": true,
+        "playResumesActualAudio": true,
+        "directorySearchVisible": true,
+        "programDetailsInitiallyCollapsed": true,
+        "menuLabelVisible": true,
+        "menuCenterUncovered": true,
+        "singleMenuDialog": true,
+        "settingsAvailable": true,
+        "savedStationsAvailable": true,
+        "findsAvailable": true,
+        "settingsOpens": true,
+        "collectionOpens": true,
+        "savedMusicOpens": true,
+        "noFinalOverflow": true,
+        "noPageExceptions": true
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "networkErrors": [],
+      "hits": {
+        "start": {
+          "rect": {
+            "x": 20,
+            "y": 218,
+            "width": 206.765625,
+            "height": 50,
+            "top": 218,
+            "right": 226.765625,
+            "bottom": 268,
+            "left": 20
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play and start cruising"
+        },
+        "pause": {
+          "rect": {
+            "x": 25,
+            "y": 266,
+            "width": 64,
+            "height": 44,
+            "top": 266,
+            "right": 89,
+            "bottom": 310,
+            "left": 25
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Pause radio"
+        },
+        "play": {
+          "rect": {
+            "x": 25,
+            "y": 266,
+            "width": 64,
+            "height": 44,
+            "top": 266,
+            "right": 89,
+            "bottom": 310,
+            "left": 25
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Play radio"
+        },
+        "menu": {
+          "rect": {
+            "x": 428.96875,
+            "y": 8,
+            "width": 71.03125,
+            "height": 44,
+            "top": 8,
+            "right": 500,
+            "bottom": 52,
+            "left": 428.96875
+          },
+          "centerHit": true,
+          "inViewport": true,
+          "hitTarget": "BUTTON",
+          "hitLabel": "Menu"
+        }
+      },
+      "navigationBody": "BUENA ONDA CRUISE\n\nTAKE THE LONG WAY.\n\nPreparing Miami and the radio...",
+      "entryAction": "Play and start cruising",
+      "credit": null,
+      "startToDeckMs": 615,
+      "audioBefore": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.060878,
+          "paused": false,
+          "ready": 3
+        }
+      ],
+      "audioAfter": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 2.383165,
+          "paused": false,
+          "ready": 3
+        }
+      ]
+    }
+  ],
+  "passed": true
+}
