@@ -17,3 +17,7 @@ Later phase results are appended only after their runs. The existing19.6kmroute 
 ## Phase 1 warm desktop retest
 
 Same Edge/Intel UHD630/1280x720/DPR1 development setup, moving scene for 90 seconds. 51.71 average FPS,39.39 minimum,47.16 p5;zero of80 post-warmup samples below30. Peak observed JS heap268,163,716bytes (not GPU memory). Baseline44.03 average is context, not a controlled causal speedup claim: compilation/cache and scene timing differ. All nine functional checks passed. Raw evidence: `evidence/phase1/results.json`. Cold failed run retained separately; no production or phone performance claim.
+
+## Phase2 desktop regression
+
+Same moving90second method:45.49averageFPS,32.35minimum,36.01p5;zero/80 below30. JS heap peak276,037,554bytes. Allnine functional checks passed. Scene timing differs and render work increased in sightline; no speedup claim. Raw `evidence/phase2/results.json`.

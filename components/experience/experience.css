@@ -34,3 +34,5 @@
 
 .jn.experience-first .hr-scene-actions{display:none}
 .ex-load-error{position:absolute;z-index:60;top:100px;left:5%;right:5%;background:#273a2e;color:#fff5de;padding:18px}
+
+.ex-landmark{position:absolute;left:4%;top:100px;z-index:46;display:grid;text-align:left;gap:3px;background:#132c24d9;color:#fff2dc;border:1px solid #e5d9bf66;border-radius:4px;padding:10px 15px;min-height:44px;font:italic 19px Georgia,serif}.ex-landmark small,.ex-landmark span{font:9px/1.4 ui-monospace,monospace;letter-spacing:1px}.ex-landmark span{color:#d3d4bb;font-size:10px;letter-spacing:0}.ex-landmark:focus-visible{outline:3px solid #f4bc7e;outline-offset:3px}@media(max-width:700px){.ex-landmark{top:82px;left:5%;font-size:16px;max-width:45%}.ex-landmark span{display:none}}

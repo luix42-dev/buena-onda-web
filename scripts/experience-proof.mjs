@@ -63,5 +63,6 @@ try {
     result.checks.audioPersistsWithout3D = after.media.some(a=>!a.paused&&a.time>(before.media.find(b=>b.id===a.id)?.time||0))
     result.checks.canvasRemoved = await page.locator('.jn-world').count() === 0
   }
+  if (Object.values(result.checks).some(value => value !== true)) { result.failure = 'One or more critical assertions failed'; process.exitCode = 1 }
 } catch (error) { result.failure = error.stack || String(error); process.exitCode = 1; await page.screenshot({ path: `${out}/failure.png` }).catch(()=>{}) }
 finally { await writeFile(`${out}/results.json`, JSON.stringify(result,null,2)); await browser.close(); console.log(JSON.stringify({phase,checks:result.checks,performance:result.performance,failure:result.failure,errors:result.errors},null,2)) }
