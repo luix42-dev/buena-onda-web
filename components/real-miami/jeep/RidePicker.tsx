@@ -12,6 +12,7 @@ const rides: { id: RideVehicleId; name: string; year: string; mood: string; desc
 ]
 
 export type RidePickerProps = {
+  humanRadio?: boolean
   driveLabel?: string
   /** Worlds can restrict the garage, e.g. Neon Run is DeLorean only. */
   only?: readonly RideVehicleId[]
@@ -25,18 +26,19 @@ export type RidePickerProps = {
   castControl?: ReactNode
 }
 
-export default function RidePicker({ driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
-  const index = Math.max(0, rides.findIndex(ride => ride.id === vehicle))
-  const selected = rides[index]
-  const selectNext = (step: number) => onSelect(rides[(index + step + rides.length) % rides.length].id)
+export default function RidePicker({ humanRadio = false, driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
+  const lineup = humanRadio ? [...rides, { id: 'wrangler' as const, name: 'Wrangler', year: '2012', mood: '05 / AFTER HOURS', description: 'The original open-air cabin, its physical radio, and a little more room for the night.' }] : rides
+  const index = Math.max(0, lineup.findIndex(ride => ride.id === vehicle))
+  const selected = lineup[index]
+  const selectNext = (step: number) => onSelect(lineup[(index + step + lineup.length) % lineup.length].id)
   return <section className="rp" aria-label="Choose your ride">
     <header className="rp-header">
       <a className="rp-brand" href="https://www.buenaondalifestyle.com/">Buena Onda<span>CRUISE / MIAMI · BETA</span></a>
       <div className="rp-header-tools">{castControl}</div>
     </header>
     <div className="rp-heading">
-      <p className="rp-eyebrow">CHOOSE YOUR RIDE</p>
-      <h1>Your ride. Your rhythm.</h1>
+      <p className="rp-eyebrow">{humanRadio ? 'TAKE THE LONG WAY TO GOOD MUSIC.' : 'CHOOSE YOUR RIDE'}</p>
+      <h1>{humanRadio ? 'No Algorithms. Just Frequencies.' : 'Your ride. Your rhythm.'}</h1>
       <a className="rp-support" href="https://www.buenaondalifestyle.com/themes" target="_blank" rel="noopener noreferrer">Support Buena Onda <span aria-hidden="true">↗</span><span className="rp-sr"> (opens a new tab)</span></a>
     </div>
     <div className="rp-showcase" aria-label={`${selected.year} ${selected.name} 3D showcase`}>
@@ -60,8 +62,8 @@ export default function RidePicker({ driveLabel = 'Miami Beach / Real streets', 
         <small className="rp-footnote">Automatic cruising · Radio starts with your drive</small>
       </div>
       <div className="rp-lineup" role="group" aria-label="Available rides">
-        {rides.filter(ride => !only || only.includes(ride.id)).map(ride => <button type="button" key={ride.id} onClick={() => onSelect(ride.id)} aria-pressed={ride.id === vehicle} aria-label={`Choose ${ride.year} ${ride.name}`}>
-          <img src={`/real-miami/vehicle/garage/${ride.id}.png`} alt="" width={92} height={48} />
+        {lineup.filter(ride => !only || only.includes(ride.id)).map(ride => <button type="button" key={ride.id} onClick={() => onSelect(ride.id)} aria-pressed={ride.id === vehicle} aria-label={`Choose ${ride.year} ${ride.name}`}>
+          {ride.id !== 'wrangler' && <img src={`/real-miami/vehicle/garage/${ride.id}.png`} alt="" width={92} height={48} />}
           <span>{ride.name}<small>{ride.year}</small></span>
         </button>)}
       </div>

@@ -1,0 +1,23 @@
+# GTA5 iOS port: relevance to Cruise
+
+Inspected October 14, 2026. Source snapshot: [`7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d`](https://github.com/kevinerikjs/gta5-ios-port/tree/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d). Read-only GitHub API/source review; no game files downloaded, builds executed, native performance measured, or code imported.
+
+## Recommendation
+
+Useful as a reference for mobile robustness and controls. It does not supply a browser renderer, licensed Miami world, or ready-to-use Cruise integration. Keep the current Next.js/React Three Fiber implementation and prioritize radio reliability. Its iOS-specific engine and asset pipeline would create a separate native product effort.
+
+The [README](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/README.md) describes ARM64 engine conversion, Metal rendering and approximately 21 GB of user-supplied game files. Those runtime and performance statements are project claims, not results reproduced here. Stronger directly inspected evidence: [`build_ipa.sh`](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/build_ipa.sh) invokes game-file validation/preparation, `xcodebuild` targeting `iphoneos`, signing and IPA packaging; the tree contains Swift/UIKit and Objective-C++ Metal code. This is an Apple native build pipeline.
+
+## Three adaptable techniques
+
+1. **Separate render resolution from visual quality; remember settings that actually worked.** [`GraphicsOptions.swift`](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/app/App/GraphicsOptions.swift) defines independent detail presets and render sizing. [`GameSettings.swift`](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/app/App/GameSettings.swift) implements pending-boot tracking, a last stable preset/resolution, fallback and an undo path. Cruise can independently cap canvas resolution/DPR while retaining the cockpit's readable DOM radio, then offer a previous proven graphics setting after a scene failure. Browser tab termination is ambiguous: use explicit WebGL context-loss/error signals where available and never claim an incomplete startup proves an out-of-memory crash. Native process-memory APIs and thresholds do not transfer to browsers.
+
+2. **Persist touch positions relative to the safe area and protect essential controls.** [`ControlsLayout.swift`](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/app/App/ControlsLayout.swift) stores normalized positions, scale and visibility, supplies defaults, and prevents hiding essential buttons. Cruise can apply this principle to mobile layouts while keeping station, playback, volume and exit/listening mode reachable. Prefer a small comfortable default before building a full editor; validate portrait, landscape, keyboard focus and physical touch devices. UIKit view code itself requires a web implementation.
+
+3. **Treat a cached asset as present only after its bytes are committed.** [`NativePackedAssetCache.h`](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/app/Source/NativePackedAssetCache.h) uses archive data plus a presence map, syncs data before publishing block availability, and checks file sizes before trusting old maps. Cruise can use the same ordering principle for optional scenery downloads: version by content, finish a successful cache write before marking an asset ready, and recover from partial downloads. The sparse-file/mmap implementation is native-specific; browser Cache Storage/IndexedDB would need a separately designed equivalent. Cache licensed visual assets only; this is not a proposal to record live radio.
+
+These are proposed adaptations inferred from inspected source. None was added to Cruise by this assessment, and no speedup or device compatibility is claimed.
+
+## Licensing and adoption boundary
+
+The repository's [LICENSE](https://github.com/kevinerikjs/gta5-ios-port/blob/7b2f2cdc4ad82870c8ed08d44fa81ad2dad6a40d/LICENSE) is MIT for code written for this project, with notice obligations. It explicitly excludes Rockstar/Take-Two code, data and assets, and third-party inputs fetched or patched during a build. Therefore its license establishes no permission to import GTA maps, vehicles, textures, audio or game runtime into Buena Onda. Any future code adoption needs attribution and dependency-specific review. This assessment uses conceptual patterns only and adds no dependency, asset, service or recurring cost.

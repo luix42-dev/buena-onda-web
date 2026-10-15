@@ -6,7 +6,8 @@ import Footer from '@/components/layout/Footer'
 import PersistentPlayer from '@/components/ui/PersistentPlayer'
 
 export default function CruiseSiteFrame({ children }: { children: React.ReactNode }) {
-  const cruise = usePathname() === '/cruise'
+  const pathname = usePathname()
+  const cruise = pathname === '/cruise' || pathname === '/cruise/human-radio'
   if (cruise) return <main>{children}</main>
   return <><Navigation /><main className="pb-16">{children}</main><Footer /><PersistentPlayer /></>
 }

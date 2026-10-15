@@ -1,0 +1,131 @@
+{
+  "at": "2026-10-15T02:34:04.479Z",
+  "browser": "155.0.4283.45",
+  "environment": "Headless desktop Edge; touch and reduced-motion emulation, no physical mobile validation",
+  "fixtures": [
+    "Jolt network request deliberately aborted",
+    "Metadata endpoint deliberately returns HTTP 503",
+    "Storage.prototype getItem/setItem deliberately throw"
+  ],
+  "checks": {
+    "streamOutageRecoveryAndUnavailableMetadata": true,
+    "storageFailureRetainsSessionFavoriteAndExports": true,
+    "touchReducedMotionAndKeyboard": true,
+    "originalCruisePreserved": true,
+    "noListedTelemetryRequests": true
+  },
+  "errors": [],
+  "networkTelemetry": [],
+  "outage": {
+    "retryVisible": true,
+    "audio": [
+      {
+        "src": "",
+        "time": 0,
+        "paused": true,
+        "readyState": 0
+      },
+      {
+        "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+        "time": 0,
+        "paused": false,
+        "readyState": 0
+      }
+    ],
+    "recovery": {
+      "before": [
+        {
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "readyState": 0
+        },
+        {
+          "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "time": 1.009209,
+          "paused": false,
+          "readyState": 3
+        }
+      ],
+      "after": [
+        {
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "readyState": 0
+        },
+        {
+          "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "time": 3.508948,
+          "paused": false,
+          "readyState": 3
+        }
+      ],
+      "actualAudioAdvances": true,
+      "unavailableVisible": true,
+      "saveDisabled": true
+    }
+  },
+  "storage": {
+    "favoriteRemainsInSession": [
+      "NTS 1"
+    ],
+    "warning": [
+      "Browser storage is unavailable. These changes last for this session; export your finds to keep them."
+    ],
+    "export": {
+      "format": "buena-onda-discoveries",
+      "version": 1,
+      "exportedAt": "2026-10-15T02:34:14.596Z",
+      "discoveries": []
+    }
+  },
+  "touch": {
+    "hasTouch": true,
+    "reducedMotion": true,
+    "profiles": [
+      {
+        "name": "portrait",
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "volumeVisible": true,
+        "creditsOpen": true
+      },
+      {
+        "name": "landscape",
+        "width": 844,
+        "height": 390,
+        "overflow": false,
+        "volumeVisible": true,
+        "creditsOpen": true
+      }
+    ],
+    "keyboardInitialFocus": true,
+    "keyboardFocusRestored": true
+  },
+  "originalCruise": {
+    "humanDeckCount": 0,
+    "state": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 0,
+      "station": "jolt-radio",
+      "playing": false,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Waiting for radio",
+      "spectrum": 0,
+      "drawCalls": 0,
+      "ready": false,
+      "vehicle": "countach",
+      "garage": true,
+      "timeMode": "night"
+    }
+  }
+}
