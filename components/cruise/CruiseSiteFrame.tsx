@@ -7,7 +7,7 @@ import PersistentPlayer from '@/components/ui/PersistentPlayer'
 
 export default function CruiseSiteFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const cruise = pathname === '/cruise' || pathname === '/cruise/human-radio' || pathname.startsWith('/cruise/experience')
+  const cruise = pathname === '/cruise' || pathname === '/cruise/human-radio' || (pathname.startsWith('/cruise/experience') || pathname === '/cruise/os')
   if (cruise) return <main>{children}</main>
   return <><Navigation /><main className="pb-16">{children}</main><Footer /><PersistentPlayer /></>
 }
