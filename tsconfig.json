@@ -40,7 +40,9 @@
     ".next-experience-final-build/types/**/*.ts",
     ".next-cruise-os-dev/types/**/*.ts",
     ".next-cruise-os-build/types/**/*.ts",
-    ".next-cruise-os-simple-build/types/**/*.ts"
+    ".next-cruise-os-simple-build/types/**/*.ts",
+    ".next-cruise-os-cockpit-build/types/**/*.ts",
+    ".next-cruise-os-cockpit-final-build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

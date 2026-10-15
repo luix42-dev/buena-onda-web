@@ -6,6 +6,7 @@ import type { useCruiseAudio } from '@/components/real-miami/audio/useCruiseAudi
 import type { HumanRadioMetadata } from '@/lib/human-radio/metadata'
 import DiscoveryConsole from '@/components/human-radio/DiscoveryConsole'
 import { cruiseShortcut } from '@/lib/cruise-os/input'
+import RidePicker from '@/components/real-miami/jeep/RidePicker'
 import Glovebox, { type GloveboxPage } from './Glovebox'
 import PostcardStudio from './PostcardStudio'
 import { useCruiseGamepad } from './useCruiseGamepad'
@@ -28,6 +29,8 @@ const radioPanels = ['stations','presets','finds']
 /** Presentation/navigation only. Audio and scene lifetimes remain owned by JeepNight. */
 export default function CruiseOS(props: Props) {
   const [panel, setPanel] = useState<Panel>(null)
+  const [radioLearned, setRadioLearned] = useState(false)
+  useEffect(() => { if(props.focused) setRadioLearned(true) }, [props.focused])
   const [controller, setController] = useState(false)
   const controllerStatus = useCruiseGamepad({enabled:controller,onGlovebox:()=>setPanel('home'),onRadio:()=>setPanel('stations'),onCamera:()=>{if(props.started)props.onView(props.view==='driver'?'chase':'driver')}})
   const gloveboxTrigger = useRef<HTMLButtonElement>(null)
@@ -65,9 +68,9 @@ export default function CruiseOS(props: Props) {
           <button ref={gloveboxTrigger} type="button" aria-haspopup="dialog" aria-expanded={panel !== null && !radioPanels.includes(panel)} onClick={() => setPanel('home')}>Menu</button>
         </div>
       </header>
-      {!props.started && !props.listeningOnly && <section className="os-invitation" aria-label="Begin your cruise"><h1>Take the long way.</h1><p>A Miami drive with live radio.<br/>The car drives itself.</p><button className="os-start" onClick={props.onStart}>Play and start cruising</button><p className="os-readiness" role="status">{props.ready ? 'Your ride is ready.' : 'Scenery is loading. You can start the radio now.'}</p></section>}
+      {!props.started && !props.listeningOnly && <RidePicker cruiseOS humanRadio vehicle={props.vehicle} onSelect={props.onVehicle} night={props.night} onNightChange={night=>{if(night!==props.night)props.onNight()}} onStart={props.onStart} ready={props.ready} routeReady={props.ready}/>}
       {props.started && !props.ready && !props.listeningOnly && <p className="os-guidance" role="status">Loading the scenery. Your radio is below.</p>}
-      {props.started && props.ready && props.elapsed < 12 && <p className="os-guidance">Driving is automatic. Choose a station below.</p>}
+      {props.started && props.ready && !props.listeningOnly && !props.focused && !radioLearned && props.view==='driver' && <div className="os-guidance os-radio-hint"><button onClick={props.onFocusRadio}>Tap the radio to tune in</button><span>Autodrive is on. Change your view above.</span><button className="os-hint-dismiss" aria-label="Dismiss radio guide" onClick={()=>setRadioLearned(true)}>Got it</button></div>}
       {props.focused && <button className="os-return-drive" onClick={props.onBackToDrive}>Back to drive</button>}
     </div>
     <Glovebox page={panel && !radioPanels.includes(panel) ? panel as GloveboxPage : null} onPage={setPanel} onCollection={setPanel} listeningControls={playback}>

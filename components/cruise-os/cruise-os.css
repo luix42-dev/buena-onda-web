@@ -75,3 +75,20 @@
 .cruise-os .os-glovebox-nav small,.cruise-os .os-glovebox-number,.cruise-os .os-glovebox-nav>button>span:last-child{display:none}
 @media(max-width:600px){.cruise-os .os-glovebox-nav{grid-template-columns:1fr}.cruise-os .os-invitation>p{font-size:14px}}
 @media(max-height:420px){.cruise-os[data-started=false] .os-world-ui{padding:10px 20px}.cruise-os .os-invitation{padding:12px 0}.cruise-os .os-invitation h1{font-size:30px;margin-bottom:8px}.cruise-os .os-invitation>p{font-size:13px;margin:8px 0}.cruise-os .os-invitation .os-start{margin-top:12px;min-height:48px}.cruise-os .os-invitation .os-readiness{font-size:11px;margin-top:8px}}
+/* Reused garage, scoped to the reversible Cruise OS entry. */
+.cruise-os[data-started=false] .os-world-ui{padding:14px 4%;overflow-y:auto;pointer-events:none}
+.cruise-os[data-started=false] .os-header{flex:none;z-index:35;pointer-events:auto}
+.jn.cruise-os .rp.rp-os{position:relative;inset:auto;flex:1;min-height:0;padding:12px 0 18px;gap:10px;grid-template-rows:auto minmax(70px,1fr) auto;pointer-events:none}
+.rp-os-heading h1{font-family:var(--font-serif),Georgia,serif;font-size:clamp(26px,4vw,40px);font-weight:400;margin:4px 0}
+.rp-os-heading>p:last-child{font-size:13px;margin:4px 0;color:#bac4c5}
+.jn .rp-os .rp-showcase{min-height:70px}
+.rp-os-bottom{max-width:780px;width:100%;justify-self:center;pointer-events:auto}
+.rp-os-bottom h2{font-size:24px;font-weight:500;margin:0 0 8px;text-align:center}.rp-os-bottom h2 small{font-size:12px;color:#bac4c5}
+.rp-os-lineup{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.rp-os-lineup button{border:1px solid #f5ecdc40;border-radius:5px;background:#171e24c9;padding:8px 12px;min-height:44px;font-size:12px}
+.rp-os-lineup button[aria-pressed=true]{background:#f5ecdc;color:#222c30!important}
+.rp-os-departure{display:grid;grid-template-columns:1fr 1fr;gap:12px}.jn .rp-os .rp-times{margin:0}.jn .rp-os .rp-start{min-height:48px}
+.cruise-os .os-radio-hint{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 12px;max-width:calc(100% - 24px);width:max-content;pointer-events:auto;background:#152b26ed}
+.os-radio-hint span{font-size:11px}.os-radio-hint button{min-height:44px;border:1px solid #f5ecdc40;border-radius:4px;padding:6px 10px;background:#203c33;color:#f5ecdc;font:inherit;cursor:pointer}.os-radio-hint .os-hint-dismiss{font-size:11px;background:transparent}
+@media(max-width:700px){.jn.cruise-os .rp.rp-os{gap:8px;padding-top:10px}.rp-os-lineup{gap:4px;margin-bottom:8px}.rp-os-lineup button{padding:6px 9px;font-size:11px}.rp-os-departure{grid-template-columns:1fr;gap:8px}.jn .rp-os .rp-times button{min-height:44px}.cruise-os .os-radio-hint span{display:none}}
+@media(max-height:500px){.cruise-os[data-started=false] .os-world-ui{padding-top:8px;padding-bottom:10px}.cruise-os[data-started=false] .os-brand span,.rp-os-heading>p{display:none}.rp-os-heading h1{font-size:24px;margin:0}.jn.cruise-os .rp.rp-os{gap:4px;padding:6px 0 8px}.rp-os-bottom h2{font-size:18px;margin-bottom:4px}.rp-os-lineup{margin-bottom:4px}.rp-os-lineup button{min-height:44px;padding:4px 8px}.rp-os-departure{grid-template-columns:1fr 1fr;gap:6px}.jn .rp-os .rp-footnote{display:none}.jn .rp-os .rp-start{font-size:12px;padding:0 12px;min-height:44px}}

@@ -12,6 +12,7 @@ const rides: { id: RideVehicleId; name: string; year: string; mood: string; desc
 ]
 
 export type RidePickerProps = {
+  cruiseOS?: boolean
   humanRadio?: boolean
   driveLabel?: string
   /** Worlds can restrict the garage, e.g. Neon Run is DeLorean only. */
@@ -26,11 +27,25 @@ export type RidePickerProps = {
   castControl?: ReactNode
 }
 
-export default function RidePicker({ humanRadio = false, driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
+export default function RidePicker({ cruiseOS = false, humanRadio = false, driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
   const lineup = humanRadio ? [...rides, { id: 'wrangler' as const, name: 'Wrangler', year: '2012', mood: '05 / AFTER HOURS', description: 'The original open-air cabin, its physical radio, and a little more room for the night.' }] : rides
   const index = Math.max(0, lineup.findIndex(ride => ride.id === vehicle))
   const selected = lineup[index]
   const selectNext = (step: number) => onSelect(lineup[(index + step + lineup.length) % lineup.length].id)
+  if (cruiseOS) return <section className="rp rp-os" aria-label="Choose your ride">
+    <div className="rp-os-heading"><p className="rp-eyebrow">BUENA ONDA CRUISE</p><h1>Choose your ride.</h1><p>The car drives itself. You choose the music.</p></div>
+    <div className="rp-showcase" aria-label={`${selected.year} ${selected.name} 3D showcase`}>
+      <button className="rp-arrow" type="button" onClick={() => selectNext(-1)} aria-label="Previous ride">&#8249;</button>
+      {!ready && <span className="rp-loading" role="status">Preparing your {selected.name}...</span>}
+      <button className="rp-arrow" type="button" onClick={() => selectNext(1)} aria-label="Next ride">&#8250;</button>
+    </div>
+    <div className="rp-os-bottom">
+      <h2 aria-live="polite">{selected.name} <small>{selected.year}</small></h2>
+      <div className="rp-os-lineup" role="group" aria-label="Available rides">{lineup.filter(ride => !only || only.includes(ride.id)).map(ride => <button type="button" key={ride.id} onClick={() => onSelect(ride.id)} aria-pressed={ride.id === vehicle} aria-label={`Choose ${ride.year} ${ride.name}`}>{ride.name}</button>)}</div>
+      <div className="rp-os-departure"><div className="rp-times" role="group" aria-label="Choose lighting"><button type="button" aria-pressed={!night} onClick={() => onNightChange(false)}>Sunset</button><button type="button" aria-pressed={night} onClick={() => onNightChange(true)}>Night</button></div><button type="button" className="rp-start" aria-label="Start the drive" onClick={onStart}>Start cruising <span aria-hidden="true">&#8594;</span></button></div>
+      <small className="rp-footnote">Start inside the cockpit. Radio begins with you.</small>
+    </div>
+  </section>
   return <section className="rp" aria-label="Choose your ride">
     <header className="rp-header">
       <a className="rp-brand" href="https://www.buenaondalifestyle.com/">Buena Onda<span>CRUISE / MIAMI · BETA</span></a>
