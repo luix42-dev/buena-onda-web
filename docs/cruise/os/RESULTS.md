@@ -1,6 +1,6 @@
 # Cruise OS delivery
 
-**Latest update:** listener feedback identified overload and a blocked Play button. The interface was simplified in `34ff268`; production build is now `h_LNOKPQjEQ_1lCmdO9sQ`. See [simplification findings and evidence](simplification/RESULTS.md). The report below records the earlier OS implementation and its historical measurements.
+**Latest update:** restored the five-ride 3D garage entry, cockpit-first start, contextual radio help and a raised/forward Countach seat in `2715376`. Local production build: `I9B7uUgJOo8_ygFiiap3Q`. See [implementation and preserved behavior](cockpit-return/IMPLEMENTATION.md), [before evidence](cockpit-return/BEFORE.md) and [browser QA](cockpit-return/QA.md). The earlier Play-accessibility fix remains included; [simplification evidence](simplification/RESULTS.md) records its baseline. The report below records the earlier OS implementation and historical measurements.
 
 Local production: **http://127.0.0.1:3081/cruise/os**. Optional guide: **http://127.0.0.1:3081/cruise/os?follow=1**. Compare the preserved interface at **http://127.0.0.1:3077/cruise/experience**; the previous Human Radio build remains on **http://127.0.0.1:3074/cruise/human-radio**.
 

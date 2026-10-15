@@ -1,0 +1,43 @@
+﻿import {createRequire} from 'node:module'
+import {mkdir,writeFile} from 'node:fs/promises'
+const require=createRequire(import.meta.url)
+let chromium
+try{({chromium}=require('@playwright/test'))}catch{({chromium}=createRequire(new URL('../../cruise-master-20261005/package.json',import.meta.url))('@playwright/test'))}
+const before=process.argv.includes('--before'),base=process.env.BASE_URL||'http://127.0.0.1:3081/cruise/os',out=process.env.PROOF_OUT||`docs/cruise/os/cockpit-return/evidence/${before?'before':'after'}`
+const tuning=process.argv.includes('--tuning')
+const wranglerOnly=process.argv.includes('--wrangler-only'),expectedVehicle=wranglerOnly?'wrangler':'countach'
+await mkdir(out,{recursive:true})
+const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-webgl','--autoplay-policy=document-user-activation-required']})
+const result={at:new Date().toISOString(),url:base,browser:browser.version(),limitations:'Headless Windows Edge viewport emulation, DPR1. Not actual Chrome zoom, physical-device or human preference validation. No FPS benchmark.',cases:[]}
+const snapshot=page=>page.evaluate(()=>({drive:window.__jeepNight?.(),audio:(window.__cockpitAudio||[]).map((a,id)=>({id,time:a.currentTime,paused:a.paused,src:a.currentSrc})),body:document.body.innerText.slice(0,10000),overflow:document.documentElement.scrollWidth>innerWidth,buttons:[...document.querySelectorAll('button')].filter(e=>e.getClientRects().length).map(e=>({label:e.getAttribute('aria-label')||e.textContent,rect:e.getBoundingClientRect().toJSON()}))}))
+const hit=locator=>locator.evaluate(e=>{const r=e.getBoundingClientRect(),found=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{rect:r.toJSON(),fullyVisible:r.x>=0&&r.y>=0&&r.right<=innerWidth&&r.bottom<=innerHeight,uncovered:!!found&&(e===found||e.contains(found)),actualTarget:found?.getAttribute('aria-label')||found?.textContent?.slice(0,120)}})
+if(process.argv.includes('--garage-only')){
+ try{for(const[name,width,height]of[['desktop',1366,768],['portrait',390,844]]){const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1}),page=await context.newPage(),item={name,checks:{}};result.cases.push(item);try{await page.goto(`${base}?diagnostics=1`,{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:'Choose 5000QV Countach',exact:true}).click();await page.waitForFunction(()=>window.__jeepNight?.()?.ready&&!document.querySelector('.rp-loading'),null,{timeout:90000});await page.waitForTimeout(700);item.observed=await snapshot(page);item.checks.ready=item.observed.drive.ready;item.checks.countach=item.observed.drive.vehicle==='countach';item.checks.garage=item.observed.drive.garage;await page.screenshot({path:`${out}/${name}-loaded-garage.png`,fullPage:true})}catch(e){item.failure=e.stack}await context.close()}}finally{await browser.close();result.passed=result.cases.every(c=>!c.failure&&Object.values(c.checks).every(Boolean));await writeFile(`${out}/garage.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1}process.exit(process.exitCode||0)
+}
+try{
+ if(before){
+  const context=await browser.newContext({viewport:{width:1366,height:768},deviceScaleFactor:1}),page=await context.newPage();const item={name:'public-reference',url:'https://www.buenaondalifestyle.com/cruise',errors:[]};result.cases.push(item);page.on('pageerror',e=>item.errors.push(e.message));try{await page.goto(item.url,{waitUntil:'domcontentloaded',timeout:60000});await page.waitForTimeout(15000);item.observed=await snapshot(page);await page.screenshot({path:`out/public-entry.png`.replace('out/',`${out}/`),fullPage:true});await writeFile(`${out}/public-dom.html`,await page.content());}catch(e){item.failure=e.stack}await context.close()
+ }
+ for(const[name,width,height]of(before?[['desktop',1366,768],['portrait',390,844],['short',1024,480]]:tuning?[['desktop',1366,768],['portrait',390,844]]:wranglerOnly?[['wrangler',1366,768]]:[['desktop',1366,768],['laptop',1280,600],['short',1024,480],['portrait',390,844],['zoom-reflow',683,384],['compact-reflow',512,384]])){
+  const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1});await context.addInitScript(()=>{window.__cockpitAudio=[];window.Audio=new Proxy(window.Audio,{construct(target,args){const a=Reflect.construct(target,args);window.__cockpitAudio.push(a);return a}})});const page=await context.newPage(),item={name,viewport:{width,height},checks:{},errors:[]};result.cases.push(item);page.on('pageerror',e=>item.errors.push(e.message))
+  try{await page.goto(`${base}?diagnostics=1`,{waitUntil:'domcontentloaded',timeout:60000});const start=page.getByRole('button',{name:before?'Play and start cruising':'Start the drive',exact:true});await start.waitFor({timeout:30000});if(!before){const selectCountach=page.getByRole('button',{name:wranglerOnly?/^Choose .*Wrangler$/:/^Choose .*Countach$/});await selectCountach.click();await page.waitForFunction(()=>!document.querySelector('[aria-label="Start the drive"]')?.disabled,null,{timeout:90000});item.startHit=await hit(start);item.checks.startFullyVisible=item.startHit.fullyVisible;item.checks.startUncovered=item.startHit.uncovered;item.checks.noPrestartDeck=await page.locator('.os-radio-deck:visible').count()===0}item.entry=await snapshot(page);await page.screenshot({path:`${out}/${name}-entry.png`,fullPage:true});await start.click();if(!before){await page.waitForFunction(()=>window.__jeepNight?.()?.garage===false);item.immediate=await snapshot(page);item.checks.immediateCockpit=item.immediate.drive.camera==='driver';item.checks.chosenVehicle=item.immediate.drive.vehicle===expectedVehicle}await page.waitForFunction(()=>window.__jeepNight?.()?.ready,null,{timeout:90000});if(before)await page.getByRole('combobox',{name:'Camera view',exact:true}).selectOption('driver');await page.waitForTimeout(before?2500:tuning?1500:wranglerOnly?3000:15000);item.cockpit=await snapshot(page);await page.screenshot({path:`${out}/${name}-cockpit.png`,fullPage:true});item.checks.cockpit=item.cockpit.drive?.camera==='driver';item.checks.vehicleRetained=item.cockpit.drive?.vehicle===expectedVehicle;item.checks.noOverflow=!item.cockpit.overflow
+   if(!before&&!wranglerOnly&&!tuning){
+    const guide=page.getByRole('button',{name:'Tap the radio to tune in',exact:true})
+    item.guideHit=await hit(guide);item.checks.radioGuideUncovered=item.guideHit.uncovered;item.checks.radioGuideFits=item.guideHit.fullyVisible
+    const beforeRadio=await snapshot(page),point=await page.evaluate(()=>JSON.parse(document.documentElement.dataset.physicalRadioHit||'null'))
+    const projectionVisible=!!point&&point.x>=0&&point.x<=width&&point.y>=0&&point.y<=height
+    const radioHitElement=point?await page.evaluate(p=>document.elementFromPoint(p.x,p.y)?.tagName,point):null
+    item.meshObservation={point,projectionVisible,radioHitElement,uncovered:radioHitElement==='CANVAS'}
+    if(projectionVisible&&radioHitElement==='CANVAS'){item.focusMethod='physical mesh';await page.mouse.click(point.x,point.y)}
+    else{item.focusMethod='accessible guide';await guide.click()}
+    await page.waitForFunction(()=>window.__jeepNight?.()?.radioFocused===true,null,{timeout:5000});item.checks.radioFocusWorks=true
+    item.realMeshTapVerified=item.focusMethod==='physical mesh'
+    await page.waitForTimeout(1200);item.focused=await snapshot(page);await page.screenshot({path:`${out}/${name}-radio-focus.png`,fullPage:true})
+    item.checks.radioFocusKeepsAudio=item.focused.audio.some(a=>!a.paused&&a.time>(beforeRadio.audio.find(b=>b.id===a.id)?.time||0)+.2)
+    await page.getByRole('button',{name:'Back to drive',exact:true}).click();await page.waitForTimeout(700);item.checks.backToDrive=!(await snapshot(page)).drive.radioFocused
+    const pause=page.locator('.os-radio-deck').getByRole('button',{name:'Pause radio',exact:true});item.pauseHit=await hit(pause);item.checks.transportUncovered=item.pauseHit.uncovered;item.checks.transportFits=item.pauseHit.fullyVisible
+   }
+   item.checks.noPageErrors=item.errors.length===0
+  }catch(e){item.failure=e.stack;await page.screenshot({path:`${out}/${name}-failure.png`,fullPage:true}).catch(()=>{})}await context.close();await writeFile(`${out}/results.json`,JSON.stringify(result,null,2))
+ }
+}finally{await browser.close();result.passed=result.cases.every(c=>!c.failure&&(!c.checks||Object.values(c.checks).every(Boolean)));await writeFile(`${out}/results.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1}

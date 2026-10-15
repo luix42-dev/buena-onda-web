@@ -1,0 +1,679 @@
+{
+  "at": "2026-10-15T18:12:31.395Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Headless Windows Edge viewport emulation, DPR1. Not actual Chrome zoom, physical-device or human preference validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "public-reference",
+      "url": "https://www.buenaondalifestyle.com/cruise",
+      "errors": [],
+      "observed": {
+        "audio": [],
+        "body": "Along the Route\nBuena Onda\nCRUISE / MIAMI · BETA\nCredits\n\nBETA — STILL FINDING OUR GROOVE.\n\nYOUR RIDE. YOUR RHYTHM.\nSupport Buena Onda\n— explore the catalog (opens a new tab)\n03 / OPEN AIR\nISLAND TRAIL\n\nAn original eighties off-roader. Open sky, analog dials, salt in the air.\n\nChoose your drive\nFull Miami drive\nCoastal Causeway\nSouth Beach\nDowntown / Bayside\nMiMo / Biscayne\nDay Drive\nNight Drive\nLET’S CRUISE\nAutomatic cruising · Radio starts with your drive\nCoastal Coupe\nClassic Coupe\nIsland Trail",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": " Along the Route",
+            "rect": {
+              "x": 1089.765625,
+              "y": 24,
+              "width": 136.609375,
+              "height": 44,
+              "top": 24,
+              "right": 1226.375,
+              "bottom": 68,
+              "left": 1089.765625
+            }
+          },
+          {
+            "label": "Credits",
+            "rect": {
+              "x": 1272.953125,
+              "y": 28.5,
+              "width": 38.421875,
+              "height": 44,
+              "top": 28.5,
+              "right": 1311.375,
+              "bottom": 72.5,
+              "left": 1272.953125
+            }
+          },
+          {
+            "label": "Previous car",
+            "rect": {
+              "x": 54.625,
+              "y": 345.59375,
+              "width": 52,
+              "height": 52,
+              "top": 345.59375,
+              "right": 106.625,
+              "bottom": 397.59375,
+              "left": 54.625
+            }
+          },
+          {
+            "label": "Next car",
+            "rect": {
+              "x": 1259.375,
+              "y": 345.59375,
+              "width": 52,
+              "height": 52,
+              "top": 345.59375,
+              "right": 1311.375,
+              "bottom": 397.59375,
+              "left": 1259.375
+            }
+          },
+          {
+            "label": "Salt paint",
+            "rect": {
+              "x": 54.625,
+              "y": 643,
+              "width": 26,
+              "height": 26,
+              "top": 643,
+              "right": 80.625,
+              "bottom": 669,
+              "left": 54.625
+            }
+          },
+          {
+            "label": "Lagoon paint",
+            "rect": {
+              "x": 90.625,
+              "y": 643,
+              "width": 26,
+              "height": 26,
+              "top": 643,
+              "right": 116.625,
+              "bottom": 669,
+              "left": 90.625
+            }
+          },
+          {
+            "label": "Sand paint",
+            "rect": {
+              "x": 126.625,
+              "y": 643,
+              "width": 26,
+              "height": 26,
+              "top": 643,
+              "right": 152.625,
+              "bottom": 669,
+              "left": 126.625
+            }
+          },
+          {
+            "label": " Day Drive",
+            "rect": {
+              "x": 971.375,
+              "y": 536,
+              "width": 166,
+              "height": 44,
+              "top": 536,
+              "right": 1137.375,
+              "bottom": 580,
+              "left": 971.375
+            }
+          },
+          {
+            "label": " Night Drive",
+            "rect": {
+              "x": 1145.375,
+              "y": 536,
+              "width": 166,
+              "height": 44,
+              "top": 536,
+              "right": 1311.375,
+              "bottom": 580,
+              "left": 1145.375
+            }
+          },
+          {
+            "label": "LET’S CRUISE ",
+            "rect": {
+              "x": 971.375,
+              "y": 592,
+              "width": 340,
+              "height": 57,
+              "top": 592,
+              "right": 1311.375,
+              "bottom": 649,
+              "left": 971.375
+            }
+          },
+          {
+            "label": "Coastal Coupe",
+            "rect": {
+              "x": 54.625,
+              "y": 700,
+              "width": 195.8125,
+              "height": 44,
+              "top": 700,
+              "right": 250.4375,
+              "bottom": 744,
+              "left": 54.625
+            }
+          },
+          {
+            "label": "Classic Coupe",
+            "rect": {
+              "x": 262.4375,
+              "y": 700,
+              "width": 191.671875,
+              "height": 44,
+              "top": 700,
+              "right": 454.109375,
+              "bottom": 744,
+              "left": 262.4375
+            }
+          },
+          {
+            "label": "Island Trail",
+            "rect": {
+              "x": 466.109375,
+              "y": 700,
+              "width": 174.9375,
+              "height": 44,
+              "top": 700,
+              "right": 641.046875,
+              "bottom": 744,
+              "left": 466.109375
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "checks": {
+        "cockpit": true,
+        "countach": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "night"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\nTake the long way.\n\nA Miami drive with live radio.\nThe car drives itself.\n\nPlay and start cruising\n\nScenery is loading. You can start the radio now.\n\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1226.671875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1297.703125,
+              "bottom": 64,
+              "left": 1226.671875
+            }
+          },
+          {
+            "label": "Play and start cruising",
+            "rect": {
+              "x": 68.296875,
+              "y": 427.734375,
+              "width": 206.765625,
+              "height": 52,
+              "top": 427.734375,
+              "right": 275.0625,
+              "bottom": 479.734375,
+              "left": 68.296875
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 17.969098975124098,
+          "rpm": 1174.3562286484187,
+          "distance": 5.3326809083315565,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 23.08580223175991,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 7.965705307200551,
+          "drawCalls": 281,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 10.843007,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nDriving is automatic. Choose a station below.\n\nPause\nJolt Radio\nChange station\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1270.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1342,
+              "bottom": 64,
+              "left": 1270.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 316,
+              "y": 696.875,
+              "width": 64,
+              "height": 44,
+              "top": 696.875,
+              "right": 380,
+              "bottom": 740.875,
+              "left": 316
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 392,
+              "y": 696.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 696.75,
+              "right": 809.453125,
+              "bottom": 741,
+              "left": 392
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 821.453125,
+              "y": 696.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 696.875,
+              "right": 878,
+              "bottom": 740.875,
+              "left": 821.453125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "checks": {
+        "cockpit": true,
+        "countach": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "night"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\nTake the long way.\n\nA Miami drive with live radio.\nThe car drives itself.\n\nPlay and start cruising\n\nScenery is loading. You can start the radio now.",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 299.46875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 370.5,
+              "bottom": 64,
+              "left": 299.46875
+            }
+          },
+          {
+            "label": "Play and start cruising",
+            "rect": {
+              "x": 19.5,
+              "y": 451.75,
+              "width": 206.765625,
+              "height": 52,
+              "top": 451.75,
+              "right": 226.265625,
+              "bottom": 503.75,
+              "left": 19.5
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 18.8774029007758,
+          "rpm": 1193.2792270994958,
+          "distance": 5.867289045132248,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 47.309284447003265,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 7.600284130312502,
+          "drawCalls": 246,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 6.689791,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nDriving is automatic. Choose a station below.\n\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 306.96875,
+              "y": 12,
+              "width": 71.03125,
+              "height": 44,
+              "top": 12,
+              "right": 378,
+              "bottom": 56,
+              "left": 306.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 726,
+              "width": 64,
+              "height": 44,
+              "top": 726,
+              "right": 89,
+              "bottom": 770,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 726,
+              "width": 217.484375,
+              "height": 44,
+              "top": 726,
+              "right": 312.484375,
+              "bottom": 770,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 318.484375,
+              "y": 726,
+              "width": 46.515625,
+              "height": 44,
+              "top": 726,
+              "right": 365,
+              "bottom": 770,
+              "left": 318.484375
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "short",
+      "viewport": {
+        "width": 1024,
+        "height": 480
+      },
+      "checks": {
+        "cockpit": true,
+        "countach": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.2318378360942006,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nMenu\nTake the long way.\n\nA Miami drive with live radio.\nThe car drives itself.\n\nPlay and start cruising\n\nScenery is loading. You can start the radio now.",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 901.78125,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 972.8125,
+              "bottom": 64,
+              "left": 901.78125
+            }
+          },
+          {
+            "label": "Play and start cruising",
+            "rect": {
+              "x": 51.1875,
+              "y": 273.140625,
+              "width": 206.765625,
+              "height": 52,
+              "top": 273.140625,
+              "right": 257.953125,
+              "bottom": 325.140625,
+              "left": 51.1875
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 21.111759309585228,
+          "rpm": 1239.8283189496922,
+          "distance": 7.306789380476685,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 53.725997413113085,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 10.654703895561397,
+          "drawCalls": 281,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 4.339566,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nDriving is automatic. Choose a station below.\n\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 928.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 1000,
+              "bottom": 52,
+              "left": 928.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 145,
+              "y": 408.875,
+              "width": 64,
+              "height": 44,
+              "top": 408.875,
+              "right": 209,
+              "bottom": 452.875,
+              "left": 145
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 221,
+              "y": 408.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 408.75,
+              "right": 638.453125,
+              "bottom": 453,
+              "left": 221
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 650.453125,
+              "y": 408.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 408.875,
+              "right": 707,
+              "bottom": 452.875,
+              "left": 650.453125
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "passed": true
+}

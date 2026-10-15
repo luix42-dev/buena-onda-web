@@ -1,0 +1,369 @@
+{
+  "at": "2026-10-15T18:39:32.277Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Headless Windows Edge viewport emulation, DPR1. Not actual Chrome zoom, physical-device or human preference validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "desktop",
+      "checks": {
+        "ready": true,
+        "countach": true,
+        "garage": true
+      },
+      "observed": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 9.951238929261448,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.8059675842523575,
+          "drawCalls": 99,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\n\nBUENA ONDA CRUISE\n\nCHOOSE YOUR RIDE.\n\nThe car drives itself. You choose the music.\n\n‹\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→\nStart inside the cockpit. Radio begins with you.\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1240.34375,
+              "y": 14,
+              "width": 71.03125,
+              "height": 44,
+              "top": 14,
+              "right": 1311.375,
+              "bottom": 58,
+              "left": 1240.34375
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 54.625,
+              "y": 338.90625,
+              "width": 52,
+              "height": 52,
+              "top": 338.90625,
+              "right": 106.625,
+              "bottom": 390.90625,
+              "left": 54.625
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 1259.375,
+              "y": 338.90625,
+              "width": 52,
+              "height": 52,
+              "top": 338.90625,
+              "right": 1311.375,
+              "bottom": 390.90625,
+              "left": 1259.375
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 403.578125,
+              "y": 608,
+              "width": 99.40625,
+              "height": 44,
+              "top": 608,
+              "right": 502.984375,
+              "bottom": 652,
+              "left": 403.578125
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 508.984375,
+              "y": 608,
+              "width": 90.359375,
+              "height": 44,
+              "top": 608,
+              "right": 599.34375,
+              "bottom": 652,
+              "left": 508.984375
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 605.34375,
+              "y": 608,
+              "width": 99.625,
+              "height": 44,
+              "top": 608,
+              "right": 704.96875,
+              "bottom": 652,
+              "left": 605.34375
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 710.96875,
+              "y": 608,
+              "width": 148.5,
+              "height": 44,
+              "top": 608,
+              "right": 859.46875,
+              "bottom": 652,
+              "left": 710.96875
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 865.46875,
+              "y": 608,
+              "width": 96.9375,
+              "height": 44,
+              "top": 608,
+              "right": 962.40625,
+              "bottom": 652,
+              "left": 865.46875
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 293,
+              "y": 664,
+              "width": 188,
+              "height": 48,
+              "top": 664,
+              "right": 481,
+              "bottom": 712,
+              "left": 293
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 489,
+              "y": 664,
+              "width": 188,
+              "height": 48,
+              "top": 664,
+              "right": 677,
+              "bottom": 712,
+              "left": 489
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 689,
+              "y": 664,
+              "width": 384,
+              "height": 48,
+              "top": 664,
+              "right": 1073,
+              "bottom": 712,
+              "left": 689
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "portrait",
+      "checks": {
+        "ready": true,
+        "countach": true,
+        "garage": true
+      },
+      "observed": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 27.406361597840014,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.7925233468413353,
+          "drawCalls": 99,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\n\nBUENA ONDA CRUISE\n\nCHOOSE YOUR RIDE.\n\nThe car drives itself. You choose the music.\n\n‹\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→\nStart inside the cockpit. Radio begins with you.",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 303.375,
+              "y": 14,
+              "width": 71.03125,
+              "height": 44,
+              "top": 14,
+              "right": 374.40625,
+              "bottom": 58,
+              "left": 303.375
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 15.59375,
+              "y": 326.546875,
+              "width": 44,
+              "height": 44,
+              "top": 326.546875,
+              "right": 59.59375,
+              "bottom": 370.546875,
+              "left": 15.59375
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 330.40625,
+              "y": 326.546875,
+              "width": 44,
+              "height": 44,
+              "top": 326.546875,
+              "right": 374.40625,
+              "bottom": 370.546875,
+              "left": 330.40625
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 46.296875,
+              "y": 594,
+              "width": 99.40625,
+              "height": 44,
+              "top": 594,
+              "right": 145.703125,
+              "bottom": 638,
+              "left": 46.296875
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 149.703125,
+              "y": 594,
+              "width": 90.359375,
+              "height": 44,
+              "top": 594,
+              "right": 240.0625,
+              "bottom": 638,
+              "left": 149.703125
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 244.0625,
+              "y": 594,
+              "width": 99.625,
+              "height": 44,
+              "top": 594,
+              "right": 343.6875,
+              "bottom": 638,
+              "left": 244.0625
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 70.28125,
+              "y": 642,
+              "width": 148.5,
+              "height": 44,
+              "top": 642,
+              "right": 218.78125,
+              "bottom": 686,
+              "left": 70.28125
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 222.78125,
+              "y": 642,
+              "width": 96.9375,
+              "height": 44,
+              "top": 642,
+              "right": 319.71875,
+              "bottom": 686,
+              "left": 222.78125
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 15.59375,
+              "y": 694,
+              "width": 175.40625,
+              "height": 44,
+              "top": 694,
+              "right": 191,
+              "bottom": 738,
+              "left": 15.59375
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 199,
+              "y": 694,
+              "width": 175.40625,
+              "height": 44,
+              "top": 694,
+              "right": 374.40625,
+              "bottom": 738,
+              "left": 199
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 15.59375,
+              "y": 746,
+              "width": 358.8125,
+              "height": 48,
+              "top": 746,
+              "right": 374.40625,
+              "bottom": 794,
+              "left": 15.59375
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "passed": true
+}
