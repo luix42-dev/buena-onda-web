@@ -10,7 +10,7 @@ const seconds = Math.min(300, Math.max(60, Number(process.env.EXPERIENCE_SECONDS
 const out = `docs/cruise/experience/evidence/${phase}`
 await mkdir(out, { recursive: true })
 const browser = await chromium.launch({ channel: 'msedge', headless: true, args: ['--enable-webgl', '--autoplay-policy=document-user-activation-required'] })
-const result = { at: new Date().toISOString(), phase, url: base, browser: browser.version(), viewport: { width: 1280, height: 720 }, dpr: 1, mode: 'development server; desktop Windows, no physical mobile', errors: [], consoleErrors: [], samples: [], checks: {} }
+const result = { at: new Date().toISOString(), phase, url: base, browser: browser.version(), viewport: { width: 1280, height: 720 }, dpr: 1, mode: `${process.env.EXPERIENCE_MODE || 'development server'}; desktop Windows, no physical mobile`, renderResolution: 'Browser deviceScaleFactor=1; actual scene DPR is recorded per sample as drive.renderDpr', errors: [], consoleErrors: [], samples: [], checks: {} }
 const context = await browser.newContext({ viewport: result.viewport, deviceScaleFactor: 1, acceptDownloads: true })
 await context.addInitScript(() => {
   window.__experienceMedia = []
@@ -48,7 +48,7 @@ try {
   result.checks.noOverflow = result.samples.every(s => !s.overflow)
   const fps = result.samples.slice(10).filter(s=>s.drive?.ready).map(s => s.drive?.fps).filter(v => Number.isFinite(v) && v > 0)
   const sorted = [...fps].sort((a,b)=>a-b)
-  result.performance = { averageSceneFps: fps.reduce((a,b)=>a+b,0)/fps.length, minSceneFps: sorted[0], p5SceneFps: sorted[Math.floor(sorted.length*.05)], below30Samples: fps.filter(v=>v<30).length, samples:fps.length, maxHeapBytes: Math.max(...result.samples.map(s=>s.heap||0)), renderer: await page.evaluate(()=>{const gl=document.querySelector('canvas')?.getContext('webgl2');const ext=gl?.getExtension('WEBGL_debug_renderer_info');return ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null}) }
+  result.performance = { averageSceneFps: fps.reduce((a,b)=>a+b,0)/fps.length, minSceneFps: sorted[0], p5SceneFps: sorted[Math.floor(sorted.length*.05)], below30Samples: fps.filter(v=>v<30).length, late60AverageFps: fps.slice(-60).reduce((a,b)=>a+b,0)/Math.min(60,fps.length), minimum30Met: sorted[0]>=30, renderDprRange: (()=>{const values=result.samples.map(s=>s.drive?.renderDpr).filter(Number.isFinite);return values.length?[Math.min(...values),Math.max(...values)]:null})(), samples:fps.length, maxHeapBytes: Math.max(...result.samples.map(s=>s.heap||0)), renderer: await page.evaluate(()=>{const gl=document.querySelector('canvas')?.getContext('webgl2');const ext=gl?.getExtension('WEBGL_debug_renderer_info');return ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null}) }
   if (!baseline) {
     await page.getByRole('button', { name: 'Tune & discover', exact: true }).click()
     await page.getByRole('button', { name: 'Favorite Jolt Radio', exact: true }).click()

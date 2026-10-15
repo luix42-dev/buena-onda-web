@@ -14,3 +14,7 @@ The shared audio hook now verifies the actual expected active source, non-paused
 - First postcard validation ran while shared integration changed and React remounted the experience back to Start. Its screenshot proves it was on entry rather than65seconds into driving. Retained as phase4-hmr-interrupted; only a fresh stable test can establish capture success.
 
 All viewport/touch tests use headless desktop Edge emulation. They do not prove physical iPhone/Android audio, GPU, thermal or lock-screen behavior. A no-page-exceptions assertion does not mean no external CORS/404 console errors. Some streams reject analyser CORS and use direct playback fallback; station outages remain possible.
+
+## Resolution ownership regression
+
+The manual-quality browser check caught Low remaining at renderDpr1 rather than0.75. Canvas configuration reapplied its dpr prop after imperative child adjustments. Source now puts the requested DPR in parent Canvas state, so the renderer and postprocessing share one value. Failed evidence is retained in low-sharing-dpr-reset-failed; successful manual override and controlled production traces must be assessed separately. The prior adaptive trace is intermediate evidence, not proof that DPR held.

@@ -3,7 +3,7 @@ import { mkdir,writeFile,readFile } from 'node:fs/promises'
 const require=createRequire(import.meta.url)
 let chromium
 try{({chromium}=require('@playwright/test'))}catch{({chromium}=createRequire(new URL('../../cruise-master-20261005/package.json',import.meta.url))('@playwright/test'))}
-const out='docs/cruise/experience/evidence/phase4';await mkdir(out,{recursive:true})
+const out=`docs/cruise/experience/evidence/${process.env.SHARING_PHASE||'phase4'}`;await mkdir(out,{recursive:true})
 const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-webgl','--autoplay-policy=document-user-activation-required']})
 const context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:1,acceptDownloads:true,permissions:['clipboard-read','clipboard-write']})
 const page=await context.newPage(),result={at:new Date().toISOString(),browser:browser.version(),environment:'Desktop Windows Edge, local development, genuine scene capture and opted-in QA counters; not audience data',checks:{},errors:[],requestHosts:[]}
@@ -11,7 +11,8 @@ page.on('pageerror',e=>result.errors.push(e.message));const hosts=new Set();page
 const options=()=>page.getByRole('button',{name:'Cruise options',exact:true}).click()
 const diagnostics=()=>page.locator('.experience-metrics summary').click()
 try{
- await page.goto('http://127.0.0.1:3076/cruise/experience?diagnostics=1',{waitUntil:'domcontentloaded',timeout:240000})
+ const target=new URL(process.env.EXPERIENCE_URL||'http://127.0.0.1:3076/cruise/experience');target.searchParams.set('diagnostics','1')
+ await page.goto(target.href,{waitUntil:'domcontentloaded',timeout:240000})
  await page.getByRole('button',{name:'Start Cruising',exact:true}).waitFor({timeout:120000})
  result.checks.metricsOffByDefault=await page.evaluate(()=>localStorage.getItem('buena-onda:experience:metrics:v1')===null&&localStorage.getItem('buena-onda:experience:metrics-consent:v1')!=='on')
  await page.getByRole('button',{name:'Start Cruising',exact:true}).click()
@@ -38,6 +39,13 @@ try{
  await page.getByRole('button',{name:'Delete diagnostics and turn off',exact:true}).click();await page.waitForTimeout(2200)
  result.checks.deletionStopsCollection=await page.evaluate(()=>localStorage.getItem('buena-onda:experience:metrics:v1')===null&&localStorage.getItem('buena-onda:experience:metrics-consent:v1')==='off')
  result.requestHosts=[...hosts];result.checks.noMarketingRequests=!result.requestHosts.some(host=>/google-analytics|googletagmanager|facebook|clarity\.ms/.test(host))
+ if(process.env.CHECK_LOW_QUALITY==='1'){
+ result.checks.manualLowDpr=await page.evaluate(()=>window.__jeepNight?.().renderDpr===.75)
+ await page.locator('#opening-options select').nth(1).selectOption('high')
+ await page.waitForFunction(()=>window.__jeepNight?.().renderDpr===1,null,{timeout:10000})
+ await page.waitForTimeout(5000)
+ result.checks.manualHighDpr=await page.evaluate(()=>window.__jeepNight?.().renderDpr===1)
+ }
  result.checks.noPageExceptions=result.errors.length===0
  await page.screenshot({path:`${out}/diagnostics-deleted.png`})
  if(Object.values(result.checks).some(v=>v!==true))process.exitCode=1

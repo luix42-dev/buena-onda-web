@@ -10,7 +10,7 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 /** Bloom/halation adapted to our existing WebGL renderer; no upstream code/assets. */
 export default function CruiseGlow({ enabled, blend, radioFocused, director = false, filmic = true, motion, neon = false }: { neon?: boolean; enabled: boolean; blend: MutableRefObject<number>; radioFocused: boolean; director?: boolean; filmic?: boolean; motion?: MutableRefObject<number> }) {
-  const { gl, scene, camera, size } = useThree()
+  const { gl, scene, camera, size, viewport } = useThree()
   useEffect(() => { const previous = gl.info.autoReset; gl.info.autoReset = false; return () => { gl.info.autoReset = previous } }, [gl])
   const pipeline = useMemo(() => {
     const target = new T.WebGLRenderTarget(1, 1, { type: T.HalfFloatType })
@@ -64,7 +64,7 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
     pipeline.composer.setSize(size.width, size.height)
     pipeline.glow.uniforms.texel.value.set(1 / (size.width * gl.getPixelRatio()), 1 / (size.height * gl.getPixelRatio()))
     pipeline.edges.uniforms.resolution.value.copy(pipeline.glow.uniforms.texel.value)
-  }, [pipeline, gl, size.width, size.height])
+  }, [pipeline, gl, size.width, size.height, viewport.dpr])
   useEffect(() => () => { pipeline.glow.dispose(); pipeline.edges.dispose(); pipeline.composer.dispose() }, [pipeline])
   useFrame((_, dt) => {
     gl.info.reset()
