@@ -1,5 +1,7 @@
 # Experience First phase gates
 
+**Current checkpoint:** all five phases have local implementations or playtest preparation. Final build,49 unit tests,9 sustained-drive checks,10 resized-sharing/quality checks,5 realtime-presence checks and10 feedback checks pass. The final desktop trace averages49.59FPS with31.85 sampled minimum. Earlier failures are retained as history. Public deployment and human/device/rights validation remain open.
+
 Protected base `6fbffd2`, branch `feature/experience-first-20261015`. Original Human Radio on port 3074 remains authoritative and unchanged. New local development route uses port 3076. No deployment.
 
 ## Audit / research — complete
@@ -34,7 +36,7 @@ Leased presence uses existing infrastructure, isolated environment-specific chan
 
 ## Phase 5 — Public Playtest and Launch Validation
 
-The launch package is being prepared after the functional gates. The [feedback-page QA](evidence/phase5-feedback/results.json) passed all 10 checks, covering required answers, bounds, explicit local export/clipboard actions, mobile viewport fit, no automatic storage/restoration, and no submission or external network requests. These are automated fixtures, not real participant responses. The production build passed. No deployment or real participant study has been performed.
+The launch package is prepared after the functional gates. The [feedback-page QA](evidence/phase5-feedback/results.json) passed all 10 checks, covering required answers, bounds, explicit local export/clipboard actions, mobile viewport fit, no automatic storage/restoration, and no submission or external network requests. These are automated fixtures, not real participant responses. The production build passed. No deployment or real participant study has been performed.
 
 **The longer production performance gate failed the proposed 30 FPS minimum in later route sections.** The [180-second production run](evidence/final-production/results.json) passed all nine functional checks but averaged 34.86 FPS, with a minimum of 17.69, p5 of 19.41, and 77 of 170 post-warmup samples below 30 FPS. Earlier 90-second samples do not establish sustained performance over this longer route.
 

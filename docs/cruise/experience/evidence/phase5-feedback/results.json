@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-15T16:11:40.885Z",
+  "url": "http://127.0.0.1:3076/real-miami/experience/playtest-feedback.html",
+  "environment": "Automated QA fixtures in headless Edge; desktop and mobile viewport emulation, NOT real playtest feedback or physical-device validation",
+  "checks": {
+    "accessibleQuestionsAndBounds": true,
+    "returnChoiceRequired": true,
+    "explicitDownloadSafeSchema": true,
+    "explicitClipboard": true,
+    "exportClampsProgrammaticOverflow": true,
+    "cruiseLinkPreservesCurrentTab": true,
+    "mobileViewportNoOverflow": true,
+    "noAutomaticStorage": true,
+    "answersNotAutomaticallyRestored": true,
+    "noSubmissionOrExternalNetwork": true
+  },
+  "requests": [
+    {
+      "url": "http://127.0.0.1:3076/real-miami/experience/playtest-feedback.html",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:3076/real-miami/experience/playtest-feedback.html",
+      "method": "GET",
+      "type": "document"
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "browser": "155.0.4283.45"
+}

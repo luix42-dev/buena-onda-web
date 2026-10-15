@@ -60,3 +60,9 @@ An initial [sharing gate artifact](evidence/phase4-hmr-interrupted/results.json)
 5. Physical iOS/Android, background/lock-screen audio, prolonged thermal/performance behavior, commercial station permissions and actual participant feedback remain launch work. No new-unit-test or desktop emulation result closes those gaps.
 
 Recommendation at this snapshot: continue the authorized local gates. Source reinspection confirms both counter-accuracy corrections. The design supports a restrained, consent-first local diagnostics foundation and truthful leased-session terminology, with concurrent-storage and BFCache-recovery limitations documented. It does not support public audience metrics or launch readiness by itself, and the stable integrated sharing/browser gate remains pending.
+
+## Final evidence addendum ? lead records subsequent independent QA
+
+A separate QA worker, who did not implement the postcard or rendering controls, opened `final-controlled/drive-180s.png` and `final-low-sharing/actual-gameplay-postcard.png`. The car/cabin and persistent radio controls were visible and readable, and the postcard contained real scene pixels and attribution. The worker read the nine passing sustained-drive checks and ten passing resized-sharing/manual-quality checks. Auto DPR0.92?1.00 yielded49.59FPS average and31.85 minimum sampled one-second average, zero/170 below30. This is not a fixed-DPR1, every-frame minimum or60FPS claim. Only2.66km of the19.64km loop was exercised.
+
+The source-only pending items earlier in this document are historical. Actual PNG, consent/export/deletion, manual quality, real presence joins/opt-out and the final moving trace now have evidence. Abrupt transport expiry, BFCache recovery, simultaneous storage atomicity, physical devices, commercial rights and public audience measurement remain open. Independent recommendation: local playtest ready; public launch not established.

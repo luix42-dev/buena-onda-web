@@ -1,5 +1,7 @@
 # Experience First performance evidence
 
+**Current result:** final Canvas-controlled production run passed all nine functional checks and the sampled 30 FPS minimum: 49.59 average, 31.85 minimum, 43.66 p5, zero/170 below30, actual scene DPR0.92?1.00. These are approximately one-second averages, not every-frame latency guarantees. [Final evidence](evidence/final-controlled/results.json). Prior and failed runs remain below for provenance.
+
 **Current result: the 180-second production run fails the proposed 30 FPS minimum in later route sections.** It averages 34.86 FPS, with a minimum of 17.69, p5 of 19.41, and 77 of 170 post-warmup samples below 30 FPS. Functional checks and earlier 90-second samples do not close this performance gap. An adaptive DPR change is being prepared for Auto quality; no improvement is verified yet.
 
 ## Baseline — authoritative Human Radio build

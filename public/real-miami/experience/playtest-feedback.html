@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+  <link rel="icon" href="data:,">
+  <title>A note from the drive — Buena Onda</title>
+  <style>
+    :root{color-scheme:dark;font-family:Georgia,'Times New Roman',serif;background:#111b1d;color:#f3e9cf;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#304340 0,transparent 55%),#111b1d;min-height:100vh;line-height:1.6}main{max-width:760px;margin:auto;padding:48px 24px 56px}.eyebrow,.brand,label,legend,button,.note,select,textarea,a{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}.brand{font-size:15px;font-weight:750;letter-spacing:.22em}.eyebrow{color:#e7af87;letter-spacing:.14em;font-size:11px;margin:28px 0 8px}h1{font-size:clamp(32px,7vw,54px);font-weight:400;line-height:1.1;letter-spacing:-.035em;margin:0 0 20px}p{margin:12px 0}.intro{font-size:19px;max-width:600px}.note{font-size:13px;color:#c2cbc3}.panel{background:#172427;border:1px solid #53615a;border-radius:4px;padding:26px;margin-top:28px}label,legend{font-size:15px;font-weight:650}label{display:block}textarea,select{width:100%;font-size:16px;color:#f3e9cf;background:#0f1a1c;border:1px solid #7b8b80;border-radius:3px;padding:12px;line-height:1.5}textarea{min-height:120px;resize:vertical;margin-top:8px}select{margin-top:8px}fieldset{border:0;padding:0;margin:24px 0}legend{padding:0;margin-bottom:10px}.choices{display:flex;flex-wrap:wrap;gap:10px}.choice{display:flex;gap:8px;align-items:center;min-height:44px;padding:8px 14px;border:1px solid #75857b;border-radius:3px;cursor:pointer}.choice input{accent-color:#f0c496;width:18px;height:18px;margin:0}.question{margin-top:24px}.question:first-child{margin-top:0}.hint{font-size:12px;margin:4px 0 16px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}button{font-size:14px;font-weight:650;min-height:46px;padding:11px 18px;border:1px solid #e5bd95;border-radius:3px;cursor:pointer;background:#edc7a0;color:#152325}button.secondary{background:transparent;color:#f3e9cf;border-color:#9db2a3}a{color:#c5dfd0;text-underline-offset:4px}button:hover{filter:brightness(1.08)}:focus-visible{outline:3px solid #a9e1d5;outline-offset:4px}#status{min-height:24px;color:#c6ead7}footer{margin-top:28px;border-top:1px solid #485851;padding-top:18px}.small{font-size:12px;letter-spacing:.08em}@media(max-width:480px){main{padding:28px 18px 36px}.panel{padding:20px 16px}.actions{display:grid;grid-template-columns:1fr}.actions button{width:100%}.intro{font-size:17px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand">BUENA ONDA</div>
+  <p class="eyebrow">A SMALL PLAYTEST · YOUR WORDS</p>
+  <h1>What stayed with you?</h1>
+  <p class="intro">A beautiful moment. A confusing turn. Something that made you stay, or leave. Tell us how the drive felt.</p>
+  <p class="note">This form sends nothing. It does not create an account, save your answers automatically, or collect identifiers. Download or copy your note, then share it with the person who invited you. Please leave out personal or contact details.</p>
+  <p><a href="/cruise/experience" target="_blank" rel="noreferrer noopener">Open Cruise in another tab</a></p>
+  <form id="feedback" autocomplete="off" class="panel" aria-describedby="sharing-note">
+    <div class="question">
+      <label for="memorable">Which moment stayed with you?</label>
+      <textarea id="memorable" name="memorable" maxlength="1000" aria-describedby="memorable-hint" placeholder="A view, a song, a feeling… or nothing yet."></textarea>
+      <p id="memorable-hint" class="note hint">Optional · up to 1,000 characters.</p>
+    </div>
+    <div class="question">
+      <label for="blocked">What got in your way?</label>
+      <textarea id="blocked" name="blocked" maxlength="1000" aria-describedby="blocked-hint" placeholder="Anything confusing, slow, missing, or hard to use."></textarea>
+      <p id="blocked-hint" class="note hint">Optional · up to 1,000 characters. No technical details needed.</p>
+    </div>
+    <fieldset><legend>Would you come back?</legend><div class="choices">
+      <label class="choice"><input type="radio" name="return" value="yes" required> Yes</label>
+      <label class="choice"><input type="radio" name="return" value="maybe"> Maybe</label>
+      <label class="choice"><input type="radio" name="return" value="no"> No</label>
+    </div></fieldset>
+    <label for="device">What did you use? <span class="note">Optional</span></label>
+    <select id="device" name="device"><option value="">Prefer not to say</option><option value="desktop-laptop">Desktop or laptop</option><option value="phone">Phone</option><option value="tablet">Tablet</option><option value="other">Something else</option></select>
+    <div class="actions"><button id="download" type="button">Download feedback JSON</button><button id="copy" type="button" class="secondary">Copy feedback</button></div>
+    <p id="status" class="note" role="status" aria-live="polite"></p>
+    <p id="sharing-note" class="note">Your file or copied note stays with you. Send it to your inviter manually. No email, upload, or submission happens here.</p>
+  </form>
+  <footer><p class="small note">NO ALGORITHMS. JUST FREQUENCIES.</p><p>Take the long way to good music.</p></footer>
+</main>
+<script>
+  (() => {
+    'use strict';
+    const form = document.getElementById('feedback');
+    const status = document.getElementById('status');
+    form.addEventListener('submit', event => event.preventDefault());
+    function payload() {
+      if (!form.reportValidity()) return null;
+      const selected = form.querySelector('input[name="return"]:checked');
+      if (!selected || !['yes', 'maybe', 'no'].includes(selected.value)) return null;
+      const device = document.getElementById('device').value;
+      return {
+        version: 1,
+        kind: 'buena-onda-playtest-feedback',
+        feedback: {
+          memorableMoment: document.getElementById('memorable').value.trim().slice(0, 1000),
+          whatBlocked: document.getElementById('blocked').value.trim().slice(0, 1000),
+          wouldReturn: selected.value,
+          ...(['desktop-laptop', 'phone', 'tablet', 'other'].includes(device) ? { deviceClass: device } : {})
+        }
+      };
+    }
+    document.getElementById('download').addEventListener('click', () => {
+      const data = payload(); if (!data) return;
+      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+      const link = document.createElement('a'); link.href = url; link.download = 'buena-onda-playtest-feedback.json'; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      status.textContent = 'Your feedback file is ready. Share it with your inviter when you choose.';
+    });
+    document.getElementById('copy').addEventListener('click', async () => {
+      const data = payload(); if (!data) return;
+      try { await navigator.clipboard.writeText(JSON.stringify(data, null, 2)); status.textContent = 'Feedback copied. Paste it into a message to your inviter when you choose.'; }
+      catch { status.textContent = 'Copy is unavailable in this browser. Download the feedback file instead.'; }
+    });
+  })();
+</script>
+</body>
+</html>
