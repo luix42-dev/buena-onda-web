@@ -1,0 +1,61 @@
+{
+  "drive": {
+    "speed": 14.248702570013815,
+    "rpm": 0,
+    "distance": 3.383710817944462,
+    "paused": true,
+    "camera": "chase",
+    "radioFocused": false,
+    "district": "coast",
+    "fps": 60.01574183533145,
+    "station": "jolt-radio",
+    "playing": true,
+    "muted": false,
+    "volume": 0.82,
+    "analysis": "Analyzing current radio",
+    "spectrum": 16.762781083583832,
+    "drawCalls": 203,
+    "renderDpr": 1,
+    "ready": true,
+    "vehicle": "countach",
+    "garage": false,
+    "timeMode": "night"
+  },
+  "geo": {
+    "latitude": 25.777416720654482,
+    "longitude": -80.13129319224456,
+    "street": "Ocean Drive",
+    "routeMeters": 67.5,
+    "routeLength": 19642.962656759213,
+    "worldExtentMeters": 5000,
+    "totalChunks": 310,
+    "chunksGenerated": 31,
+    "generationMs": 35.39999997615814,
+    "maxGenerationMs": 43.59999996423721,
+    "chunkState": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":473699,\"geometries\":188,\"textures\":57}",
+    "elapsed": 2.100700000047681,
+    "nightBlend": 1,
+    "transitionSeconds": 2400,
+    "position": {
+      "x": 371.5405333258525,
+      "z": 1400.7706567428704,
+      "yaw": 2.9466609879524714
+    }
+  },
+  "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":473699,\"geometries\":188,\"textures\":57}",
+  "overflow": false,
+  "buttons": [
+    "Menu",
+    "Back to drive",
+    "Close menu",
+    "Pause listening",
+    "Mute",
+    "Pause radio",
+    "Choose station",
+    "Save station",
+    "Listen without 3D",
+    " Cockpit",
+    "Director",
+    "Resume drive"
+  ]
+}

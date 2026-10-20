@@ -142,7 +142,8 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     for (const config of landmarkConfigs) {
       const building = data.buildings.find(b => String(b.id) === String(config.osmBuildingId))
       if (building) {
-        const asset = createMiamiLandmark(building, config, surfaces)
+        const roomExperiment = window.location.pathname === '/cruise/os' && new URLSearchParams(window.location.search).get('visual') === 'rooms' && config.kind === 'colony'
+        const asset = createMiamiLandmark(building, config, surfaces, roomExperiment)
         landmarkAssets.set(String(building.id), asset); group.add(asset.group)
       }
     }

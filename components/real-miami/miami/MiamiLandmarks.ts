@@ -31,7 +31,7 @@ const palette = {
  * The foundation is the mapped OSM ring. Facade/crown dimensions are schematic,
  * not a measured facade survey; reference photography is never copied as texture.
  */
-export function createMiamiLandmark(building: LandmarkBuilding, config: LandmarkConfig, surfaceSources?: { plasterColor: T.Texture; plasterNormal: T.Texture; plasterRoughness: T.Texture }): LandmarkAsset {
+export function createMiamiLandmark(building: LandmarkBuilding, config: LandmarkConfig, surfaceSources?: { plasterColor: T.Texture; plasterNormal: T.Texture; plasterRoughness: T.Texture }, architecturalDepth = false): LandmarkAsset {
   const edge = config.streetFacing?.edge || config.facade
   if (!edge) throw new Error(`Missing street-facing edge for ${config.name}`)
   const [a, b] = edge, width = Math.hypot(b[0] - a[0], b[1] - a[1])
@@ -115,6 +115,16 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
   const batches = new Map<T.Material, T.BufferGeometry[]>()
   const add = (geo: T.BufferGeometry, material: T.Material) => { if (!batches.has(material)) batches.set(material, []); batches.get(material)!.push(geo) }
   const box = (x: number, y: number, z: number, w: number, h: number, depth: number, material: T.Material) => {
+    if (architecturalDepth && material === trim && w > 3 && h < .3 && depth > .45) {
+      // Rounded horizontal Art Deco eyebrows, still batched with existing trim.
+      const outline = new T.Shape(), r = Math.min(.22, depth / 3), l = -w / 2, right = w / 2, bottom = -depth / 2, top = depth / 2
+      outline.moveTo(l+r,bottom);outline.lineTo(right-r,bottom);outline.quadraticCurveTo(right,bottom,right,bottom+r)
+      outline.lineTo(right,top-r);outline.quadraticCurveTo(right,top,right-r,top)
+      outline.lineTo(l+r,top);outline.quadraticCurveTo(l,top,l,top-r)
+      outline.lineTo(l,bottom+r);outline.quadraticCurveTo(l,bottom,l+r,bottom)
+      const geo = new T.ExtrudeGeometry(outline,{depth:h,bevelEnabled:false,curveSegments:4})
+      geo.rotateX(Math.PI/2);geo.translate(x,y+h/2,z);add(geo,material);return
+    }
     const geo = new T.BoxGeometry(Math.max(.01, w), Math.max(.01, h), Math.max(.01, depth)); geo.translate(x, y, z); add(geo, material)
   }
   const cylinder = (x: number, y: number, z: number, radius: number, h: number, material: T.Material) => {
@@ -127,9 +137,30 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
   // the three-story facade to the top of that fin.
   const bodyHeight = config.bodyHeight || (config.kind === 'colony' ? Math.min(building.height, 10.7) : Math.max(8.8, Math.min(building.height, 11.4)))
   const levels = config.levels || 3, floor = bodyHeight / levels
-  const body = new T.ExtrudeGeometry(shape, { depth: bodyHeight, bevelEnabled: false }); body.rotateX(-Math.PI / 2); add(body, paint)
+  const body = new T.ExtrudeGeometry(shape, { depth: bodyHeight, bevelEnabled: false }); body.rotateX(-Math.PI / 2)
+  // Replace only the mapped street-facing wall. The roof and all other footprint
+  // faces stay untouched; real openings reveal rooms behind the original plane.
+  if (architecturalDepth) {
+    const source = body.index ? body.toNonIndexed() : body
+    const position = source.getAttribute('position'), kept: number[] = []
+    for (let i = 0; i < position.count; i += 3) {
+      const streetFace = [i, i + 1, i + 2].every(j => Math.abs(position.getZ(j)) < .025)
+      if (!streetFace) kept.push(i, i + 1, i + 2)
+    }
+    source.setIndex(kept); add(source, paint)
+    if (source !== body) body.dispose()
+  } else add(body, paint)
   const margin = Math.max(.7, width * .065), columns = Math.max(3, Math.floor((width - margin * 2) / 3.0)), pitch = (width - margin * 2) / columns
   const windowWidth = Math.min(1.45, pitch * .58)
+  const facade = new T.Shape()
+  facade.moveTo(-width / 2, 0); facade.lineTo(width / 2, 0)
+  facade.lineTo(width / 2, bodyHeight); facade.lineTo(-width / 2, bodyHeight); facade.closePath()
+  const roomWall = new T.MeshStandardMaterial({color:'#72675a',roughness:.94,emissive:'#b99260',emissiveIntensity:.1})
+  const roomCeiling = new T.MeshStandardMaterial({color:'#393c3d',roughness:1})
+  const roomLamp = new T.MeshStandardMaterial({color:'#ffe3b4',emissive:'#ffcb86',emissiveIntensity:1.3,roughness:.7})
+  const roomGlazing = new T.MeshStandardMaterial({color:'#98b4c0',transparent:true,opacity:.16,depthWrite:false,roughness:.16,metalness:.1})
+  if (architecturalDepth) materials.push(roomWall, roomCeiling, roomLamp, roomGlazing)
+  else { roomWall.dispose(); roomCeiling.dispose(); roomLamp.dispose(); roomGlazing.dispose() }
   // Glass sits behind raised surrounding frames/reveals while staying outside
   // the solid footprint wall. Every repeated component is material-batched.
   const windowUnit = (x: number, y: number, w: number, h: number, warm = true, z = 0, rotation = 0) => {
@@ -138,8 +169,34 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
       geo.translate(x + Math.cos(rotation) * along + Math.sin(rotation) * outward, yy, z - Math.sin(rotation) * along + Math.cos(rotation) * outward); add(geo, material)
     }
     const room = roomMaterials[Math.abs(Math.round(x * 13 + y * 19 + z * 7)) % roomMaterials.length]
-    surfaceBox(0, y, .04, w + .36, h + .38, .1, shadow)
-    surfaceBox(0, y, .11, w, h, .03, warm ? room : glass)
+    if (architecturalDepth && rotation === 0 && z === 0) {
+      const opening = new T.Path()
+      opening.moveTo(x-w/2,y-h/2); opening.lineTo(x-w/2,y+h/2)
+      opening.lineTo(x+w/2,y+h/2); opening.lineTo(x+w/2,y-h/2); opening.closePath()
+      facade.holes.push(opening)
+      const depth = 1.75
+      const lampSide = Math.abs(Math.round(x*13+y*19))%2 ? -1 : 1
+      const lx = lampSide*w*.23
+      // Solid room shells, furniture and curtains give actual motion parallax.
+      surfaceBox(0,y,-depth,w,h,.06,room)
+      for (const side of [-1,1]) {
+        surfaceBox(side*(w/2+.035),y,-depth/2,.07,h,depth,roomWall)
+        for (let fold=0;fold<4;fold++) surfaceBox(side*(w*.31+fold*w*.045),y,-.38-(fold%2)*.055,w*.045,h*.94,.065,roomWall)
+      }
+      surfaceBox(0,y+h/2,-depth/2,w,.07,depth,roomCeiling)
+      surfaceBox(0,y-h/2,-depth/2,w,.07,depth,stone)
+      surfaceBox(0,y-h*.34,-1.12,w*.7,h*.18,.44,roomWall)
+      surfaceBox(lx,y-h*.23,-.91,w*.22,.045,.3,metal)
+      surfaceBox(lx,y-h*.14,-.91,.025,h*.18,.025,metal)
+      if(warm) {
+        const shade = new T.CylinderGeometry(w*.065,w*.12,h*.15,10)
+        shade.translate(x+lx,y-h*.04,-.91);add(shade,roomLamp)
+      }
+      const pane = new T.PlaneGeometry(w,h);pane.translate(x,y,.13);add(pane,roomGlazing)
+    } else {
+      surfaceBox(0, y, .04, w + .36, h + .38, .1, shadow)
+      surfaceBox(0, y, .11, w, h, .03, warm ? room : glass)
+    }
     // Protruding reveals cast shaded borders around the recessed image plane.
     surfaceBox(-w / 2 - .08, y, .2, .16, h + .38, .3, trim)
     surfaceBox(w / 2 + .08, y, .2, .16, h + .38, .3, trim)
@@ -308,10 +365,20 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
       box(side * width * .3, bodyHeight + .78, .17, .045, 1.3, .045, neon)
     }
   }
+  if (architecturalDepth) add(new T.ShapeGeometry(facade), paint)
   batches.forEach((geometries, material) => {
     // Normals/UVs remain compatible; use nonindexed geometry for mixed shapes.
     const flat = geometries.map(g => g.index ? g.toNonIndexed() : g)
     const merged = mergeGeometries(flat, false)
+    if (merged && architecturalDepth && [paint, trim, accent, stone].includes(material as T.MeshStandardMaterial)) {
+      // Baked face shading keeps soffits/reveals readable without shadow maps.
+      const normals = merged.getAttribute('normal'), colors = new Float32Array(normals.count*3)
+      for (let i=0;i<normals.count;i++) {
+        const shade = normals.getY(i)<-.5 ? .45 : Math.abs(normals.getX(i))>.5 ? .78 : 1
+        colors.set([shade,shade,shade],i*3)
+      }
+      merged.setAttribute('color',new T.BufferAttribute(colors,3));(material as T.MeshStandardMaterial).vertexColors=true
+    }
     geometries.forEach(g => g.dispose()); flat.forEach(g => g.dispose())
     if (merged) { ownedGeometry.add(merged); group.add(new T.Mesh(merged, material)) }
   })
@@ -323,6 +390,10 @@ export function createMiamiLandmark(building: LandmarkBuilding, config: Landmark
       glass.emissiveIntensity = .045 + darkness * .35
       roomMaterials.forEach((m, i) => { m.emissiveIntensity = .06 + darkness * (i === 2 ? .16 : .5) })
       porchLight.emissiveIntensity = .05 + darkness * 1.2
+      if (architecturalDepth) {
+        roomLamp.emissiveIntensity = .15 + darkness * 1.15
+        roomWall.emissiveIntensity = .025 + darkness * .075
+      }
       paint.emissiveIntensity = .01 + darkness * .035
       signMaterials.forEach(m => { m.emissiveIntensity = .1 + darkness * 1.7 })
     },
