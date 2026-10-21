@@ -30,7 +30,7 @@ export default function CampaignBridge({campaign,campaignValid,children,localDem
  const localDemoEnabled=!!localDemo
  const recorder=useRef<ReturnType<typeof createDemoBusinessRecorder>|null>(null)
  if(!recorder.current)recorder.current=createDemoBusinessRecorder(event=>demo.current?.onEvent(event))
- const analytics=useCruiseAnalytics({active:!localDemo&&!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera==='director'?'chase':snapshot?.camera??'driver',cinematic:snapshot?.camera==='director',radioPlaying:snapshot?.playing??false,stationId:localDemo?'':snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
+ const analytics=useCruiseAnalytics({active:!localDemo&&!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera==='director'||snapshot?.camera==='low'?'chase':snapshot?.camera??'driver',cinematic:snapshot?.camera==='director',radioPlaying:snapshot?.playing??false,stationId:localDemo?'':snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
  const latest=useRef(analytics);latest.current=analytics
  const context=useMemo<AdsContext>(()=>({demo:localDemoEnabled,store:store.current,reportSamples(samples){
   const current=window.__jeepNight?.(),enabled=!!current?.ready&&!current.garage&&!current.radioFocused&&!document.hidden&&(!demo.current||(current.camera!=='director'&&!demo.current.obscured?.()))

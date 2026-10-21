@@ -9,6 +9,9 @@ import {createDemoBusinessRecorder,type DemoBusinessEvent} from './prototype-bus
 /** Prototype only. Does not enable payments, legacy telemetry or phone pairing. */
 export default function PrototypeBusinessBridge({children}:{children:ReactNode}) {
   const [available,setAvailable]=useState(false),[open,setOpen]=useState(false)
+  // Launch: directory and business cards stay behind ?business=1; measurement and ad infrastructure keep running.
+  const [directory,setDirectory]=useState(false)
+  useEffect(()=>{setDirectory(new URLSearchParams(location.search).get('business')==='1')},[])
   const [selected,setSelected]=useState<CruiseCampaign|null>(null)
   const [events,setEvents]=useState<DemoBusinessEvent[]>([])
   const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null)
@@ -29,10 +32,10 @@ export default function PrototypeBusinessBridge({children}:{children:ReactNode})
   const inspect=(campaign:CruiseCampaign)=>{setSelected(campaign);directoryRecorder.current?.activate(campaign.id,'directory','directory',performance.now())}
   const obscured=useCallback(()=>opened.current||!!document.querySelector('dialog[open]'),[])
   const place=selected?CRUISE_PLACES.find(item=>item.campaignId===selected.id):undefined
-  return <CampaignBridge campaign={DEFAULT_CRUISE_CAMPAIGN} campaignValid localDemo={{onInspect:placement=>{setSelected(placement.campaign);setOpen(true)},onEvent:record,obscured}}>
+  return <CampaignBridge campaign={DEFAULT_CRUISE_CAMPAIGN} campaignValid localDemo={{onInspect:placement=>{if(!directory)return;setSelected(placement.campaign);setOpen(true)},onEvent:record,obscured}}>
     {children}
     <div className="prototype-business">
-      <button hidden={!available||open} ref={trigger} className="pb-trigger" aria-haspopup="dialog" onClick={()=>{setSelected(null);setOpen(true)}}>Along the drive <small>HOUSE / DEMO</small></button>
+      <button hidden={!directory||!available||open} ref={trigger} className="pb-trigger" aria-haspopup="dialog" onClick={()=>{setSelected(null);setOpen(true)}}>Along the drive <small>HOUSE / DEMO</small></button>
       <dialog ref={dialog} aria-labelledby="pb-heading" onCancel={event=>{event.preventDefault();close()}} onClose={()=>setOpen(false)}>
         <header><h2 id="pb-heading">{selected?.name||'Along the drive'}</h2><button autoFocus onClick={close}>Back to drive</button></header>
         <p>House and demo businesses. A local prototype, with no purchases or ownership transfers.</p>

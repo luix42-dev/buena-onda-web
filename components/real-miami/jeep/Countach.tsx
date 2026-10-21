@@ -1,7 +1,8 @@
 'use client'
 import {useGLTF} from '@react-three/drei'
-import {useFrame} from '@react-three/fiber'
-import {useEffect,useMemo,useRef,type MutableRefObject} from 'react'
+import {useFrame,useThree} from '@react-three/fiber'
+import {KTX2Loader} from 'three/examples/jsm/loaders/KTX2Loader.js'
+import {useEffect,useMemo,useRef,useState,type MutableRefObject} from 'react'
 import * as T from 'three'
 import type {NightState} from '../nightdrive/state'
 import type {RideCameraProfile} from '../../../lib/real-miami/ride-vehicles'
@@ -28,10 +29,17 @@ function CountachSpectrum(){
  useFrame(()=>{const mesh=bars.current;if(!mesh)return;for(let i=0;i<24;i++){const level=pulse.source==='live'?pulse.spectrum[i]:0,h=.002+Math.min(1,Math.max(0,level))*.024;matrix.position.set((i-11.5)*.008,-.012+h/2,.006);matrix.scale.set(.0055,h,.002);matrix.updateMatrix();mesh.setMatrixAt(i,matrix.matrix)}mesh.instanceMatrix.needsUpdate=true})
  return <group position={[0,.665,-.442]} name="CountachLiveSpectrum"><mesh><boxGeometry args={[.21,.035,.009]}/><meshStandardMaterial color="#0a0d0d" roughness={.8}/></mesh><instancedMesh ref={bars} args={[undefined,undefined,24]} frustumCulled={false}><boxGeometry args={[1,1,1]}/><meshBasicMaterial toneMapped={false}/></instancedMesh></group>
 }
+/** Same licensed model, compressed for delivery (meshopt geometry, KTX2 ETC1S/UASTC textures; 16.24 MB -> 4.54 MB).
+ * Scoped to /cruise/prototype; `?glb=source` loads the original file there for comparison. */
+const COUNTACH_SOURCE='/real-miami/vehicle/countach-1988/countach.glb',COUNTACH_COMPRESSED='/real-miami/vehicle/countach-1988/countach-opt.glb'
+const countachUrl=()=>typeof window!=='undefined'&&window.location.pathname==='/cruise/prototype'&&new URLSearchParams(window.location.search).get('glb')!=='source'?COUNTACH_COMPRESSED:COUNTACH_SOURCE
+let ktx2:KTX2Loader|null=null
+/** Basis transcoder is served locally; no CDN at runtime. */
+const withKTX2=(gl:T.WebGLRenderer)=>(loader:{setKTX2Loader:(l:KTX2Loader)=>unknown})=>{if(!ktx2)ktx2=new KTX2Loader().setTranscoderPath('/real-miami/basis/').detectSupport(gl);loader.setKTX2Loader(ktx2)}
 /** Exact licensed source exterior and cabin. Existing head-unit controls share
  * Cruise's mounted audio owner; this adapter creates no playback instance. */
 export default function Countach({state,cockpit,onReady,feel=false}:{state:MutableRefObject<NightState>;cockpit:boolean;onReady:()=>void;feel?:boolean}){
- const asset=useGLTF('/real-miami/vehicle/countach-1988/countach.glb'),controls=useCockpit()
+ const gl=useThree(s=>s.gl),[url]=useState(countachUrl),asset=useGLTF(url,false,true,withKTX2(gl) as never),controls=useCockpit()
  const body=useRef<T.Group>(null),spin=useMemo(()=>new T.Quaternion(),[]),steeringAxis=useMemo(()=>new T.Vector3(0,0,1),[])
  const vehicle=useMemo(()=>{
   const scene=asset.scene.clone(true),owned=new Set<T.Material>(),glazing:T.Mesh[]=[]

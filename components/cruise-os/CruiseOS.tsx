@@ -6,6 +6,7 @@ import type { useCruiseAudio } from '@/components/real-miami/audio/useCruiseAudi
 import type { HumanRadioMetadata } from '@/lib/human-radio/metadata'
 import DiscoveryConsole from '@/components/human-radio/DiscoveryConsole'
 import { cruiseShortcut } from '@/lib/cruise-os/input'
+import { cruiseLookEnabled } from '@/lib/cruise-os/look'
 import RidePicker from '@/components/real-miami/jeep/RidePicker'
 import Glovebox, { type GloveboxPage } from './Glovebox'
 import PostcardStudio from './PostcardStudio'
@@ -25,12 +26,13 @@ type Props = OpeningMinuteProps & {
   onOverlayChange: (open: boolean) => void
 }
 const rides = [ ['countach','Countach / 5000QV'], ['wrangler','Wrangler / 2012'], ['eighties','Fiero GT / 1987'], ['cadillac','Eldorado / 1959'], ['delorean','DeLorean / DMC-12'] ] as const
-const views = [['driver','Cockpit'],['chase','Coastal view'],['director','Cinematic']] as const
+const views = [['driver','Cockpit'],['low','Night chase'],['chase','Coastal view'],['director','Cinematic']] as const
 const radioPanels = ['stations','presets','finds']
 
 /** Presentation/navigation only. Audio and scene lifetimes remain owned by JeepNight. */
 export default function CruiseOS(props: Props) {
   const [panel, setPanel] = useState<Panel>(null)
+  const [look] = useState(cruiseLookEnabled)
   const [radioLearned, setRadioLearned] = useState(false)
   useEffect(() => { if(props.focused) setRadioLearned(true) }, [props.focused])
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function CruiseOS(props: Props) {
       <header className="os-header">
         <a className="os-brand" href="https://www.buenaondalifestyle.com/">BUENA ONDA<span>CRUISE / MIAMI</span></a>
         <div className="os-world-tools">
-          {props.started && <><label className="os-camera"><span className="os-sr-only">Camera</span><select aria-label="Camera view" value={props.view} onChange={event => props.onView(event.target.value as Props['view'])}>{views.map(([id,name]) => <option key={id} value={id}>{name}</option>)}</select></label></>}
+          {props.started && <><label className="os-camera"><span className="os-sr-only">Camera</span><select aria-label="Camera view" value={props.view} onChange={event => props.onView(event.target.value as Props['view'])}>{views.filter(([id]) => id !== 'low' || look).map(([id,name]) => <option key={id} value={id}>{name}</option>)}</select></label></>}
           <button ref={gloveboxTrigger} type="button" aria-haspopup="dialog" aria-expanded={panel !== null && !radioPanels.includes(panel)} onClick={() => setPanel('home')}>Menu</button>
         </div>
       </header>

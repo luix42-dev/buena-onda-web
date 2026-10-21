@@ -1,16 +1,19 @@
 'use client'
 
-import { useEffect, useMemo, type MutableRefObject } from 'react'
+import { useEffect, useMemo, useRef, type MutableRefObject } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as T from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
+import { wetStreakUniforms } from './wetStreaks'
 
 /** Bloom/halation adapted to our existing WebGL renderer; no upstream code/assets. */
-export default function CruiseGlow({ enabled, blend, radioFocused, director = false, filmic = true, motion, neon = false }: { neon?: boolean; enabled: boolean; blend: MutableRefObject<number>; radioFocused: boolean; director?: boolean; filmic?: boolean; motion?: MutableRefObject<number> }) {
+export default function CruiseGlow({ enabled, blend, radioFocused, director = false, filmic = true, motion, neon = false, look = false }: { neon?: boolean; enabled: boolean; blend: MutableRefObject<number>; radioFocused: boolean; director?: boolean; filmic?: boolean; motion?: MutableRefObject<number>; look?: boolean }) {
   const { gl, scene, camera, size, viewport } = useThree()
+  const still = useRef(false)
+  useEffect(() => { const media = matchMedia('(prefers-reduced-motion: reduce)'), changed = () => { still.current = media.matches }; changed(); media.addEventListener('change', changed); return () => media.removeEventListener('change', changed) }, [])
   useEffect(() => { const previous = gl.info.autoReset; gl.info.autoReset = false; return () => { gl.info.autoReset = previous } }, [gl])
   const pipeline = useMemo(() => {
     const target = new T.WebGLRenderTarget(1, 1, { type: T.HalfFloatType })
@@ -18,13 +21,15 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
     const render = new RenderPass(scene, camera)
     // One small HDR gather instead of a multi-resolution blur pyramid.
     const glow = new ShaderPass({
-      uniforms: { tDiffuse: { value: null }, texel: { value: new T.Vector2() }, strength: { value: .22 }, wide: { value: 0 }, toneMappingExposure: { value: 1 }, hueKeep: { value: .35 }, grade: { value: 0 }, flare: { value: 0 }, warm: { value: 0 }, grain: { value: 0 }, seed: { value: 0 }, rush: { value: 0 } },
+      uniforms: { tDiffuse: { value: null }, texel: { value: new T.Vector2() }, strength: { value: .22 }, wide: { value: 0 }, toneMappingExposure: { value: 1 }, hueKeep: { value: .35 }, grade: { value: 0 }, flare: { value: 0 }, warm: { value: 0 }, grain: { value: 0 }, seed: { value: 0 }, rush: { value: 0 }, look: { value: 0 } },
       vertexShader: 'varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-      fragmentShader: `uniform sampler2D tDiffuse; uniform vec2 texel; uniform float strength, hueKeep, grade, flare, warm, grain, seed, rush, wide;
+      fragmentShader: `uniform sampler2D tDiffuse; uniform vec2 texel; uniform float strength, hueKeep, grade, flare, warm, grain, seed, rush, wide, look;
         varying vec2 vUv;
         #include <tonemapping_pars_fragment>
         vec3 bright(vec2 offset){vec3 c=texture2D(tDiffuse,vUv+offset*texel).rgb;return c*smoothstep(.45,1.3,dot(c,vec3(.2126,.7152,.0722)));}
         void main(){vec3 color=texture2D(tDiffuse,vUv).rgb;
+          // The Look: VHS softness as a slight horizontal chroma split (two taps).
+          if(look>.001){color.r=mix(color.r,texture2D(tDiffuse,vUv+vec2(.9,0.)*texel).r,look);color.b=mix(color.b,texture2D(tDiffuse,vUv-vec2(.9,0.)*texel).b,look);}
           // Speed: radial streak toward the edges only; the road ahead and the dash stay sharp.
           if(rush>.001){vec2 d=vUv-vec2(.5,.47);float m=smoothstep(.12,.55,length(d*vec2(1.6,1.)))*rush;
             if(m>.002){vec3 acc=color;for(int i=1;i<=4;i++){acc+=texture2D(tDiffuse,vUv-d*m*.035*float(i)).rgb;}color=acc/5.;}}
@@ -48,8 +53,18 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
             graded=max(vec3(0.),(graded-.012*grade)/(1.-.012*grade));
             vec2 q=vUv-.5;graded*=1.-grade*.42*smoothstep(.18,.62,dot(q,q)*1.6);
           }
+          if(look>.001){
+            float l=dot(graded,vec3(.2126,.7152,.0722));
+            // Cool navy shadows, lifted blacks, a touch of saturation, soft vignette.
+            graded=mix(graded,graded*vec3(.84,.98,1.14),(1.-smoothstep(0.,.45,l))*look*.7);
+            graded=mix(vec3(l),graded,1.+.15*look);
+            graded=vec3(.016,.022,.042)*look+graded*(1.-.03*look);
+            vec2 q=vUv-.5;graded*=1.-look*.4*smoothstep(.16,.7,dot(q,q)*1.7);
+          }
           vec4 display=sRGBTransferOETF(vec4(graded,1.));
           if(grain>.001){float n=fract(sin(dot(vUv*1000.+seed,vec2(12.9898,78.233)))*43758.5453);display.rgb+=(n-.5)*grain;}
+          // Faint floating specks (dust in the beam), sparse and two pixels wide.
+          if(look>.001){vec2 cell=floor(vUv/texel*.5);float r=fract(sin(dot(cell+floor(seed*.05),vec2(41.3,289.1)))*43758.5453);display.rgb+=step(.99965,r)*.22*look;}
           gl_FragColor=display;
         }`,
     })
@@ -68,18 +83,22 @@ export default function CruiseGlow({ enabled, blend, radioFocused, director = fa
   useEffect(() => () => { pipeline.glow.dispose(); pipeline.edges.dispose(); pipeline.composer.dispose() }, [pipeline])
   useFrame((_, dt) => {
     gl.info.reset()
+    wetStreakUniforms.post.value = enabled ? 1 : 0
     if (!enabled) { gl.render(scene, camera); return }
-    pipeline.glow.uniforms.strength.value = radioFocused ? .025 : neon ? .42 : .08 + blend.current * .18
+    pipeline.glow.uniforms.strength.value = radioFocused ? .025 : neon ? .42 : look ? .1 + blend.current * .3 : .08 + blend.current * .18
     pipeline.glow.uniforms.wide.value = neon && !radioFocused ? .5 : 0
     // Neon keeps saturated hues instead of bleaching signs to white.
-    pipeline.glow.uniforms.hueKeep.value = radioFocused ? .05 : neon ? .6 : .35
+    pipeline.glow.uniforms.hueKeep.value = radioFocused ? .05 : neon || look ? .6 : .35
     pipeline.glow.uniforms.toneMappingExposure.value = gl.toneMappingExposure
     const u = pipeline.glow.uniforms, k = 1 - Math.exp(-Math.min(dt, .1) * 3), on = (director || neon) && !radioFocused ? 1 : 0
     u.grade.value += (on - u.grade.value) * k
     u.flare.value = filmic ? u.grade.value : 0
-    u.grain.value = filmic ? u.grade.value * .035 : 0
+    const lookTarget = look && !radioFocused ? 1 : 0
+    u.look.value += (lookTarget - u.look.value) * k
+    u.grain.value = filmic ? Math.max(u.grade.value * .035, u.look.value * .045) : u.look.value * .03
     u.warm.value = neon ? 0 : 1 - blend.current
-    u.seed.value = (u.seed.value + 17.13) % 1000
+    // Reduced motion: grain and specks hold still.
+    if (!still.current) u.seed.value = (u.seed.value + 17.13) % 1000
     u.rush.value = radioFocused ? 0 : motion?.current ?? 0
     pipeline.composer.render(dt)
   }, 1)

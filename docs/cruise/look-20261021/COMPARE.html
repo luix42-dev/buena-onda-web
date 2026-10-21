@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cruise Look — Before/After</title>
+<style>
+:root{--bg:#0b0f17;--fg:#e8ecf2;--muted:#8d97a8;--line:#222b3a;--accent:#4fe3ff}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+main{max-width:1320px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:36px 0 8px;color:var(--accent)}
+p{color:var(--muted);margin:4px 0 12px;max-width:80ch}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.pair.phone{grid-template-columns:repeat(4,minmax(0,1fr))}
+figure{margin:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
+figure img,figure video{display:block;width:100%;height:auto}
+figcaption{font-size:12px;color:var(--muted);padding:6px 8px;border-top:1px solid var(--line)}
+.ref{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media(max-width:760px){.pair,.pair.phone{grid-template-columns:1fr}.ref{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body><main>
+<h1>Cruise — "The Look" before/after</h1>
+<p>Matched stills: same build route position, Night, parked, headless Edge, 1280×720 desktop and 390×844 touch emulation (emulation is not a physical phone). "Before" is the frozen prototype on :3097 (a51b5cb). "After" is experiment/cruise-look-20261021 on :3067. The new Night chase camera does not exist in the before build, so its comparison is against the old Coastal (chase) view.</p>
+
+<h2>Reference (retrovideonet.mp4, frames from Edge decode)</h2>
+<div class="ref">
+<figure><img src="../prototype-20261020/reference/frames/ref-00-0.04s.png" alt=""><figcaption>0.0 s</figcaption></figure>
+<figure><img src="../prototype-20261020/reference/frames/ref-02-1.04s.png" alt=""><figcaption>1.0 s</figcaption></figure>
+<figure><img src="../prototype-20261020/reference/frames/ref-05-2.63s.png" alt=""><figcaption>2.6 s</figcaption></figure>
+<figure><img src="../prototype-20261020/reference/frames/ref-07-3.67s.png" alt=""><figcaption>3.7 s</figcaption></figure>
+<figure><img src="../prototype-20261020/reference/frames/ref-09-4.71s.png" alt=""><figcaption>4.7 s</figcaption></figure>
+</div>
+
+<h2>Moving capture (real-time browser render, 16 s, no audio in file)</h2>
+<div class="pair">
+<figure><video src="motion/look-desktop-low-moving.webm" controls muted loop playsinline></video><figcaption>Desktop 1280×720, Night chase, 2nd Street hero straight</figcaption></figure>
+<figure><video src="motion/look-phone-low-moving.webm" controls muted loop playsinline style="max-height:640px;margin:auto"></video><figcaption>390×844 touch emulation, Night chase (phone tier: no post pass, CSS film layer)</figcaption></figure>
+</div>
+
+<h2>Desktop — 2nd Street (1,460 m)</h2>
+<div class="pair">
+<figure><img src="capture/before-desktop-chase-1460m.png" alt=""><figcaption>Before · Coastal view (old chase)</figcaption></figure>
+<figure><img src="capture/after-desktop-low-1460m.png" alt=""><figcaption>After · Night chase (new)</figcaption></figure>
+<figure><img src="capture/before-desktop-driver-1460m.png" alt=""><figcaption>Before · Cockpit</figcaption></figure>
+<figure><img src="capture/after-desktop-driver-1460m.png" alt=""><figcaption>After · Cockpit</figcaption></figure>
+<figure><img src="capture/before-desktop-chase-1460m.png" alt=""><figcaption>Before · Coastal view</figcaption></figure>
+<figure><img src="capture/after-desktop-chase-1460m.png" alt=""><figcaption>After · Coastal view (camera unchanged, new look)</figcaption></figure>
+</div>
+
+<h2>Desktop — Ocean Drive (114 m, handoff capture position)</h2>
+<div class="pair">
+<figure><img src="capture/before-desktop-chase-114m.png" alt=""><figcaption>Before · Coastal view</figcaption></figure>
+<figure><img src="capture/after-desktop-low-114m.png" alt=""><figcaption>After · Night chase</figcaption></figure>
+<figure><img src="capture/before-desktop-driver-114m.png" alt=""><figcaption>Before · Cockpit</figcaption></figure>
+<figure><img src="capture/after-desktop-driver-114m.png" alt=""><figcaption>After · Cockpit</figcaption></figure>
+</div>
+
+<h2>Phone emulation 390×844 — before / after</h2>
+<div class="pair phone">
+<figure><img src="capture/before-phone-driver-1460m.png" alt=""><figcaption>Before · Cockpit 1,460 m</figcaption></figure>
+<figure><img src="capture/after-phone-driver-1460m.png" alt=""><figcaption>After · Cockpit 1,460 m</figcaption></figure>
+<figure><img src="capture/before-phone-chase-1460m.png" alt=""><figcaption>Before · Coastal 1,460 m</figcaption></figure>
+<figure><img src="capture/after-phone-low-1460m.png" alt=""><figcaption>After · Night chase 1,460 m</figcaption></figure>
+<figure><img src="capture/before-phone-driver-114m.png" alt=""><figcaption>Before · Cockpit 114 m</figcaption></figure>
+<figure><img src="capture/after-phone-driver-114m.png" alt=""><figcaption>After · Cockpit 114 m</figcaption></figure>
+<figure><img src="capture/before-phone-chase-114m.png" alt=""><figcaption>Before · Coastal 114 m</figcaption></figure>
+<figure><img src="capture/after-phone-low-114m.png" alt=""><figcaption>After · Night chase 114 m</figcaption></figure>
+</div>
+</main></body>
+</html>

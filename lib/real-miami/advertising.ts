@@ -5,9 +5,10 @@ import registry from '../../public/real-miami/miami/landmarks.json'
 
 /** `format` is the analytics/readability class; `surface` is how the ad is built in the world.
  * projection: light-projected video/motion loop on a street-facing facade (night only).
- * blade: vertical neon blade sign perpendicular to a facade, Ocean Drive style. */
-export type MiamiAdSurface='billboard'|'poster'|'projection'|'blade'
-export type MiamiAdPlacement={id:string;x:number;z:number;y:number;yaw:number;width:number;height:number;format:'billboard'|'poster'|'wall';surface:MiamiAdSurface;routeMeters:number;street:string;campaign:CruiseCampaign;headline:string;cta:string;kind:'house'|'demo'|'sponsored'}
+ * blade: vertical neon blade sign perpendicular to a facade, Ocean Drive style.
+ * hero: large emissive screen at the vanishing point of a long straight; rotates creative on a shared clock. */
+export type MiamiAdSurface='billboard'|'poster'|'projection'|'blade'|'hero'
+export type MiamiAdPlacement={id:string;x:number;z:number;y:number;yaw:number;width:number;height:number;format:'billboard'|'poster'|'wall';surface:MiamiAdSurface;routeMeters:number;street:string;campaign:CruiseCampaign;headline:string;cta:string;kind:'house'|'demo'|'sponsored';rotation?:readonly CruiseCampaign[];runStart?:number}
 export type MiamiAdSample={placement:MiamiAdPlacement;visible:boolean;viewable:boolean;readable:boolean;distance:number;facing:number;projectedArea:number;pixelWidth:number;pixelHeight:number;occlusion:number;visibleDurationMs:number;sampledAt:number}
 export type MiamiAdRoute=ReturnType<typeof createMiamiRoute>
 type Data=MiamiGeoData&{advertisingPlots?:{id:string;x:number;z:number;yaw?:number}[]}
@@ -16,6 +17,8 @@ type Data=MiamiGeoData&{advertisingPlots?:{id:string;x:number;z:number;yaw?:numb
  * every surface keeps its own cadence, any two world ads keep a minimum gap, and hero landmarks
  * (Colony, Breakwater, Clevelander, Carlyle, Leslie) keep a clear zone so Director shots stay clean. */
 export const AD_BUDGET={minGap:55,landmarkClear:70,billboardEvery:440,projectionGap:240,bladeGap:130,maxProjections:18,maxBlades:36}
+/** Hero screens: one per long straight, never two within heroGap metres of route. */
+export const HERO={minRun:240,gap:700,max:10,width:15,height:20,bottom:14,rotationMs:9000}
 
 const pointInside=(x:number,z:number,polygon:number[][])=>{let inside=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const a=polygon[i],b=polygon[j];if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])inside=!inside}return inside}
 const segmentDistance=(x:number,z:number,a:number[],b:number[])=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(x-a[0]-t*dx,z-a[1]-t*dz)}
@@ -42,10 +45,16 @@ function rotation(featured:CruiseCampaign){
  const now=Date.now(),others=(CRUISE_CAMPAIGNS as readonly CruiseCampaign[]).filter(c=>c.id!==featured.id&&c.enabled!==false&&(!c.activeFrom||Date.parse(c.activeFrom)<=now)&&(!c.activeUntil||Date.parse(c.activeUntil)>=now))
  return (slot:number)=>slot%2===0||!others.length?featured:others[(slot>>1)%others.length]
 }
+/** The creative a hero screen shows at `now`. Face and measurement share this clock, so samples name what was on screen. */
+export function heroCreative(placement:MiamiAdPlacement,now:number):MiamiAdPlacement{
+ if(!placement.rotation?.length)return placement
+ const index=Math.floor(now/HERO.rotationMs+placement.x*.013)%placement.rotation.length,campaign=placement.rotation[(index+placement.rotation.length)%placement.rotation.length],c=copy(campaign,index)
+ return{...placement,...c,kind:kindFor(c.campaign)}
+}
 const AD_STREETS=/Ocean Drive|Collins Avenue|Washington Avenue|Alton Road|Dade Boulevard|Biscayne|Causeway|Lincoln Road|5th Street|Brickell/i
 
 /** Stable OSM/world coordinates survive visits and chunk rebuilds. No synthetic ad streets. */
-export function createMiamiAdPlacements(data:Data,route:MiamiAdRoute,campaign:CruiseCampaign):MiamiAdPlacement[]{
+export function createMiamiAdPlacements(data:Data,route:MiamiAdRoute,campaign:CruiseCampaign,options:{hero?:boolean}={}):MiamiAdPlacement[]{
  const pick=rotation(campaign),placements:MiamiAdPlacement[]=[]
  const add=(placement:Omit<MiamiAdPlacement,'campaign'|'headline'|'cta'|'kind'>,prefer?:CruiseCampaign)=>{const chosen=prefer??pick(placements.length),c=copy(chosen,placements.length);placements.push({...placement,...c,kind:kindFor(c.campaign)})}
  const landmarkCenters=(registry.landmarks as {position:{x:number;z:number};osmBuildingId:number}[]).map(l=>l.position)
@@ -103,5 +112,33 @@ export function createMiamiAdPlacements(data:Data,route:MiamiAdRoute,campaign:Cr
   const ux=(e.b[0]-e.a[0])/e.length,uz=(e.b[1]-e.a[1])/e.length,sign=ux*-bx+uz*-bz>=0?1:-1,yaw=Math.atan2(ux*sign,uz*sign)
   add({id:`MB-BLADE-${e.building.id}`,x,z,y,yaw,width:1.2,height,format:'wall',surface:'blade',routeMeters:e.meters,street:route.sample(e.meters).streetName});blades++
  }
+ if(options.hero)for(const hero of heroPlacements(data,route,clearOfLandmarks))placements.push(hero)
  return placements
+}
+
+/** The house roster a hero screen cycles through: every enabled, currently active campaign. */
+function heroRoster(){const now=Date.now();return (CRUISE_CAMPAIGNS as readonly CruiseCampaign[]).filter(c=>c.enabled!==false&&(!c.activeFrom||Date.parse(c.activeFrom)<=now)&&(!c.activeUntil||Date.parse(c.activeUntil)>=now))}
+/** Straight runs of the route. The screen sits past the run's end on its axis, so it holds the vanishing point for the whole straight. */
+function heroPlacements(data:Data,route:MiamiAdRoute,clearOfLandmarks:(x:number,z:number)=>boolean):MiamiAdPlacement[]{
+ const step=10,runs:{start:number;end:number}[]=[];let start=0,heading:[number,number]|null=null
+ const dir=(m:number):[number,number]=>{const a=route.sample(m),b=route.sample(m+step),l=Math.hypot(b.x-a.x,b.z-a.z)||1;return[(b.x-a.x)/l,(b.z-a.z)/l]}
+ for(let m=0;m<route.length-step;m+=step){const d=dir(m);if(!heading){heading=d;start=m;continue}
+  if(d[0]*heading[0]+d[1]*heading[1]<.9975){if(m-start>=HERO.minRun)runs.push({start,end:m});heading=d;start=m}}
+ if(heading&&route.length-start>=HERO.minRun)runs.push({start,end:route.length-step})
+ const roster=heroRoster(),out:MiamiAdPlacement[]=[]
+ if(!roster.length)return out
+ const tall=data.buildings.filter(b=>b.height>HERO.bottom-1)
+ for(const run of runs.sort((a,b)=>(b.end-b.start)-(a.end-a.start))){
+  if(out.length>=HERO.max)break
+  if(out.some(o=>Math.abs(o.routeMeters-run.end)<HERO.gap))continue
+  const a=route.sample(run.start),e=route.sample(run.end),l=Math.hypot(e.x-a.x,e.z-a.z)||1,fx=(e.x-a.x)/l,fz=(e.z-a.z)/l
+  for(const ahead of[35,50,70]){
+   const x=e.x+fx*ahead,z=e.z+fz*ahead
+   if(!clearOfLandmarks(x,z)||tall.some(b=>pointInside(x,z,b.points)||b.points.some((p,i)=>segmentDistance(x,z,p,b.points[(i+1)%b.points.length])<2)))continue
+   const shown=roster[0],c=copy(shown,0)
+   out.push({id:`MB-HERO-${String(Math.round(run.end)).padStart(5,'0')}`,x,z,y:HERO.bottom+HERO.height/2,yaw:Math.atan2(-fx,-fz),width:HERO.width,height:HERO.height,format:'billboard',surface:'hero',routeMeters:run.end,runStart:run.start,street:e.streetName,...c,kind:kindFor(c.campaign),rotation:roster})
+   break
+  }
+ }
+ return out.sort((a,b)=>a.routeMeters-b.routeMeters)
 }

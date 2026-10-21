@@ -1,0 +1,1759 @@
+{
+ "at": "2026-10-21T18:28:57.015Z",
+ "base": "http://127.0.0.1:3097",
+ "browser": "155.0.4283.62",
+ "viewport": {
+  "width": 1280,
+  "height": 720
+ },
+ "dpr": 1,
+ "quality": "auto",
+ "view": "driver",
+ "seconds": 600,
+ "errors": [],
+ "contextLost": 0,
+ "toggles": [],
+ "samples": [
+  {
+   "at": 1792607364544,
+   "fps": 48.795060742554526,
+   "drawCalls": 294,
+   "renderDpr": 1,
+   "odometer": 157.82507765574985,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 23.382262,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 167983792,
+   "lost": 0,
+   "ads": {
+    "measurements": 53,
+    "averageMs": 32.828301890841075,
+    "maxMs": 248.20000004768372,
+    "lastMs": 18.40000009536743,
+    "lastRayCount": 10,
+    "lastBlockerCount": 196,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607369584,
+   "fps": 48.99510049462307,
+   "drawCalls": 270,
+   "renderDpr": 1,
+   "odometer": 259.1990442974182,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 28.420569,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 167006496,
+   "lost": 0,
+   "ads": {
+    "measurements": 73,
+    "averageMs": 28.39178081897841,
+    "maxMs": 248.20000004768372,
+    "lastMs": 22.09999990463257,
+    "lastRayCount": 10,
+    "lastBlockerCount": 211,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607374599,
+   "fps": 47.44489472940363,
+   "drawCalls": 294,
+   "renderDpr": 1,
+   "odometer": 356.68596122101707,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 33.431541,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 174887201,
+   "lost": 0,
+   "ads": {
+    "measurements": 91,
+    "averageMs": 27.454945050753082,
+    "maxMs": 248.20000004768372,
+    "lastMs": 16.100000023841858,
+    "lastRayCount": 10,
+    "lastBlockerCount": 138,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607379603,
+   "fps": 46.30085705733043,
+   "drawCalls": 305,
+   "renderDpr": 1,
+   "odometer": 464.9904025795407,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 38.439474,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 173735359,
+   "lost": 0,
+   "ads": {
+    "measurements": 110,
+    "averageMs": 23.4609090870077,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.1999999284744263,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607384617,
+   "fps": 43.319877914673974,
+   "drawCalls": 252,
+   "renderDpr": 1,
+   "odometer": 574.9324107700284,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 43.448213,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 198699163,
+   "lost": 0,
+   "ads": {
+    "measurements": 130,
+    "averageMs": 20.028461535160364,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.2000000476837158,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607389622,
+   "fps": 45.944866158419075,
+   "drawCalls": 260,
+   "renderDpr": 1,
+   "odometer": 685.0069663968304,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 48.457186,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 200817139,
+   "lost": 0,
+   "ads": {
+    "measurements": 149,
+    "averageMs": 21.74093959395518,
+    "maxMs": 248.20000004768372,
+    "lastMs": 30.100000023841858,
+    "lastRayCount": 10,
+    "lastBlockerCount": 166,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607394633,
+   "fps": 47.83258594917788,
+   "drawCalls": 261,
+   "renderDpr": 1,
+   "odometer": 794.7732933357956,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 53.471998,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 196014245,
+   "lost": 0,
+   "ads": {
+    "measurements": 168,
+    "averageMs": 20.64642856873218,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.7999999523162842,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607399664,
+   "fps": 45.621342856466725,
+   "drawCalls": 254,
+   "renderDpr": 1,
+   "odometer": 904.0752032314122,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 58.501396,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 229817838,
+   "lost": 0,
+   "ads": {
+    "measurements": 187,
+    "averageMs": 20.77379678787396,
+    "maxMs": 248.20000004768372,
+    "lastMs": 25.899999976158142,
+    "lastRayCount": 10,
+    "lastBlockerCount": 187,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607404678,
+   "fps": 49.329123913598956,
+   "drawCalls": 245,
+   "renderDpr": 1,
+   "odometer": 1012.9282766556549,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 63.511025,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 217907302,
+   "lost": 0,
+   "ads": {
+    "measurements": 207,
+    "averageMs": 20.375845407518227,
+    "maxMs": 248.20000004768372,
+    "lastMs": 20.300000071525574,
+    "lastRayCount": 10,
+    "lastBlockerCount": 192,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607409710,
+   "fps": 42.66459808206576,
+   "drawCalls": 232,
+   "renderDpr": 1,
+   "odometer": 1102.9059779766326,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 68.550604,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 143205036,
+   "lost": 0,
+   "ads": {
+    "measurements": 226,
+    "averageMs": 21.796902652335387,
+    "maxMs": 248.20000004768372,
+    "lastMs": 42.700000047683716,
+    "lastRayCount": 20,
+    "lastBlockerCount": 190,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607414727,
+   "fps": 44.69925177753655,
+   "drawCalls": 241,
+   "renderDpr": 0.92,
+   "odometer": 1150.4630014255513,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 73.562475,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 150874779,
+   "lost": 0,
+   "ads": {
+    "measurements": 244,
+    "averageMs": 22.183196718086958,
+    "maxMs": 248.20000004768372,
+    "lastMs": 41.699999928474426,
+    "lastRayCount": 20,
+    "lastBlockerCount": 205,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607419739,
+   "fps": 50.43512657990019,
+   "drawCalls": 253,
+   "renderDpr": 0.85,
+   "odometer": 1185.9866555801477,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 78.570677,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 167280774,
+   "lost": 0,
+   "ads": {
+    "measurements": 263,
+    "averageMs": 23.16083650036003,
+    "maxMs": 248.20000004768372,
+    "lastMs": 14.700000047683716,
+    "lastRayCount": 10,
+    "lastBlockerCount": 191,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607424751,
+   "fps": 55.9720139930035,
+   "drawCalls": 209,
+   "renderDpr": 0.85,
+   "odometer": 1252.821396845118,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 83.586366,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 161326288,
+   "lost": 0,
+   "ads": {
+    "measurements": 282,
+    "averageMs": 22.91808510545297,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.100000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607429807,
+   "fps": 52.149955718065485,
+   "drawCalls": 252,
+   "renderDpr": 0.85,
+   "odometer": 1286.188554354034,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 88.644036,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 166476320,
+   "lost": 0,
+   "ads": {
+    "measurements": 302,
+    "averageMs": 24.38841059547386,
+    "maxMs": 248.20000004768372,
+    "lastMs": 41,
+    "lastRayCount": 20,
+    "lastBlockerCount": 188,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607434816,
+   "fps": 52.14482486720493,
+   "drawCalls": 248,
+   "renderDpr": 0.85,
+   "odometer": 1366.4831605498673,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 93.649249,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 147663413,
+   "lost": 0,
+   "ads": {
+    "measurements": 321,
+    "averageMs": 24.862305295430236,
+    "maxMs": 248.20000004768372,
+    "lastMs": 35.199999928474426,
+    "lastRayCount": 20,
+    "lastBlockerCount": 179,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607439823,
+   "fps": 58.54800936359517,
+   "drawCalls": 229,
+   "renderDpr": 0.85,
+   "odometer": 1457.9649162116386,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 98.659401,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 169842550,
+   "lost": 0,
+   "ads": {
+    "measurements": 340,
+    "averageMs": 24.412352941667333,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.7000000476837158,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607444831,
+   "fps": 54.633952522010254,
+   "drawCalls": 223,
+   "renderDpr": 0.89,
+   "odometer": 1529.2979895958117,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 103.672036,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 158772129,
+   "lost": 0,
+   "ads": {
+    "measurements": 359,
+    "averageMs": 23.201949860724234,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.5999999046325684,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607449849,
+   "fps": 59.964021585618994,
+   "drawCalls": 214,
+   "renderDpr": 0.89,
+   "odometer": 1561.0849539189587,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 108.685587,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 167784761,
+   "lost": 0,
+   "ads": {
+    "measurements": 379,
+    "averageMs": 22.060686016774742,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.7000000476837158,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607454863,
+   "fps": 59.92808629359011,
+   "drawCalls": 182,
+   "renderDpr": 0.93,
+   "odometer": 1630.5203923408262,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 113.694482,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 151300211,
+   "lost": 0,
+   "ads": {
+    "measurements": 398,
+    "averageMs": 21.075125628080794,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.399999976158142,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607459870,
+   "fps": 52.631578947368425,
+   "drawCalls": 246,
+   "renderDpr": 0.97,
+   "odometer": 1663.5231579741092,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 118.705405,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 153871483,
+   "lost": 0,
+   "ads": {
+    "measurements": 417,
+    "averageMs": 20.965467625670584,
+    "maxMs": 248.20000004768372,
+    "lastMs": 16.799999952316284,
+    "lastRayCount": 10,
+    "lastBlockerCount": 168,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607464880,
+   "fps": 52.09357184493019,
+   "drawCalls": 216,
+   "renderDpr": 0.97,
+   "odometer": 1736.8071029361474,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 123.722149,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 163804957,
+   "lost": 0,
+   "ads": {
+    "measurements": 437,
+    "averageMs": 20.095881006537642,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607469889,
+   "fps": 47.976011994003,
+   "drawCalls": 248,
+   "renderDpr": 0.97,
+   "odometer": 1781.2961850712593,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 128.723585,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 143913397,
+   "lost": 0,
+   "ads": {
+    "measurements": 456,
+    "averageMs": 19.321271929301716,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607474908,
+   "fps": 47.31394775751602,
+   "drawCalls": 228,
+   "renderDpr": 0.97,
+   "odometer": 1831.9664319754772,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 133.749446,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 164439345,
+   "lost": 0,
+   "ads": {
+    "measurements": 475,
+    "averageMs": 18.583578947217838,
+    "maxMs": 248.20000004768372,
+    "lastMs": 0.7999999523162842,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607479928,
+   "fps": 51.09058753816636,
+   "drawCalls": 204,
+   "renderDpr": 0.97,
+   "odometer": 1918.7798133772978,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 138.765681,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 155621969,
+   "lost": 0,
+   "ads": {
+    "measurements": 495,
+    "averageMs": 17.8713131302535,
+    "maxMs": 248.20000004768372,
+    "lastMs": 0.8999999761581421,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607484942,
+   "fps": 50.1869710722197,
+   "drawCalls": 216,
+   "renderDpr": 0.97,
+   "odometer": 1984.5679151450313,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 143.774517,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 159920130,
+   "lost": 0,
+   "ads": {
+    "measurements": 514,
+    "averageMs": 17.270817119323798,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.8000000715255737,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607489947,
+   "fps": 44.744953761426274,
+   "drawCalls": 229,
+   "renderDpr": 0.97,
+   "odometer": 2047.090771705855,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 148.783815,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 174488282,
+   "lost": 0,
+   "ads": {
+    "measurements": 533,
+    "averageMs": 16.72157598391707,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.600000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607494953,
+   "fps": 49.21259842519685,
+   "drawCalls": 216,
+   "renderDpr": 0.97,
+   "odometer": 2141.7804120835312,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 153.793899,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 172743198,
+   "lost": 0,
+   "ads": {
+    "measurements": 552,
+    "averageMs": 16.20615941890772,
+    "maxMs": 248.20000004768372,
+    "lastMs": 1.8000000715255737,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607499959,
+   "fps": 53.79557681068458,
+   "drawCalls": 200,
+   "renderDpr": 0.97,
+   "odometer": 2235.7737109354557,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 158.79535,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 190083186,
+   "lost": 0,
+   "ads": {
+    "measurements": 571,
+    "averageMs": 15.732574429695749,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.299999952316284,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607504977,
+   "fps": 28.858592895500095,
+   "drawCalls": 185,
+   "renderDpr": 0.97,
+   "odometer": 2318.933947402051,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 163.808632,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 192238660,
+   "lost": 0,
+   "ads": {
+    "measurements": 588,
+    "averageMs": 15.362074828675006,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.399999976158142,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607510016,
+   "fps": 39.9361022354711,
+   "drawCalls": 222,
+   "renderDpr": 0.8,
+   "odometer": 2356.7744439111048,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 168.858544,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 183778644,
+   "lost": 0,
+   "ads": {
+    "measurements": 607,
+    "averageMs": 14.965897857651873,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.5,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607515030,
+   "fps": 35.07800239775781,
+   "drawCalls": 215,
+   "renderDpr": 0.68,
+   "odometer": 2413.7669871646854,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 173.864155,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 211404148,
+   "lost": 0,
+   "ads": {
+    "measurements": 626,
+    "averageMs": 15.197603833751554,
+    "maxMs": 248.20000004768372,
+    "lastMs": 71.30000007152557,
+    "lastRayCount": 10,
+    "lastBlockerCount": 170,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607520054,
+   "fps": 40.670568399839944,
+   "drawCalls": 201,
+   "renderDpr": 0.63,
+   "odometer": 2504.150232950936,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 178.895154,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 195248716,
+   "lost": 0,
+   "ads": {
+    "measurements": 644,
+    "averageMs": 16.865993788523706,
+    "maxMs": 248.20000004768372,
+    "lastMs": 70.79999995231628,
+    "lastRayCount": 10,
+    "lastBlockerCount": 124,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607525077,
+   "fps": 50.65554231467564,
+   "drawCalls": 182,
+   "renderDpr": 0.6,
+   "odometer": 2546.3394669935456,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 183.917311,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 210120358,
+   "lost": 0,
+   "ads": {
+    "measurements": 663,
+    "averageMs": 17.133333333477182,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.899999976158142,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607530090,
+   "fps": 56.43564356435645,
+   "drawCalls": 189,
+   "renderDpr": 0.6,
+   "odometer": 2600.757420559368,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 188.922137,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 206103570,
+   "lost": 0,
+   "ads": {
+    "measurements": 682,
+    "averageMs": 16.7517595312113,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.1999999284744263,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607535109,
+   "fps": 50.97960815795228,
+   "drawCalls": 183,
+   "renderDpr": 0.6,
+   "odometer": 2641.1164259719153,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 193.948343,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 159735722,
+   "lost": 0,
+   "ads": {
+    "measurements": 701,
+    "averageMs": 16.396861626486302,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.3000000715255737,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607540116,
+   "fps": 60.068931560807506,
+   "drawCalls": 164,
+   "renderDpr": 0.64,
+   "odometer": 2669.124171370364,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 198.951171,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 166666338,
+   "lost": 0,
+   "ads": {
+    "measurements": 721,
+    "averageMs": 16.019833565088984,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.700000047683716,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607545139,
+   "fps": 54.87926561303447,
+   "drawCalls": 195,
+   "renderDpr": 0.64,
+   "odometer": 2696.3271194463664,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 203.981538,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 166470299,
+   "lost": 0,
+   "ads": {
+    "measurements": 740,
+    "averageMs": 15.680405405888699,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.899999976158142,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607550159,
+   "fps": 45.46353033875095,
+   "drawCalls": 226,
+   "renderDpr": 0.64,
+   "odometer": 2729.4334440010334,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 208.996255,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 153428071,
+   "lost": 0,
+   "ads": {
+    "measurements": 759,
+    "averageMs": 16.554150197974003,
+    "maxMs": 248.20000004768372,
+    "lastMs": 54.699999928474426,
+    "lastRayCount": 10,
+    "lastBlockerCount": 151,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607555173,
+   "fps": 42.95275197180695,
+   "drawCalls": 207,
+   "renderDpr": 0.64,
+   "odometer": 2798.07349214251,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 214.014978,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 158875223,
+   "lost": 0,
+   "ads": {
+    "measurements": 778,
+    "averageMs": 17.493187660882903,
+    "maxMs": 248.20000004768372,
+    "lastMs": 52.5,
+    "lastRayCount": 10,
+    "lastBlockerCount": 128,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607560267,
+   "fps": 51.63340284472658,
+   "drawCalls": 209,
+   "renderDpr": 0.64,
+   "odometer": 2831.6571052715317,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 219.10508,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 161998487,
+   "lost": 0,
+   "ads": {
+    "measurements": 798,
+    "averageMs": 17.492982456708024,
+    "maxMs": 248.20000004768372,
+    "lastMs": 70.90000009536743,
+    "lastRayCount": 10,
+    "lastBlockerCount": 173,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607565285,
+   "fps": 33.66669967402979,
+   "drawCalls": 210,
+   "renderDpr": 0.64,
+   "odometer": 2912.6179905925133,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 224.118925,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 149024920,
+   "lost": 0,
+   "ads": {
+    "measurements": 816,
+    "averageMs": 18.681495098652803,
+    "maxMs": 248.20000004768372,
+    "lastMs": 104.10000002384186,
+    "lastRayCount": 20,
+    "lastBlockerCount": 160,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607570309,
+   "fps": 34.73945409429281,
+   "drawCalls": 220,
+   "renderDpr": 0.6,
+   "odometer": 3005.154189004146,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 229.150054,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 165152522,
+   "lost": 0,
+   "ads": {
+    "measurements": 834,
+    "averageMs": 19.84928057576828,
+    "maxMs": 248.20000004768372,
+    "lastMs": 35.699999928474426,
+    "lastRayCount": 10,
+    "lastBlockerCount": 156,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607575361,
+   "fps": 50.33060298272965,
+   "drawCalls": 194,
+   "renderDpr": 0.6,
+   "odometer": 3057.0444551961523,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 234.192327,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 184671994,
+   "lost": 0,
+   "ads": {
+    "measurements": 854,
+    "averageMs": 19.89660421635005,
+    "maxMs": 248.20000004768372,
+    "lastMs": 31.600000023841858,
+    "lastRayCount": 10,
+    "lastBlockerCount": 143,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607580388,
+   "fps": 53.82131324129879,
+   "drawCalls": 167,
+   "renderDpr": 0.6,
+   "odometer": 3097.6144394850235,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 239.22598,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 173099770,
+   "lost": 0,
+   "ads": {
+    "measurements": 873,
+    "averageMs": 20.20400916464961,
+    "maxMs": 248.20000004768372,
+    "lastMs": 34,
+    "lastRayCount": 10,
+    "lastBlockerCount": 122,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607585411,
+   "fps": 60.02755362835826,
+   "drawCalls": 156,
+   "renderDpr": 0.6,
+   "odometer": 3154.0681176072403,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 244.244049,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 187614824,
+   "lost": 0,
+   "ads": {
+    "measurements": 892,
+    "averageMs": 20.07656950747487,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3.3000000715255737,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607590425,
+   "fps": 53.99568034430851,
+   "drawCalls": 193,
+   "renderDpr": 0.6,
+   "odometer": 3186.2137542048604,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 249.265623,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 181961420,
+   "lost": 0,
+   "ads": {
+    "measurements": 912,
+    "averageMs": 19.70833333398691,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.5,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607595450,
+   "fps": 54.879265613034455,
+   "drawCalls": 187,
+   "renderDpr": 0.6,
+   "odometer": 3258.5095154014493,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 254.286568,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 208551824,
+   "lost": 0,
+   "ads": {
+    "measurements": 931,
+    "averageMs": 19.364769066186795,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.5,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607600468,
+   "fps": 50.51486302232615,
+   "drawCalls": 187,
+   "renderDpr": 0.6,
+   "odometer": 3315.3788504046965,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 259.299668,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 168813738,
+   "lost": 0,
+   "ads": {
+    "measurements": 950,
+    "averageMs": 19.037894737344065,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.600000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607605484,
+   "fps": 53.423031264886646,
+   "drawCalls": 206,
+   "renderDpr": 0.6,
+   "odometer": 3394.593157036994,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 264.323408,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 178532831,
+   "lost": 0,
+   "ads": {
+    "measurements": 969,
+    "averageMs": 18.72249742078341,
+    "maxMs": 248.20000004768372,
+    "lastMs": 3,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607610507,
+   "fps": 49.93146661561627,
+   "drawCalls": 193,
+   "renderDpr": 0.6,
+   "odometer": 3479.9720067723547,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 269.341053,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 184198551,
+   "lost": 0,
+   "ads": {
+    "measurements": 989,
+    "averageMs": 18.400000000626815,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.3000000715255737,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607615525,
+   "fps": 48.31798705547633,
+   "drawCalls": 196,
+   "renderDpr": 0.6,
+   "odometer": 3565.294857508958,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 274.366948,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 167303211,
+   "lost": 0,
+   "ads": {
+    "measurements": 1008,
+    "averageMs": 18.107043651361344,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.600000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607620544,
+   "fps": 52.35602094487458,
+   "drawCalls": 211,
+   "renderDpr": 0.6,
+   "odometer": 3651.8391060515874,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 279.380609,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 175719595,
+   "lost": 0,
+   "ads": {
+    "measurements": 1027,
+    "averageMs": 17.83086660228665,
+    "maxMs": 248.20000004768372,
+    "lastMs": 4.600000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607625569,
+   "fps": 51.58218430589246,
+   "drawCalls": 192,
+   "renderDpr": 0.6,
+   "odometer": 3739.8077359020845,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 284.401627,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 201169237,
+   "lost": 0,
+   "ads": {
+    "measurements": 1046,
+    "averageMs": 17.562523901348612,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.299999952316284,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607630588,
+   "fps": 46.995300468832674,
+   "drawCalls": 195,
+   "renderDpr": 0.6,
+   "odometer": 3829.4978459112745,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 289.427946,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 193442697,
+   "lost": 0,
+   "ads": {
+    "measurements": 1066,
+    "averageMs": 17.28133208342388,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.6999999284744263,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607635600,
+   "fps": 53.25443786982248,
+   "drawCalls": 206,
+   "renderDpr": 0.6,
+   "odometer": 3921.5070501183845,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 294.435445,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 205048237,
+   "lost": 0,
+   "ads": {
+    "measurements": 1085,
+    "averageMs": 17.028387097719094,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.399999976158142,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607640618,
+   "fps": 51.948051948051955,
+   "drawCalls": 196,
+   "renderDpr": 0.6,
+   "odometer": 4016.2244470010924,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 299.448283,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 207766897,
+   "lost": 0,
+   "ads": {
+    "measurements": 1104,
+    "averageMs": 16.788858696278464,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.5,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607645636,
+   "fps": 48.304416404920815,
+   "drawCalls": 222,
+   "renderDpr": 0.6,
+   "odometer": 4112.956420076843,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 304.469846,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 206774783,
+   "lost": 0,
+   "ads": {
+    "measurements": 1124,
+    "averageMs": 16.539145908321792,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.700000047683716,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607650649,
+   "fps": 54.13918692911781,
+   "drawCalls": 201,
+   "renderDpr": 0.6,
+   "odometer": 4212.982548065305,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 309.490521,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 228753427,
+   "lost": 0,
+   "ads": {
+    "measurements": 1143,
+    "averageMs": 16.314260718286423,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.5,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607655753,
+   "fps": 47.281323874847764,
+   "drawCalls": 211,
+   "renderDpr": 0.6,
+   "odometer": 4315.4508609411205,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 314.591197,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 231531423,
+   "lost": 0,
+   "ads": {
+    "measurements": 1162,
+    "averageMs": 16.094750431133857,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.799999952316284,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  },
+  {
+   "at": 1792607660774,
+   "fps": 48.49084611578426,
+   "drawCalls": 219,
+   "renderDpr": 0.6,
+   "odometer": 4421.810386258722,
+   "view": "driver",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 319.607839,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 247341843,
+   "lost": 0,
+   "ads": {
+    "measurements": 1182,
+    "averageMs": 15.874280880853025,
+    "maxMs": 248.20000004768372,
+    "lastMs": 2.700000047683716,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 67
+   }
+  }
+ ],
+ "readyMs": 14176
+}

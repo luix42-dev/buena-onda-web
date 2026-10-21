@@ -3,6 +3,7 @@
  * most expensive Director shots). Radio, cars, map and ads never depend on the tier. */
 export type QualityTier = 'high' | 'medium' | 'low'
 export type QualityChoice = QualityTier | 'auto'
+import { cruiseLookEnabled } from '../cruise-os/look'
 export const QUALITY_KEY = 'buena-onda:quality:v1'
 
 export type QualityProfile = { tier: QualityTier; dpr: [number, number]; filmic: boolean; crowdDensity: number; directorTier: QualityTier }
@@ -19,6 +20,8 @@ export function detectTier(): QualityTier {
   const touch = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches
   const memory = nav.deviceMemory ?? 8, cores = nav.hardwareConcurrency || 8
   if (memory <= 3 || cores <= 4) return 'low'
+  // The Look: phones start on the cheapest path (no post pass; CSS film layer). Choose Medium/High to step up.
+  if (touch && cruiseLookEnabled()) return 'low'
   return touch ? 'medium' : 'high'
 }
 

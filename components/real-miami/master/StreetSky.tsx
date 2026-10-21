@@ -4,6 +4,7 @@ import { useEffect, useMemo, type MutableRefObject } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as T from 'three'
 import { pulse } from './pulse'
+import { LOOK } from '@/lib/cruise-os/look'
 
 export type SkyTime = 'day' | 'sunset' | 'night'
 
@@ -29,6 +30,11 @@ export const SKY = {
     cloudLit: '#2f3550', cloudShade: '#0d111d', fog: '#141a27', hemiSky: '#3e5070', hemiGround: '#5b3b24',
     sunDir: [-0.45, 0.32, -0.83] as const, sunIntensity: 0.32, hemiIntensity: 0.58, cloud: 0.4, stars: 1, exposure: 1.25,
   },
+}
+
+/** The Look: near-black navy over a cyan-lit haze; sodium bounce kept faint. */
+const LOOK_NIGHT = {
+  ...SKY.night, ...LOOK.sky, fog: LOOK.fog, cloudLit: '#16233b', cloudShade: '#03060e', hemiSky: '#2c4568', hemiGround: '#2f2630', hemiIntensity: .36, cloud: .22, stars: 1.5, exposure: 1.02,
 }
 
 const vertex = /* glsl */ `
@@ -107,7 +113,7 @@ function applyPalette(m: T.ShaderMaterial, time: SkyTime) {
 }
 
 /** Procedural sunset sky + matching sun, hemisphere, fog and image-based lighting. */
-export default function StreetSky({ time, high, blend }: { time: SkyTime; high: boolean; blend?:MutableRefObject<number> }) {
+export default function StreetSky({ time, high, blend, look = false }: { time: SkyTime; high: boolean; blend?:MutableRefObject<number>; look?: boolean }) {
   const { gl, scene, camera } = useThree()
   const p = SKY[time]
   const material = useMemo(makeSkyMaterial, [])
@@ -133,18 +139,21 @@ export default function StreetSky({ time, high, blend }: { time: SkyTime; high: 
   const hemi = useMemo(() => new T.HemisphereLight(), [])
   const blendedSun = useMemo(() => new T.DirectionalLight(), [])
   const blendedFog = useMemo(() => new T.Fog(SKY.sunset.fog,70,420), [])
+  // Exponential haze hides chunk streaming edges and reads as depth, not a wall.
+  const lookFog = useMemo(() => new T.FogExp2(LOOK.fog, LOOK.fogDensity), [])
   useFrame((_, dt) => {
     sky.position.copy(camera.position); material.uniforms.uTime.value += dt; material.uniforms.uPulse.value = pulse.bass * 0.8 + pulse.kick * 0.5
     if (!blend) return
-    const t=T.MathUtils.clamp(blend.current,0,1),a=SKY.sunset,b=SKY.night,u=material.uniforms
+    const t=T.MathUtils.clamp(blend.current,0,1),a=SKY.sunset,b=look?LOOK_NIGHT:SKY.night,u=material.uniforms
     const pairs=[['uTop','top'],['uMid','mid'],['uHorizon','horizon'],['uSunColor','sun'],['uCloudLit','cloudLit'],['uCloudShade','cloudShade']] as const
     for(const [uniform,key] of pairs) u[uniform].value.set(a[key]).lerp(transition.sun.set(b[key]),t)
     u.uSun.value.set(...a.sunDir).lerp(transition.dir.set(...b.sunDir),t).normalize()
-    u.uCloud.value=T.MathUtils.lerp(a.cloud,b.cloud,t);u.uStars.value=t
+    u.uCloud.value=T.MathUtils.lerp(a.cloud,b.cloud,t);u.uStars.value=t*b.stars
     hemi.color.set(a.hemiSky).lerp(transition.hemiSky.set(b.hemiSky),t);hemi.groundColor.set(a.hemiGround).lerp(transition.hemiGround.set(b.hemiGround),t);hemi.intensity=T.MathUtils.lerp(a.hemiIntensity,b.hemiIntensity,t)
     blendedSun.color.set(a.sunLight).lerp(transition.sun.set(b.sunLight),t);blendedSun.intensity=T.MathUtils.lerp(a.sunIntensity,b.sunIntensity,t)
     blendedSun.position.copy(u.uSun.value).multiplyScalar(120);blendedSun.position.y=Math.max(36,blendedSun.position.y)
-    blendedFog.color.set(a.fog).lerp(transition.fog.set(b.fog),t);scene.fog=blendedFog
+    if(look){lookFog.color.set(a.fog).lerp(transition.fog.set(b.fog),t);lookFog.density=T.MathUtils.lerp(.0022,LOOK.fogDensity,t);scene.fog=lookFog}
+    else{blendedFog.color.set(a.fog).lerp(transition.fog.set(b.fog),t);scene.fog=blendedFog}
     gl.toneMappingExposure=T.MathUtils.lerp(a.exposure,b.exposure,t);scene.environmentIntensity=T.MathUtils.lerp(.55,.25,t)
   })
 

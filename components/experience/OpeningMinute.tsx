@@ -5,7 +5,7 @@ import type { RideVehicleId } from '@/lib/real-miami/ride-vehicles'
 import type { QualityChoice } from '@/lib/real-miami/quality'
 import './experience.css'
 
-type CameraView = 'driver' | 'chase' | 'director'
+type CameraView = 'driver' | 'chase' | 'director' | 'low'
 export type OpeningMinuteProps = {
   ready: boolean; started: boolean; elapsed: number; onStart: () => void
   vehicle: RideVehicleId; onVehicle: (id: RideVehicleId) => void

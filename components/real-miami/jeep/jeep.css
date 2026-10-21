@@ -25,3 +25,10 @@
 .jn-host button{border:1px solid #ff6fd866;border-radius:999px;background:transparent;color:#ffc6ef;font:600 12px/1 inherit;padding:6px 12px;cursor:pointer}
 @keyframes jn-host-in{0%{opacity:0;filter:blur(6px);transform:translateX(-50%) scaleY(.2)}40%{opacity:.6}60%{opacity:.25}100%{opacity:1;filter:none;transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.jn-host{animation:none}}
+/* The Look, phone tier: no post pass, so lifted blacks, vignette and grain are composited in CSS.
+   Two sibling layers: a blend inside its own stacking context would only blend with itself. */
+.jn-look-lift{position:absolute;inset:0;pointer-events:none;z-index:1;background:#070d1c;mix-blend-mode:screen}
+.jn-look-film{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.jn-look-film::after{content:"";position:absolute;inset:-50%;background:radial-gradient(ellipse at 50% 55%,transparent 30%,rgba(2,4,12,.5) 62%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .7 0 0 0 0 .75 0 0 0 0 .85 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");background-size:100% 100%,160px 160px;opacity:.5;animation:jn-grain 1s steps(6) infinite}
+@keyframes jn-grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){.jn-look-film::after{animation:none}}

@@ -15,6 +15,8 @@ import { wetAsphaltTexture } from './wetAsphalt'
 import { applyOceanDriveFacade, streetNight } from './paintedPlaster'
 import { createMiamiStreetDetail } from './MiamiStreetDetail'
 import { roomWindowTexture, palmLeafTexture } from './streetDetailTextures'
+import { createWetStreaks, wetStreakUniforms, type WetLight } from './wetStreaks'
+import { cruiseLookEnabled, LOOK } from '@/lib/cruise-os/look'
 
 export type MiamiPoint = [number, number]
 export type MiamiData = {
@@ -28,6 +30,7 @@ type StreetSurfaces = { plasterColor: T.Texture; plasterNormal: T.Texture; plast
 const CELL = 250
 const PASTELS = ['#f2c4c8', '#bfe2d4', '#f3e1a4', '#cec3e5', '#b8dbe9', '#f5d0ad', '#eef0e4', '#f6d9e4']
 const temp = new T.Object3D()
+const LOOK_FACADE = new T.Color('#5d6680')
 type Placement = { p: number[]; s: number[]; yaw?: number; tint?: string }
 type Cell = { group: T.Group; x: number; z: number; detail: T.Group; built: boolean; windows?: T.InstancedMesh; paneLod?: boolean }
 
@@ -164,6 +167,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
   const surfaceMap = (source: T.Texture, color: boolean, repeat: number) => { const map = source.clone(); map.colorSpace = color ? T.SRGBColorSpace : T.NoColorSpace; map.wrapS = map.wrapT = T.RepeatWrapping; map.repeat.set(repeat, repeat); map.anisotropy = 4; map.needsUpdate = true; textures.push(map); return map }
   const plasterMap = surfaceMap(surfaces.plasterColor, true, .4), plasterNormal = surfaceMap(surfaces.plasterNormal, false, .4), plasterRough = surfaceMap(surfaces.plasterRoughness, false, .4)
   const pavementMap = surfaceMap(surfaces.pavementColor, true, 1), pavementNormal = surfaceMap(surfaces.pavementNormal, false, 1), pavementRough = surfaceMap(surfaces.pavementRoughness, false, 1)
+  const look = cruiseLookEnabled()
   const oceanSegments = data.roads.filter(r => r.name === 'Ocean Drive').flatMap(r => r.points.slice(1).map((b, i) => [r.points[i], b] as const))
   const mats = {
     road: new T.MeshStandardMaterial({ color: '#89949c', map: asphalt, roughness: .84, side: T.DoubleSide }),
@@ -171,7 +175,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     curb: new T.MeshStandardMaterial({ color: '#b5b3a5', roughness: .87 }),
     building: new T.MeshStandardMaterial({ vertexColors: true, color: 'white', map: plasterMap, normalMap: plasterNormal, normalScale: new T.Vector2(.25, .25), roughness: .94, roughnessMap: plasterRough }),
     windows: new T.MeshStandardMaterial({ vertexColors: true, color: '#d6ded5', map: roomMap, emissiveMap: roomMap, emissive: '#ffffff', emissiveIntensity: .65, roughness: .22, metalness: .08 }),
-    lamps: new T.MeshStandardMaterial({ color: '#fff1cf', emissive: '#ffd399', emissiveIntensity: 1.4, toneMapped: false }),
+    lamps: new T.MeshStandardMaterial({ color: '#fff1cf', emissive: look ? LOOK.sodium : '#ffd399', emissiveIntensity: 1.4, toneMapped: false }),
     deco: new T.MeshStandardMaterial({ color: '#d9d6c4', roughness: .75 }),
     neon: new T.MeshStandardMaterial({ color: '#73dbcb', emissive: '#65dacb', emissiveIntensity: .7, toneMapped: false }),
     poles: new T.MeshStandardMaterial({ color: '#686e73', roughness: .7 }),
@@ -272,6 +276,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     const roads: T.BufferGeometry[] = [], sidewalks: T.BufferGeometry[] = [], bodies: T.BufferGeometry[] = []
     const tables: Placement[] = [], umbrellas: Placement[] = [], uplights: Placement[] = [], promenadePoles: Placement[] = [], promenadeLamps: Placement[] = []
     const windows: Placement[] = [], bands: Placement[] = [], neons: Placement[] = [], trunks: Placement[] = [], fronds: Placement[] = [], poles: Placement[] = [], lamps: Placement[] = [], marks: Placement[] = [], pools: Placement[] = [], curbs: Placement[] = []
+    const wet: WetLight[] = []
     content.roads.forEach(r => {
       const width = r.width || 8, road = ribbon(r.points, width, .025)
       if (road) roads.push(road)
@@ -300,6 +305,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
         for (const side of [-1, 1]) {
           const px = x - dz / len * (width / 2 + 1.3) * side, pz = z + dx / len * (width / 2 + 1.3) * side
           poles.push({ p: [px, 3.6, pz], s: [.1, 7.2, .1] }); lamps.push({ p: [px, 7.22, pz], s: [.6, .12, .45] })
+          if (look) wet.push({ x: px, y: 7.1, z: pz, width: .8, color: LOOK.sodium, intensity: .2 })
           pools.push({ p: [x - dz / len * width * .25 * side, .044, z + dx / len * width * .25 * side], s: [6.5, 1, 10], yaw: yaw + Math.PI / 2 })
         }
       }
@@ -321,6 +327,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
           const x = a[0] + dx * s / len, z = a[1] + dz * s / len, px = x + ex * east * 20, pz = z + ez * east * 20
           if (!clearsBuildings([px, pz])) continue
           promenadePoles.push({ p: [px, 2.1, pz], s: [.08, 4.2, .08] }); promenadeLamps.push({ p: [px, 4.22, pz], s: [.34, .16, .34] })
+          if (look) wet.push({ x: px, y: 4.1, z: pz, width: .6, color: LOOK.sodium, intensity: .14 })
           pools.push({ p: [px, .046, pz], s: [5.5, 1, 5.5] })
         }
       }
@@ -361,7 +368,10 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
           if (height < 22) bands.push({ p: [(a[0] + c[0]) / 2, 2.55 + row * 3, (a[1] + c[1]) / 2], s: [len, .13, .3], yaw })
         }
         if (oceanFront) bands.push({ p: [(a[0] + c[0]) / 2, 2.68, (a[1] + c[1]) / 2], s: [len * .96, .18, 1.15], yaw })
-        if (height < 22 && e % 2 === 0) neons.push({ p: [(a[0] + c[0]) / 2, height - .4, (a[1] + c[1]) / 2], s: [len * .7, .09, .14], yaw, tint: index % 3 ? '#73dbcb' : '#ed7cae' })
+        if (height < 22 && e % 2 === 0) {
+          neons.push({ p: [(a[0] + c[0]) / 2, height - .4, (a[1] + c[1]) / 2], s: [len * .7, .09, .14], yaw, tint: index % 3 ? '#73dbcb' : '#ed7cae' })
+          if (look) wet.push({ x: (a[0] + c[0]) / 2, y: height - .4, z: (a[1] + c[1]) / 2, width: Math.min(2.2, .5 + len * .08), color: index % 3 ? LOOK.cyan : '#ff5fa8', intensity: .13 })
+        }
       }
     })
     merged(cell.group, sidewalks, mats.sidewalk); merged(cell.group, roads, mats.road); merged(cell.group, bodies, mats.building)
@@ -375,6 +385,7 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     instances(cell.detail, poolGeometry, mats.uplights, uplights)
     instances(cell.detail, box, mats.deco, tables); instances(cell.detail, cone, mats.umbrellas, umbrellas)
     instances(cell.detail, box, mats.poles, promenadePoles); instances(cell.detail, box, mats.lamps, promenadeLamps)
+    const streaks = createWetStreaks(wet); if (streaks) cell.detail.add(streaks)
     cell.built = true
     return performance.now() - started
   }
@@ -407,10 +418,12 @@ function createWorld(data: MiamiData, asphaltSource: T.Texture, trafficSource: T
     })
     car.add(body)
     for (const x of [-.6, .6]) { const lamp = new T.Mesh(lampGeometry, headlights); lamp.position.set(x, .72, front - .01); lamp.rotation.y = Math.PI; car.add(lamp) }
+    const rear = bounds.max.z - c.z
+    if (look) { const tails = createWetStreaks([-.62, .62].map(x => ({ x, y: .78, z: rear, width: .45, color: LOOK.red, intensity: .7 }))); if (tails) car.add(tails) }
     group.add(car); return car
   })
   const streetDetail = createMiamiStreetDetail(data); group.add(streetDetail.group)
-  return { group, cells, mats, streetNight, wetness, streetDetail, traffic, buildCell, geometries, textures, adMaterials, trafficMaterials, taillights, headlights, frameGeometry, paneGeometry, fullWindowDetail, landmarkAssets, lastTelemetry: 0 }
+  return { look, group, cells, mats, streetNight, wetness, streetDetail, traffic, buildCell, geometries, textures, adMaterials, trafficMaterials, taillights, headlights, frameGeometry, paneGeometry, fullWindowDetail, landmarkAssets, lastTelemetry: 0 }
 }
 
 export default function MiamiWorld({ state, night, data, route, blend, enhanced = true }: { state: MutableRefObject<NightState>; night: boolean; data: MiamiData; route: MiamiRoute; blend?: MutableRefObject<number>; enhanced?: boolean }) {
@@ -421,8 +434,9 @@ export default function MiamiWorld({ state, night, data, route, blend, enhanced 
   const world = useMemo(() => createWorld(data, asphalt, asset.scene, surfaces), [data, asphalt, asset.scene, surfaces])
   useEffect(() => {
     world.mats.road.roughnessMap = enhanced ? world.wetness : null
-    world.mats.road.roughness = enhanced ? .92 : .84
+    world.mats.road.roughness = world.look ? .62 : enhanced ? .92 : .84
     world.mats.road.envMapIntensity = enhanced ? 1.6 : 1
+    if (world.look) world.mats.road.color.set(LOOK.road)
     world.mats.road.needsUpdate = true
   }, [world, enhanced])
   useEffect(() => () => {
@@ -470,10 +484,15 @@ export default function MiamiWorld({ state, night, data, route, blend, enhanced 
     world.mats.windows.emissiveIntensity = .12 + darkness * .6 + (pulse.source === 'live' ? pulse.energy * .06 : 0)
     world.mats.lamps.emissiveIntensity = .1 + darkness * 1.3
     world.mats.neon.emissiveIntensity = .15 + darkness * 1.15
-    world.mats.pools.opacity = (enhanced ? .26 : .13) * darkness
+    world.mats.pools.opacity = (world.look ? .1 : enhanced ? .26 : .13) * darkness
+    wetStreakUniforms.strength.value = world.look ? darkness * (enhanced ? 1 : .6) : 0
+    // Canyon walls go dark at night so lit windows and signs carry the frame.
+    if (world.look) world.mats.building.color.set('#ffffff').lerp(LOOK_FACADE, darkness)
+    wetStreakUniforms.time.value = s.elapsed
     world.mats.uplights.opacity = .5 * darkness
     // G11: faint sodium spill so asphalt between light pools never reads as a black hole.
-    world.mats.road.emissive.set('#2a1d12'); world.mats.road.emissiveIntensity = darkness * (enhanced ? .55 : .3)
+    if (world.look) { world.mats.road.emissive.set(LOOK.roadEmissive); world.mats.road.emissiveIntensity = darkness * .8 }
+    else { world.mats.road.emissive.set('#2a1d12'); world.mats.road.emissiveIntensity = darkness * (enhanced ? .55 : .3) }
     world.mats.water.color.set('#23798a').lerp(new T.Color('#163b51'), darkness)
     world.headlights.emissiveIntensity = .25 + darkness * 5.75
     world.taillights.forEach(m => { m.emissiveIntensity = .6 + darkness * 2.4 })
