@@ -11,9 +11,11 @@ import Glovebox, { type GloveboxPage } from './Glovebox'
 import PostcardStudio from './PostcardStudio'
 import { useCruiseGamepad } from './useCruiseGamepad'
 import './cruise-os.css'
+import PrototypeOpening from '@/components/experience/PrototypeOpening'
 
 type Panel = GloveboxPage | 'stations' | 'presets' | 'finds' | null
 type Props = OpeningMinuteProps & {
+  quickStart?: boolean
   audio: ReturnType<typeof useCruiseAudio>; metadata: HumanRadioMetadata | null
   listeningOnly: boolean; onScenery: () => void; presence: boolean; onPresence: () => void
   onFocusRadio: () => void; focused: boolean; onBackToDrive: () => void
@@ -31,6 +33,12 @@ export default function CruiseOS(props: Props) {
   const [panel, setPanel] = useState<Panel>(null)
   const [radioLearned, setRadioLearned] = useState(false)
   useEffect(() => { if(props.focused) setRadioLearned(true) }, [props.focused])
+  useEffect(() => {
+    if(!props.quickStart || !props.started) return
+    const timer=setTimeout(()=>setRadioLearned(true),45000)
+    return()=>clearTimeout(timer)
+  }, [props.quickStart,props.started])
+  useEffect(() => { if(props.quickStart && panel==='stations') setRadioLearned(true) }, [props.quickStart,panel])
   const [controller, setController] = useState(false)
   const controllerStatus = useCruiseGamepad({enabled:controller,onGlovebox:()=>setPanel('home'),onRadio:()=>setPanel('stations'),onCamera:()=>{if(props.started)props.onView(props.view==='driver'?'chase':'driver')}})
   const gloveboxTrigger = useRef<HTMLButtonElement>(null)
@@ -68,7 +76,7 @@ export default function CruiseOS(props: Props) {
           <button ref={gloveboxTrigger} type="button" aria-haspopup="dialog" aria-expanded={panel !== null && !radioPanels.includes(panel)} onClick={() => setPanel('home')}>Menu</button>
         </div>
       </header>
-      {!props.started && !props.listeningOnly && <RidePicker cruiseOS humanRadio vehicle={props.vehicle} onSelect={props.onVehicle} night={props.night} onNightChange={night=>{if(night!==props.night)props.onNight()}} onStart={props.onStart} ready={props.ready} routeReady={props.ready}/>}
+      {!props.started && !props.listeningOnly && (props.quickStart?<PrototypeOpening onPlay={props.onStart} vehicle={props.vehicle} onVehicle={props.onVehicle} night={props.night} onNight={props.onNight} ready={props.ready}/>:<RidePicker cruiseOS humanRadio vehicle={props.vehicle} onSelect={props.onVehicle} night={props.night} onNightChange={night=>{if(night!==props.night)props.onNight()}} onStart={props.onStart} ready={props.ready} routeReady={props.ready}/>)}
       {props.started && !props.ready && !props.listeningOnly && <p className="os-guidance" role="status">Loading the scenery. Your radio is below.</p>}
       {props.started && props.ready && !props.listeningOnly && !props.focused && !radioLearned && props.view==='driver' && <div className="os-guidance os-radio-hint"><button onClick={props.onFocusRadio}>Tap the radio to tune in</button><span>Autodrive is on. Change your view above.</span><button className="os-hint-dismiss" aria-label="Dismiss radio guide" onClick={()=>setRadioLearned(true)}>Got it</button></div>}
       {props.focused && <button className="os-return-drive" onClick={props.onBackToDrive}>Back to drive</button>}
@@ -79,6 +87,6 @@ export default function CruiseOS(props: Props) {
       {panel === 'settings' && <><div className="os-settings"><button onClick={props.onPark} disabled={!props.started}>{props.paused?'Resume driving':'Park the car'}</button><label>Time of day<button aria-pressed={props.night} onClick={props.onNight}>{props.night ? 'Night / switch to sunset' : 'Sunset / switch to night'}</button></label><label>Scenery quality<select value={props.quality} onChange={event => props.onQuality(event.target.value as Props['quality'])}><option value="auto">Auto</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label><button onClick={() => { props.listeningOnly ? props.onScenery() : (()=>{if(!props.started)props.onStart();props.onListen()})() }}>{props.listeningOnly ? 'Return to scenery' : 'Listen without 3D'}</button><label><input type="checkbox" checked={controller} onChange={event=>setController(event.target.checked)}/>Enable controller menu navigation</label><p role="status">{controllerStatus}</p>{props.settings}</div><details className="os-help"><summary>Controls and accessibility</summary><p>Autodrive follows the road. Tab moves between controls; Enter or Space activates a button. Escape closes a panel. Outside a control: R opens Radio, G opens Menu, V changes camera, D toggles Cinematic, Space parks.</p><p>System reduced motion is respected. Choose Cockpit or Coastal view for a stable camera, Park to stop the road, or Listen without 3D. All essential actions have labeled buttons; no dragging is required.</p><p>Optional standard controller: D-pad up/down moves focus, A activates, B goes back. Outside menus, Start opens Menu, X opens Radio and Y changes camera. Selects and volume retain their keyboard/touch controls. Analog steering and complete controller-only operation are not provided.</p></details><details className="os-help"><summary>Credits and sources</summary>{props.credits}<p><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors / ODbL</a>. Textures: <a href="https://polyhaven.com/license" target="_blank" rel="noreferrer">Poly Haven / CC0</a>. Adapted vehicles and cabins; radio plays directly from its stations.</p></details></>}
       {panel === 'postcards' && <PostcardStudio capture={props.capture} carLabel={props.carLabel} locationName={props.locationName} station={props.audio.station.name} metadata={props.metadata} url={props.shareUrl} available={props.started && props.ready && !props.listeningOnly} onShared={props.onShared}/>}
     </Glovebox>
-    <DiscoveryConsole osShowDeck={props.started||props.listeningOnly} osCanFocusRadio={props.started} onOsBack={()=>setPanel('home')} osPanel={panel && radioPanels.includes(panel) ? panel as 'stations'|'presets'|'finds' : null} onOsPanel={setPanel} experienceMode sharePath="/cruise/os" audio={props.audio} metadata={props.metadata} credits={props.credits} listeningOnly={props.listeningOnly} onListeningOnly={() => props.listeningOnly ? props.onScenery() : (()=>{if(!props.started)props.onStart();props.onListen()})()} presence={props.presence} onPresence={props.onPresence} onFocusRadio={props.onFocusRadio} onAction={props.onAction}/>
+    <DiscoveryConsole osShowDeck={props.started||props.listeningOnly} osCanFocusRadio={props.started} onOsBack={()=>setPanel('home')} osPanel={panel && radioPanels.includes(panel) ? panel as 'stations'|'presets'|'finds' : null} onOsPanel={setPanel} experienceMode sharePath={props.quickStart?'/cruise/prototype':'/cruise/os'} audio={props.audio} metadata={props.metadata} credits={props.credits} listeningOnly={props.listeningOnly} onListeningOnly={() => props.listeningOnly ? props.onScenery() : (()=>{if(!props.started)props.onStart();props.onListen()})()} presence={props.presence} onPresence={props.onPresence} onFocusRadio={props.onFocusRadio} onAction={props.onAction}/>
   </>
 }

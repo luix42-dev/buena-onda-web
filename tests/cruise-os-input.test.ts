@@ -18,6 +18,7 @@ test('standard controller edges prevent held buttons from repeating',()=>{
  assert.deepEqual(pressedEdges([false,false,false],[true,false,true]),[])
 })
 test('OS share links preserve explicit route and encode station, legacy defaults remain safe',()=>{
+ assert.equal(new URL(stationShareUrl('https://example.com','jolt-radio','/cruise/prototype')).pathname,'/cruise/prototype')
  assert.equal(new URL(stationShareUrl('https://example.com','nts-1&car=bad','/cruise/os')).pathname,'/cruise/os')
  assert.equal(new URL(stationShareUrl('https://example.com','nts-1&car=bad','/cruise/os')).searchParams.get('car'),null)
  assert.equal(new URL(stationShareUrl('https://example.com','nts-1')).pathname,'/cruise/human-radio')

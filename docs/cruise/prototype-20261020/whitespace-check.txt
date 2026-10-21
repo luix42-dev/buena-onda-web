@@ -1,0 +1,1 @@
+git diff --cached --check: PASS after normalizing evidence transcript line endings and indentation.

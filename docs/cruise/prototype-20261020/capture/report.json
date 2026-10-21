@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-21T04:18:54.369Z",
+  "errors": [],
+  "notes": "Real browser rendering, staged existing route position for comparison/capture. No recorded station audio. This is not the continuous soak performance trial.",
+  "renderer": {
+    "vendor": "Google Inc. (Intel)",
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "captureRouteMeters": 113.53734324078687,
+  "parked": {
+    "drive": {
+      "speed": 42.295949404956446,
+      "rpm": 0,
+      "distance": 349.6723507460016,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 55.44005543874687,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 13.786274758400396,
+      "drawCalls": 210,
+      "renderDpr": 0.85,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "night"
+    },
+    "feel": {
+      "response": {
+        "heave": -3.710196266217117e-16,
+        "pitch": 9.212364960970523e-13,
+        "roll": -1.7330927044659416e-13,
+        "steering": -0.08298157549024343,
+        "frontSteer": -0.006383198115094176,
+        "frontRoad": 0,
+        "rearRoad": 0,
+        "hv": 4.3623890830142506e-15,
+        "pv": -1.1999853374091892e-11,
+        "rv": -6.912451306722194e-12
+      },
+      "steeringTriangles": 8114,
+      "steeringAngle": -0.08298157549024343,
+      "tires": [
+        {
+          "transparent": false,
+          "opacity": 1,
+          "depthWrite": true
+        }
+      ],
+      "wheels": [
+        {
+          "center": [
+            -0.820024389704793,
+            0.33068147419502525,
+            -1.1685618674173561
+          ],
+          "radius": 0.2999151806955592,
+          "steer": -0.006383198115094176
+        },
+        {
+          "center": [
+            0.811698631254202,
+            0.3235417983834786,
+            -1.160268396374887
+          ],
+          "radius": 0.2999151806955592,
+          "steer": -0.006383198115094176
+        },
+        {
+          "center": [
+            -0.7852471172404663,
+            0.34196533819270103,
+            1.2971664027920344
+          ],
+          "radius": 0.30808776614452804,
+          "steer": 0
+        },
+        {
+          "center": [
+            0.7735243720279708,
+            0.3228500248776994,
+            1.3008628717374313
+          ],
+          "radius": 0.30809929736171404,
+          "steer": 0
+        }
+      ]
+    }
+  },
+  "recordingFrameIntervals": {
+    "count": 1139,
+    "medianMs": 16.69999999999709,
+    "p95Ms": 17,
+    "maxMs": 66.80000000000291,
+    "note": "rAF interval proxy during video recording, not GPU timestamps or the20-minute soak."
+  },
+  "adState": {
+    "placements": 55,
+    "performance": {
+      "measurements": 205,
+      "averageMs": 29.88731707334517,
+      "maxMs": 215.5,
+      "lastMs": 1.5,
+      "lastRayCount": 0,
+      "lastBlockerCount": 0,
+      "bvhGeometries": 22,
+      "bvhBuildMs": 76.10000020265579
+    },
+    "samples": []
+  },
+  "rawVideo": "D:\\10-VENTURES\\12-buena-onda\\cruise-os-20261015\\docs\\cruise\\prototype-20261020\\capture\\24dc8b15606794f86d6f6ec980e10307.webm"
+}

@@ -1,0 +1,5 @@
+{
+  "status": "not_completed",
+  "attempt": "list_toolsets during final editor restart",
+  "reason": "Queued read returned ECONNRESET when owned editor3216 was stopped at low commit headroom. Not a successful toolset discovery result."
+}

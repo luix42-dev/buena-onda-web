@@ -1,0 +1,26 @@
+{
+  "run": "prototype-20261021-002515",
+  "ownedPid": 3216,
+  "action": "Stopped before further scene mutations to preserve the laptop and saved assets.",
+  "endpointBinding": "127.0.0.1:8000 observed for owned PID",
+  "catalogResult": "Queued read reset when the editor was stopped; not another successful live-query claim.",
+  "generatedClientConfig": ".codex/config.toml, 59 bytes, local unreal-mcp endpoint; not loaded into this running Codex namespace.",
+  "evidence": [
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Process is running as part of a Windows Job with separate resource limits",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Memory total: Physical=15.8GB (16GB approx) Virtual=23.8GB",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Platform Memory Stats for WindowsEditor",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Process Physical Memory: 607.40 MB used, 607.40 MB peak",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Process Virtual Memory: 581.70 MB used, 581.70 MB peak",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Physical Memory: 11840.58 MB used,  4337.70 MB free, 16178.28 MB total",
+    "[2026.10.21-04.26.22:381][  0]LogMemory: Virtual Memory: 20888.44 MB used,  3481.84 MB free, 24370.28 MB total",
+    "[2026.10.21-04.31.55:946][  0]LogPython: CRUISE_RADIO_READY: native UE MediaPlayer/MediaSoundComponent; waiting for PIE",
+    "[2026.10.21-04.31.56:170][  0]LogModelContextProtocol: Display: MCP client configuration written to: ../../../../cruise-publish-20261006/.vercel/cinema-probe/.codex/config.toml",
+    "[2026.10.21-04.31.57:807][  1]LogMemory: Platform Memory Stats for WindowsEditor",
+    "[2026.10.21-04.31.57:807][  1]LogMemory: Process Physical Memory: 3534.16 MB used, 3593.13 MB peak",
+    "[2026.10.21-04.31.57:807][  1]LogMemory: Process Virtual Memory: 3652.43 MB used, 3896.10 MB peak",
+    "[2026.10.21-04.31.57:807][  1]LogMemory: Physical Memory: 15070.38 MB used,  1107.89 MB free, 16178.28 MB total",
+    "[2026.10.21-04.31.57:807][  1]LogMemory: Virtual Memory: 24275.95 MB used,  94.33 MB free, 24370.28 MB total"
+  ],
+  "originalMapSha256": "DA6586C477F9BBF9918D7896781C14A9717E8A6E63E7123A93F13B8CCBCB1CB0",
+  "savedReviewBytes": 1167454
+}

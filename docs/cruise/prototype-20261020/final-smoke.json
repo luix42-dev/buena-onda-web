@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-21T04:23:44.537Z",
+  "checks": {
+    "portraitPlayFitsAt100Percent": true,
+    "landscapePlayFitsAt100Percent": true,
+    "guideAutoHides": true,
+    "shareReturnsToPrototype": true,
+    "actualWorldAdQualified": true
+  },
+  "errors": [],
+  "scope": "Final build UI/share check, desktop Edge with resized viewports. Not physical touch or television testing.",
+  "guideGoneAfterMs": 45430,
+  "shareFixture": "Native navigator.share disabled for clipboard fallback coverage; no OS share-sheet claim.",
+  "copiedUrl": "http://127.0.0.1:3097/cruise/prototype?station=jolt-radio&at=breakwater&time=night&cam=driver",
+  "adProbe": [
+    {
+      "id": "MB-ROUTE-00174",
+      "visible": true,
+      "viewable": true,
+      "readable": true,
+      "width": 205.22194534644623,
+      "height": 81.92579608865799,
+      "occlusion": 0,
+      "campaign": "Onda Tropical"
+    }
+  ]
+}

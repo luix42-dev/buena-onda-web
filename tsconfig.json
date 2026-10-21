@@ -43,7 +43,9 @@
     ".next-cruise-os-simple-build/types/**/*.ts",
     ".next-cruise-os-cockpit-build/types/**/*.ts",
     ".next-cruise-os-cockpit-final-build/types/**/*.ts",
-    ".next-cruise-os-visual-build/types/**/*.ts"
+    ".next-cruise-os-visual-build/types/**/*.ts",
+    ".next-cruise-prototype-build/types/**/*.ts",
+    ".next-cruise-prototype-final-build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

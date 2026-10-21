@@ -1,0 +1,18 @@
+✔ shortcuts preserve text entry, native activation, dialogs and browser combinations (1.8349ms)
+✔ only music and secondary navigation are available before start (0.2858ms)
+✔ standard controller edges prevent held buttons from repeating (0.9784ms)
+✔ OS share links preserve explicit route and encode station, legacy defaults remain safe (0.7299ms)
+✔ URL sunset duration accepts only plain decimal minutes in the 30–45 range (1.0732ms)
+✔ sunset blend uses elapsed simulation time and clamps reset/start/end correctly (0.2658ms)
+✔ night mode is immediate and invalid simulation times fail closed (0.1317ms)
+✔ camera adjustment is opt-in and restricted to Wrangler and Countach (0.2106ms)
+✔ Wrangler gaze rises modestly while original input, eye, radio and chase stay exact (1.0899ms)
+✔ Countach gets a smaller rise and the gaze never rises above the eye (0.2538ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 493.8572

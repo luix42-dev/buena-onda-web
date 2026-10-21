@@ -54,8 +54,8 @@ export function rigRollingWheels(scene:T.Object3D,tire:RegExp):WheelRig{
 }
 
 /** Rolls by route distance, so Director, chase and cockpit all agree with the real speed. */
-export function RollingWheels({rig,state}:{rig:WheelRig;state:MutableRefObject<NightState>}){
+export function RollingWheels({rig,state,feel=false}:{rig:WheelRig;state:MutableRefObject<NightState>;feel?:boolean}){
  useEffect(()=>{const w=window as Window&{__wheels?:()=>unknown};if(new URLSearchParams(location.search).has('diagnostics'))w.__wheels=()=>rig.wheels.map(({pivot,radius})=>({radius:+radius.toFixed(3),center:pivot.position.toArray().map(n=>+n.toFixed(3)),parts:pivot.children.length,triangles:pivot.children.reduce((n,c)=>n+((c as T.Mesh).geometry.attributes.position.count/3),0),angle:+pivot.rotation.x.toFixed(3)}));return()=>{delete w.__wheels;rig.dispose()}},[rig])
- useFrame(()=>{const d=state.current.distance;for(const w of rig.wheels)w.pivot.rotation.x=-(d/w.radius)%(Math.PI*2)})
+ useFrame(()=>{const s=state.current,d=feel?s.odometer:s.distance;for(const w of rig.wheels){if(!feel){w.pivot.rotation.x=-(d/w.radius)%(Math.PI*2);continue}const m=s.vehicleFeel;w.pivot.rotation.set(-(d/w.radius)%(Math.PI*2),m&&w.pivot.position.z<0?m.frontSteer:0,0,'YXZ')}})
  return <>{rig.wheels.map((w,i)=><primitive key={i} object={w.pivot}/>)}</>
 }
