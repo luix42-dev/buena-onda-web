@@ -1,5 +1,6 @@
 export const runtime = 'nodejs'
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 import { attachInstagramImage, notifyCulturePostLive } from '@/lib/culture-integrations'
@@ -89,5 +90,6 @@ export async function POST(request: NextRequest) {
     await notifyCulturePostLive(data.title, data.slug)
   }
 
+  revalidatePath('/culture', 'layout')
   return NextResponse.json(data, { status: 201 })
 }
