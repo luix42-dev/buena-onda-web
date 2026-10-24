@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import { revalidatePath } from 'next/cache'
 import { fulfillCheckoutSession, fulfillElementsPaymentIntent, type FulfillOrderResult } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
 import { handleCruisePlotEvent, isCruisePlotSession } from '@/lib/cruise/plot-fulfillment'
@@ -101,6 +102,11 @@ export async function POST(request: NextRequest) {
   }
 
   if (!fulfillment) return NextResponse.json({ received: true })
+
+  // Item pages are ISR-cached; purge so the sold state shows immediately.
+  revalidatePath('/items/[slug]', 'page')
+  revalidatePath('/themes', 'layout')
+  revalidatePath('/')
 
   if (fulfillment.itemAlreadySold) {
     console.warn(`Stripe event for ${sourceId} completed after item was already sold — refund needed`)

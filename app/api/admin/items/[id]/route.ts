@@ -139,7 +139,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
 
-  revalidatePath('/themes')
+  revalidatePath('/themes', 'layout') // catalog + every theme spread
   revalidatePath('/sitemap.xml')
   if (existing?.slug) revalidatePath(`/items/${existing.slug}`)
   revalidatePath(`/items/${data.slug}`)

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
+import { cache } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import { canOptimizeImage } from '@/lib/images'
 import ScanReveal from '@/components/ui/ScanReveal'
 import ImageGallery from '@/components/ui/ImageGallery'
 import BuyNowButton from '@/components/ui/BuyNowButton'
@@ -8,11 +11,14 @@ import ReserveForm from '@/components/ui/ReserveForm'
 import JsonLd from '@/components/seo/JsonLd'
 import GAItemView from '@/components/analytics/GAItemView'
 import { absoluteUrl, breadcrumbList } from '@/lib/seo/json-ld'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Item, ItemImage, Theme } from '@/types'
 
-export const runtime = 'edge'
-export const dynamic = 'force-dynamic'
+// ISR: pages are pre-rendered and served from the CDN, refreshed every 5 min
+// and purged immediately by revalidatePath() in the admin + Stripe webhook routes.
+// (Was edge + force-dynamic with a cookie client: 5 sequential Supabase round
+// trips on every click, 1-2.5s before anything changed on screen.)
+export const revalidate = 300
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -23,16 +29,43 @@ type PrimaryImageRow = {
   url: string
 }
 
+const ITEM_SELECT =
+  'id, title, slug, catalog_number, theme_id, description, why_chosen, details, price, buy_url, tags, status, availability, sourcing_model, featured, published_at, created_at, updated_at, theme:themes(*), images:item_images(*)'
+
+// One query shared by generateMetadata and the page (React cache dedupes it per request).
+const getItem = cache(async (slug: string) => {
+  const supabase = createPublicClient()
+  const { data, error } = await supabase
+    .from('items')
+    .select(ITEM_SELECT)
+    .eq('slug', slug)
+    .in('status', ['published', 'sold_out'])
+    .maybeSingle()
+  // Throw (not notFound) on a DB error: a failed ISR refresh then keeps the
+  // last good page in the cache instead of caching a 404.
+  if (error) throw new Error(`items lookup failed for ${slug}: ${error.message}`)
+  return data
+})
+
+// Pre-render every live item at build time so the first click is a CDN hit.
+// New items still render on demand (dynamicParams defaults to true).
+export async function generateStaticParams() {
+  try {
+    const supabase = createPublicClient()
+    const { data } = await supabase
+      .from('items')
+      .select('slug')
+      .in('status', ['published', 'sold_out'])
+    return (data ?? []).map(row => ({ slug: row.slug as string }))
+  } catch {
+    return []
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   try {
-    const supabase = await createClient()
-    const { data } = await supabase
-      .from('items')
-      .select('title, description, catalog_number')
-      .eq('slug', slug)
-      .eq('status', 'published')
-      .single()
+    const data = await getItem(slug)
     if (data) {
       return {
         title: `${data.catalog_number ? `${data.catalog_number} \u2014 ` : ''}${data.title}`,
@@ -61,14 +94,9 @@ function productAvailability(value: Item['availability']) {
 
 export default async function ItemPage({ params }: Props) {
   const { slug } = await params
-  const supabase = await createClient()
+  const supabase = createPublicClient()
 
-  const { data: itemData } = await supabase
-    .from('items')
-    .select('id, title, slug, catalog_number, theme_id, description, why_chosen, details, price, buy_url, tags, status, availability, sourcing_model, featured, published_at, created_at, updated_at, theme:themes(*), images:item_images(*)')
-    .eq('slug', slug)
-    .in('status', ['published', 'sold_out'])
-    .single()
+  const itemData = await getItem(slug)
 
   if (!itemData) notFound()
 
@@ -89,31 +117,24 @@ export default async function ItemPage({ params }: Props) {
   const hasDetails = DETAIL_FIELDS.some(f => details[f.key]) || !!item.catalog_number
 
   // Pairs Well With - up to 4 other available published items, same theme first.
-  let related: Item[] = []
-  if (theme) {
-    const { data: sameTheme } = await supabase
-      .from('items')
-      .select('id, title, slug, price, catalog_number')
-      .eq('status', 'published')
-      .eq('availability', 'available')
-      .eq('theme_id', theme.id)
-      .neq('id', item.id)
-      .order('published_at', { ascending: false })
-      .limit(4)
-    related = (sameTheme ?? []) as Item[]
-  }
-  if (related.length < 4) {
-    const exclude = [item.id, ...related.map(r => r.id)]
-    const { data: others } = await supabase
-      .from('items')
-      .select('id, title, slug, price, catalog_number')
-      .eq('status', 'published')
-      .eq('availability', 'available')
-      .not('id', 'in', `(${exclude.join(',')})`)
-      .order('published_at', { ascending: false })
-      .limit(4 - related.length)
-    related = [...related, ...((others ?? []) as Item[])]
-  }
+  // Both lookups run in parallel (previously sequential round trips).
+  const relatedBase = () => supabase
+    .from('items')
+    .select('id, title, slug, price, catalog_number')
+    .eq('status', 'published')
+    .eq('availability', 'available')
+    .neq('id', item.id)
+    .order('published_at', { ascending: false })
+  const [sameThemeRes, recentRes] = await Promise.all([
+    theme ? relatedBase().eq('theme_id', theme.id).limit(4) : Promise.resolve({ data: [] }),
+    relatedBase().limit(8),
+  ])
+  const sameTheme = (sameThemeRes.data ?? []) as Item[]
+  const seen = new Set(sameTheme.map(r => r.id))
+  let related: Item[] = [
+    ...sameTheme,
+    ...((recentRes.data ?? []) as Item[]).filter(r => !seen.has(r.id)),
+  ].slice(0, 4)
 
   const relatedIds = related.map(rel => rel.id)
   const relatedPrimaryImagesRes = relatedIds.length === 0
@@ -382,10 +403,13 @@ export default async function ItemPage({ params }: Props) {
                   <Link href={`/items/${rel.slug}`} className="group block">
                     <div className="aspect-[3/4] bg-sand-bg overflow-hidden mb-3">
                       {rel.primary_image_url ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
+                        <Image
                           src={rel.primary_image_url}
                           alt={rel.title}
+                          width={480}
+                          height={640}
+                          unoptimized={!canOptimizeImage(rel.primary_image_url)}
+                          sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) 45vw, 22vw"
                           className="w-full h-full object-cover group-hover:scale-105
                                      transition-transform duration-500"
                         />
