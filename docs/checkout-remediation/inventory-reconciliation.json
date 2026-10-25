@@ -1,0 +1,88 @@
+{
+  "at": "2026-10-01T21:27:04.281Z",
+  "accountId": "acct_1TahwxJVoShb7owb",
+  "scope": "Supplied Stripe account now configured in production",
+  "completeSessionHistoryCount": 4,
+  "completeIntentHistoryCount": 0,
+  "reservedFound": 5,
+  "restored": 0,
+  "markedSold": 0,
+  "ambiguous": 5,
+  "classifications": [
+    {
+      "itemId": "b282a4ae-7c7e-4e85-800b-11c06490840a",
+      "publication": "archived",
+      "sourcingModel": "reservation",
+      "inventoryUpdatedAt": "2026-06-04T22:23:20.678741+00:00",
+      "orders": [],
+      "sessions": [],
+      "intents": [],
+      "classification": "ambiguous-owner-review",
+      "reason": "Archived reservation listing without a checkout Order; manual/offline hold intent unknown.",
+      "proposedMutation": null
+    },
+    {
+      "itemId": "a851ce98-81b7-4b7e-abe8-c8253aea01a4",
+      "publication": "archived",
+      "sourcingModel": "reservation",
+      "inventoryUpdatedAt": "2026-06-04T22:23:01.889131+00:00",
+      "orders": [],
+      "sessions": [],
+      "intents": [],
+      "classification": "ambiguous-owner-review",
+      "reason": "Archived reservation listing without a checkout Order; manual/offline hold intent unknown.",
+      "proposedMutation": null
+    },
+    {
+      "itemId": "758c3220-7bca-4c7a-a659-f63220772104",
+      "publication": "archived",
+      "sourcingModel": "reservation",
+      "inventoryUpdatedAt": "2026-06-04T22:21:16.009729+00:00",
+      "orders": [],
+      "sessions": [],
+      "intents": [],
+      "classification": "ambiguous-owner-review",
+      "reason": "Archived reservation listing without a checkout Order; manual/offline hold intent unknown.",
+      "proposedMutation": null
+    },
+    {
+      "itemId": "3b0c2119-e663-4ab6-8c78-ae81cf0f8963",
+      "publication": "archived",
+      "sourcingModel": "reservation",
+      "inventoryUpdatedAt": "2026-06-04T22:23:45.248755+00:00",
+      "orders": [],
+      "sessions": [],
+      "intents": [],
+      "classification": "ambiguous-owner-review",
+      "reason": "Archived reservation listing without a checkout Order; manual/offline hold intent unknown.",
+      "proposedMutation": null
+    },
+    {
+      "itemId": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3",
+      "publication": "draft",
+      "sourcingModel": "direct",
+      "inventoryUpdatedAt": "2026-06-12T15:56:57.061101+00:00",
+      "orders": [
+        {
+          "id": "674fd6d7-b574-4d15-a65d-bbccb673815e",
+          "status": "canceled",
+          "created_at": "2026-06-10T18:36:59.27832+00:00",
+          "stripe_session_id": "cs_live_a1Xzr7TzTR7va4bncHxIZGbegx1DMAqg9ArGswY4QOW81kn3RKDjn8bTBx"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "cs_live_a1Xzr7TzTR7va4bncHxIZGbegx1DMAqg9ArGswY4QOW81kn3RKDjn8bTBx",
+          "itemId": "d5933491-6cb6-4b22-b55b-c1aed23bf0b3",
+          "status": "expired",
+          "paymentStatus": "unpaid"
+        }
+      ],
+      "intents": [],
+      "classification": "ambiguous-owner-review",
+      "reason": "Draft item changed after its expired checkout; later inventory state cannot be attributed to that checkout.",
+      "proposedMutation": null
+    }
+  ],
+  "mutationPerformed": false
+}
