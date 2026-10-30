@@ -1,15 +1,7 @@
 import Link from 'next/link'
 import FooterNewsletter from './FooterNewsletter'
 import FooterSwatches from './FooterSwatches'
-
-const navLinks = [
-  { href: '/about',   label: 'About'   },
-  { href: '/culture', label: 'Culture' },
-  { href: '/themes',  label: 'Catalog' },
-  { href: '/radio',   label: 'Radio'   },
-  { href: '/search',  label: 'Search'  },
-  { href: '/contact', label: 'Contact' },
-]
+import { footerLinks as navLinks } from '@/lib/nav'
 
 const socialLinks = [
   { href: 'https://instagram.com/buenaondalifestyle', label: 'Instagram' },
