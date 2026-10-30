@@ -7,6 +7,7 @@ import JsonLd from '@/components/seo/JsonLd'
 import { organizationJsonLd, websiteJsonLd } from '@/lib/seo/json-ld'
 import { createPublicClient } from '@/lib/supabase/public'
 import type { Episode } from '@/types'
+import { CRUISE_LIVE, RADIO_HREF } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: 'Buena Onda - Analog Culture House',
@@ -31,7 +32,7 @@ const pillars = [
     name: 'Radio',
     headline: 'The signal is always on.',
     text: 'Mixes, live sessions, and field recordings from Little Havana and Wynwood. Front to back.',
-    href: '/radio',
+    href: RADIO_HREF,
   },
   {
     name: 'Live Events',
@@ -340,14 +341,14 @@ export default async function HomePage() {
                 >
                   Curated mixes, live sessions, and field recordings. Front to back.
                 </p>
-                <Link href="/radio" className="btn-hollow-coral group">
-                  Enter the archive
+                <Link href={RADIO_HREF} className="btn-hollow-coral group">
+                  {CRUISE_LIVE ? 'Tune in' : 'Enter the archive'}
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               </div>
 
               <Link
-                href="/radio"
+                href={RADIO_HREF}
                 className="hidden md:block w-72 p-8 transition-colors hover:border-[var(--hover-border-color)] hover:bg-black/10"
                 style={{ border: '1px solid rgba(248,247,243,0.1)', '--hover-border-color': '#E8176A' } as React.CSSProperties}
                 aria-label={latestRadioEpisode ? `Listen to ${latestRadioEpisode.title}` : 'Radio archive'}

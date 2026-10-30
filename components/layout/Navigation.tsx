@@ -3,17 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-const links = [
-  { href: '/',            label: 'Home'      },
-  { href: '/about',       label: 'About'     },
-  { href: '/events',      label: 'Live Events' },
-  { href: '/culture',     label: 'Culture'   },
-  { href: '/themes',      label: 'Catalog'   },
-  { href: '/radio',       label: 'Radio'     },
-  { href: '/cruise',      label: 'Cruise'    },
-  { href: '/contact',     label: 'Contact'   },
-]
+import { headerLinks as links } from '@/lib/nav'
 
 export default function Navigation() {
   const pathname   = usePathname()
