@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-01T21:23:24.956Z",
+  "deployedSha": "3df7d11d0e821a127b0c72e55644fdbd6576eb9a",
+  "target": "production",
+  "state": "READY",
+  "checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/webhooks/stripe",
+      "method": "GET",
+      "status": 405
+    },
+    {
+      "path": "/api/webhooks/stripe",
+      "method": "POST",
+      "status": 400
+    }
+  ],
+  "signedNoop": [
+    {
+      "status": 200,
+      "response": {
+        "received": true
+      }
+    },
+    {
+      "status": 200,
+      "response": {
+        "received": true
+      }
+    }
+  ],
+  "unavailable": {
+    "status": 409,
+    "error": "unavailable",
+    "itemIds": [
+      "3b0c2119-e663-4ab6-8c78-ae81cf0f8963"
+    ]
+  },
+  "productionPublishableKeyMatchesSupplied": true,
+  "inventoryUnchanged": true,
+  "ordersUnchanged": true,
+  "reservedCount": 5,
+  "chargesCreated": 0,
+  "note": "Signed probe is local signature verification, not processor delivery evidence."
+}
