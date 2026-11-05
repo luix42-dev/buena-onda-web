@@ -1,5 +1,6 @@
 export const runtime = 'nodejs'
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 import { attachInstagramImage, notifyCulturePostLive } from '@/lib/culture-integrations'
@@ -114,6 +115,8 @@ export async function PUT(request: NextRequest, { params }: Params) {
     await notifyCulturePostLive(data.title, data.slug)
   }
 
+  revalidatePath('/culture', 'layout')
+  revalidatePath('/')
   return NextResponse.json(data)
 }
 
@@ -126,5 +129,6 @@ export async function DELETE(request: NextRequest, { params }: Params) {
   const supabase = await createServiceClient()
   const { error } = await supabase.from('posts').delete().eq('id', id)
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+  revalidatePath('/culture', 'layout')
   return NextResponse.json({ ok: true })
 }

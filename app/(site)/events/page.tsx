@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
+import { canOptimizeImage } from '@/lib/images'
 import ScanReveal from '@/components/ui/ScanReveal'
 import { createPublicServiceClient } from '@/lib/supabase/public'
 
@@ -91,10 +93,14 @@ export default async function EventsPage() {
                   >
                     {event.cover_image_url ? (
                       <div className="aspect-[4/3] bg-sand-bg overflow-hidden mb-6">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={event.cover_image_url}
                           alt={event.name}
+                          width={800}
+                          height={600}
+                          priority={i < 2}
+                          unoptimized={!canOptimizeImage(event.cover_image_url)}
+                          sizes="(max-width: 767px) calc(100vw - 6rem), 45vw"
                           className="w-full h-full object-cover"
                         />
                       </div>

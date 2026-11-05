@@ -1,11 +1,26 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import { canOptimizeImage } from '@/lib/images'
 import ScanReveal from '@/components/ui/ScanReveal'
 import { createPublicClient } from '@/lib/supabase/public'
 import type { Theme, Item } from '@/types'
 
 export const revalidate = 300
+
+// Pre-render every published theme at build time (new ones render on demand).
+export async function generateStaticParams() {
+  try {
+    const { data } = await createPublicClient()
+      .from('themes')
+      .select('slug')
+      .eq('published', true)
+    return (data ?? []).map(row => ({ slug: row.slug as string }))
+  } catch {
+    return []
+  }
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -41,23 +56,26 @@ export default async function ThemeSpreadPage({ params }: Props) {
   const { slug } = await params
   const supabase = createPublicClient()
 
-  const { data: themeData } = await supabase
+  const { data: themeData, error: themeError } = await supabase
     .from('themes')
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
     .single()
 
+  // Throw on DB errors so a failed ISR refresh keeps the last good page cached.
+  if (themeError) throw new Error(`theme lookup failed: ${themeError.message}`)
   if (!themeData) notFound()
   const theme = themeData as Theme
 
-  const { data: itemsData } = await supabase
+  const { data: itemsData, error: itemsError } = await supabase
     .from('items')
     .select('id, title, slug, catalog_number, theme_id, description, price')
     .eq('theme_id', theme.id)
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 
+  if (itemsError) throw new Error(`theme items lookup failed: ${itemsError.message}`)
   const itemRows = (itemsData ?? []) as Item[]
   const itemIds = itemRows.map(item => item.id)
   const primaryImagesRes = itemIds.length === 0
@@ -115,10 +133,14 @@ export default async function ThemeSpreadPage({ params }: Props) {
             {theme.cover_image && (
               <ScanReveal delay={200}>
                 <div className="aspect-[3/4] overflow-hidden max-w-xs">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={theme.cover_image}
                     alt={theme.title}
+                    width={320}
+                    height={427}
+                    priority
+                    unoptimized={!canOptimizeImage(theme.cover_image)}
+                    sizes="320px"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -177,10 +199,15 @@ export default async function ThemeSpreadPage({ params }: Props) {
                       {/* Portrait thumbnail */}
                       <div className="aspect-[3/4] overflow-hidden bg-sand-bg flex-shrink-0">
                         {item.primary_image_url ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
+                          // Optimized + resized (was the raw upload: 1.4MB PNG for a 180px thumb)
+                          <Image
                             src={item.primary_image_url}
                             alt={item.title}
+                            width={360}
+                            height={480}
+                            priority={i < 2}
+                            unoptimized={!canOptimizeImage(item.primary_image_url)}
+                            sizes="(max-width: 767px) calc(100vw - 2.5rem), 180px"
                             className="w-full h-full object-cover transition-all duration-500"
                           />
                         ) : (

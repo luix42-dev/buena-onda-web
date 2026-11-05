@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
@@ -90,6 +91,9 @@ export async function POST(request: NextRequest) {
       sort_order: 0,
     })
   }
+
+  revalidatePath('/themes', 'layout')
+  revalidatePath('/sitemap.xml')
 
   return NextResponse.json(data, { status: 201 })
 }

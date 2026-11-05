@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { createPublicClient } from '@/lib/supabase/public'
+import { CRUISE_LIVE } from '@/lib/nav'
 
 export const revalidate = 3600
 
@@ -12,7 +13,8 @@ const staticPaths = [
   '/culture',
   '/events',
   '/objects',
-  '/radio',
+  // With Cruise live, /radio redirects to /cruise, so it leaves the sitemap.
+  ...(CRUISE_LIVE ? ['/cruise'] : ['/radio']),
   '/themes',
 ]
 
@@ -80,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-    const radioRoutes: MetadataRoute.Sitemap = (episodes ?? []).map((episode) => ({
+    const radioRoutes: MetadataRoute.Sitemap = (CRUISE_LIVE ? [] : episodes ?? []).map((episode) => ({
       url: `${SITE}/radio#${episode.slug}`,
       lastModified: fromUpdatedAt(episode.published_at ?? episode.created_at),
       changeFrequency: 'monthly',

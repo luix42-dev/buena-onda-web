@@ -1,3 +1,6 @@
+// Inlined at build time, same as lib/nav.ts.
+const CRUISE_LIVE = process.env.NEXT_PUBLIC_CRUISE_LIVE === 'true'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   distDir: process.env.CRUISE_DIST_DIR || '.next',
@@ -12,6 +15,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/objects', destination: '/themes', permanent: false },
+      ...(CRUISE_LIVE ? [{ source: '/radio', missing: [{ type: 'query', key: 'fallback' }], destination: '/cruise', permanent: false }] : []),
     ]
   },
   images: {

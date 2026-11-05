@@ -9,8 +9,22 @@ export function createPublicClient() {
 
   return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    global: {
+      // supabase-js sends an Authorization header (the anon key). Next.js
+      // treats an Authorization header with no explicit cache option as
+      // uncacheable, which silently turned every [slug] page into a fully
+      // dynamic render (private, no-store; 1-2s TTFB per click). An explicit
+      // revalidate keeps these public reads in the ISR data cache;
+      // revalidatePath() in the admin/webhook routes still purges them.
+      fetch: (input, init) => fetch(input, {
+        ...init,
+        next: { revalidate: PUBLIC_REVALIDATE_SECONDS },
+      }),
+    },
   })
 }
+
+export const PUBLIC_REVALIDATE_SECONDS = 300
 
 export function createPublicServiceClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL

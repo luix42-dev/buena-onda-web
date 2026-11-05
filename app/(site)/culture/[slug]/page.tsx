@@ -10,6 +10,21 @@ import type { Post } from '@/types'
 
 export const revalidate = 300
 
+// Pre-render published editorials at build time so links open from the CDN.
+export async function generateStaticParams() {
+  try {
+    const { data } = await createPublicClient()
+      .from('posts')
+      .select('slug')
+      .or('published.eq.true,status.in.(published,live)')
+    return (data ?? [])
+      .filter(row => typeof row.slug === 'string' && row.slug)
+      .map(row => ({ slug: row.slug as string }))
+  } catch {
+    return []
+  }
+}
+
 type Props = {
   params: Promise<{ slug: string }>
 }
