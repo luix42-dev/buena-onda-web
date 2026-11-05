@@ -9,7 +9,7 @@ const RealMiami=dynamic(()=>import('@/components/real-miami/jeep/JeepNight'),{ss
 
 export default function CruiseClient({ campaign, campaignValid }: { campaign: CruiseCampaign; campaignValid: boolean }) {
   const[legacy,setLegacy]=useState<boolean|null>(null)
-  useEffect(()=>setLegacy(new URLSearchParams(location.search).get('experience')==='legacy'),[])
+  useEffect(()=>setLegacy(new URLSearchParams(location.search).get('experience')==='legacy'||new URLSearchParams(location.search).get('mode')==='classic'),[])
   if(legacy===null)return null
   // Other campaigns retain their existing creatives, video and measured ad
   // placements until real-Miami plot viewability has been integrated.
