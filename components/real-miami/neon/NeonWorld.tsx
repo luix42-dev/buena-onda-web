@@ -364,11 +364,12 @@ function createRain(count: number) {
   return { mesh, uniforms }
 }
 
-export default function NeonWorld({ state, tier = 'high', future = false, radioCampaigns }: { state: MutableRefObject<NightState>; tier?: 'high' | 'medium' | 'low'; future?: boolean;radioCampaigns?:readonly CruiseCampaign[] }) {
+export default function NeonWorld({ state, tier = 'high', future = false, radioCampaigns, showAds=true }: { state: MutableRefObject<NightState>; tier?: 'high' | 'medium' | 'low'; future?: boolean;radioCampaigns?:readonly CruiseCampaign[];showAds?:boolean }) {
   // Existing repository CC0 asphalt (Poly Haven, see clean-asphalt/provenance.json), made wet.
   const asphaltSource = useTexture('/real-miami/materials/clean-asphalt/color.webp')
   const trafficAsset = useGLTF('/real-miami/traffic/classic-traffic.glb', false, true)
   const world = useMemo(() => createWorld(asphaltSource,radioCampaigns), [asphaltSource,radioCampaigns])
+  useEffect(()=>{for(const chunk of world.chunks)chunk.index=Number.NaN},[showAds,world])
   const cue=useRef<{id:string;label:string;destination:string;until:number}|null>(null),lastCue=useRef(0)
   useEffect(()=>()=>{window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:null}))},[])
   useEffect(()=>{if(!new URLSearchParams(location.search).has('diagnostics'))return;const target=window as Window&{__retroAds?:()=>unknown};target.__retroAds=()=>({destinations:world.holo.map(material=>typeof material.userData.destination==='string'?material.userData.destination:null),visibleScreens:world.chunks.reduce((count,chunk)=>count+chunk.screens.filter(screen=>screen.visible).length,0),screens:world.chunks.flatMap(chunk=>chunk.screens.filter(screen=>screen.visible).map(screen=>({meters:screen.userData.routeMeters,destination:screen.userData.destination,supports:chunk.supports.count?2:0,height:screen.scale.y,center:screen.position.y})))});return()=>{delete target.__retroAds}},[world])
@@ -413,7 +414,7 @@ export default function NeonWorld({ state, tier = 'high', future = false, radioC
       chunk.flameBase.forEach((f, k) => { const flick = .75 + .25 * Math.sin(time * 9 + k * 3.1) * Math.sin(time * 3.7 + k), hgt = f.s * (1.4 + .6 * flick); for (let q = 0; q < 2; q++) put(chunk.flames, k * 2 + q, f.x, f.y + hgt / 2, f.z, f.s * .55 * flick, hgt, 1, q * Math.PI / 2) })
       if (chunk.flameBase.length) chunk.flames.instanceMatrix.needsUpdate = true
     }
-    if(future&&time-lastCue.current>.4){lastCue.current=time;if(!cue.current||time>=cue.current.until){const upcoming=world.chunks.flatMap(chunk=>chunk.screens).filter(screen=>screen.visible&&typeof screen.userData.destination==='string'&&screen.userData.routeMeters>s.distance+12&&screen.userData.routeMeters<s.distance+135).sort((a,b)=>a.userData.routeMeters-b.userData.routeMeters)[0];const next=upcoming?{id:`${upcoming.userData.routeMeters}-${upcoming.userData.destination}`,label:upcoming.userData.label as string,destination:upcoming.userData.destination as string,until:time+9}:null;if(next?.id!==cue.current?.id)window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:next?{label:next.label,destination:next.destination}:null}));cue.current=next}}
+    if(showAds&&future&&time-lastCue.current>.4){lastCue.current=time;if(!cue.current||time>=cue.current.until){const upcoming=world.chunks.flatMap(chunk=>chunk.screens).filter(screen=>screen.visible&&typeof screen.userData.destination==='string'&&screen.userData.routeMeters>s.distance+12&&screen.userData.routeMeters<s.distance+135).sort((a,b)=>a.userData.routeMeters-b.userData.routeMeters)[0];const next=upcoming?{id:`${upcoming.userData.routeMeters}-${upcoming.userData.destination}`,label:upcoming.userData.label as string,destination:upcoming.userData.destination as string,until:time+9}:null;if(next?.id!==cue.current?.id)window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:next?{label:next.label,destination:next.destination}:null}));cue.current=next}}
     world.lit.value = 1.2 + (pulse.source === 'live' ? pulse.energy * .3 : 0)
     world.materials.flames.opacity = .75 + .2 * Math.sin(time * 11)
     world.holo.forEach((x, i) => { x.opacity = .74 + .14 * Math.sin(time * (2.3 + i)) * (Math.sin(time * 17 + i) > .97 ? .2 : 1) })
@@ -428,6 +429,7 @@ export default function NeonWorld({ state, tier = 'high', future = false, radioC
     // Heavy rain around the car, slanted by speed, with splash rings on the asphalt.
     const dt = Math.min(delta, .05)
     rain.uniforms.uTime.value = time; rain.uniforms.uLean.value += (Math.min(.7, s.speed / 50) - rain.uniforms.uLean.value) * .05; rain.uniforms.uCar.value = s.lateral
+    if(!showAds){for(const chunk of world.chunks)for(const screen of chunk.screens)screen.visible=false; if(cue.current){cue.current=null;window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:null}))}}
     rain.uniforms.uFade.value = future ? 0 : 1
     rain.splash.visible = !future && !fxOff('norain') && tier !== 'low'
     if (!rain.splash.visible) return

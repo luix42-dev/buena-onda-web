@@ -1,5 +1,6 @@
 'use client'
 
+import {castIsRemote,castStations,sendCast,type CastStatus} from '@/lib/cruise/google-cast'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { canPlayCruiseStation, CRUISE_STATIONS, DEFAULT_CRUISE_STATION } from '@/lib/real-miami/stations'
 import type Hls from 'hls.js'
@@ -33,6 +34,7 @@ type CruiseAudio = {
   stationId: string
   station: CruiseStation
   selectStation: (id: string) => boolean
+  stepStation: (direction: number) => void
   nextTrack: () => void
   previousTrack: () => void
   canSkip: boolean
@@ -388,6 +390,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [attemptPlay, clearLoadingTimeout, prepareTrack])
 
   const start = useCallback(() => {
+    if(sendCast({type:"play"}))return
     music?.unlock()
     setPlaybackIntent(true)
     setError(null)
@@ -408,6 +411,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [attemptPlay, loadPlaylist, prepareTrack, unlockMedia, music])
 
   const pause = useCallback(() => {
+    if(sendCast({type:"pause"}))return
     const audio = audioRef.current
     if (!audio) return
     setPlaybackIntent(false)
@@ -425,6 +429,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [pause, start])
 
   const selectStation = useCallback((id: string) => {
+    if(castIsRemote()){if(!castStations.includes(id)){setError("This station is not available on TV yet.");return false}sendCast({type:"station",station:id});const next=stations.find(s=>s.id===id);if(next){stationRef.current=next;setStation(next)}return !!next}
     const nextStation = stations.find(item => item.id === id)
     if (!nextStation || !canPlayCruiseStation(nextStation)) return false
     if (stationRef.current.id === id) return true
@@ -454,6 +459,16 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     return true
   }, [clearLoadingTimeout, loadPlaylist, unlockMedia, stations, music, playTuningNoise])
 
+  const stepStation = useCallback((direction: number) => {
+    const eligible = stations.filter(canPlayCruiseStation)
+    if (!eligible.length) return
+    // Read the synchronous selection ref so rapid taps cannot reuse a stale render.
+    const index = eligible.findIndex(s => s.id === stationRef.current.id)
+    const next = index < 0 ? (direction < 0 ? eligible.length - 1 : 0)
+      : (index + (direction < 0 ? -1 : 1) + eligible.length) % eligible.length
+    selectStation(eligible[next].id)
+  }, [stations, selectStation])
+
   const skipTrack = useCallback((direction: number) => {
     if (stationRef.current.playback !== 'playlist' || tracksRef.current.length < 2) return
     failedTracksRef.current = 0
@@ -467,6 +482,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   const previousTrack = useCallback(() => skipTrack(-1), [skipTrack])
 
   const setVolume = useCallback((nextVolume: number) => {
+    if(sendCast({type:"volume",volume:nextVolume})){setVolumeState(nextVolume);return}
     const normalized = Number.isFinite(nextVolume)
       ? Math.min(1, Math.max(0, nextVolume))
       : 0
@@ -479,6 +495,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [])
 
   const setMuted = useCallback((nextMuted: boolean) => {
+    if(sendCast({type:"volume",muted:nextMuted})){setMutedState(nextMuted);return}
     setMutedState(nextMuted)
     mutedRef.current = nextMuted
     const context = tuningContextRef.current, voice = tuningVoiceRef.current
@@ -643,6 +660,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     }
   }, [armPlaybackLoadingTimeout, attemptPlay, clearLoadingTimeout, loadPlaylist, prepareTrack, music, stopTuningNoise])
 
+  useEffect(()=>{const state=(event:Event)=>{const s=(event as CustomEvent<CastStatus>).detail;audioRef.current?.pause();fetchControllerRef.current?.abort();sourceRevisionRef.current++;hlsRef.current?.destroy();hlsRef.current=null;stopTuningNoise();wantsPlaybackRef.current=s.playing;setRequested(s.playing);setPlaying(s.playing);setLoading(false);setVolumeState(s.volume);setMutedState(s.muted);volumeRef.current=s.volume;mutedRef.current=s.muted;if(audioRef.current){audioRef.current.volume=s.volume;audioRef.current.muted=s.muted;}const next=stations.find(x=>x.id===s.station);if(next){stationRef.current=next;setStation(next)}};const end=()=>{const playing=wantsPlaybackRef.current;tracksRef.current=[];fetchingRef.current=false;void loadPlaylist();if(playing)setPlaybackIntent(true)};addEventListener('cruise:cast-state',state);addEventListener('cruise:cast-ended',end);return()=>{removeEventListener('cruise:cast-state',state);removeEventListener('cruise:cast-ended',end)}},[stations,loadPlaylist,stopTuningNoise,setPlaybackIntent])
   return {
     stations,
     start,
@@ -662,6 +680,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     stationId: station.id,
     station,
     selectStation,
+    stepStation,
     nextTrack,
     previousTrack,
     canSkip,
