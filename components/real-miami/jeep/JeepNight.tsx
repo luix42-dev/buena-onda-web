@@ -263,7 +263,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  const speedFx=useRef(false),motion=useRef(0),state=useRef(createNightState()),car=useRef<T.Group|null>(null),report=useRef({fps:0,drawCalls:0,dpr:1}),music=useMemo(()=>new MusicAudio(),[])
  const [neon]=useState(()=>!humanRadio&&new URLSearchParams(location.search).get('world')==='neon'),STATIONS=useMemo(()=>(humanRadio?(look?[...HUMAN_RADIO_STATIONS,...NEON_STATIONS]:HUMAN_RADIO_STATIONS):neon?NEON_STATIONS:MIAMI_CRUISE_STATIONS).filter(canPlayCruiseStation),[humanRadio,neon,look]),RADIO_PRESETS=STATIONS
  const stationAds=useMemo(()=>createRadioStationCampaigns(RADIO_PRESETS),[RADIO_PRESETS])
- const adRoster=useMemo(()=>prototype?[...stationAds,GTA_VI_CAMPAIGN]:[campaign,...CRUISE_CAMPAIGNS.filter(item=>item.id!==campaign.id),...stationAds,GTA_VI_CAMPAIGN],[prototype,stationAds,campaign]),adCampaign=prototype?adRoster[0]:campaign
+ const adRoster=useMemo(()=>prototype?[...stationAds]:[campaign,...CRUISE_CAMPAIGNS.filter(item=>item.id!==campaign.id),...stationAds],[prototype,stationAds,campaign]),adCampaign=prototype?adRoster[0]:campaign
  const [host,setHost]=useState<HostEvent>({phase:'gone'}),[hostOff]=useState(()=>new URLSearchParams(location.search).get('host')==='off')
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const shared=useRef<SharedDrive|null>(null);if(shared.current===null&&typeof window!=='undefined')shared.current=readShared(location.search)

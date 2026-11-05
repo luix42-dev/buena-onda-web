@@ -4,6 +4,7 @@ import CruiseClient from './CruiseClient'
 import PersistentPlayer from '@/components/ui/PersistentPlayer'
 import { resolveCruiseCampaign } from '@/lib/cruise/campaigns'
 import MiniMaxExperiment from '@/components/cruise/MiniMaxExperiment'
+import PrototypeClient from './prototype/PrototypeClient'
 
 export const dynamic = 'force-dynamic'
 
@@ -78,6 +79,9 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
 
 export default async function CruisePage({ searchParams }: { searchParams: { mode?: string; campaign?: string | string[] } }) {
   if (searchParams.mode === 'minimax-test') return <MiniMaxExperiment />
+  // The Oct 30 Cruise (garage, drive, radio-first) is the default experience.
+  // The previous launch build stays reachable for campaign links and ?mode=classic.
+  if (searchParams.mode !== 'video' && searchParams.mode !== 'classic' && !searchParams.campaign) return <PrototypeClient />
   if (searchParams.mode !== 'video') {
     const selection = resolveCruiseCampaign(searchParams.campaign)
     return <CruiseClient campaign={selection.campaign} campaignValid={selection.valid} />

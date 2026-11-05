@@ -2,7 +2,7 @@
  * Scoped to /cruise/prototype; `?look=before` renders the previous prototype look for matched comparisons. */
 export function cruiseLookEnabled(): boolean {
   if (typeof window === 'undefined') return false
-  return window.location.pathname === '/cruise/prototype' && new URLSearchParams(window.location.search).get('look') !== 'before'
+  return (window.location.pathname === '/cruise' || window.location.pathname === '/cruise/prototype') && new URLSearchParams(window.location.search).get('look') !== 'before'
 }
 
 /** Near-black navy sky, cyan as the dominant light, sodium streetlights, red taillights. */

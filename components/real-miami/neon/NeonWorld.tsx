@@ -143,7 +143,6 @@ function createWorld(asphaltSource: T.Texture,radioCampaigns?:readonly CruiseCam
   const lit = { value: 1.3 }, time = { value: 0 }, atlas = createSignAtlas(), glowMap = glowTexture(), streakMap = streakTexture(), shopMap = shopfrontTexture()
   const campaigns = radioCampaigns??(CRUISE_CAMPAIGNS as readonly CruiseCampaign[]).filter(x => x.enabled !== false)
   const holo = campaigns.map((x, i) => {const poster=x.id==='gta-vi-official';const map=poster?new T.TextureLoader().load('/cruise/ads/gta-vi-official-cover.jpg'):holoTexture(x,i);if(poster){map.colorSpace=T.SRGBColorSpace;map.anisotropy=8}const material=new T.MeshBasicMaterial({ map, transparent: false, depthWrite: true, toneMapped: false, side: T.DoubleSide });material.userData.destination=x.destination;material.userData.label=x.name;if(poster)material.userData.poster=true;return material})
-  if(!radioCampaigns){const gtaPoster = new T.TextureLoader().load('/cruise/ads/gta-vi-official-cover.jpg');gtaPoster.colorSpace = T.SRGBColorSpace;gtaPoster.anisotropy = 8;const material=new T.MeshBasicMaterial({ map: gtaPoster, transparent: false, depthWrite: true, toneMapped: false, side: T.DoubleSide });material.userData.poster=true;material.userData.destination='https://www.rockstargames.com/VI/editions';material.userData.label='Grand Theft Auto VI';holo.push(material)}
   const materials = {
     road: wetRoad(asphalt),
     skyroad: new T.MeshStandardMaterial({ color: '#171227', roughness: .26, metalness: .62, emissive: '#15072f', emissiveIntensity: .2 }),

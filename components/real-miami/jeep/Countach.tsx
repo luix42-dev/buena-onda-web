@@ -36,7 +36,7 @@ function CountachSpectrum(){
 /** Same licensed model, compressed for delivery (meshopt geometry, KTX2 ETC1S/UASTC textures; 16.24 MB -> 4.54 MB).
  * Scoped to /cruise/prototype; `?glb=source` loads the original file there for comparison. */
 const COUNTACH_SOURCE='/real-miami/vehicle/countach-1988/countach.glb',COUNTACH_COMPRESSED='/real-miami/vehicle/countach-1988/countach-opt.glb'
-const countachUrl=()=>typeof window!=='undefined'&&window.location.pathname==='/cruise/prototype'&&new URLSearchParams(window.location.search).get('glb')!=='source'?COUNTACH_COMPRESSED:COUNTACH_SOURCE
+const countachUrl=()=>typeof window!=='undefined'&&(window.location.pathname==='/cruise'||window.location.pathname==='/cruise/prototype')&&new URLSearchParams(window.location.search).get('glb')!=='source'?COUNTACH_COMPRESSED:COUNTACH_SOURCE
 let ktx2:KTX2Loader|null=null
 /** Basis transcoder is served locally; no CDN at runtime. */
 const withKTX2=(gl:T.WebGLRenderer)=>(loader:{setKTX2Loader:(l:KTX2Loader)=>unknown})=>{if(!ktx2)ktx2=new KTX2Loader().setTranscoderPath('/real-miami/basis/').detectSupport(gl);loader.setKTX2Loader(ktx2)}

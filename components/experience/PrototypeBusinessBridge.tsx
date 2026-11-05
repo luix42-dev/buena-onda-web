@@ -9,7 +9,7 @@ import type {CruiseCampaign} from '@/lib/cruise/types'
 import {createDemoBusinessRecorder,type DemoBusinessEvent} from './prototype-business'
 
 /** Prototype only. Does not enable payments, legacy telemetry or phone pairing. */
-const FEATURED_CAMPAIGNS=[...RADIO_STATION_CAMPAIGNS,GTA_VI_CAMPAIGN]
+const FEATURED_CAMPAIGNS=[...RADIO_STATION_CAMPAIGNS]
 export default function PrototypeBusinessBridge({children}:{children:ReactNode}) {
   const [available,setAvailable]=useState(false),[open,setOpen]=useState(false)
   // Launch: directory and business cards stay behind ?business=1; measurement and ad infrastructure keep running.
