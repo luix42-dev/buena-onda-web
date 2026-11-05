@@ -1,0 +1,937 @@
+{
+  "date": "2026-10-10T19:18:03.248Z",
+  "browser": "154.0.4258.62",
+  "physicalDevice": false,
+  "checks": [
+    {
+      "name": "Cast keeps this scene, URL and tab",
+      "pass": true,
+      "evidence": {
+        "url": "http://127.0.0.1:3041/cruise/miami-test?profile=1",
+        "pages": 1
+      }
+    },
+    {
+      "name": "Cast does not request a separate presentation",
+      "pass": true,
+      "evidence": "Mirror this Cruise to your TV\n×\n\nKeep this Cruise open. Mirror this tab or screen so the TV shows the same camera, Director views and radio.\n\nLaptop / desktop Chrome: open Chrome's menu, choose Cast, then Sources > Cast tab and select your TV. Cast the tab to include its audio.\n\nAndroid: in Google Home, select your TV and choose Cast my screen. Return here and rotate your phone to landscape.\n\niPhone / iPad / Mac: open Control Center, choose Screen Mirroring and select an AirPlay-compatible TV.\n\nUse the same Wi-Fi network. Your browser or device starts mirroring; this button opens these instructions.\n\nBack to the Cruise\nOptional TV Remote Mode"
+    },
+    {
+      "name": "Jolt Radio plays with live analysis",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 10.5,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "NTS 1 plays with live analysis",
+      "pass": false,
+      "evidence": {
+        "source": "groove",
+        "energy": 0.42,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "nts-radio",
+        "error": null,
+        "track": "NTS 1",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 101.8,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "NTS 2 plays with live analysis",
+      "pass": false,
+      "evidence": {
+        "source": "groove",
+        "energy": 0.42,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "nts-radio-2",
+        "error": null,
+        "track": "NTS 2",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 195.4,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Rinse France plays with live analysis",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.146,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "rinse-france",
+        "error": null,
+        "track": "Rinse France",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 208.2,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "The Lot Radio plays with live analysis",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "the-lot-radio",
+        "error": null,
+        "track": "The Lot Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 217.7,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Kiosk Radio plays with live analysis",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.108,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "kiosk-radio",
+        "error": null,
+        "track": "Kiosk Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 229.3,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "dublab plays with live analysis",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.066,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 235.5,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Opening mirror instructions preserves radio playback",
+      "pass": true,
+      "evidence": {
+        "source": "live",
+        "energy": 0.152,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 235.7,
+        "running": true,
+        "paused": false
+      }
+    },
+    {
+      "name": "Route reaches 40m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.332,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 40,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 1726,
+          "calls": 301,
+          "triangles": 467972,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 190m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.327,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 190,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 1778,
+          "calls": 204,
+          "triangles": 465974,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 210m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.329,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 210,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 1836,
+          "calls": 197,
+          "triangles": 465940,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 250m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.336,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 250,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 1895,
+          "calls": 195,
+          "triangles": 465900,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 330m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.273,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 330,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 1960,
+          "calls": 197,
+          "triangles": 465940,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 400m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.316,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 400,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 2015,
+          "calls": 196,
+          "triangles": 465820,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 420m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.369,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 420,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 2069,
+          "calls": 195,
+          "triangles": 465772,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 520m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.326,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 520,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 2125,
+          "calls": 195,
+          "triangles": 465772,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Route reaches 620m",
+      "pass": true,
+      "evidence": {
+        "state": {
+          "source": "live",
+          "energy": 0.349,
+          "playing": true,
+          "requested": true,
+          "loading": false,
+          "station": "dublab",
+          "error": null,
+          "track": "dublab",
+          "analysis": "Analyzing current radio",
+          "camera": "chase",
+          "vehicle": "ocean-convertible",
+          "time": "sunset",
+          "quality": "mobile",
+          "distance": 620,
+          "running": false,
+          "paused": true
+        },
+        "render": {
+          "frame": 2181,
+          "calls": 194,
+          "triangles": 465640,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 257,
+          "textures": 130
+        }
+      }
+    },
+    {
+      "name": "Director still changes shots",
+      "pass": true,
+      "evidence": {
+        "camera": "chase",
+        "next": "driver"
+      }
+    }
+  ],
+  "errors": [],
+  "stations": [
+    {
+      "name": "Jolt Radio",
+      "source": "live",
+      "energy": 0,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "jolt-radio",
+      "error": null,
+      "track": "Jolt Radio",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 10.5,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "NTS 1",
+      "source": "groove",
+      "energy": 0.42,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "nts-radio",
+      "error": null,
+      "track": "NTS 1",
+      "analysis": "Capture restricted; radio playback unaffected",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 101.8,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "NTS 2",
+      "source": "groove",
+      "energy": 0.42,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "nts-radio-2",
+      "error": null,
+      "track": "NTS 2",
+      "analysis": "Capture restricted; radio playback unaffected",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 195.4,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "Rinse France",
+      "source": "live",
+      "energy": 0.146,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "rinse-france",
+      "error": null,
+      "track": "Rinse France",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 208.2,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "The Lot Radio",
+      "source": "live",
+      "energy": 0,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "the-lot-radio",
+      "error": null,
+      "track": "The Lot Radio",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 217.7,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "Kiosk Radio",
+      "source": "live",
+      "energy": 0.108,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "kiosk-radio",
+      "error": null,
+      "track": "Kiosk Radio",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 229.3,
+      "running": true,
+      "paused": false
+    },
+    {
+      "name": "dublab",
+      "source": "live",
+      "energy": 0.066,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "dublab",
+      "error": null,
+      "track": "dublab",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 235.5,
+      "running": true,
+      "paused": false
+    }
+  ],
+  "scenes": [
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.332,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 40,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 1726,
+        "calls": 301,
+        "triangles": 467972,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.327,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 190,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 1778,
+        "calls": 204,
+        "triangles": 465974,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.329,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 210,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 1836,
+        "calls": 197,
+        "triangles": 465940,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.336,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 250,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 1895,
+        "calls": 195,
+        "triangles": 465900,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.273,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 330,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 1960,
+        "calls": 197,
+        "triangles": 465940,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.316,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 400,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 2015,
+        "calls": 196,
+        "triangles": 465820,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.369,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 420,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 2069,
+        "calls": 195,
+        "triangles": 465772,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.326,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 520,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 2125,
+        "calls": 195,
+        "triangles": 465772,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.349,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "dublab",
+        "error": null,
+        "track": "dublab",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 620,
+        "running": false,
+        "paused": true
+      },
+      "render": {
+        "frame": 2181,
+        "calls": 194,
+        "triangles": 465640,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 257,
+        "textures": 130
+      }
+    }
+  ],
+  "passed": false
+}

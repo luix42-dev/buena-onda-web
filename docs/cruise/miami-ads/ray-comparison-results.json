@@ -1,0 +1,707 @@
+{
+  "method": "Offline comparison of actual ten-ray billboard samples at identical vehicle, viewport, driver camera and diagnostic route positions. Raw original and accelerated browser runs remain available. Dynamic occluders can differ between independent runs; differences are reported, never replaced with synthetic matches.",
+  "comparisons": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "countach",
+      "position": 18891.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.2,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.847452023593963
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.828067153717015
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.2,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.847452023593963
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.828067153717015
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "countach",
+      "position": 18906.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0,
+              0.2
+            ],
+            "mesh": "Object_19",
+            "material": "Meshpart19Mtl",
+            "distance": 0.90696160227037
+          },
+          {
+            "probe": [
+              0,
+              0
+            ],
+            "mesh": "Object_30",
+            "material": "Meshpart35Mtl",
+            "distance": 0.9302247247048127
+          },
+          {
+            "probe": [
+              0.2,
+              0.2
+            ],
+            "mesh": "Object_14",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8219815374504582
+          },
+          {
+            "probe": [
+              0.2,
+              0
+            ],
+            "mesh": "Object_14",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8704835849942473
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0,
+              0.2
+            ],
+            "mesh": "Object_19",
+            "material": "Meshpart19Mtl",
+            "distance": 0.90696160227037
+          },
+          {
+            "probe": [
+              0,
+              0
+            ],
+            "mesh": "Object_30",
+            "material": "Meshpart35Mtl",
+            "distance": 0.9302247247048127
+          },
+          {
+            "probe": [
+              0.2,
+              0.2
+            ],
+            "mesh": "Object_14",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8219815374504582
+          },
+          {
+            "probe": [
+              0.2,
+              0
+            ],
+            "mesh": "Object_14",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8704835849942473
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "countach",
+      "position": 18871.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.1,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_15",
+            "material": "Meshpart18Mtl",
+            "distance": 0.62960279106268
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.1,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_15",
+            "material": "Meshpart18Mtl",
+            "distance": 0.62960279106268
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "countach",
+      "position": 18916.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.2,
+              0.2
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.679492124968516
+          },
+          {
+            "probe": [
+              -0.2,
+              0
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.6856950765638462
+          },
+          {
+            "probe": [
+              0.4,
+              0.2
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.7956033909971509
+          },
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8455582009173609
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.2,
+              0.2
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.679492124968516
+          },
+          {
+            "probe": [
+              -0.2,
+              0
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.6856950765638462
+          },
+          {
+            "probe": [
+              0.4,
+              0.2
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.7956033909971509
+          },
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_16",
+            "material": "Meshpart18Mtl",
+            "distance": 0.8455582009173609
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "countach",
+      "position": 18881.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "after": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": null
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "eighties",
+      "position": 18891.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "after": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": null
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "cadillac",
+      "position": 18891.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.2,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.537517003957994
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.52019414600192
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.2,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.537517003957994
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Mesh",
+            "material": "",
+            "distance": 19.52019414600192
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "cadillac",
+      "position": 18906.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.5,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5619599439028726
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5568740998691293
+          },
+          {
+            "probe": [
+              -0.2,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5381567691526505
+          },
+          {
+            "probe": [
+              -0.2,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5419907306144895
+          },
+          {
+            "probe": [
+              0,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5813381443004091
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.5,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              -0.4,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5619599439028726
+          },
+          {
+            "probe": [
+              -0.4,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5568740998691293
+          },
+          {
+            "probe": [
+              -0.2,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5381567691526505
+          },
+          {
+            "probe": [
+              -0.2,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5419907306144895
+          },
+          {
+            "probe": [
+              0,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5813381443004091
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "cadillac",
+      "position": 18871.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": []
+      },
+      "after": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": []
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": null
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "cadillac",
+      "position": 18916.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0.2,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5664187923499332
+          },
+          {
+            "probe": [
+              0.2,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5583067346585529
+          },
+          {
+            "probe": [
+              0.4,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5389946727608929
+          },
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5446539598217729
+          }
+        ]
+      },
+      "after": {
+        "occlusion": 0.4,
+        "visible": true,
+        "viewable": false,
+        "readable": false,
+        "hits": [
+          {
+            "probe": [
+              0.2,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5664187923499332
+          },
+          {
+            "probe": [
+              0.2,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5583067346585529
+          },
+          {
+            "probe": [
+              0.4,
+              0.2
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5389946727608929
+          },
+          {
+            "probe": [
+              0.4,
+              0
+            ],
+            "mesh": "Object_5",
+            "material": "Meshescadillacbasea0041Mtl",
+            "distance": 0.5446539598217729
+          }
+        ]
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": 0
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "vehicle": "cadillac",
+      "position": 18881.5,
+      "id": "MB-ROUTE-18937",
+      "before": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "after": {
+        "occlusion": 0,
+        "visible": true,
+        "viewable": true,
+        "readable": false,
+        "hits": []
+      },
+      "sameQualification": true,
+      "sameFirstHitIdentity": true,
+      "maxHitDistanceDifference": null
+    }
+  ],
+  "summary": {
+    "samples": 11,
+    "sameQualification": 11,
+    "sameFirstHitIdentity": 11,
+    "blockedSamples": 7
+  }
+}

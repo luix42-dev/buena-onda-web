@@ -56,3 +56,22 @@ refs/
 
 # Local Claude Code settings can hold credentials; never track them.
 .claude/settings.local.json
+.next-miami-ads-dev/
+.next-miami-ads-check/
+.next-opus-dev/
+.next-opus-check/
+
+.next-human-radio*/
+.human-radio-local/
+
+.next-experience*/
+.experience-local/
+
+.next-cruise-os*/
+.cruise-os-build.log
+.next-cruise-prototype-*/
+.next-cruise-look*/
+.next-cruise-controller-dev/
+/.tmp/ocean-drive-source/
+/.tmp/ocean-drive-rea-evidence.json
+/.tmp/ocean-drive-tree.json

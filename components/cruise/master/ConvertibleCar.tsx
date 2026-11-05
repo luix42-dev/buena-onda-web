@@ -2,25 +2,26 @@
 
 import { useEffect, useMemo, useRef, type MutableRefObject } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, useFBO } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import * as T from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import CockpitRadio from './CockpitRadio'
 import { pulse } from './pulse'
 import { mat, mergeParts, type Part } from './cockpit/merge'
-import { badgeTex, beamTex, canvasTex, gaugeAtlas, GAUGE_CELL, glowTex, leatherTex, palmTex, woodTex } from './cockpit/textures'
+import { badgeTex, beamTex, gaugeAtlas, GAUGE_CELL, glowTex, leatherTex, palmTex, woodTex } from './cockpit/textures'
 import Hands from './cockpit/Hands'
 import { useReducedMotion } from './cockpit/motion'
 
 /**
  * "Ocean Drive '84" — a cream classic with the roof cut away at the beltline.
- * Exterior: existing CC0 classic-traffic.glb, clipped above y = BELT, clear-coated.
+ * Exterior: existing CC BY 3.0 RX-7 by IvOfficial (see docs/cruise/ASSETS.md),
+ * adapted to an open-top silhouette above y = BELT while retaining its sculpted bodywork.
  * Interior: authored here — tuck-and-roll leather, walnut fascia, chrome-ringed gauges,
- * wood-rim wheel with optional gloved hands, the CockpitRadio head unit, a live rear-view
- * mirror (Desktop) and a palm air freshener. Static interior parts are merged per material
+ * wood-rim wheel with optional gloved hands, the CockpitRadio head unit and a palm air freshener.
+ * Static interior parts are merged per material
  * class (one draw call each); only moving parts stay separate.
  * Night: instrument backlight, under-dash neon spill and a headlight pool on the road
- * (additive decal on Mobile, plus one shadowless SpotLight on Desktop). No postprocessing.
+ * (additive decal on Mobile, plus two shadowless SpotLights on Desktop). No postprocessing.
  * Coordinates: car-local, front = -Z, ground = 0. Driver sits at x = DRIVER_X.
  */
 export const DRIVER_X = -.4
@@ -42,17 +43,18 @@ const GAUGE_Z = -.518
 const SCREEN = { cowlY: 1.06, cowlZ: -.98, topY: 1.66, topZ: -.72, x: .79 }
 const RAKE = Math.atan2(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
 const SCREEN_LEN = Math.hypot(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
-const MIRROR_AT: [number, number, number] = [.02, SCREEN.topY - .095, SCREEN.topZ + .03]
 
-/** Drops triangles whose centroid lies inside the cabin volume (model space, before Z_OFFSET). */
+/** Drop only triangles fully inside the cabin; a long hood triangle can cross its boundary. */
 function withoutCabinProxy(source: T.BufferGeometry, matrix: T.Matrix4) {
-  const g = source.clone(); const pos = g.getAttribute('position'); const v = new T.Vector3(), c = new T.Vector3()
+  const g = source.clone(); const pos = g.getAttribute('position'); const v = new T.Vector3()
   const index = g.getIndex(); const count = index ? index.count : pos.count; const keep: number[] = []
   for (let i = 0; i < count; i += 3) {
-    c.set(0, 0, 0)
-    for (let k = 0; k < 3; k++) { const vi = index ? index.getX(i + k) : i + k; c.add(v.fromBufferAttribute(pos, vi).applyMatrix4(matrix)) }
-    c.multiplyScalar(1 / 3)
-    const cabin = Math.abs(c.x) < .8 && c.z > -.8 && c.z < 1.52 && c.y > .55
+    let cabin = true
+    for (let k = 0; k < 3; k++) {
+      const vi = index ? index.getX(i + k) : i + k
+      v.fromBufferAttribute(pos, vi).applyMatrix4(matrix)
+      if (!(Math.abs(v.x) < .8 && v.z > -.8 && v.z < 1.52 && v.y > .55)) cabin = false
+    }
     if (!cabin) for (let k = 0; k < 3; k++) keep.push(index ? index.getX(i + k) : i + k)
   }
   g.setIndex(keep); return g
@@ -103,12 +105,6 @@ function buildInterior() {
   }
   // Steering column (static part of the wheel assembly)
   chrome.push({ g: new T.CylinderGeometry(.024, .032, .32, 14), m: mat([0, 0, -.16], [Math.PI / 2, 0, 0], 1, WHEEL_BASE) })
-  // Rear-view mirror housing + stalk (the reflective surface stays live/separate)
-  const rm = mat(MIRROR_AT)
-  matte.push({ g: new T.BoxGeometry(.012, .1, .012), m: mat([0, .07, -.01], [0, 0, 0], 1, rm), c: '#1e1e1e' })
-  matte.push({ g: new RoundedBoxGeometry(.27, .08, .03, 2, .012), m: mat([0, 0, -.012], [0, 0, 0], 1, rm), c: '#1c1c1c' })
-  // Hood ornament
-  chrome.push({ g: new T.ConeGeometry(.02, .11, 4), m: mat([0, 1.0, -2.25], [-.4, 0, 0]) })
   return { leather: mergeParts(leather), chrome: mergeParts(chrome), matte: mergeParts(matte), gaugeFaces: mergeParts(gaugeFaces), gaugeGlass: mergeParts(gaugeGlass), needlesStatic: mergeParts(needles) }
 }
 
@@ -125,30 +121,41 @@ function buildWheel() {
   return { rim: new T.TorusGeometry(RIM, RIM_TUBE, 14, 72), chrome: mergeParts(spokes), badge: new T.CircleGeometry(.04, 32), needle: mergeParts(needle) }
 }
 
-export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, onReady, hands = true }: { camera: 'chase' | 'driver' | string; drive: Drive; timeOfDay: 'day' | 'sunset' | 'night'; high: boolean; onReady?: () => void; hands?: boolean }) {
+export default function ConvertibleCar({ drive, timeOfDay, high, onReady, hands = true }: { camera: 'chase' | 'driver' | string; drive: Drive; timeOfDay: 'day' | 'sunset' | 'night'; high: boolean; onReady?: () => void; hands?: boolean }) {
   const night = timeOfDay === 'night', sunset = timeOfDay === 'sunset'
   const { gl } = useThree()
   const reduced = useReducedMotion()
-  const gltf = useGLTF('/cruise/traffic/classic-traffic.glb', false, true)
+  const gltf = useGLTF('/cruise/vehicle/rx7-fc-optimized.glb', false, true)
   useEffect(() => { gl.localClippingEnabled = true }, [gl])
   const belt = useMemo(() => new T.Plane(new T.Vector3(0, -1, 0), BELT), [])
   const body = useMemo(() => {
     const scene = gltf.scene.clone(true); const owned: T.Material[] = [], paints: { mesh: T.Mesh; high: T.Material; low: T.Material }[] = []
+    // The licensed coupe faces +Z. Its 1.79m body fits the existing 1.74m cabin at this scale;
+    // preserve the authored cockpit and camera anchors while replacing the traffic-LOD silhouette.
+    scene.rotation.y = Math.PI
+    scene.scale.setScalar(1.02)
+    scene.position.y = .015
     scene.updateMatrixWorld(true)
     scene.traverse(o => {
       if (!(o instanceof T.Mesh)) return
       const src = o.material as T.MeshStandardMaterial; const name = src.name || ''
-      // The LOD model has a solid low-detail interior proxy where our cabin goes; cut it out once.
-      o.geometry = withoutCabinProxy(o.geometry, o.matrixWorld)
+      let wheel = false
+      for (let parent: T.Object3D | null = o; parent; parent = parent.parent) {
+        if (/^[FR][LR]_WHEEL/.test(parent.name)) { wheel = true; break }
+      }
+      // Remove coupe cabin surfaces where our radio/interior lives. Never cut the wheel arches'
+      // separate wheel meshes: their upper inside faces intersect the cabin's bounding volume.
+      o.geometry = wheel ? o.geometry.clone() : withoutCabinProxy(o.geometry, o.matrixWorld)
       let m: T.Material
       if (/paint/i.test(name)) {
         // Clearcoat paint on Desktop only, like the wood: Physical is the costliest shader on screen in both cameras.
-        m = new T.MeshPhysicalMaterial({ color: '#f1e5c9', roughness: .32, metalness: .05, clearcoat: 1, clearcoatRoughness: .08, side: T.DoubleSide, clippingPlanes: [belt] })
-        const low = new T.MeshStandardMaterial({ color: '#f1e5c9', roughness: .26, metalness: .05, side: T.DoubleSide, clippingPlanes: [belt] })
+        // Original Cruise's paint response, with its more expensive clearcoat reserved for Desktop.
+        m = new T.MeshPhysicalMaterial({ name: 'ConvertiblePaintDesktop', color: '#f1e5c9', roughness: .18, metalness: .72, clearcoat: 1, clearcoatRoughness: .065, envMapIntensity: 1.58, side: T.DoubleSide, clippingPlanes: [belt] })
+        const low = new T.MeshStandardMaterial({ name: 'ConvertiblePaintMobile', color: '#f1e5c9', roughness: .18, metalness: .72, envMapIntensity: 1.2, side: T.DoubleSide, clippingPlanes: [belt] })
         owned.push(low); paints.push({ mesh: o, high: m, low })
       }
-      else if (/chrome/i.test(name)) m = new T.MeshStandardMaterial({ color: '#e9ecef', metalness: 1, roughness: .14, clippingPlanes: [belt] })
-      else if (/glaz/i.test(name)) { o.visible = false; return }
+      else if (/chrome|rims/i.test(name)) m = new T.MeshStandardMaterial({ name: 'ConvertibleExteriorMetal', color: '#e9ecef', metalness: .94, roughness: .28, envMapIntensity: 1.25, clippingPlanes: [belt] })
+      else if (/glaz|glass/i.test(name)) { o.visible = false; return }
       else if (/rear/i.test(name)) m = new T.MeshStandardMaterial({ color: '#c3142c', emissive: '#ff1f3d', emissiveIntensity: .6, roughness: .3 })
       else { m = src.clone(); (m as T.MeshStandardMaterial).clippingPlanes = [belt] }
       owned.push(m); o.material = m; o.castShadow = true; o.receiveShadow = true
@@ -158,6 +165,10 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
   }, [gltf.scene, belt])
   useEffect(() => () => { body.owned.forEach(m => m.dispose()); body.scene.traverse(o => { if (o instanceof T.Mesh) o.geometry.dispose() }) }, [body])
   useEffect(() => { body.paints.forEach(p => { p.mesh.material = high ? p.high : p.low }) }, [body, high])
+  useEffect(() => { body.paints.forEach(p => {
+    ;(p.high as T.MeshStandardMaterial).envMapIntensity = 1.58 + (night ? .38 : 0)
+    ;(p.low as T.MeshStandardMaterial).envMapIntensity = 1.2 + (night ? .38 : 0)
+  }) }, [body, night])
   useEffect(() => { onReady?.() }, [onReady])
 
   const tex = useMemo(() => ({ wood: woodTex(), leather: leatherTex(), gauges: gaugeAtlas(), palm: palmTex(), badge: badgeTex(), glow: glowTex(), beam: beamTex() }), [])
@@ -198,11 +209,10 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     mats.badge.emissive.set('#2bd3a0'); mats.badge.emissiveIntensity = night ? .5 : 0
   }, [mats, night, sunset])
   const neonBase = night ? 1 : sunset ? .35 : 0
-  const beamBase = night ? (high ? .5 : .7) : sunset ? .12 : 0
+  const beamBase = night ? .8 : sunset ? .18 : 0
   useEffect(() => { mats.beam.opacity = beamBase }, [mats, beamBase])
   const neonColor = useMemo(() => new T.Color('#ff4f9a'), [])
 
-  const spotTarget = useMemo(() => new T.Object3D(), [])
   const wheel = useRef<T.Group>(null), speedNeedle = useRef<T.Group>(null), rpmNeedle = useRef<T.Group>(null), freshener = useRef<T.Group>(null)
   const swing = useRef({ a: 0, v: 0, bass: 0 })
   useFrame((_, rawDt) => {
@@ -225,7 +235,7 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     mats.neonGlow.opacity = neon * (high ? .55 : .45)
   })
 
-  const beamLength = 18
+  const beamLength = 30
   return <group name="OceanDriveConvertible">
     <group position-z={Z_OFFSET}><primitive object={body.scene} /></group>
 
@@ -263,42 +273,28 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     {/* Windshield glass between the chrome frame */}
     <mesh position={[0, (SCREEN.cowlY + SCREEN.topY) / 2, (SCREEN.cowlZ + SCREEN.topZ) / 2]} rotation-x={RAKE} material={mats.windshield} renderOrder={1}><planeGeometry args={[SCREEN.x * 2, SCREEN_LEN]} /></mesh>
 
-    <RearViewMirror active={view === 'driver' && high} />
-    <group ref={freshener} position={[.05, MIRROR_AT[1] - .03, MIRROR_AT[2] + .025]}>
+    <group ref={freshener} position={[.05, SCREEN.topY - .03, SCREEN.topZ + .055]}>
       <mesh position={[0, -.1125, 0]} material={mats.freshener}><planeGeometry args={[.075, .225]} /></mesh>
     </group>
 
-    {/* Headlights: additive light pool on the road ahead (all qualities) + one shadowless spot (Desktop). */}
+    {/* Headlights: wide additive road pool on all qualities; real spotlights on Desktop only. */}
     <mesh position={[0, .04, body.front - beamLength / 2 + .4]} rotation-x={-Math.PI / 2} material={mats.beam} visible={beamBase > 0} renderOrder={1}>
-      <planeGeometry args={[5.2, beamLength]} />
+      <planeGeometry args={[12.5, beamLength]} />
     </mesh>
-    {high && <>
-      <primitive object={spotTarget} position={[0, 0, body.front - 14]} />
-      <spotLight position={[0, .78, body.front + .1]} target={spotTarget} color="#ffe6c2" intensity={night ? 26 : sunset ? 4 : 0} distance={34} decay={1.3} angle={.52} penumbra={.75} />
-    </>}
+    <Headlights front={body.front} level={night ? 1 : sunset ? .35 : 0} realLights={high} />
   </group>
 }
 
-/** Real reflection on desktop: a small render target from behind the windshield, every other frame. */
-function RearViewMirror({ active }: { active: boolean }) {
-  const fbo = useFBO(active ? 384 : 1, active ? 112 : 1, { samples: 0 })
-  const cam = useMemo(() => new T.PerspectiveCamera(38, 384 / 112, .1, 260), [])
-  const root = useRef<T.Group>(null), surface = useRef<T.Mesh>(null), frame = useRef(0)
-  const flip = useMemo(() => new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), Math.PI), [])
-  const fallback = useMemo(() => canvasTex(256, 64, c => { const g = c.createLinearGradient(0, 0, 0, 64); g.addColorStop(0, '#d0548f'); g.addColorStop(.6, '#ff8f52'); g.addColorStop(1, '#2a2430'); c.fillStyle = g; c.fillRect(0, 0, 256, 64) }), [])
-  useEffect(() => { fbo.texture.wrapS = T.RepeatWrapping; fbo.texture.repeat.x = -1; fbo.texture.offset.x = 1 }, [fbo])
-  useEffect(() => () => fallback.dispose(), [fallback])
-  useFrame(({ gl, scene }) => {
-    if (!active || !root.current || !surface.current || ++frame.current % 2) return
-    root.current.updateWorldMatrix(true, false)
-    root.current.matrixWorld.decompose(cam.position, cam.quaternion, cam.scale)
-    cam.quaternion.multiply(flip); cam.scale.set(1, 1, 1)
-    cam.rotateX(-.06); cam.updateMatrixWorld()
-    surface.current.visible = false
-    const previous = gl.getRenderTarget(); gl.setRenderTarget(fbo); gl.render(scene, cam); gl.setRenderTarget(previous)
-    surface.current.visible = true
-  })
-  return <group ref={root} position={MIRROR_AT}>
-    <mesh ref={surface} position-z={.004}><planeGeometry args={[.25, .065]} /><meshBasicMaterial map={active ? fbo.texture : fallback} /></mesh>
-  </group>
+/**
+ * Desktop gets two shadowless spotlights; Mobile keeps the wide beam decal and glowing lenses.
+ * Keeping Desktop lights mounted at intensity 0 by day avoids time-of-day shader recompiles.
+ * Mobile night cockpit measurements showed a material cost from the two light shaders.
+ */
+function Headlights({ front, level, realLights }: { front: number; level: number; realLights: boolean }) {
+  const targets = useMemo(() => [new T.Object3D(), new T.Object3D()], [])
+  return <group>{[-1, 1].map((side, i) => <group key={side}>
+    <primitive object={targets[i]} position={[side * 2.6, 0, front - 24]} />
+    {realLights && <spotLight position={[side * .62, .74, front + .05]} target={targets[i]} color="#ffe9c4" intensity={level * 2200} distance={120} angle={.62} penumbra={.55} decay={2} castShadow={false} />}
+    <mesh position={[side * .62, .74, front - .005]} rotation-y={Math.PI}><circleGeometry args={[.105, 24]} /><meshStandardMaterial color="#fff8e6" emissive="#fff1cc" emissiveIntensity={level ? 6 * level : .2} toneMapped={!level} /></mesh>
+  </group>)}</group>
 }

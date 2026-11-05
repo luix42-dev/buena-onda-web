@@ -1,0 +1,5250 @@
+{
+  "profile": {
+    "name": "portrait",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "emulated": true,
+  "sources": [
+    {
+      "source": "unreal",
+      "calibration": {
+        "fitted": null
+      },
+      "paused": {
+        "at": 2117.89999999851,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+        "renderer": [
+          {
+            "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "vendor": "Google Inc. (Intel)",
+            "context": "webgl2"
+          }
+        ],
+        "raf": [
+          {
+            "at": 1293.4,
+            "seconds": 1.2200000000014901,
+            "callbacks": 34,
+            "longestGapMs": 333.20000000000005
+          }
+        ],
+        "events": [
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 479.20000000298023,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:pause",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 481.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 564.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 565.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 708.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 712.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 897.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:play",
+            "at": 1367.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "playing",
+            "at": 1388.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1676.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1677.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "waiting",
+            "at": 1678.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1701.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1701.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1701.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1702,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1710.3000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1710.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1786.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1807.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1807.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadeddata",
+            "at": 1901.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadeddata",
+            "at": 1905.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1905.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 1906.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1952.3000000044703,
+            "time": 0.044549
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1952.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 1962,
+            "time": 0.044566
+          }
+        ],
+        "decoded": [
+          {
+            "id": 4,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1867.8,
+            "visible": false,
+            "processingDuration": 0.0295
+          },
+          {
+            "id": 3,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1872.6,
+            "visible": true,
+            "processingDuration": 0.0203
+          },
+          {
+            "id": 3,
+            "at": 1926.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 1943.1,
+            "visible": true,
+            "processingDuration": 0.0093
+          }
+        ],
+        "media": [
+          {
+            "id": 1,
+            "kind": "AUDIO",
+            "source": "http://127.0.0.1:3060/cruise/world-test",
+            "time": 0,
+            "duration": null,
+            "paused": true,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 0,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 2,
+            "kind": "AUDIO",
+            "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+            "time": 0.679075,
+            "duration": 354.742875,
+            "paused": false,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 4,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 3,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 0.044566,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 6,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 4,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 0,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 4,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          }
+        ],
+        "world": {
+          "status": "paused",
+          "segmentId": "native-2s-a",
+          "segmentIndex": 0,
+          "mediaSeconds": 0.044566,
+          "timelineSeconds": 0.044566,
+          "presentedFrames": 6,
+          "droppedFrames": 0,
+          "bufferedAheadSeconds": 0.955434,
+          "transitions": 0,
+          "lastTransitionGapMs": null,
+          "firstFrameMs": 119.20000000298023
+        },
+        "worldFirst": {
+          "source": "unreal",
+          "status": "Actual2-second1080p native motion checkpoint. World art quality gate remains unaccepted;60-second ride not delivered.",
+          "qualityAccepted": false,
+          "playback": {
+            "status": "paused",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.044566,
+            "timelineSeconds": 0.044566,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.955434,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 119.20000000298023
+          },
+          "radio": {
+            "station": "buena-onda-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82
+          },
+          "vehicle": "island-trail",
+          "paused": true
+        },
+        "worldSamples": [],
+        "ambience": {
+          "state": "locked",
+          "enabled": false,
+          "gain": 0.12,
+          "targetGain": 0,
+          "nodeCount": 0,
+          "error": null,
+          "synthetic": true
+        },
+        "hybridStatus": "paused",
+        "noHorizontalOverflow": true,
+        "buttons": [
+          {
+            "label": "Hide world comparison",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Resume cinematic world",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Replay proof",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Toggle driving ambience",
+            "disabled": false,
+            "pressed": "false"
+          },
+          {
+            "label": "Focus radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio help",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Garage",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio stations",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Mute radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Fullscreen",
+            "disabled": false,
+            "pressed": null
+          }
+        ],
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 47.600000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 47.29999999701977,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 20.100000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.100000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          }
+        ]
+      },
+      "ended": {
+        "at": 4279,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+        "renderer": [
+          {
+            "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "vendor": "Google Inc. (Intel)",
+            "context": "webgl2"
+          }
+        ],
+        "raf": [
+          {
+            "at": 1293.4,
+            "seconds": 1.2200000000014901,
+            "callbacks": 34,
+            "longestGapMs": 333.20000000000005
+          },
+          {
+            "at": 2309.7,
+            "seconds": 1.0162999999999998,
+            "callbacks": 60,
+            "longestGapMs": 33.299999999999955
+          },
+          {
+            "at": 3326.2,
+            "seconds": 1.0165,
+            "callbacks": 61,
+            "longestGapMs": 16.800000000000182
+          }
+        ],
+        "events": [
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 479.20000000298023,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:pause",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 481.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 564.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 565.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 708.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 712.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 897.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:play",
+            "at": 1367.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "playing",
+            "at": 1388.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1676.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1677.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "waiting",
+            "at": 1678.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1701.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1701.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1701.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1702,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1710.3000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1710.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1786.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1807.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1807.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadeddata",
+            "at": 1901.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadeddata",
+            "at": 1905.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1905.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 1906.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1952.3000000044703,
+            "time": 0.044549
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1952.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 1962,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 2316.2000000029802,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 2328.60000000149,
+            "time": 0.056958
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 3272.39999999851,
+            "time": 1
+          },
+          {
+            "id": 3,
+            "type": "ended",
+            "at": 3272.5,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "call:play",
+            "at": 3272.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "playing",
+            "at": 3272.89999999851,
+            "time": 0.00019
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 3310,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "pause",
+            "at": 4274.10000000149,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "ended",
+            "at": 4274.10000000149,
+            "time": 1
+          }
+        ],
+        "decoded": [
+          {
+            "id": 4,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1867.8,
+            "visible": false,
+            "processingDuration": 0.0295
+          },
+          {
+            "id": 3,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1872.6,
+            "visible": true,
+            "processingDuration": 0.0203
+          },
+          {
+            "id": 3,
+            "at": 1926.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 1943.1,
+            "visible": true,
+            "processingDuration": 0.0093
+          },
+          {
+            "id": 3,
+            "at": 2343,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 2343,
+            "visible": true,
+            "processingDuration": 0.0095
+          },
+          {
+            "id": 3,
+            "at": 2376.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 2376.4,
+            "visible": true,
+            "processingDuration": 0.0086
+          },
+          {
+            "id": 3,
+            "at": 2409.8,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 2409.8,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 3,
+            "at": 2443,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 2443,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2476.4,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 2476.3,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2509.7,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 2509.7,
+            "visible": true,
+            "processingDuration": 0.0057
+          },
+          {
+            "id": 3,
+            "at": 2543,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 2543.1,
+            "visible": true,
+            "processingDuration": 0.0053
+          },
+          {
+            "id": 3,
+            "at": 2559.6,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 2576.3,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 3,
+            "at": 2609.7,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 2609.7,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 3,
+            "at": 2626.4,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 2643,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2676.3,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 2676.3,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2709.7,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 2709.6,
+            "visible": true,
+            "processingDuration": 0.0067
+          },
+          {
+            "id": 3,
+            "at": 2726.4,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 2742.9,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2776.2,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 2776.2,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 3,
+            "at": 2809.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 2809.5,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2842.9,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 2842.9,
+            "visible": true,
+            "processingDuration": 0.0076
+          },
+          {
+            "id": 3,
+            "at": 2876.3,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 2876.3,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2909.6,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 2909.6,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2942.8,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 2942.9,
+            "visible": true,
+            "processingDuration": 0.0077
+          },
+          {
+            "id": 3,
+            "at": 2976.2,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 2976.2,
+            "visible": true,
+            "processingDuration": 0.0081
+          },
+          {
+            "id": 3,
+            "at": 3009.5,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 3009.5,
+            "visible": true,
+            "processingDuration": 0.009
+          },
+          {
+            "id": 3,
+            "at": 3042.8,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 3042.8,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3059.5,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 3076.1,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 3,
+            "at": 3109.5,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 3109.5,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3126.1,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 3142.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 3159.5,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 3176.1,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 3,
+            "at": 3209.4,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 3209.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 3,
+            "at": 3242.7,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 3242.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 4,
+            "at": 3309.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 3309.4,
+            "visible": false,
+            "processingDuration": 0.0092
+          },
+          {
+            "id": 4,
+            "at": 3342.7,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 3342.8,
+            "visible": true,
+            "processingDuration": 0.01
+          },
+          {
+            "id": 4,
+            "at": 3359.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 3375.9,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 4,
+            "at": 3409.4,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 3409.3,
+            "visible": true,
+            "processingDuration": 0.0104
+          },
+          {
+            "id": 4,
+            "at": 3442.6,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 3442.6,
+            "visible": true,
+            "processingDuration": 0.0059
+          },
+          {
+            "id": 4,
+            "at": 3476,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 3476,
+            "visible": true,
+            "processingDuration": 0.0047
+          },
+          {
+            "id": 4,
+            "at": 3509.4,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 3509.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 4,
+            "at": 3542.7,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 3542.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 3575.9,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 3576,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 4,
+            "at": 3592.6,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 3609.2,
+            "visible": true,
+            "processingDuration": 0.0061
+          },
+          {
+            "id": 4,
+            "at": 3642.7,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 3642.7,
+            "visible": true,
+            "processingDuration": 0.0062
+          },
+          {
+            "id": 4,
+            "at": 3659.2,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 3675.9,
+            "visible": true,
+            "processingDuration": 0.0069
+          },
+          {
+            "id": 4,
+            "at": 3709.3,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 3709.2,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3742.5,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 3742.6,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3776,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 3775.9,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 4,
+            "at": 3792.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 3809.2,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 4,
+            "at": 3842.5,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 3842.6,
+            "visible": true,
+            "processingDuration": 0.0087
+          },
+          {
+            "id": 4,
+            "at": 3876,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 3875.9,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 4,
+            "at": 3909.3,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 3909.2,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3926,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 3942.6,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3959.3,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 3975.9,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 4009.1,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 4009.2,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4042.4,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 4042.5,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4075.8,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 4075.9,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 4,
+            "at": 4109.2,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 4109.2,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4142.6,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 4142.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4175.9,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 4175.8,
+            "visible": true,
+            "processingDuration": 0.0066
+          },
+          {
+            "id": 4,
+            "at": 4192.5,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 4209.1,
+            "visible": true,
+            "processingDuration": 0.0065
+          },
+          {
+            "id": 4,
+            "at": 4242.4,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 4242.5,
+            "visible": true,
+            "processingDuration": 0.0073
+          }
+        ],
+        "media": [
+          {
+            "id": 1,
+            "kind": "AUDIO",
+            "source": "http://127.0.0.1:3060/cruise/world-test",
+            "time": 0,
+            "duration": null,
+            "paused": true,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 0,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 2,
+            "kind": "AUDIO",
+            "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+            "time": 2.840114,
+            "duration": 354.742875,
+            "paused": false,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 4,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 3,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 4,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 1,
+              "corruptedVideoFrames": 0
+            }
+          }
+        ],
+        "world": {
+          "status": "ended",
+          "segmentId": "native-2s-b",
+          "segmentIndex": 1,
+          "mediaSeconds": 1,
+          "timelineSeconds": 2,
+          "presentedFrames": 29,
+          "droppedFrames": 1,
+          "bufferedAheadSeconds": 0,
+          "transitions": 1,
+          "lastTransitionGapMs": 37.5,
+          "firstFrameMs": 119.20000000298023
+        },
+        "worldFirst": {
+          "source": "unreal",
+          "status": "Actual2-second1080p native motion checkpoint. World art quality gate remains unaccepted;60-second ride not delivered.",
+          "qualityAccepted": false,
+          "playback": {
+            "status": "ended",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 1,
+            "timelineSeconds": 2,
+            "presentedFrames": 29,
+            "droppedFrames": 1,
+            "bufferedAheadSeconds": 0,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          },
+          "radio": {
+            "station": "buena-onda-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82
+          },
+          "vehicle": "island-trail",
+          "paused": false
+        },
+        "worldSamples": [
+          {
+            "at": 2309.7,
+            "status": "paused",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.044566,
+            "timelineSeconds": 0.044566,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.955434,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 3326.2,
+            "status": "playing",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 0.037389,
+            "timelineSeconds": 1.037389,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.962611,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          }
+        ],
+        "ambience": {
+          "state": "locked",
+          "enabled": false,
+          "gain": 0.12,
+          "targetGain": 0,
+          "nodeCount": 0,
+          "error": null,
+          "synthetic": true
+        },
+        "hybridStatus": "ended",
+        "noHorizontalOverflow": true,
+        "buttons": [
+          {
+            "label": "Hide world comparison",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause cinematic world",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Replay proof",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Toggle driving ambience",
+            "disabled": false,
+            "pressed": "false"
+          },
+          {
+            "label": "Focus radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio help",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Garage",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio stations",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Mute radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Fullscreen",
+            "disabled": false,
+            "pressed": null
+          }
+        ],
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 47.600000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 47.29999999701977,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 20.100000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.100000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          }
+        ]
+      },
+      "checks": {
+        "mutedVideo": true,
+        "actualNative1080p": true,
+        "oneObservedTransition": true,
+        "actualTwoSecondTimeline": true,
+        "noHorizontalOverflow": true,
+        "hybridStillUnverified": true
+      }
+    },
+    {
+      "source": "hybrid",
+      "calibration": {
+        "mode": "candidate",
+        "fitted": {
+          "width": 390,
+          "height": 219.375,
+          "aspect": 1.7777777777777777
+        }
+      },
+      "paused": {
+        "at": 5043,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+        "renderer": [
+          {
+            "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "vendor": "Google Inc. (Intel)",
+            "context": "webgl2"
+          }
+        ],
+        "raf": [
+          {
+            "at": 1293.4,
+            "seconds": 1.2200000000014901,
+            "callbacks": 34,
+            "longestGapMs": 333.20000000000005
+          },
+          {
+            "at": 2309.7,
+            "seconds": 1.0162999999999998,
+            "callbacks": 60,
+            "longestGapMs": 33.299999999999955
+          },
+          {
+            "at": 3326.2,
+            "seconds": 1.0165,
+            "callbacks": 61,
+            "longestGapMs": 16.800000000000182
+          },
+          {
+            "at": 4342.3,
+            "seconds": 1.0161000000000004,
+            "callbacks": 61,
+            "longestGapMs": 16.899999999999636
+          }
+        ],
+        "events": [
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 479.20000000298023,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:pause",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 481.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 564.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 565.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 708.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 712.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 897.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:play",
+            "at": 1367.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "playing",
+            "at": 1388.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1676.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1677.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "waiting",
+            "at": 1678.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1701.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1701.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1701.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1702,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1710.3000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1710.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1786.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1807.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1807.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadeddata",
+            "at": 1901.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadeddata",
+            "at": 1905.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1905.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 1906.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1952.3000000044703,
+            "time": 0.044549
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1952.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 1962,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 2316.2000000029802,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 2328.60000000149,
+            "time": 0.056958
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 3272.39999999851,
+            "time": 1
+          },
+          {
+            "id": 3,
+            "type": "ended",
+            "at": 3272.5,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "call:play",
+            "at": 3272.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "playing",
+            "at": 3272.89999999851,
+            "time": 0.00019
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 3310,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "pause",
+            "at": 4274.10000000149,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "ended",
+            "at": 4274.10000000149,
+            "time": 1
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4427.5,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4427.70000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4427.70000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4427.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4427.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4427.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4428,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4428.10000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4428.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4428.5,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428.5,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "waiting",
+            "at": 4437.60000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadstart",
+            "at": 4440.30000000447,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadstart",
+            "at": 4440.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4482.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4483,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4483.39999999851,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4483.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4483.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4484,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4484,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4484.10000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadstart",
+            "at": 4518,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadstart",
+            "at": 4518.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadeddata",
+            "at": 4839.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4839.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "playing",
+            "at": 4839.89999999851,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadeddata",
+            "at": 4851.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4884.89999999851,
+            "time": 0.040909
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4884.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "pause",
+            "at": 4903.20000000298,
+            "time": 0.040919
+          }
+        ],
+        "decoded": [
+          {
+            "id": 4,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1867.8,
+            "visible": false,
+            "processingDuration": 0.0295
+          },
+          {
+            "id": 3,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1872.6,
+            "visible": true,
+            "processingDuration": 0.0203
+          },
+          {
+            "id": 3,
+            "at": 1926.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 1943.1,
+            "visible": true,
+            "processingDuration": 0.0093
+          },
+          {
+            "id": 3,
+            "at": 2343,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 2343,
+            "visible": true,
+            "processingDuration": 0.0095
+          },
+          {
+            "id": 3,
+            "at": 2376.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 2376.4,
+            "visible": true,
+            "processingDuration": 0.0086
+          },
+          {
+            "id": 3,
+            "at": 2409.8,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 2409.8,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 3,
+            "at": 2443,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 2443,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2476.4,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 2476.3,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2509.7,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 2509.7,
+            "visible": true,
+            "processingDuration": 0.0057
+          },
+          {
+            "id": 3,
+            "at": 2543,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 2543.1,
+            "visible": true,
+            "processingDuration": 0.0053
+          },
+          {
+            "id": 3,
+            "at": 2559.6,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 2576.3,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 3,
+            "at": 2609.7,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 2609.7,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 3,
+            "at": 2626.4,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 2643,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2676.3,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 2676.3,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2709.7,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 2709.6,
+            "visible": true,
+            "processingDuration": 0.0067
+          },
+          {
+            "id": 3,
+            "at": 2726.4,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 2742.9,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2776.2,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 2776.2,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 3,
+            "at": 2809.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 2809.5,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2842.9,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 2842.9,
+            "visible": true,
+            "processingDuration": 0.0076
+          },
+          {
+            "id": 3,
+            "at": 2876.3,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 2876.3,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2909.6,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 2909.6,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2942.8,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 2942.9,
+            "visible": true,
+            "processingDuration": 0.0077
+          },
+          {
+            "id": 3,
+            "at": 2976.2,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 2976.2,
+            "visible": true,
+            "processingDuration": 0.0081
+          },
+          {
+            "id": 3,
+            "at": 3009.5,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 3009.5,
+            "visible": true,
+            "processingDuration": 0.009
+          },
+          {
+            "id": 3,
+            "at": 3042.8,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 3042.8,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3059.5,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 3076.1,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 3,
+            "at": 3109.5,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 3109.5,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3126.1,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 3142.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 3159.5,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 3176.1,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 3,
+            "at": 3209.4,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 3209.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 3,
+            "at": 3242.7,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 3242.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 4,
+            "at": 3309.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 3309.4,
+            "visible": false,
+            "processingDuration": 0.0092
+          },
+          {
+            "id": 4,
+            "at": 3342.7,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 3342.8,
+            "visible": true,
+            "processingDuration": 0.01
+          },
+          {
+            "id": 4,
+            "at": 3359.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 3375.9,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 4,
+            "at": 3409.4,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 3409.3,
+            "visible": true,
+            "processingDuration": 0.0104
+          },
+          {
+            "id": 4,
+            "at": 3442.6,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 3442.6,
+            "visible": true,
+            "processingDuration": 0.0059
+          },
+          {
+            "id": 4,
+            "at": 3476,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 3476,
+            "visible": true,
+            "processingDuration": 0.0047
+          },
+          {
+            "id": 4,
+            "at": 3509.4,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 3509.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 4,
+            "at": 3542.7,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 3542.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 3575.9,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 3576,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 4,
+            "at": 3592.6,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 3609.2,
+            "visible": true,
+            "processingDuration": 0.0061
+          },
+          {
+            "id": 4,
+            "at": 3642.7,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 3642.7,
+            "visible": true,
+            "processingDuration": 0.0062
+          },
+          {
+            "id": 4,
+            "at": 3659.2,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 3675.9,
+            "visible": true,
+            "processingDuration": 0.0069
+          },
+          {
+            "id": 4,
+            "at": 3709.3,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 3709.2,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3742.5,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 3742.6,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3776,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 3775.9,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 4,
+            "at": 3792.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 3809.2,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 4,
+            "at": 3842.5,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 3842.6,
+            "visible": true,
+            "processingDuration": 0.0087
+          },
+          {
+            "id": 4,
+            "at": 3876,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 3875.9,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 4,
+            "at": 3909.3,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 3909.2,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3926,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 3942.6,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3959.3,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 3975.9,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 4009.1,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 4009.2,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4042.4,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 4042.5,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4075.8,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 4075.9,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 4,
+            "at": 4109.2,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 4109.2,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4142.6,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 4142.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4175.9,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 4175.8,
+            "visible": true,
+            "processingDuration": 0.0066
+          },
+          {
+            "id": 4,
+            "at": 4192.5,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 4209.1,
+            "visible": true,
+            "processingDuration": 0.0065
+          },
+          {
+            "id": 4,
+            "at": 4242.4,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 4242.5,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 5,
+            "at": 4808.8,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 4807.1,
+            "visible": true,
+            "processingDuration": 0.0308
+          },
+          {
+            "id": 6,
+            "at": 4825.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 4813.9,
+            "visible": false,
+            "processingDuration": 0.0211
+          },
+          {
+            "id": 5,
+            "at": 4875.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 4875.5,
+            "visible": true,
+            "processingDuration": 0.0112
+          }
+        ],
+        "media": [
+          {
+            "id": 1,
+            "kind": "AUDIO",
+            "source": "http://127.0.0.1:3060/cruise/world-test",
+            "time": 0,
+            "duration": null,
+            "paused": true,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 0,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 2,
+            "kind": "AUDIO",
+            "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+            "time": 3.604064,
+            "duration": 354.742875,
+            "paused": false,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 4,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 3,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 4,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 1,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 5,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 0.040919,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 5,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 6,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 0,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 4,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          }
+        ],
+        "world": {
+          "status": "paused",
+          "segmentId": "native-2s-a",
+          "segmentIndex": 0,
+          "mediaSeconds": 0.040919,
+          "timelineSeconds": 0.040919,
+          "presentedFrames": 5,
+          "droppedFrames": 0,
+          "bufferedAheadSeconds": 0.959081,
+          "transitions": 0,
+          "lastTransitionGapMs": null,
+          "firstFrameMs": 355.59999999403954
+        },
+        "worldFirst": {
+          "source": "hybrid",
+          "status": "Actual native plate + original realtime Jeep. Optical/lighting hybrid calibration unverified; world art gate unaccepted.",
+          "qualityAccepted": false,
+          "playback": {
+            "status": "paused",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.040919,
+            "timelineSeconds": 0.040919,
+            "presentedFrames": 5,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.959081,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 355.59999999403954
+          },
+          "radio": {
+            "station": "buena-onda-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82
+          },
+          "vehicle": "island-trail",
+          "paused": true
+        },
+        "worldSamples": [
+          {
+            "at": 2309.7,
+            "status": "paused",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.044566,
+            "timelineSeconds": 0.044566,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.955434,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 3326.2,
+            "status": "playing",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 0.037389,
+            "timelineSeconds": 1.037389,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.962611,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 4342.3,
+            "status": "ended",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 1,
+            "timelineSeconds": 2,
+            "presentedFrames": 29,
+            "droppedFrames": 1,
+            "bufferedAheadSeconds": 0,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          }
+        ],
+        "ambience": {
+          "state": "locked",
+          "enabled": false,
+          "gain": 0.12,
+          "targetGain": 0,
+          "nodeCount": 0,
+          "error": null,
+          "synthetic": true
+        },
+        "hybridStatus": "paused",
+        "noHorizontalOverflow": true,
+        "buttons": [
+          {
+            "label": "Hide world comparison",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Resume cinematic world",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Replay proof",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Toggle driving ambience",
+            "disabled": false,
+            "pressed": "false"
+          },
+          {
+            "label": "Focus radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio help",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Garage",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio stations",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Mute radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Fullscreen",
+            "disabled": false,
+            "pressed": null
+          }
+        ],
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 47.600000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 47.29999999701977,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 20.100000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.100000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 18.5,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.899999998509884,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 21.5,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 23.600000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          }
+        ]
+      },
+      "ended": {
+        "at": 7194.20000000298,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+        "renderer": [
+          {
+            "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "vendor": "Google Inc. (Intel)",
+            "context": "webgl2"
+          }
+        ],
+        "raf": [
+          {
+            "at": 1293.4,
+            "seconds": 1.2200000000014901,
+            "callbacks": 34,
+            "longestGapMs": 333.20000000000005
+          },
+          {
+            "at": 2309.7,
+            "seconds": 1.0162999999999998,
+            "callbacks": 60,
+            "longestGapMs": 33.299999999999955
+          },
+          {
+            "at": 3326.2,
+            "seconds": 1.0165,
+            "callbacks": 61,
+            "longestGapMs": 16.800000000000182
+          },
+          {
+            "at": 4342.3,
+            "seconds": 1.0161000000000004,
+            "callbacks": 61,
+            "longestGapMs": 16.899999999999636
+          },
+          {
+            "at": 5358.6,
+            "seconds": 1.0163000000000002,
+            "callbacks": 48,
+            "longestGapMs": 233.10000000000036
+          },
+          {
+            "at": 6375,
+            "seconds": 1.0163999999999995,
+            "callbacks": 61,
+            "longestGapMs": 17.100000000000364
+          }
+        ],
+        "events": [
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 479.20000000298023,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:pause",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 1,
+            "type": "call:load",
+            "at": 481.30000000447035,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 481.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 564.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 565.5,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:load",
+            "at": 708.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadstart",
+            "at": 712.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "loadeddata",
+            "at": 897.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "call:play",
+            "at": 1367.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 2,
+            "type": "playing",
+            "at": 1388.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1676.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1677.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "waiting",
+            "at": 1678.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1701.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1701.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1701.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1702,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1702.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1710.3000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1710.5,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1785.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1786.6000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:load",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1786.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "call:load",
+            "at": 1786.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadstart",
+            "at": 1807.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadstart",
+            "at": 1807.8000000044703,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "loadeddata",
+            "at": 1901.1000000014901,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "loadeddata",
+            "at": 1905.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 1905.8999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 1906.2000000029802,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 1952.3000000044703,
+            "time": 0.044549
+          },
+          {
+            "id": 4,
+            "type": "call:pause",
+            "at": 1952.3999999985099,
+            "time": 0
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 1962,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "call:play",
+            "at": 2316.2000000029802,
+            "time": 0.044566
+          },
+          {
+            "id": 3,
+            "type": "playing",
+            "at": 2328.60000000149,
+            "time": 0.056958
+          },
+          {
+            "id": 3,
+            "type": "pause",
+            "at": 3272.39999999851,
+            "time": 1
+          },
+          {
+            "id": 3,
+            "type": "ended",
+            "at": 3272.5,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "call:play",
+            "at": 3272.7000000029802,
+            "time": 0
+          },
+          {
+            "id": 4,
+            "type": "playing",
+            "at": 3272.89999999851,
+            "time": 0.00019
+          },
+          {
+            "id": 3,
+            "type": "call:pause",
+            "at": 3310,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "pause",
+            "at": 4274.10000000149,
+            "time": 1
+          },
+          {
+            "id": 4,
+            "type": "ended",
+            "at": 4274.10000000149,
+            "time": 1
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4427.5,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4427.70000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4427.70000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4427.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4427.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4427.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4428,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4428.10000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4428.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4428.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4428.5,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4428.5,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "waiting",
+            "at": 4437.60000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4437.80000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadstart",
+            "at": 4440.30000000447,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadstart",
+            "at": 4440.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4482.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4483,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4483.39999999851,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4483.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4483.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:load",
+            "at": 4484,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4484,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "call:load",
+            "at": 4484.10000000149,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadstart",
+            "at": 4518,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadstart",
+            "at": 4518.20000000298,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "loadeddata",
+            "at": 4839.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 4839.39999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "playing",
+            "at": 4839.89999999851,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "loadeddata",
+            "at": 4851.30000000447,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 4884.89999999851,
+            "time": 0.040909
+          },
+          {
+            "id": 6,
+            "type": "call:pause",
+            "at": 4884.89999999851,
+            "time": 0
+          },
+          {
+            "id": 5,
+            "type": "pause",
+            "at": 4903.20000000298,
+            "time": 0.040919
+          },
+          {
+            "id": 5,
+            "type": "call:play",
+            "at": 5214.70000000298,
+            "time": 0.040919
+          },
+          {
+            "id": 5,
+            "type": "playing",
+            "at": 5233.5,
+            "time": 0.05963
+          },
+          {
+            "id": 5,
+            "type": "pause",
+            "at": 6177.10000000149,
+            "time": 1
+          },
+          {
+            "id": 5,
+            "type": "ended",
+            "at": 6177.20000000298,
+            "time": 1
+          },
+          {
+            "id": 6,
+            "type": "call:play",
+            "at": 6177.30000000447,
+            "time": 0
+          },
+          {
+            "id": 6,
+            "type": "playing",
+            "at": 6177.60000000149,
+            "time": 0.000325
+          },
+          {
+            "id": 5,
+            "type": "call:pause",
+            "at": 6192.10000000149,
+            "time": 1
+          },
+          {
+            "id": 6,
+            "type": "pause",
+            "at": 7178.5,
+            "time": 1
+          },
+          {
+            "id": 6,
+            "type": "ended",
+            "at": 7178.60000000149,
+            "time": 1
+          }
+        ],
+        "decoded": [
+          {
+            "id": 4,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1867.8,
+            "visible": false,
+            "processingDuration": 0.0295
+          },
+          {
+            "id": 3,
+            "at": 1876.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 1872.6,
+            "visible": true,
+            "processingDuration": 0.0203
+          },
+          {
+            "id": 3,
+            "at": 1926.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 1943.1,
+            "visible": true,
+            "processingDuration": 0.0093
+          },
+          {
+            "id": 3,
+            "at": 2343,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 2343,
+            "visible": true,
+            "processingDuration": 0.0095
+          },
+          {
+            "id": 3,
+            "at": 2376.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 2376.4,
+            "visible": true,
+            "processingDuration": 0.0086
+          },
+          {
+            "id": 3,
+            "at": 2409.8,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 2409.8,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 3,
+            "at": 2443,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 2443,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2476.4,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 2476.3,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 2509.7,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 2509.7,
+            "visible": true,
+            "processingDuration": 0.0057
+          },
+          {
+            "id": 3,
+            "at": 2543,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 2543.1,
+            "visible": true,
+            "processingDuration": 0.0053
+          },
+          {
+            "id": 3,
+            "at": 2559.6,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 2576.3,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 3,
+            "at": 2609.7,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 2609.7,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 3,
+            "at": 2626.4,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 2643,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2676.3,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 2676.3,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 3,
+            "at": 2709.7,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 2709.6,
+            "visible": true,
+            "processingDuration": 0.0067
+          },
+          {
+            "id": 3,
+            "at": 2726.4,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 2742.9,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2776.2,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 2776.2,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 3,
+            "at": 2809.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 2809.5,
+            "visible": true,
+            "processingDuration": 0.0072
+          },
+          {
+            "id": 3,
+            "at": 2842.9,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 2842.9,
+            "visible": true,
+            "processingDuration": 0.0076
+          },
+          {
+            "id": 3,
+            "at": 2876.3,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 2876.3,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2909.6,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 2909.6,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 2942.8,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 2942.9,
+            "visible": true,
+            "processingDuration": 0.0077
+          },
+          {
+            "id": 3,
+            "at": 2976.2,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 2976.2,
+            "visible": true,
+            "processingDuration": 0.0081
+          },
+          {
+            "id": 3,
+            "at": 3009.5,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 3009.5,
+            "visible": true,
+            "processingDuration": 0.009
+          },
+          {
+            "id": 3,
+            "at": 3042.8,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 3042.8,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3059.5,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 3076.1,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 3,
+            "at": 3109.5,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 3109.5,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 3,
+            "at": 3126.1,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 3142.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 3,
+            "at": 3159.5,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 3176.1,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 3,
+            "at": 3209.4,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 3209.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 3,
+            "at": 3242.7,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 3242.7,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 4,
+            "at": 3309.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 3309.4,
+            "visible": false,
+            "processingDuration": 0.0092
+          },
+          {
+            "id": 4,
+            "at": 3342.7,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 3342.8,
+            "visible": true,
+            "processingDuration": 0.01
+          },
+          {
+            "id": 4,
+            "at": 3359.3,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 3375.9,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 4,
+            "at": 3409.4,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 3409.3,
+            "visible": true,
+            "processingDuration": 0.0104
+          },
+          {
+            "id": 4,
+            "at": 3442.6,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 3442.6,
+            "visible": true,
+            "processingDuration": 0.0059
+          },
+          {
+            "id": 4,
+            "at": 3476,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 3476,
+            "visible": true,
+            "processingDuration": 0.0047
+          },
+          {
+            "id": 4,
+            "at": 3509.4,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 3509.4,
+            "visible": true,
+            "processingDuration": 0.0056
+          },
+          {
+            "id": 4,
+            "at": 3542.7,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 3542.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 3575.9,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 3576,
+            "visible": true,
+            "processingDuration": 0.0055
+          },
+          {
+            "id": 4,
+            "at": 3592.6,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 3609.2,
+            "visible": true,
+            "processingDuration": 0.0061
+          },
+          {
+            "id": 4,
+            "at": 3642.7,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 3642.7,
+            "visible": true,
+            "processingDuration": 0.0062
+          },
+          {
+            "id": 4,
+            "at": 3659.2,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 3675.9,
+            "visible": true,
+            "processingDuration": 0.0069
+          },
+          {
+            "id": 4,
+            "at": 3709.3,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 3709.2,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3742.5,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 3742.6,
+            "visible": true,
+            "processingDuration": 0.007
+          },
+          {
+            "id": 4,
+            "at": 3776,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 3775.9,
+            "visible": true,
+            "processingDuration": 0.0071
+          },
+          {
+            "id": 4,
+            "at": 3792.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 3809.2,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 4,
+            "at": 3842.5,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 3842.6,
+            "visible": true,
+            "processingDuration": 0.0087
+          },
+          {
+            "id": 4,
+            "at": 3876,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 3875.9,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 4,
+            "at": 3909.3,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 3909.2,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3926,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 3942.6,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 3959.3,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 3975.9,
+            "visible": true,
+            "processingDuration": 0.0079
+          },
+          {
+            "id": 4,
+            "at": 4009.1,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 4009.2,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4042.4,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 4042.5,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 4,
+            "at": 4075.8,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 4075.9,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 4,
+            "at": 4109.2,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 4109.2,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4142.6,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 4142.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 4,
+            "at": 4175.9,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 4175.8,
+            "visible": true,
+            "processingDuration": 0.0066
+          },
+          {
+            "id": 4,
+            "at": 4192.5,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 4209.1,
+            "visible": true,
+            "processingDuration": 0.0065
+          },
+          {
+            "id": 4,
+            "at": 4242.4,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 4242.5,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 5,
+            "at": 4808.8,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 4807.1,
+            "visible": true,
+            "processingDuration": 0.0308
+          },
+          {
+            "id": 6,
+            "at": 4825.5,
+            "mediaTime": 0,
+            "presentedFrames": 1,
+            "expectedDisplayTime": 4813.9,
+            "visible": false,
+            "processingDuration": 0.0211
+          },
+          {
+            "id": 5,
+            "at": 4875.5,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 4875.5,
+            "visible": true,
+            "processingDuration": 0.0112
+          },
+          {
+            "id": 5,
+            "at": 5242.1,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 5242.1,
+            "visible": true,
+            "processingDuration": 0.0096
+          },
+          {
+            "id": 5,
+            "at": 5275.4,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 5275.4,
+            "visible": true,
+            "processingDuration": 0.009
+          },
+          {
+            "id": 5,
+            "at": 5308.7,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 5308.6,
+            "visible": true,
+            "processingDuration": 0.0099
+          },
+          {
+            "id": 5,
+            "at": 5342,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 5342,
+            "visible": true,
+            "processingDuration": 0.0085
+          },
+          {
+            "id": 5,
+            "at": 5375.3,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 5375.3,
+            "visible": true,
+            "processingDuration": 0.006
+          },
+          {
+            "id": 5,
+            "at": 5408.7,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 5408.6,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 5,
+            "at": 5442,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 5442,
+            "visible": true,
+            "processingDuration": 0.006
+          },
+          {
+            "id": 5,
+            "at": 5475.3,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 5475.2,
+            "visible": true,
+            "processingDuration": 0.0062
+          },
+          {
+            "id": 5,
+            "at": 5492,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 5508.6,
+            "visible": true,
+            "processingDuration": 0.0081
+          },
+          {
+            "id": 5,
+            "at": 5542,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 5542,
+            "visible": true,
+            "processingDuration": 0.0082
+          },
+          {
+            "id": 5,
+            "at": 5575.3,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 5575.3,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 5,
+            "at": 5608.6,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 5608.5,
+            "visible": true,
+            "processingDuration": 0.0088
+          },
+          {
+            "id": 5,
+            "at": 5641.9,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 5641.9,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 5,
+            "at": 5658.7,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 5675.4,
+            "visible": true,
+            "processingDuration": 0.0087
+          },
+          {
+            "id": 5,
+            "at": 5708.5,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 5708.6,
+            "visible": true,
+            "processingDuration": 0.0101
+          },
+          {
+            "id": 5,
+            "at": 5742,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 5741.8,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 5,
+            "at": 5775.2,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 5775.3,
+            "visible": true,
+            "processingDuration": 0.0076
+          },
+          {
+            "id": 5,
+            "at": 5808.5,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 5808.6,
+            "visible": true,
+            "processingDuration": 0.008
+          },
+          {
+            "id": 5,
+            "at": 5842,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 5841.8,
+            "visible": true,
+            "processingDuration": 0.0077
+          },
+          {
+            "id": 5,
+            "at": 5875.3,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 5875.1,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 5,
+            "at": 5891.9,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 5908.5,
+            "visible": true,
+            "processingDuration": 0.0082
+          },
+          {
+            "id": 5,
+            "at": 5941.9,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 5941.7,
+            "visible": true,
+            "processingDuration": 0.0089
+          },
+          {
+            "id": 5,
+            "at": 5975.3,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 5975.3,
+            "visible": true,
+            "processingDuration": 0.0076
+          },
+          {
+            "id": 5,
+            "at": 6008.6,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 6008.6,
+            "visible": true,
+            "processingDuration": 0.0075
+          },
+          {
+            "id": 5,
+            "at": 6041.8,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 6041.7,
+            "visible": true,
+            "processingDuration": 0.0061
+          },
+          {
+            "id": 5,
+            "at": 6075.5,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 6075.1,
+            "visible": true,
+            "processingDuration": 0.009
+          },
+          {
+            "id": 5,
+            "at": 6108.5,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 6108.4,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 5,
+            "at": 6141.8,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 6141.7,
+            "visible": true,
+            "processingDuration": 0.0064
+          },
+          {
+            "id": 6,
+            "at": 6191.7,
+            "mediaTime": 0.033,
+            "presentedFrames": 2,
+            "expectedDisplayTime": 6208.4,
+            "visible": false,
+            "processingDuration": 0.0098
+          },
+          {
+            "id": 6,
+            "at": 6241.7,
+            "mediaTime": 0.067,
+            "presentedFrames": 3,
+            "expectedDisplayTime": 6241.7,
+            "visible": true,
+            "processingDuration": 0.0088
+          },
+          {
+            "id": 6,
+            "at": 6275,
+            "mediaTime": 0.1,
+            "presentedFrames": 4,
+            "expectedDisplayTime": 6275.1,
+            "visible": true,
+            "processingDuration": 0.0096
+          },
+          {
+            "id": 6,
+            "at": 6308.4,
+            "mediaTime": 0.133,
+            "presentedFrames": 5,
+            "expectedDisplayTime": 6308.3,
+            "visible": true,
+            "processingDuration": 0.0058
+          },
+          {
+            "id": 6,
+            "at": 6341.6,
+            "mediaTime": 0.167,
+            "presentedFrames": 6,
+            "expectedDisplayTime": 6341.7,
+            "visible": true,
+            "processingDuration": 0.005
+          },
+          {
+            "id": 6,
+            "at": 6375,
+            "mediaTime": 0.2,
+            "presentedFrames": 7,
+            "expectedDisplayTime": 6375.1,
+            "visible": true,
+            "processingDuration": 0.0067
+          },
+          {
+            "id": 6,
+            "at": 6408.4,
+            "mediaTime": 0.233,
+            "presentedFrames": 8,
+            "expectedDisplayTime": 6408.4,
+            "visible": true,
+            "processingDuration": 0.0063
+          },
+          {
+            "id": 6,
+            "at": 6441.6,
+            "mediaTime": 0.267,
+            "presentedFrames": 9,
+            "expectedDisplayTime": 6441.6,
+            "visible": true,
+            "processingDuration": 0.0088
+          },
+          {
+            "id": 6,
+            "at": 6474.9,
+            "mediaTime": 0.3,
+            "presentedFrames": 10,
+            "expectedDisplayTime": 6475,
+            "visible": true,
+            "processingDuration": 0.0068
+          },
+          {
+            "id": 6,
+            "at": 6508.3,
+            "mediaTime": 0.333,
+            "presentedFrames": 11,
+            "expectedDisplayTime": 6508.3,
+            "visible": true,
+            "processingDuration": 0.0067
+          },
+          {
+            "id": 6,
+            "at": 6541.6,
+            "mediaTime": 0.367,
+            "presentedFrames": 12,
+            "expectedDisplayTime": 6541.6,
+            "visible": true,
+            "processingDuration": 0.0065
+          },
+          {
+            "id": 6,
+            "at": 6574.9,
+            "mediaTime": 0.4,
+            "presentedFrames": 13,
+            "expectedDisplayTime": 6574.9,
+            "visible": true,
+            "processingDuration": 0.0077
+          },
+          {
+            "id": 6,
+            "at": 6591.6,
+            "mediaTime": 0.433,
+            "presentedFrames": 14,
+            "expectedDisplayTime": 6608.3,
+            "visible": true,
+            "processingDuration": 0.0081
+          },
+          {
+            "id": 6,
+            "at": 6641.6,
+            "mediaTime": 0.467,
+            "presentedFrames": 15,
+            "expectedDisplayTime": 6641.6,
+            "visible": true,
+            "processingDuration": 0.0086
+          },
+          {
+            "id": 6,
+            "at": 6674.8,
+            "mediaTime": 0.5,
+            "presentedFrames": 16,
+            "expectedDisplayTime": 6674.9,
+            "visible": true,
+            "processingDuration": 0.008
+          },
+          {
+            "id": 6,
+            "at": 6708.2,
+            "mediaTime": 0.533,
+            "presentedFrames": 17,
+            "expectedDisplayTime": 6708.2,
+            "visible": true,
+            "processingDuration": 0.0078
+          },
+          {
+            "id": 6,
+            "at": 6741.6,
+            "mediaTime": 0.567,
+            "presentedFrames": 18,
+            "expectedDisplayTime": 6741.5,
+            "visible": true,
+            "processingDuration": 0.0088
+          },
+          {
+            "id": 6,
+            "at": 6774.9,
+            "mediaTime": 0.6,
+            "presentedFrames": 19,
+            "expectedDisplayTime": 6774.8,
+            "visible": true,
+            "processingDuration": 0.0083
+          },
+          {
+            "id": 6,
+            "at": 6808.2,
+            "mediaTime": 0.633,
+            "presentedFrames": 20,
+            "expectedDisplayTime": 6808.2,
+            "visible": true,
+            "processingDuration": 0.0092
+          },
+          {
+            "id": 6,
+            "at": 6841.5,
+            "mediaTime": 0.667,
+            "presentedFrames": 21,
+            "expectedDisplayTime": 6841.5,
+            "visible": true,
+            "processingDuration": 0.0104
+          },
+          {
+            "id": 6,
+            "at": 6874.9,
+            "mediaTime": 0.7,
+            "presentedFrames": 22,
+            "expectedDisplayTime": 6874.8,
+            "visible": true,
+            "processingDuration": 0.0092
+          },
+          {
+            "id": 6,
+            "at": 6891.5,
+            "mediaTime": 0.733,
+            "presentedFrames": 23,
+            "expectedDisplayTime": 6908.1,
+            "visible": true,
+            "processingDuration": 0.0101
+          },
+          {
+            "id": 6,
+            "at": 6941.5,
+            "mediaTime": 0.767,
+            "presentedFrames": 24,
+            "expectedDisplayTime": 6941.4,
+            "visible": true,
+            "processingDuration": 0.0093
+          },
+          {
+            "id": 6,
+            "at": 6974.8,
+            "mediaTime": 0.8,
+            "presentedFrames": 25,
+            "expectedDisplayTime": 6974.8,
+            "visible": true,
+            "processingDuration": 0.0086
+          },
+          {
+            "id": 6,
+            "at": 7008.1,
+            "mediaTime": 0.833,
+            "presentedFrames": 26,
+            "expectedDisplayTime": 7008.1,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 6,
+            "at": 7041.4,
+            "mediaTime": 0.867,
+            "presentedFrames": 27,
+            "expectedDisplayTime": 7041.5,
+            "visible": true,
+            "processingDuration": 0.0094
+          },
+          {
+            "id": 6,
+            "at": 7074.8,
+            "mediaTime": 0.9,
+            "presentedFrames": 28,
+            "expectedDisplayTime": 7074.8,
+            "visible": true,
+            "processingDuration": 0.0073
+          },
+          {
+            "id": 6,
+            "at": 7108,
+            "mediaTime": 0.933,
+            "presentedFrames": 29,
+            "expectedDisplayTime": 7108,
+            "visible": true,
+            "processingDuration": 0.0074
+          },
+          {
+            "id": 6,
+            "at": 7141.4,
+            "mediaTime": 0.967,
+            "presentedFrames": 30,
+            "expectedDisplayTime": 7141.4,
+            "visible": true,
+            "processingDuration": 0.0077
+          }
+        ],
+        "media": [
+          {
+            "id": 1,
+            "kind": "AUDIO",
+            "source": "http://127.0.0.1:3060/cruise/world-test",
+            "time": 0,
+            "duration": null,
+            "paused": true,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 0,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 2,
+            "kind": "AUDIO",
+            "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+            "time": 5.755279,
+            "duration": 354.742875,
+            "paused": false,
+            "muted": false,
+            "volume": 0.82,
+            "ready": 4,
+            "visible": false,
+            "error": null,
+            "playbackQuality": null
+          },
+          {
+            "id": 3,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 4,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 1,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 5,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": false,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          },
+          {
+            "id": 6,
+            "kind": "VIDEO",
+            "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "time": 1,
+            "duration": 1,
+            "paused": true,
+            "muted": true,
+            "volume": 1,
+            "ready": 4,
+            "width": 1920,
+            "height": 1080,
+            "visible": true,
+            "error": null,
+            "playbackQuality": {
+              "totalVideoFrames": 30,
+              "droppedVideoFrames": 0,
+              "corruptedVideoFrames": 0
+            }
+          }
+        ],
+        "world": {
+          "status": "ended",
+          "segmentId": "native-2s-b",
+          "segmentIndex": 1,
+          "mediaSeconds": 1,
+          "timelineSeconds": 2,
+          "presentedFrames": 30,
+          "droppedFrames": 0,
+          "bufferedAheadSeconds": 0,
+          "transitions": 1,
+          "lastTransitionGapMs": 14.899999998509884,
+          "firstFrameMs": 355.59999999403954
+        },
+        "worldFirst": {
+          "source": "hybrid",
+          "status": "Actual native plate + original realtime Jeep. Optical/lighting hybrid calibration unverified; world art gate unaccepted.",
+          "qualityAccepted": false,
+          "playback": {
+            "status": "ended",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 1,
+            "timelineSeconds": 2,
+            "presentedFrames": 30,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0,
+            "transitions": 1,
+            "lastTransitionGapMs": 14.899999998509884,
+            "firstFrameMs": 355.59999999403954
+          },
+          "radio": {
+            "station": "buena-onda-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82
+          },
+          "vehicle": "island-trail",
+          "paused": false
+        },
+        "worldSamples": [
+          {
+            "at": 2309.7,
+            "status": "paused",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.044566,
+            "timelineSeconds": 0.044566,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.955434,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 3326.2,
+            "status": "playing",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 0.037389,
+            "timelineSeconds": 1.037389,
+            "presentedFrames": 6,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.962611,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 4342.3,
+            "status": "ended",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 1,
+            "timelineSeconds": 2,
+            "presentedFrames": 29,
+            "droppedFrames": 1,
+            "bufferedAheadSeconds": 0,
+            "transitions": 1,
+            "lastTransitionGapMs": 37.5,
+            "firstFrameMs": 119.20000000298023
+          },
+          {
+            "at": 5358.6,
+            "status": "playing",
+            "segmentId": "native-2s-a",
+            "segmentIndex": 0,
+            "mediaSeconds": 0.102104,
+            "timelineSeconds": 0.102104,
+            "presentedFrames": 8,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.897896,
+            "transitions": 0,
+            "lastTransitionGapMs": null,
+            "firstFrameMs": 355.59999999403954
+          },
+          {
+            "at": 6375,
+            "status": "playing",
+            "segmentId": "native-2s-b",
+            "segmentIndex": 1,
+            "mediaSeconds": 0.131812,
+            "timelineSeconds": 1.131812,
+            "presentedFrames": 8,
+            "droppedFrames": 0,
+            "bufferedAheadSeconds": 0.868188,
+            "transitions": 1,
+            "lastTransitionGapMs": 14.899999998509884,
+            "firstFrameMs": 355.59999999403954
+          }
+        ],
+        "ambience": {
+          "state": "locked",
+          "enabled": false,
+          "gain": 0.12,
+          "targetGain": 0,
+          "nodeCount": 0,
+          "error": null,
+          "synthetic": true
+        },
+        "hybridStatus": "ended",
+        "noHorizontalOverflow": true,
+        "buttons": [
+          {
+            "label": "Hide world comparison",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause cinematic world",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Replay proof",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Toggle driving ambience",
+            "disabled": false,
+            "pressed": "false"
+          },
+          {
+            "label": "Focus radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio help",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Garage",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Pause radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Radio stations",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Mute radio",
+            "disabled": false,
+            "pressed": null
+          },
+          {
+            "label": "Fullscreen",
+            "disabled": false,
+            "pressed": null
+          }
+        ],
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 47.600000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 47.29999999701977,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 20.100000001490116,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.100000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 18.5,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 18.899999998509884,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+            "durationMs": 21.5,
+            "transferSize": 1270437,
+            "encodedBodySize": 1270137,
+            "decodedBodySize": 1270137
+          },
+          {
+            "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+            "durationMs": 23.600000001490116,
+            "transferSize": 1261008,
+            "encodedBodySize": 1260708,
+            "decodedBodySize": 1260708
+          }
+        ]
+      },
+      "checks": {
+        "mutedVideo": true,
+        "actualNative1080p": true,
+        "oneObservedTransition": true,
+        "actualTwoSecondTimeline": true,
+        "noHorizontalOverflow": true,
+        "hybridStillUnverified": true
+      }
+    }
+  ],
+  "recording": "Silent page video; no radio/system audio capture.",
+  "errors": [],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    }
+  ],
+  "blocked": []
+}

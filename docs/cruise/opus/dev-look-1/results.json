@@ -1,0 +1,117 @@
+{
+ "label": "dev-look-1",
+ "url": "http://127.0.0.1:3067",
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T18:56:04.787Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":2,\"active\":27,\"total\":256,\"pending\":30,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":350639,\"geometries\":134,\"textures\":56}"
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":522567,\"geometries\":165,\"textures\":56}"
+    },
+    {
+     "view": "director:sideTrack",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-director-sideTrack.png",
+     "director": {
+      "shot": "sideTrack",
+      "label": "Long lens",
+      "elapsed": 4.00769999998808,
+      "planned": 4.4,
+      "beatInterval": 0.654100000008941,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":422569,\"geometries\":185,\"textures\":56}"
+    },
+    {
+     "view": "director:windshield",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-director-windshield.png",
+     "director": {
+      "shot": "windshield",
+      "label": "Windshield",
+      "elapsed": 3.607600000008933,
+      "planned": 5.232800000071528,
+      "beatInterval": 0.654100000008941,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":426275,\"geometries\":239,\"textures\":72}"
+    },
+    {
+     "view": "director:rearChase",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-director-rearChase.png",
+     "director": {
+      "shot": "rearChase",
+      "label": "Rear chase",
+      "elapsed": 4.026299999997025,
+      "planned": 7.849200000107292,
+      "beatInterval": 0.654100000008941,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":510947,\"geometries\":239,\"textures\":72}"
+    },
+    {
+     "view": "director:landmarkPass",
+     "file": "docs/cruise/opus/dev-look-1/1280x720-director-landmarkPass.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 4.127399999991081,
+      "planned": 14,
+      "beatInterval": 0.654100000008941,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": "Colony Hotel",
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":527675,\"geometries\":242,\"textures\":72}"
+    }
+   ],
+   "readyMs": 7581,
+   "playing": true
+  }
+ ]
+}

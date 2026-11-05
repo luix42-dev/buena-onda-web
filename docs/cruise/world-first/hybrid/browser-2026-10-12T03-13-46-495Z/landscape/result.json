@@ -1,0 +1,574 @@
+{
+  "profile": {
+    "name": "landscape",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "deviceScaleFactor": 1,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "emulated": true,
+  "sources": [],
+  "recording": "Silent page video; no radio/system audio capture.",
+  "failure": {
+    "name": "TimeoutError",
+    "message": "page.waitForFunction: Timeout 18000ms exceeded."
+  },
+  "failureSnapshot": {
+    "at": 19950.5,
+    "viewport": {
+      "width": 844,
+      "height": 390,
+      "dpr": 1
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "raf": [
+      {
+        "at": 1424.3,
+        "seconds": 1.3271999999985098,
+        "callbacks": 42,
+        "longestGapMs": 416.5
+      },
+      {
+        "at": 2440.8,
+        "seconds": 1.0165000000000002,
+        "callbacks": 60,
+        "longestGapMs": 33.200000000000045
+      },
+      {
+        "at": 3457,
+        "seconds": 1.0161999999999998,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000009
+      },
+      {
+        "at": 4473.4,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 16.90000000000009
+      },
+      {
+        "at": 5489.6,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 16.800000000000182
+      },
+      {
+        "at": 6506,
+        "seconds": 1.0163999999999995,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000000546
+      },
+      {
+        "at": 7522.8,
+        "seconds": 1.0168000000000001,
+        "callbacks": 61,
+        "longestGapMs": 17.199999999999818
+      },
+      {
+        "at": 8538.6,
+        "seconds": 1.0158000000000003,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 9554.9,
+        "seconds": 1.0162999999999993,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 10571.4,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 11587.6,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 17
+      },
+      {
+        "at": 12603.8,
+        "seconds": 1.0161999999999989,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 13620.1,
+        "seconds": 1.016300000000001,
+        "callbacks": 61,
+        "longestGapMs": 16.899999999999636
+      },
+      {
+        "at": 14636.7,
+        "seconds": 1.0166000000000004,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 15652.8,
+        "seconds": 1.0160999999999984,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 16669.2,
+        "seconds": 1.0164000000000015,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 17685.4,
+        "seconds": 1.0162000000000007,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 18701.9,
+        "seconds": 1.0165,
+        "callbacks": 61,
+        "longestGapMs": 16.900000000001455
+      },
+      {
+        "at": 19719.2,
+        "seconds": 1.0172999999999992,
+        "callbacks": 61,
+        "longestGapMs": 17.799999999999272
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 514.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:pause",
+        "at": 515.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 516,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:load",
+        "at": 516.1000000014901,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadstart",
+        "at": 606.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadeddata",
+        "at": 608.5,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:load",
+        "at": 745.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadstart",
+        "at": 748.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "loadeddata",
+        "at": 958.6999999955297,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "call:play",
+        "at": 1485.1000000014901,
+        "time": 0
+      },
+      {
+        "id": 2,
+        "type": "playing",
+        "at": 1507.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:play",
+        "at": 1791.6999999955297,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:play",
+        "at": 1793.2999999970198,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "waiting",
+        "at": 1805.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:pause",
+        "at": 1814.6999999955297,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:load",
+        "at": 1814.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:pause",
+        "at": 1814.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:load",
+        "at": 1814.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:pause",
+        "at": 1815.2999999970198,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:pause",
+        "at": 1815.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:pause",
+        "at": 1815.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:pause",
+        "at": 1815.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadstart",
+        "at": 1821.5,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "loadstart",
+        "at": 1821.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:pause",
+        "at": 1932.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:load",
+        "at": 1932.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:pause",
+        "at": 1932.5,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:load",
+        "at": 1932.5,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:pause",
+        "at": 1932.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "call:load",
+        "at": 1932.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:pause",
+        "at": 1932.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "call:load",
+        "at": 1932.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadstart",
+        "at": 1946.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "loadstart",
+        "at": 1946.5,
+        "time": 0
+      },
+      {
+        "id": 3,
+        "type": "loadeddata",
+        "at": 2041.8999999985099,
+        "time": 0
+      },
+      {
+        "id": 4,
+        "type": "loadeddata",
+        "at": 2047.1000000014901,
+        "time": 0
+      }
+    ],
+    "decoded": [
+      {
+        "id": 3,
+        "at": 1924.2,
+        "mediaTime": 0,
+        "presentedFrames": 1,
+        "expectedDisplayTime": 1913.2,
+        "visible": true,
+        "processingDuration": 0.0359
+      },
+      {
+        "id": 4,
+        "at": 1924.2,
+        "mediaTime": 0,
+        "presentedFrames": 1,
+        "expectedDisplayTime": 1918.3,
+        "visible": false,
+        "processingDuration": 0.0215
+      },
+      {
+        "id": 3,
+        "at": 2007.4,
+        "mediaTime": 0,
+        "presentedFrames": 1,
+        "expectedDisplayTime": 2007.4,
+        "visible": true,
+        "processingDuration": 0.0314
+      },
+      {
+        "id": 4,
+        "at": 2024.1,
+        "mediaTime": 0,
+        "presentedFrames": 1,
+        "expectedDisplayTime": 2013.6,
+        "visible": false,
+        "processingDuration": 0.0222
+      }
+    ],
+    "media": [
+      {
+        "id": 1,
+        "kind": "AUDIO",
+        "source": "http://127.0.0.1:3060/cruise/world-test",
+        "time": 0,
+        "duration": null,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      },
+      {
+        "id": 2,
+        "kind": "AUDIO",
+        "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1781111136469-Gigi-Flag-_Nymphomaniac_-Instrumental-version-1984_2018-Spacetalk-Records.mp3",
+        "time": 18.39389,
+        "duration": 354.742875,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      },
+      {
+        "id": 3,
+        "kind": "VIDEO",
+        "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+        "time": 0,
+        "duration": 1,
+        "paused": true,
+        "muted": true,
+        "volume": 1,
+        "ready": 4,
+        "width": 1920,
+        "height": 1080,
+        "visible": true,
+        "error": null,
+        "playbackQuality": {
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        }
+      },
+      {
+        "id": 4,
+        "kind": "VIDEO",
+        "source": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+        "time": 0,
+        "duration": 1,
+        "paused": true,
+        "muted": true,
+        "volume": 1,
+        "ready": 4,
+        "width": 1920,
+        "height": 1080,
+        "visible": false,
+        "error": null,
+        "playbackQuality": {
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        }
+      }
+    ],
+    "world": null,
+    "worldFirst": null,
+    "worldSamples": [],
+    "ambience": null,
+    "noHorizontalOverflow": true,
+    "buttons": [
+      {
+        "label": "Focus radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio help",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Garage",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Reload Cruise",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio stations",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Mute radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Fullscreen",
+        "disabled": false,
+        "pressed": null
+      }
+    ],
+    "resources": [
+      {
+        "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+        "durationMs": 30.599999994039536,
+        "transferSize": 1270437,
+        "encodedBodySize": 1270137,
+        "decodedBodySize": 1270137
+      },
+      {
+        "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+        "durationMs": 38.400000005960464,
+        "transferSize": 1261008,
+        "encodedBodySize": 1260708,
+        "decodedBodySize": 1260708
+      },
+      {
+        "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+        "durationMs": 19.200000002980232,
+        "transferSize": 1270437,
+        "encodedBodySize": 1270137,
+        "decodedBodySize": 1270137
+      },
+      {
+        "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+        "durationMs": 20,
+        "transferSize": 1261008,
+        "encodedBodySize": 1260708,
+        "decodedBodySize": 1260708
+      }
+    ]
+  },
+  "errors": [],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:3060/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "status": 206
+    }
+  ],
+  "blocked": []
+}

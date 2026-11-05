@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>Cruise Countach and geographic ad review</title>
+<style>body{background:#10141c;color:#f5ecdc;font:16px system-ui;margin:24px}h1{font-size:24px}section{margin:32px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}figure{margin:0}img{width:100%;height:auto;display:block}figcaption{padding:8px 0}a{color:#f1ac79}.portrait img{max-height:700px;width:auto;max-width:100%}</style>
+<h1>Actual Cruise: Countach and geographic advertising</h1>
+<p>Local screenshots from the integrated application. Portrait uses browser viewport emulation. Projection alone does not prove human readability. <a href="README.md">Measurements and limitations</a>.</p>
+<section><h2>Before and after, same Colony approach</h2><div class="grid" id="comparison"></div></section>
+<section><h2>Native Countach geometry and interactive radio</h2><div class="grid" id="countach"></div></section>
+<section><h2>Geographic cue and three-car cockpit checks</h2><div class="grid" id="ads"></div></section>
+<section><h2>Preserved negative evidence</h2><div class="grid" id="negative"></div></section>
+<script>
+function photo(target,path,label,portrait=false){const f=document.createElement('figure');if(portrait)f.className='portrait';const a=document.createElement('a');a.href=path;const i=document.createElement('img');i.src=path;i.alt=label;a.append(i);const c=document.createElement('figcaption');c.textContent=label;f.append(a,c);document.getElementById(target).append(f)}
+for(const size of[1280,390])for(const mode of['driver','chase']){photo('comparison',`before-${size}-wrangler-${mode}.png`,`BEFORE Wrangler ${size}px ${mode}`,size===390);photo('comparison',`after-${size}-countach-${mode}.png`,`AFTER Countach ${size}px ${mode}; vehicle changed`,size===390)}
+for(const size of[1280,390])for(const view of['garage','driver','chase','radio'])photo('countach',`countach/countach-${size}-${view}.png`,`Countach ${size}px ${view}`,size===390);
+for(const size of[1280,390])for(const car of['countach','eighties','cadillac'])photo('ads',`after-${size}-${car}-cockpit-ad.png`,`${car} ${size}px cockpit: ${size===390&&car==='cadillac'?'partial world face and separately readable HUD':'cue versus world sign'}`,size===390);
+photo('negative','first-pass-occluded-wrangler.png','Caught and fixed: initial five-ray qualification falsely accepted pillar-covered headline');
+photo('negative','glass-fixed-fiero-cockpit.png','Fiero after native transparent-glass occlusion correction');
+photo('negative','after-390-cadillac-no-cue.png','Preserved failure under earlier HUD policy: genuine native Cadillac obstruction; strict world billing unchanged',true);
+</script>

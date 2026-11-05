@@ -1,0 +1,380 @@
+{
+  "date": "2026-10-10T20:49:48.616Z",
+  "mode": "journey",
+  "target": "miami",
+  "browser": "154.0.4258.62",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "physicalDevice": false,
+  "quality": "mobile",
+  "sky": "night",
+  "station": "jolt-radio",
+  "recording": true,
+  "notes": [
+    "Desktop Edge on Windows, phone viewports are emulation.",
+    "No production mutations. Video does not record third-party radio audio.",
+    "Own synthesized ambience recording is separate from radio."
+  ],
+  "checks": [
+    {
+      "name": "Jolt plays with live analysis",
+      "pass": true
+    },
+    {
+      "name": "No WebGL context loss",
+      "pass": true
+    },
+    {
+      "name": "Radio remained playing at every sample",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.186,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 115.3,
+        "running": true,
+        "paused": false
+      },
+      "fps": 38.994930659022074,
+      "p5Fps": 36.40299094844544,
+      "p95FrameMs": 33.400000000001455,
+      "maxFrameMs": 50.10000000000218,
+      "heapMB": 65.10186958312988,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 30.085
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.197,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 220.2,
+        "running": true,
+        "paused": false
+      },
+      "fps": 42.20436923651796,
+      "p5Fps": 40.33844942935846,
+      "p95FrameMs": 33.400000000001455,
+      "maxFrameMs": 66.80000000000291,
+      "heapMB": 47.01133918762207,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 60.034
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.128,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 325.2,
+        "running": true,
+        "paused": false
+      },
+      "fps": 41.75789750818994,
+      "p5Fps": 38.37072018890168,
+      "p95FrameMs": 33.40000000000873,
+      "maxFrameMs": 50.29999999998836,
+      "heapMB": 48.76215934753418,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 90.056
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.187,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 430.2,
+        "running": true,
+        "paused": false
+      },
+      "fps": 39.76937757926398,
+      "p5Fps": 37.38685556867289,
+      "p95FrameMs": 33.40000000000873,
+      "maxFrameMs": 50.10000000000582,
+      "heapMB": 58.29866600036621,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 120.064
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.184,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 535.1,
+        "running": true,
+        "paused": false
+      },
+      "fps": 38.3798437463529,
+      "p5Fps": 35.422611433632206,
+      "p95FrameMs": 33.5,
+      "maxFrameMs": 50.10000000000582,
+      "heapMB": 68.75293254852295,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 150.069
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.141,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 6.3,
+        "running": true,
+        "paused": false
+      },
+      "fps": 38.90154838838825,
+      "p5Fps": 34.43526170798918,
+      "p95FrameMs": 33.5,
+      "maxFrameMs": 99.89999999999418,
+      "heapMB": 53.39793586730957,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 1,
+      "contextLost": false,
+      "elapsedSeconds": 180.09
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.19,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 108.6,
+        "running": true,
+        "paused": false
+      },
+      "fps": 27.578672493271885,
+      "p5Fps": 25.16940948693127,
+      "p95FrameMs": 66.5,
+      "maxFrameMs": 150,
+      "heapMB": 55.61815166473389,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 1,
+      "contextLost": false,
+      "elapsedSeconds": 210.106
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.151,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 212.5,
+        "running": true,
+        "paused": false
+      },
+      "fps": 28.893932274222397,
+      "p5Fps": 27.108142124115954,
+      "p95FrameMs": 50.10000000000582,
+      "maxFrameMs": 66.79999999998836,
+      "heapMB": 52.52700233459473,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 1,
+      "contextLost": false,
+      "elapsedSeconds": 240.082
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.16,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 316.8,
+        "running": true,
+        "paused": false
+      },
+      "fps": 30.42728313054041,
+      "p5Fps": 28.537689431214,
+      "p95FrameMs": 50,
+      "maxFrameMs": 66.79999999998836,
+      "heapMB": 58.38738536834717,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 1,
+      "contextLost": false,
+      "elapsedSeconds": 270.071
+    },
+    {
+      "state": {
+        "source": "live",
+        "energy": 0.191,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "jolt-radio",
+        "error": null,
+        "track": "Jolt Radio",
+        "analysis": "Analyzing current radio",
+        "camera": "driver",
+        "vehicle": "ocean-convertible",
+        "time": "night",
+        "quality": "mobile",
+        "distance": 420.9,
+        "running": true,
+        "paused": false
+      },
+      "fps": 29.54347659363047,
+      "p5Fps": 27.62694103077039,
+      "p95FrameMs": 50.09999999997672,
+      "maxFrameMs": 67.29999999998836,
+      "heapMB": 46.69307518005371,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 1,
+      "contextLost": false,
+      "elapsedSeconds": 300.062
+    }
+  ],
+  "loadToReadyMs": 10473,
+  "actualDurationSeconds": 300.557,
+  "passed": true
+}

@@ -1,0 +1,7 @@
+[2026.10.12-03.58.34:269][508]LogOutputDevice: Error: Invalid PlayerInput class in Input Settings. Manual reset required.
+[2026.10.12-03.58.35:558][508]LogOutputDevice: Error: Invalid InputComponent class in Input Settings. Manual reset required.
+Invalid PlayerInput class in Input Settings. Manual reset required.
+Invalid InputComponent class in Input Settings. Manual reset required.
+[2026.10.12-03.59.04:686][ 90]LogMovieRenderPipeline: [3090] Finished rendering last shot. Moving to Finalize to finish writing items to disk.
+[2026.10.12-03.59.07:562][294]LogMovieRenderPipeline: MoviePipelineLinearExecutorBase finished 1 jobs in +00:00:33.433.
+[2026.10.12-03.59.08:736][295]LogExit: Editor shut down

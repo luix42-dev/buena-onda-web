@@ -1,0 +1,329 @@
+BUENA ONDA CRUISE — HANDOFF FOR OPUS 5.5
+Snapshot: October 13, 2026. Continue the existing implementation; do not restart.
+
+1. AUTHORITATIVE SOURCE AND RUNNING BUILD
+
+Workspace: D:\10-VENTURES\12-buena-onda
+CURRENT worktree: D:\10-VENTURES\12-buena-onda\cruise-brand-integration-20261013
+Branch: experiment/miami-cockpit-ads-20261013
+Application checkpoint: 947fa0d — Add exact Countach ride and persistent Miami cockpit ads.
+Previous integration checkpoint: f2f463f.
+Remote: https://github.com/luix42-dev/buena-onda-web.git
+Current local optimized preview: http://localhost:3066/cruise
+Diagnostics: http://localhost:3066/cruise?diagnostics=1
+At handoff inspection, port 3066 was listening. Inspect ports before restarting anything.
+
+Production website: https://www.buenaondalifestyle.com/cruise
+Earlier separate Jeep URL: https://buena-onda-jeep-night.vercel.app
+LATEST CHANGES HAVE NOT BEEN DEPLOYED. Local source is ahead of production.
+
+Original checkout: D:\10-VENTURES\12-buena-onda\cruise-publish-20261006
+It contains pre-existing unfinished work. Do not reset, clean, or overwrite it.
+Older geographic experiment: D:\10-VENTURES\12-buena-onda\cruise-miami-geo-20261012
+Its port 3062 preview is older. The user's native Chrome casting session to
+"La Sala" was established there. Do not close that browser or stop that server.
+Ports 3064 and 3065 were earlier baseline/development previews, stopped during
+final verification. Do not mistake them for the latest optimized build.
+
+2. WHAT THE CURRENT EXPERIENCE ACTUALLY IS
+
+Next.js 14.2.15, React 18, React Three Fiber 8.18.0, Drei 9.122.0,
+Three.js 0.170.0. It is a browser WebGL experience, NOT an Unreal executable
+or a demonstrated Unreal Pixel Streaming/Google Photorealistic Tiles build.
+Direct acceleration dependency: three-mesh-bvh 0.8.3, MIT.
+
+The actual default /cruise route loads the namespaced real-Miami experience.
+Do not replace the entire website with the older standalone app.
+The surrounding catalog, radio, studio, API routes, production fonts, and
+original campaign experience are still part of this Next.js repository.
+
+Routing files:
+- app/(site)/cruise/page.tsx: default interactive route; ?mode=video retains
+  the earlier video player; ?mode=minimax-test retains its separate experiment.
+- app/(site)/cruise/CruiseClient.tsx: default buena-onda campaign loads RealMiami.
+  ?experience=legacy and non-default campaigns still load the original
+  components/cruise/LaunchExperience. Preserve this separation.
+- components/real-miami/CampaignBridge.tsx: campaign context, existing analytics
+  integration, external ad store, HUD presence/expiry, strict world exposure.
+
+3. WHAT HAS BEEN BUILT AND MUST BE PRESERVED
+
+Brand garage / choose-your-ride:
+- Existing Buena Onda colors, production fonts, cream/forest/orange styling.
+- Actual 3D car previews and captured thumbnails, not placeholder game links.
+- Sunset/night selection, start drive, return to garage, in-drive car selector.
+- Current selectable cars: Countach 5000QV, Pontiac Fiero GT 1987,
+  Cadillac Eldorado Biarritz 1959.
+- Countach replaced the Wrangler as the first/default selectable ride.
+  Wrangler component, profile, and licensed assets remain preserved as fallback;
+  it was not deleted. The older three-car/four-district milestone remains separate.
+
+Geographic Miami:
+- Baked, legally attributed OpenStreetMap data: 5,000m world extent,
+  250m chunks, 310 indexed chunks, 5,792 road ways, 4,629 building footprints.
+- Connected geographic touring route approximately 19,642.96m long.
+  This is automatic cruising on a finite real-street tour, not unlimited
+  free driving or all of Miami/Downtown already completed.
+- Local metric coordinates: origin longitude -80.135, latitude 25.79.
+  X is east, Z is south, Y is up; route sampler reports yaw/street/lat/lon.
+  Keep the same coordinate convention for world, cars, map, and ads.
+- Roads/footprints/coastal land are geographic; rendering remains procedural.
+  An elevation data file exists, but rendered road datum remains flat.
+- Recognizable custom landmark treatments: Colony Hotel, Breakwater,
+  Clevelander, and The Carlyle. These are not Google photogrammetry meshes.
+- Live Miami map: street context, heading/position, landmarks, map controls,
+  OpenStreetMap attribution. Do not remove it.
+- Initial route distance is registry initialRouteMeters = 18861.5.
+  Many comparison screenshots explicitly inspect route distance 17.5 near
+  Colony; do not confuse that diagnostic viewpoint with the default start.
+- Existing traffic, palms, sidewalks, ocean/sky, cinematic lighting and glow,
+  road-following cruise, pause/resume, pace selection, landmark inspection,
+  full-screen, cockpit/chase camera controls remain in place.
+- Sunset progression uses 2400 seconds (40 minutes) of simulation elapsed time;
+  pauses/garage/background behavior can extend wall-clock duration.
+- Manual driving physics and new wheel-animation work remain outside this experiment.
+
+Radio / audio:
+- Reused shared playback owner and CockpitProvider. Car changes, camera changes,
+  garage transitions, and ad clicks must not create new station playback owners.
+  A separate short-lived tuning-noise voice/context is intentional.
+- Physical dashboard radio with four presets, seek, volume, power, station/track
+  text, genuine live spectrum, and the close-up radio camera experience.
+- Radio close-up and station/song panel must remain easy to reach.
+- Existing station list is in lib/real-miami/stations.ts. Core physical presets:
+  Buena Onda Radio, Jolt Radio, NTS 1, NTS 2. Additional stations include Rinse
+  France, The Lot Radio, Kiosk Radio, and dublab. Poolsuite is not enabled playback.
+  Preserve enabled/disabled/provider distinctions and the user's station choices.
+- Brief synthesized white noise between station changes is already implemented
+  in components/real-miami/audio/useCruiseAudio.ts. Do not replace it with fake music.
+- Metadata: app/api/cruise/now-playing/route.ts and the existing station providers;
+  updates are polled, and missing metadata is represented honestly.
+- Saved songs/shows: useRadioLibrary + RadioSongPanel. Browser-local bookmarks,
+  not downloaded recordings. Storage key buena-onda:saved-radio:v1, up to 200 items.
+  Save title/artist/station/source metadata; do not invent missing track information.
+
+Casting:
+- CastControl is the branded entry to Chrome's supported Cast tab instructions.
+  A normal website cannot directly invoke Chrome's privileged full-tab device picker.
+  Do not reintroduce an incompatible internal Cast receiver as a fake fix.
+- User physically confirmed Chrome desktop -> La Sala Chromecast/Google TV
+  displays the picture and plays radio. That confirmation applies to the existing
+  native session, not a new measured TV benchmark of this Countach build.
+
+4. EXACT COUNTACH IMPLEMENTATION / DO NOT SUBSTITUTE
+
+Requested model:
+https://sketchfab.com/3d-models/lamborghini-countach-5000qv-2f02b54e01fc428e8b19759c5970f882
+Creator: Randomness / @throwbackthursdaymodels. Official free authenticated
+Sketchfab download; CC BY 4.0. No purchase. Attribution preserved in UI/files.
+
+Component: components/real-miami/jeep/Countach.tsx
+Asset: public/real-miami/vehicle/countach-1988/countach.glb
+License, provenance, source metadata and source/runtime hashes are in that folder.
+Folder name is historical; model year is unspecified. UI correctly says 5000QV.
+175,061 triangles, 38 mesh parts, 27 materials, 22 embedded 1k images.
+Runtime GLB: 16,243,344 bytes. Original native exterior AND interior retained.
+
+Source used old KHR_materials_pbrSpecularGlossiness. Converted to compatible
+core metallic-roughness using original diffuse colors/textures/normal maps;
+roughness is approximate and legacy specular-gloss maps are not used.
+Do not put the original incompatible GLB back into the runtime path casually.
+Native front was negative source X; rotate Y by -PI/2, front becomes -Z.
+Normalize length to 4.14m, preserve proportions, align ground at +0.015m.
+Only source glazing Meshpart24Mtl is hidden while inside the cockpit.
+
+Final tested radio fit, important to preserve:
+- PhysicalRadio position [0, .72, -.48], scale .60.
+- Spectrum position [0, .665, -.442].
+- Close-up camera [0, .91, .02], target [0, .72, -.48].
+- Desktop radio FOV 34; portrait radio FOV 55.
+An earlier adapter was 14cm lower and intersected the original gear lever.
+That bug is FIXED. Do not revert to the earlier .58 radio position.
+Desktop/portrait native cabin, whole chase car, knobs, presets and FFT strip
+were visually reviewed. Native canvas clicks actually exercised the controls.
+Thumbnail: public/real-miami/vehicle/garage/countach.png, captured from our renderer.
+
+5. ADVERTISING IMPLEMENTATION / CRITICAL DISTINCTIONS
+
+Files:
+- lib/real-miami/advertising.ts: stable geographic placement IDs, campaign copy.
+- components/real-miami/miami/MiamiAds.tsx: physical world boards/posters,
+  exact geometry measurements, blocker diagnostics and private BVHs.
+- components/real-miami/CampaignBridge.tsx: exposure vs HUD presence clocks,
+  context/external store, click routing, six-second retained cue.
+- components/real-miami/miami/DiscreetAdCue.tsx and ad-cue.module.css: readable
+  clickable companion, dismiss control, responsive position.
+
+Preserve original MB-HOUSE-001/002/003 plot coordinates. Ten additional sparse
+route boards were generated in this fixture, with stable MB-ROUTE-* IDs,
+building-footprint clearance and major-street associations. Do not randomize
+placement IDs every load or replace geographic ads with generic UI spam.
+Default house copy includes STAY A LITTLE LONGER. -> /radio and
+GOOD TASTE TAKES DETOURS. -> /themes. Labels distinguish HOUSE/DEMO/SPONSORED.
+The latest fixtures demonstrate house promotions, not real paid advertiser revenue.
+
+World visibility is sampled at 4Hz, with projected pixel dimensions/area,
+view angle, frustum and ten rays through the headline band. Actual opaque car
+pillars, mirror/frame geometry, buildings and foliage remain blockers.
+Strict world-readable exposure requires two continuous seconds. Do not relax
+these thresholds or turn a tiny/blocked/partly visible sign into a billed impression.
+
+Separate HUD policy, intentional final fix for Cadillac portrait:
+- Visible clipped face, >=64x24 pixels, facing >=.35, area >=.003,
+  at least half geometric headline probes clear, continuous presence >=750ms.
+- A world sample may still be viewable=false/readable=false while a legible
+  companion link qualifies. Keep those raw flags honest.
+- Retain the actually observed placement for six seconds with 'Just passed'.
+- Suppress during radio/landmark focus, garage, and disabled/hidden measurement.
+- Native anchor opens actual destination in another tab with noopener noreferrer;
+  original radio continues. HUD click format stays distinct from world format.
+- Dismissal state is component-local, not a durable account preference.
+
+Cadillac portrait initially failed cue tests because REAL opaque native cabin
+geometry obscured the signs. We preserved camera/car geometry and corrected
+only the independent HUD policy. DO NOT ignore opaque geometry to fabricate
+world exposure. Fiero's clear native glass needed a narrow renderer-aware
+exclusion; do not broadly exclude all transparent materials or textured foliage.
+
+Performance acceleration must be preserved:
+- three-mesh-bvh 0.8.3 is a DIRECT pinned dependency (MIT notice under
+  public/real-miami/miami/advertising-bvh-LICENSE.txt).
+- Private indirect BVHs for eligible rigid single-material vehicle meshes.
+  Source indices, UVs and material groups stay intact. No global Mesh prototype patch.
+- Multi-material/skinned/morphed/instanced objects retain native raycasting.
+- Exact local AABB rejection, nearer-hit ordering, dynamic instance bounds refresh.
+- vehicleId/vehicleReady are passed from JeepNight to warm/rebuild eligible caches.
+- Public diagnostics include actual ad measurement CPU and BVH build timings.
+Before/after exact rays matched 11/11 comparable samples, including seven blocked
+samples and identical first-hit identities/distances. Do not drop this protection.
+
+6. CURRENT VERIFICATION — HONEST STATUS
+
+PASS: exact Countach and native radio controls on desktop/portrait; physical
+presets, seek, volume, power off/on, real FFT; shared audio retained; car switching,
+garage previews/thumbnails, complete radio close-up; three-car HUD cues across
+tested layouts after targeted Cadillac portrait fix; genuine destination HTTP200
+and new-tab opening without interrupting radio; expiry around 6.1 seconds.
+Full Next.js production build and TypeScript checks passed.
+
+PARTIAL overall: desktop cockpit still misses the 50–60 FPS target.
+Measured headless Edge/D3D11, 20 one-second samples per camera:
+Desktop 1280x720: driver mean47.80/min31.86 FPS; chase mean56.50/min49.61.
+Portrait emulation 390x844: driver mean58.81/min38.85; chase mean59.92/min59.02.
+Zero one-second samples below30 in these optimized windows. This does NOT mean
+every individual frame was above30 or prove long-session/physical-phone performance.
+Desktop RAF mean/p95/max: driver20.52/33.40/66.60ms; chase17.60/33.30/49.90ms.
+Before acceleration, Countach driver mean39.67/min3.33 with4/20 samples below30.
+Old Wrangler baseline was ~60; different vehicle/camera anchors are a confound.
+FPS was measured before the last HUD-only policy adjustment; rendering and rays
+did not change in that final adjustment, and the focused functional tests passed.
+
+Local ready latency2.739s desktop/1.457s portrait; local unthrottled GLB transfer
+12.29MB encoded /16.24MB decoded. Not a cellular or cold-server benchmark.
+Natural cockpit moving passes did not establish two-second strict world-readable
+exposure. Readable HUD links are successful; billable roadside exposure is not proven.
+
+UNVERIFIED: actual hidden-tab suppression. Own-window minimization/background
+attempts never made Edge document.hidden=true. Tests correctly exit1 for the unmet
+prerequisite. Do not spoof visibility or relabel it PASS.
+
+Evidence directory: docs/cruise/miami-ads/
+- README.md: authoritative detailed final results/limits.
+- review.html: actual before/after screenshot gallery.
+- after-bvh-original-hud-results.json: combined run whose historical exit1 is
+  the earlier Cadillac portrait policy failure, before the final HUD fix.
+- cadillac-portrait-retest.json: final targeted fix PASS/exit0.
+- expiry-results.json: final policy PASS/exit0.
+- hidden-results.json: prerequisite unmet/exit1, not a fabricated PASS.
+- ray-comparison-results.json, Countach screenshots, raw FPS/RAF data.
+Do not delete historical failures or overwrite them with manufactured success.
+
+7. HOW TO CONTINUE WITHOUT DAMAGING THE BUILD
+
+Read AGENTS.md and this handoff; inspect git status and running ports FIRST.
+Current application checkpoint is 947fa0d; the handoff itself may have a later
+documentation-only commit. Keep application changes isolated/reversible.
+
+Core source map:
+components/real-miami/jeep/JeepNight.tsx — orchestration/Canvas/cameras/drive state.
+RidePicker.tsx, GarageEnvironment.tsx, CastControl.tsx — chooser/garage/casting.
+Countach.tsx, EightiesCar.tsx, ClassicConvertible.tsx — licensed car adapters/profiles.
+components/real-miami/vehicle/PhysicalRadio.tsx and CockpitContext.tsx — shared radio.
+components/real-miami/audio/* and lib/real-miami/music-audio.ts — existing audio/library.
+components/real-miami/miami/MiamiWorld.tsx, MiamiMap.tsx, CruiseGlow.tsx — world/map/look.
+lib/real-miami/miami-geo.ts — route sampler / coordinate convention.
+public/real-miami/miami/world.json and landmarks.json — baked geography/landmark registry.
+
+Avoid scripts/sync-real-miami.mjs unless carefully updating its synchronization
+contract: blindly reimporting the older geographic folder can overwrite the new
+Countach, ads, camera fixes and acceleration. Earlier integration README describes
+f2f463f and is historical; its statements that geographic ads lack measurements
+and node_modules is a junction are superseded by this handoff/947fa0d.
+Current worktree has its OWN installed node_modules after dependency integration.
+
+Run from current worktree in PowerShell:
+  $env:CRUISE_DIST_DIR='.next-miami-ads-check'
+  npm run build
+  npm run start -- -p 3066
+Use only if port3066 is not already serving the intended current build.
+For development use a separate output directory/port:
+  $env:CRUISE_DIST_DIR='.next-miami-ads-dev'
+  npm run dev -- -p 3065
+Never mix development/build outputs with an actively served .next directory.
+Both alternate directories are ignored. Next may autoformat tsconfig.json;
+avoid committing generated-only formatting changes.
+
+Local .env.local already exists and is ignored; it contains configured radio
+access and public catalog configuration. Do not print/commit credentials, blindly
+replace it, or pull [SENSITIVE] placeholders over working values. Public Supabase
+URL/anon configuration is required to build catalog routes. Keep production
+analytics disabled during local experiments. Prior parallel builds/typechecks
+exhausted Windows memory; run heavyweight checks sequentially, close only your
+own automation browsers, and never kill the user's native Chrome casting process.
+Existing Next14 configuration/lint warnings are not new Countach failures.
+
+Diagnostic browser functions:
+window.__jeepNight(), window.__miamiGeo(), window.__miamiAds().
+With ?diagnostics=1: window.__miamiInspect(routeMeters) relocates for comparisons.
+Preserve these tools; never substitute their values with synthetic evidence.
+
+Existing test commands (sequential; they write evidence files, archive before rerun):
+  $env:CRUISE_TEST_URL='http://127.0.0.1:3066'
+  node scripts/real-miami-route-proof.mjs --ads --performance
+  node scripts/real-miami-route-proof.mjs --ads --cadillac-portrait
+  node scripts/real-miami-route-proof.mjs --ads --expiry
+  node scripts/real-miami-route-proof.mjs --ads --hidden
+These scripts reuse @playwright/test from sibling cruise-master-20261005;
+that test-tool dependency is separate from the product's npm installation.
+Some specialized historical scripts use hardcoded older preview URLs; inspect
+each helper before running it, particularly Countach visual/probe modes.
+V/R/Space shortcuts: camera, radio, pause. Preserve normal touchscreen controls.
+
+8. UNFINISHED WORK / NEXT PRIORITIES
+
+Keep cinematic quality first, continuous real geography second, performance third,
+future scale fourth. Do not remove the working radio/map/cars/ads to chase FPS.
+Profile the remaining desktop cockpit bottleneck before any visual downgrade;
+test realistic longer drives, physical mobile, and actual hidden-tab behavior.
+Improve recognizable architecture and streets using licensed assets/OSM data.
+The current world is procedural geographic Miami, not finished photorealism.
+Full custom paid-campaign rendering/measurement in this geographic scene is not
+launched; non-default campaigns intentionally remain on the legacy implementation.
+
+Separate Unreal/Google tiles investigation files live under
+D:\10-VENTURES\12-buena-onda\cruise-miami-geo-20261012\unreal-google-test.
+Their presence does not establish a working Wrangler/cockpit Unreal project.
+Do not assert Google imagery is integrated, trace it to create roads, migrate
+engines, or activate billable APIs based on this browser prototype.
+The user approved a temporary $50 Google verification hold earlier; that is NOT
+blanket authorization for tile usage, purchases, recurring costs or deployment.
+
+No production deployment, paid purchases/APIs, or destructive cleanup without
+the user's authorization. Preserve the current experience and isolated legacy
+milestone. Request approval on a concrete tested result if publication is wanted.
+
+Prior team roles: /root final decisions/integration; /root/cruise_visual_review
+asset acquisition/cabin adaptation/visual review; /root/miami_hero_depth geographic
+ads/occlusion/BVH; /root/miami_depth_baseline browser/performance validation.
+No distinct model overrides were used. Opus should delegate bounded independent
+tasks with file ownership when available, and make final decisions centrally.

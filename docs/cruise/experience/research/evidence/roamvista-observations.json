@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-15T15:26:10.657Z",
+  "browser": "155.0.4283.45",
+  "environment": "Windows headless Edge,1440x900,DPR1;390x844viewportemulationlater;noFPSmeasurement",
+  "checkpoints": [
+    {
+      "seconds": 5,
+      "url": "https://roamvista.city/game/?play=1&mode=drive&world=california&weather=clear&time=sunset&seed=482817&city=san-francisco&station=dfh-radio-50436",
+      "text": "Skip to content\nInfinite Road Trip\n∞\nINFINITE ROAD TRIP\n☀ 18:42\nWORLD TIME\nSaved\nTHE ROAD IS YOURS\nNo hurry.\nYou’re already here.\n\nWASD / ARROWS TO DRIVE\nF   AUTODRIVE   ·   C   CAMERA\n\nUS   /   AN OPEN ROAD\nCalifornia\n\nHeadlands & ocean curves · Clear\n\nExposed coastal curves above golden Pacific headlands\n0\nkm/h\nLET THE ROAD DRIVE\nF\n0.00 km of nowhere in particular\nLIVE\n113FM\nSan Francisco · Regional radio\nWorld\nWeather\nTime\nRadio\nCamera\nChase",
+      "audio": [
+        {
+          "src": "https://113fm-edge1.cdnstream.com/1730_128",
+          "paused": false,
+          "time": 0.046287,
+          "ready": 4
+        }
+      ],
+      "canvas": 1
+    },
+    {
+      "seconds": 15,
+      "url": "https://roamvista.city/game/?play=1&mode=drive&world=california&weather=clear&time=sunset&seed=482817&city=san-francisco&station=dfh-radio-50436",
+      "text": "Skip to content\nInfinite Road Trip\n∞\nINFINITE ROAD TRIP\n☀ 18:42\nWORLD TIME\nSaved\nUS   /   AN OPEN ROAD\nCalifornia\n\nHeadlands & ocean curves · Clear\n\nExposed coastal curves above golden Pacific headlands\n82\nkm/h\nAUTODRIVE\nF\n0.12 km of nowhere in particular\nLIVE\n113FM\nSan Francisco · Regional radio\nWorld\nWeather\nTime\nRadio\nCamera\nChase",
+      "audio": [
+        {
+          "src": "https://113fm-edge1.cdnstream.com/1730_128",
+          "paused": false,
+          "time": 7.970942,
+          "ready": 4
+        }
+      ],
+      "canvas": 1
+    },
+    {
+      "seconds": 60,
+      "url": "https://roamvista.city/game/?play=1&mode=drive&world=california&weather=clear&time=sunset&seed=482817&city=san-francisco&station=dfh-radio-50436",
+      "text": "Skip to content\nInfinite Road Trip\n∞\nINFINITE ROAD TRIP\n☀ 18:42\nWORLD TIME\nSaved\nUS   /   AN OPEN ROAD\nCalifornia\n\nHeadlands & ocean curves · Clear\n\nExposed coastal curves above golden Pacific headlands\n83\nkm/h\nAUTODRIVE\nF\n1.16 km of nowhere in particular\nLIVE\n113FM\nSan Francisco · Regional radio\nWorld\nWeather\nTime\nRadio\nCamera\nChase",
+      "audio": [
+        {
+          "src": "https://113fm-edge1.cdnstream.com/1730_128",
+          "paused": false,
+          "time": 52.975527,
+          "ready": 4
+        }
+      ],
+      "canvas": 1
+    }
+  ]
+}

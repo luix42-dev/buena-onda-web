@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "status": "native2second-motion-present-art-quality-unaccepted",
+  "sources": [
+    {
+      "id": "unreal",
+      "name": "Unreal cinematic world",
+      "status": "Actual 2-second 1080p native motion checkpoint. Art quality gate failed; 60-second ride not delivered.",
+      "segments": [
+        {
+          "id": "native-2s-a",
+          "url": "/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+          "durationSeconds": 1,
+          "fps": 30,
+          "firstSourceFrame": 0,
+          "content": "environmentOnly",
+          "provenance": "Actual local Unreal raster PNG frames. Project-authored geometry and locally cleared road textures; near-photographic art gate unaccepted.",
+          "camera": {
+            "horizontalFovDeg": 76,
+            "aspect": 1.7777777777777777,
+            "eyeHeightM": 1.62,
+            "speedMps": 10.000022185185184,
+            "poseUrl": "/cruise/experiments/world-first/hybrid/native-2s-camera.json"
+          },
+          "fileBytes": 1270137,
+          "validation": {
+            "decodedFrames": 30,
+            "durationSeconds": 1,
+            "fps": 30,
+            "width": 1920,
+            "height": 1080,
+            "audioStreams": 0
+          }
+        },
+        {
+          "id": "native-2s-b",
+          "url": "/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+          "durationSeconds": 1,
+          "fps": 30,
+          "firstSourceFrame": 30,
+          "content": "environmentOnly",
+          "provenance": "Actual local Unreal raster PNG frames. Project-authored geometry and locally cleared road textures; near-photographic art gate unaccepted.",
+          "camera": {
+            "horizontalFovDeg": 76,
+            "aspect": 1.7777777777777777,
+            "eyeHeightM": 1.62,
+            "speedMps": 10.000022185185184,
+            "poseUrl": "/cruise/experiments/world-first/hybrid/native-2s-camera.json"
+          },
+          "fileBytes": 1260708,
+          "validation": {
+            "decodedFrames": 30,
+            "durationSeconds": 1,
+            "fps": 30,
+            "width": 1920,
+            "height": 1080,
+            "audioStreams": 0
+          }
+        }
+      ],
+      "content": "environmentOnly",
+      "qualityAccepted": false,
+      "posterUrl": "/cruise/experiments/world-first/hybrid/native-2s-poster.png"
+    },
+    {
+      "id": "hybrid",
+      "name": "Hybrid cinematic candidate",
+      "status": "Actual native plate + realtime Jeep at measured camera parameters. Lighting and reflection calibration unverified; art gate failed.",
+      "segments": [
+        {
+          "id": "native-2s-a",
+          "url": "/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+          "durationSeconds": 1,
+          "fps": 30,
+          "firstSourceFrame": 0,
+          "content": "environmentOnly",
+          "provenance": "Actual local Unreal raster PNG frames. Project-authored geometry and locally cleared road textures; near-photographic art gate unaccepted.",
+          "camera": {
+            "horizontalFovDeg": 76,
+            "aspect": 1.7777777777777777,
+            "eyeHeightM": 1.62,
+            "speedMps": 10.000022185185184,
+            "poseUrl": "/cruise/experiments/world-first/hybrid/native-2s-camera.json"
+          },
+          "fileBytes": 1270137,
+          "validation": {
+            "decodedFrames": 30,
+            "durationSeconds": 1,
+            "fps": 30,
+            "width": 1920,
+            "height": 1080,
+            "audioStreams": 0
+          }
+        },
+        {
+          "id": "native-2s-b",
+          "url": "/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+          "durationSeconds": 1,
+          "fps": 30,
+          "firstSourceFrame": 30,
+          "content": "environmentOnly",
+          "provenance": "Actual local Unreal raster PNG frames. Project-authored geometry and locally cleared road textures; near-photographic art gate unaccepted.",
+          "camera": {
+            "horizontalFovDeg": 76,
+            "aspect": 1.7777777777777777,
+            "eyeHeightM": 1.62,
+            "speedMps": 10.000022185185184,
+            "poseUrl": "/cruise/experiments/world-first/hybrid/native-2s-camera.json"
+          },
+          "fileBytes": 1260708,
+          "validation": {
+            "decodedFrames": 30,
+            "durationSeconds": 1,
+            "fps": 30,
+            "width": 1920,
+            "height": 1080,
+            "audioStreams": 0
+          }
+        }
+      ],
+      "content": "environmentOnly",
+      "qualityAccepted": false,
+      "posterUrl": "/cruise/experiments/world-first/hybrid/native-2s-poster.png",
+      "calibration": {
+        "camera": {
+          "horizontalFovDeg": 76,
+          "aspect": 1.7777777777777777,
+          "eyeHeightM": 1.62,
+          "speedMps": 10.000022185185184,
+          "poseUrl": "/cruise/experiments/world-first/hybrid/native-2s-camera.json"
+        },
+        "pitchDeg": -3,
+        "verified": false
+      }
+    },
+    {
+      "id": "reference",
+      "name": "Founder reference · diagnostic",
+      "status": "9-second local reference diagnostic, two contiguous clips. Not an authored world.",
+      "segments": [
+        {
+          "id": "founder-diagnostic-a",
+          "url": "/cruise/experiments/world-first/hybrid/founder-diagnostic-a.webm",
+          "durationSeconds": 4.5,
+          "fps": 30,
+          "firstSourceFrame": 0,
+          "content": "diagnosticReference",
+          "provenance": "Founder-supplied33secref.mp4; local diagnostic use only; not licensed final authored world.",
+          "fileBytes": 598522,
+          "validation": {
+            "decodedFrames": 135,
+            "durationSeconds": 4.5,
+            "fps": 30,
+            "audioStreams": 0,
+            "method": "Actual VP8 decode/reencode frame counter and demuxer duration."
+          }
+        },
+        {
+          "id": "founder-diagnostic-b",
+          "url": "/cruise/experiments/world-first/hybrid/founder-diagnostic-b.webm",
+          "durationSeconds": 4.5,
+          "fps": 30,
+          "firstSourceFrame": 135,
+          "content": "diagnosticReference",
+          "provenance": "Founder-supplied33secref.mp4; local diagnostic use only; not licensed final authored world.",
+          "fileBytes": 586038,
+          "validation": {
+            "decodedFrames": 135,
+            "durationSeconds": 4.5,
+            "fps": 30,
+            "audioStreams": 0,
+            "method": "Actual VP8 decode/reencode frame counter and demuxer duration."
+          }
+        }
+      ],
+      "content": "diagnosticReference",
+      "qualityAccepted": false
+    },
+    {
+      "id": "director",
+      "name": "City director / house billboards",
+      "status": "Actual 8-second native director cut with two Buena Onda house billboards. Latest world art gate remains failed.",
+      "content": "environmentOnly",
+      "qualityAccepted": false,
+      "posterUrl": "/cruise/experiments/world-first/director/poster.png",
+      "variableCamera": true,
+      "hybridOverlayAllowed": false,
+      "segments": [
+        {
+          "id": "director-8s",
+          "url": "/cruise/experiments/world-first/director/director-8s.webm",
+          "durationSeconds": 8,
+          "fps": 30,
+          "firstSourceFrame": 0,
+          "content": "environmentOnly",
+          "provenance": "Actual UE5.8 native raster frames of latest v4 world copied to v5; two existing Buena Onda/Vice Nights house billboards added as world geometry.",
+          "fileBytes": 10317196,
+          "camera": {
+            "horizontalFovDeg": 70,
+            "aspect": 1.7777777777777777,
+            "eyeHeightM": 13.37,
+            "speedMps": 8.15858443604036,
+            "poseUrl": "/cruise/experiments/world-first/director/camera.json",
+            "variable": true,
+            "note": "Four director shots: actual pose/lens/height varies. Numeric camera fields describe opening only; no cockpit calibration."
+          },
+          "validation": {
+            "decodedFrames": 240,
+            "durationSeconds": 8,
+            "fps": 30,
+            "width": 1920,
+            "height": 1080,
+            "audioStreams": 0
+          }
+        }
+      ]
+    }
+  ]
+}

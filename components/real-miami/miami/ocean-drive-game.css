@@ -1,0 +1,16 @@
+.ocean-drive-game{position:absolute;inset:0;background:transparent}
+.ocean-drive-game iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ocean-drive-covered{pointer-events:none}
+.ocean-drive-inactive{visibility:hidden;pointer-events:none}
+.ocean-drive-actions{position:absolute;z-index:35;left:4%;top:94px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;max-width:calc(100% - 48px);color:#fff8e8;font:11px/1.4 system-ui,sans-serif;text-shadow:0 1px 4px #302a20;pointer-events:none}
+.ocean-drive-actions button{pointer-events:auto;color:#f5ecdc;background:#172126b8;border:1px solid #ffffff28;border-radius:24px;min-height:44px;padding:9px 16px;cursor:pointer;font:inherit}
+.ocean-drive-actions button:focus-visible{outline:2px solid #e5c18d;outline-offset:3px}
+.ocean-drive-actions span{display:block;flex-basis:100%;padding-top:3px}
+.ocean-touch-hint{display:none!important}
+@media(pointer:coarse){.ocean-key-hint{display:none!important}.ocean-touch-hint{display:block!important;max-width:300px;color:#fff4df}}
+.jn-directing .ocean-drive-actions{display:none}
+.ocean-drive-progress{position:absolute;left:50%;bottom:115px;transform:translateX(-50%);font:12px/1.4 system-ui,sans-serif;color:#fff5de;letter-spacing:.1em;text-shadow:0 1px 5px #302318;white-space:nowrap;pointer-events:none}
+.ocean-drive-error{position:absolute;inset:20%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#172922ed;color:#fff2df;border-radius:16px;padding:24px;font:14px/1.5 system-ui,sans-serif}
+.ocean-drive-error button{border:1px solid #fff5;border-radius:8px;padding:12px 18px;background:#ead2a9;color:#182c22;cursor:pointer}
+.ocean-drive-error a{color:#ead2a9}
+@media(max-width:600px){.ocean-drive-actions{top:76px;left:12px;max-width:calc(100% - 24px)}.ocean-drive-actions button{padding:8px 10px}.ocean-drive-progress{bottom:190px}}

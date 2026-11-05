@@ -1,0 +1,15 @@
+/* Director mode: the picture leads. HUD recedes until the viewer reaches for it. */
+.dc-bars{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+.dc-bars i{display:block;background:#000;height:max(0px,calc((100vh - 100vw / 2.39) / 2));height:max(0px,calc((100dvh - 100vw / 2.39) / 2))}
+.dc-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;opacity:0;transition:opacity 1.2s ease;z-index:3;text-shadow:0 2px 24px #000}
+.dc-title-on{opacity:1}
+.dc-title span{display:block;font:10px monospace;letter-spacing:5px;color:#d7bc8c;text-transform:uppercase}
+.dc-title strong{display:block;margin-top:14px;font:clamp(28px,5vw,64px)/1 Georgia,serif;letter-spacing:.18em;font-weight:400;color:#f2eddf}
+.jn .dc-letterbox{position:absolute;right:30px;bottom:calc(max(35px,env(safe-area-inset-bottom)) + 80px);z-index:4;font:10px monospace;min-height:36px;padding:6px 10px;background:#101c23b3;backdrop-filter:blur(10px)}
+.jn-directing .jn-brand,.jn-directing .jn-readout,.jn-directing .jn-mood,.jn-directing .jn-top,.jn-directing .jn-landmark-peek,.jn-directing .dc-letterbox{opacity:0;transition:opacity .8s ease}
+.jn-directing .jn-dock{opacity:.28;transition:opacity .8s ease;z-index:4}
+.jn-directing:not(.jn-idle) .jn-brand,.jn-directing:not(.jn-idle) .jn-readout,.jn-directing:not(.jn-idle) .jn-mood,.jn-directing:not(.jn-idle) .jn-top,.jn-directing:not(.jn-idle) .jn-landmark-peek,.jn-directing:not(.jn-idle) .dc-letterbox,.jn-directing:focus-within .jn-top,.jn-directing:focus-within .dc-letterbox{opacity:1}
+.jn-directing:not(.jn-idle) .jn-dock,.jn-directing .jn-dock:focus-within{opacity:1}
+@media(max-width:700px){.jn .dc-letterbox{right:14px;bottom:96px}}
+@media (prefers-reduced-motion:reduce){.dc-title,.jn-directing .jn-dock{transition:none}}
+@media (orientation:portrait){.dc-bars{display:none}.jn .dc-letterbox{display:none}}

@@ -1,0 +1,39 @@
+{
+ "label": "neon-host",
+ "url": "http://127.0.0.1:3067",
+ "date": "2026-10-14T02:49:36.979Z",
+ "method": "Headless Edge, D3D11, 1280x720, ?world=neon&hostFirst=3. Speech synthesis is not audible in headless runs; only the caption is recorded.",
+ "appearances": [
+  {
+   "n": 0,
+   "appeared": true,
+   "caption": "“After dark, the city remembers your name. Vice Nights.”",
+   "gone": true,
+   "files": [
+    "docs/cruise/opus/neon-host/0-chase.png",
+    "docs/cruise/opus/neon-host/0-flyby.png"
+   ]
+  },
+  {
+   "n": 1,
+   "appeared": true,
+   "caption": "“Somewhere it is still summer. Onda Tropical.”",
+   "gone": true,
+   "files": [
+    "docs/cruise/opus/neon-host/1-chase.png",
+    "docs/cruise/opus/neon-host/1-flyby.png"
+   ]
+  },
+  {
+   "n": 2,
+   "appeared": true,
+   "caption": "“Late service. Warm sound. Natsu is open all night.”",
+   "gone": true,
+   "files": [
+    "docs/cruise/opus/neon-host/2-chase.png",
+    "docs/cruise/opus/neon-host/2-flyby.png"
+   ]
+  }
+ ],
+ "errors": []
+}

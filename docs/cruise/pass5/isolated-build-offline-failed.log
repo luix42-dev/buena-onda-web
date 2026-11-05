@@ -1,0 +1,45 @@
+Isolated Next build: 42 local configuration names overridden; outgoing Node network disabled; .env files untouched.
+node :  ⚠ Invalid next.config.mjs options detected:
+At line:2 char:31
++ ... 7872,24128; node scripts/cruise-pass5-isolated-build.mjs build *> doc ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ⚠ Invalid next...ions detected: :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+ ⚠     Unrecognized key(s) in object: 'serverExternalPackages'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+  ▲ Next.js 14.2.15
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+PASS5_ISOLATED_OUTBOUND_DISABLED
+
+Retrying 1/3...
+PASS5_ISOLATED_OUTBOUND_DISABLED
+
+Retrying 2/3...
+PASS5_ISOLATED_OUTBOUND_DISABLED
+
+Retrying 3/3...
+Error: PASS5_ISOLATED_OUTBOUND_DISABLED
+    at denied (C:\Temp\cruise-pass5-offline-09OfDj\deny-outbound.cjs:5:34)
+    at tls.connect (C:\Temp\cruise-pass5-offline-09OfDj\deny-outbound.cjs:16:29)
+    at Agent.createConnection (node:https:367:18)
+    at Agent.createSocket (node:_http_agent:399:26)
+    at Agent.addRequest (node:_http_agent:339:10)
+    at new ClientRequest (node:_http_client:404:16)
+    at request (node:https:629:10)
+    at D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\node_modules\next\dist\compiled\node-fetch\index.js:1:65838
+    at new Promise (<anonymous>)
+    at fetch
+(D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\node_modules\next\dist\compiled\node-fetch\index.js:1:65400) {
+  code: 'ENETUNREACH'
+}
+Failed to compile.
+
+app\studio\layout.tsx
+`next/font` error:
+Failed to fetch `Instrument Serif` from Google Fonts.
+
+
+> Build failed because of webpack errors

@@ -1,0 +1,136 @@
+/* Look v2 drive deck: one bottom bar like the public /cruise page. 44 px minimum targets; thumb zone on phones. */
+.dd{position:absolute;left:max(16px,env(safe-area-inset-left));right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:40;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none;font-family:Outfit,system-ui,sans-serif;color:#eee4ce}
+.dd>*{pointer-events:auto}
+.dd.dd-launch{left:4%;right:4%;bottom:max(22px,env(safe-area-inset-bottom));align-items:stretch;color:#f5ecdc}
+.dd.dd-launch .dd-bar{width:100%;border-radius:12px;padding:12px 16px;background:#152127db;gap:18px}
+.dd.dd-launch .dd-icon,.dd.dd-launch .dd-chip{border:0;background:transparent;border-radius:6px;min-height:44px}
+.dd.dd-launch .dd-chip span{font-size:13px;font-weight:400;display:block}
+.dd.dd-launch .dd-chip .dd-cycle{display:block;font-size:14px;opacity:.65}
+.dd.dd-launch .dd-view{border:0;padding-left:0;gap:5px}
+.dd.dd-launch .dd-station{flex:0 1 240px;padding:0 4px;gap:3px}
+.dd.dd-launch .dd-station strong{font-size:14px;font-weight:500}
+.dd.dd-launch .dd-eyebrow{font:400 10px system-ui;letter-spacing:0;text-transform:none;color:#b6c3c4}
+.dd.dd-launch .dd-volume{max-width:90px;display:flex}
+.dd.dd-launch .dd-sheet{width:min(400px,100%);align-self:flex-end;background:#172126f5;border-radius:8px;padding:22px;max-height:65dvh}
+.dd.dd-launch .dd-radio-picker{align-self:flex-start}
+.dd.dd-launch .dd-radio-picker{width:min(460px,100%)}
+.dd-radio-saves{padding:13px 0;border-top:1px solid #ffffff22;border-bottom:1px solid #ffffff22}
+.dd-radio-saves small{font:10px/1.4 ui-monospace,monospace;letter-spacing:.1em;color:#f1ac79}
+.dd-radio-saves p{margin:6px 0 12px;font-size:13px;line-height:1.4;color:#e9e2d4}
+.dd-save-actions{display:flex;gap:8px;flex-wrap:wrap}
+.dd .dd-save-actions button{min-height:44px;padding:8px 12px;border:1px solid #e6bd9180;border-radius:6px;background:#e6bd9120;font-size:13px}
+.dd .dd-save-actions button[aria-pressed=true]{background:#e6bd91;color:#142b28}
+.dd .dd-save-actions button:disabled{opacity:.46;cursor:default}
+.dd.dd-launch .dd-station-list{max-height:min(25dvh,220px)}
+.dd-drive-picker header div{display:grid;gap:8px}.dd-drive-picker header small{font:9px monospace;letter-spacing:.13em;color:#f1ac79}
+.dd-drive-picker label{display:grid;gap:8px;margin-top:20px;font-size:12px;color:#b9c4c4}
+.dd-drive-picker select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #ffffff30;border-radius:5px;background:#193033;color:#f5ecdc;font:inherit}
+.dd-drive-picker p{font-size:12px;line-height:1.6;color:#b9c4c4;margin:14px 0}
+.dd .dd-station-list{display:grid;max-height:40dvh;overflow:auto;gap:3px}.dd .dd-station-list button{display:flex;align-items:center;justify-content:space-between;min-height:54px;background:transparent;border:0;border-radius:6px;padding:10px 12px;text-align:left}
+.dd .dd-station-list button[aria-pressed=true]{background:#f5ecdc12;color:#f1ac79}.dd .dd-station-list small{display:block;font-size:10px;color:#b9c4c4;margin-top:4px}
+.dd-error{position:absolute;bottom:100%;background:#24373eef;padding:12px;border-radius:6px;font-size:12px}.dd-error button{text-decoration:underline}
+.cruise-os:has(.dd-launch) .os-brand{font:italic 31px/1 Georgia,serif;text-transform:none;letter-spacing:0}.cruise-os:has(.dd-launch) .os-brand span{font:9px monospace;letter-spacing:.18em;margin-top:9px}
+.cruise-os:has(.dd-launch) .os-header{inset:0 0 auto;padding:26px 4%}.cruise-os:has(.dd-launch) .os-world-tools button{border-radius:24px;min-height:44px;padding:0 19px;background:#172126b8;border:1px solid #ffffff28}
+@media(max-width:700px){.dd.dd-launch{left:3%;right:3%;bottom:12px}.dd.dd-launch .dd-bar{padding:8px 10px;gap:4px}.dd.dd-launch .dd-view{display:flex;justify-content:space-between;padding-top:4px;border:0}.dd.dd-launch .dd-station{flex:1}.dd.dd-launch .dd-step{display:none}.dd.dd-launch .dd-volume{max-width:62px}.dd.dd-launch .dd-chip svg{display:block}.dd.dd-launch .dd-chip{padding:0 8px}.cruise-os:has(.dd-launch) .os-header{padding:20px 6%}}
+.cruise-os .dd button{font:inherit;color:inherit;cursor:pointer}
+.dd button:focus-visible,.dd input:focus-visible{outline:3px solid #e2b971;outline-offset:2px}
+.dd .dd-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.dd .dd-bar{display:flex;align-items:center;gap:14px;width:min(1180px,100%);box-sizing:border-box;padding:10px 14px;background:rgba(14,24,26,.86);border:1px solid rgba(238,228,206,.16);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.dd .dd-radio{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0}
+.dd .dd-view{display:flex;align-items:center;gap:6px;flex:0 0 auto;padding-left:14px;border-left:1px solid rgba(238,228,206,.14)}
+.dd .dd-play{width:48px;height:48px;border-radius:50%;border:0;background:#e8b98a;color:#14201f!important;display:grid;place-items:center;flex:none}
+.dd .dd-seek,.dd .dd-icon{width:44px;height:44px;border-radius:12px;border:1px solid rgba(238,228,206,.18);background:rgba(238,228,206,.06);display:grid;place-items:center;flex:none}
+.dd .dd-seek:hover,.dd .dd-icon:hover,.dd .dd-chip:hover{background:rgba(238,228,206,.14)}
+.dd .dd-station{flex:1 1 auto;min-width:0;min-height:48px;display:grid;text-align:left;gap:1px;padding:4px 12px;border:0;border-radius:12px;background:transparent}
+.dd .dd-station:hover{background:rgba(238,228,206,.08)}
+.dd .dd-station strong{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd .dd-eyebrow{display:flex;align-items:center;gap:6px;font:500 10.5px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#cfa86f}
+.dd .dd-eyebrow i{width:7px;height:7px;border-radius:50%;background:#6f7a75}
+.dd .dd-eyebrow i[data-live=true]{background:#7fe0b5;box-shadow:0 0 8px #7fe0b5}
+.dd .dd-track{font-size:12.5px;color:rgba(238,228,206,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd .dd-volume{display:flex;align-items:center;gap:8px;flex:0 1 150px;padding:0 6px}
+.dd input[type=range]{width:100%;min-width:70px;accent-color:#e8b98a;height:28px}
+.dd .dd-chip{min-height:48px;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;border:1px solid rgba(238,228,206,.18);background:rgba(238,228,206,.06);text-align:left}
+.dd .dd-chip span{display:grid;font-size:14px;font-weight:600;line-height:1.15}
+.dd .dd-chip small{font:500 9.5px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#cfa86f}
+.dd .dd-chip[aria-expanded=true]{border-color:#e2b971;background:rgba(226,185,113,.14)}
+/* View sheet: Camera, Drive, Light (and Sound) as labelled choices in one place. */
+.dd .dd-sheet{width:min(560px,100%);box-sizing:border-box;max-height:min(70dvh,560px);overflow:auto;padding:16px 18px 14px;background:rgba(14,24,26,.94);border:1px solid rgba(238,228,206,.18);border-radius:16px;box-shadow:0 12px 50px rgba(0,0,0,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.dd .dd-sheet header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.dd .dd-sheet header strong{font:400 22px Georgia,serif}
+.dd .dd-close{min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid rgba(238,228,206,.2);background:transparent}
+.dd .dd-sheet section{padding:10px 0;border-top:1px solid rgba(238,228,206,.1)}
+.dd .dd-sheet h3{margin:0 0 8px;font:500 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#cfa86f}
+.dd .dd-choices{display:flex;flex-wrap:wrap;gap:8px}
+.dd .dd-choices button{min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid rgba(238,228,206,.2);background:rgba(238,228,206,.05);font-size:14.5px;font-weight:500;display:grid;text-align:left;line-height:1.15}
+.dd .dd-choices button small{font-size:11px;font-weight:400;color:rgba(238,228,206,.6)}
+.dd .dd-choices button[aria-pressed=true]{background:#e8b98a;color:#14201f;border-color:#e8b98a}
+.dd .dd-choices button[aria-pressed=true] small{color:#3a3328}
+.dd .dd-sound{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dd .dd-sound h3{flex-basis:100%}
+.dd .dd-sound label{display:flex;align-items:center;gap:8px;flex:1 1 200px}
+.dd .dd-sound button{min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid rgba(238,228,206,.2);background:rgba(238,228,206,.05)}
+.dd .dd-sheet footer{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid rgba(238,228,206,.1)}
+.dd .dd-sheet footer button{min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid rgba(238,228,206,.2);background:transparent;font-size:14px}
+/* Tablet / narrow desktop: chips drop their small labels. */
+@media (max-width:1000px){.dd .dd-chip small{display:none}.dd .dd-volume{display:none}}
+/* Phone portrait: two rows, radio on top, view chips below; everything in the bottom third. */
+@media (max-width:640px){
+ .dd{left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom))}
+ .dd .dd-bar{flex-direction:column;align-items:stretch;gap:8px;padding:10px}
+ .dd .dd-view{padding-left:0;border-left:0;border-top:1px solid rgba(238,228,206,.12);padding-top:8px;display:grid;grid-template-columns:1fr 1fr 1fr 44px}
+ .dd .dd-chip{justify-content:center;padding:6px 8px;min-width:0}
+ .dd .dd-chip span{font-size:13px}
+ .dd .dd-chip svg{display:none}
+ .dd .dd-chip small{display:block}
+ .dd .dd-station strong{font-size:15px}
+}
+/* Phone landscape: one compact row so the road keeps the screen. */
+@media (max-height:500px) and (min-width:641px){
+ .dd{bottom:8px}.dd .dd-bar{padding:6px 10px;gap:8px}.dd .dd-play{width:44px;height:44px}.dd .dd-chip{min-height:44px;padding:4px 10px}.dd .dd-chip svg{display:none}.dd .dd-track{display:none}.dd .dd-sheet{max-height:calc(100dvh - 90px)}
+}
+@media (prefers-reduced-motion:no-preference){.dd .dd-sheet{animation:dd-rise .18s ease-out}@keyframes dd-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+@media (pointer:coarse) and (max-width:950px){.dd.dd-launch .dd-volume{display:none}}
+@media (pointer:coarse) and (max-height:500px) and (min-width:641px){.dd.dd-launch{bottom:max(6px,env(safe-area-inset-bottom))}.dd.dd-launch .dd-bar{min-height:52px;padding:4px 8px;gap:4px}.dd.dd-launch .dd-step{display:none}.dd.dd-launch .dd-view{gap:0}.dd.dd-launch .dd-chip{min-height:44px;padding:4px 6px}.dd.dd-launch .dd-sheet{max-height:calc(100dvh - 70px)}}
+
+/* The radio hint sits above the deck (it used to say "change your view above"). */
+.cruise-os:has(.dd) .os-guidance{bottom:104px}
+@media (max-width:640px){.cruise-os:has(.dd) .os-guidance{bottom:196px}}
+@media (max-height:500px) and (min-width:641px){.cruise-os:has(.dd) .os-guidance{bottom:76px}}
+.cruise-os:has(.dd[data-sheet=true]) .os-guidance{display:none}
+/* NOVA subtitle: low-left, above the deck, film-subtitle weight. */
+.dd .dd-companion{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.dd .dd-companion img{width:64px;height:80px;object-fit:cover;border-radius:12px}
+.dd .dd-companion h3{margin:0}
+.nova-caption p{width:fit-content;max-width:100%}
+.nova-caption b{font-weight:inherit}
+.nova-caption{position:absolute;left:max(24px,env(safe-area-inset-left));bottom:112px;z-index:39;width:min(420px,calc(100vw - 48px));pointer-events:none}
+.nova-caption p{margin:0;padding:10px 14px;border-radius:10px;background:rgba(10,14,20,.72);color:#f4ecdf;font:italic 400 clamp(15px,1.7vw,19px)/1.4 Georgia,serif;text-shadow:0 1px 8px #000;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.nova-caption span{display:block;font:600 10px/1.4 ui-monospace,Menlo,monospace;font-style:normal;letter-spacing:.24em;color:#e8b98a}
+@media (prefers-reduced-motion:no-preference){.nova-caption p{animation:nova-in .6s ease-out}@keyframes nova-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+@media (max-width:640px){.nova-caption{left:12px;right:12px;width:auto;bottom:266px}}
+@media (max-height:500px) and (min-width:641px){.nova-caption{bottom:76px}}
+/* Giant NOVA house ad: disclosure + subtitle, bottom centre (the companion card is hidden during ads),
+   clear of the giant's face, which sits in the upper half. */
+.nova-ad-label{position:absolute;bottom:196px;left:50%;transform:translateX(-50%);z-index:39;margin:0;max-width:min(560px,calc(100vw - 220px));padding:6px 14px;border-radius:8px;background:rgba(10,14,20,.55);color:#f4ecdf;font:400 clamp(13px,1.4vw,16px)/1.35 Georgia,serif;text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.nova-ad-label span{display:block;font:600 9px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;color:#9fd8e8}
+.nova-ad-label a{display:inline-block;margin-left:8px;color:#f8d398;font:700 12px var(--font-sans),Arial,sans-serif;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;min-height:32px;line-height:32px}.nova-ad-label a:focus-visible{outline:2px solid #f8d398;outline-offset:2px}
+@media (max-width:640px){.nova-ad-label{bottom:300px;max-width:calc(100vw - 32px)}}
+.nova-presence{display:flex;align-items:center;gap:9px;width:fit-content;margin-bottom:6px;padding:5px 10px 5px 5px;border:1px solid #83cbd477;border-radius:10px;background:#091520dc;box-shadow:0 4px 16px #0007;color:#f8e7d4;font:700 12px/1.1 var(--font-sans),Arial,sans-serif;letter-spacing:.12em}
+.nova-presence img{width:38px;height:42px;object-fit:cover;object-position:center 20%;border-radius:7px}
+.nova-presence small{display:block;margin-top:4px;color:#a6ced0;font:600 8px/1.2 ui-monospace,monospace;letter-spacing:.08em}
+/* Low tier (phones, weak GPUs): a backdrop blur re-samples the moving canvas under it every frame. The panels are
+   near-opaque already; the two translucent ones get a denser fill instead so the type keeps its contrast. */
+:root[data-cruise-quality=low] .dd .dd-bar,:root[data-cruise-quality=low] .dd .dd-sheet,:root[data-cruise-quality=low] .nova-caption p,:root[data-cruise-quality=low] .nova-ad-label{backdrop-filter:none;-webkit-backdrop-filter:none}
+:root[data-cruise-quality=low] .nova-caption p{background:rgba(10,14,20,.86)}
+:root[data-cruise-quality=low] .nova-ad-label{background:rgba(10,14,20,.78)}
+/* Cast to TV: one button; while casting the deck shows a small remote above the bar. */
+.dd-casting{position:absolute;bottom:calc(100% + 8px);right:0;display:flex;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-radius:14px;background:rgba(14,24,26,.94);border:1px solid rgba(238,228,206,.22);pointer-events:auto;color:#eee4ce}
+.dd-casting>span{display:grid;line-height:1.15;margin-right:4px;max-width:180px}
+.dd-casting small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.dd-casting strong{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd-cast-tip{position:absolute;bottom:calc(100% + 8px);right:0;display:flex;align-items:center;gap:10px;max-width:min(420px,calc(100vw - 20px));margin:0;padding:10px 8px 10px 14px;border-radius:12px;background:rgba(14,24,26,.94);border:1px solid rgba(238,228,206,.22);font-size:13px;line-height:1.4;pointer-events:auto;color:#eee4ce;box-sizing:border-box}
+.dd-cast-tip button{flex:none;width:32px;height:32px;display:grid;place-items:center;border-radius:8px;border:0;background:rgba(238,228,206,.08);color:inherit}
+.dd-engine{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;margin:4px 0 2px;padding:10px 14px;border-radius:12px;border:1px solid rgba(238,228,206,.18);background:rgba(238,228,206,.06);color:inherit;font:inherit;text-align:left}
+.dd-engine[aria-pressed="true"]{border-color:rgba(240,168,107,.6)}
+.dd-engine small{opacity:.65;margin-left:auto}

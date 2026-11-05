@@ -1,0 +1,128 @@
+[
+  {
+    "target": "originalCruise",
+    "profile": "desktop",
+    "readyMs": 10564,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 2,
+    "callbackWindowSeconds": 9.863299999999999,
+    "callbackHz": 15.91759350318859,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "originalCruise",
+    "profile": "portrait",
+    "readyMs": 4244,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 2,
+    "callbackWindowSeconds": 9.1467,
+    "callbackHz": 60.02164715143167,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "originalCruise",
+    "profile": "landscape",
+    "readyMs": 3437,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 2,
+    "callbackWindowSeconds": 9.1469,
+    "callbackHz": 60.020334758224095,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "jeepNight",
+    "profile": "desktop",
+    "readyMs": 5752,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 0,
+    "callbackWindowSeconds": 11.395899999999997,
+    "callbackHz": 35.97785168350021,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "jeepNight",
+    "profile": "portrait",
+    "readyMs": 1970,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 0,
+    "callbackWindowSeconds": 9.163499999999997,
+    "callbackHz": 58.711191138757044,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "jeepNight",
+    "profile": "landscape",
+    "readyMs": 1966,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 0,
+    "callbackWindowSeconds": 9.196900000000001,
+    "callbackHz": 58.71543672324369,
+    "noHorizontalOverflow": true
+  },
+  {
+    "target": "miamiTest",
+    "profile": "desktop",
+    "readyMs": 7851,
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "passed": true,
+    "errors": [],
+    "blockedRequests": 2,
+    "callbackWindowSeconds": 8.197300000000002,
+    "callbackHz": 30.61983823942029,
+    "noHorizontalOverflow": true
+  }
+]

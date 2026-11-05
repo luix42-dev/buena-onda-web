@@ -1,0 +1,186 @@
+{
+  "date": "2026-10-10T21:45:28.301Z",
+  "mode": "controls",
+  "target": "lab",
+  "browser": "154.0.4258.62",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "physicalDevice": false,
+  "quality": "mobile",
+  "sky": "night",
+  "station": "jolt-radio",
+  "recording": false,
+  "notes": [
+    "Desktop Edge on Windows, phone viewports are emulation.",
+    "No production mutations. Video does not record third-party radio audio.",
+    "Own synthesized ambience recording is separate from radio."
+  ],
+  "checks": [
+    {
+      "name": "Ambience locked before gesture",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Keyboard gate focuses Start without unlocking audio",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Jolt plays with live analysis",
+      "pass": true
+    },
+    {
+      "name": "Driving mood selects cruise",
+      "pass": true
+    },
+    {
+      "name": "Driving mood selects midnight-run",
+      "pass": true
+    },
+    {
+      "name": "Driving mood selects night-drive",
+      "pass": true
+    },
+    {
+      "name": "Fixed camera side retains radio",
+      "pass": true
+    },
+    {
+      "name": "Fixed camera aerial retains radio",
+      "pass": true
+    },
+    {
+      "name": "Fixed camera low retains radio",
+      "pass": true
+    },
+    {
+      "name": "Fixed camera hood retains radio",
+      "pass": true
+    },
+    {
+      "name": "Station plays rinse-france",
+      "pass": true
+    },
+    {
+      "name": "Station plays jolt-radio",
+      "pass": true
+    },
+    {
+      "name": "Station switching retains Canvas and forward journey",
+      "pass": true
+    },
+    {
+      "name": "Zero ambiance gain leaves radio playing",
+      "pass": true
+    },
+    {
+      "name": "Ambiance gain restores its graph",
+      "pass": true
+    },
+    {
+      "name": "Metrics hidden by default",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "samples": [],
+  "loadToReadyMs": 4975,
+  "final": {
+    "distance": 151.6872542515971,
+    "speed": 15.062931303419106,
+    "lateral": 2,
+    "steer": 0,
+    "paused": false,
+    "glance": 0,
+    "autopilot": true,
+    "seed": 1984,
+    "elapsed": 16.175400000006018,
+    "odometer": 152.4238087412715,
+    "targetSpeed": 13.670463726864842,
+    "acceleration": -1.2722279037744018,
+    "mood": "night-drive",
+    "district": "coast",
+    "districtMix": 0,
+    "laneTarget": 2,
+    "maneuver": "follow",
+    "overtakes": 0,
+    "minTrafficGap": 58.848328169174216,
+    "traffic": [
+      {
+        "id": 0,
+        "distance": 210.13320689843465,
+        "lateral": 2,
+        "speed": 9
+      },
+      {
+        "id": 1,
+        "distance": 406.3493833427929,
+        "lateral": -2,
+        "speed": 14
+      }
+    ],
+    "reduced": false,
+    "generationMs": 1,
+    "maxGenerationMs": 2.5,
+    "chunksGenerated": 14,
+    "wheel": -0.009755708534688011,
+    "camera": "la",
+    "director": false,
+    "sky": "night",
+    "playing": true,
+    "requested": true,
+    "station": "jolt-radio",
+    "audioError": null,
+    "analysis": "Analyzing current radio",
+    "source": "live",
+    "ambience": {
+      "state": "running",
+      "enabled": true,
+      "gain": 0.2,
+      "targetGain": 0.05,
+      "nodeCount": 15,
+      "error": null,
+      "synthetic": true
+    },
+    "render": {
+      "drawCalls": 171,
+      "triangles": 93508,
+      "geometries": 118,
+      "textures": 19,
+      "dpr": 0.85,
+      "buffer": [
+        1224,
+        765
+      ]
+    }
+  },
+  "cpuSample": {
+    "durationSeconds": 10.003,
+    "processCount": 8,
+    "logicalProcessors": 12,
+    "cpuSeconds": 5.429586999999998,
+    "averageCoreEquivalents": 0.5427958612416273,
+    "percentAllLogicalCpu": 4.5232988436802275,
+    "notes": "One 10-second browser process-family CPU sample after controls. Includes GPU-process CPU, not GPU utilization. Only processes present at both boundaries counted."
+  },
+  "passed": true
+}

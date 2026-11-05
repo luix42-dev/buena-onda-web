@@ -1,0 +1,18 @@
+{
+  "source": "live",
+  "energy": 0.19,
+  "playing": true,
+  "requested": true,
+  "loading": false,
+  "station": "jolt-radio",
+  "error": null,
+  "track": "Jolt Radio",
+  "analysis": "Analyzing current radio",
+  "camera": "chase",
+  "vehicle": "ocean-convertible",
+  "time": "night",
+  "quality": "mobile",
+  "distance": 115.5,
+  "running": true,
+  "paused": false
+}

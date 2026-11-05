@@ -1,0 +1,15 @@
+{
+  "status": "FOUR_FRAMES_WRITTEN",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "contractRevision": "native-vista-2",
+  "moved_road_instances": 2686,
+  "lowered_city_instances": 540,
+  "hidden_batch_actors": 13,
+  "level_actors": 178,
+  "new_mesh_instances": 720,
+  "road_texture_connections": "All checked true; inspect fresh compile log and pixels",
+  "elapsed_s": 56.39
+}

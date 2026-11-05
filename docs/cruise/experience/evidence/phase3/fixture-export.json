@@ -1,0 +1,30 @@
+{
+  "format": "buena-onda-discoveries",
+  "version": 1,
+  "exportedAt": "2026-10-15T15:52:59.386Z",
+  "discoveries": [
+    {
+      "id": "[\"dublab\",\"track\",\"qa test artist\",\"fixture - not a live identification\"]",
+      "stationId": "dublab",
+      "stationName": "dublab",
+      "title": "FIXTURE - not a live identification",
+      "artist": "QA test artist",
+      "kind": "track",
+      "show": "QA fixture",
+      "dj": null,
+      "savedAt": "2026-10-15T15:52:59.269Z",
+      "source": "https://dublab.airtime.pro/api/live-info",
+      "provenance": {
+        "type": "official-metadata",
+        "url": "https://dublab.airtime.pro/api/live-info",
+        "verifiedAt": "2026-10-15T15:52:56.595Z"
+      },
+      "searchLinks": {
+        "bandcamp": "https://bandcamp.com/search?q=QA%20test%20artist%20FIXTURE%20-%20not%20a%20live%20identification",
+        "spotify": "https://open.spotify.com/search/QA%20test%20artist%20FIXTURE%20-%20not%20a%20live%20identification",
+        "apple": "https://music.apple.com/us/search?term=QA%20test%20artist%20FIXTURE%20-%20not%20a%20live%20identification",
+        "youtube": "https://www.youtube.com/results?search_query=QA%20test%20artist%20FIXTURE%20-%20not%20a%20live%20identification"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@ export const maxDuration = 60
 
 // Studio "Reconcile now": same verified, conditional recovery as the daily cron.
 export async function POST(request: NextRequest) {
-  if (!hasStudioAccess(request.cookies.get(studioCookieName())?.value)) {
+  if (!(await hasStudioAccess(request.cookies.get(studioCookieName())?.value))) {
     return unauthorizedStudioResponse()
   }
 

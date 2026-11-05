@@ -1,0 +1,19 @@
+{
+  "status": "COMPLETE",
+  "purpose": "2second1080p30fps MRQ benchmark",
+  "temporal_samples": 2,
+  "spatial_samples": 1,
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "elapsed_seconds": 58.031,
+  "scene_actor_count": 178,
+  "camera_config": {
+    "elevation_cm": 7200,
+    "grade": 0.045,
+    "pitch": -3
+  },
+  "quality_gate": "FAILED photographic review; short feasibility diagnostic only",
+  "render_start_seconds": 28.906,
+  "success": true,
+  "png_count": 60,
+  "output_bytes": 97481942
+}

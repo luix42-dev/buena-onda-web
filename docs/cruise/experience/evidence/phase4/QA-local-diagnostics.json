@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "scope": "This browser only — opt-in diagnostics, includes testing; not audience measurement",
+  "capturedAt": "2026-10-15T16:05:01.403Z",
+  "collectionEnabled": true,
+  "status": "valid",
+  "totals": {
+    "page_view": 1,
+    "session_start": 1,
+    "at_15_seconds": 1,
+    "at_60_seconds": 1,
+    "session_seconds": 69,
+    "listening_seconds": 69,
+    "return_session": 0,
+    "station_change": 0,
+    "station_save": 0,
+    "verified_song_save": 0,
+    "share": 0,
+    "postcard_share": 1,
+    "playback_failure": 0
+  },
+  "days": [
+    {
+      "day": "2026-10-15",
+      "counters": {
+        "page_view": 1,
+        "session_start": 1,
+        "session_seconds": 69,
+        "listening_seconds": 69,
+        "at_15_seconds": 1,
+        "at_60_seconds": 1,
+        "postcard_share": 1
+      }
+    }
+  ],
+  "limitations": [
+    "No data is sent by these counters. This report cannot measure audience size, unique visitors, visitor conversion or seven-day retention.",
+    "Seconds are observed eligible intervals, not verified human attention. Suspended or delayed timer gaps over 15 seconds are excluded; background playback may be undercounted.",
+    "15/60-second milestones refer to observed experience time after a measured start, not elapsed page age. Open sessions are included and may be incomplete.",
+    "Return sessions are subsequent measured starts in the retained browser data, including reloads and tests; they are not returning people.",
+    "Multiple tabs can overwrite concurrent localStorage increments. Counts are diagnostic estimates; devices, profiles, private windows and cleared storage are separate.",
+    "Only the latest 30 UTC calendar days are retained. Session seconds include parked experience time; listening requires playing, unmuted and volume above zero."
+  ]
+}

@@ -1,6 +1,6 @@
 'use client'
 /**
- * Cast to TV.
+ * Optional TV Remote Mode only. Primary Cast explains browser/OS mirroring.
  *  - Chrome / Android Chrome: Presentation API. The TV (Chromecast or any presentation display)
  *    loads the lean-back URL; this tab stays connected as the remote (stations, play, camera).
  *  - Safari / iOS: AirPlay screen mirroring of the lean-back page (no web API can start it).

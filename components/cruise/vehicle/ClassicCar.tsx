@@ -3,13 +3,14 @@
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
-import { DoubleSide, Group, Material, MathUtils, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, Quaternion, Vector3 } from 'three'
+import { Box3, DoubleSide, Group, Material, MathUtils, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, Quaternion, Vector3 } from 'three'
 import { HERO_X } from '@/lib/cruise/constants'
 import { getVehicle } from '@/lib/cruise/vehicles'
 import type { HeroCarProps } from './HeroCar'
 import DriverCockpit from './DriverCockpit'
 import { useCockpit } from './CockpitContext'
 import { routeCurvature } from '@/lib/cruise/routePath'
+import {hideRearviewMirror} from '@/components/real-miami/vehicle/hideRearviewMirror'
 
 const vehicle = getVehicle('classic-coupe')
 
@@ -23,6 +24,8 @@ export default function ClassicCar({ runtime, quality, camera, timeOfDay, weathe
   const spin = useMemo(() => new Quaternion(), [])
   const model = useMemo(() => {
     const body = scene.clone(true)
+    const mirrorArea=new Box3(new Vector3(-.14,1.24,-.33),new Vector3(.14,1.39,-.21))
+    const rearviewGeometries=['CHROME_TRIM','STEEL_DETAILS'].map(name=>hideRearviewMirror(body,name,mirrorArea))
     const owned = new Map<Material, Material>()
     const glass: MeshStandardMaterial[] = []
     body.traverse(object => {
@@ -74,7 +77,7 @@ export default function ClassicCar({ runtime, quality, camera, timeOfDay, weathe
     const steering = new Group(); steering.position.set(-.3024, .92539, -.408)
     body.add(steering); body.updateMatrixWorld(true)
     if (wheel) steering.attach(wheel)
-    return { body, owned, glass, wheels, steering }
+    return { body, owned, glass, wheels, steering, rearviewGeometries }
   }, [scene])
 
   useEffect(() => { onReady?.() }, [model, onReady])
@@ -89,7 +92,7 @@ export default function ClassicCar({ runtime, quality, camera, timeOfDay, weathe
   }, [camera, model, quality])
 
   // Geometry and textures belong to useGLTF's cache; only dispose cloned materials.
-  useEffect(() => () => { model.owned.forEach(material => material.dispose()) }, [model])
+  useEffect(() => () => { model.owned.forEach(material => material.dispose());model.rearviewGeometries.forEach(geometry=>geometry?.dispose()) }, [model])
   useFrame((_, delta) => {
     model.steering.rotation.z = -MathUtils.clamp(routeCurvature(runtime.current.distance)*18,-.28,.28)
     angle.current = MathUtils.euclideanModulo(angle.current + (parked ? 0 : Math.max(0, runtime.current.speed)) * Math.min(delta, 0.05) / vehicle.wheels[0].radius, Math.PI * 2)

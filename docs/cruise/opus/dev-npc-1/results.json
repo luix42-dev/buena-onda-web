@@ -1,0 +1,56 @@
+{
+ "label": "dev-npc-1",
+ "url": "http://127.0.0.1:3067",
+ "route": 19300,
+ "seed": "7",
+ "date": "2026-10-13T19:03:30.032Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/dev-npc-1/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":585002,\"geometries\":225,\"textures\":113}"
+    },
+    {
+     "view": "director:sideTrack",
+     "file": "docs/cruise/opus/dev-npc-1/1280x720-director-sideTrack.png",
+     "director": {
+      "shot": "sideTrack",
+      "label": "Long lens",
+      "elapsed": 3.8692999999970215,
+      "planned": 4.4,
+      "beatInterval": 0.42309999999403947,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":530826,\"geometries\":265,\"textures\":136}"
+    }
+   ],
+   "readyMs": 3365,
+   "playing": true
+  }
+ ]
+}

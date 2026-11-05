@@ -1,0 +1,190 @@
+{
+ "label": "perf-baseline-3066",
+ "url": "http://127.0.0.1:3066",
+ "query": "",
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T19:09:04.311Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-baseline-3066/1280x720-driver.png",
+     "director": null,
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":350639,\"geometries\":134,\"textures\":56}",
+     "fps": {
+      "samples": [
+       36.29942117149826,
+       50.147492625368734,
+       50.726079172167935,
+       49.785920541818555,
+       48.73682116541625,
+       51.09058754190632,
+       49.140049140049136,
+       48.40462313557666,
+       50.90328376055154,
+       48.89243663997489,
+       49.40223298049432,
+       49.504950495049506,
+       50.70590574681956,
+       50.1721593703886,
+       53.64060792673105,
+       53.65126676602085,
+       52.71009448035803,
+       52.37154150197626,
+       49.549103161525444,
+       51.566838555823715
+      ],
+      "mean": 49.87007079397578,
+      "min": 36.29942117149826,
+      "below30": 0,
+      "rafMeanMs": 19.75244140625,
+      "rafP95Ms": 33.400000000001455,
+      "rafMaxMs": 66.5
+     },
+     "directorAfter": null
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-baseline-3066/1280x720-chase.png",
+     "director": null,
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":522567,\"geometries\":192,\"textures\":56}",
+     "fps": {
+      "samples": [
+       54.85189987018704,
+       58.624801271512894,
+       59.61844197191282,
+       57.96247175523579,
+       57.826520438683964,
+       59.71931919958399,
+       59.71337579635547,
+       60.211232850023606,
+       60,
+       57.19357065327744,
+       60.00393468459341,
+       60.03346127384889,
+       60.03346127296848,
+       60.00983767830793,
+       60.0157418344516,
+       60.02755363099893,
+       60.015741833571724,
+       60.03346127384888,
+       60.015741833571724,
+       59.99213217956217
+      ],
+      "mean": 59.29513506512484,
+      "min": 54.85189987018704,
+      "below30": 0,
+      "rafMeanMs": 16.869474562135114,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 33.60000000000582
+     },
+     "directorAfter": null
+    }
+   ],
+   "readyMs": 2425,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/perf-baseline-3066/390x844-driver.png",
+     "director": null,
+     "chunks": "{\"built\":4,\"active\":27,\"total\":256,\"pending\":29,\"paneLod\":0,\"windowLod\":\"distance\",\"renderedTriangles\":350335,\"geometries\":128,\"textures\":56}",
+     "fps": {
+      "samples": [
+       56.10236220472444,
+       60.02755363099893,
+       60.0216471516077,
+       60.02755363099896,
+       60.00983767830796,
+       60.0216471516077,
+       60.02755363099896,
+       60.01574183357174,
+       60.009837678307946,
+       60.021647151607716,
+       60.0216471516077,
+       60.01574183357174,
+       60.02755363099896,
+       60.021647151607716,
+       60.021647151607716,
+       60.02755363099896,
+       60.01574183445161,
+       59.0376857220272,
+       60.02755363187918,
+       59.80978527271648
+      ],
+      "mean": 59.76559693770995,
+      "min": 56.10236220472444,
+      "below30": 0,
+      "rafMeanMs": 16.688404605263155,
+      "rafP95Ms": 16.800000000000182,
+      "rafMaxMs": 33.30000000000018
+     },
+     "directorAfter": null
+    },
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/perf-baseline-3066/390x844-chase.png",
+     "director": null,
+     "chunks": "{\"built\":35,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":465171,\"geometries\":173,\"textures\":56}",
+     "fps": {
+      "samples": [
+       60.03346127384889,
+       60.01574183357174,
+       60.02755363187918,
+       60.02164715072767,
+       60.0216471516077,
+       60.01574183445161,
+       60.02164715072767,
+       60.01574183445161,
+       60.027553630998945,
+       60.01574183357174,
+       60.0216471516077,
+       60.0216471516077,
+       60.01574183357174,
+       60.0216471516077,
+       59.92730130713805,
+       60.11036657398843,
+       60.03346127384889,
+       59.99803285120608,
+       60.03346127384889,
+       60.027553630998945
+      ],
+      "mean": 60.02136687626304,
+      "min": 59.92730130713805,
+      "below30": 0,
+      "rafMeanMs": 16.660987654320987,
+      "rafP95Ms": 16.80000000000291,
+      "rafMaxMs": 16.900000000001455
+     },
+     "directorAfter": null
+    }
+   ],
+   "readyMs": 1475,
+   "playing": true
+  }
+ ]
+}

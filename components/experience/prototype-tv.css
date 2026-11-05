@@ -1,0 +1,22 @@
+.prototype-tv .ptv-tools{position:fixed;top:max(76px,calc(env(safe-area-inset-top) + 64px));left:max(16px,env(safe-area-inset-left));z-index:70;display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100vw - 32px);pointer-events:none}
+.prototype-tv .ptv-tools button{pointer-events:auto}
+.prototype-tv .ptv-tools button,.prototype-tv .ptv-help button{background:#f4eddb;color:#122b27;border:1px solid #63746d;border-radius:4px;min-height:44px;padding:10px 12px;font:14px system-ui;cursor:pointer}
+.prototype-tv .ptv-tools button:focus-visible,.prototype-tv .ptv-help :is(button,a,input):focus-visible{outline:3px solid #cf8b45;outline-offset:3px}
+.prototype-tv .ptv-help{background:#f4eddb;color:#122b27;font:15px/1.55 system-ui;width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;padding:24px;border:1px solid #122b27;border-radius:6px;box-sizing:border-box}
+.prototype-tv .ptv-help::backdrop{background:#081b18bf}
+.prototype-tv .ptv-help header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.prototype-tv .ptv-help h2{font:30px Georgia,serif;margin:0}
+.prototype-tv .ptv-help h3{font:22px Georgia,serif;margin:24px 0 12px}
+.prototype-tv .ptv-help a{color:#24564b;text-decoration:underline;text-underline-offset:3px}
+.prototype-tv .ptv-choice{display:flex;gap:12px;align-items:center;min-height:44px;font-weight:600}
+.prototype-tv .ptv-choice input{width:22px;height:22px;accent-color:#24564b}
+.prototype-tv.ptv-mode :is(.os-header,.os-radio-deck,.os-deck,.os-guidance,.prototype-business .pb-trigger,.dd-bar,.dd-sheet,.pc-pair-trigger,.jn-retro-tune){transition:opacity .25s ease,visibility .25s ease}
+.prototype-tv.ptv-mode.ptv-idle:not(:has(dialog[open])) :is(.os-header,.os-radio-deck,.os-deck,.os-guidance,.prototype-business .pb-trigger,.dd-bar,.dd-sheet,.pc-pair-trigger,.jn-retro-tune):not(:focus-within){opacity:0;visibility:hidden;pointer-events:none}
+.prototype-tv.ptv-mode.ptv-idle:not(:has(dialog[open])) :is(.pc-pair-trigger,.jn-retro-tune){opacity:0;visibility:hidden;pointer-events:none}
+/* Casting is the deck's Cast button now; the old TV instructions button stays hidden. */
+.prototype-tv .ptv-tools>button:first-child{display:none}
+@media(min-width:1000px){.prototype-tv.ptv-mode .os-header button,.prototype-tv.ptv-mode .os-header select,.prototype-tv.ptv-mode .os-radio-deck button{font-size:18px;min-height:52px}.prototype-tv.ptv-mode .os-radio-deck{max-width:920px;padding:14px 18px}.prototype-tv.ptv-mode .os-radio-deck .os-radio-status strong{font-size:18px}.prototype-tv.ptv-mode .os-deck-volume{font-size:16px}.prototype-tv.ptv-mode .os-deck-volume input{min-height:52px}}
+@media(max-width:600px){.prototype-tv .ptv-tools{top:max(64px,calc(env(safe-area-inset-top) + 56px));left:12px;gap:5px;max-width:145px}.prototype-tv .ptv-tools button{font-size:12px;padding:8px 10px}.prototype-tv .ptv-help{padding:16px}.prototype-tv .prototype-business .pb-trigger{top:max(64px,calc(env(safe-area-inset-top) + 56px));right:12px;max-width:160px;font-size:12px}.prototype-tv .ptv-help header{align-items:flex-start}}
+@media(pointer:coarse){.prototype-tv.ptv-mode.ptv-idle :is(.os-header,.os-radio-deck,.os-deck,.os-guidance,.dd-bar,.dd-sheet){opacity:1!important;visibility:visible!important;pointer-events:auto!important}}
+@media(max-height:500px){.prototype-tv .ptv-tools{top:60px}.prototype-tv .ptv-help{max-height:calc(100dvh - 16px)}}
+@media(prefers-reduced-motion:reduce){.prototype-tv.ptv-mode :is(.os-header,.os-radio-deck,.os-deck,.os-guidance,.prototype-business .pb-trigger){transition:none}}

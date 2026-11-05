@@ -1,0 +1,46 @@
+{
+  "durationSeconds": 1203.112,
+  "samples": 240,
+  "meanSampledFps": 49.20226594411248,
+  "p5SampledOneSecondFps": 43.89465283424435,
+  "minimumSampledFps": 37.14285714285714,
+  "maximumSampledFps": 59.101654847029685,
+  "drawCalls": [
+    159,
+    300
+  ],
+  "renderDpr": [
+    0.85,
+    0.89,
+    0.92,
+    0.97,
+    1
+  ],
+  "drivenMeters": 17240.9367192712,
+  "routeMeters": 19642.962656759213,
+  "maxJsHeapMiB": 227.88669681549072,
+  "allSamplesPlaying": true,
+  "audioNonAdvancingIntervals": 0,
+  "audioProgressSeconds": 1203.1111190000001,
+  "pageErrors": [],
+  "readyMs": 15188,
+  "steeringRadians": [
+    -2.5974010560211327,
+    2.5931826437550654
+  ],
+  "maxBodyHeaveMm": 1.1616694805893444,
+  "checks": {
+    "businessDirectory": true,
+    "tvHelp": true,
+    "tvControlsRecede": true,
+    "tvKeyboardRecovers": true,
+    "favoriteSaved": true,
+    "audioIndependent": true,
+    "moving": true,
+    "audioAcrossCamera": true,
+    "noPageExceptions": true,
+    "opaqueTires": true,
+    "portraitNoOverflow": true,
+    "landscapeNoOverflow": true
+  }
+}

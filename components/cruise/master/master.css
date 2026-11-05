@@ -111,6 +111,8 @@
 /* Loop fade */
 .mm-fade{position:absolute;inset:0;z-index:6;background:#0f0c18;opacity:0;pointer-events:none;transition:opacity .8s}
 .mm-fade.on{opacity:1}
+/* Loop resets cut under the opaque cover; reduced motion never animates that transition. */
+@media (prefers-reduced-motion:reduce){.miami-master .mm-fade{transition:none}}
 
 /* TV mode */
 .mm-tv .mm-stage{cursor:none}
@@ -165,3 +167,55 @@
   .miami-master *, .miami-master *::before, .miami-master *::after{animation:none!important;transition:none!important}
   .av-ticker-track{transform:none!important}
 }
+
+.mm-status{display:none}
+/* ---- Dock: one control bar, like the original Cruise (row on desktop/landscape, two rows in portrait) ---- */
+.mm-status.on{display:block}
+.miami-master .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mm-dock{position:absolute;left:max(16px,env(safe-area-inset-left));right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:6;display:flex;align-items:center;gap:6px;padding:8px 10px;background:rgba(18,24,30,.82);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);max-width:1100px;margin:0 auto}
+.mm-dock button{background:none;border:0;color:var(--ink);border-radius:12px;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.mm-dock button:hover{background:rgba(255,255,255,.07)}
+.mm-play{width:48px;height:48px;border-radius:50%!important;background:var(--coral)!important;color:#fff!important;flex:none}
+.mm-station{flex:1;min-width:0;justify-content:flex-start!important;padding:0 8px!important;text-align:left}
+.mm-station .mm-disc{width:34px;height:34px}
+.mm-station .mm-now-text b{font-size:15px}
+.mm-ico em{font-style:normal;font-size:13px;text-transform:capitalize}
+.mm-volume{display:flex;align-items:center;width:110px;padding:0 6px}
+.mm-volume input{width:100%;accent-color:var(--amber)}
+.mm-sep{width:1px;align-self:stretch;margin:6px 4px;background:var(--line)}
+.mm-sponsor{bottom:96px!important}
+.mm-tv .mm-sponsor{bottom:18px!important}
+
+@media (max-width:700px){
+  .mm-lockup{top:22px;left:14px}.mm-lockup b{font-size:24px}.mm-lockup i{font-size:22px;margin-left:30px}.mm-lockup small{display:none}
+  .mm-top{top:22px;right:12px}.mm-top button{padding:8px 12px;min-height:44px;font-size:12px}
+  .mm-dock{display:grid;grid-template-columns:48px minmax(0,1fr) repeat(4,44px);left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));padding:8px;gap:2px}
+  .mm-station{grid-column:2 / 6;grid-row:1}
+  .mm-station .mm-disc{display:none}
+  .mm-play{grid-column:1;grid-row:1}
+  .mm-dock>button:nth-of-type(3){grid-column:6;grid-row:1}
+  .mm-volume{grid-column:1 / 3;grid-row:2;width:auto;padding:4px 10px}
+  .mm-dock>button:nth-of-type(4){grid-column:3;grid-row:2}
+  .mm-dock>button:nth-of-type(5){grid-column:4;grid-row:2}
+  .mm-dock>button:nth-of-type(6){grid-column:5;grid-row:2}
+  .mm-dock>button:nth-of-type(7){grid-column:6;grid-row:2}
+  .mm-sep{display:none}
+  .mm-ico.wide em{display:none}
+  .mm-ico{order:3;flex:1}
+  .mm-sponsor{left:10px;right:10px;bottom:150px!important;max-width:none}
+  .mm-panel,.av-drawer{top:auto;bottom:10px;right:10px;left:10px;width:auto;max-height:70%;z-index:9}
+  .mm-tvgate b{font-size:44px}
+}
+@media (max-height:500px) and (orientation:landscape){
+  .mm-lockup small,.av-ticker{display:none}
+  .mm-lockup{top:12px}.mm-top{top:12px}
+  .mm-dock{display:flex;bottom:8px;padding:4px 8px;flex-wrap:nowrap}
+  .mm-play{width:44px;height:44px}.mm-dock button{min-height:44px;min-width:44px}
+  .mm-station .mm-disc{display:none}
+  .mm-volume{width:80px}
+  .mm-ico.wide em{display:none}
+  .mm-sponsor{bottom:70px!important;right:10px;max-width:34vw}.mm-sponsor img,.mm-plotnum{width:44px;height:44px}
+  .mm-panel,.av-drawer{top:10px;max-height:calc(100% - 80px)}
+}
+@media (prefers-reduced-motion:reduce){.mm-disc.spin,.av-ticker-track{animation:none}}
+.miami-master button:focus-visible,.miami-master input:focus-visible,.miami-master select:focus-visible{outline:2px solid var(--teal);outline-offset:3px}

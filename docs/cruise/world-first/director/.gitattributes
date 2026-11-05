@@ -1,0 +1,2 @@
+# Preserve archived Unreal project source bytes.
+source/** -text

@@ -1,0 +1,40 @@
+{
+ "label": "dev-leslie-1",
+ "url": "http://127.0.0.1:3067",
+ "route": 18985,
+ "seed": "7",
+ "date": "2026-10-13T19:00:17.375Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/dev-leslie-1/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":559823,\"geometries\":200,\"textures\":76}"
+    }
+   ],
+   "readyMs": 3526,
+   "playing": true
+  }
+ ]
+}

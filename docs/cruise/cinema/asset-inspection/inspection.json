@@ -1,0 +1,150 @@
+{
+  "status": "geometry diagnostic only; not a cinematic material test",
+  "source": "D:\\10-VENTURES\\12-buena-onda\\cruise-publish-20261006\\.vercel\\cinema-assets\\gto-high-uncompressed.glb",
+  "blender": "4.5.0",
+  "bounds_blender": {
+    "min": [
+      -0.9860203266143799,
+      -2.796816110610962,
+      0.0
+    ],
+    "max": [
+      0.9362375140190125,
+      2.3822107315063477,
+      1.442662239074707
+    ]
+  },
+  "explicit_import_scale": 1.0,
+  "measured_gltf_world_bounds": {
+    "min": [
+      -0.9860203266143799,
+      0,
+      -2.3822107315063477
+    ],
+    "max": [
+      0.9362375140190125,
+      1.442662239074707,
+      2.796816110610962
+    ],
+    "size": [
+      1.9222578406333923,
+      1.442662239074707,
+      5.17902684211731
+    ]
+  },
+  "axes": "Z-up, forward +Y, driver negative X",
+  "contact_order": "top row 01/02/03; bottom row 04/05/06",
+  "mesh_objects": [
+    "BLACK_TRIM",
+    "BODY_PAINT",
+    "CABIN",
+    "CHROME_TRIM",
+    "DASH",
+    "FL_WHEEL_MESH",
+    "FR_WHEEL_MESH",
+    "GLASS",
+    "INNER_BODY",
+    "REAR_BUMPER",
+    "RL_WHEEL_MESH",
+    "RR_WHEEL_MESH",
+    "SEATS",
+    "STEEL_DETAILS",
+    "STEERING_WHEEL"
+  ],
+  "shots": [
+    {
+      "name": "01-driver-workbench",
+      "position": [
+        -0.3,
+        -0.14,
+        1.17
+      ],
+      "target": [
+        -0.3,
+        1.85,
+        0.88
+      ],
+      "lens_mm": 25,
+      "hidden_glass": []
+    },
+    {
+      "name": "02-driver-glass-hidden",
+      "position": [
+        -0.3,
+        -0.14,
+        1.17
+      ],
+      "target": [
+        -0.3,
+        1.85,
+        0.88
+      ],
+      "lens_mm": 25,
+      "hidden_glass": [
+        "GLASS"
+      ]
+    },
+    {
+      "name": "03-dashboard-glass-hidden",
+      "position": [
+        -0.3,
+        -0.18,
+        1.07
+      ],
+      "target": [
+        -0.1,
+        0.9,
+        0.8
+      ],
+      "lens_mm": 35,
+      "hidden_glass": [
+        "GLASS"
+      ]
+    },
+    {
+      "name": "04-front",
+      "position": [
+        0.0,
+        7.2,
+        2.15
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.68
+      ],
+      "lens_mm": 48,
+      "hidden_glass": []
+    },
+    {
+      "name": "05-rear",
+      "position": [
+        0.0,
+        -7.2,
+        2.15
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.68
+      ],
+      "lens_mm": 48,
+      "hidden_glass": []
+    },
+    {
+      "name": "06-side",
+      "position": [
+        -7.2,
+        0.0,
+        1.85
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.68
+      ],
+      "lens_mm": 48,
+      "hidden_glass": []
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 /** Unit tests for the Avenue: pricing, owner validation, merge/pending, rate limiter, phase, studio auth. TEST data only. */
+import { createStudioSession } from '../lib/studio-auth'
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import {
@@ -64,15 +65,24 @@ test('seed/house helpers and MAX_PLOT agree with the seed', () => {
   assert.deepEqual([1, 2, 6, 7].map(isHousePlot), [false, true, true, false])
 })
 
-test('avenuePhase: hidden by default, preview via query, env open/preview', () => {
+test('avenuePhase: preview requires authorization, open remains an explicit environment choice', () => {
   withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: undefined }, () => {
     assert.equal(avenuePhase(''), 'hidden')
-    assert.equal(avenuePhase('?avenue=preview'), 'preview')
-    assert.equal(avenuePhase('?avenue=1'), 'preview')
+    assert.equal(avenuePhase('?avenue=preview'), 'hidden')
+    assert.equal(avenuePhase('?avenue=1'), 'hidden')
+    assert.equal(avenuePhase('?avenue=preview', true), 'preview')
+    assert.equal(avenuePhase('?avenue=1', true), 'preview')
+    assert.equal(avenuePhase('', true), 'hidden')
     assert.equal(avenuePhase('?avenue=open'), 'hidden') // the query can never open claims
   })
-  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'open' }, () => assert.equal(avenuePhase(''), 'open'))
-  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'preview' }, () => assert.equal(avenuePhase(''), 'preview'))
+  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'open' }, () => {
+    assert.equal(avenuePhase(''), 'open')
+    assert.equal(avenuePhase('?avenue=preview'), 'open')
+  })
+  withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'preview' }, () => {
+    assert.equal(avenuePhase(''), 'hidden')
+    assert.equal(avenuePhase('', true), 'preview')
+  })
   withEnv({ NEXT_PUBLIC_CRUISE_AVENUE: 'garbage' }, () => assert.equal(avenuePhase(''), 'hidden'))
 })
 
@@ -109,19 +119,20 @@ test('driveByClientHash: salted, daily rotating, no raw IP; null without a secre
   })
 })
 
-test('cruise studio auth fails closed in every environment', () => {
+test('cruise studio auth fails closed in every environment', async () => {
   for (const NODE_ENV of ['development', 'production', 'test']) {
-    withEnv({ STUDIO_PASSWORD: undefined, NODE_ENV }, () => {
-      assert.equal(hasCruiseStudioAccess(undefined), false)
-      assert.equal(hasCruiseStudioAccess('anything'), false)
-      assert.equal(hasCruiseStudioAccess(''), false)
+    await withEnv({ STUDIO_PASSWORD: undefined, NODE_ENV }, async () => {
+      assert.equal(await hasCruiseStudioAccess(undefined), false)
+      assert.equal(await hasCruiseStudioAccess('anything'), false)
+      assert.equal(await hasCruiseStudioAccess(''), false)
     })
-    withEnv({ STUDIO_PASSWORD: '   ', NODE_ENV }, () => assert.equal(hasCruiseStudioAccess('   '), false))
-    withEnv({ STUDIO_PASSWORD: 'TEST-pass', NODE_ENV }, () => {
-      assert.equal(hasCruiseStudioAccess('TEST-pass'), true)
-      assert.equal(hasCruiseStudioAccess('TEST-pas'), false)
-      assert.equal(hasCruiseStudioAccess('TEST-pass '), false)
-      assert.equal(hasCruiseStudioAccess(undefined), false)
+    await withEnv({ STUDIO_PASSWORD: '   ', NODE_ENV }, async () => assert.equal(await hasCruiseStudioAccess('   '), false))
+    await withEnv({ STUDIO_PASSWORD: 'TEST-pass', NODE_ENV }, async () => {
+      assert.equal(await hasCruiseStudioAccess('TEST-pass'), false)
+      assert.equal(await hasCruiseStudioAccess(await createStudioSession()), true)
+      assert.equal(await hasCruiseStudioAccess('TEST-pas'), false)
+      assert.equal(await hasCruiseStudioAccess('TEST-pass '), false)
+      assert.equal(await hasCruiseStudioAccess(undefined), false)
     })
   }
   assert.equal(timingSafeEqualString('abc', 'abc'), true)

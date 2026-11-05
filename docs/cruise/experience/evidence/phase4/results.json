@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-15T16:03:42.680Z",
+  "browser": "155.0.4283.45",
+  "environment": "Desktop Windows Edge, local development, genuine scene capture and opted-in QA counters; not audience data",
+  "checks": {
+    "metricsOffByDefault": true,
+    "actualNonblankPng": true,
+    "shareLinkPreservesScene": true,
+    "honestLocalCounters": true,
+    "noTasteIdentifiers": true,
+    "deletionStopsCollection": true,
+    "noMarketingRequests": true,
+    "noPageExceptions": true
+  },
+  "errors": [],
+  "requestHosts": [
+    "127.0.0.1",
+    "streamer.radio.co",
+    ""
+  ],
+  "capture": {
+    "width": 1280,
+    "height": 1040,
+    "bytes": 769176,
+    "sceneChannelStddev": [
+      73.82797105587937,
+      47.04165282248879,
+      48.18885114050273,
+      0
+    ]
+  }
+}

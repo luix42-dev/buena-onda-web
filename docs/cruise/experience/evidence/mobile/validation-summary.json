@@ -1,0 +1,120 @@
+{
+  "at": "2026-10-15T16:09:21.578Z",
+  "passed": true,
+  "environment": "Aggregated independent Edge emulation runs, not one uninterrupted run or physical-device validation",
+  "profiles": [
+    {
+      "name": "portrait",
+      "evidence": "mobile-portrait-fixed/results.json",
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": true,
+        "noPageErrors": true
+      },
+      "notes": [],
+      "failure": null,
+      "under44pxRecommended": [
+        {
+          "name": "volume",
+          "width": 75,
+          "height": 28
+        }
+      ]
+    },
+    {
+      "name": "landscape",
+      "evidence": "mobile/results.json",
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": true,
+        "noPageErrors": true
+      },
+      "notes": [],
+      "failure": null,
+      "under44pxRecommended": [
+        {
+          "name": "volume",
+          "width": 65,
+          "height": 28
+        }
+      ]
+    },
+    {
+      "name": "tablet",
+      "evidence": "mobile/results.json",
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": true,
+        "noPageErrors": true
+      },
+      "notes": [],
+      "failure": null,
+      "under44pxRecommended": [
+        {
+          "name": "volume",
+          "width": 105,
+          "height": 28
+        }
+      ]
+    },
+    {
+      "name": "reduced-motion",
+      "evidence": "mobile/results.json",
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "reducedMotionRespected": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": true,
+        "noPageErrors": true
+      },
+      "notes": [],
+      "failure": null,
+      "under44pxRecommended": [
+        {
+          "name": "volume",
+          "width": 75,
+          "height": 28
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "manualCameraOverridesIntro": true,
+    "mapIntercepted": true,
+    "audioPlaysBeforeMap": true,
+    "drivePausedUntilMap": true,
+    "resumesAfterMap": true,
+    "sameAudioAfterMap": true
+  },
+  "delayedMapEvidence": "mobile-initial-harness-race/results.json",
+  "manualCameraEvidence": "mobile-initial-harness-race/results.json",
+  "notes": [
+    "Initial settings checks used an overly exact label selector; harness was corrected to use the actual select element.",
+    "One portrait run was contaminated by development hot refresh; preserved as failed.",
+    "A subsequent stable14second same-station retune reproduced a real playback timeout. The lead fixed the audio hook and the matching14second portrait retest passed.",
+    "All raw failures and corrected runs remain available. 44 CSS pixels are recommended here; critical target checks use24 CSS pixels and center hit visibility."
+  ]
+}

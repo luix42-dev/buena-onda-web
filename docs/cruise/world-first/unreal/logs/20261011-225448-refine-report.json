@@ -1,0 +1,11 @@
+{
+  "status": "FOUR_FRAMES_WRITTEN",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "road_textures": "Poly Haven Clean Asphalt CC0; original webp losslessly converted to PNG",
+  "road_tile_cm": 210,
+  "new_mesh_actors": 173,
+  "elapsed_s": 61.69
+}

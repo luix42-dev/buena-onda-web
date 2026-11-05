@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-15T17:52:47.065Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Windows headless Edge viewport reflow emulation at DPR 1. 683×384 approximates the CSS viewport of 1366×768 at 200% zoom; this does not test actual Chrome browser zoom or physical phones. No FPS benchmark or representative user study.",
+  "cases": [
+    {
+      "name": "old-laptop",
+      "viewport": {
+        "width": 1280,
+        "height": 600
+      },
+      "entry": {
+        "rect": {
+          "x": 102.390625,
+          "y": 454.59375,
+          "width": 173.703125,
+          "height": 52,
+          "top": 454.59375,
+          "right": 276.09375,
+          "bottom": 506.59375,
+          "left": 102.390625
+        },
+        "centerHit": false,
+        "inViewport": true,
+        "hitTarget": "A",
+        "hitLabel": "© OpenStreetMap contributors · ODbL"
+      },
+      "deck": {
+        "x": 24,
+        "y": 514,
+        "width": 1232,
+        "height": 70
+      },
+      "intersection": 0,
+      "audio": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 0,
+          "paused": true,
+          "ready": 1
+        }
+      ]
+    },
+    {
+      "name": "old-zoom-reflow",
+      "viewport": {
+        "width": 683,
+        "height": 384
+      },
+      "entry": {
+        "rect": {
+          "x": 47.796875,
+          "y": 247.296875,
+          "width": 173.703125,
+          "height": 44,
+          "top": 247.296875,
+          "right": 221.5,
+          "bottom": 291.296875,
+          "left": 47.796875
+        },
+        "centerHit": false,
+        "inViewport": true,
+        "hitTarget": "SPAN",
+        "hitLabel": "Ready when you are"
+      },
+      "deck": {
+        "x": 12,
+        "y": 256,
+        "width": 659,
+        "height": 118
+      },
+      "intersection": 6131.177490234375,
+      "audio": [
+        {
+          "id": 0,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 0,
+          "paused": true,
+          "ready": 0
+        }
+      ]
+    }
+  ],
+  "mode": "Preserved old startup layout only; no start click or audio playback."
+}

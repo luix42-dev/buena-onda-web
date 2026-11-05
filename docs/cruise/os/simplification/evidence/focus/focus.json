@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-15T17:57:29.931Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Windows headless Edge viewport reflow emulation at DPR 1. 683×384 approximates the CSS viewport of 1366×768 at 200% zoom; this does not test actual Chrome browser zoom or physical phones. No FPS benchmark or representative user study.",
+  "cases": [
+    {
+      "name": "desktop",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    },
+    {
+      "name": "laptop",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    },
+    {
+      "name": "short",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    },
+    {
+      "name": "portrait",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    },
+    {
+      "name": "zoom-reflow",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    },
+    {
+      "name": "compact-reflow",
+      "checks": {
+        "directoryEscapeFocus": true,
+        "settingsEscapeReturnsMenu": true,
+        "menuEscapeFocus": true,
+        "Saved musicEscapeFocus": true,
+        "Saved stationsEscapeFocus": true
+      }
+    }
+  ],
+  "passed": true
+}

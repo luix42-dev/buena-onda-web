@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-12T03:26:52.084Z",
+  "browserLaunched": false,
+  "preservation": [
+    {
+      "file": "app/(site)/cruise/page.tsx",
+      "expected": "1b558244f80bf6ca6147e9167b0e5fa76df13b2e",
+      "actual": "1b558244f80bf6ca6147e9167b0e5fa76df13b2e",
+      "pass": true
+    },
+    {
+      "file": "app/(site)/cruise/CruiseClient.tsx",
+      "expected": "0c1130e4c065102195d715b255a364f5ca5e99ec",
+      "actual": "0c1130e4c065102195d715b255a364f5ca5e99ec",
+      "pass": true
+    },
+    {
+      "file": "components/cruise/LaunchExperience.tsx",
+      "expected": "97931445cc60c1318272b9fefbe520431d9e2dfb",
+      "actual": "97931445cc60c1318272b9fefbe520431d9e2dfb",
+      "pass": true
+    },
+    {
+      "file": "components/cruise/CruiseScene.tsx",
+      "expected": "9f1daa80ae178a1374b79866f1a9b2345b72909f",
+      "actual": "9f1daa80ae178a1374b79866f1a9b2345b72909f",
+      "pass": true
+    },
+    {
+      "file": "components/cruise/audio/useCruiseAudio.ts",
+      "expected": "40a4d5a213f6391ca3e802975162e2af9797eae5",
+      "actual": "40a4d5a213f6391ca3e802975162e2af9797eae5",
+      "pass": true
+    },
+    {
+      "file": "middleware.ts",
+      "expected": "3ce137612e443ad07386cdeb39303b16f50c3ad1",
+      "actual": "3ce137612e443ad07386cdeb39303b16f50c3ad1",
+      "pass": true
+    }
+  ],
+  "stagedPaths": [],
+  "media": [
+    {
+      "file": "public/cruise/experiments/world-first/hybrid/founder-diagnostic-a.webm",
+      "bytes": 598522
+    },
+    {
+      "file": "public/cruise/experiments/world-first/hybrid/founder-diagnostic-b.webm",
+      "bytes": 586038
+    },
+    {
+      "file": "public/cruise/experiments/world-first/hybrid/native-2s-a.webm",
+      "bytes": 1270137
+    },
+    {
+      "file": "public/cruise/experiments/world-first/hybrid/native-2s-b.webm",
+      "bytes": 1260708
+    }
+  ],
+  "releaseBlocker": "Previously leaked Supabase key retirement is unverified. No credentials inspected or modified."
+}

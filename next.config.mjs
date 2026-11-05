@@ -3,6 +3,7 @@ const CRUISE_LIVE = process.env.NEXT_PUBLIC_CRUISE_LIVE === 'true'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: process.env.CRUISE_DIST_DIR || '.next',
   serverExternalPackages: ['sharp', '@imgly/background-removal-node'],
   async rewrites() {
     return {

@@ -39,6 +39,20 @@ export const CRUISE_STATIONS = [
 
 export const DEFAULT_CRUISE_STATION = CRUISE_STATIONS[0]
 
+/** Experimental route only. Public listener URLs are not rebroadcast/recording rights. */
+export const MIAMI_CRUISE_STATIONS: readonly CruiseStation[] = [
+  ...CRUISE_STATIONS,
+  { id: 'the-lot-radio', name: 'The Lot Radio', provider: 'custom', enabled: true,
+    source: 'https://livepeercdn.studio/hls/85c28sa2o8wppm58/index.m3u8', playback: 'hls', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.thelotradio.com/' },
+  { id: 'kiosk-radio', name: 'Kiosk Radio', provider: 'custom', enabled: false,
+    source: null, playback: 'external', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.kioskradio.com/', unavailableReason: 'Official stream unavailable' },
+  { id: 'dublab', name: 'dublab', provider: 'custom', enabled: true,
+    source: 'https://dublab.out.airtime.pro/dublab_a', playback: 'stream', rightsStatus: 'public-stream',
+    moods: ['ambient', 'leftfield'], externalUrl: 'https://www.dublab.com/' },
+]
+
 export const CRUISE_RADIO_MOODS: readonly { id: CruiseRadioMood; name: string }[] = [
   { id: 'miami-local', name: 'Miami Local' },
   { id: 'leftfield', name: 'Leftfield' },
@@ -52,8 +66,8 @@ export const CRUISE_RADIO_MOODS: readonly { id: CruiseRadioMood; name: string }[
 
 export function canPlayCruiseStation(station: CruiseStation): boolean {
   return station.enabled &&
-    (station.rightsStatus === 'owned' || station.rightsStatus === 'approved') &&
-    (station.playback === 'playlist' || station.playback === 'stream') &&
+    (station.rightsStatus === 'owned' || station.rightsStatus === 'approved' || station.rightsStatus === 'public-stream') &&
+    (station.playback === 'playlist' || station.playback === 'stream' || station.playback === 'hls') &&
     typeof station.source === 'string' && station.source.trim().length > 0
 }
 

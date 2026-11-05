@@ -1,0 +1,183 @@
+{
+  "at": "2026-10-15T02:19:34.598Z",
+  "browser": "155.0.4283.45",
+  "environment": "Windows desktop, headless Edge; mobile/tablet emulation only",
+  "checks": {
+    "noAutoplay": true,
+    "liveJoltAdvances": true,
+    "panelFocus": true,
+    "manualOrder": [
+      "NTS 1",
+      "Jolt Radio"
+    ],
+    "sameAudioAfterSceneToggle": false
+  },
+  "errors": [],
+  "profiles": [],
+  "realPlayback": {
+    "before": {
+      "audio": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.018183,
+          "paused": false,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 3
+        }
+      ],
+      "drive": {
+        "speed": 0,
+        "rpm": 0,
+        "distance": 0,
+        "paused": true,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 0,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 0,
+        "drawCalls": 0,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": true,
+        "timeMode": "night"
+      },
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    "after": {
+      "audio": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 4.395833,
+          "paused": false,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 3
+        }
+      ],
+      "drive": {
+        "speed": 0,
+        "rpm": 0,
+        "distance": 0,
+        "paused": true,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 0,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 0,
+        "drawCalls": 0,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": true,
+        "timeMode": "night"
+      },
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  },
+  "sceneryRestore": {
+    "audio": [
+      {
+        "id": 0,
+        "src": "",
+        "time": 0,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0
+      },
+      {
+        "id": 1,
+        "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+        "time": 10.091725,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 3
+      }
+    ],
+    "drive": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 60.027553631191495,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 18.08951985836029,
+      "drawCalls": 4,
+      "ready": false,
+      "vehicle": "countach",
+      "garage": true,
+      "timeMode": "sunset"
+    },
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  "performance": {
+    "sampleSeconds": 15.001699999999895,
+    "averageRafFps": 39.195557836778775,
+    "longestFrameMs": 66.70000000001164,
+    "drive": {
+      "speed": 74.47406959303049,
+      "rpm": 2351.5431165214686,
+      "distance": 308.67891090009164,
+      "paused": false,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 39.92812936714658,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 15.832431048154831,
+      "drawCalls": 260,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "gl": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "heap": 234658016
+  },
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Listen without 3D', exact: true }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button>Listen without 3D</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"240\" height=\"170\" id=\"cruise-miami-map\" data-orientation=\"heading-up\" class=\"MiamiMap_canvas__7Pf14\" aria-label=\"Heading-up radar. Jeep on Ocean Drive, heading S.\"></canvas> from <aside aria-label=\"Live Miami map\" class=\"MiamiMap_map__ks0yY \">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"240\" height=\"170\" id=\"cruise-miami-map\" data-orientation=\"heading-up\" class=\"MiamiMap_canvas__7Pf14\" aria-label=\"Heading-up radar. Jeep on Ocean Drive, heading S.\"></canvas> from <aside aria-label=\"Live Miami map\" class=\"MiamiMap_map__ks0yY \">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    47 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <canvas width=\"240\" height=\"170\" id=\"cruise-miami-map\" data-orientation=\"heading-up\" class=\"MiamiMap_canvas__7Pf14\" aria-label=\"Heading-up radar. Jeep on Ocean Drive, heading S.\"></canvas> from <aside aria-label=\"Live Miami map\" class=\"MiamiMap_map__ks0yY \">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-human-radio-20261014\\scripts\\human-radio-proof.mjs:53:86"
+}

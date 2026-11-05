@@ -1,0 +1,7 @@
+{
+  "countach": {"eye": [-0.28, 0.93, 0.02], "pitch": -0.065, "fov": 66, "eyePortrait": [0.02, 0.93, 0.30], "pitchPortrait": -0.12},
+  "coastal-coupe": {"eye": [-0.30, 1.12, 0.25], "pitch": -0.18, "fov": 70, "eyePortrait": [0, 1.12, 0.42], "pitchPortrait": -0.21},
+  "classic-coupe": {"eye": [-0.25, 1.29, 0.042], "pitch": -0.20, "fov": 70, "eyePortrait": [0, 1.29, 0.28], "pitchPortrait": -0.23},
+  "island-trail": {"eye": [-0.34, 1.73, 0.38], "pitch": -0.18, "fov": 70, "eyePortrait": [0, 1.73, 0.56], "pitchPortrait": -0.21},
+  "delorean": {"eye": [-0.30, 1.03, 0.26], "pitch": -0.18, "fov": 70, "eyePortrait": [0.04, 1.03, 0.44], "pitchPortrait": -0.20}
+}

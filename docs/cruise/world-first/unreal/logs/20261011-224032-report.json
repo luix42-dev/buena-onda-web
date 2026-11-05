@@ -1,0 +1,8 @@
+{
+  "status": "BUILDING",
+  "engine": "5.8.3-58210709+++UE5+Release-5.8",
+  "camera_kind": "driver-eye environment plate",
+  "renderer": "DX11 deferred raster; no Lumen/RT",
+  "seed": 1976,
+  "elapsed_s": 0.0
+}

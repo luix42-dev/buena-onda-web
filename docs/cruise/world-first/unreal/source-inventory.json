@@ -1,0 +1,212 @@
+﻿[
+    {
+        "path":  "build-instanced.py",
+        "bytes":  2940,
+        "sha256":  "b1a6a1e966f4bb656f52e9758e50fef643490d9361d876977a40cdbf053c3650"
+    },
+    {
+        "path":  "build.py",
+        "bytes":  11683,
+        "sha256":  "7d7cb953c3888d07d48a72a1e153f59b9b64368999feec6eb68ec1279dfd48fd"
+    },
+    {
+        "path":  "camera-config.json",
+        "bytes":  63,
+        "sha256":  "4fcb1140a2075762b47e5734d57321da347915bdd2ea227db09047e7184bebb5"
+    },
+    {
+        "path":  "launch.ps1",
+        "bytes":  1760,
+        "sha256":  "4ca86a8d1da9913178a68d4cd2e0de0247af666d923ff7017b2e35226252e1d0"
+    },
+    {
+        "path":  "refine-road.py",
+        "bytes":  4261,
+        "sha256":  "39773cc4d459578697deb910f4fe28bbdc14386464b7a228e89105df27559910"
+    },
+    {
+        "path":  "refine.py",
+        "bytes":  132,
+        "sha256":  "e8abe48ecc41b5405bc99fcdb9e4b40f61c0e8c767ee25d09acca1e129230103"
+    },
+    {
+        "path":  "render.py",
+        "bytes":  5933,
+        "sha256":  "49a385d85fbdd66641d705ff76660a2c7a82cd67e76675b9c4a6e908063cb359"
+    },
+    {
+        "path":  "vista.py",
+        "bytes":  5379,
+        "sha256":  "313d18437ee7e3867f01af046f0d8f19480e0b56d1ce7d49c4c6d9271517e478"
+    },
+    {
+        "path":  "WorldFirst.uproject",
+        "bytes":  370,
+        "sha256":  "6411269e9c502a55cc64a407c67b5a924d294747656ca446c701dc6cc32edc79"
+    },
+    {
+        "path":  "Config/DefaultEngine.ini",
+        "bytes":  1469,
+        "sha256":  "e7a8115ec67f84e5f4235633cccb4379fee4a067d49bb04896281cd953282849"
+    },
+    {
+        "path":  "Content/WorldFirst/BP_MeshBatch.uasset",
+        "bytes":  27882,
+        "sha256":  "bd3d3e6887fe482d0504738ae07538cb48a05c3778cdabf0676e8c8b2e4cb2f4"
+    },
+    {
+        "path":  "Content/WorldFirst/LS_Descent60.uasset",
+        "bytes":  592942,
+        "sha256":  "432097ac56c29c16c5bb7241c85a97a963d1f6a57080abed2164e796432620dc"
+    },
+    {
+        "path":  "Content/WorldFirst/L_NightDescent.umap",
+        "bytes":  8485,
+        "sha256":  "fd9777d077f59c0161fe50df3c35f062cb390f2d8afdff703c3b610994910f5a"
+    },
+    {
+        "path":  "Content/WorldFirst/L_NightDescent_v2.umap",
+        "bytes":  8503,
+        "sha256":  "230b94c31cd51f7a580b9b082c570c9a97f3978bde2ae16975ac630d163b3486"
+    },
+    {
+        "path":  "Content/WorldFirst/L_NightDescent_v3.umap",
+        "bytes":  8503,
+        "sha256":  "2fee58fdfb6a9cee760c50a7f1cf9304f6c0b1b56b4f7ef355a5c894590858d6"
+    },
+    {
+        "path":  "Content/WorldFirst/L_NightDescent_v4.umap",
+        "bytes":  909271,
+        "sha256":  "3d2f9e5393c2740c0302adbcb497f24d37cdca13f975b1081eb1b6c861d97cd5"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Asphalt.uasset",
+        "bytes":  12982,
+        "sha256":  "22eb2273cfee97fc48e1691533c4642ece2d0bc29142067b1662851fa324e87a"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Center.uasset",
+        "bytes":  10209,
+        "sha256":  "da1f5314319582d2e4d63cfd0050f8bbee002573bfe75976e2c0b0dba6114955"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Concrete.uasset",
+        "bytes":  9725,
+        "sha256":  "83fdbcec440d3a1035fe89bb9378e4d903001a5ad7b3d4dc9f57bddab9132d3d"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_DarkMetal.uasset",
+        "bytes":  8839,
+        "sha256":  "a83f3437240c8dd200f1019fd9825ca2aab07d50c069899d3e1dce6ecedb51c1"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Facade.uasset",
+        "bytes":  8984,
+        "sha256":  "8ec38f102e151ecd7f4f07b3fe1ec6f4e3d889eacf2ffbe03cdb399b953a3866"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Ground.uasset",
+        "bytes":  8782,
+        "sha256":  "b917ae498bae42d5af22a165a43174b69bbed7a7569ae3f8e67136ffd59d503e"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Marking.uasset",
+        "bytes":  10034,
+        "sha256":  "e52e71543c0ec46e0cfac2087bfb0de06bfae7acd50a3b0dd805e99ffd089469"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Sky.uasset",
+        "bytes":  8389,
+        "sha256":  "db74d369f4d734950f2e9230a3d72c3dc61bfe77bb50d0451015c8a212d368ad"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_WarmFixture.uasset",
+        "bytes":  10012,
+        "sha256":  "4235ef6e2844b85fe8661da15e75fab0a52b6c92b798a9a2364e0f491664ca36"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Water.uasset",
+        "bytes":  9711,
+        "sha256":  "897b6ce67be79a99d1eb2efb6ca6578ac8e3ccec534f2a05c4ad59218cc06922"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_00.uasset",
+        "bytes":  15176,
+        "sha256":  "e776799343eb0e739dc5ce4ac339a2a76a187291a09f737c9cf179123de5e8c9"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_01.uasset",
+        "bytes":  16557,
+        "sha256":  "fc097726284aa514d345daf79627bdf67ce6eda6b7fb393e2f607817d8e78ebb"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_02.uasset",
+        "bytes":  16298,
+        "sha256":  "821af168b099869dfddc5ec94da88f802802f7aec6dc4d0394b8961c484469e7"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_03.uasset",
+        "bytes":  17584,
+        "sha256":  "922e14cdfafaba1a9411eccf5b9d266ff4af4686a64ce43be881f2223a25669b"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_04.uasset",
+        "bytes":  16778,
+        "sha256":  "f98b5464a3ca2dd62da0167e6366146def58b9a6bc88049812dc42dd8fed1241"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_05.uasset",
+        "bytes":  17475,
+        "sha256":  "c403d7d4d5eb219a1dcc7cf2d34e2783bfd915dce27f82ecba0d230391d6bce2"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_06.uasset",
+        "bytes":  17809,
+        "sha256":  "9e47403f07be69b97a99c8a68d375cff53fbb27b67410cb4a36bcac64f09b251"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_07.uasset",
+        "bytes":  18530,
+        "sha256":  "4d052ba89987d0e0d37c0eefe9d93ac1b6e0e2fc7d7f55354fa81caa5d499444"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_08.uasset",
+        "bytes":  16361,
+        "sha256":  "548ea4c2e7ee6f4574d4ac3f07f46f47d7257b9d35bdab5bc62f465b4978a2a5"
+    },
+    {
+        "path":  "Content/WorldFirst/Materials/M_Windows_09.uasset",
+        "bytes":  18159,
+        "sha256":  "223437593cd61678810bd33bc8351dbb3c75d5a1014ded61869d475acf128d56"
+    },
+    {
+        "path":  "Content/WorldFirst/Textures/T_Asphalt_color.uasset",
+        "bytes":  1350075,
+        "sha256":  "344dd337b3a7e72c9e00ce2612dc65bb2380356f5db21d6874209fc0985afd64"
+    },
+    {
+        "path":  "Content/WorldFirst/Textures/T_Asphalt_normal.uasset",
+        "bytes":  445044,
+        "sha256":  "7aa857a27ac4574a74b2b5d4956c7c267ed36845573d787a104986e63adfa312"
+    },
+    {
+        "path":  "Content/WorldFirst/Textures/T_Asphalt_roughness.uasset",
+        "bytes":  143734,
+        "sha256":  "80b18bf2645326710b1a528c3885c69656075fbba457e0d74f12805002417780"
+    },
+    {
+        "path":  "textures/color.png",
+        "bytes":  1377001,
+        "sha256":  "f5cc3586ba13c76bfcc7da586715d7413290090b31fd54d275f65b1a4e0e8b52"
+    },
+    {
+        "path":  "textures/normal.png",
+        "bytes":  389605,
+        "sha256":  "267e3058cbbe6c6d0401b659faad0d0666f11802d820e12f6e5c382ee817e195"
+    },
+    {
+        "path":  "textures/roughness.png",
+        "bytes":  186151,
+        "sha256":  "e96d0e189ff1a980aa3dd37e6db42cef1ea81884a0ac8c895a04a984ceabd7fd"
+    }
+]

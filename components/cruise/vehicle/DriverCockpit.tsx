@@ -142,7 +142,7 @@ export default function DriverCockpit({ camera, vehicleId = 'coastal-coupe' }: {
     {vehicleId === 'classic-coupe' && <group name="ClassicAnalogGauges" position={[.36, .865, .48]}>
       <mesh position={[0, 0, -.037]} rotation={[0, Math.PI, 0]}><planeGeometry args={[.32, .112]} /><meshBasicMaterial map={gauges} toneMapped={false} /></mesh>
     </group>}
-    <group visible={!controls?.focusRadio}><group ref={radio} name="PhysicalDashboardRadio" position={[0, 0.79, 0.25]}>
+    {!controls?.focusRadio&&<group><group ref={radio} name="PhysicalDashboardRadio" position={[0, 0.79, 0.25]}>
       <RoundedBox args={[0.31, 0.115, 0.055]} radius={0.01} smoothness={2}><meshStandardMaterial color="#141719" metalness={0.4} roughness={0.45} /></RoundedBox>
       <mesh position={[0, 0.012, -0.03]} rotation={[0, Math.PI, 0]}><planeGeometry args={[0.20, 0.062]} /><meshBasicMaterial map={display.texture} toneMapped={false} /></mesh>
       {[-0.13, 0.13].map((x, i) => <group key={x} ref={i === 0 ? knob : volumeKnob} position={[x, 0, -0.035]}>
@@ -161,7 +161,7 @@ export default function DriverCockpit({ camera, vehicleId = 'coastal-coupe' }: {
         <button onClick={() => controls.request('volume', () => controls.audio.setMuted(!controls.audio.muted))}>{controls.audio.muted ? 'Unmute' : 'Mute'}</button><small>{controls.audio.trackTitle}</small>
       </div></Html>}
     </group>
-    </group>{controls?.focusRadio && <PhysicalRadio position={[0,.79,.25]} rotation={[0,Math.PI,0]} night={controls.lights}/>}
+    </group>}{controls?.focusRadio && <PhysicalRadio position={[0,.79,.25]} rotation={[0,Math.PI,0]} night={controls.lights}/>}
     <mesh name="LightControlHit" position={[0.57, 0.82, 0.24]} rotation-z={controls?.lights ? -0.35 : 0} onClick={e => { e.stopPropagation(); controls?.toggleLights() }}><boxGeometry args={[0.06, 0.06, 0.08]} /><meshStandardMaterial color={controls?.lights ? '#b8aa68' : '#343633'} /></mesh>
   </group>
 }

@@ -1,0 +1,332 @@
+{
+  "id": "local-landscape-night-perf",
+  "url": "http://127.0.0.1:3041/cruise/miami-test",
+  "viewport": {
+    "width": 844,
+    "height": 390
+  },
+  "windowDpr": 3,
+  "requestedStation": "jolt",
+  "errors": [],
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    }
+  ],
+  "http": 200,
+  "quality": "mobile",
+  "loadToReadyMs": 6249,
+  "chase": {
+    "state": {
+      "source": "live",
+      "energy": 0.193,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "jolt-radio",
+      "error": null,
+      "track": "Jolt Radio",
+      "analysis": "Analyzing current radio",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "night",
+      "quality": "mobile",
+      "distance": 105.1,
+      "running": true,
+      "paused": false
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390
+      }
+    ],
+    "heapMB": 70.28286933898926,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Garage and options",
+        "rect": {
+          "x": 748.171875,
+          "y": 12,
+          "width": 77.828125,
+          "height": 42.09375,
+          "top": 12,
+          "right": 826,
+          "bottom": 54.09375,
+          "left": 748.171875
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 25,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 69,
+          "bottom": 377,
+          "left": 25
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 75,
+          "y": 333,
+          "width": 393,
+          "height": 44,
+          "top": 333,
+          "right": 468,
+          "bottom": 377,
+          "left": 75
+        }
+      },
+      {
+        "name": "Next station",
+        "rect": {
+          "x": 474,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 518,
+          "bottom": 377,
+          "left": 474
+        }
+      },
+      {
+        "name": "Camera: Chase",
+        "rect": {
+          "x": 625,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 669,
+          "bottom": 377,
+          "left": 625
+        }
+      },
+      {
+        "name": "Time of day: night",
+        "rect": {
+          "x": 675,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 719,
+          "bottom": 377,
+          "left": 675
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 725,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 769,
+          "bottom": 377,
+          "left": 725
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 775,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 819,
+          "bottom": 377,
+          "left": 775
+        }
+      }
+    ],
+    "sampledCameras": {
+      "chase": 1802
+    },
+    "seconds": 30.034,
+    "frames": 1801,
+    "meanFps": 60.02032892873211,
+    "p95FrameMs": 16.799999999999272,
+    "p5Fps": 60.01574183392356,
+    "maxFrameMs": 17.299999999999272,
+    "stallsOver250ms": 0
+  },
+  "driver": {
+    "state": {
+      "source": "live",
+      "energy": 0.317,
+      "playing": true,
+      "requested": true,
+      "loading": false,
+      "station": "jolt-radio",
+      "error": null,
+      "track": "Jolt Radio",
+      "analysis": "Analyzing current radio",
+      "camera": "driver",
+      "vehicle": "ocean-convertible",
+      "time": "night",
+      "quality": "mobile",
+      "distance": 105.1,
+      "running": true,
+      "paused": false
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390
+      }
+    ],
+    "heapMB": 67.59067916870117,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Garage and options",
+        "rect": {
+          "x": 748.171875,
+          "y": 12,
+          "width": 77.828125,
+          "height": 42.09375,
+          "top": 12,
+          "right": 826,
+          "bottom": 54.09375,
+          "left": 748.171875
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 25,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 69,
+          "bottom": 377,
+          "left": 25
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 75,
+          "y": 333,
+          "width": 393,
+          "height": 44,
+          "top": 333,
+          "right": 468,
+          "bottom": 377,
+          "left": 75
+        }
+      },
+      {
+        "name": "Next station",
+        "rect": {
+          "x": 474,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 518,
+          "bottom": 377,
+          "left": 474
+        }
+      },
+      {
+        "name": "Camera: Cockpit",
+        "rect": {
+          "x": 625,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 669,
+          "bottom": 377,
+          "left": 625
+        }
+      },
+      {
+        "name": "Time of day: night",
+        "rect": {
+          "x": 675,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 719,
+          "bottom": 377,
+          "left": 675
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 725,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 769,
+          "bottom": 377,
+          "left": 725
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 775,
+          "y": 333,
+          "width": 44,
+          "height": 44,
+          "top": 333,
+          "right": 819,
+          "bottom": 377,
+          "left": 775
+        }
+      }
+    ],
+    "sampledCameras": {
+      "driver": 1793
+    },
+    "seconds": 30.037,
+    "frames": 1792,
+    "meanFps": 59.72079196702027,
+    "p95FrameMs": 16.80000000000291,
+    "p5Fps": 58.05372429400751,
+    "maxFrameMs": 33.400000000001455,
+    "stallsOver250ms": 0
+  },
+  "browser": "154.0.4258.62",
+  "date": "2026-10-10T19:29:08.419Z",
+  "physicalDevice": false,
+  "recording": false
+}

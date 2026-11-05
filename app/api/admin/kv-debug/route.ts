@@ -4,7 +4,7 @@ import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-aut
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
-  if (!isStudioAuthorized(request)) {
+  if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
   }
 

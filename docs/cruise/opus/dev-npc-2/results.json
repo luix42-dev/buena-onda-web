@@ -1,0 +1,56 @@
+{
+ "label": "dev-npc-2",
+ "url": "http://127.0.0.1:3067",
+ "route": 19290,
+ "seed": "7",
+ "date": "2026-10-13T19:05:06.236Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "chase",
+     "file": "docs/cruise/opus/dev-npc-2/1280x720-chase.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":551950,\"geometries\":277,\"textures\":91}"
+    },
+    {
+     "view": "driver",
+     "file": "docs/cruise/opus/dev-npc-2/1280x720-driver.png",
+     "director": {
+      "shot": null,
+      "label": null,
+      "elapsed": 0,
+      "planned": 0,
+      "beatInterval": 0.55,
+      "beatAlive": false,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":34,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":5,\"windowLod\":\"distance\",\"renderedTriangles\":541794,\"geometries\":278,\"textures\":91}"
+    }
+   ],
+   "readyMs": 2959,
+   "playing": true
+  }
+ ]
+}

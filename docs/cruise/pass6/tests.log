@@ -1,0 +1,103 @@
+✔ abandoned checkout: expired session releases the hold and cancels the order (2.3866ms)
+✔ cleanup racing with payment: buyer pays while cleanup tries to expire → stays protected (0.4236ms)
+✔ async payment in flight keeps the hold (0.2045ms)
+✔ cleanup cannot release a newer hold taken while it was checking (0.3037ms)
+✔ manual studio holds (no checkout order) are never auto-released (0.2113ms)
+✔ unverifiable Stripe state stays protected (0.2862ms)
+✔ a locally canceled order with a completed payment never releases legacy inventory (0.219ms)
+✔ duplicate / delayed expiry handling is a no-op once the item moved on (0.8476ms)
+✔ test-mode orders cannot authorize releasing live inventory (0.2592ms)
+[payment-reconciliation] {"severity":"high","eventId":"evt_fixture_cs_test_6","sessionId":"cs_test_6","productIds":["11111111-1111-4111-8111-111111111111"],"existingOrderId":"3da05ea9-bd6f-489f-9bb9-a99c04367a3a","action":"Investigate duplicate payment and manually refund the losing payment; do not fulfill twice."}
+Stripe event for cs_test_6 completed after item was already sold — refund needed
+Stripe webhook fulfillment error: Error: shipping_persistence_failed: XX001
+    at persistShipping (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\lib\order-fulfillment.ts:46:20)
+    at async fulfillOrder (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\lib\order-fulfillment.ts:65:3)
+    at async POST (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\app\api\webhooks\stripe\route.ts:64:23)
+    at async TestContext.<anonymous> (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\tests\checkout-payment.test.ts:213:17)
+    at async Test.run (node:internal/test_runner/test:1125:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)
+Stripe webhook fulfillment error: Error: payment_order_mismatch
+    at fulfillOrder (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\lib\order-fulfillment.ts:61:11)
+    at async POST (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\app\api\webhooks\stripe\route.ts:64:23)
+    at async TestContext.<anonymous> (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\tests\checkout-payment.test.ts:222:19)
+    at async Test.run (node:internal/test_runner/test:1125:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)
+Stripe webhook fulfillment error: Error: payment_order_mismatch
+    at fulfillOrder (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\lib\order-fulfillment.ts:61:11)
+    at async POST (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\app\api\webhooks\stripe\route.ts:64:23)
+    at async TestContext.<anonymous> (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\tests\checkout-payment.test.ts:222:19)
+    at async Test.run (node:internal/test_runner/test:1125:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)
+Stripe webhook fulfillment error: Error: shipping_address_required
+    at fulfillOrder (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\lib\order-fulfillment.ts:64:31)
+    at async POST (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\app\api\webhooks\stripe\route.ts:64:23)
+    at async TestContext.<anonymous> (D:\10-VENTURES\12-buena-onda\cruise-publish-20261006\tests\checkout-payment.test.ts:222:19)
+    at async Test.run (node:internal/test_runner/test:1125:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:787:7)
+✔ hosted checkout uses canonical pricing, title, SKU, shipping, and never writes inventory (1905.1094ms)
+✔ reserved and sold pieces return structured unavailable responses without orders (18.7ms)
+✔ embedded intent creation preserves availability and uses canonical product description/SKU (9.7466ms)
+✔ signed completion persists shipping, sells once, and concurrent replays notify once (71.5954ms)
+✔ second paid session for the same item records actionable reconciliation and no fulfillment (28.0212ms)
+✔ bad signature, unpaid completion and expiry cannot mutate inventory (11.0302ms)
+✔ database rejects fulfillment without shipping and denies public execution (12.778ms)
+✔ processor session failure leaves inventory available and creates no order (8.4648ms)
+✔ shipping write failure retries before sale; replay recovers address and sends once (22.3695ms)
+✔ mismatched metadata/amount or absent shipping fail closed before inventory mutation (18.9771ms)
+✔ Elements successful intent persists actual processor shipping and replays safely (18.4244ms)
+✔ migration seeds open plots 1, 7–9 and 11–30, house plots 2–6 and 10 (1771.54ms)
+✔ TEST claim of plot 7 lands pending (not approved) and is hidden on the street (13.457ms)
+✔ duplicate Stripe session returns duplicate and changes nothing (1.9581ms)
+✔ moderation: approve, pull, restore, note — all audited; stale session guard (16.2238ms)
+✔ stale buyout race: second buyer at the old price gets stale_price + durable refund record (9.2175ms)
+✔ a pulled plot keeps its value: buyout is priced from value_cents, never the floor (3.7029ms)
+✔ house plots and unknown plots are not claimable and are flagged for refund (4.3138ms)
+✔ owner content violating DB constraints is invalid_claim (permanent) not an exception (4.6812ms)
+✔ refund resolution is audited (3.754ms)
+✔ drive-bys: deduped per client hash per plot per window; unknown plots ignored (20.0244ms)
+✔ anon and authenticated cannot execute the RPCs or read the tables (2.4676ms)
+✔ webhook: missing or invalid signature → 400, no state change (1987.5889ms)
+✔ webhook: paid cruise session applies claim as pending; replay is duplicate; only cruise tables touched (45.3416ms)
+Cruise plot session cs_test_TEST_8 not applied (amount_mismatch) — refund needed, recorded in cruise_plot_refunds_needed
+Cruise plot session cs_test_TEST_11 not applied (currency_mismatch) — refund needed, recorded in cruise_plot_refunds_needed
+✔ webhook: amount or currency mismatch → 200 + durable refund record, no ownership change (13.2111ms)
+Cruise plot session cs_test_TEST_14 not applied (stale_price) — refund needed, recorded in cruise_plot_refunds_needed
+Cruise plot session cs_test_TEST_17 not applied (not_claimable) — refund needed, recorded in cruise_plot_refunds_needed
+✔ webhook: stale buyout → 200 stale_price + refund record; house plot → not_claimable (no Stripe retry storm) (13.5559ms)
+Cruise plot fulfillment error for cs_test_TEST_29: cruise_plot_apply_claim: TypeError: fetch failed
+✔ webhook: async payment — completed-unpaid waits, async_payment_succeeded applies (7.4021ms)
+✔ webhook: expired / async_payment_failed cruise sessions are acknowledged with no state change (2.4505ms)
+✔ webhook: transient DB failure → 500 so Stripe retries (8.1682ms)
+✔ GET /api/cruise/plots: pending claim shows claimed with owner withheld, buyout price, no emails or session ids (24.3364ms)
+✔ moderation API: fails closed without STUDIO_PASSWORD, needs cookie + same origin, approve is audited and goes live (114.2676ms)
+✔ claim API: 503 when disabled; house/out-of-range refused; stale price 409 with server price; rate limited per IP (21.7983ms)
+✔ visit API: bounded payload, seed plots only, deduped per client, rate limited (53.8803ms)
+✔ pricing: open plots at floor, house plots not for sale (1.0328ms)
+✔ pricing: buyout is 1.5× value rounded up to the next whole dollar, never below floor (0.1666ms)
+✔ cleanOwner: validates and trims, rejects bad url/colour/short names (1.0656ms)
+✔ mergePlots: pending/pulled claims are claimed with owner content withheld; approved show owner; legacy rows count as approved (0.575ms)
+✔ seed/house helpers and MAX_PLOT agree with the seed (0.2843ms)
+✔ avenuePhase: preview requires authorization, open remains an explicit environment choice (0.5725ms)
+✔ rate limiter: token bucket per key, refills over time, bounded key count (0.3085ms)
+✔ clientIp: first x-forwarded-for hop, then x-real-ip, else unknown (0.894ms)
+✔ driveByClientHash: salted, daily rotating, no raw IP; null without a secret (15.2983ms)
+✔ cruise studio auth fails closed in every environment (3.5764ms)
+✔ isSameOrigin: requires matching Origin (0.3375ms)
+✔ reads shipping from the pinned API shape (1.4224ms)
+✔ reads shipping from the newer collected_information shape (0.1474ms)
+✔ missing shipping address is reported as null, not an empty address (0.1223ms)
+✔ allowed countries default to the published US delivery policy and accept config (0.2692ms)
+✔ same-origin uses actual Host despite Next localhost normalization, never forwarded host (4.4885ms)
+✔ signed session is opaque, unique, expiring and rejects raw password/tampering/rotation (11.9609ms)
+✔ missing password fails closed for signed cookies, Studio pages and both API namespaces (6.9104ms)
+✔ middleware permits valid sessions and leaves original Cruise outside guard (2.4025ms)
+[studio/auth/start] STUDIO_PASSWORD is unset
+✔ login issues signed httpOnly cookie, rejects invalid login/origin; logout clears cookie (5.8992ms)
+ℹ tests 62
+ℹ suites 0
+ℹ pass 62
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20492.6695

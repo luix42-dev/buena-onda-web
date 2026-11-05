@@ -1,0 +1,2 @@
+{"viewport":{"width":1280,"height":720},"checks":{"liveCue":true,"justPassed":true,"expiresNearSixSeconds":true,"expiredAtEnd":true,"radioPreserved":true},"expiredAfterMs":6153.0999999940395}
+{"viewport":{"width":390,"height":844},"checks":{"liveCue":true,"justPassed":true,"expiresNearSixSeconds":true,"expiredAtEnd":true,"radioPreserved":true},"expiredAfterMs":6120.5}

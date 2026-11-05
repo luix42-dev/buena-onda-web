@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-10T22:07:23.280Z",
+  "base": "https://buena-onda-1gdqlwimp-luis-manjarres-projects.vercel.app",
+  "browser": "154.0.4258.62",
+  "runs": [
+    {
+      "name": "original",
+      "path": "/cruise",
+      "errors": [],
+      "http": 200,
+      "state": {
+        "cruise": "true",
+        "launch": "true",
+        "garage": "false",
+        "ready": "true",
+        "vehicle": "island-trail",
+        "vehicleReady": "true",
+        "camera": "chase",
+        "time": "day",
+        "radioFocused": "false"
+      },
+      "canvas": 1,
+      "passed": true
+    },
+    {
+      "name": "miami",
+      "path": "/cruise/miami-test",
+      "errors": [],
+      "http": 200,
+      "failure": "page.waitForFunction: Timeout 120000ms exceeded.",
+      "passed": false
+    },
+    {
+      "name": "nightdrive",
+      "path": "/cruise/miami-test/nightdrive",
+      "errors": [],
+      "http": 200,
+      "state": {
+        "distance": 58.66199668712563,
+        "speed": 12.134709225992514,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 10.046599999994053,
+        "odometer": 59.026733774799865,
+        "targetSpeed": 17.692199852312438,
+        "acceleration": 1.25,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 0,
+        "minTrafficGap": 65.67762397001866,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 155.07276506304814,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 320.56560771703016,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.4000000059604645,
+        "maxGenerationMs": 2.5,
+        "chunksGenerated": 13,
+        "wheel": -0.0069917305395216485,
+        "camera": "la",
+        "director": true,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 15,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 147,
+          "triangles": 88372,
+          "geometries": 104,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "canvas": 1,
+      "passed": true
+    }
+  ]
+}

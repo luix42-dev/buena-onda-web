@@ -1,0 +1,76 @@
+{
+  "downloadDate": "2026-10-13",
+  "publisher": "Poly Haven",
+  "licenseURL": "https://polyhaven.com/license",
+  "sources": [
+    "https://polyhaven.com/a/white_plaster_rough_01",
+    "https://polyhaven.com/a/pavement_05"
+  ],
+  "purpose": "Offline self-hosted PBR surface maps; no runtime API calls",
+  "maps": [
+    {
+      "asset": "white_plaster_rough_01",
+      "channel": "color",
+      "path": "plaster-color.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_rough_01/white_plaster_rough_01_diff_1k.jpg",
+      "bytes": 628421,
+      "md5": "c0964b0628920619f0364f19f2d9973d",
+      "sha256": "8d3b209ec5bbcee3db7a883c6c2eee982b7c18a268e6f43766ee540c7c28ebcb",
+      "license": "CC0-1.0"
+    },
+    {
+      "asset": "white_plaster_rough_01",
+      "channel": "normal",
+      "path": "plaster-normal.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_rough_01/white_plaster_rough_01_nor_gl_1k.jpg",
+      "bytes": 384190,
+      "md5": "a45f7354cab5014e5167e63ddbf9c571",
+      "sha256": "f9d15f0adb27a3cbcffe11bea7a14d486d036b0251e01ec24c3ca0ae05aef54b",
+      "license": "CC0-1.0"
+    },
+    {
+      "asset": "white_plaster_rough_01",
+      "channel": "roughness",
+      "path": "plaster-roughness.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_rough_01/white_plaster_rough_01_rough_1k.jpg",
+      "bytes": 594450,
+      "md5": "6a4f00696f958e42ad7bf3b1d48794d5",
+      "sha256": "459ab1eec7395a4617b4e043760be51eaac87828aae8816b6bf2c6030907225a",
+      "license": "CC0-1.0"
+    },
+    {
+      "asset": "pavement_05",
+      "channel": "color",
+      "path": "pavement-color.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/pavement_05/pavement_05_diff_1k.jpg",
+      "bytes": 961331,
+      "md5": "99a9b08798a718475655eb97e5e055fe",
+      "sha256": "f0ded52f419cdba4381766db395df9a1821be6de7628fe66398d2883929efc40",
+      "license": "CC0-1.0"
+    },
+    {
+      "asset": "pavement_05",
+      "channel": "normal",
+      "path": "pavement-normal.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/pavement_05/pavement_05_nor_gl_1k.jpg",
+      "bytes": 790099,
+      "md5": "a3497c3326d06a6ed56c508cf35abc30",
+      "sha256": "a4388ec9356e43ddc8b772bf07bafb4489b3db1901bedac4c21b37fab1761091",
+      "license": "CC0-1.0"
+    },
+    {
+      "asset": "pavement_05",
+      "channel": "roughness",
+      "path": "pavement-roughness.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/pavement_05/pavement_05_rough_1k.jpg",
+      "bytes": 339256,
+      "md5": "48aafb750f0db2608ee8d9a524d09eee",
+      "sha256": "7575ec4a061094c14bf94fa22a75637858b52b00c301caec8f5143cb329acbe4",
+      "license": "CC0-1.0"
+    }
+  ],
+  "derivatives": {
+    "date": "2026-10-30",
+    "note": "WebP re-encodes of the masters above for runtime (sharp; color/roughness q80, normal q90). <name>.webp = 1024 px for Medium/High, <name>-512.webp = 512 px for the Low tier. Same CC0 sources; the .jpg files remain the masters."
+  }
+}

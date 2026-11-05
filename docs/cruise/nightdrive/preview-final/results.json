@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-10T22:14:44.671Z",
+  "base": "https://buena-onda-fgo8ea1p2-luis-manjarres-projects.vercel.app",
+  "browser": "154.0.4258.62",
+  "runs": [
+    {
+      "name": "original",
+      "path": "/cruise",
+      "errors": [],
+      "failedRequests": [],
+      "http": 200,
+      "state": {
+        "cruise": "true",
+        "launch": "true",
+        "garage": "false",
+        "ready": "true",
+        "vehicle": "island-trail",
+        "vehicleReady": "true",
+        "camera": "chase",
+        "time": "day",
+        "radioFocused": "false"
+      },
+      "canvas": 1,
+      "passed": true
+    },
+    {
+      "name": "miami",
+      "path": "/cruise/miami-test",
+      "errors": [],
+      "failedRequests": [
+        {
+          "path": "/api/cruise/plots",
+          "status": 403
+        }
+      ],
+      "http": 200,
+      "state": {
+        "source": "groove",
+        "energy": 0.42,
+        "playing": true,
+        "requested": true,
+        "loading": false,
+        "station": "buena-onda-radio",
+        "error": null,
+        "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+        "analysis": "Capture restricted; radio playback unaffected",
+        "camera": "chase",
+        "vehicle": "ocean-convertible",
+        "time": "sunset",
+        "quality": "mobile",
+        "distance": 35,
+        "running": true,
+        "paused": false
+      },
+      "canvas": 1,
+      "passed": true
+    },
+    {
+      "name": "nightdrive",
+      "path": "/cruise/miami-test/nightdrive",
+      "errors": [],
+      "failedRequests": [],
+      "http": 200,
+      "state": {
+        "distance": 58.863957512659724,
+        "speed": 12.155589915995801,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 10.06329999999704,
+        "odometer": 59.22978630504847,
+        "targetSpeed": 17.694831054041714,
+        "acceleration": 1.25,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 0,
+        "minTrafficGap": 65.67762397001866,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 155.22268965529997,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 320.799406867966,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.4000000059604645,
+        "maxGenerationMs": 2.7000000029802322,
+        "chunksGenerated": 13,
+        "wheel": -0.006999036398605248,
+        "camera": "la",
+        "director": true,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 15,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 147,
+          "triangles": 88372,
+          "geometries": 104,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "canvas": 1,
+      "passed": true
+    }
+  ]
+}

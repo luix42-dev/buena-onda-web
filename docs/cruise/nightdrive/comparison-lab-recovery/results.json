@@ -1,0 +1,935 @@
+{
+  "date": "2026-10-10T21:03:17.806Z",
+  "mode": "journey",
+  "target": "lab",
+  "browser": "154.0.4258.62",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "physicalDevice": false,
+  "quality": "mobile",
+  "sky": "night",
+  "station": "jolt-radio",
+  "recording": true,
+  "notes": [
+    "Desktop Edge on Windows, phone viewports are emulation.",
+    "No production mutations. Video does not record third-party radio audio.",
+    "Own synthesized ambience recording is separate from radio."
+  ],
+  "checks": [
+    {
+      "name": "Ambience locked before gesture",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Keyboard gate focuses Start without unlocking audio",
+      "pass": true,
+      "detail": {
+        "state": "locked",
+        "enabled": true,
+        "gain": 0.2,
+        "targetGain": 0,
+        "nodeCount": 0,
+        "error": null,
+        "synthetic": true
+      }
+    },
+    {
+      "name": "Jolt plays with live analysis",
+      "pass": true
+    },
+    {
+      "name": "No WebGL context loss",
+      "pass": true
+    },
+    {
+      "name": "Radio remained playing at every sample",
+      "pass": true
+    },
+    {
+      "name": "No backward reset",
+      "pass": true
+    },
+    {
+      "name": "Repeated chunk recycling",
+      "pass": true,
+      "detail": 59
+    },
+    {
+      "name": "Both district types visited",
+      "pass": true
+    },
+    {
+      "name": "Traffic retains bounded minimum separation",
+      "pass": true,
+      "detail": 30.92644628566376
+    }
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "state": {
+        "distance": 391.5435034995669,
+        "speed": 19.83620505536894,
+        "lateral": -1.0181053603402388,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 30.823099999993932,
+        "odometer": 392.4409726475065,
+        "targetSpeed": 19.89406145901207,
+        "acceleration": 0.052874991905271784,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "returning",
+        "overtakes": 0,
+        "minTrafficGap": 45.136023742770554,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 341.9200570905653,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 610.974167942918,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.9000000059604645,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 17,
+        "wheel": 0.3525704081696435,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "suspended",
+          "enabled": false,
+          "gain": 0.2,
+          "targetGain": 0,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 159,
+          "triangles": 77445,
+          "geometries": 124,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 59.92634192678711,
+      "p5Fps": 59.206631143036205,
+      "p95FrameMs": 16.80000000000291,
+      "maxFrameMs": 49.899999999999636,
+      "heapMB": 29.24365520477295,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 30.036
+    },
+    {
+      "state": {
+        "distance": 974.3121786555525,
+        "speed": 18.069231936685426,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 60.82909999999359,
+        "odometer": 976.3636155501622,
+        "targetSpeed": 17.90663221839668,
+        "acceleration": -0.14857279557780495,
+        "mood": "night-drive",
+        "district": "neon",
+        "districtMix": 1,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 1,
+        "minTrafficGap": 45.136023742770554,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 611.5101109665035,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 1030.3509119580192,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.7000000029802322,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 23,
+        "wheel": 0.010188985314045558,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "suspended",
+          "enabled": false,
+          "gain": 0.2,
+          "targetGain": 0,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 157,
+          "triangles": 84749,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.02052895382318,
+      "p5Fps": 60.01574183392356,
+      "p95FrameMs": 16.80000000000291,
+      "maxFrameMs": 18,
+      "heapMB": 22.889451026916504,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 60.024
+    },
+    {
+      "state": {
+        "distance": 1440.6623975901696,
+        "speed": 13.248903537143683,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 90.81889999999154,
+        "odometer": 1444.1896657980383,
+        "targetSpeed": 13.110985668616529,
+        "acceleration": -0.1259856295658171,
+        "mood": "night-drive",
+        "district": "neon",
+        "districtMix": 1,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 1,
+        "minTrafficGap": 45.136023742770554,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 1811.2788093630545,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 1448.6966689466426,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.6000000089406967,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 28,
+        "wheel": -0.0035279326062502814,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "suspended",
+          "enabled": false,
+          "gain": 0.2,
+          "targetGain": 0,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 168,
+          "triangles": 94752,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.02060707509579,
+      "p5Fps": 60.01574183392314,
+      "p95FrameMs": 16.80000000000291,
+      "maxFrameMs": 18.5,
+      "heapMB": 24.613279342651367,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 90.018
+    },
+    {
+      "state": {
+        "distance": 1809.9634347969643,
+        "speed": 12.481029460124613,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 120.82550000000109,
+        "odometer": 1814.1303461420819,
+        "targetSpeed": 12.571004430094929,
+        "acceleration": 0.08222816333809817,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 1,
+        "minTrafficGap": 45.136023742770554,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 2080.0558814810247,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 1868.1024079752283,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5999999940395355,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 31,
+        "wheel": -0.011849385193178002,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "suspended",
+          "enabled": false,
+          "gain": 0.2,
+          "targetGain": 0,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 171,
+          "triangles": 92536,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.020328928732106,
+      "p5Fps": 60.00983767830792,
+      "p95FrameMs": 16.80000000000291,
+      "maxFrameMs": 18.40000000000873,
+      "heapMB": 23.602136611938477,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 120.029
+    },
+    {
+      "state": {
+        "distance": 2241.1073044244436,
+        "speed": 16.89714501903712,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 150.81570000000372,
+        "odometer": 2247.981729682201,
+        "targetSpeed": 17.082410825823093,
+        "acceleration": 0.16932997472060124,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 1,
+        "minTrafficGap": 45.136023742770554,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 2347.845557104782,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 2285.016041665507,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5999999940395355,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 36,
+        "wheel": 0.0043573108627945455,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "suspended",
+          "enabled": false,
+          "gain": 0.2,
+          "targetGain": 0,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 171,
+          "triangles": 96400,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.020406938359066,
+      "p5Fps": 60.00983767830792,
+      "p95FrameMs": 16.800000000017462,
+      "maxFrameMs": 17.5,
+      "heapMB": 26.57099437713623,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 150.038
+    },
+    {
+      "state": {
+        "distance": 2620.7298118142917,
+        "speed": 18.198135796033107,
+        "lateral": -2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 180.8218999999925,
+        "odometer": 2628.6997939750554,
+        "targetSpeed": 19.999877066132,
+        "acceleration": 1.25,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": -2,
+        "maneuver": "passing",
+        "overtakes": 1,
+        "minTrafficGap": 30.92644628566376,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 2617.5045756239433,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 2704.2695004386323,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.9000000059604645,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 40,
+        "wheel": 0.010886939323100399,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 166,
+          "triangles": 101896,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 59.72039391465182,
+      "p5Fps": 57.075378862428,
+      "p95FrameMs": 16.800000000017462,
+      "maxFrameMs": 33.40000000002328,
+      "heapMB": 26.105684280395508,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 180.041
+    },
+    {
+      "state": {
+        "distance": 3181.4270468762184,
+        "speed": 17.203142614756004,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 210.82820000000538,
+        "odometer": 3190.937709835924,
+        "targetSpeed": 17.021882626639403,
+        "acceleration": -0.16562330761889826,
+        "mood": "night-drive",
+        "district": "neon",
+        "districtMix": 1,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 2,
+        "minTrafficGap": 30.92644628566376,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 2886.9201562484927,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 3122.9522731488546,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 46,
+        "wheel": -0.009317093091330145,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 149,
+          "triangles": 56082,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 59.720990995194306,
+      "p5Fps": 58.05372429400834,
+      "p95FrameMs": 16.800000000017462,
+      "maxFrameMs": 33.40000000002328,
+      "heapMB": 32.625149726867676,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 210.037
+    },
+    {
+      "state": {
+        "distance": 3622.6709282500938,
+        "speed": 12.642282616048647,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 240.81770000000634,
+        "odometer": 3632.9069823960704,
+        "targetSpeed": 12.539184504771278,
+        "acceleration": -0.09420418911224111,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 2,
+        "minTrafficGap": 30.92644628566376,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 4086.3485515531593,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 3542.3266621347134,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 50,
+        "wheel": -0.0003498685920966245,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 164,
+          "triangles": 73417,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.02060707509576,
+      "p5Fps": 60.00983767830792,
+      "p95FrameMs": 16.800000000017462,
+      "maxFrameMs": 18.10000000000582,
+      "heapMB": 26.326688766479492,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 240.009
+    },
+    {
+      "state": {
+        "distance": 3990.8180140238997,
+        "speed": 13.027697118724912,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 270.824599999996,
+        "odometer": 4001.8069279489623,
+        "targetSpeed": 13.154681883521931,
+        "acceleration": 0.11608325713812669,
+        "mood": "night-drive",
+        "district": "coast",
+        "districtMix": 0,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 2,
+        "minTrafficGap": 30.92644628566376,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 4354.945142484683,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 3961.3551751013983,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.5,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 54,
+        "wheel": 0.011529316598228666,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 164,
+          "triangles": 79717,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 59.85369836535418,
+      "p5Fps": 58.05943711867676,
+      "p95FrameMs": 16.79999999998836,
+      "maxFrameMs": 33.80000000001746,
+      "heapMB": 23.711935997009277,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 270.033
+    },
+    {
+      "state": {
+        "distance": 4447.912946988136,
+        "speed": 17.7941548613157,
+        "lateral": 2,
+        "steer": 0,
+        "paused": false,
+        "glance": 0,
+        "autopilot": true,
+        "seed": 1984,
+        "elapsed": 300.8312999999956,
+        "odometer": 4461.254936687868,
+        "targetSpeed": 17.964048252813644,
+        "acceleration": 0.15532242246552172,
+        "mood": "night-drive",
+        "district": "neon",
+        "districtMix": 0.9603900772388311,
+        "laneTarget": 2,
+        "maneuver": "follow",
+        "overtakes": 2,
+        "minTrafficGap": 30.92644628566376,
+        "traffic": [
+          {
+            "id": 0,
+            "distance": 4623.02762252503,
+            "lateral": 2,
+            "speed": 9
+          },
+          {
+            "id": 1,
+            "distance": 4379.704314401914,
+            "lateral": -2,
+            "speed": 14
+          }
+        ],
+        "reduced": false,
+        "generationMs": 0.699999988079071,
+        "maxGenerationMs": 4.4000000059604645,
+        "chunksGenerated": 59,
+        "wheel": -0.0024551919368373154,
+        "camera": "chase",
+        "director": false,
+        "sky": "night",
+        "playing": true,
+        "requested": true,
+        "station": "jolt-radio",
+        "audioError": null,
+        "analysis": "Analyzing current radio",
+        "source": "live",
+        "ambience": {
+          "state": "running",
+          "enabled": true,
+          "gain": 0.2,
+          "targetGain": 0.05,
+          "nodeCount": 16,
+          "error": null,
+          "synthetic": true
+        },
+        "render": {
+          "drawCalls": 164,
+          "triangles": 84889,
+          "geometries": 126,
+          "textures": 19,
+          "dpr": 0.85,
+          "buffer": [
+            1224,
+            765
+          ]
+        }
+      },
+      "fps": 60.020128904974285,
+      "p5Fps": 60.00983767830792,
+      "p95FrameMs": 16.800000000046566,
+      "maxFrameMs": 17.599999999976717,
+      "heapMB": 22.775217056274414,
+      "buffer": [
+        1224,
+        765
+      ],
+      "windowDpr": 1,
+      "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "resets": 0,
+      "contextLost": false,
+      "elapsedSeconds": 300.06
+    }
+  ],
+  "loadToReadyMs": 6064,
+  "ambienceEnabledAtSeconds": 150.243,
+  "actualDurationSeconds": 300.34,
+  "passed": true
+}

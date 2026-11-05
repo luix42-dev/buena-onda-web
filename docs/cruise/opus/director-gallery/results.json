@@ -1,0 +1,757 @@
+{
+ "label": "director-gallery",
+ "url": "http://127.0.0.1:3067",
+ "query": "",
+ "park": false,
+ "route": 17.5,
+ "seed": "7",
+ "date": "2026-10-13T19:25:03.945Z",
+ "method": "Headless Edge, --use-angle=d3d11 GPU. Portrait is viewport emulation, not a physical phone.",
+ "runs": [
+  {
+   "viewport": {
+    "width": 1280,
+    "height": 720
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "director:aerial",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-aerial.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 3.866900000005964,
+      "planned": 6.6000000000000005,
+      "beatInterval": 0.7772000000029811,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":498711,\"geometries\":139,\"textures\":56}"
+    },
+    {
+     "view": "director:sideTrack",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-sideTrack.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 1.1326000000089422,
+      "planned": 14,
+      "beatInterval": 0.4568999999910597,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": "Colony Hotel",
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":282454,\"geometries\":155,\"textures\":56}"
+    },
+    {
+     "view": "director:frontLow",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-frontLow.png",
+     "director": {
+      "shot": "frontLow",
+      "label": "Low front",
+      "elapsed": 3.7357999999970417,
+      "planned": 5.482799999892716,
+      "beatInterval": 0.46090000000596376,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":468275,\"geometries\":206,\"textures\":72}"
+    },
+    {
+     "view": "director:roofMount",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-roofMount.png",
+     "director": {
+      "shot": "roofMount",
+      "label": "Roof mount",
+      "elapsed": 0.22570000000298052,
+      "planned": 4,
+      "beatInterval": 0.46090000000596376,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":506005,\"geometries\":218,\"textures\":74}"
+    },
+    {
+     "view": "director:windshield",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-windshield.png",
+     "director": {
+      "shot": "windshield",
+      "label": "Windshield",
+      "elapsed": 3.8047000000029243,
+      "planned": 4,
+      "beatInterval": 0.6221000000089489,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":425835,\"geometries\":242,\"textures\":75}"
+    },
+    {
+     "view": "director:landmarkPass",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-landmarkPass.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 3.8558999999909993,
+      "planned": 14,
+      "beatInterval": 0.513600000008946,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": "Colony Hotel",
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":529645,\"geometries\":243,\"textures\":75}"
+    },
+    {
+     "view": "director:rearChase",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-rearChase.png",
+     "director": {
+      "shot": "rearChase",
+      "label": "Rear chase",
+      "elapsed": 3.8425999999939577,
+      "planned": 6.163200000107352,
+      "beatInterval": 0.6189000000059544,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":512995,\"geometries\":243,\"textures\":75}"
+    },
+    {
+     "view": "director:oceanSide",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-oceanSide.png",
+     "director": {
+      "shot": "oceanSide",
+      "label": "Ocean side",
+      "elapsed": 3.81870000000292,
+      "planned": 4.951200000047635,
+      "beatInterval": 0.6215999999940287,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":472783,\"geometries\":252,\"textures\":76}"
+    },
+    {
+     "view": "director:reflection",
+     "file": "docs/cruise/opus/director-gallery/1280x720-director-reflection.png",
+     "director": {
+      "shot": "reflection",
+      "label": "Reflection",
+      "elapsed": 3.82879999999707,
+      "planned": 4.97279999995223,
+      "beatInterval": 0.6275999999940325,
+      "beatAlive": true,
+      "tier": "high",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 2.72,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.61,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.63,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":464919,\"geometries\":252,\"textures\":76}"
+    }
+   ],
+   "readyMs": 2786,
+   "playing": true
+  },
+  {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ],
+   "views": [
+    {
+     "view": "director:aerial",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-aerial.png",
+     "director": {
+      "shot": "aerial",
+      "label": "Aerial",
+      "elapsed": 3.6467999999970235,
+      "planned": 6.6000000000000005,
+      "beatInterval": 0.7972000000029802,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": []
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":575705,\"geometries\":145,\"textures\":58}"
+    },
+    {
+     "view": "director:sideTrack",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-sideTrack.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 0.26640000000596054,
+      "planned": 14,
+      "beatInterval": 0.7996999999880812,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": "Colony Hotel",
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":421155,\"geometries\":156,\"textures\":58}"
+    },
+    {
+     "view": "director:frontLow",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-frontLow.png",
+     "director": {
+      "shot": "frontLow",
+      "label": "Low front",
+      "elapsed": 3.56300000000002,
+      "planned": 9.596399999856974,
+      "beatInterval": 0.6331000000089411,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":468275,\"geometries\":214,\"textures\":74}"
+    },
+    {
+     "view": "director:roofMount",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-roofMount.png",
+     "director": {
+      "shot": "roofMount",
+      "label": "Roof mount",
+      "elapsed": 0.5497000000029804,
+      "planned": 7.597200000107293,
+      "beatInterval": 0.6330999999940463,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":460951,\"geometries\":218,\"textures\":74}"
+    },
+    {
+     "view": "director:windshield",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-windshield.png",
+     "director": {
+      "shot": "windshield",
+      "label": "Windshield",
+      "elapsed": 3.6489999999999903,
+      "planned": 5.0647999999523705,
+      "beatInterval": 0.6165999999940386,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":424059,\"geometries\":242,\"textures\":75}"
+    },
+    {
+     "view": "director:landmarkPass",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-landmarkPass.png",
+     "director": {
+      "shot": "landmarkPass",
+      "label": "Landmark",
+      "elapsed": 3.6157999999970016,
+      "planned": 14,
+      "beatInterval": 0.6162999999970111,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": "Colony Hotel",
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":470133,\"geometries\":242,\"textures\":75}"
+    },
+    {
+     "view": "director:rearChase",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-rearChase.png",
+     "director": {
+      "shot": "rearChase",
+      "label": "Rear chase",
+      "elapsed": 3.5987000000029603,
+      "planned": 4.930399999976089,
+      "beatInterval": 0.5,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":512587,\"geometries\":242,\"textures\":75}"
+    },
+    {
+     "view": "director:oceanSide",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-oceanSide.png",
+     "director": {
+      "shot": "oceanSide",
+      "label": "Ocean side",
+      "elapsed": 3.615299999996992,
+      "planned": 6,
+      "beatInterval": 0.6164000000059495,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":521841,\"geometries\":251,\"textures\":76}"
+    },
+    {
+     "view": "director:reflection",
+     "file": "docs/cruise/opus/director-gallery/390x844-director-reflection.png",
+     "director": {
+      "shot": "reflection",
+      "label": "Reflection",
+      "elapsed": 3.6321000000089363,
+      "planned": 4.931200000047596,
+      "beatInterval": 0.6330999999940445,
+      "beatAlive": true,
+      "tier": "medium",
+      "landmark": null,
+      "history": [
+       {
+        "shot": "sideTrack",
+        "seconds": 3.33,
+        "reason": "landmark ahead"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.6,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       },
+       {
+        "shot": "roofMount",
+        "seconds": 0.62,
+        "reason": "safety: car out of frame"
+       }
+      ]
+     },
+     "chunks": "{\"built\":31,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":464187,\"geometries\":251,\"textures\":76}"
+    }
+   ],
+   "readyMs": 1505,
+   "playing": true
+  }
+ ]
+}

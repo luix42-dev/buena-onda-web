@@ -1,0 +1,651 @@
+{
+  "version": 1,
+  "origin": [
+    -80.135,
+    25.79
+  ],
+  "routeLength": 19642.962656759213,
+  "initialRouteMeters": 18861.5,
+  "landmarks": [
+    {
+      "kind": "colony",
+      "name": "Colony Hotel",
+      "osmBuildingId": 435587753,
+      "address": "736 Ocean Drive, Miami Beach, FL 33139",
+      "height": 16.1,
+      "heightSource": "OSM tagged height=16.1m; body/parapet subdivisions approximate",
+      "bodyHeight": 10.8,
+      "levels": 3,
+      "palette": {
+        "stucco": "#ece9db",
+        "trim": "#e5ece8",
+        "accent": "#87b7d5",
+        "neon": "#6cb9ff"
+      },
+      "silhouette": [
+        "symmetrical three-story body",
+        "rounded continuous eyebrow overhangs",
+        "stepped ziggurat parapet",
+        "raised central vertical fin"
+      ],
+      "sign": {
+        "text": "COLONY / HOTEL",
+        "layout": "COLONY stacked vertically on central fin; HOTEL across horizontal lower crosspiece, inverted-T arrangement",
+        "color": "blue-white neon"
+      },
+      "details": [
+        "horizontal rib bands flanking fin",
+        "roofline geometric wave decoration",
+        "large framed windows above street-level entrance"
+      ],
+      "sources": [
+        "https://www.colonymiami.com/the-hotel.html",
+        "https://mdpl.org/building/colony-hotel/",
+        "https://www.loc.gov/item/fl0279/"
+      ],
+      "referenceImages": [
+        "https://cdn2.paraty.es/colony-hotel/images/efdfaebb638b551"
+      ],
+      "streetFacing": {
+        "edge": [
+          [
+            361.19,
+            1392.69
+          ],
+          [
+            358.86,
+            1404.4
+          ]
+        ],
+        "normal": [
+          0.980773480720708,
+          0.19514963365322177
+        ],
+        "yaw": 1.3743863119610167,
+        "width": 11.939556105651533,
+        "convention": "edge north→south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          361.19,
+          1392.69
+        ],
+        [
+          358.86,
+          1404.4
+        ]
+      ],
+      "id": 435587753,
+      "footprint": [
+        [
+          361.19,
+          1392.69
+        ],
+        [
+          358.86,
+          1404.4
+        ],
+        [
+          321.77,
+          1397.05
+        ],
+        [
+          324.09,
+          1385.34
+        ],
+        [
+          361.19,
+          1392.69
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/435587753",
+      "position": {
+        "x": 360.025,
+        "z": 1398.545,
+        "lat": 25.77743671397772,
+        "lon": -80.13140808110435
+      },
+      "encounter": {
+        "routeMeters": 67.5,
+        "streetName": "Ocean Drive",
+        "yaw": 2.9466609879524714,
+        "distanceFromFacadeMeters": 11.728642535089222,
+        "recommendedApproachMeters": 17.5
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true
+    },
+    {
+      "kind": "breakwater",
+      "name": "Hotel Breakwater South Beach",
+      "osmBuildingId": 380875541,
+      "address": "940 Ocean Drive, Miami Beach, FL 33139",
+      "height": 17.5,
+      "heightSource": "Estimated overall tower height; no tagged OSM height",
+      "bodyHeight": 10.5,
+      "levels": 3,
+      "palette": {
+        "stucco": "#efece0",
+        "trim": "#4279a9",
+        "accent": "#ead585",
+        "neon": "#75c9ef"
+      },
+      "silhouette": [
+        "three-story U-shaped body",
+        "symmetrical horizontal wings",
+        "imposing central vertical sign tower rising above roof",
+        "stepped roof/cornice counterbalance"
+      ],
+      "sign": {
+        "text": "BREAKWATER",
+        "layout": "stacked vertical lettering on tall central narrow blue sign blade",
+        "color": "blue-white neon"
+      },
+      "details": [
+        "white/yellow/blue nautical facade",
+        "full-span open front porch",
+        "fluted stucco posts and low masonry balustrade",
+        "strip window bands and roof railing"
+      ],
+      "sources": [
+        "https://www.breakwatersouthbeach.com/",
+        "https://mdpl.org/building/breakwater-hotel/",
+        "https://www.miamiandbeaches.com/hotels/art-deco-architecture-boutique-hotels"
+      ],
+      "referenceImages": [
+        "https://www.miamiandbeaches.com/getmedia/79506f97-c246-4740-85bc-d4df546ac6fc/Hotel-Breakwater-South-Beach1-1440x9000.jpg?width=760"
+      ],
+      "streetFacing": {
+        "edge": [
+          [
+            417.08,
+            1107.69
+          ],
+          [
+            411.78,
+            1133.05
+          ]
+        ],
+        "normal": [
+          0.9788517788169272,
+          0.20457075819123602
+        ],
+        "yaw": 1.3647711552782134,
+        "width": 25.907906129210737,
+        "convention": "edge north→south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          417.08,
+          1107.69
+        ],
+        [
+          411.78,
+          1133.05
+        ]
+      ],
+      "id": 380875541,
+      "footprint": [
+        [
+          374.26,
+          1127.06
+        ],
+        [
+          379.91,
+          1099.95
+        ],
+        [
+          417.08,
+          1107.69
+        ],
+        [
+          411.78,
+          1133.05
+        ],
+        [
+          397.41,
+          1130.05
+        ],
+        [
+          399.3,
+          1120.95
+        ],
+        [
+          388.85,
+          1118.78
+        ],
+        [
+          386.59,
+          1129.63
+        ],
+        [
+          374.26,
+          1127.06
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/380875541",
+      "position": {
+        "x": 414.42999999999995,
+        "z": 1120.37,
+        "lat": 25.77993559108875,
+        "lon": -80.13086529005507
+      },
+      "encounter": {
+        "routeMeters": 19427,
+        "streetName": "Ocean Drive",
+        "yaw": 2.9492870985031803,
+        "distanceFromFacadeMeters": 12.015185489870506,
+        "recommendedApproachMeters": 19377
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true
+    },
+    {
+      "kind": "clevelander",
+      "name": "Clevelander South Beach",
+      "osmBuildingId": 688392280,
+      "address": "1020 Ocean Drive, Miami Beach, FL 33139",
+      "height": 16.5,
+      "heightSource": "Approximate five-story visual envelope from official gallery; no tagged OSM height",
+      "bodyHeight": 16.5,
+      "levels": 5,
+      "palette": {
+        "stucco": "#eee8dc",
+        "trim": "#f2f2e9",
+        "accent": "#7ececc",
+        "neon": "#ff56c4"
+      },
+      "silhouette": [
+        "recessed long hotel wing with repetitive window rows",
+        "north projecting corner wing matching L-shaped OSM footprint",
+        "low broad pool-patio canopy with slender angled columns",
+        "roof railing"
+      ],
+      "sign": {
+        "text": "CLEVELANDER",
+        "layout": "oversized open curved neon C above pool canopy followed by separate widely spaced LEVELANDER letters",
+        "color": "magenta/red neon with blue and warm patio illumination"
+      },
+      "details": [
+        "pool patio stays open rather than filled with a hotel block",
+        "low white canopy edge and bar rail",
+        "large C arc is a geometric recognition feature",
+        "horizontal window eyebrows; precise facade proportions approximate"
+      ],
+      "sources": [
+        "https://www.clevelander.com/contact-us.htm",
+        "https://www.clevelander.com/gallery.htm",
+        "https://www.clevelander.com/our-property.htm",
+        "https://mdpl.org/archives/2024/04/from-the-archives-the-kay-family-and-the-clevelander-hotel/"
+      ],
+      "referenceImages": [
+        "https://www.clevelander.com/files/7133/25125856_ImageLargeWidth.jpg"
+      ],
+      "patioNote": "The OSM L footprint is the hotel body, not the full open patio parcel. Long recessed east wing is footprint points4→5; giant C/canopy should be placed in open south/east patio, without extruding its whole lot.",
+      "streetFacing": {
+        "edge": [
+          [
+            436.26,
+            1016.77
+          ],
+          [
+            432.7,
+            1029.55
+          ]
+        ],
+        "normal": [
+          0.9633232725138191,
+          0.2683435719991554
+        ],
+        "yaw": 1.2991232015680332,
+        "width": 13.26657453904358,
+        "convention": "edge north→south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          436.26,
+          1016.77
+        ],
+        [
+          432.7,
+          1029.55
+        ]
+      ],
+      "id": 688392280,
+      "footprint": [
+        [
+          388.99,
+          1051.43
+        ],
+        [
+          397.16,
+          1009.02
+        ],
+        [
+          436.26,
+          1016.77
+        ],
+        [
+          432.7,
+          1029.55
+        ],
+        [
+          403.81,
+          1025.13
+        ],
+        [
+          399.95,
+          1054.66
+        ],
+        [
+          388.99,
+          1051.43
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/688392280",
+      "position": {
+        "x": 434.48,
+        "z": 1023.16,
+        "lat": 25.78080883938196,
+        "lon": -80.13066525401908
+      },
+      "encounter": {
+        "routeMeters": 19328,
+        "streetName": "Ocean Drive",
+        "yaw": 2.9461896611805787,
+        "distanceFromFacadeMeters": 11.065706269545823,
+        "recommendedApproachMeters": 19278
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true
+    },
+    {
+      "kind": "carlyle",
+      "name": "The Carlyle",
+      "osmBuildingId": 380861944,
+      "address": "1250 Ocean Drive, Miami Beach, FL 33139",
+      "height": 12.5,
+      "heightSource": "Estimated three-story body and central parapet; no tagged OSM height",
+      "bodyHeight": 10.8,
+      "levels": 3,
+      "palette": {
+        "stucco": "#e9eee7",
+        "trim": "#9bc8bc",
+        "accent": "#acd6cd",
+        "neon": "#ebadbd"
+      },
+      "silhouette": [
+        "three prominent vertical columns/raised fluting",
+        "Streamline Moderne rounded corner return",
+        "stepped parapet roofline",
+        "horizontal bands and window eyebrows"
+      ],
+      "sign": {
+        "text": "The CARLYLE",
+        "layout": "script lettering over the entrance in pink-red neon (per Commons refs)",
+        "color": "#ff5a7a"
+      },
+      "details": [
+        "white and sea-foam green appearance",
+        "rounded southern front return preserved by exact OSM footprint",
+        "vertical rhythm must distinguish hotel from generic Deco boxes"
+      ],
+      "sources": [
+        "https://www.miamiandbeaches.com/l/hotels/carlyle-hotel/62078",
+        "https://mdpl.org/design-style/art-deco-design-style/",
+        "https://www.miamiandbeaches.com/getmedia/318ce6ab-61c1-46e6-8c73-bfb3289d133c/October-Book-FINAL.aspx%3Fext%3D.pdf"
+      ],
+      "referenceImages": [],
+      "streetFacing": {
+        "edge": [
+          [
+            494.96,
+            682.3
+          ],
+          [
+            492.25,
+            703.19
+          ]
+        ],
+        "normal": [
+          0.9916901737905006,
+          0.12864913216717203
+        ],
+        "yaw": 1.4417896552655123,
+        "width": 21.065046878656695,
+        "convention": "edge north→south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          494.96,
+          682.3
+        ],
+        [
+          492.25,
+          703.19
+        ]
+      ],
+      "id": 380861944,
+      "footprint": [
+        [
+          455.26,
+          676.57
+        ],
+        [
+          494.96,
+          682.3
+        ],
+        [
+          492.25,
+          703.19
+        ],
+        [
+          489.64,
+          703.79
+        ],
+        [
+          486.03,
+          704.14
+        ],
+        [
+          482.43,
+          704.24
+        ],
+        [
+          479.18,
+          703.24
+        ],
+        [
+          476,
+          701.44
+        ],
+        [
+          476.33,
+          698.92
+        ],
+        [
+          468.81,
+          697.83
+        ],
+        [
+          467.55,
+          706.57
+        ],
+        [
+          451.26,
+          704.22
+        ],
+        [
+          455.26,
+          676.57
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/380861944",
+      "position": {
+        "x": 493.605,
+        "z": 692.745,
+        "lat": 25.783776994250807,
+        "lon": -80.13007537219225
+      },
+      "encounter": {
+        "routeMeters": 18991.5,
+        "streetName": "Ocean Drive",
+        "yaw": 3.003552133791536,
+        "distanceFromFacadeMeters": 10.174276259492894,
+        "recommendedApproachMeters": 18941.5
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true
+    },
+    {
+      "kind": "leslie",
+      "name": "The Leslie",
+      "osmBuildingId": 380861927,
+      "address": "1244 Ocean Drive, Miami Beach, FL 33139",
+      "height": 12.5,
+      "heightSource": "OSM tagged ~9.9 m roof; body raised to a three-story envelope, central fin/parapet estimated",
+      "bodyHeight": 10.4,
+      "levels": 3,
+      "palette": {
+        "stucco": "#efe8d4",
+        "trim": "#f6f1e2",
+        "accent": "#f0c93a",
+        "neon": "#f4f1e6"
+      },
+      "silhouette": [
+        "ground floor plus two upper floors",
+        "bright yellow eyebrows and fluted vertical fins on cream walls",
+        "stepped central pylon with a pale yellow panel and a flagpole",
+        "low yellow terrace railing on a dark base"
+      ],
+      "sign": {
+        "text": "LESLIE",
+        "layout": "small horizontal grey letters above the entrance, lit white at night; a vertical sign existed historically (1950 postcard) but not today",
+        "color": "white"
+      },
+      "details": [
+        "lemon-yellow stucco with white trim is the hotel's best-known public appearance",
+        "sits directly south of The Carlyle; both share the block with the Cardozo"
+      ],
+      "sources": [
+        "https://www.openstreetmap.org/way/380861927",
+        "https://mdpl.org/design-style/art-deco-design-style/",
+        "docs/cruise/refs/ocean-drive/REFERENCES.md"
+      ],
+      "referenceImages": [],
+      "streetFacing": {
+        "edge": [
+          [
+            490.19,
+            711.57
+          ],
+          [
+            487.97,
+            726.95
+          ]
+        ],
+        "normal": [
+          0.9897425159331696,
+          0.1428627038603126
+        ],
+        "yaw": 1.4274431392555682,
+        "width": 15.539395097622036,
+        "convention": "edge north->south, normal faces street/ocean; factory local +Z faces normal"
+      },
+      "facade": [
+        [
+          490.19,
+          711.57
+        ],
+        [
+          487.97,
+          726.95
+        ]
+      ],
+      "id": 380861927,
+      "footprint": [
+        [
+          451.05,
+          707.45
+        ],
+        [
+          480.92,
+          711.77
+        ],
+        [
+          481.13,
+          710.25
+        ],
+        [
+          490.19,
+          711.57
+        ],
+        [
+          487.97,
+          726.95
+        ],
+        [
+          475.83,
+          725.19
+        ],
+        [
+          476.02,
+          723.85
+        ],
+        [
+          457.89,
+          721.22
+        ],
+        [
+          457.76,
+          722.11
+        ],
+        [
+          449.12,
+          720.85
+        ],
+        [
+          451.05,
+          707.45
+        ]
+      ],
+      "osmUrl": "https://www.openstreetmap.org/way/380861927",
+      "position": {
+        "x": 489.08000000000004,
+        "z": 719.26,
+        "lat": 25.78353880704276,
+        "lon": -80.13012051748217
+      },
+      "encounter": {
+        "routeMeters": 19018.3,
+        "streetName": "Ocean Drive",
+        "yaw": 3.003552133791543,
+        "distanceFromFacadeMeters": 11.007425803652685,
+        "recommendedApproachMeters": 18968.3
+      },
+      "dimensionsApproximate": true,
+      "paletteApproximate": true,
+      "addedBy": "Opus 5.5, 2026-10-13"
+    }
+  ],
+  "optionalDeferred": [
+    {
+      "name": "The Villa Casa Casuarina / Versace Mansion",
+      "address": "1116 Ocean Drive",
+      "osmBuildingIds": [
+        380875533,
+        380875537
+      ],
+      "status": "Reliable compound footprints found; renderer deferred. Mediterranean Revival, not Art Deco.",
+      "sources": [
+        "https://vmmiamibeach.com/"
+      ]
+    }
+  ],
+  "provenance": {
+    "geometry": "© OpenStreetMap contributors, ODbL1.0",
+    "geometryUrl": "https://www.openstreetmap.org/copyright",
+    "architecture": "Original procedural approximations informed by linked hotel/preservation/official visitor sources; reference photographs are not shipped as rendering assets.",
+    "limits": "Not photogrammetry, surveyed elevations, measured facade plans, or exact current repaint/sign-lighting reproduction. Footprints and placement are real OSM; decorative dimensions and hex colors are approximate."
+  }
+}

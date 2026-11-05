@@ -1,0 +1,324 @@
+{
+  "at": "2026-10-15T16:00:49.362Z",
+  "browser": "155.0.4283.45",
+  "url": "http://127.0.0.1:3076/cruise/experience",
+  "environment": "Windows headless Edge; viewport/touch/reduced-motion emulation only, no physical device or FPS benchmark",
+  "profiles": [
+    {
+      "name": "portrait",
+      "width": 390,
+      "height": 844,
+      "manualCamera": true,
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": true,
+        "noPageErrors": true
+      },
+      "controls": [
+        {
+          "name": "start",
+          "box": {
+            "x": 27.296875,
+            "y": 518.25,
+            "width": 205,
+            "height": 62
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "power",
+          "box": {
+            "x": 22.6875,
+            "y": 725,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "volume",
+          "box": {
+            "x": 63.390625,
+            "y": 785,
+            "width": 75,
+            "height": 28
+          },
+          "centerHit": true,
+          "recommended44px": false
+        },
+        {
+          "name": "mute",
+          "box": {
+            "x": 213.265625,
+            "y": 777,
+            "width": 44.4375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "tune",
+          "box": {
+            "x": 265.703125,
+            "y": 777,
+            "width": 101.609375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "camera",
+          "box": {
+            "x": 162.1875,
+            "y": 18,
+            "width": 82.59375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "options",
+          "box": {
+            "x": 250.78125,
+            "y": 18,
+            "width": 119.71875,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "notes": [],
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 3.916193459962635,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.35579701513051987,
+          "drawCalls": 3,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.784920146776543,
+          "longitude": -80.12979407679079,
+          "street": "Ocean Drive",
+          "routeMeters": 18861.5,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 0,
+          "generationMs": 0,
+          "maxGenerationMs": 0,
+          "elapsed": 0,
+          "nightBlend": 0,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 521.7997838615732,
+            "z": 565.4892608350825,
+            "yaw": 3.0013627970024506
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "▶TURN THE DIAL / Jolt RadioNo Algorithms. Just Frequencies.Next stationSave songVolumeMuteTune & discover",
+          "powerLabel": "Start listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 0,
+            "paused": true,
+            "ready": 1
+          }
+        ]
+      },
+      "started": {
+        "drive": {
+          "speed": 13.56066371518723,
+          "rpm": 1082.513827399734,
+          "distance": 3.075711242290958,
+          "paused": false,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 54.956035171617046,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 18.2092764377594,
+          "drawCalls": 265,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.7848927885324,
+          "longitude": -80.12979836578658,
+          "street": "Ocean Drive",
+          "routeMeters": 18864.57571124231,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 33,
+          "generationMs": 12.300000004470348,
+          "maxGenerationMs": 52.899999998509884,
+          "chunkState": "{\"built\":33,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":525803,\"geometries\":184,\"textures\":64}",
+          "elapsed": 2.021899999998509,
+          "nightBlend": 0.0008424583333327119,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 521.369889490951,
+            "z": 568.5347805733493,
+            "yaw": 3.0013627970024666
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "ⅡON AIR / Jolt RadioPlanet Trip Records - ft: LaaniNext stationBookmarkVolumeMuteTune & discover",
+          "powerLabel": "Pause listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 1.941777,
+            "paused": false,
+            "ready": 4
+          }
+        ]
+      },
+      "final": {
+        "drive": {
+          "speed": 62.51485564181992,
+          "rpm": 2102.3928258712485,
+          "distance": 256.1423321591962,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 57.786191093213446,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 13.990593671798706,
+          "drawCalls": 215,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.782641703642074,
+          "longitude": -80.13015022788824,
+          "street": "Ocean Drive",
+          "routeMeters": 19117.642332159245,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 38,
+          "generationMs": 23.600000001490116,
+          "maxGenerationMs": 52.899999998509884,
+          "chunkState": "{\"built\":38,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":460211,\"geometries\":248,\"textures\":75}",
+          "elapsed": 17.29349999999256,
+          "nightBlend": 0.007205624999996899,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 486.10206835482353,
+            "z": 819.1255505643096,
+            "yaw": 2.9455427027344467
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "ⅡON AIR / Jolt RadioPlanet Trip Records - ft: LaaniNext stationBookmarkVolumeMuteTune & discover",
+          "powerLabel": "Pause listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 17.328667,
+            "paused": false,
+            "ready": 4
+          }
+        ]
+      }
+    }
+  ],
+  "delayedMap": null,
+  "passed": true
+}

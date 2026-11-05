@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "world-first-1.0.0",
+  "id": "bahia-clara-descent-001",
+  "status": "authored-contract-not-render-evidence",
+  "owner": {
+    "agent": "/root/world_art",
+    "configuredModel": "gpt-6-astra"
+  },
+  "coordinates": {
+    "units": "meters",
+    "up": "+Y",
+    "forward": "-Z",
+    "right": "+X",
+    "unrealCentimeters": "UE(X,Y,Z)=(-z*100,x*100,y*100)"
+  },
+  "timeline": {
+    "durationSeconds": 60,
+    "fps": 30,
+    "frameCount": 1800,
+    "sampleTimes": "frameIndex/30 for frameIndex 0..1799; t=60 is connector state, not a duplicate output frame",
+    "nominalSpeedMps": 12,
+    "longitudinalTravelMeters": 720,
+    "speedPhases": [
+      {
+        "startSeconds": 0,
+        "endSeconds": 10,
+        "startMps": 10,
+        "endMps": 12
+      },
+      {
+        "startSeconds": 10,
+        "endSeconds": 40,
+        "startMps": 12,
+        "endMps": 12
+      },
+      {
+        "startSeconds": 40,
+        "endSeconds": 50,
+        "startMps": 12,
+        "endMps": 14
+      },
+      {
+        "startSeconds": 50,
+        "endSeconds": 60,
+        "startMps": 14,
+        "endMps": 10
+      }
+    ],
+    "interpolation": "For each phase u=(t-start)/(end-start), speed=v0+(v1-v0)*(3u^2-2u^3). Integrated station increment=duration*(v0*u+(v1-v0)*(u^3-0.5*u^4)). Speeds parameterize station; true 3D speed=stationSpeed*sqrt(1+0.03^2)."
+  },
+  "road": {
+    "centerline": "P(s)=[0,24-0.03*s,-s]",
+    "startStationMeters": 0,
+    "endStationMeters": 720,
+    "grade": -0.03,
+    "curvaturePerMeter": 0,
+    "laneWidthMeters": 3.5,
+    "laneCount": 4,
+    "carriagewayWidthMeters": 14,
+    "driverLateralMeters": 1.75,
+    "sidewalkWidthMeters": 3,
+    "curbHeightMeters": 0.15,
+    "minimumSideFacadeOffsetMeters": 12,
+    "minimumPoleOffsetMeters": 8.8,
+    "seaLevelMeters": -3,
+    "generateAheadThroughStationMeters": 1600,
+    "generateBehindToStationMeters": -120,
+    "intersectionStationsMeters": [
+      240,
+      540
+    ],
+    "intersectionRule": "Through boulevard remains continuous and green; no abrupt grade or width change; cross streets follow local grade."
+  },
+  "camera": {
+    "id": "driver-eye-fixed-76",
+    "worldOnly": true,
+    "bakedCockpit": false,
+    "bakedHood": false,
+    "eyeHeightAboveRoadMeters": 1.62,
+    "lateralMeters": 1.75,
+    "position": "[1.75,24-0.03*s+1.62,-s]",
+    "horizontalFovDegrees": 76,
+    "verticalFovDegrees16x9": 47.44840036542012,
+    "aspect": 1.7777777777777777,
+    "masterResolution": [
+      1920,
+      1080
+    ],
+    "proofResolution": [
+      1280,
+      720
+    ],
+    "pitchWorldDegrees": -1,
+    "yawWorldDegrees": 0,
+    "rollDegrees": 0,
+    "headMotion": false,
+    "nearMeters": 0.1,
+    "farMeters": 6000,
+    "exposure": "Locked per shot; record actual engine settings in render manifest.",
+    "crop": "Preserve full source aspect. Portrait uses contain/letterbox; no stretch or implicit FOV change.",
+    "poseExport": "Render owner must export actual position/quaternion/projection or camera-to-world matrix per frame. Contract is intent; rendered metadata is authority."
+  },
+  "composition": {
+    "fictionalCity": "Bahia Clara",
+    "centralRoadClearNdcX": [
+      -0.28,
+      0.28
+    ],
+    "distantCityHorizontalCoverageTarget": 0.75,
+    "skyFractionTarget": [
+      0.25,
+      0.4
+    ],
+    "horizonNormalizedYTarget": [
+      0.38,
+      0.49
+    ],
+    "nearFacadeRule": "Keep first120m low-rise 6–15m except isolated set-back towers; avoid symmetrical high canyon.",
+    "coastSide": "+X",
+    "coastRevealStationsMeters": [
+      420,
+      640
+    ],
+    "coastRule": "Gap in right frontage reveals bay and far shore lights. Water does not erase the broad city.",
+    "sky": "Deep desaturated blue with subtle cloud value variation; no decorative star flecks."
+  },
+  "layers": [
+    {
+      "id": "foreground",
+      "rangeMeters": [
+        0,
+        120
+      ],
+      "geometry": "Real road, curb, lamp posts, alpha-mask palms, facades with setbacks and balconies.",
+      "lighting": "Local warm fixture pools and restrained road sheen.",
+      "maxVisibleDetailedPalms": 16
+    },
+    {
+      "id": "neighborhood",
+      "rangeMeters": [
+        120,
+        750
+      ],
+      "geometry": "Varied 8–32m buildings with interrupted rooflines, setback entrances, sparse signs; instance modules.",
+      "lighting": "Window atlases with spatially coherent occupied floors, differing brightness, mostly dark interiors."
+    },
+    {
+      "id": "metropolis",
+      "rangeMeters": [
+        750,
+        2400
+      ],
+      "geometry": "300–600 inexpensive silhouettes across 3km width; clusters interleaved with low gaps; 3 distinctive landmark crowns.",
+      "lighting": "Emissive window atlases or cards; no point light per window."
+    },
+    {
+      "id": "farCity",
+      "rangeMeters": [
+        2400,
+        5500
+      ],
+      "geometry": "Low-detail horizon terraces/light fields fixed in world coordinates.",
+      "lighting": "Reduced contrast and saturation through layered haze; preserve visible broad light density."
+    }
+  ],
+  "lighting": {
+    "whiteBalanceKelvin": 4300,
+    "streetFixtureKelvin": [
+      2800,
+      3400
+    ],
+    "shopInteriorKelvin": [
+      2700,
+      4200
+    ],
+    "skyFillKelvin": [
+      6500,
+      9000
+    ],
+    "roadDryRoughness": 0.72,
+    "roadDampRoughness": 0.34,
+    "dampCoverageFraction": 0.18,
+    "maxShadowCastingLocalLights": 2,
+    "maxVisibleLocalLights": 12,
+    "bloom": "Restrained highlight halo; lamp cores must not wash out facade contrast.",
+    "reflections": "Raster SSR plus captures or authored broad road reflections; label approximations. No Lumen requirement.",
+    "fog": "Height/depth haze with distant light field still visible; do not black-out everything beyond340m.",
+    "musicReaction": "None in world-light reference proof."
+  },
+  "beats": [
+    {
+      "start": 0,
+      "end": 15,
+      "label": "Ridge overlook",
+      "stationRange": [
+        0,
+        170
+      ],
+      "intent": "City already occupies broad horizon. Near palms bracket central downhill road."
+    },
+    {
+      "start": 15,
+      "end": 35,
+      "label": "Descending boulevard",
+      "stationRange": [
+        170,
+        410
+      ],
+      "intent": "Road lights and cross streets reveal multiple depth planes; isolated taller buildings sit back."
+    },
+    {
+      "start": 35,
+      "end": 50,
+      "label": "Bay opening",
+      "stationRange": [
+        410,
+        600
+      ],
+      "intent": "Right frontage opens to water; distant opposite shore remains lit; same coherent skyline."
+    },
+    {
+      "start": 50,
+      "end": 60,
+      "label": "Next neighborhood approach",
+      "stationRange": [
+        600,
+        720
+      ],
+      "intent": "Brief speed ease, landmark moves plausibly; street continues beyond cut."
+    }
+  ],
+  "segments": [
+    {
+      "id": "a",
+      "timeStart": 0,
+      "timeEnd": 30,
+      "frameStartInclusive": 0,
+      "frameEndExclusive": 900
+    },
+    {
+      "id": "b",
+      "timeStart": 30,
+      "timeEnd": 60,
+      "frameStartInclusive": 900,
+      "frameEndExclusive": 1800
+    }
+  ],
+  "startState": {
+    "timeSeconds": 0,
+    "stationMeters": 0,
+    "roadCenter": [
+      0,
+      24,
+      0
+    ],
+    "eye": [
+      1.75,
+      25.62,
+      0
+    ],
+    "stationSpeedMps": 10,
+    "grade": -0.03,
+    "curvature": 0
+  },
+  "endState": {
+    "timeSeconds": 60,
+    "stationMeters": 720,
+    "roadCenter": [
+      0,
+      2.4,
+      -720
+    ],
+    "eye": [
+      1.75,
+      4.02,
+      -720
+    ],
+    "stationSpeedMps": 10,
+    "grade": -0.03,
+    "curvature": 0
+  },
+  "continuity": {
+    "loopable": false,
+    "nextSegment": "Must begin at endState, retain district/landmark coordinates, exposure, light and traffic phases. Flatten grade smoothly over next120m (ending elevation0.6m) before coastal plateau; keep sea at-3m.",
+    "gradeTransitionFormula": "For successor0<=q<=120: grade(q)=-0.03*(1-3*(q/120)^2+2*(q/120)^3); integrate from y=2.4. Grade derivative zero at both ends.",
+    "noDuplicateBoundaryFrame": true,
+    "resetToStartProhibited": true,
+    "traffic": "Persistent object IDs and global-timeline paths; export positions/headings/visibility. No hidden spawn at clip boundary.",
+    "texturePhase": "World/station-derived UVs and emissive seeds remain stable across split.",
+    "decoderRule": "Two-slot warmed playback with shared clock. Measure actual presentation gap; do not call crossfade a continuous route."
+  },
+  "budgets": {
+    "status": "proposed-starting-limits-not-measured",
+    "hardware": "GTX1060MaxQ6GB/16GBRAM",
+    "renderer": "RasterDX11SM5 or browserWebGL2",
+    "localShadowLights": 2,
+    "nearTextureMaxEdge": 2048,
+    "farTextureMaxEdge": 1024,
+    "fullCityDownload": false,
+    "concurrentHeavyEditors": 1,
+    "qualityGate": "Four native world-only frames, then2s motion, then60s sequence. Reject box-wall skyline or missing depth before long render."
+  },
+  "evidenceFramesSeconds": [
+    0,
+    20,
+    40,
+    59
+  ]
+}

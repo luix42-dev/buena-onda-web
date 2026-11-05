@@ -1,0 +1,326 @@
+{
+  "target": {
+    "name": "originalCruise",
+    "url": "https://www.buenaondalifestyle.com/cruise"
+  },
+  "profile": {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1
+  },
+  "emulation": false,
+  "recording": "Silent Playwright page video; radio not recorded",
+  "readyMs": 10564,
+  "metrics": {
+    "at": 22960.19999999553,
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "renderer": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (Intel)",
+        "context": "webgl2"
+      }
+    ],
+    "raf": [
+      {
+        "at": 2593.9,
+        "seconds": 1.7731000000029804,
+        "callbacks": 26,
+        "longestGapMs": 1182.8000000000002
+      },
+      {
+        "at": 8192.1,
+        "seconds": 5.5982,
+        "callbacks": 29,
+        "longestGapMs": 4798.400000000001
+      },
+      {
+        "at": 10524.7,
+        "seconds": 2.3326000000000002,
+        "callbacks": 7,
+        "longestGapMs": 1716.1000000000004
+      },
+      {
+        "at": 11574.2,
+        "seconds": 1.0495,
+        "callbacks": 8,
+        "longestGapMs": 616.2999999999993
+      },
+      {
+        "at": 12590.6,
+        "seconds": 1.0163999999999995,
+        "callbacks": 29,
+        "longestGapMs": 50.099999999998545
+      },
+      {
+        "at": 13606.9,
+        "seconds": 1.0162999999999993,
+        "callbacks": 24,
+        "longestGapMs": 83.29999999999927
+      },
+      {
+        "at": 14623.2,
+        "seconds": 1.016300000000001,
+        "callbacks": 22,
+        "longestGapMs": 116.5
+      },
+      {
+        "at": 15639.5,
+        "seconds": 1.0162999999999993,
+        "callbacks": 22,
+        "longestGapMs": 66.70000000000073
+      },
+      {
+        "at": 16672.6,
+        "seconds": 1.0330999999999986,
+        "callbacks": 23,
+        "longestGapMs": 66.69999999999891
+      },
+      {
+        "at": 17705.5,
+        "seconds": 1.0329000000000015,
+        "callbacks": 23,
+        "longestGapMs": 50.10000000000218
+      },
+      {
+        "at": 21437.5,
+        "seconds": 3.732,
+        "callbacks": 14,
+        "longestGapMs": 3132.0999999999985
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 1010.1999999955297,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadstart",
+        "at": 1026.6999999955297,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadeddata",
+        "at": 1030.3999999985099,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:load",
+        "at": 2870.5,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadstart",
+        "at": 2874.2999999970198,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "call:play",
+        "at": 3177.7999999970198,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "waiting",
+        "at": 3216.89999999851,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "loadeddata",
+        "at": 8738.79999999702,
+        "time": 0
+      },
+      {
+        "id": 1,
+        "type": "playing",
+        "at": 8738.89999999851,
+        "time": 0
+      }
+    ],
+    "decoded": [],
+    "media": [
+      {
+        "id": 1,
+        "kind": "AUDIO",
+        "source": "https://pub-b9f4d90f47854c6188d025240840c14b.r2.dev/audio/1780797809660-Moonrunner-Ping-Pong-Track.mp3",
+        "time": 14.096867,
+        "duration": 344.000522,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4,
+        "visible": false,
+        "error": null,
+        "playbackQuality": null
+      }
+    ],
+    "world": null,
+    "worldFirst": null,
+    "worldSamples": [],
+    "ambience": null,
+    "noHorizontalOverflow": true,
+    "buttons": [
+      {
+        "label": "Focus radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio help",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Along the Route",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Garage",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Pause radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Radio stations",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Mute radio",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Change camera: Interior",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Switch to Day Drive",
+        "disabled": false,
+        "pressed": null
+      },
+      {
+        "label": "Fullscreen",
+        "disabled": false,
+        "pressed": null
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+        "durationMs": 133.89999999850988,
+        "transferSize": 26341,
+        "encodedBodySize": 26041,
+        "decodedBodySize": 132664
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+        "durationMs": 132,
+        "transferSize": 18437,
+        "encodedBodySize": 18137,
+        "decodedBodySize": 129108
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+        "durationMs": 155.90000000596046,
+        "transferSize": 640161,
+        "encodedBodySize": 639861,
+        "decodedBodySize": 732156
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+        "durationMs": 176.5,
+        "transferSize": 612690,
+        "encodedBodySize": 612390,
+        "decodedBodySize": 838720
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+        "durationMs": 167.79999999701977,
+        "transferSize": 898621,
+        "encodedBodySize": 898321,
+        "decodedBodySize": 901120
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+        "durationMs": 139.80000000447035,
+        "transferSize": 640161,
+        "encodedBodySize": 639861,
+        "decodedBodySize": 732156
+      },
+      {
+        "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+        "durationMs": 154.10000000149012,
+        "transferSize": 612690,
+        "encodedBodySize": 612390,
+        "decodedBodySize": 838720
+      }
+    ]
+  },
+  "pass": true,
+  "blocked": [
+    {
+      "method": "GET",
+      "url": "https://www.googletagmanager.com/gtag/js",
+      "reason": "analytics-or-avenue"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.buenaondalifestyle.com/_vercel/insights/script.js",
+      "reason": "analytics-or-avenue"
+    }
+  ],
+  "errors": [],
+  "responses": [
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-glass.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/skyline/skyline-terraced.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/palms/yughues-palm.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/ocean-hotel-low.glb",
+      "status": 200
+    },
+    {
+      "url": "https://www.buenaondalifestyle.com/cruise/environment/coastal/coastal-apartments-low.glb",
+      "status": 200
+    }
+  ]
+}

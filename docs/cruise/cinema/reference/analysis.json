@@ -1,0 +1,34 @@
+{
+  "source": "33secref.mp4",
+  "durationSeconds": 32.7,
+  "frames": 981,
+  "width": 368,
+  "height": 496,
+  "fps": 30,
+  "fileBytes": 5529846,
+  "audioStreams": 0,
+  "sha256": "A93BAEA8EEB6602E3D456FDA73C33639266D096546EE00EA2E0450041C7C4FF2",
+  "method": "First27s downsampled to5fps and32x32 grayscale; mean absolute frame difference for candidate repeat offsets6-12s. Not a motion-quality or seam test.",
+  "bestOffsets": [
+    {
+      "offsetSeconds": 9,
+      "meanAbsoluteGrayDifference": 5.310774739583334
+    },
+    {
+      "offsetSeconds": 9.2,
+      "meanAbsoluteGrayDifference": 10.82662175210674
+    },
+    {
+      "offsetSeconds": 8.8,
+      "meanAbsoluteGrayDifference": 13.337257469093407
+    },
+    {
+      "offsetSeconds": 9.4,
+      "meanAbsoluteGrayDifference": 14.054920543323863
+    },
+    {
+      "offsetSeconds": 8.6,
+      "meanAbsoluteGrayDifference": 15.009585173233695
+    }
+  ]
+}

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,11 +17,40 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "worker", ".worktrees", ".claude"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next-human-radio-dev/types/**/*.ts",
+    ".next-human-radio-build/types/**/*.ts",
+    ".next-experience-dev/types/**/*.ts",
+    ".next-experience-build/types/**/*.ts",
+    ".next-experience-final-build/types/**/*.ts",
+    ".next-cruise-os-dev/types/**/*.ts",
+    ".next-cruise-os-build/types/**/*.ts",
+    ".next-cruise-os-simple-build/types/**/*.ts",
+    ".next-cruise-os-cockpit-build/types/**/*.ts",
+    ".next-cruise-os-cockpit-final-build/types/**/*.ts",
+    ".next-cruise-os-visual-build/types/**/*.ts",
+    ".next-cruise-prototype-build/types/**/*.ts",
+    ".next-cruise-prototype-final-build/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "worker",
+    ".worktrees",
+    ".claude"
+  ]
 }

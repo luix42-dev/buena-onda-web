@@ -1,0 +1,2045 @@
+{
+  "url": "http://127.0.0.1:3066",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "method": "Targeted actual Cadillac portrait companion-cue retest at previously recorded partly visible billboard approaches. Strict world-readable/viewable and exposure flags are inspected separately. No repeated FPS benchmark.",
+  "points": [
+    313.53734324078687,
+    9128.537343240787,
+    9153.537343240787,
+    10168.537343240787,
+    10193.537343240787,
+    13313.537343240787,
+    17448.537343240787,
+    17473.537343240787
+  ],
+  "checks": {
+    "ready": true,
+    "actualCue": true,
+    "actualPartialFace": true,
+    "strictWorldNotQualified": true,
+    "radioHidesCue": true,
+    "popupPreservesRadio": true,
+    "noWorldExposure": true,
+    "noErrors": true
+  },
+  "errors": [],
+  "point": 313.53734324078687,
+  "state": {
+    "vehicle": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 24.727992087042534,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 10.22500991821289,
+      "drawCalls": 131,
+      "ready": true,
+      "vehicle": "cadillac",
+      "garage": false,
+      "timeMode": "night"
+    },
+    "ads": {
+      "placements": [
+        {
+          "id": "MB-HOUSE-001",
+          "x": 185.88000000000002,
+          "z": 2388.07,
+          "yaw": -1.5707963267948966,
+          "roadId": 11128092,
+          "lon": -80.13314550132817,
+          "lat": 25.768547700323392,
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "y": 2.15,
+          "width": 3.2,
+          "height": 1.6,
+          "format": "poster",
+          "routeMeters": 995.2276425731153,
+          "street": "Ocean Drive",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "kind": "house"
+        },
+        {
+          "id": "MB-HOUSE-002",
+          "x": 168.14000000000001,
+          "z": 2415.41,
+          "yaw": -1.5707963267948966,
+          "roadId": 117907347,
+          "lon": -80.13332249081837,
+          "lat": 25.76830210204815,
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "y": 2.15,
+          "width": 3.2,
+          "height": 1.6,
+          "format": "poster",
+          "routeMeters": 997.060202544741,
+          "street": "2nd Street",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "kind": "house"
+        },
+        {
+          "id": "MB-HOUSE-003",
+          "x": 336.6,
+          "z": 1606.86,
+          "yaw": -1.5707963267948966,
+          "roadId": 293376005,
+          "lon": -80.13164178904167,
+          "lat": 25.775565397053537,
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "y": 2.15,
+          "width": 3.2,
+          "height": 1.6,
+          "format": "poster",
+          "routeMeters": 276.3256957314238,
+          "street": "Ocean Drive",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-18937",
+          "x": 521.2188189161596,
+          "z": 641.1507601576059,
+          "yaw": -2.7789792992492592,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 18936.5,
+          "street": "Ocean Drive",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-19457",
+          "x": 430.4075110980456,
+          "z": 1153.5014040947838,
+          "yaw": -2.8310549977485455,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 19456.5,
+          "street": "Ocean Drive",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-00334",
+          "x": 324.0392676929851,
+          "z": 1664.756223907705,
+          "yaw": -3.106752824207218,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 333.53734324078687,
+          "street": "Ocean Drive",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-09174",
+          "x": 776.3430639981618,
+          "z": -1105.5957144464646,
+          "yaw": -0.8476997237514912,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 9173.537343240787,
+          "street": "Collins Avenue",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-10214",
+          "x": 1142.0641291566635,
+          "z": -2058.845062243636,
+          "yaw": -0.6436223230127992,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 10213.537343240787,
+          "street": "Collins Avenue",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-12814",
+          "x": 466.9348020488437,
+          "z": -1051.937472103632,
+          "yaw": 1.6041527051048363,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 12813.537343240787,
+          "street": "Dade Boulevard",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-13334",
+          "x": 45.47702513744577,
+          "z": -797.33735751093,
+          "yaw": 1.6258685829605173,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 13333.537343240787,
+          "street": "Dade Boulevard",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-16454",
+          "x": 193.6875778234383,
+          "z": 1133.559192662537,
+          "yaw": 0.30480005267958876,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 16453.537343240787,
+          "street": "Washington Avenue",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-16974",
+          "x": 286.4808862347163,
+          "z": 622.7841681465011,
+          "yaw": 0.36703358597963764,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 16973.537343240787,
+          "street": "Washington Avenue",
+          "headline": "STAY A LITTLE LONGER.",
+          "cta": "Stay for one song",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/radio",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        },
+        {
+          "id": "MB-ROUTE-17494",
+          "x": 471.0731509220136,
+          "z": 220.57372416696336,
+          "yaw": -0.6476557091667747,
+          "y": 3.6,
+          "width": 8,
+          "height": 3.3,
+          "format": "billboard",
+          "routeMeters": 17493.537343240787,
+          "street": "Collins Avenue",
+          "headline": "GOOD TASTE TAKES DETOURS.",
+          "cta": "Find your next obsession",
+          "campaign": {
+            "id": "buena-onda",
+            "name": "Buena Onda",
+            "analyticsId": "house_buena_onda",
+            "destination": "/themes",
+            "creatives": {
+              "billboard": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "wall": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              },
+              "poster": {
+                "eyebrow": "MIAMI",
+                "headline": "BUENA ONDA",
+                "footer": "RADIO · CULTURE · NIGHTS",
+                "background": "#17120f",
+                "foreground": "#f5eee8",
+                "accent": "#ff4fa3"
+              }
+            }
+          },
+          "kind": "house"
+        }
+      ],
+      "samples": [
+        {
+          "placement": {
+            "id": "MB-HOUSE-001",
+            "x": 185.88000000000002,
+            "z": 2388.07,
+            "yaw": -1.5707963267948966,
+            "roadId": 11128092,
+            "lon": -80.13314550132817,
+            "lat": 25.768547700323392,
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "y": 2.15,
+            "width": 3.2,
+            "height": 1.6,
+            "format": "poster",
+            "routeMeters": 995.2276425731153,
+            "street": "Ocean Drive",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 758.9221091125927,
+          "facing": -0.17801052159180897,
+          "projectedArea": 9.179190128246363e-7,
+          "pixelWidth": 0.3321331551386765,
+          "pixelHeight": 0.909702080586333,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-HOUSE-002",
+            "x": 168.14000000000001,
+            "z": 2415.41,
+            "yaw": -1.5707963267948966,
+            "roadId": 117907347,
+            "lon": -80.13332249081837,
+            "lat": 25.76830210204815,
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "y": 2.15,
+            "width": 3.2,
+            "height": 1.6,
+            "format": "poster",
+            "routeMeters": 997.060202544741,
+            "street": "2nd Street",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 789.0837767321095,
+          "facing": -0.19368807849990252,
+          "projectedArea": 9.132468929474323e-7,
+          "pixelWidth": 0.34407447966574606,
+          "pixelHeight": 0.8736606899023763,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-HOUSE-003",
+            "x": 336.6,
+            "z": 1606.86,
+            "yaw": -1.5707963267948966,
+            "roadId": 293376005,
+            "lon": -80.13164178904167,
+            "lat": 25.775565397053537,
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "y": 2.15,
+            "width": 3.2,
+            "height": 1.6,
+            "format": "poster",
+            "routeMeters": 276.3256957314238,
+            "street": "Ocean Drive",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 37.803529175347236,
+          "facing": 0.41329155901932135,
+          "projectedArea": 0.0009080840788575535,
+          "pixelWidth": 15.565588187187831,
+          "pixelHeight": 19.20293353532143,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-18937",
+            "x": 521.2188189161596,
+            "z": 641.1507601576059,
+            "yaw": -2.7789792992492592,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 18936.5,
+            "street": "Ocean Drive",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 1019.9709805828352,
+          "facing": -0.8471361303037902,
+          "projectedArea": 0.000012077792599575829,
+          "pixelWidth": 2.8520779283208886,
+          "pixelHeight": 1.3939051849178967,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-19457",
+            "x": 430.4075110980456,
+            "z": 1153.5014040947838,
+            "yaw": -2.8310549977485455,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 19456.5,
+            "street": "Ocean Drive",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 499.89899316874494,
+          "facing": -0.8621720657568616,
+          "projectedArea": 0.00005099268200958628,
+          "pixelWidth": 5.895604394714443,
+          "pixelHeight": 2.846994147932207,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-00334",
+            "x": 324.0392676929851,
+            "z": 1664.756223907705,
+            "yaw": -3.106752824207218,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 333.53734324078687,
+            "street": "Ocean Drive",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": true,
+          "viewable": false,
+          "readable": false,
+          "distance": 23.81087163828612,
+          "facing": 0.9902645179269344,
+          "projectedArea": 0.02078613622260602,
+          "pixelWidth": 94.50262917584881,
+          "pixelHeight": 72.39972748590509,
+          "occlusion": 0.5,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": false,
+          "occluders": [
+            {
+              "probe": [
+                -0.4,
+                0
+              ],
+              "mesh": "Object_5",
+              "material": "Meshescadillacbasea0041Mtl",
+              "distance": 0.9430776071592951,
+              "uv": [
+                -0.27605730420930186,
+                7.1704958412228095
+              ],
+              "transparent": false,
+              "opacity": 1,
+              "alphaTest": 0,
+              "depthWrite": true,
+              "colorWrite": true,
+              "transmission": 0,
+              "map": true,
+              "alphaMap": false
+            },
+            {
+              "probe": [
+                -0.2,
+                0
+              ],
+              "mesh": "Object_5",
+              "material": "Meshescadillacbasea0041Mtl",
+              "distance": 0.9075999506942165,
+              "uv": [
+                -0.9337078892782639,
+                7.190933429351281
+              ],
+              "transparent": false,
+              "opacity": 1,
+              "alphaTest": 0,
+              "depthWrite": true,
+              "colorWrite": true,
+              "transmission": 0,
+              "map": true,
+              "alphaMap": false
+            },
+            {
+              "probe": [
+                0,
+                0
+              ],
+              "mesh": "Object_5",
+              "material": "Meshescadillacbasea0041Mtl",
+              "distance": 0.881887567496957,
+              "uv": [
+                -0.8943509011216625,
+                7.189807159600912
+              ],
+              "transparent": false,
+              "opacity": 1,
+              "alphaTest": 0,
+              "depthWrite": true,
+              "colorWrite": true,
+              "transmission": 0,
+              "map": true,
+              "alphaMap": false
+            },
+            {
+              "probe": [
+                0.2,
+                0
+              ],
+              "mesh": "Object_5",
+              "material": "Meshescadillacbasea0041Mtl",
+              "distance": 0.8640412616990261,
+              "uv": [
+                -0.857059492637577,
+                7.188914448438372
+              ],
+              "transparent": false,
+              "opacity": 1,
+              "alphaTest": 0,
+              "depthWrite": true,
+              "colorWrite": true,
+              "transmission": 0,
+              "map": true,
+              "alphaMap": false
+            },
+            {
+              "probe": [
+                0.4,
+                0
+              ],
+              "mesh": "Object_5",
+              "material": "Meshescadillacbasea0041Mtl",
+              "distance": 0.8515837387949482,
+              "uv": [
+                -0.8210882912333864,
+                7.188109645316601
+              ],
+              "transparent": false,
+              "opacity": 1,
+              "alphaTest": 0,
+              "depthWrite": true,
+              "colorWrite": true,
+              "transmission": 0,
+              "map": true,
+              "alphaMap": false
+            }
+          ]
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-09174",
+            "x": 776.3430639981618,
+            "z": -1105.5957144464646,
+            "yaw": -0.8476997237514912,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 9173.537343240787,
+            "street": "Collins Avenue",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 2784.3552404926736,
+          "facing": 0.7754193976022895,
+          "projectedArea": 0.0000014982478314508048,
+          "pixelWidth": 0.9647573052704651,
+          "pixelHeight": 0.511178566367104,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-10214",
+            "x": 1142.0641291566635,
+            "z": -2058.845062243636,
+            "yaw": -0.6436223230127992,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 10213.537343240787,
+            "street": "Collins Avenue",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 3790.12401417921,
+          "facing": 0.9109345818393718,
+          "projectedArea": 9.33457280889322e-7,
+          "pixelWidth": 0.8221652823618468,
+          "pixelHeight": 0.3737165812874851,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-12814",
+            "x": 466.9348020488437,
+            "z": -1051.937472103632,
+            "yaw": 1.6041527051048363,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 12813.537343240787,
+            "street": "Dade Boulevard",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 2697.16040780438,
+          "facing": -0.08738689178439385,
+          "projectedArea": 2.1249316785702727e-7,
+          "pixelWidth": 0.1300599060979904,
+          "pixelHeight": 0.5377848810618189,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-13334",
+            "x": 45.47702513744577,
+            "z": -797.33735751093,
+            "yaw": 1.6258685829605173,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 13333.537343240787,
+            "street": "Dade Boulevard",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 2454.120949806408,
+          "facing": 0.057393138106665215,
+          "projectedArea": 2.3287570716134794e-7,
+          "pixelWidth": 0.12312821858820489,
+          "pixelHeight": 0.6225491495624735,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-16454",
+            "x": 193.6875778234383,
+            "z": 1133.559192662537,
+            "yaw": 0.30480005267958876,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 16453.537343240787,
+            "street": "Washington Avenue",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 523.4292619900409,
+          "facing": 0.998240160392989,
+          "projectedArea": 0,
+          "pixelWidth": 0,
+          "pixelHeight": 3.124069979816883,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": false,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-16974",
+            "x": 286.4808862347163,
+            "z": 622.7841681465011,
+            "yaw": 0.36703358597963764,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 16973.537343240787,
+            "street": "Washington Avenue",
+            "headline": "STAY A LITTLE LONGER.",
+            "cta": "Stay for one song",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/radio",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 1019.0723553901665,
+          "facing": 0.945005253278056,
+          "projectedArea": 0.000015603881397738076,
+          "pixelWidth": 3.5209614150874904,
+          "pixelHeight": 1.4587418024153038,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        },
+        {
+          "placement": {
+            "id": "MB-ROUTE-17494",
+            "x": 471.0731509220136,
+            "z": 220.57372416696336,
+            "yaw": -0.6476557091667747,
+            "y": 3.6,
+            "width": 8,
+            "height": 3.3,
+            "format": "billboard",
+            "routeMeters": 17493.537343240787,
+            "street": "Collins Avenue",
+            "headline": "GOOD TASTE TAKES DETOURS.",
+            "cta": "Find your next obsession",
+            "campaign": {
+              "id": "buena-onda",
+              "name": "Buena Onda",
+              "analyticsId": "house_buena_onda",
+              "destination": "/themes",
+              "creatives": {
+                "billboard": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "wall": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                },
+                "poster": {
+                  "eyebrow": "MIAMI",
+                  "headline": "BUENA ONDA",
+                  "footer": "RADIO · CULTURE · NIGHTS",
+                  "background": "#17120f",
+                  "foreground": "#f5eee8",
+                  "accent": "#ff4fa3"
+                }
+              }
+            },
+            "kind": "house"
+          },
+          "visible": false,
+          "viewable": false,
+          "readable": false,
+          "distance": 1428.6048669395927,
+          "facing": 0.8564731903573959,
+          "projectedArea": 0.000006458792357649897,
+          "pixelWidth": 2.1163780504571945,
+          "pixelHeight": 1.004535126408428,
+          "occlusion": 1,
+          "visibleDurationMs": 0,
+          "sampledAt": 13769.90000000596,
+          "fullyFramed": true,
+          "occluders": []
+        }
+      ],
+      "performance": {
+        "measurements": 11,
+        "averageMs": 45.54545454545455,
+        "maxMs": 84.3999999910593,
+        "lastMs": 42,
+        "lastRayCount": 10,
+        "lastBlockerCount": 75,
+        "bvhGeometries": 7,
+        "bvhBuildMs": 73.2000000178814
+      }
+    },
+    "events": [
+      {
+        "name": "cruise_start",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda",
+          "camera": "driver",
+          "cinematic": false,
+          "station_id": "jolt-radio",
+          "time_mode": "night",
+          "time_of_day": "night",
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_camera",
+        "payload": {
+          "camera": "driver"
+        }
+      },
+      {
+        "name": "cruise_cinematic",
+        "payload": {
+          "enabled": false
+        }
+      },
+      {
+        "name": "cruise_radio",
+        "payload": {
+          "playing": true,
+          "station_id": "jolt-radio"
+        }
+      },
+      {
+        "name": "cruise_time",
+        "payload": {
+          "mode": "night",
+          "time_of_day": "night"
+        }
+      },
+      {
+        "name": "cruise_weather",
+        "payload": {
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_campaign",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda"
+        }
+      },
+      {
+        "name": "cruise_session",
+        "payload": {
+          "duration_seconds": 4.7,
+          "campaign_id": "buena-onda",
+          "reason": "unmount"
+        }
+      },
+      {
+        "name": "cruise_start",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda",
+          "camera": "driver",
+          "cinematic": false,
+          "station_id": "jolt-radio",
+          "time_mode": "night",
+          "time_of_day": "night",
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_camera",
+        "payload": {
+          "camera": "driver"
+        }
+      },
+      {
+        "name": "cruise_cinematic",
+        "payload": {
+          "enabled": false
+        }
+      },
+      {
+        "name": "cruise_radio",
+        "payload": {
+          "playing": true,
+          "station_id": "jolt-radio"
+        }
+      },
+      {
+        "name": "cruise_time",
+        "payload": {
+          "mode": "night",
+          "time_of_day": "night"
+        }
+      },
+      {
+        "name": "cruise_weather",
+        "payload": {
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_campaign",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda"
+        }
+      }
+    ],
+    "audioOwner": 1
+  },
+  "placement": "MB-ROUTE-00334",
+  "sample": {
+    "placement": {
+      "id": "MB-ROUTE-00334",
+      "x": 324.0392676929851,
+      "z": 1664.756223907705,
+      "yaw": -3.106752824207218,
+      "y": 3.6,
+      "width": 8,
+      "height": 3.3,
+      "format": "billboard",
+      "routeMeters": 333.53734324078687,
+      "street": "Ocean Drive",
+      "headline": "STAY A LITTLE LONGER.",
+      "cta": "Stay for one song",
+      "campaign": {
+        "id": "buena-onda",
+        "name": "Buena Onda",
+        "analyticsId": "house_buena_onda",
+        "destination": "/radio",
+        "creatives": {
+          "billboard": {
+            "eyebrow": "MIAMI",
+            "headline": "BUENA ONDA",
+            "footer": "RADIO · CULTURE · NIGHTS",
+            "background": "#17120f",
+            "foreground": "#f5eee8",
+            "accent": "#ff4fa3"
+          },
+          "wall": {
+            "eyebrow": "MIAMI",
+            "headline": "BUENA ONDA",
+            "footer": "RADIO · CULTURE · NIGHTS",
+            "background": "#17120f",
+            "foreground": "#f5eee8",
+            "accent": "#ff4fa3"
+          },
+          "poster": {
+            "eyebrow": "MIAMI",
+            "headline": "BUENA ONDA",
+            "footer": "RADIO · CULTURE · NIGHTS",
+            "background": "#17120f",
+            "foreground": "#f5eee8",
+            "accent": "#ff4fa3"
+          }
+        }
+      },
+      "kind": "house"
+    },
+    "visible": true,
+    "viewable": false,
+    "readable": false,
+    "distance": 23.81087163828612,
+    "facing": 0.9902645179269344,
+    "projectedArea": 0.02078613622260602,
+    "pixelWidth": 94.50262917584881,
+    "pixelHeight": 72.39972748590509,
+    "occlusion": 0.5,
+    "visibleDurationMs": 0,
+    "sampledAt": 13769.90000000596,
+    "fullyFramed": false,
+    "occluders": [
+      {
+        "probe": [
+          -0.4,
+          0
+        ],
+        "mesh": "Object_5",
+        "material": "Meshescadillacbasea0041Mtl",
+        "distance": 0.9430776071592951,
+        "uv": [
+          -0.27605730420930186,
+          7.1704958412228095
+        ],
+        "transparent": false,
+        "opacity": 1,
+        "alphaTest": 0,
+        "depthWrite": true,
+        "colorWrite": true,
+        "transmission": 0,
+        "map": true,
+        "alphaMap": false
+      },
+      {
+        "probe": [
+          -0.2,
+          0
+        ],
+        "mesh": "Object_5",
+        "material": "Meshescadillacbasea0041Mtl",
+        "distance": 0.9075999506942165,
+        "uv": [
+          -0.9337078892782639,
+          7.190933429351281
+        ],
+        "transparent": false,
+        "opacity": 1,
+        "alphaTest": 0,
+        "depthWrite": true,
+        "colorWrite": true,
+        "transmission": 0,
+        "map": true,
+        "alphaMap": false
+      },
+      {
+        "probe": [
+          0,
+          0
+        ],
+        "mesh": "Object_5",
+        "material": "Meshescadillacbasea0041Mtl",
+        "distance": 0.881887567496957,
+        "uv": [
+          -0.8943509011216625,
+          7.189807159600912
+        ],
+        "transparent": false,
+        "opacity": 1,
+        "alphaTest": 0,
+        "depthWrite": true,
+        "colorWrite": true,
+        "transmission": 0,
+        "map": true,
+        "alphaMap": false
+      },
+      {
+        "probe": [
+          0.2,
+          0
+        ],
+        "mesh": "Object_5",
+        "material": "Meshescadillacbasea0041Mtl",
+        "distance": 0.8640412616990261,
+        "uv": [
+          -0.857059492637577,
+          7.188914448438372
+        ],
+        "transparent": false,
+        "opacity": 1,
+        "alphaTest": 0,
+        "depthWrite": true,
+        "colorWrite": true,
+        "transmission": 0,
+        "map": true,
+        "alphaMap": false
+      },
+      {
+        "probe": [
+          0.4,
+          0
+        ],
+        "mesh": "Object_5",
+        "material": "Meshescadillacbasea0041Mtl",
+        "distance": 0.8515837387949482,
+        "uv": [
+          -0.8210882912333864,
+          7.188109645316601
+        ],
+        "transparent": false,
+        "opacity": 1,
+        "alphaTest": 0,
+        "depthWrite": true,
+        "colorWrite": true,
+        "transmission": 0,
+        "map": true,
+        "alphaMap": false
+      }
+    ]
+  },
+  "popup": {
+    "url": "",
+    "body": "BUENA ONDA\nANALOG CULTURE HOUSE\nHOME\nABOUT\nLIVE EVENTS\nCULTURE\nCATALOG\nRADIO\nCRUISE\nCONTACT\n\nMIAMI · EST. 2014"
+  },
+  "after": {
+    "vehicle": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 59.043495374753064,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 10.250005223904736,
+      "drawCalls": 131,
+      "ready": true,
+      "vehicle": "cadillac",
+      "garage": false,
+      "timeMode": "night"
+    },
+    "events": [
+      {
+        "name": "cruise_start",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda",
+          "camera": "driver",
+          "cinematic": false,
+          "station_id": "jolt-radio",
+          "time_mode": "night",
+          "time_of_day": "night",
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_camera",
+        "payload": {
+          "camera": "driver"
+        }
+      },
+      {
+        "name": "cruise_cinematic",
+        "payload": {
+          "enabled": false
+        }
+      },
+      {
+        "name": "cruise_radio",
+        "payload": {
+          "playing": true,
+          "station_id": "jolt-radio"
+        }
+      },
+      {
+        "name": "cruise_time",
+        "payload": {
+          "mode": "night",
+          "time_of_day": "night"
+        }
+      },
+      {
+        "name": "cruise_weather",
+        "payload": {
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_campaign",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda"
+        }
+      },
+      {
+        "name": "cruise_session",
+        "payload": {
+          "duration_seconds": 4.7,
+          "campaign_id": "buena-onda",
+          "reason": "unmount"
+        }
+      },
+      {
+        "name": "cruise_start",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda",
+          "camera": "driver",
+          "cinematic": false,
+          "station_id": "jolt-radio",
+          "time_mode": "night",
+          "time_of_day": "night",
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_camera",
+        "payload": {
+          "camera": "driver"
+        }
+      },
+      {
+        "name": "cruise_cinematic",
+        "payload": {
+          "enabled": false
+        }
+      },
+      {
+        "name": "cruise_radio",
+        "payload": {
+          "playing": true,
+          "station_id": "jolt-radio"
+        }
+      },
+      {
+        "name": "cruise_time",
+        "payload": {
+          "mode": "night",
+          "time_of_day": "night"
+        }
+      },
+      {
+        "name": "cruise_weather",
+        "payload": {
+          "weather": "clear"
+        }
+      },
+      {
+        "name": "cruise_campaign",
+        "payload": {
+          "campaign_id": "buena-onda",
+          "campaign_analytics_id": "house_buena_onda"
+        }
+      },
+      {
+        "name": "cruise_ad_cta",
+        "payload": {
+          "placement_id": "MB-ROUTE-00334",
+          "format": "hud",
+          "campaign_id": "buena-onda",
+          "destination": "/radio"
+        }
+      }
+    ],
+    "audioOwner": 1
+  }
+}

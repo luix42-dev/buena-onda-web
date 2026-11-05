@@ -1,0 +1,15 @@
+{
+  "roads": 5792,
+  "buildings": 4629,
+  "land": 1078,
+  "islands": 20,
+  "landmarks": 260,
+  "chunks": 310,
+  "routeMeters": 19642.962656759213,
+  "routeNodes": 985,
+  "routeClosed": true,
+  "onewayRespected": true,
+  "accessRespected": true,
+  "taggedHeights": 2325,
+  "extentMeters": 5000
+}

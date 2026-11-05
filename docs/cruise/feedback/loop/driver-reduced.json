@@ -1,0 +1,999 @@
+{
+  "scenario": {
+    "camera": "driver",
+    "reduced": true
+  },
+  "timedOut": false,
+  "startPageMs": 52354.29999999702,
+  "durationMs": 682.7999999970198,
+  "samples": [
+    {
+      "t": 0,
+      "distance": 629.8,
+      "mode": "driver",
+      "paused": true,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        2.736756134988509,
+        1.27,
+        -629.4520352347389
+      ],
+      "quaternion": [
+        -0.09131465662394928,
+        -0.03990051481729017,
+        -0.003661753213681355,
+        0.9950156651864169
+      ],
+      "renderFrame": 1751,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 5.4000000059604645,
+      "distance": 630,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        2.7468181768388713,
+        1.27,
+        -629.6356694412284
+      ],
+      "quaternion": [
+        -0.09127152146398325,
+        -0.05027120828752927,
+        -0.004613493318204876,
+        0.9945456403133865
+      ],
+      "renderFrame": 1752,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 26.5,
+      "distance": 630,
+      "mode": "driver",
+      "paused": true,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        2.758904383431252,
+        1.27,
+        -629.6520259529541
+      ],
+      "quaternion": [
+        -0.09131469801506173,
+        -0.03988926593739741,
+        -0.003660720880582692,
+        0.995016116207184
+      ],
+      "renderFrame": 1753,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 39.599999994039536,
+      "distance": 630,
+      "mode": "driver",
+      "paused": true,
+      "playing": true,
+      "source": "live",
+      "opacity": 1,
+      "hidden": false,
+      "position": [
+        2.758904383431252,
+        1.27,
+        -629.6520259529541
+      ],
+      "quaternion": [
+        -0.09131469801506173,
+        -0.03988926593739741,
+        -0.003660720880582692,
+        0.995016116207184
+      ],
+      "renderFrame": 1754,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 56.29999999701977,
+      "distance": 0,
+      "mode": "driver",
+      "paused": true,
+      "playing": true,
+      "source": "live",
+      "opacity": 1,
+      "hidden": false,
+      "position": [
+        1.5888365401132167,
+        1.27,
+        0.3471953473967207
+      ],
+      "quaternion": [
+        -0.09131118772315952,
+        -0.040832230171341535,
+        -0.0037472586691260842,
+        0.9949778660996872
+      ],
+      "renderFrame": 1755,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 72.5,
+      "distance": 0,
+      "mode": "driver",
+      "paused": true,
+      "playing": true,
+      "source": "live",
+      "opacity": 1,
+      "hidden": false,
+      "position": [
+        1.5888365401132167,
+        1.27,
+        0.3471953473967207
+      ],
+      "quaternion": [
+        -0.09131118772315952,
+        -0.040832230171341535,
+        -0.0037472586691260842,
+        0.9949778660996872
+      ],
+      "renderFrame": 1756,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 90.09999999403954,
+      "distance": 0.1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.5901166583808364,
+        1.27,
+        0.28762258314328937
+      ],
+      "quaternion": [
+        -0.09130434059388741,
+        -0.042611458131962945,
+        -0.0039105421187885896,
+        0.9949032559424664
+      ],
+      "renderFrame": 1757,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 106.20000000298023,
+      "distance": 0.1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.592467104438043,
+        1.27,
+        0.2290706466018303
+      ],
+      "quaternion": [
+        -0.09130218517524803,
+        -0.043156340207709656,
+        -0.003960547079904487,
+        0.994879769293219
+      ],
+      "renderFrame": 1758,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 122,
+      "distance": 0.2,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.5950511691660552,
+        1.27,
+        0.170183972013921
+      ],
+      "quaternion": [
+        -0.09130007843971438,
+        -0.043682335480738146,
+        -0.0040088187598618236,
+        0.9948568131223713
+      ],
+      "renderFrame": 1759,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 139.40000000596046,
+      "distance": 0.2,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.5978458824505082,
+        1.27,
+        0.11131484011972823
+      ],
+      "quaternion": [
+        -0.09129803411283553,
+        -0.044186752070797704,
+        -0.0040551101192125155,
+        0.9948345369911954
+      ],
+      "renderFrame": 1760,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 158.09999999403954,
+      "distance": 0.3,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6008426488065204,
+        1.27,
+        0.052462764111554705
+      ],
+      "quaternion": [
+        -0.09129605256775514,
+        -0.044670231449745024,
+        -0.004099480027162722,
+        0.994812944965675
+      ],
+      "renderFrame": 1761,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 173.29999999701977,
+      "distance": 0.3,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6040129392690325,
+        1.27,
+        -0.006020471075346812
+      ],
+      "quaternion": [
+        -0.091294145317107,
+        -0.045130682353900574,
+        -0.0041417365640960095,
+        0.9947921624939171
+      ],
+      "renderFrame": 1762,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 189.59999999403954,
+      "distance": 0.4,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6073879576073373,
+        1.27,
+        -0.06483995119572977
+      ],
+      "quaternion": [
+        -0.0912922894097681,
+        -0.04557426309967695,
+        -0.004182444891515132,
+        0.9947719394876265
+      ],
+      "renderFrame": 1763,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 215.09999999403954,
+      "distance": 0.5,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6128529221377685,
+        1.27,
+        -0.15321632534737173
+      ],
+      "quaternion": [
+        -0.0912896164793455,
+        -0.046205622619532025,
+        -0.004240386067497548,
+        0.994742813740011
+      ],
+      "renderFrame": 1764,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 222.79999999701977,
+      "distance": 0.5,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6146823208710788,
+        1.27,
+        -0.1820805782028106
+      ],
+      "quaternion": [
+        -0.09128877545474944,
+        -0.04640249639379523,
+        -0.004258453583139863,
+        0.9947336494647582
+      ],
+      "renderFrame": 1765,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 238.79999999701977,
+      "distance": 0.6,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.618567375764524,
+        1.27,
+        -0.24085445481417428
+      ],
+      "quaternion": [
+        -0.09128710744364019,
+        -0.04679050192731689,
+        -0.004294061657767597,
+        0.9947154738810705
+      ],
+      "renderFrame": 1766,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 273.40000000596046,
+      "distance": 0.7,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.627041772232874,
+        1.27,
+        -0.3597679974264984
+      ],
+      "quaternion": [
+        -0.09128391252831003,
+        -0.04752482601025883,
+        -0.00436145210580841,
+        0.9946806602934167
+      ],
+      "renderFrame": 1767,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 289.29999999701977,
+      "distance": 0.8,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6312437889068556,
+        1.27,
+        -0.41674129765638346
+      ],
+      "quaternion": [
+        -0.09128247461481616,
+        -0.04785163292876491,
+        -0.004391443856280119,
+        0.9946649919822772
+      ],
+      "renderFrame": 1768,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 305.79999999701977,
+      "distance": 0.8,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6356832852333327,
+        1.27,
+        -0.47510857254436245
+      ],
+      "quaternion": [
+        -0.0912810596294052,
+        -0.04817105945126874,
+        -0.004420758292463949,
+        0.9946495735083764
+      ],
+      "renderFrame": 1769,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 333.29999999701977,
+      "distance": 0.9,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6423624826716792,
+        1.27,
+        -0.5594734933363344
+      ],
+      "quaternion": [
+        -0.09127911370987216,
+        -0.048606905673802596,
+        -0.004460756806601983,
+        0.9946283696787814
+      ],
+      "renderFrame": 1770,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 339,
+      "distance": 0.9,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6452207803702068,
+        1.27,
+        -0.5949689272011534
+      ],
+      "quaternion": [
+        -0.09127833369926996,
+        -0.04878051619751943,
+        -0.00447668940536819,
+        0.9946198702461942
+      ],
+      "renderFrame": 1771,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 355.29999999701977,
+      "distance": 1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6498541465792491,
+        1.27,
+        -0.6511907853336967
+      ],
+      "quaternion": [
+        -0.09127713887442555,
+        -0.04904525930204005,
+        -0.004500985430575321,
+        0.9946068507651896
+      ],
+      "renderFrame": 1772,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 386,
+      "distance": 1.1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6587623043291955,
+        1.27,
+        -0.7551750568679696
+      ],
+      "quaternion": [
+        -0.09127505530800294,
+        -0.04950352987461203,
+        -0.0045430418739454154,
+        0.9945841470579581
+      ],
+      "renderFrame": 1773,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 395.5,
+      "distance": 1.1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6611663141971922,
+        1.27,
+        -0.7829209052457742
+      ],
+      "quaternion": [
+        -0.09127453283243607,
+        -0.04961778052055853,
+        -0.0045535268932960565,
+        0.994578453871421
+      ],
+      "renderFrame": 1774,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 412.90000000596046,
+      "distance": 1.2,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6673256957377582,
+        1.27,
+        -0.8524516731158203
+      ],
+      "quaternion": [
+        -0.09127327036530009,
+        -0.049892763900607325,
+        -0.0045787626898819754,
+        0.9945646973221052
+      ],
+      "renderFrame": 1775,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 444.59999999403954,
+      "distance": 1.3,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6772117478808788,
+        1.27,
+        -0.9605833414634943
+      ],
+      "quaternion": [
+        -0.09127144468443155,
+        -0.050287757172313666,
+        -0.00461501204377318,
+        0.9945448036803727
+      ],
+      "renderFrame": 1776,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 455.5,
+      "distance": 1.3,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6810457061735595,
+        1.27,
+        -1.0020002616619257
+      ],
+      "quaternion": [
+        -0.09127079794331192,
+        -0.0504269381453319,
+        -0.004627784971079169,
+        0.994537756426743
+      ],
+      "renderFrame": 1777,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 472,
+      "distance": 1.4,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.68655081932297,
+        1.27,
+        -1.0606080114209384
+      ],
+      "quaternion": [
+        -0.09126992275586526,
+        -0.050614670636760915,
+        -0.0046450135721874605,
+        0.9945282198939278
+      ],
+      "renderFrame": 1778,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 504.09999999403954,
+      "distance": 1.5,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6967437020530398,
+        1.27,
+        -1.166572068023298
+      ],
+      "quaternion": [
+        -0.09126845110964212,
+        -0.050928782634171256,
+        -0.00467384028335247,
+        0.9945121840120682
+      ],
+      "renderFrame": 1779,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 510.79999999701977,
+      "distance": 1.5,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.6994627531749416,
+        1.27,
+        -1.1946361289233955
+      ],
+      "quaternion": [
+        -0.0912680928257596,
+        -0.051004962108541295,
+        -0.004680831432122564,
+        0.9945082799501264
+      ],
+      "renderFrame": 1780,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 525.0999999940395,
+      "distance": 1.6,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.7045779292862886,
+        1.27,
+        -1.2469007933924878
+      ],
+      "quaternion": [
+        -0.09126745029735442,
+        -0.05114129359761132,
+        -0.004693342856361427,
+        0.9945012786005936
+      ],
+      "renderFrame": 1781,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 561.0999999940395,
+      "distance": 1.7,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.716564440920448,
+        1.27,
+        -1.366842898094457
+      ],
+      "quaternion": [
+        -0.09126608848836809,
+        -0.05142904400023196,
+        -0.004719750309156437,
+        0.9944864395668123
+      ],
+      "renderFrame": 1782,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 572.5999999940395,
+      "distance": 1.7,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.7210517615117111,
+        1.27,
+        -1.4113726428355957
+      ],
+      "quaternion": [
+        -0.09126563840141393,
+        -0.05152379315053919,
+        -0.0047284456357009645,
+        0.994481535167161
+      ],
+      "renderFrame": 1783,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 588.5999999940395,
+      "distance": 1.8,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.7269670015177943,
+        1.27,
+        -1.4695706732210556
+      ],
+      "quaternion": [
+        -0.09126508406844036,
+        -0.05164024789734391,
+        -0.004739132929970556,
+        0.9944754948444698
+      ],
+      "renderFrame": 1784,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 622.9000000059605,
+      "distance": 1.9,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.7379498225619168,
+        1.27,
+        -1.5761341069255368
+      ],
+      "quaternion": [
+        -0.09126415735103705,
+        -0.05183434760717708,
+        -0.004756945863951754,
+        0.9944653968123731
+      ],
+      "renderFrame": 1785,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 628.9000000059605,
+      "distance": 1.9,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.741398638844139,
+        1.27,
+        -1.6094291385548631
+      ],
+      "quaternion": [
+        -0.09126390144887336,
+        -0.051887817692135074,
+        -0.004761852924833734,
+        0.9944626083590073
+      ],
+      "renderFrame": 1786,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 648.2000000029802,
+      "distance": 2,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.748087484216921,
+        1.27,
+        -1.673560796303118
+      ],
+      "quaternion": [
+        -0.09126343679442683,
+        -0.05198476504239328,
+        -0.004770749984758686,
+        0.9944575452237967
+      ],
+      "renderFrame": 1787,
+      "canvas": [
+        844,
+        390
+      ]
+    },
+    {
+      "t": 682.7000000029802,
+      "distance": 2.1,
+      "mode": "driver",
+      "paused": false,
+      "playing": true,
+      "source": "live",
+      "opacity": 0,
+      "hidden": false,
+      "position": [
+        1.7608416131353628,
+        1.27,
+        -1.7944472567507352
+      ],
+      "quaternion": [
+        -0.09126265852594745,
+        -0.05214674120653872,
+        -0.004785614874154608,
+        0.9944490647743557
+      ],
+      "renderFrame": 1788,
+      "canvas": [
+        844,
+        390
+      ]
+    }
+  ]
+}

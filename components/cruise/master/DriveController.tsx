@@ -6,6 +6,7 @@ import { Group, MathUtils, PerspectiveCamera, Vector3, type Object3D } from 'thr
 import type { CruiseRuntime, CruiseVehicleId } from '@/lib/cruise/types'
 import { VEHICLES } from '@/lib/cruise/vehicles'
 import { CONVERTIBLE_EYE } from './ConvertibleCar'
+import { MIAMI_ROUTE_LENGTH, miamiStreetCenter } from './route'
 
 /** steer/glance are normalized touch inputs; speed is the selected cruise speed in m/s. */
 export type DriveState = {
@@ -19,6 +20,9 @@ export type DriveState = {
   wheel?: number
   /** TV / lean-back mode: the car drives itself with a slow, human weave. */
   autopilot?: boolean
+  /** Increment when teleporting under the loop cover; cameras snap on this revision. */
+  resetRevision?: number
+  resetCamera?: StreetCamera
 }
 
 export type StreetVehicleId = CruiseVehicleId | 'ocean-convertible'
@@ -31,6 +35,7 @@ export type DriveControllerProps = {
   cameraMode: StreetCamera
   vehicleId: StreetVehicleId
   onFinish: () => void
+  onResetRendered?: (revision: number) => void
 }
 
 const DEG = 180 / Math.PI
@@ -40,15 +45,17 @@ export function convertibleFov(aspect: number) {
   return 2 * Math.atan(half) * DEG
 }
 
-export function streetCenter(distance: number) { return 3 * Math.sin(distance / 95) }
+export const streetCenter = miamiStreetCenter
 
 /** Bounded lane driving, not a tire/rigid-body physics simulation. */
-export default function DriveController({ state, runtime, vehicle, cameraMode, vehicleId, onFinish }: DriveControllerProps) {
+export default function DriveController({ state, runtime, vehicle, cameraMode, vehicleId, onFinish, onResetRendered }: DriveControllerProps) {
   const { camera } = useThree()
-  const keys = useRef(new Set<string>())
   const steering = useRef(0)
   const finished = useRef(false)
   const lastView = useRef('')
+  // A remounted scene must also acknowledge a reset that happened while it was absent.
+  const resetRevision = useRef(-1)
+  const pendingReset = useRef<number | null>(null)
   const desiredPosition = useRef(new Vector3())
   const desiredTarget = useRef(new Vector3())
   const cameraTarget = useRef(new Vector3())
@@ -56,49 +63,28 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
   const wheel = useRef<Object3D | null>(null)
   useEffect(() => { wheel.current = null }, [vehicleId])
 
-  useEffect(() => {
-    const editable = (target: EventTarget | null) => target instanceof HTMLElement && !!target.closest('input,textarea,select,[contenteditable="true"]')
-    const accepted = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'KeyA', 'KeyD', 'KeyW', 'KeyS', 'Space', 'KeyQ', 'KeyE'])
-    const down = (event: KeyboardEvent) => {
-      if (!accepted.has(event.code) || editable(event.target) || document.querySelector('[role="dialog"]')) return
-      if (event.code === 'Space' && event.target instanceof HTMLElement && event.target.closest('button,a')) return
-      event.preventDefault()
-      keys.current.add(event.code)
-      if (event.code === 'Space' && !event.repeat && state.current.distance < 210) state.current.paused = !state.current.paused
-    }
-    const up = (event: KeyboardEvent) => { keys.current.delete(event.code) }
-    const clear = () => { keys.current.clear(); state.current.steer = 0; state.current.glance = 0 }
-    window.addEventListener('keydown', down)
-    window.addEventListener('keyup', up)
-    window.addEventListener('blur', clear)
-    return () => {
-      window.removeEventListener('keydown', down)
-      window.removeEventListener('keyup', up)
-      window.removeEventListener('blur', clear)
-    }
-  }, [state])
-
   useFrame((_, elapsed) => {
     // Discard suspended-tab catch-up instead of teleporting the vehicle.
     const dt = Math.min(elapsed, .05)
     const drive = state.current
-    const pressed = keys.current
-    if (document.querySelector('[role="dialog"]')) { pressed.clear(); drive.steer = 0; drive.glance = 0 }
-    const left = pressed.has('ArrowLeft') || pressed.has('KeyA')
-    const right = pressed.has('ArrowRight') || pressed.has('KeyD')
-    const auto = drive.autopilot && !left && !right && !drive.steer
+    const revision = drive.resetRevision ?? 0
+    const reset = revision !== resetRevision.current
+    // Acknowledgement occurs one frame after the snapped camera was rendered.
+    const renderedRevision = !reset && (!drive.resetCamera || lastView.current === `${drive.resetCamera}:${vehicleId}`) ? pendingReset.current : null
+    if (reset) {
+      resetRevision.current = revision; pendingReset.current = revision
+      steering.current = 0; finished.current = false
+    } else if (renderedRevision !== null) pendingReset.current = null
     const weave = Math.sin(runtime.current.time * .23) * .7 + Math.sin(runtime.current.time * .071) * .5
-    const input = auto ? MathUtils.clamp((2 + weave * .6 - drive.lateral) * .7, -.6, .6) : MathUtils.clamp(left || right ? Number(right) - Number(left) : drive.steer, -1, 1)
-    steering.current = MathUtils.damp(steering.current, input, auto ? 2.5 : 7, dt)
+    const input = MathUtils.clamp((2 + weave * .6 - drive.lateral) * .7, -.6, .6)
+    steering.current = MathUtils.damp(steering.current, input, 2.5, dt)
     drive.wheel = steering.current
     if (!drive.paused) {
-      const acceleration = Number(pressed.has('ArrowUp') || pressed.has('KeyW')) - Number(pressed.has('ArrowDown') || pressed.has('KeyS'))
-      drive.speed = MathUtils.clamp(drive.speed + acceleration * dt * 2, 0, 8)
-      drive.distance = Math.min(210, Math.max(0, drive.distance + drive.speed * dt))
+      drive.distance = Math.min(MIAMI_ROUTE_LENGTH, Math.max(0, drive.distance + drive.speed * dt))
       drive.lateral = MathUtils.clamp(drive.lateral + steering.current * Math.min(drive.speed * .28, 1.6) * dt, -2.3, 2.3)
     }
-    if (drive.distance < 209) finished.current = false
-    if (drive.distance >= 210 && !finished.current) {
+    if (drive.distance < MIAMI_ROUTE_LENGTH - 1) finished.current = false
+    if (drive.distance >= MIAMI_ROUTE_LENGTH && !finished.current) {
       finished.current = true
       drive.paused = true
       onFinish()
@@ -121,7 +107,9 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     // Vertical degrees; horizontal FOV follows canvas aspect. The convertible's cockpit is aspect-aware:
     // it holds a ~80° horizontal view (natural road perspective, head unit in frame) and keeps the
     // vertical FOV between 44° and 58° so phones in landscape are not fish-eyed and portraits stay sane.
-    const fov = isDriver
+    // Phones in portrait have a very narrow horizontal view: widen the lens and pull the chase camera back.
+    const portrait = perspective.aspect < 1
+    const fov = portrait ? (isDriver ? 84 : cameraMode === 'aerial' ? 70 : 78) : isDriver
       ? (vehicleId === 'ocean-convertible' ? convertibleFov(perspective.aspect) : 62)
       : cameraMode === 'aerial' ? 50 : cameraMode === 'side' ? 55 : 65
     if (Math.abs(perspective.fov - fov) > .01) {
@@ -136,11 +124,13 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     else if (cameraMode === 'hood') { desiredPosition.current.set(0, 1.28, -1.25); desiredTarget.current.set(0, 1.15, -9) }
     else if (isDriver) {
       if (vehicleId === 'ocean-convertible') {
+        if (portrait) { desiredPosition.current.set(.06, 1.3, .32); desiredTarget.current.set(.22, .42, -3.6) } else {
         desiredPosition.current.set(...CONVERTIBLE_EYE)
         // ~3° towards the centre stack; 7° down at 16:9, up to 10.5° on wider phones so the head unit
         // stays in the lower-right third above the touch HUD while the road reaches the horizon.
         const pitch = 7 + 3.5 * MathUtils.clamp((perspective.aspect - 1.78) / .38, 0, 1)
         desiredTarget.current.set(CONVERTIBLE_EYE[0] + .2, CONVERTIBLE_EYE[1] - Math.tan(pitch / DEG) * (CONVERTIBLE_EYE[2] + 3.6), -3.6)
+        }
       } else if (vehicleId === 'island-trail') {
         desiredPosition.current.set(.02, 1.57, .25)
         desiredTarget.current.set(.02, 1.1, -2.7)
@@ -152,11 +142,10 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
       }
     } else {
       // Higher, further back: the car sits low in frame and the street reads like the reference.
-      desiredPosition.current.set(.25, 3.2, 6.6)
-      desiredTarget.current.set(-.15, 1.7, -16)
+      if (portrait) { desiredPosition.current.set(.15, 4.4, 10.5); desiredTarget.current.set(-.1, 1.2, -20) }
+      else { desiredPosition.current.set(.25, 3.2, 6.6); desiredTarget.current.set(-.15, 1.7, -16) }
     }
-    // Q/E or touch glance moves only the view. Releasing returns to forward immediately.
-    const glance = MathUtils.clamp(pressed.has('KeyQ') || pressed.has('KeyE') ? Number(pressed.has('KeyQ')) - Number(pressed.has('KeyE')) : drive.glance, -1, 1)
+    const glance = MathUtils.clamp(drive.glance, -1, 1)
     const relative = desiredTarget.current.sub(desiredPosition.current)
     const angle = glance * .24
     const gx = relative.x * Math.cos(angle) + relative.z * Math.sin(angle)
@@ -167,7 +156,7 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
       const z = -point.x * Math.sin(yaw) + point.z * Math.cos(yaw)
       point.set(x + center.current.x, point.y, z + center.current.z)
     }
-    if (isDriver || lastView.current !== view) {
+    if (reset || isDriver || lastView.current !== view) {
       // No position lag inside the cabin: lag causes dashboard/pillar clipping.
       camera.position.copy(desiredPosition.current)
       cameraTarget.current.copy(desiredTarget.current)
@@ -177,6 +166,7 @@ export default function DriveController({ state, runtime, vehicle, cameraMode, v
     }
     camera.lookAt(cameraTarget.current)
     lastView.current = view
+    if (renderedRevision !== null) onResetRendered?.(renderedRevision)
   }, -1)
 
   // HeroCar updates its stock wheel from the original route. Apply actual player

@@ -1,0 +1,285 @@
+{
+  "date": "2026-10-15T17:12:33.979Z",
+  "url": "http://127.0.0.1:3080/cruise/os",
+  "browser": "155.0.4283.45",
+  "mode": "CruiseOS",
+  "limitations": "Windows Edge viewport emulation; automated interaction latencies, not human usability or physical-phone validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "networkErrors": [
+        {
+          "url": "http://127.0.0.1:3080/api/radio/tracks",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/real-miami/miami/world.json",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://audio-edge-es6pf.mia.g.radiomast.io/nts1",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        }
+      ],
+      "checks": {
+        "entryActionsAboveDeck": true,
+        "audioAdvances": true,
+        "noOverflowStarted": true,
+        "radioCentered": true,
+        "singleRadioDialog": true,
+        "nativeDialogContainsTab": true,
+        "favorite": true,
+        "shortcutsIgnoreSearch": true,
+        "stationSelected": true,
+        "radioEscClosed": true,
+        "radioFocusRestored": true,
+        "collectionsSingleDialog": true,
+        "savedStationListed": true,
+        "settingsListeningControls": true,
+        "settingsEscapeReturnsHome": true,
+        "gloveboxEscClosed": true,
+        "gloveboxFocusRestored": true,
+        "essentialControlsFit": true,
+        "volumeHasUsableTrack": true,
+        "mute": true,
+        "volume": true
+      },
+      "latenciesMs": {
+        "domReady": 239,
+        "start": 295,
+        "vehicleReady": 15179,
+        "openRadio": 93,
+        "favorite": 51,
+        "tuneSelection": 83,
+        "openGlovebox": 276,
+        "savedStations": 64,
+        "openSettings": 63
+      },
+      "samples": [
+        {
+          "label": "started5",
+          "drive": {
+            "speed": 39.48930843118656,
+            "rpm": 1622.6939256497199,
+            "distance": 25.24594254489927,
+            "paused": false,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 51.11389719363119,
+            "station": "jolt-radio",
+            "playing": true,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Analyzing current radio",
+            "spectrum": 18.012801349163055,
+            "drawCalls": 264,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": false,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 1,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 5.001885,
+              "paused": false,
+              "ready": 4
+            }
+          ],
+          "overflow": false,
+          "focus": "BUENA ONDACRUISE / MIAMIAutodrive onCameraCockpitCoastal viewCinematicGloveboxAu",
+          "surfaces": []
+        }
+      ],
+      "optional": {},
+      "entryRects": {
+        "deckRect": {
+          "x": 12,
+          "y": 562,
+          "width": 296,
+          "height": 168
+        },
+        "startRect": {
+          "x": 22.390625,
+          "y": 385.46875,
+          "width": 142.484375,
+          "height": 48
+        },
+        "listenRect": {
+          "x": 172.875,
+          "y": 387.96875,
+          "width": 73.890625,
+          "height": 44
+        }
+      },
+      "radioRect": {
+        "x": 8,
+        "y": 8,
+        "width": 304,
+        "height": 724
+      },
+      "controls": [
+        {
+          "label": "Park autodrive",
+          "rect": {
+            "x": 185.265625,
+            "y": 12,
+            "width": 122.734375,
+            "height": 44,
+            "top": 12,
+            "right": 308,
+            "bottom": 56,
+            "left": 185.265625
+          }
+        },
+        {
+          "label": "Glovebox",
+          "rect": {
+            "x": 208.640625,
+            "y": 112,
+            "width": 99.359375,
+            "height": 44,
+            "top": 112,
+            "right": 308,
+            "bottom": 156,
+            "left": 208.640625
+          }
+        },
+        {
+          "label": "Radio",
+          "rect": {
+            "x": 23,
+            "y": 573,
+            "width": 52.296875,
+            "height": 44,
+            "top": 573,
+            "right": 75.296875,
+            "bottom": 617,
+            "left": 23
+          }
+        },
+        {
+          "label": "Start listening",
+          "rect": {
+            "x": 23,
+            "y": 625,
+            "width": 64,
+            "height": 44,
+            "top": 625,
+            "right": 87,
+            "bottom": 669,
+            "left": 23
+          }
+        },
+        {
+          "label": "Previous radio station",
+          "rect": {
+            "x": 93,
+            "y": 625,
+            "width": 64,
+            "height": 44,
+            "top": 625,
+            "right": 157,
+            "bottom": 669,
+            "left": 93
+          }
+        },
+        {
+          "label": "Next radio station",
+          "rect": {
+            "x": 163,
+            "y": 625,
+            "width": 64,
+            "height": 44,
+            "top": 625,
+            "right": 227,
+            "bottom": 669,
+            "left": 163
+          }
+        },
+        {
+          "label": "Radio volume",
+          "rect": {
+            "x": 68.03125,
+            "y": 675,
+            "width": 228.96875,
+            "height": 44,
+            "top": 675,
+            "right": 297,
+            "bottom": 719,
+            "left": 68.03125
+          }
+        },
+        {
+          "label": "Mute radio",
+          "rect": {
+            "x": 233,
+            "y": 625,
+            "width": 64,
+            "height": 44,
+            "top": 625,
+            "right": 297,
+            "bottom": 669,
+            "left": 233
+          }
+        },
+        {
+          "label": "Save station",
+          "rect": {
+            "x": 211.140625,
+            "y": 573,
+            "width": 85.859375,
+            "height": 44,
+            "top": 573,
+            "right": 297,
+            "bottom": 617,
+            "left": 211.140625
+          }
+        }
+      ],
+      "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.os-radio-deck').getByRole('button', { name: 'Pause listening', exact: true })\u001b[22m\n\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-os-20261015\\scripts\\cruise-os-proof.mjs:86:72"
+    }
+  ],
+  "passed": false
+}

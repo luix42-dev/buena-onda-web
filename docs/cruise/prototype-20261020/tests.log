@@ -1,0 +1,46 @@
+✔ shortcuts preserve text entry, native activation, dialogs and browser combinations (1.9625ms)
+✔ only music and secondary navigation are available before start (0.5312ms)
+✔ standard controller edges prevent held buttons from repeating (1.7813ms)
+✔ OS share links preserve explicit route and encode station, legacy defaults remain safe (0.8381ms)
+{"triangles":8114,"parts":[{"material":"Meshpart18Mtl","triangles":4862},{"material":"Meshpart27Mtl","triangles":1154},{"material":"Meshpart35Mtl","triangles":224},{"material":"Meshpart35Mtl","triangles":296},{"material":"Meshpart35Mtl","triangles":220},{"material":"Meshpart3Mtl","triangles":1142},{"material":"Meshpart49Mtl","triangles":216}]}
+{"steeringTriangles":8114,"parts":7,"diameter":[0.35502530634403223,0.329670326176845,0.15915987260390396]}
+✔ actual Countach steering is isolated without deleting triangles or changing cached buffers (388.9399ms)
+✔ positive route yaw bends forward -Z toward left -X; both steering outputs follow that turn (8.9881ms)
+✔ steady acceleration raises the nose, braking lowers it; turning leans outward (8.4919ms)
+✔ 30, 60 and 120 Hz follow the same moving road without large presentation drift (16.5596ms)
+✔ road profile stays millimetre-scale, including negative distance and route joints (48.3709ms)
+✔ long rough-road traversal and intermittent large frame gaps stay finite and bounded (46.6787ms)
+✔ parking damps existing motion instead of freezing a displaced body (3.0312ms)
+✔ reduced settles body motion while preserving route steering (4.9237ms)
+✔ focused settles body motion while preserving route steering (3.8865ms)
+✔ sanitizes legacy saves, recomputes identity and deduplicates without trusting IDs (3.9994ms)
+✔ rejects malformed and oversized storage and drops unsafe source URLs (0.7461ms)
+✔ legacy migration reads without writing or overwriting either collection (1.5692ms)
+✔ saving requires playback, provider provenance and fresh complete track metadata (0.7318ms)
+✔ show bookmarks remain explicitly distinguished from tracks (0.2883ms)
+✔ export is portable, bounded, and all external links are transparent encoded searches (0.6024ms)
+✔ favorite presets retain manual order, reject unknown IDs and respect move boundaries (0.4529ms)
+✔ timed, structured provider track has provenance and a distinct show; DJ never inferred (2.8247ms)
+✔ stale, future, missing-timestamp, incomplete and filename tracks cannot be saved (0.6261ms)
+✔ previous tracks and stale shows are never promoted as current (0.3519ms)
+✔ track expiry is capped by provider end time, including subsecond timestamps (0.2625ms)
+✔ Jolt and NTS combined titles remain show metadata; stale or wrong-origin observations are rejected (0.3939ms)
+✔ unknown station IDs never trigger fetch or a legacy adapter, including prototype keys (0.3579ms)
+✔ fixed dublab requests reject redirects and deduplicate; expired failures do not replay tracks (31.8663ms)
+✔ unexpected types, oversized payloads and malformed JSON fail closed (2.7791ms)
+✔ every world surface is present and ids are stable and unique (244.024ms)
+✔ clutter budget: minimum gap, per-surface caps and landmark clear zones hold (2.2335ms)
+✔ the featured campaign leads but the roster rotates, and projections carry motion campaigns (0.8956ms)
+✔ ambience stays silent before unlock and respects every independent silence gate (2.0309ms)
+✔ ambience gain is bounded, cockpit quieter, traffic proximity and reduced motion respected (0.4378ms)
+✔ qualified opportunity records once per continuous placement encounter, separate from deliberate activation (2.8834ms)
+✔ retiring one placement preserves other opportunity dedup; obscuring resets encounters (0.5451ms)
+✔ local recorder emits bounded explicit test fields without storage, network or music identifiers (1.6473ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2281.6929

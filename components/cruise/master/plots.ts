@@ -59,10 +59,10 @@ const house = (owner: PlotOwner, cents: number) => ({ status: 'house' as const, 
 export const SEED_PLOTS: Plot[] = [
   { number: 1, kind: 'billboard', s: 56, side: -1, status: 'open', valueCents: 0, visits: 0, clicks: 0 },
   { number: 2, kind: 'storefront', s: 95, side: 1, ...house({ name: 'Buena Onda Record Store', tagline: 'Vinyl · tapes · good vibes', url: '/objects', color: '#2aa79f' }, 0), visits: 0, clicks: 0 },
-  { number: 3, kind: 'storefront', s: 155, side: 1, ...house({ name: 'Branches Vintage', tagline: 'Good clothes · brighter days', url: 'https://branchesvintage.com', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
+  { number: 3, kind: 'storefront', s: 155, side: 1, ...house({ name: 'Buena Onda Vintage', tagline: 'Good clothes · brighter days', url: '/themes', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
   { number: 4, kind: 'banner', s: 62, side: 1, ...house({ name: 'Vice Nights', tagline: 'Friday · music by the ocean', url: '/events', color: '#ff4f9a' }, 0), visits: 0, clicks: 0 },
   { number: 5, kind: 'sign', s: 84, side: 1, ...house({ name: 'Buena Onda Record Store', tagline: '0.3 mi ahead', url: '/objects', color: '#2aa79f' }, 0), visits: 0, clicks: 0 },
-  { number: 6, kind: 'sign', s: 144, side: 1, ...house({ name: 'Branches Vintage', tagline: 'On your right', url: 'https://branchesvintage.com', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
+  { number: 6, kind: 'sign', s: 144, side: 1, ...house({ name: 'Buena Onda Vintage', tagline: 'On your right', url: '/themes', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
   ...LAMP_STATIONS.flatMap((s, i) => [1, -1].map((side, j): Plot => (
     { number: 7 + i * 2 + j, kind: 'lamp', s, side: side as -1 | 1, status: 'open', valueCents: 0, visits: 0, clicks: 0 }
   ))).filter(p => !RETIRED_PLOTS.has(p.number)),
@@ -120,12 +120,12 @@ export function cleanOwner(input: unknown): PlotOwner | null {
  *                         no Avenue UI. Drive-bys are still counted silently: that is the audience proof.
  *  - 'preview': the Avenue UI is visible (for sponsor demos); claims stay off server-side.
  *  - 'open'   : full marketplace (also requires CRUISE_PLOTS_ENABLED=1 on the server).
- * Set NEXT_PUBLIC_CRUISE_AVENUE at build time. `?avenue=preview` previews it on any build.
+ * Preview requires server-verified Studio access, including `?avenue=preview` demos.
  */
 export type AvenuePhase = 'hidden' | 'preview' | 'open'
-export function avenuePhase(search = typeof location === 'undefined' ? '' : location.search): AvenuePhase {
+export function avenuePhase(search = typeof location === 'undefined' ? '' : location.search, previewAuthorized = false): AvenuePhase {
   const q = new URLSearchParams(search).get('avenue')
-  if (q === 'preview' || q === '1') return 'preview'
   const env = process.env.NEXT_PUBLIC_CRUISE_AVENUE
-  return env === 'open' || env === 'preview' ? env : 'hidden'
+  if (env === 'open') return 'open'
+  return previewAuthorized && (q === 'preview' || q === '1' || env === 'preview') ? 'preview' : 'hidden'
 }

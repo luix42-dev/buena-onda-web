@@ -1,0 +1,108 @@
+{
+ "label": "wheels-delorean",
+ "url": "http://127.0.0.1:3067",
+ "date": "2026-10-14T02:47:11.315Z",
+ "method": "Headless Edge, D3D11, 1280x720, Director forced shots while driving.",
+ "cars": [
+  {
+   "car": "delorean",
+   "rig": [
+    {
+     "radius": 0.332,
+     "center": [
+      -0.778,
+      0.352,
+      -1.24
+     ],
+     "parts": 7,
+     "triangles": 10601,
+     "angle": -5.08
+    },
+    {
+     "radius": 0.332,
+     "center": [
+      0.785,
+      0.352,
+      -1.24
+     ],
+     "parts": 7,
+     "triangles": 10601,
+     "angle": -5.08
+    },
+    {
+     "radius": 0.332,
+     "center": [
+      -0.778,
+      0.352,
+      1.207
+     ],
+     "parts": 5,
+     "triangles": 10592,
+     "angle": -5.08
+    },
+    {
+     "radius": 0.332,
+     "center": [
+      0.785,
+      0.352,
+      1.207
+     ],
+     "parts": 5,
+     "triangles": 10592,
+     "angle": -5.08
+    }
+   ],
+   "shots": [
+    {
+     "shot": "sideTrack",
+     "file": "docs/cruise/opus/wheels-delorean/delorean-sideTrack.png",
+     "speed": 0.07599580560069145,
+     "metres": [
+      18861.50115237013,
+      18862.580993588814
+     ],
+     "angles": [
+      [
+       -5.084,
+       -5.084,
+       -5.084,
+       -5.084
+      ],
+      [
+       -2.051,
+       -2.051,
+       -2.051,
+       -2.051
+      ]
+     ],
+     "director": "sideTrack"
+    },
+    {
+     "shot": "frontLow",
+     "file": "docs/cruise/opus/wheels-delorean/delorean-frontLow.png",
+     "speed": 29.542337099998406,
+     "metres": [
+      18875.69479757997,
+      18882.60084414249
+     ],
+     "angles": [
+      [
+       -3.829,
+       -3.83,
+       -3.829,
+       -3.83
+      ],
+      [
+       -5.77,
+       -5.77,
+       -5.77,
+       -5.77
+      ]
+     ],
+     "director": "frontLow"
+    }
+   ],
+   "errors": []
+  }
+ ]
+}

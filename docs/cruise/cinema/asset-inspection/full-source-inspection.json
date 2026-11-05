@@ -1,0 +1,48 @@
+{
+  "source": "D:\\10-VENTURES\\12-buena-onda\\Buena Onda_1780506618159\\cruise-phase1\\.dream-loop\\vehicle-candidates\\pontiac-gto\\pontiac_gto_extended.gltf",
+  "recipe": "D:\\10-VENTURES\\12-buena-onda\\cruise-master-20261005\\scripts\\cruise-blender-gto.py",
+  "source_sha256": "95a7fe37b6ab4a4552799c0b98f5ae85acdb16af431c8fb491f365bcc640de5f",
+  "recipe_sha256": "e98c4d539924b109f61b413c4ceb58c2cea4d09a754a556633db072c23d82c30",
+  "normalization": "existing canonical_transform: center axle, scale .59, rotate -90deg Z, floor offset; baked once",
+  "simplification": "none; no decimate() or consolidation call",
+  "imported_triangles": 1063228,
+  "bounds_blender": {
+    "min": [
+      -0.9362018704414368,
+      -2.796816110610962,
+      0.0
+    ],
+    "max": [
+      0.9362019896507263,
+      2.3822107315063477,
+      1.442510962486267
+    ]
+  },
+  "hidden_glass": [
+    "18_WindowGlass",
+    "47_WindowGlass",
+    "52_WindowGlass",
+    "53_WindowGlass"
+  ],
+  "camera": {
+    "name": "02-driver-glass-hidden",
+    "position": [
+      -0.3,
+      -0.14,
+      1.17
+    ],
+    "target": [
+      -0.3,
+      1.85,
+      0.88
+    ],
+    "lens_mm": 25,
+    "hidden_glass": [
+      "18_WindowGlass",
+      "47_WindowGlass",
+      "52_WindowGlass",
+      "53_WindowGlass"
+    ]
+  },
+  "limitation": "Workbench geometry comparison only; no photographic material test"
+}

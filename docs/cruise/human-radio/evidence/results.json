@@ -1,0 +1,263 @@
+{
+  "at": "2026-10-15T02:35:22.706Z",
+  "browser": "155.0.4283.45",
+  "environment": "Windows desktop, headless Edge; mobile/tablet emulation only",
+  "checks": {
+    "noAutoplay": true,
+    "liveJoltAdvances": true,
+    "panelFocus": true,
+    "manualOrder": [
+      "NTS 1",
+      "Jolt Radio"
+    ],
+    "sameAudioAfterSceneToggle": true,
+    "canvasRemoved": true,
+    "audioContinuesWithout3D": true,
+    "fixtureSaveAndExport": true,
+    "persistence": true,
+    "categoryFilter": [
+      "Buena Onda Radio",
+      "Jolt Radio",
+      "WDNA"
+    ],
+    "metadataOutageShowsUnavailable": true,
+    "metadataOutageDisablesSave": true
+  },
+  "errors": [],
+  "profiles": [
+    {
+      "name": "portrait",
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "volumeVisible": true,
+      "credits": true
+    },
+    {
+      "name": "landscape",
+      "width": 844,
+      "height": 390,
+      "overflow": false,
+      "volumeVisible": true,
+      "credits": true
+    },
+    {
+      "name": "tablet",
+      "width": 1024,
+      "height": 768,
+      "overflow": false,
+      "volumeVisible": true,
+      "credits": true
+    }
+  ],
+  "realPlayback": {
+    "before": {
+      "audio": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 1.00869,
+          "paused": false,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 4
+        }
+      ],
+      "drive": {
+        "speed": 0,
+        "rpm": 0,
+        "distance": 0,
+        "paused": true,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 0,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 0,
+        "drawCalls": 0,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": true,
+        "timeMode": "night"
+      },
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    "after": {
+      "audio": [
+        {
+          "id": 0,
+          "src": "",
+          "time": 0,
+          "paused": true,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 0
+        },
+        {
+          "id": 1,
+          "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "time": 4.517557,
+          "paused": false,
+          "muted": false,
+          "volume": 0.82,
+          "ready": 4
+        }
+      ],
+      "drive": {
+        "speed": 0,
+        "rpm": 0,
+        "distance": 0,
+        "paused": true,
+        "camera": "driver",
+        "radioFocused": false,
+        "district": "coast",
+        "fps": 0,
+        "station": "jolt-radio",
+        "playing": true,
+        "muted": false,
+        "volume": 0.82,
+        "analysis": "Analyzing current radio",
+        "spectrum": 0,
+        "drawCalls": 0,
+        "ready": false,
+        "vehicle": "countach",
+        "garage": true,
+        "timeMode": "night"
+      },
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  },
+  "sceneryRestore": {
+    "audio": [
+      {
+        "id": 0,
+        "src": "",
+        "time": 0,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0
+      },
+      {
+        "id": 1,
+        "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+        "time": 10.27762,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 4
+      }
+    ],
+    "drive": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 61.30116669962996,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 15.325189650058746,
+      "drawCalls": 99,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": true,
+      "timeMode": "sunset"
+    },
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  "performance": {
+    "sampleSeconds": 15.046599999999998,
+    "averageRafFps": 32.16673534220356,
+    "longestFrameMs": 133.20000000000437,
+    "drive": {
+      "speed": 76.33835180948262,
+      "rpm": 2390.3823293642213,
+      "distance": 328.15530983907536,
+      "paused": false,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 34.47256968382781,
+      "station": "jolt-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Analyzing current radio",
+      "spectrum": 19.276527255773544,
+      "drawCalls": 259,
+      "ready": true,
+      "vehicle": "countach",
+      "garage": false,
+      "timeMode": "sunset"
+    },
+    "gl": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "heap": 234309914
+  },
+  "final": {
+    "audio": [
+      {
+        "id": 0,
+        "src": "",
+        "time": 0,
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 0
+      },
+      {
+        "id": 1,
+        "src": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+        "time": 0.326663,
+        "paused": false,
+        "muted": false,
+        "volume": 0.82,
+        "ready": 3
+      }
+    ],
+    "drive": {
+      "speed": 0,
+      "rpm": 0,
+      "distance": 0,
+      "paused": true,
+      "camera": "driver",
+      "radioFocused": false,
+      "district": "coast",
+      "fps": 0,
+      "station": "nts-radio",
+      "playing": true,
+      "muted": false,
+      "volume": 0.82,
+      "analysis": "Capture restricted; radio playback unaffected",
+      "spectrum": 0,
+      "drawCalls": 0,
+      "ready": false,
+      "vehicle": "countach",
+      "garage": true,
+      "timeMode": "night"
+    },
+    "width": 1024,
+    "scrollWidth": 1024
+  }
+}

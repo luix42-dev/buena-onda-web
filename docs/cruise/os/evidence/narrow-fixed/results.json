@@ -1,0 +1,232 @@
+{
+  "date": "2026-10-15T17:10:54.657Z",
+  "url": "http://127.0.0.1:3080/cruise/os",
+  "browser": "155.0.4283.45",
+  "mode": "CruiseOS",
+  "limitations": "Windows Edge viewport emulation; automated interaction latencies, not human usability or physical-phone validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to audio at 'https://stream-relay-geo.ntslive.net/stream?client=direct' from origin 'http://127.0.0.1:3080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "networkErrors": [
+        {
+          "url": "http://127.0.0.1:3080/api/radio/tracks",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/real-miami/miami/world.json",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/api/cruise/human-radio/now-playing?station=jolt-radio",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/api/radio/tracks",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/real-miami/miami/world.json",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/real-miami/miami/world.json",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/api/radio/tracks",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3080/real-miami/miami/world.json",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://audio-edge-es6pf.mia.g.radiomast.io/nts1",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        },
+        {
+          "url": "https://audio-edge-es6pf.mia.g.radiomast.io/nts1",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+          "failure": "net::ERR_FAILED"
+        }
+      ],
+      "checks": {
+        "entryActionsAboveDeck": true,
+        "audioAdvances": false,
+        "noOverflowStarted": true,
+        "radioCentered": true,
+        "singleRadioDialog": true,
+        "nativeDialogContainsTab": true,
+        "favorite": true,
+        "shortcutsIgnoreSearch": true,
+        "stationSelected": true,
+        "radioEscClosed": true,
+        "radioFocusRestored": true,
+        "collectionsSingleDialog": true,
+        "savedStationListed": true,
+        "settingsListeningControls": true,
+        "settingsEscapeReturnsHome": true,
+        "gloveboxEscClosed": true,
+        "gloveboxFocusRestored": true
+      },
+      "latenciesMs": {
+        "domReady": 220,
+        "start": 379,
+        "vehicleReady": 15530,
+        "openRadio": 88,
+        "favorite": 48,
+        "tuneSelection": 68,
+        "openGlovebox": 67,
+        "savedStations": 39,
+        "openSettings": 58
+      },
+      "samples": [
+        {
+          "label": "started5",
+          "drive": {
+            "speed": 0,
+            "rpm": 0,
+            "distance": 0,
+            "paused": true,
+            "camera": "chase",
+            "radioFocused": false,
+            "district": "coast",
+            "fps": 51.18110236220475,
+            "station": "jolt-radio",
+            "playing": false,
+            "muted": false,
+            "volume": 0.82,
+            "analysis": "Waiting for radio",
+            "spectrum": 0.8440254293382168,
+            "drawCalls": 265,
+            "renderDpr": 1,
+            "ready": true,
+            "vehicle": "countach",
+            "garage": true,
+            "timeMode": "sunset"
+          },
+          "audio": [
+            {
+              "id": 0,
+              "src": "",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 1,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 2,
+              "src": "",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 3,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 4,
+              "src": "",
+              "time": 0,
+              "paused": true,
+              "ready": 0
+            },
+            {
+              "id": 5,
+              "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+              "time": 0,
+              "paused": true,
+              "ready": 4
+            }
+          ],
+          "overflow": false,
+          "focus": "BUENA ONDACRUISE / MIAMIGloveboxREAL RADIO. AN OPEN ROAD.Take thelong way.No Alg",
+          "surfaces": []
+        }
+      ],
+      "optional": {},
+      "entryRects": {
+        "deckRect": {
+          "x": 12,
+          "y": 562,
+          "width": 296,
+          "height": 168
+        },
+        "startRect": {
+          "x": 22.390625,
+          "y": 385.46875,
+          "width": 142.484375,
+          "height": 48
+        },
+        "listenRect": {
+          "x": 172.875,
+          "y": 387.96875,
+          "width": 73.890625,
+          "height": 44
+        }
+      },
+      "radioRect": {
+        "x": 8,
+        "y": 8,
+        "width": 304,
+        "height": 724
+      },
+      "failure": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Camera view', exact: true })\u001b[22m\n\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-os-20261015\\scripts\\cruise-os-proof.mjs:79:70"
+    }
+  ],
+  "passed": false
+}

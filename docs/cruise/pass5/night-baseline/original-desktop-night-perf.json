@@ -1,0 +1,350 @@
+{
+  "id": "original-desktop-night-perf",
+  "url": "https://www.buenaondalifestyle.com/cruise",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "windowDpr": 1,
+  "errors": [],
+  "blocked": [
+    {
+      "method": "GET",
+      "path": "/gtag/js"
+    }
+  ],
+  "http": 200,
+  "loadToReadyMs": 9702,
+  "chase": {
+    "state": null,
+    "dataset": {
+      "cruise": "true",
+      "launch": "true",
+      "garage": "false",
+      "ready": "true",
+      "vehicle": "island-trail",
+      "vehicleReady": "true",
+      "camera": "chase",
+      "time": "night",
+      "radioFocused": "false"
+    },
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    ],
+    "heapMB": 50.73281002044678,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Focus radio",
+        "rect": {
+          "x": 32,
+          "y": 100,
+          "width": 104.734375,
+          "height": 44,
+          "top": 100,
+          "right": 136.734375,
+          "bottom": 144,
+          "left": 32
+        }
+      },
+      {
+        "name": "Radio help",
+        "rect": {
+          "x": 144.734375,
+          "y": 100,
+          "width": 55,
+          "height": 44,
+          "top": 100,
+          "right": 199.734375,
+          "bottom": 144,
+          "left": 144.734375
+        }
+      },
+      {
+        "name": " Along the Route",
+        "rect": {
+          "x": 1245.796875,
+          "y": 82,
+          "width": 136.609375,
+          "height": 44,
+          "top": 82,
+          "right": 1382.40625,
+          "bottom": 126,
+          "left": 1245.796875
+        }
+      },
+      {
+        "name": " Garage",
+        "rect": {
+          "x": 1272.703125,
+          "y": 28.5,
+          "width": 109.703125,
+          "height": 44,
+          "top": 28.5,
+          "right": 1382.40625,
+          "bottom": 72.5,
+          "left": 1272.703125
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 74.59375,
+          "y": 821,
+          "width": 44,
+          "height": 44,
+          "top": 821,
+          "right": 118.59375,
+          "bottom": 865,
+          "left": 74.59375
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 130.59375,
+          "y": 821,
+          "width": 120,
+          "height": 44,
+          "top": 821,
+          "right": 250.59375,
+          "bottom": 865,
+          "left": 130.59375
+        }
+      },
+      {
+        "name": "Mute radio",
+        "rect": {
+          "x": 262.59375,
+          "y": 821,
+          "width": 44,
+          "height": 44,
+          "top": 821,
+          "right": 306.59375,
+          "bottom": 865,
+          "left": 262.59375
+        }
+      },
+      {
+        "name": "Change camera: Exterior",
+        "rect": {
+          "x": 1125.46875,
+          "y": 821,
+          "width": 97.4375,
+          "height": 44,
+          "top": 821,
+          "right": 1222.90625,
+          "bottom": 865,
+          "left": 1125.46875
+        }
+      },
+      {
+        "name": "Switch to Day Drive",
+        "rect": {
+          "x": 1231.90625,
+          "y": 821,
+          "width": 82.5,
+          "height": 44,
+          "top": 821,
+          "right": 1314.40625,
+          "bottom": 865,
+          "left": 1231.90625
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 1323.40625,
+          "y": 821,
+          "width": 42,
+          "height": 44,
+          "top": 821,
+          "right": 1365.40625,
+          "bottom": 865,
+          "left": 1323.40625
+        }
+      }
+    ],
+    "seconds": 60.059,
+    "frames": 2508,
+    "meanFps": 41.791154205693125,
+    "p95FrameMs": 33.5,
+    "p5Fps": 31.945788964181993,
+    "maxFrameMs": 50,
+    "stallsOver250ms": 0
+  },
+  "driver": {
+    "state": null,
+    "dataset": {
+      "cruise": "true",
+      "launch": "true",
+      "garage": "false",
+      "ready": "true",
+      "vehicle": "island-trail",
+      "vehicleReady": "true",
+      "camera": "driver",
+      "time": "night",
+      "radioFocused": "false"
+    },
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 1224,
+        "height": 765,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    ],
+    "heapMB": 64.34081363677979,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Focus radio",
+        "rect": {
+          "x": 32,
+          "y": 100,
+          "width": 104.734375,
+          "height": 44,
+          "top": 100,
+          "right": 136.734375,
+          "bottom": 144,
+          "left": 32
+        }
+      },
+      {
+        "name": "Radio help",
+        "rect": {
+          "x": 144.734375,
+          "y": 100,
+          "width": 55,
+          "height": 44,
+          "top": 100,
+          "right": 199.734375,
+          "bottom": 144,
+          "left": 144.734375
+        }
+      },
+      {
+        "name": " Along the Route",
+        "rect": {
+          "x": 1245.796875,
+          "y": 82,
+          "width": 136.609375,
+          "height": 44,
+          "top": 82,
+          "right": 1382.40625,
+          "bottom": 126,
+          "left": 1245.796875
+        }
+      },
+      {
+        "name": " Garage",
+        "rect": {
+          "x": 1272.703125,
+          "y": 28.5,
+          "width": 109.703125,
+          "height": 44,
+          "top": 28.5,
+          "right": 1382.40625,
+          "bottom": 72.5,
+          "left": 1272.703125
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 74.59375,
+          "y": 821,
+          "width": 44,
+          "height": 44,
+          "top": 821,
+          "right": 118.59375,
+          "bottom": 865,
+          "left": 74.59375
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 130.59375,
+          "y": 821,
+          "width": 120,
+          "height": 44,
+          "top": 821,
+          "right": 250.59375,
+          "bottom": 865,
+          "left": 130.59375
+        }
+      },
+      {
+        "name": "Mute radio",
+        "rect": {
+          "x": 262.59375,
+          "y": 821,
+          "width": 44,
+          "height": 44,
+          "top": 821,
+          "right": 306.59375,
+          "bottom": 865,
+          "left": 262.59375
+        }
+      },
+      {
+        "name": "Change camera: Interior",
+        "rect": {
+          "x": 1129.015625,
+          "y": 821,
+          "width": 93.890625,
+          "height": 44,
+          "top": 821,
+          "right": 1222.90625,
+          "bottom": 865,
+          "left": 1129.015625
+        }
+      },
+      {
+        "name": "Switch to Day Drive",
+        "rect": {
+          "x": 1231.90625,
+          "y": 821,
+          "width": 82.5,
+          "height": 44,
+          "top": 821,
+          "right": 1314.40625,
+          "bottom": 865,
+          "left": 1231.90625
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 1323.40625,
+          "y": 821,
+          "width": 42,
+          "height": 44,
+          "top": 821,
+          "right": 1365.40625,
+          "bottom": 865,
+          "left": 1323.40625
+        }
+      }
+    ],
+    "seconds": 60.062,
+    "frames": 2177,
+    "meanFps": 36.26556320736173,
+    "p95FrameMs": 33.5,
+    "p5Fps": 29.513034923757992,
+    "maxFrameMs": 3115.5,
+    "stallsOver250ms": 1
+  },
+  "browser": "154.0.4258.62",
+  "date": "2026-10-10T16:19:27.628Z",
+  "physicalDevice": false,
+  "recording": false
+}

@@ -1,0 +1,350 @@
+{
+ "at": "2026-10-21T18:06:15.546Z",
+ "base": "http://127.0.0.1:3067",
+ "browser": "155.0.4283.62",
+ "viewport": {
+  "width": 1280,
+  "height": 720
+ },
+ "dpr": 1,
+ "quality": "auto",
+ "view": "low",
+ "seconds": 20,
+ "errors": [],
+ "contextLost": 0,
+ "toggles": [
+  {
+   "name": "camera:driver",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 16.267274,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 18.817115,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "camera:low",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 18.820365,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 21.350217,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "camera:chase",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 21.352454,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 23.873013,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "camera:director",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 23.878485,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 26.418293,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "quality:low",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 26.421239,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 34.726418,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "quality:high",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 34.732899,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 37.67567,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "quality:auto",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 37.677916,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 40.474702,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "3d:off",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 40.476776,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 43.608427,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "3d:on",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 43.609921,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 47.042891,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "tv:on",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 47.074709,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 50.569276,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  },
+  {
+   "name": "tv:off",
+   "elementsBefore": 1,
+   "elementsAfter": 1,
+   "sameSrc": true,
+   "advanced": true,
+   "before": {
+    "t": 50.572649,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   },
+   "after": {
+    "t": 53.250819,
+    "paused": false,
+    "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+   }
+  }
+ ],
+ "samples": [
+  {
+   "at": 1792606036137,
+   "fps": 24.500196002140463,
+   "drawCalls": 317,
+   "renderDpr": 1,
+   "odometer": 500.6938032816856,
+   "view": "low",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 56.281896,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 244439604,
+   "lost": 0,
+   "ads": {
+    "measurements": 34,
+    "averageMs": 1.3882352990262652,
+    "maxMs": 2.5,
+    "lastMs": 1.600000023841858,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 127.90000021457672
+   }
+  },
+  {
+   "at": 1792606041153,
+   "fps": 32.670032669261545,
+   "drawCalls": 261,
+   "renderDpr": 1,
+   "odometer": 609.9753442954835,
+   "view": "low",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 61.305343,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 248597482,
+   "lost": 0,
+   "ads": {
+    "measurements": 53,
+    "averageMs": 1.3000000062978498,
+    "maxMs": 2.5,
+    "lastMs": 1,
+    "lastRayCount": 0,
+    "lastBlockerCount": 0,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 127.90000021457672
+   }
+  },
+  {
+   "at": 1792606046159,
+   "fps": 37.59398495974581,
+   "drawCalls": 283,
+   "renderDpr": 0.82,
+   "odometer": 719.4042994643618,
+   "view": "low",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 66.302989,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 150282971,
+   "lost": 0,
+   "ads": {
+    "measurements": 72,
+    "averageMs": 10.869444449742636,
+    "maxMs": 68.09999990463257,
+    "lastMs": 21.399999976158142,
+    "lastRayCount": 10,
+    "lastBlockerCount": 128,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 127.90000021457672
+   }
+  },
+  {
+   "at": 1792606051172,
+   "fps": 40.93041828696046,
+   "drawCalls": 283,
+   "renderDpr": 0.75,
+   "odometer": 829.3102543100517,
+   "view": "low",
+   "playing": true,
+   "station": "jolt-radio",
+   "audio": [
+    {
+     "t": 71.323877,
+     "paused": false,
+     "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+    }
+   ],
+   "heap": 132236506,
+   "lost": 0,
+   "ads": {
+    "measurements": 90,
+    "averageMs": 15.322222227520413,
+    "maxMs": 76.79999995231628,
+    "lastMs": 76.79999995231628,
+    "lastRayCount": 20,
+    "lastBlockerCount": 302,
+    "bvhGeometries": 22,
+    "bvhBuildMs": 127.90000021457672
+   }
+  }
+ ],
+ "readyMs": 9269,
+ "tvSwitchedView": "director",
+ "elapsedSeconds": 20.041,
+ "summary": {
+  "samples": 4,
+  "fpsMean": 33.923657979527064,
+  "fpsP5": 24.500196002140463,
+  "fpsMin": 24.500196002140463,
+  "fpsMax": 40.93041828696046,
+  "drawCalls": [
+   261,
+   317
+  ],
+  "dpr": [
+   1,
+   0.82,
+   0.75
+  ],
+  "maxHeapMiB": 237.08103370666504,
+  "km": 0.3286164510283662,
+  "nonAdvancingAudioIntervals": 0,
+  "audioSamples": 4,
+  "contextLost": 0,
+  "adMeasureAvgMs": 15.322222227520413,
+  "adMeasureMaxMs": 76.79999995231628,
+  "readyMs": 9269,
+  "pageErrors": 0
+ }
+}

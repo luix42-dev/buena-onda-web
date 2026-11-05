@@ -1,0 +1,1 @@
+{"checks":{"ready":true,"actualCue":true,"actualPartialFace":true,"strictWorldNotQualified":true,"radioHidesCue":true,"popupPreservesRadio":true,"noWorldExposure":true,"noErrors":true},"point":313.53734324078687}

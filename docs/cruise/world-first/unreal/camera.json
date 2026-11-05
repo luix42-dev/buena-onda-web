@@ -1,0 +1,867 @@
+{
+  "contractRevision": "native-vista-2",
+  "coordinate": "Unreal cm Xforward Yright Zup",
+  "start_road_elevation_m": 72,
+  "grade": -0.045,
+  "horizontal_fov_deg": 76,
+  "eye_height_m": 1.62,
+  "world_pitch_deg": -3,
+  "duration_s": 60,
+  "fps": 30,
+  "samples": [
+    {
+      "time": 0,
+      "position_cm": [
+        0.0,
+        175,
+        7362.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 1,
+      "position_cm": [
+        1001.9,
+        175,
+        7316.9145
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 2,
+      "position_cm": [
+        2014.4,
+        175,
+        7271.352
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 3,
+      "position_cm": [
+        3045.9,
+        175,
+        7224.9345
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 4,
+      "position_cm": [
+        4102.4,
+        175,
+        7177.392
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 5,
+      "position_cm": [
+        5187.5,
+        175,
+        7128.5625
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 6,
+      "position_cm": [
+        6302.4,
+        175,
+        7078.392
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 7,
+      "position_cm": [
+        7445.900000000001,
+        175,
+        7026.9345
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 8,
+      "position_cm": [
+        8614.400000000001,
+        175,
+        6974.352
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 9,
+      "position_cm": [
+        9801.900000000001,
+        175,
+        6920.9145
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 10,
+      "position_cm": [
+        11000.0,
+        175,
+        6867.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 11,
+      "position_cm": [
+        12200.0,
+        175,
+        6813.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 12,
+      "position_cm": [
+        13400.0,
+        175,
+        6759.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 13,
+      "position_cm": [
+        14600.0,
+        175,
+        6705.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 14,
+      "position_cm": [
+        15800.0,
+        175,
+        6651.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 15,
+      "position_cm": [
+        17000.0,
+        175,
+        6597.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 16,
+      "position_cm": [
+        18200.0,
+        175,
+        6543.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 17,
+      "position_cm": [
+        19400.0,
+        175,
+        6489.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 18,
+      "position_cm": [
+        20600.0,
+        175,
+        6435.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 19,
+      "position_cm": [
+        21800.0,
+        175,
+        6381.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 20,
+      "position_cm": [
+        23000.0,
+        175,
+        6327.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 21,
+      "position_cm": [
+        24199.999999999996,
+        175,
+        6273.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 22,
+      "position_cm": [
+        25400.000000000004,
+        175,
+        6219.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 23,
+      "position_cm": [
+        26600.0,
+        175,
+        6165.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 24,
+      "position_cm": [
+        27800.0,
+        175,
+        6111.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 25,
+      "position_cm": [
+        29000.0,
+        175,
+        6057.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 26,
+      "position_cm": [
+        30200.0,
+        175,
+        6003.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 27,
+      "position_cm": [
+        31400.0,
+        175,
+        5949.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 28,
+      "position_cm": [
+        32600.0,
+        175,
+        5895.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 29,
+      "position_cm": [
+        33800.0,
+        175,
+        5841.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 30,
+      "position_cm": [
+        35000.0,
+        175,
+        5787.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 31,
+      "position_cm": [
+        36199.99999999999,
+        175,
+        5733.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 32,
+      "position_cm": [
+        37399.99999999999,
+        175,
+        5679.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 33,
+      "position_cm": [
+        38600.00000000001,
+        175,
+        5625.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 34,
+      "position_cm": [
+        39800.00000000001,
+        175,
+        5571.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 35,
+      "position_cm": [
+        41000.0,
+        175,
+        5517.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 36,
+      "position_cm": [
+        42200.0,
+        175,
+        5463.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 37,
+      "position_cm": [
+        43400.0,
+        175,
+        5409.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 38,
+      "position_cm": [
+        44600.0,
+        175,
+        5355.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 39,
+      "position_cm": [
+        45800.0,
+        175,
+        5301.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 40,
+      "position_cm": [
+        47000.0,
+        175,
+        5247.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 41,
+      "position_cm": [
+        48201.9,
+        175,
+        5192.9145
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 42,
+      "position_cm": [
+        49414.4,
+        175,
+        5138.352
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 43,
+      "position_cm": [
+        50645.9,
+        175,
+        5082.934499999999
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 44,
+      "position_cm": [
+        51902.4,
+        175,
+        5026.392
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 45,
+      "position_cm": [
+        53187.5,
+        175,
+        4968.5625
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 46,
+      "position_cm": [
+        54502.4,
+        175,
+        4909.392
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 47,
+      "position_cm": [
+        55845.899999999994,
+        175,
+        4848.9345
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 48,
+      "position_cm": [
+        57214.4,
+        175,
+        4787.352
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 49,
+      "position_cm": [
+        58601.9,
+        175,
+        4724.9145
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 50,
+      "position_cm": [
+        60000.0,
+        175,
+        4662.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 51,
+      "position_cm": [
+        61396.2,
+        175,
+        4599.171
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 52,
+      "position_cm": [
+        62771.2,
+        175,
+        4537.296
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 53,
+      "position_cm": [
+        64108.2,
+        175,
+        4477.131
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 54,
+      "position_cm": [
+        65395.2,
+        175,
+        4419.216
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 55,
+      "position_cm": [
+        66625.0,
+        175,
+        4363.875
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 56,
+      "position_cm": [
+        67795.2,
+        175,
+        4311.216
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 57,
+      "position_cm": [
+        68908.2,
+        175,
+        4261.131
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 58,
+      "position_cm": [
+        69971.2,
+        175,
+        4213.296
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 59,
+      "position_cm": [
+        70996.2,
+        175,
+        4167.171
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    },
+    {
+      "time": 60,
+      "position_cm": [
+        72000.0,
+        175,
+        4122.0
+      ],
+      "rotation_pitch_yaw_roll": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "horizontal_fov_deg": 76
+    }
+  ]
+}

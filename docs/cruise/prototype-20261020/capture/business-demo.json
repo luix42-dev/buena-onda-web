@@ -1,0 +1,22 @@
+{
+  "label": "DEMO / TEST",
+  "scope": "this browser memory only",
+  "events": [
+    {
+      "label": "DEMO / TEST",
+      "type": "opportunity",
+      "campaignId": "onda-tropical",
+      "placementId": "MB-ROUTE-00174",
+      "surface": "world",
+      "atMs": 15837.599999964237
+    },
+    {
+      "label": "DEMO / TEST",
+      "type": "activation",
+      "campaignId": "branches-house",
+      "placementId": "directory",
+      "surface": "directory",
+      "atMs": 18257.5
+    }
+  ]
+}

@@ -1,0 +1,3127 @@
+{
+  "at": "2026-10-15T18:36:13.117Z",
+  "url": "http://127.0.0.1:3081/cruise/os",
+  "browser": "155.0.4283.45",
+  "limitations": "Headless Windows Edge viewport emulation, DPR1. Not actual Chrome zoom, physical-device or human preference validation. No FPS benchmark.",
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": true,
+        "radioProjectionVisible": true,
+        "realMeshTapFocus": true,
+        "radioFocusKeepsAudio": true,
+        "backToDrive": true,
+        "transportUncovered": true,
+        "transportFits": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 689,
+          "y": 664,
+          "width": 384,
+          "height": 48,
+          "top": 664,
+          "right": 1073,
+          "bottom": 712,
+          "left": 689
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.27630955167114735,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\n\nBUENA ONDA CRUISE\n\nCHOOSE YOUR RIDE.\n\nThe car drives itself. You choose the music.\n\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→\nStart inside the cockpit. Radio begins with you.\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1240.34375,
+              "y": 14,
+              "width": 71.03125,
+              "height": 44,
+              "top": 14,
+              "right": 1311.375,
+              "bottom": 58,
+              "left": 1240.34375
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 54.625,
+              "y": 338.90625,
+              "width": 52,
+              "height": 52,
+              "top": 338.90625,
+              "right": 106.625,
+              "bottom": 390.90625,
+              "left": 54.625
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 1259.375,
+              "y": 338.90625,
+              "width": 52,
+              "height": 52,
+              "top": 338.90625,
+              "right": 1311.375,
+              "bottom": 390.90625,
+              "left": 1259.375
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 403.578125,
+              "y": 608,
+              "width": 99.40625,
+              "height": 44,
+              "top": 608,
+              "right": 502.984375,
+              "bottom": 652,
+              "left": 403.578125
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 508.984375,
+              "y": 608,
+              "width": 90.359375,
+              "height": 44,
+              "top": 608,
+              "right": 599.34375,
+              "bottom": 652,
+              "left": 508.984375
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 605.34375,
+              "y": 608,
+              "width": 99.625,
+              "height": 44,
+              "top": 608,
+              "right": 704.96875,
+              "bottom": 652,
+              "left": 605.34375
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 710.96875,
+              "y": 608,
+              "width": 148.5,
+              "height": 44,
+              "top": 608,
+              "right": 859.46875,
+              "bottom": 652,
+              "left": 710.96875
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 865.46875,
+              "y": 608,
+              "width": 96.9375,
+              "height": 44,
+              "top": 608,
+              "right": 962.40625,
+              "bottom": 652,
+              "left": 865.46875
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 293,
+              "y": 664,
+              "width": 188,
+              "height": 48,
+              "top": 664,
+              "right": 481,
+              "bottom": 712,
+              "left": 293
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 489,
+              "y": 664,
+              "width": 188,
+              "height": 48,
+              "top": 664,
+              "right": 677,
+              "bottom": 712,
+              "left": 489
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 689,
+              "y": 664,
+              "width": 384,
+              "height": 48,
+              "top": 664,
+              "right": 1073,
+              "bottom": 712,
+              "left": 689
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 19.730351857965637,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.6769296508282423,
+          "drawCalls": 3,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1270.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1342,
+              "bottom": 64,
+              "left": 1270.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 316,
+              "y": 696.875,
+              "width": 64,
+              "height": 44,
+              "top": 696.875,
+              "right": 380,
+              "bottom": 740.875,
+              "left": 316
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 392,
+              "y": 696.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 696.75,
+              "right": 809.453125,
+              "bottom": 741,
+              "left": 392
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 821.453125,
+              "y": 696.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 696.875,
+              "right": 878,
+              "bottom": 740.875,
+              "left": 821.453125
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.40616138361588,
+          "rpm": 2370.9616954919975,
+          "distance": 211.50780985174777,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 43.91217564870259,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 10.595239043235779,
+          "drawCalls": 258,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 22.741237,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nAutodrive is on. Change your view above.\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1270.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1342,
+              "bottom": 64,
+              "left": 1270.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 459.390625,
+              "y": 594,
+              "width": 163.9375,
+              "height": 44,
+              "top": 594,
+              "right": 623.328125,
+              "bottom": 638,
+              "left": 459.390625
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 847.171875,
+              "y": 594,
+              "width": 59.421875,
+              "height": 44,
+              "top": 594,
+              "right": 906.59375,
+              "bottom": 638,
+              "left": 847.171875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 316,
+              "y": 696.875,
+              "width": 64,
+              "height": 44,
+              "top": 696.875,
+              "right": 380,
+              "bottom": 740.875,
+              "left": 316
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 392,
+              "y": 696.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 696.75,
+              "right": 809.453125,
+              "bottom": 741,
+              "left": 392
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 821.453125,
+              "y": 696.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 696.875,
+              "right": 878,
+              "bottom": 740.875,
+              "left": 821.453125
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 459.390625,
+          "y": 594,
+          "width": 163.9375,
+          "height": 44,
+          "top": 594,
+          "right": 623.328125,
+          "bottom": 638,
+          "left": 459.390625
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 1040.7221854609634,
+        "y": 632.6988551819506
+      },
+      "radioHitElement": "CANVAS",
+      "focused": {
+        "drive": {
+          "speed": 67.80721980315842,
+          "rpm": 2212.6504125658003,
+          "distance": 243.96174980405465,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": true,
+          "district": "coast",
+          "fps": 42.28121927236972,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 5.328996481373906,
+          "drawCalls": 219,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 24.336815,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nBack to drive\nPause\nJolt Radio\nChange station\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1270.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1342,
+              "bottom": 64,
+              "left": 1270.96875
+            }
+          },
+          {
+            "label": "Back to drive",
+            "rect": {
+              "x": 24,
+              "y": 90,
+              "width": 124.203125,
+              "height": 44,
+              "top": 90,
+              "right": 148.203125,
+              "bottom": 134,
+              "left": 24
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 316,
+              "y": 696.875,
+              "width": 64,
+              "height": 44,
+              "top": 696.875,
+              "right": 380,
+              "bottom": 740.875,
+              "left": 316
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 392,
+              "y": 696.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 696.75,
+              "right": 809.453125,
+              "bottom": 741,
+              "left": 392
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 821.453125,
+              "y": 696.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 696.875,
+              "right": 878,
+              "bottom": 740.875,
+              "left": 821.453125
+            }
+          }
+        ]
+      },
+      "pauseHit": {
+        "rect": {
+          "x": 316,
+          "y": 696.875,
+          "width": 64,
+          "height": 44,
+          "top": 696.875,
+          "right": 380,
+          "bottom": 740.875,
+          "left": 316
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Pause radio"
+      }
+    },
+    {
+      "name": "laptop",
+      "viewport": {
+        "width": 1280,
+        "height": 600
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": true,
+        "radioProjectionVisible": true,
+        "realMeshTapFocus": true,
+        "radioFocusKeepsAudio": true,
+        "backToDrive": true,
+        "transportUncovered": true,
+        "transportFits": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 646,
+          "y": 496,
+          "width": 384,
+          "height": 48,
+          "top": 496,
+          "right": 1030,
+          "bottom": 544,
+          "left": 646
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.3536829734221101,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\n\nBUENA ONDA CRUISE\n\nCHOOSE YOUR RIDE.\n\nThe car drives itself. You choose the music.\n\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→\nStart inside the cockpit. Radio begins with you.\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1157.78125,
+              "y": 14,
+              "width": 71.03125,
+              "height": 44,
+              "top": 14,
+              "right": 1228.8125,
+              "bottom": 58,
+              "left": 1157.78125
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 51.1875,
+              "y": 254.90625,
+              "width": 52,
+              "height": 52,
+              "top": 254.90625,
+              "right": 103.1875,
+              "bottom": 306.90625,
+              "left": 51.1875
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 1176.8125,
+              "y": 254.90625,
+              "width": 52,
+              "height": 52,
+              "top": 254.90625,
+              "right": 1228.8125,
+              "bottom": 306.90625,
+              "left": 1176.8125
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 360.578125,
+              "y": 440,
+              "width": 99.40625,
+              "height": 44,
+              "top": 440,
+              "right": 459.984375,
+              "bottom": 484,
+              "left": 360.578125
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 465.984375,
+              "y": 440,
+              "width": 90.359375,
+              "height": 44,
+              "top": 440,
+              "right": 556.34375,
+              "bottom": 484,
+              "left": 465.984375
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 562.34375,
+              "y": 440,
+              "width": 99.625,
+              "height": 44,
+              "top": 440,
+              "right": 661.96875,
+              "bottom": 484,
+              "left": 562.34375
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 667.96875,
+              "y": 440,
+              "width": 148.5,
+              "height": 44,
+              "top": 440,
+              "right": 816.46875,
+              "bottom": 484,
+              "left": 667.96875
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 822.46875,
+              "y": 440,
+              "width": 96.9375,
+              "height": 44,
+              "top": 440,
+              "right": 919.40625,
+              "bottom": 484,
+              "left": 822.46875
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 250,
+              "y": 496,
+              "width": 188,
+              "height": 48,
+              "top": 496,
+              "right": 438,
+              "bottom": 544,
+              "left": 250
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 446,
+              "y": 496,
+              "width": 188,
+              "height": 48,
+              "top": 496,
+              "right": 634,
+              "bottom": 544,
+              "left": 446
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 646,
+              "y": 496,
+              "width": 384,
+              "height": 48,
+              "top": 496,
+              "right": 1030,
+              "bottom": 544,
+              "left": 646
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.6523815896362066,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1184.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1256,
+              "bottom": 64,
+              "left": 1184.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 273,
+              "y": 528.875,
+              "width": 64,
+              "height": 44,
+              "top": 528.875,
+              "right": 337,
+              "bottom": 572.875,
+              "left": 273
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 349,
+              "y": 528.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 528.75,
+              "right": 766.453125,
+              "bottom": 573,
+              "left": 349
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 778.453125,
+              "y": 528.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 528.875,
+              "right": 835,
+              "bottom": 572.875,
+              "left": 778.453125
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.43014756559468,
+          "rpm": 2371.461407616556,
+          "distance": 213.12370741587816,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 56.92031156389536,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 8.08603085577488,
+          "drawCalls": 260,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 16.114257,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nAutodrive is on. Change your view above.\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1184.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1256,
+              "bottom": 64,
+              "left": 1184.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 416.390625,
+              "y": 426,
+              "width": 163.9375,
+              "height": 44,
+              "top": 426,
+              "right": 580.328125,
+              "bottom": 470,
+              "left": 416.390625
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 804.171875,
+              "y": 426,
+              "width": 59.421875,
+              "height": 44,
+              "top": 426,
+              "right": 863.59375,
+              "bottom": 470,
+              "left": 804.171875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 273,
+              "y": 528.875,
+              "width": 64,
+              "height": 44,
+              "top": 528.875,
+              "right": 337,
+              "bottom": 572.875,
+              "left": 273
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 349,
+              "y": 528.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 528.75,
+              "right": 766.453125,
+              "bottom": 573,
+              "left": 349
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 778.453125,
+              "y": 528.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 528.875,
+              "right": 835,
+              "bottom": 572.875,
+              "left": 778.453125
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 416.390625,
+          "y": 426,
+          "width": 163.9375,
+          "height": 44,
+          "top": 426,
+          "right": 580.328125,
+          "bottom": 470,
+          "left": 416.390625
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 919.4704573913671,
+        "y": 494.2959806108973
+      },
+      "radioHitElement": "CANVAS",
+      "focused": {
+        "drive": {
+          "speed": 62.84979843141314,
+          "rpm": 2109.3708006544402,
+          "distance": 254.89944774941685,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": true,
+          "district": "coast",
+          "fps": 48.29013501513362,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 7.3403655011206865,
+          "drawCalls": 200,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 18.259091,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nBack to drive\nPause\nJolt Radio\nChange station\nSave\nVolume\n© OpenStreetMap contributors · ODbL",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 1184.96875,
+              "y": 20,
+              "width": 71.03125,
+              "height": 44,
+              "top": 20,
+              "right": 1256,
+              "bottom": 64,
+              "left": 1184.96875
+            }
+          },
+          {
+            "label": "Back to drive",
+            "rect": {
+              "x": 24,
+              "y": 90,
+              "width": 124.203125,
+              "height": 44,
+              "top": 90,
+              "right": 148.203125,
+              "bottom": 134,
+              "left": 24
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 273,
+              "y": 528.875,
+              "width": 64,
+              "height": 44,
+              "top": 528.875,
+              "right": 337,
+              "bottom": 572.875,
+              "left": 273
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 349,
+              "y": 528.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 528.75,
+              "right": 766.453125,
+              "bottom": 573,
+              "left": 349
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 778.453125,
+              "y": 528.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 528.875,
+              "right": 835,
+              "bottom": 572.875,
+              "left": 778.453125
+            }
+          }
+        ]
+      },
+      "pauseHit": {
+        "rect": {
+          "x": 273,
+          "y": 528.875,
+          "width": 64,
+          "height": 44,
+          "top": 528.875,
+          "right": 337,
+          "bottom": 572.875,
+          "left": 273
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Pause radio"
+      }
+    },
+    {
+      "name": "short",
+      "viewport": {
+        "width": 1024,
+        "height": 480
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": true,
+        "radioProjectionVisible": true,
+        "realMeshTapFocus": true,
+        "radioFocusKeepsAudio": true,
+        "backToDrive": true,
+        "transportUncovered": true,
+        "transportFits": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 515,
+          "y": 418,
+          "width": 387,
+          "height": 44,
+          "top": 418,
+          "right": 902,
+          "bottom": 462,
+          "left": 515
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.3535596216097474,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nMenu\nCHOOSE YOUR RIDE.\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 912.015625,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 983.046875,
+              "bottom": 52,
+              "left": 912.015625
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 40.953125,
+              "y": 193.140625,
+              "width": 40,
+              "height": 44,
+              "top": 193.140625,
+              "right": 80.953125,
+              "bottom": 237.140625,
+              "left": 40.953125
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 943.046875,
+              "y": 193.140625,
+              "width": 40,
+              "height": 44,
+              "top": 193.140625,
+              "right": 983.046875,
+              "bottom": 237.140625,
+              "left": 943.046875
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 232.578125,
+              "y": 370,
+              "width": 99.40625,
+              "height": 44,
+              "top": 370,
+              "right": 331.984375,
+              "bottom": 414,
+              "left": 232.578125
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 337.984375,
+              "y": 370,
+              "width": 90.359375,
+              "height": 44,
+              "top": 370,
+              "right": 428.34375,
+              "bottom": 414,
+              "left": 337.984375
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 434.34375,
+              "y": 370,
+              "width": 99.625,
+              "height": 44,
+              "top": 370,
+              "right": 533.96875,
+              "bottom": 414,
+              "left": 434.34375
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 539.96875,
+              "y": 370,
+              "width": 148.5,
+              "height": 44,
+              "top": 370,
+              "right": 688.46875,
+              "bottom": 414,
+              "left": 539.96875
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 694.46875,
+              "y": 370,
+              "width": 96.9375,
+              "height": 44,
+              "top": 370,
+              "right": 791.40625,
+              "bottom": 414,
+              "left": 694.46875
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 122,
+              "y": 418,
+              "width": 189.5,
+              "height": 44,
+              "top": 418,
+              "right": 311.5,
+              "bottom": 462,
+              "left": 122
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 319.5,
+              "y": 418,
+              "width": 189.5,
+              "height": 44,
+              "top": 418,
+              "right": 509,
+              "bottom": 462,
+              "left": 319.5
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 515,
+              "y": 418,
+              "width": 387,
+              "height": 44,
+              "top": 418,
+              "right": 902,
+              "bottom": 462,
+              "left": 515
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.6101277582347393,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 928.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 1000,
+              "bottom": 52,
+              "left": 928.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 145,
+              "y": 408.875,
+              "width": 64,
+              "height": 44,
+              "top": 408.875,
+              "right": 209,
+              "bottom": 452.875,
+              "left": 145
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 221,
+              "y": 408.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 408.75,
+              "right": 638.453125,
+              "bottom": 453,
+              "left": 221
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 650.453125,
+              "y": 408.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 408.875,
+              "right": 707,
+              "bottom": 452.875,
+              "left": 650.453125
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.442397599035,
+          "rpm": 2371.7166166465627,
+          "distance": 213.93373567238547,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.01574183401167,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 8.423574328422546,
+          "drawCalls": 254,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 18.938633,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nAutodrive is on. Change your view above.\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 928.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 1000,
+              "bottom": 52,
+              "left": 928.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 288.390625,
+              "y": 314,
+              "width": 163.9375,
+              "height": 44,
+              "top": 314,
+              "right": 452.328125,
+              "bottom": 358,
+              "left": 288.390625
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 676.171875,
+              "y": 314,
+              "width": 59.421875,
+              "height": 44,
+              "top": 314,
+              "right": 735.59375,
+              "bottom": 358,
+              "left": 676.171875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 145,
+              "y": 408.875,
+              "width": 64,
+              "height": 44,
+              "top": 408.875,
+              "right": 209,
+              "bottom": 452.875,
+              "left": 145
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 221,
+              "y": 408.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 408.75,
+              "right": 638.453125,
+              "bottom": 453,
+              "left": 221
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 650.453125,
+              "y": 408.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 408.875,
+              "right": 707,
+              "bottom": 452.875,
+              "left": 650.453125
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 288.390625,
+          "y": 314,
+          "width": 163.9375,
+          "height": 44,
+          "top": 314,
+          "right": 452.328125,
+          "bottom": 358,
+          "left": 288.390625
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 735.5763659131021,
+        "y": 395.4367844887191
+      },
+      "radioHitElement": "CANVAS",
+      "focused": {
+        "drive": {
+          "speed": 68.44043862423345,
+          "rpm": 2225.842471338197,
+          "distance": 242.66971826385512,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": true,
+          "district": "coast",
+          "fps": 60.033461273408705,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 9.861171081662178,
+          "drawCalls": 204,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 20.360769,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nBack to drive\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 928.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 1000,
+              "bottom": 52,
+              "left": 928.96875
+            }
+          },
+          {
+            "label": "Back to drive",
+            "rect": {
+              "x": 24,
+              "y": 90,
+              "width": 124.203125,
+              "height": 44,
+              "top": 90,
+              "right": 148.203125,
+              "bottom": 134,
+              "left": 24
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 145,
+              "y": 408.875,
+              "width": 64,
+              "height": 44,
+              "top": 408.875,
+              "right": 209,
+              "bottom": 452.875,
+              "left": 145
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 221,
+              "y": 408.75,
+              "width": 417.453125,
+              "height": 44.25,
+              "top": 408.75,
+              "right": 638.453125,
+              "bottom": 453,
+              "left": 221
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 650.453125,
+              "y": 408.875,
+              "width": 56.546875,
+              "height": 44,
+              "top": 408.875,
+              "right": 707,
+              "bottom": 452.875,
+              "left": 650.453125
+            }
+          }
+        ]
+      },
+      "pauseHit": {
+        "rect": {
+          "x": 145,
+          "y": 408.875,
+          "width": 64,
+          "height": 44,
+          "top": 408.875,
+          "right": 209,
+          "bottom": 452.875,
+          "left": 145
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Pause radio"
+      }
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": true,
+        "radioProjectionVisible": true,
+        "realMeshTapFocus": true,
+        "radioFocusKeepsAudio": true,
+        "backToDrive": true,
+        "transportUncovered": true,
+        "transportFits": true,
+        "noPageErrors": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 15.59375,
+          "y": 746,
+          "width": 358.8125,
+          "height": 48,
+          "top": 746,
+          "right": 374.40625,
+          "bottom": 794,
+          "left": 15.59375
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.35372703708708286,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nMenu\n\nBUENA ONDA CRUISE\n\nCHOOSE YOUR RIDE.\n\nThe car drives itself. You choose the music.\n\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→\nStart inside the cockpit. Radio begins with you.",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 303.375,
+              "y": 14,
+              "width": 71.03125,
+              "height": 44,
+              "top": 14,
+              "right": 374.40625,
+              "bottom": 58,
+              "left": 303.375
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 15.59375,
+              "y": 326.546875,
+              "width": 44,
+              "height": 44,
+              "top": 326.546875,
+              "right": 59.59375,
+              "bottom": 370.546875,
+              "left": 15.59375
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 330.40625,
+              "y": 326.546875,
+              "width": 44,
+              "height": 44,
+              "top": 326.546875,
+              "right": 374.40625,
+              "bottom": 370.546875,
+              "left": 330.40625
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 46.296875,
+              "y": 594,
+              "width": 99.40625,
+              "height": 44,
+              "top": 594,
+              "right": 145.703125,
+              "bottom": 638,
+              "left": 46.296875
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 149.703125,
+              "y": 594,
+              "width": 90.359375,
+              "height": 44,
+              "top": 594,
+              "right": 240.0625,
+              "bottom": 638,
+              "left": 149.703125
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 244.0625,
+              "y": 594,
+              "width": 99.625,
+              "height": 44,
+              "top": 594,
+              "right": 343.6875,
+              "bottom": 638,
+              "left": 244.0625
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 70.28125,
+              "y": 642,
+              "width": 148.5,
+              "height": 44,
+              "top": 642,
+              "right": 218.78125,
+              "bottom": 686,
+              "left": 70.28125
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 222.78125,
+              "y": 642,
+              "width": 96.9375,
+              "height": 44,
+              "top": 642,
+              "right": 319.71875,
+              "bottom": 686,
+              "left": 222.78125
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 15.59375,
+              "y": 694,
+              "width": 175.40625,
+              "height": 44,
+              "top": 694,
+              "right": 191,
+              "bottom": 738,
+              "left": 15.59375
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 199,
+              "y": 694,
+              "width": 175.40625,
+              "height": 44,
+              "top": 694,
+              "right": 374.40625,
+              "bottom": 738,
+              "left": 199
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 15.59375,
+              "y": 746,
+              "width": 358.8125,
+              "height": 48,
+              "top": 746,
+              "right": 374.40625,
+              "bottom": 794,
+              "left": 15.59375
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.5880472101271152,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 306.96875,
+              "y": 12,
+              "width": 71.03125,
+              "height": 44,
+              "top": 12,
+              "right": 378,
+              "bottom": 56,
+              "left": 306.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 726,
+              "width": 64,
+              "height": 44,
+              "top": 726,
+              "right": 89,
+              "bottom": 770,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 726,
+              "width": 217.484375,
+              "height": 44,
+              "top": 726,
+              "right": 312.484375,
+              "bottom": 770,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 318.484375,
+              "y": 726,
+              "width": 46.515625,
+              "height": 44,
+              "top": 726,
+              "right": 365,
+              "bottom": 770,
+              "left": 318.484375
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.4266346111055,
+          "rpm": 2371.388221064698,
+          "distance": 212.88652839102915,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.021647151607716,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 7.288920733961277,
+          "drawCalls": 223,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 18.527383,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 306.96875,
+              "y": 12,
+              "width": 71.03125,
+              "height": 44,
+              "top": 12,
+              "right": 378,
+              "bottom": 56,
+              "left": 306.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 82.390625,
+              "y": 595,
+              "width": 153.78125,
+              "height": 44,
+              "top": 595,
+              "right": 236.171875,
+              "bottom": 639,
+              "left": 82.390625
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 248.171875,
+              "y": 595,
+              "width": 59.421875,
+              "height": 44,
+              "top": 595,
+              "right": 307.59375,
+              "bottom": 639,
+              "left": 248.171875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 726,
+              "width": 64,
+              "height": 44,
+              "top": 726,
+              "right": 89,
+              "bottom": 770,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 726,
+              "width": 217.484375,
+              "height": 44,
+              "top": 726,
+              "right": 312.484375,
+              "bottom": 770,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 318.484375,
+              "y": 726,
+              "width": 46.515625,
+              "height": 44,
+              "top": 726,
+              "right": 365,
+              "bottom": 770,
+              "left": 318.484375
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 82.390625,
+          "y": 595,
+          "width": 153.78125,
+          "height": 44,
+          "top": 595,
+          "right": 236.171875,
+          "bottom": 639,
+          "left": 82.390625
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 363.1749167504967,
+        "y": 581.4811490125663
+      },
+      "radioHitElement": "CANVAS",
+      "focused": {
+        "drive": {
+          "speed": 69.31013138728404,
+          "rpm": 2243.9610705684177,
+          "distance": 240.76449617508885,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": true,
+          "district": "coast",
+          "fps": 60.157790927021736,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 10.27062575169839,
+          "drawCalls": 218,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 19.891148,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCRUISE / MIAMI\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nBack to drive\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 306.96875,
+              "y": 12,
+              "width": 71.03125,
+              "height": 44,
+              "top": 12,
+              "right": 378,
+              "bottom": 56,
+              "left": 306.96875
+            }
+          },
+          {
+            "label": "Back to drive",
+            "rect": {
+              "x": 12,
+              "y": 115,
+              "width": 124.203125,
+              "height": 44,
+              "top": 115,
+              "right": 136.203125,
+              "bottom": 159,
+              "left": 12
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 726,
+              "width": 64,
+              "height": 44,
+              "top": 726,
+              "right": 89,
+              "bottom": 770,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 726,
+              "width": 217.484375,
+              "height": 44,
+              "top": 726,
+              "right": 312.484375,
+              "bottom": 770,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 318.484375,
+              "y": 726,
+              "width": 46.515625,
+              "height": 44,
+              "top": 726,
+              "right": 365,
+              "bottom": 770,
+              "left": 318.484375
+            }
+          }
+        ]
+      },
+      "pauseHit": {
+        "rect": {
+          "x": 25,
+          "y": 726,
+          "width": 64,
+          "height": 44,
+          "top": 726,
+          "right": 89,
+          "bottom": 770,
+          "left": 25
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Pause radio"
+      }
+    },
+    {
+      "name": "zoom-reflow",
+      "viewport": {
+        "width": 683,
+        "height": 384
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": false,
+        "radioProjectionVisible": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 344.5,
+          "y": 322,
+          "width": 311.1875,
+          "height": 44,
+          "top": 322,
+          "right": 655.6875,
+          "bottom": 366,
+          "left": 344.5
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.31712864711880684,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nMenu\nCHOOSE YOUR RIDE.\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 584.65625,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 655.6875,
+              "bottom": 52,
+              "left": 584.65625
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 27.3125,
+              "y": 145.140625,
+              "width": 44,
+              "height": 44,
+              "top": 145.140625,
+              "right": 71.3125,
+              "bottom": 189.140625,
+              "left": 27.3125
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 611.6875,
+              "y": 145.140625,
+              "width": 44,
+              "height": 44,
+              "top": 145.140625,
+              "right": 655.6875,
+              "bottom": 189.140625,
+              "left": 611.6875
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 66.078125,
+              "y": 274,
+              "width": 99.40625,
+              "height": 44,
+              "top": 274,
+              "right": 165.484375,
+              "bottom": 318,
+              "left": 66.078125
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 169.484375,
+              "y": 274,
+              "width": 90.359375,
+              "height": 44,
+              "top": 274,
+              "right": 259.84375,
+              "bottom": 318,
+              "left": 169.484375
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 263.84375,
+              "y": 274,
+              "width": 99.625,
+              "height": 44,
+              "top": 274,
+              "right": 363.46875,
+              "bottom": 318,
+              "left": 263.84375
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 367.46875,
+              "y": 274,
+              "width": 148.5,
+              "height": 44,
+              "top": 274,
+              "right": 515.96875,
+              "bottom": 318,
+              "left": 367.46875
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 519.96875,
+              "y": 274,
+              "width": 96.9375,
+              "height": 44,
+              "top": 274,
+              "right": 616.90625,
+              "bottom": 318,
+              "left": 519.96875
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 27.3125,
+              "y": 322,
+              "width": 151.59375,
+              "height": 44,
+              "top": 322,
+              "right": 178.90625,
+              "bottom": 366,
+              "left": 27.3125
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 186.90625,
+              "y": 322,
+              "width": 151.59375,
+              "height": 44,
+              "top": 322,
+              "right": 338.5,
+              "bottom": 366,
+              "left": 186.90625
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 344.5,
+              "y": 322,
+              "width": 311.1875,
+              "height": 44,
+              "top": 322,
+              "right": 655.6875,
+              "bottom": 366,
+              "left": 344.5
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.5622382890433073,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 587.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 659,
+              "bottom": 52,
+              "left": 587.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 29,
+              "y": 318.875,
+              "width": 64,
+              "height": 44,
+              "top": 318.875,
+              "right": 93,
+              "bottom": 362.875,
+              "left": 29
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 105,
+              "y": 318.75,
+              "width": 318.484375,
+              "height": 44.25,
+              "top": 318.75,
+              "right": 423.484375,
+              "bottom": 363,
+              "left": 105
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 435.484375,
+              "y": 318.875,
+              "width": 46.515625,
+              "height": 44,
+              "top": 318.875,
+              "right": 482,
+              "bottom": 362.875,
+              "left": 435.484375
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.42806988433696,
+          "rpm": 2371.418122590353,
+          "distance": 212.9793684567483,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.015741834011685,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 11.14051166176796,
+          "drawCalls": 257,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 16.188817,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 587.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 659,
+              "bottom": 52,
+              "left": 587.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 223.8125,
+              "y": 218,
+              "width": 163.9375,
+              "height": 44,
+              "top": 218,
+              "right": 387.75,
+              "bottom": 262,
+              "left": 223.8125
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 399.75,
+              "y": 218,
+              "width": 59.421875,
+              "height": 44,
+              "top": 218,
+              "right": 459.171875,
+              "bottom": 262,
+              "left": 399.75
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 29,
+              "y": 318.875,
+              "width": 64,
+              "height": 44,
+              "top": 318.875,
+              "right": 93,
+              "bottom": 362.875,
+              "left": 29
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 105,
+              "y": 318.75,
+              "width": 318.484375,
+              "height": 44.25,
+              "top": 318.75,
+              "right": 423.484375,
+              "bottom": 363,
+              "left": 105
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 435.484375,
+              "y": 318.875,
+              "width": 46.515625,
+              "height": 44,
+              "top": 318.875,
+              "right": 482,
+              "bottom": 362.875,
+              "left": 435.484375
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 223.8125,
+          "y": 218,
+          "width": 163.9375,
+          "height": 44,
+          "top": 218,
+          "right": 387.75,
+          "bottom": 262,
+          "left": 223.8125
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 520.3610927305054,
+        "y": 316.3494275909794
+      },
+      "radioHitElement": "DIV",
+      "failure": "page.waitForFunction: Timeout 5000ms exceeded.\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-os-20261015\\scripts\\cruise-cockpit-return-proof.mjs:20:791"
+    },
+    {
+      "name": "compact-reflow",
+      "viewport": {
+        "width": 512,
+        "height": 384
+      },
+      "checks": {
+        "startFullyVisible": true,
+        "startUncovered": true,
+        "noPrestartDeck": true,
+        "immediateCockpit": true,
+        "chosenVehicle": true,
+        "cockpit": true,
+        "vehicleRetained": true,
+        "noOverflow": true,
+        "radioGuideUncovered": true,
+        "radioGuideFits": true,
+        "radioCanvasUncovered": false,
+        "radioProjectionVisible": true
+      },
+      "errors": [],
+      "startHit": {
+        "rect": {
+          "x": 259,
+          "y": 322,
+          "width": 232.53125,
+          "height": 44,
+          "top": 322,
+          "right": 491.53125,
+          "bottom": 366,
+          "left": 259
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Start the drive"
+      },
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.066750000230968,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": true,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nMenu\nCHOOSE YOUR RIDE.\n‹\nPreparing your Countach...\n›\nCOUNTACH 5000QV\nCountach\nFiero GT\nDeLorean\nEldorado Biarritz\nWrangler\nSunset\nNight\nStart cruising\n→",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 420.5,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 491.53125,
+              "bottom": 52,
+              "left": 420.5
+            }
+          },
+          {
+            "label": "Previous ride",
+            "rect": {
+              "x": 20.46875,
+              "y": 121.140625,
+              "width": 44,
+              "height": 44,
+              "top": 121.140625,
+              "right": 64.46875,
+              "bottom": 165.140625,
+              "left": 20.46875
+            }
+          },
+          {
+            "label": "Next ride",
+            "rect": {
+              "x": 447.53125,
+              "y": 121.140625,
+              "width": 44,
+              "height": 44,
+              "top": 121.140625,
+              "right": 491.53125,
+              "bottom": 165.140625,
+              "left": 447.53125
+            }
+          },
+          {
+            "label": "Choose 5000QV Countach",
+            "rect": {
+              "x": 31.046875,
+              "y": 226,
+              "width": 99.40625,
+              "height": 44,
+              "top": 226,
+              "right": 130.453125,
+              "bottom": 270,
+              "left": 31.046875
+            }
+          },
+          {
+            "label": "Choose 1987 Fiero GT",
+            "rect": {
+              "x": 134.453125,
+              "y": 226,
+              "width": 90.359375,
+              "height": 44,
+              "top": 226,
+              "right": 224.8125,
+              "bottom": 270,
+              "left": 134.453125
+            }
+          },
+          {
+            "label": "Choose DMC-12 DeLorean",
+            "rect": {
+              "x": 228.8125,
+              "y": 226,
+              "width": 99.625,
+              "height": 44,
+              "top": 226,
+              "right": 328.4375,
+              "bottom": 270,
+              "left": 228.8125
+            }
+          },
+          {
+            "label": "Choose 1959 Eldorado Biarritz",
+            "rect": {
+              "x": 332.4375,
+              "y": 226,
+              "width": 148.5,
+              "height": 44,
+              "top": 226,
+              "right": 480.9375,
+              "bottom": 270,
+              "left": 332.4375
+            }
+          },
+          {
+            "label": "Choose 2012 Wrangler",
+            "rect": {
+              "x": 207.53125,
+              "y": 274,
+              "width": 96.9375,
+              "height": 44,
+              "top": 274,
+              "right": 304.46875,
+              "bottom": 318,
+              "left": 207.53125
+            }
+          },
+          {
+            "label": "Sunset",
+            "rect": {
+              "x": 20.46875,
+              "y": 322,
+              "width": 112.265625,
+              "height": 44,
+              "top": 322,
+              "right": 132.734375,
+              "bottom": 366,
+              "left": 20.46875
+            }
+          },
+          {
+            "label": "Night",
+            "rect": {
+              "x": 140.734375,
+              "y": 322,
+              "width": 112.265625,
+              "height": 44,
+              "top": 322,
+              "right": 253,
+              "bottom": 366,
+              "left": 140.734375
+            }
+          },
+          {
+            "label": "Start the drive",
+            "rect": {
+              "x": 259,
+              "y": 322,
+              "width": 232.53125,
+              "height": 44,
+              "top": 322,
+              "right": 491.53125,
+              "bottom": 366,
+              "left": 259
+            }
+          }
+        ]
+      },
+      "immediate": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.5291433017700911,
+          "drawCalls": 0,
+          "renderDpr": 1,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 0,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\n\nLoading the scenery. Your radio is below.\n\nPause\nJolt Radio\nConnecting...\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 428.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 500,
+              "bottom": 52,
+              "left": 428.96875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 266,
+              "width": 64,
+              "height": 44,
+              "top": 266,
+              "right": 89,
+              "bottom": 310,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 266,
+              "width": 339.484375,
+              "height": 44,
+              "top": 266,
+              "right": 434.484375,
+              "bottom": 310,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 440.484375,
+              "y": 266,
+              "width": 46.515625,
+              "height": 44,
+              "top": 266,
+              "right": 487,
+              "bottom": 310,
+              "left": 440.484375
+            }
+          }
+        ]
+      },
+      "cockpit": {
+        "drive": {
+          "speed": 75.42471105298686,
+          "rpm": 2371.3481469372264,
+          "distance": 212.75889527627197,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.0216471516077,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 9.569353487342596,
+          "drawCalls": 251,
+          "renderDpr": 1,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "audio": [
+          {
+            "id": 0,
+            "time": 16.362337,
+            "paused": false,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen"
+          }
+        ],
+        "body": "BUENA ONDA\nCamera\nCockpit\nCoastal view\nCinematic\nMenu\nTap the radio to tune in\nGot it\nPause\nJolt Radio\nChange station\nSave\nVolume",
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Menu",
+            "rect": {
+              "x": 428.96875,
+              "y": 8,
+              "width": 71.03125,
+              "height": 44,
+              "top": 8,
+              "right": 500,
+              "bottom": 52,
+              "left": 428.96875
+            }
+          },
+          {
+            "label": "Tap the radio to tune in",
+            "rect": {
+              "x": 143.390625,
+              "y": 218,
+              "width": 153.78125,
+              "height": 44,
+              "top": 218,
+              "right": 297.171875,
+              "bottom": 262,
+              "left": 143.390625
+            }
+          },
+          {
+            "label": "Dismiss radio guide",
+            "rect": {
+              "x": 309.171875,
+              "y": 218,
+              "width": 59.421875,
+              "height": 44,
+              "top": 218,
+              "right": 368.59375,
+              "bottom": 262,
+              "left": 309.171875
+            }
+          },
+          {
+            "label": "Pause radio",
+            "rect": {
+              "x": 25,
+              "y": 266,
+              "width": 64,
+              "height": 44,
+              "top": 266,
+              "right": 89,
+              "bottom": 310,
+              "left": 25
+            }
+          },
+          {
+            "label": "Choose station",
+            "rect": {
+              "x": 95,
+              "y": 266,
+              "width": 339.484375,
+              "height": 44,
+              "top": 266,
+              "right": 434.484375,
+              "bottom": 310,
+              "left": 95
+            }
+          },
+          {
+            "label": "Save station",
+            "rect": {
+              "x": 440.484375,
+              "y": 266,
+              "width": 46.515625,
+              "height": 44,
+              "top": 266,
+              "right": 487,
+              "bottom": 310,
+              "left": 440.484375
+            }
+          }
+        ]
+      },
+      "guideHit": {
+        "rect": {
+          "x": 143.390625,
+          "y": 218,
+          "width": 153.78125,
+          "height": 44,
+          "top": 218,
+          "right": 297.171875,
+          "bottom": 262,
+          "left": 143.390625
+        },
+        "fullyVisible": true,
+        "uncovered": true,
+        "actualTarget": "Tap the radio to tune in"
+      },
+      "physicalRadioPoint": {
+        "x": 434.861092730475,
+        "y": 316.3494275909743
+      },
+      "radioHitElement": "LABEL",
+      "failure": "page.waitForFunction: Timeout 5000ms exceeded.\n    at D:\\10-VENTURES\\12-buena-onda\\cruise-os-20261015\\scripts\\cruise-cockpit-return-proof.mjs:20:791"
+    }
+  ],
+  "passed": false
+}

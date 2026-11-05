@@ -1,0 +1,375 @@
+{
+  "at": "2026-10-15T15:59:10.385Z",
+  "browser": "155.0.4283.45",
+  "url": "http://127.0.0.1:3076/cruise/experience",
+  "environment": "Windows headless Edge; viewport/touch/reduced-motion emulation only, no physical device or FPS benchmark",
+  "profiles": [
+    {
+      "name": "portrait",
+      "width": 390,
+      "height": 844,
+      "manualCamera": true,
+      "checks": {
+        "noAutoplay": true,
+        "readyMovingPlaying": true,
+        "controlsReachable": true,
+        "noOverflow": true,
+        "settingsAccessible": true,
+        "stationSearch": true,
+        "stationSelection": true,
+        "audioAdvances": false
+      },
+      "controls": [
+        {
+          "name": "start",
+          "box": {
+            "x": 27.296875,
+            "y": 518.25,
+            "width": 205,
+            "height": 62
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "power",
+          "box": {
+            "x": 22.6875,
+            "y": 725,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "volume",
+          "box": {
+            "x": 63.390625,
+            "y": 785,
+            "width": 75,
+            "height": 28
+          },
+          "centerHit": true,
+          "recommended44px": false
+        },
+        {
+          "name": "mute",
+          "box": {
+            "x": 213.265625,
+            "y": 777,
+            "width": 44.4375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "tune",
+          "box": {
+            "x": 265.703125,
+            "y": 777,
+            "width": 101.609375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "camera",
+          "box": {
+            "x": 162.1875,
+            "y": 18,
+            "width": 82.59375,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        },
+        {
+          "name": "options",
+          "box": {
+            "x": 250.78125,
+            "y": 18,
+            "width": 119.71875,
+            "height": 44
+          },
+          "centerHit": true,
+          "recommended44px": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "notes": [],
+      "entry": {
+        "drive": {
+          "speed": 0,
+          "rpm": 0,
+          "distance": 0,
+          "paused": true,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 0,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Waiting for radio",
+          "spectrum": 0.1273874151520431,
+          "drawCalls": 0,
+          "ready": false,
+          "vehicle": "countach",
+          "garage": true,
+          "timeMode": "sunset"
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "▶TURN THE DIAL / Jolt RadioNo Algorithms. Just Frequencies.Next stationSave songVolumeMuteTune & discover",
+          "powerLabel": "Start listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          }
+        ]
+      },
+      "started": {
+        "drive": {
+          "speed": 13.412522973586523,
+          "rpm": 1079.4275619497193,
+          "distance": 3.0094870529232103,
+          "paused": false,
+          "camera": "chase",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 59.52380952380954,
+          "station": "jolt-radio",
+          "playing": true,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Analyzing current radio",
+          "spectrum": 15.710544764995575,
+          "drawCalls": 265,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.7848933775921,
+          "longitude": -80.12979827343875,
+          "street": "Ocean Drive",
+          "routeMeters": 18864.509487052906,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 33,
+          "generationMs": 15.5,
+          "maxGenerationMs": 44.899999998509884,
+          "chunkState": "{\"built\":33,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":3,\"windowLod\":\"distance\",\"renderedTriangles\":525803,\"geometries\":184,\"textures\":64}",
+          "elapsed": 2.004899999998509,
+          "nightBlend": 0.0008353749999993787,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 521.3791456934941,
+            "z": 568.4692064475337,
+            "yaw": 3.0013627970024506
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "ⅡON AIR / Jolt RadioNo Algorithms. Just Frequencies.Next stationSave songVolumeMuteTune & discover",
+          "powerLabel": "Pause listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 1.919506,
+            "paused": false,
+            "ready": 4
+          }
+        ]
+      },
+      "final": {
+        "drive": {
+          "speed": 62.68158305850642,
+          "rpm": 2105.8663137188837,
+          "distance": 255.54845984761764,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.009837678307974,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Idle / paused",
+          "spectrum": 0.4815122615545988,
+          "drawCalls": 217,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.78264693626256,
+          "longitude": -80.13014907369306,
+          "street": "Ocean Drive",
+          "routeMeters": 19117.04845984761,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 38,
+          "generationMs": 19.799999997019768,
+          "maxGenerationMs": 44.899999998509884,
+          "chunkState": "{\"built\":38,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":435961,\"geometries\":246,\"textures\":75}",
+          "elapsed": 17.260600000001592,
+          "nightBlend": 0.00719191666666733,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 486.21775557717126,
+            "z": 818.5430552517869,
+            "yaw": 2.9455375755107562
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "▶SIGNAL UNAVAILABLE / Jolt RadioNo Algorithms. Just Frequencies.Next stationSave songVolumeMuteTune & discover",
+          "powerLabel": "Start listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 15.013642,
+            "paused": true,
+            "ready": 4
+          }
+        ]
+      },
+      "failure": "AssertionError [ERR_ASSERTION]: Real station playback did not advance\n    at file:///D:/10-VENTURES/12-buena-onda/cruise-experience-20261015/scripts/experience-mobile-proof.mjs:137:14",
+      "failureState": {
+        "drive": {
+          "speed": 62.68158305850642,
+          "rpm": 2105.8663137188837,
+          "distance": 255.54845984761764,
+          "paused": false,
+          "camera": "driver",
+          "radioFocused": false,
+          "district": "coast",
+          "fps": 60.009837678307974,
+          "station": "jolt-radio",
+          "playing": false,
+          "muted": false,
+          "volume": 0.82,
+          "analysis": "Idle / paused",
+          "spectrum": 0.4815122615545988,
+          "drawCalls": 217,
+          "ready": true,
+          "vehicle": "countach",
+          "garage": false,
+          "timeMode": "sunset"
+        },
+        "geo": {
+          "latitude": 25.78264693626256,
+          "longitude": -80.13014907369306,
+          "street": "Ocean Drive",
+          "routeMeters": 19117.04845984761,
+          "routeLength": 19642.962656759213,
+          "worldExtentMeters": 5000,
+          "totalChunks": 310,
+          "chunksGenerated": 38,
+          "generationMs": 19.799999997019768,
+          "maxGenerationMs": 44.899999998509884,
+          "chunkState": "{\"built\":38,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":4,\"windowLod\":\"distance\",\"renderedTriangles\":435961,\"geometries\":246,\"textures\":75}",
+          "elapsed": 17.260600000001592,
+          "nightBlend": 0.00719191666666733,
+          "transitionSeconds": 2400,
+          "position": {
+            "x": 486.21775557717126,
+            "z": 818.5430552517869,
+            "yaw": 2.9455375755107562
+          }
+        },
+        "reduced": false,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "overflow": false,
+        "radio": {
+          "text": "▶SIGNAL UNAVAILABLE / Jolt RadioNo Algorithms. Just Frequencies.Next stationSave songVolumeMuteTune & discover",
+          "powerLabel": "Start listening"
+        },
+        "media": [
+          {
+            "id": 0,
+            "src": "",
+            "time": 0,
+            "paused": true,
+            "ready": 0
+          },
+          {
+            "id": 1,
+            "src": "https://streamer.radio.co/sd8ab6b5aa/listen",
+            "time": 15.013642,
+            "paused": true,
+            "ready": 4
+          }
+        ]
+      }
+    }
+  ],
+  "delayedMap": null,
+  "passed": false
+}

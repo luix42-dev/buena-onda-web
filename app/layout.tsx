@@ -8,6 +8,7 @@ import './globals.css'
 import FilmGrain from '@/components/ui/FilmGrain'
 import ClickSound from '@/components/ui/ClickSound'
 import MetaPixel from '@/components/analytics/MetaPixel'
+import RadioPrivacyBoundary from '@/components/human-radio/RadioPrivacyBoundary'
 
 export const metadata: Metadata = {
   title: {
@@ -56,9 +57,9 @@ export default function RootLayout({
       <head />
       <body className={`${bebasNeue.variable} ${outfit.variable} ${cormorantGaramond.variable} ${spaceMono.variable} ${orbitron.variable} ${fraunces.variable}`}>
         <FilmGrain />
-        <ClickSound />
+        <RadioPrivacyBoundary><ClickSound /></RadioPrivacyBoundary>
         {children}
-        <Analytics />
+        <RadioPrivacyBoundary><Analytics />
         <SpeedInsights />
         <MetaPixel />
         {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
@@ -72,7 +73,7 @@ export default function RootLayout({
               })(window, document, "clarity", "script", "${clarityProjectId}");
             `}
           </Script>
-        ) : null}
+        ) : null}</RadioPrivacyBoundary>
       </body>
     </html>
   )

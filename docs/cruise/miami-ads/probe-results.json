@@ -1,0 +1,982 @@
+{
+  "method": "Targeted actual ray-occluder/vehicle/viewport diagnostics. Existing native Chrome casting untouched. No fabricated ad samples.",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "errors": [],
+      "cars": [
+        {
+          "vehicle": "eighties",
+          "points": [
+            {
+              "meters": 18891.5,
+              "snapshot": {
+                "speed": 0,
+                "rpm": 0,
+                "distance": 0,
+                "paused": true,
+                "camera": "driver",
+                "radioFocused": false,
+                "district": "coast",
+                "fps": 23.88230798631178,
+                "station": "jolt-radio",
+                "playing": true,
+                "muted": false,
+                "volume": 0.82,
+                "analysis": "Analyzing current radio",
+                "spectrum": 13.568477809429169,
+                "drawCalls": 245,
+                "ready": true,
+                "vehicle": "eighties",
+                "garage": false,
+                "timeMode": "night"
+              },
+              "geo": {
+                "latitude": 25.78465329879905,
+                "longitude": -80.12983591097607,
+                "street": "Ocean Drive",
+                "routeMeters": 18891.5,
+                "routeLength": 19642.962656759213,
+                "worldExtentMeters": 5000,
+                "totalChunks": 310,
+                "chunksGenerated": 33,
+                "generationMs": 12.5,
+                "maxGenerationMs": 39.1000000089407,
+                "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":513957,\"geometries\":217,\"textures\":53}",
+                "elapsed": 0,
+                "nightBlend": 1,
+                "transitionSeconds": 2400,
+                "position": {
+                  "x": 517.6066623028069,
+                  "z": 595.1947776895897,
+                  "yaw": 3.0013627970024666
+                }
+              },
+              "samples": [
+                {
+                  "placement": {
+                    "id": "MB-ROUTE-18937",
+                    "x": 521.2188189161596,
+                    "z": 641.1507601576059,
+                    "yaw": -2.7789792992492592,
+                    "y": 3.6,
+                    "width": 8,
+                    "height": 3.3,
+                    "format": "billboard",
+                    "routeMeters": 18936.5,
+                    "street": "Ocean Drive",
+                    "headline": "STAY A LITTLE LONGER.",
+                    "cta": "Stay for one song",
+                    "campaign": {
+                      "id": "buena-onda",
+                      "name": "Buena Onda",
+                      "analyticsId": "house_buena_onda",
+                      "destination": "/radio",
+                      "creatives": {
+                        "billboard": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "wall": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "poster": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        }
+                      }
+                    },
+                    "kind": "house"
+                  },
+                  "visible": true,
+                  "viewable": false,
+                  "readable": false,
+                  "distance": 46.939517732929396,
+                  "facing": 0.9666381057666047,
+                  "projectedArea": 0.006114430860749345,
+                  "pixelWidth": 112.80320589655435,
+                  "pixelHeight": 49.95478130678485,
+                  "occlusion": 1,
+                  "visibleDurationMs": 0,
+                  "sampledAt": 26049.69999998808,
+                  "fullyFramed": true,
+                  "occluders": [
+                    {
+                      "probe": [
+                        -0.4,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5930541098124006,
+                      "uv": [
+                        0.8887401261471859,
+                        0.667880353557004
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.4,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.606131563265892,
+                      "uv": [
+                        0.8928481766326457,
+                        0.6651498410013038
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6003619995778633,
+                      "uv": [
+                        0.8929947521684632,
+                        0.6673783661455437
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.613769610217995,
+                      "uv": [
+                        0.8972518223207493,
+                        0.6646223488806873
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6050367180877393,
+                      "uv": [
+                        0.8962145416885825,
+                        0.6668490519898496
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6187836041563697,
+                      "uv": [
+                        0.900618436608327,
+                        0.6640820339192794
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6084384027695311,
+                      "uv": [
+                        0.8988101713272547,
+                        0.6663071361827018
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6223533266338772,
+                      "uv": [
+                        0.9033015350851258,
+                        0.6635365859376512
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6124570599212553,
+                      "uv": [
+                        0.9013817551298013,
+                        0.6657652588117019
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6265139561448622,
+                      "uv": [
+                        0.9059489794638551,
+                        0.6629929963965434
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    }
+                  ]
+                }
+              ],
+              "cue": null
+            },
+            {
+              "meters": 18906.5,
+              "snapshot": {
+                "speed": 0,
+                "rpm": 0,
+                "distance": 0,
+                "paused": true,
+                "camera": "driver",
+                "radioFocused": false,
+                "district": "coast",
+                "fps": 28.21560614913805,
+                "station": "jolt-radio",
+                "playing": true,
+                "muted": false,
+                "volume": 0.82,
+                "analysis": "Analyzing current radio",
+                "spectrum": 14.632141888141632,
+                "drawCalls": 238,
+                "ready": true,
+                "vehicle": "eighties",
+                "garage": false,
+                "timeMode": "night"
+              },
+              "geo": {
+                "latitude": 25.784519874810304,
+                "longitude": -80.12985682806871,
+                "street": "Ocean Drive",
+                "routeMeters": 18906.5,
+                "routeLength": 19642.962656759213,
+                "worldExtentMeters": 5000,
+                "totalChunks": 310,
+                "chunksGenerated": 33,
+                "generationMs": 12.5,
+                "maxGenerationMs": 39.1000000089407,
+                "chunkState": "{\"built\":33,\"active\":27,\"total\":256,\"pending\":0,\"paneLod\":2,\"windowLod\":\"distance\",\"renderedTriangles\":497543,\"geometries\":223,\"textures\":57}",
+                "elapsed": 0,
+                "nightBlend": 1,
+                "transitionSeconds": 2400,
+                "position": {
+                  "x": 515.5101015234236,
+                  "z": 610.0475361168434,
+                  "yaw": 3.0013627970024666
+                }
+              },
+              "samples": [
+                {
+                  "placement": {
+                    "id": "MB-ROUTE-18937",
+                    "x": 521.2188189161596,
+                    "z": 641.1507601576059,
+                    "yaw": -2.7789792992492592,
+                    "y": 3.6,
+                    "width": 8,
+                    "height": 3.3,
+                    "format": "billboard",
+                    "routeMeters": 18936.5,
+                    "street": "Ocean Drive",
+                    "headline": "STAY A LITTLE LONGER.",
+                    "cta": "Stay for one song",
+                    "campaign": {
+                      "id": "buena-onda",
+                      "name": "Buena Onda",
+                      "analyticsId": "house_buena_onda",
+                      "destination": "/radio",
+                      "creatives": {
+                        "billboard": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "wall": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "poster": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        }
+                      }
+                    },
+                    "kind": "house"
+                  },
+                  "visible": true,
+                  "viewable": false,
+                  "readable": false,
+                  "distance": 32.64534155128401,
+                  "facing": 0.9872859754331326,
+                  "projectedArea": 0.015522609710846767,
+                  "pixelWidth": 182.85336196924308,
+                  "pixelHeight": 78.23557059849227,
+                  "occlusion": 1,
+                  "visibleDurationMs": 0,
+                  "sampledAt": 28382.39999999106,
+                  "fullyFramed": true,
+                  "occluders": [
+                    {
+                      "probe": [
+                        -0.4,
+                        0.2
+                      ],
+                      "mesh": "door_2",
+                      "material": "Glass",
+                      "distance": 0.4227229538760838,
+                      "uv": [
+                        0.5834197819036893,
+                        0.36936413000368007
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.4,
+                        0
+                      ],
+                      "mesh": "door_2",
+                      "material": "Glass",
+                      "distance": 0.43213423668859247,
+                      "uv": [
+                        0.5904834684417003,
+                        0.37648232154148076
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0.2
+                      ],
+                      "mesh": "door_2",
+                      "material": "Glass",
+                      "distance": 0.471044838421286,
+                      "uv": [
+                        0.579301418123924,
+                        0.4100168553638856
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0
+                      ],
+                      "mesh": "door_2",
+                      "material": "Glass",
+                      "distance": 0.48402811786199196,
+                      "uv": [
+                        0.5871178596682597,
+                        0.4198823692782753
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5574078706031914,
+                      "uv": [
+                        0.8749987436684422,
+                        0.6741698485288594
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.573409457355898,
+                      "uv": [
+                        0.8801511163780855,
+                        0.670859471186421
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5694051307770777,
+                      "uv": [
+                        0.8812879686610625,
+                        0.6729210667926566
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5862407011010096,
+                      "uv": [
+                        0.8866693728753247,
+                        0.6693694645907599
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5776306204977127,
+                      "uv": [
+                        0.8864443894689382,
+                        0.6722511589949166
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5951247021687309,
+                      "uv": [
+                        0.8921123492565739,
+                        0.6686663037872198
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    }
+                  ]
+                }
+              ],
+              "cue": null
+            },
+            {
+              "meters": 303.53734324078687,
+              "snapshot": {
+                "speed": 0,
+                "rpm": 0,
+                "distance": 0,
+                "paused": true,
+                "camera": "driver",
+                "radioFocused": false,
+                "district": "coast",
+                "fps": 18.511301636950027,
+                "station": "jolt-radio",
+                "playing": true,
+                "muted": false,
+                "volume": 0.82,
+                "analysis": "Analyzing current radio",
+                "spectrum": 13.15772008895874,
+                "drawCalls": 185,
+                "ready": true,
+                "vehicle": "eighties",
+                "garage": false,
+                "timeMode": "night"
+              },
+              "geo": {
+                "latitude": 25.775337980219387,
+                "longitude": -80.13175649018483,
+                "street": "Ocean Drive",
+                "routeMeters": 303.53734324078687,
+                "routeLength": 19642.962656759213,
+                "worldExtentMeters": 5000,
+                "totalChunks": 310,
+                "chunksGenerated": 52,
+                "generationMs": 30.400000005960464,
+                "maxGenerationMs": 39.1000000089407,
+                "chunkState": "{\"built\":52,\"active\":26,\"total\":256,\"pending\":0,\"paneLod\":1,\"windowLod\":\"distance\",\"renderedTriangles\":499893,\"geometries\":270,\"textures\":58}",
+                "elapsed": 0,
+                "nightBlend": 1,
+                "transitionSeconds": 2400,
+                "position": {
+                  "x": 325.10328187587254,
+                  "z": 1632.1760419776306,
+                  "yaw": 2.9090052870556873
+                }
+              },
+              "samples": [
+                {
+                  "placement": {
+                    "id": "MB-ROUTE-00334",
+                    "x": 324.0392676929851,
+                    "z": 1664.756223907705,
+                    "yaw": -3.106752824207218,
+                    "y": 3.6,
+                    "width": 8,
+                    "height": 3.3,
+                    "format": "billboard",
+                    "routeMeters": 333.53734324078687,
+                    "street": "Ocean Drive",
+                    "headline": "STAY A LITTLE LONGER.",
+                    "cta": "Stay for one song",
+                    "campaign": {
+                      "id": "buena-onda",
+                      "name": "Buena Onda",
+                      "analyticsId": "house_buena_onda",
+                      "destination": "/radio",
+                      "creatives": {
+                        "billboard": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "wall": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        },
+                        "poster": {
+                          "eyebrow": "MIAMI",
+                          "headline": "BUENA ONDA",
+                          "footer": "RADIO · CULTURE · NIGHTS",
+                          "background": "#17120f",
+                          "foreground": "#f5eee8",
+                          "accent": "#ff4fa3"
+                        }
+                      }
+                    },
+                    "kind": "house"
+                  },
+                  "visible": true,
+                  "viewable": false,
+                  "readable": false,
+                  "distance": 33.449727383484664,
+                  "facing": 0.9968180759938765,
+                  "projectedArea": 0.012390515152791206,
+                  "pixelWidth": 163.64129903422892,
+                  "pixelHeight": 69.78127668385129,
+                  "occlusion": 1,
+                  "visibleDurationMs": 0,
+                  "sampledAt": 30433.79999999702,
+                  "fullyFramed": true,
+                  "occluders": [
+                    {
+                      "probe": [
+                        -0.4,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5656774311829544,
+                      "uv": [
+                        0.8786800395305353,
+                        0.6728379162283156
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.4,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5819545058494047,
+                      "uv": [
+                        0.8838327713551233,
+                        0.6693750802938627
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5749809596666314,
+                      "uv": [
+                        0.8843673224346515,
+                        0.6724061700847668
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        -0.2,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5919280968278716,
+                      "uv": [
+                        0.8898197584755477,
+                        0.6688627928512598
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5804845602181258,
+                      "uv": [
+                        0.8885130900151995,
+                        0.6718693258587762
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.598157083919034,
+                      "uv": [
+                        0.8942730397713159,
+                        0.6682781382608797
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.5844932405191272,
+                      "uv": [
+                        0.8917827999531975,
+                        0.6712749028064753
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.2,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6025683561038029,
+                      "uv": [
+                        0.897737533852179,
+                        0.6676500862831384
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0.2
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.589410986656369,
+                      "uv": [
+                        0.8949319442487733,
+                        0.670668180981955
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    },
+                    {
+                      "probe": [
+                        0.4,
+                        0
+                      ],
+                      "mesh": "Corpus_1",
+                      "material": "Glass",
+                      "distance": 0.6078050736941909,
+                      "uv": [
+                        0.9010392345150658,
+                        0.667009184604677
+                      ],
+                      "transparent": true,
+                      "opacity": 0.7090320121951219,
+                      "alphaTest": 0,
+                      "depthWrite": false,
+                      "colorWrite": true,
+                      "transmission": 0,
+                      "map": false,
+                      "alphaMap": false
+                    }
+                  ]
+                }
+              ],
+              "cue": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

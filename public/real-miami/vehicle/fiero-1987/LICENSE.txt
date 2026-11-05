@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pontiac Fiero GT 1987
+* source:	https://sketchfab.com/3d-models/pontiac-fiero-gt-1987-7ec4815d28124814bbbfb4fb80d6a619
+* author:	loadversus (https://sketchfab.com/loadversus)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pontiac Fiero GT 1987" (https://sketchfab.com/3d-models/pontiac-fiero-gt-1987-7ec4815d28124814bbbfb4fb80d6a619) by loadversus (https://sketchfab.com/loadversus) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

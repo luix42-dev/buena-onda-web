@@ -15,11 +15,11 @@ const Body = z.discriminatedUnion('action', [
 
 /**
  * Studio-only Avenue moderation. Fails closed: requires STUDIO_PASSWORD to be configured and a
- * matching studio_session cookie (constant-time compare), plus a same-origin request.
+ * valid signed studio_session cookie, plus a same-origin request.
  * Every action is applied and audited atomically by the database (cruise_plot_moderation).
  */
 export async function POST(request: NextRequest) {
-  if (!hasCruiseStudioAccess(request.cookies.get(STUDIO_COOKIE)?.value)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!(await hasCruiseStudioAccess(request.cookies.get(STUDIO_COOKIE)?.value))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!isSameOrigin(request.headers, request.url)) return NextResponse.json({ error: 'Cross-origin request refused' }, { status: 403 })
   let parsed
   try { parsed = Body.safeParse(await request.json()) } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }

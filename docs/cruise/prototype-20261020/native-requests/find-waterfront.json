@@ -1,0 +1,1 @@
+{"name":"call_tool","arguments":{"toolset_name":"editor_toolset.toolsets.asset.AssetTools","tool_name":"find_assets","arguments":{"folder_path":"/Game/CruiseWorld","name":"","recursive":true}}}

@@ -1,0 +1,274 @@
+{
+  "at": "2026-10-15T17:20:43.537Z",
+  "formula": "100 Ã— area(union(visible clipped selected DOM rectangles)) / (viewport width Ã— height); x-sweep with merged vertical intervals avoids overlap double counting.",
+  "measurements": [
+    {
+      "mode": "old",
+      "url": "http://127.0.0.1:3077/cruise/experience",
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "selectors": [
+        ".opening-brand",
+        ".opening-tools > button",
+        ".hr-deck",
+        ".ex-landmark",
+        ".jn-map-credit",
+        ".jn-credits > summary",
+        ".jn-extra-credit summary",
+        ".opening-guidance",
+        ".opening-return",
+        ".postcard-trigger"
+      ],
+      "bounds": [
+        {
+          "selector": ".opening-brand",
+          "x": 51.1875,
+          "y": 28,
+          "right": 175.40625,
+          "bottom": 68.5
+        },
+        {
+          "selector": ".opening-tools > button",
+          "x": 1017.5,
+          "y": 28,
+          "right": 1100.09375,
+          "bottom": 72
+        },
+        {
+          "selector": ".opening-tools > button",
+          "x": 1109.09375,
+          "y": 28,
+          "right": 1228.8125,
+          "bottom": 72
+        },
+        {
+          "selector": ".hr-deck",
+          "x": 38.390625,
+          "y": 622,
+          "right": 1241.609375,
+          "bottom": 702
+        },
+        {
+          "selector": ".ex-landmark",
+          "x": 51.1875,
+          "y": 100,
+          "right": 182.15625,
+          "bottom": 172.59375
+        },
+        {
+          "selector": ".jn-map-credit",
+          "x": 1106.046875,
+          "y": 602.203125,
+          "right": 1260,
+          "bottom": 615
+        },
+        {
+          "selector": ".jn-credits > summary",
+          "x": 36,
+          "y": 602.203125,
+          "right": 133.171875,
+          "bottom": 615
+        },
+        {
+          "selector": ".jn-extra-credit summary",
+          "x": 180,
+          "y": 602.203125,
+          "right": 228.390625,
+          "bottom": 615
+        }
+      ],
+      "unionAreaPixels": 123530.48608398438,
+      "viewportAreaPixels": 921600,
+      "percentage": 13.40391559071011,
+      "interpretation": "Union of clipped visible DOM bounding rectangles, including transparent text boxes, not opaque-pixel alpha coverage or perceptual obstruction."
+    },
+    {
+      "mode": "old",
+      "url": "http://127.0.0.1:3077/cruise/experience",
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "selectors": [
+        ".opening-brand",
+        ".opening-tools > button",
+        ".hr-deck",
+        ".ex-landmark",
+        ".jn-map-credit",
+        ".jn-credits > summary",
+        ".jn-extra-credit summary",
+        ".opening-guidance",
+        ".opening-return",
+        ".postcard-trigger"
+      ],
+      "bounds": [
+        {
+          "selector": ".opening-brand",
+          "x": 19.5,
+          "y": 18,
+          "right": 109.265625,
+          "bottom": 50.09375
+        },
+        {
+          "selector": ".opening-tools > button",
+          "x": 162.1875,
+          "y": 18,
+          "right": 244.78125,
+          "bottom": 62
+        },
+        {
+          "selector": ".opening-tools > button",
+          "x": 250.78125,
+          "y": 18,
+          "right": 370.5,
+          "bottom": 62
+        },
+        {
+          "selector": ".hr-deck",
+          "x": 11.6875,
+          "y": 714,
+          "right": 378.3125,
+          "bottom": 832
+        },
+        {
+          "selector": ".ex-landmark",
+          "x": 19.5,
+          "y": 82,
+          "right": 121.8125,
+          "bottom": 137.59375
+        }
+      ],
+      "unionAreaPixels": 60732.35107421875,
+      "viewportAreaPixels": 329160,
+      "percentage": 18.450708188789267,
+      "interpretation": "Union of clipped visible DOM bounding rectangles, including transparent text boxes, not opaque-pixel alpha coverage or perceptual obstruction."
+    },
+    {
+      "mode": "new",
+      "url": "http://127.0.0.1:3081/cruise/os",
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "selectors": [
+        ".os-brand",
+        ".os-world-tools > button",
+        ".os-camera",
+        ".os-radio-deck",
+        ".jn-map-credit",
+        ".os-guidance"
+      ],
+      "bounds": [
+        {
+          "selector": ".os-brand",
+          "x": 24,
+          "y": 20,
+          "right": 149.828125,
+          "bottom": 58.390625
+        },
+        {
+          "selector": ".os-world-tools > button",
+          "x": 876.90625,
+          "y": 20,
+          "right": 999.640625,
+          "bottom": 64
+        },
+        {
+          "selector": ".os-world-tools > button",
+          "x": 1156.640625,
+          "y": 20,
+          "right": 1256,
+          "bottom": 64
+        },
+        {
+          "selector": ".os-camera",
+          "x": 1007.640625,
+          "y": 20,
+          "right": 1148.640625,
+          "bottom": 64
+        },
+        {
+          "selector": ".os-radio-deck",
+          "x": 24,
+          "y": 624.125,
+          "right": 1256,
+          "bottom": 704
+        },
+        {
+          "selector": ".jn-map-credit",
+          "x": 24,
+          "y": 599,
+          "right": 1260,
+          "bottom": 615
+        }
+      ],
+      "unionAreaPixels": 138988.74536132812,
+      "viewportAreaPixels": 921600,
+      "percentage": 15.081244071324667,
+      "interpretation": "Union of clipped visible DOM bounding rectangles, including transparent text boxes, not opaque-pixel alpha coverage or perceptual obstruction."
+    },
+    {
+      "mode": "new",
+      "url": "http://127.0.0.1:3081/cruise/os",
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "selectors": [
+        ".os-brand",
+        ".os-world-tools > button",
+        ".os-camera",
+        ".os-radio-deck",
+        ".jn-map-credit",
+        ".os-guidance"
+      ],
+      "bounds": [
+        {
+          "selector": ".os-brand",
+          "x": 12,
+          "y": 12,
+          "right": 101.375,
+          "bottom": 43.1875
+        },
+        {
+          "selector": ".os-world-tools > button",
+          "x": 255.265625,
+          "y": 12,
+          "right": 378,
+          "bottom": 56
+        },
+        {
+          "selector": ".os-world-tools > button",
+          "x": 278.640625,
+          "y": 62,
+          "right": 378,
+          "bottom": 106
+        },
+        {
+          "selector": ".os-camera",
+          "x": 143.640625,
+          "y": 62,
+          "right": 272.640625,
+          "bottom": 106
+        },
+        {
+          "selector": ".os-radio-deck",
+          "x": 12,
+          "y": 706.125,
+          "right": 378,
+          "bottom": 834
+        }
+      ],
+      "unionAreaPixels": 65037.7578125,
+      "viewportAreaPixels": 329160,
+      "percentage": 19.75870634721716,
+      "interpretation": "Union of clipped visible DOM bounding rectangles, including transparent text boxes, not opaque-pixel alpha coverage or perceptual obstruction."
+    }
+  ]
+}

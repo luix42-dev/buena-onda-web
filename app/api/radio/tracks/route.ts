@@ -26,7 +26,7 @@ export async function GET() {
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isStudioAuthorized(request)) {
+  if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
   }
 

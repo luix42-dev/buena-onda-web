@@ -1,0 +1,295 @@
+{
+  "id": "local-portrait",
+  "url": "http://127.0.0.1:3040/cruise/miami-test",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "windowDpr": 3,
+  "errors": [],
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/api/cruise/plots/visit"
+    }
+  ],
+  "http": 200,
+  "loadToReadyMs": 11614,
+  "chase": {
+    "state": {
+      "source": "groove",
+      "energy": 0.42,
+      "playing": true,
+      "station": "buena-onda-radio",
+      "error": null,
+      "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+      "analysis": "Capture restricted; radio playback unaffected",
+      "camera": "chase",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 30.3,
+      "running": true,
+      "paused": false
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    ],
+    "heapMB": 112.49992752075195,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Garage and options",
+        "rect": {
+          "x": 307.859375,
+          "y": 22,
+          "width": 70.140625,
+          "height": 40,
+          "top": 22,
+          "right": 378,
+          "bottom": 62,
+          "left": 307.859375
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 19,
+          "y": 705,
+          "width": 48,
+          "height": 48,
+          "top": 705,
+          "right": 67,
+          "bottom": 753,
+          "left": 19
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 69,
+          "y": 707,
+          "width": 256,
+          "height": 44,
+          "top": 707,
+          "right": 325,
+          "bottom": 751,
+          "left": 69
+        }
+      },
+      {
+        "name": "Next station",
+        "rect": {
+          "x": 327,
+          "y": 707,
+          "width": 44,
+          "height": 44,
+          "top": 707,
+          "right": 371,
+          "bottom": 751,
+          "left": 327
+        }
+      },
+      {
+        "name": "Camera: Chase",
+        "rect": {
+          "x": 19,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 105.5,
+          "bottom": 825,
+          "left": 19
+        }
+      },
+      {
+        "name": "Time of day: sunset",
+        "rect": {
+          "x": 107.5,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 194,
+          "bottom": 825,
+          "left": 107.5
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 196,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 282.5,
+          "bottom": 825,
+          "left": 196
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 284.5,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 371,
+          "bottom": 825,
+          "left": 284.5
+        }
+      }
+    ]
+  },
+  "driver": {
+    "state": {
+      "source": "groove",
+      "energy": 0.42,
+      "playing": true,
+      "station": "buena-onda-radio",
+      "error": null,
+      "track": "Nymphomaniac -  Instrumental Version 1984 2018 Spacetalk Records",
+      "analysis": "Capture restricted; radio playback unaffected",
+      "camera": "driver",
+      "vehicle": "ocean-convertible",
+      "time": "sunset",
+      "quality": "mobile",
+      "distance": 55.5,
+      "running": true,
+      "paused": false
+    },
+    "dataset": {},
+    "gl": [
+      {
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    ],
+    "heapMB": 109.41763401031494,
+    "overflow": false,
+    "buttons": [
+      {
+        "name": "Garage and options",
+        "rect": {
+          "x": 307.859375,
+          "y": 22,
+          "width": 70.140625,
+          "height": 40,
+          "top": 22,
+          "right": 378,
+          "bottom": 62,
+          "left": 307.859375
+        }
+      },
+      {
+        "name": "Pause radio",
+        "rect": {
+          "x": 19,
+          "y": 705,
+          "width": 48,
+          "height": 48,
+          "top": 705,
+          "right": 67,
+          "bottom": 753,
+          "left": 19
+        }
+      },
+      {
+        "name": "Radio stations",
+        "rect": {
+          "x": 69,
+          "y": 707,
+          "width": 256,
+          "height": 44,
+          "top": 707,
+          "right": 325,
+          "bottom": 751,
+          "left": 69
+        }
+      },
+      {
+        "name": "Next station",
+        "rect": {
+          "x": 327,
+          "y": 707,
+          "width": 44,
+          "height": 44,
+          "top": 707,
+          "right": 371,
+          "bottom": 751,
+          "left": 327
+        }
+      },
+      {
+        "name": "Camera: Cockpit",
+        "rect": {
+          "x": 19,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 105.5,
+          "bottom": 825,
+          "left": 19
+        }
+      },
+      {
+        "name": "Time of day: sunset",
+        "rect": {
+          "x": 107.5,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 194,
+          "bottom": 825,
+          "left": 107.5
+        }
+      },
+      {
+        "name": "Cast to TV",
+        "rect": {
+          "x": 196,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 282.5,
+          "bottom": 825,
+          "left": 196
+        }
+      },
+      {
+        "name": "Fullscreen",
+        "rect": {
+          "x": 284.5,
+          "y": 781,
+          "width": 86.5,
+          "height": 44,
+          "top": 781,
+          "right": 371,
+          "bottom": 825,
+          "left": 284.5
+        }
+      }
+    ]
+  },
+  "video": "local-portrait.webm",
+  "browser": "154.0.4258.62",
+  "date": "2026-10-10T16:13:28.486Z",
+  "physicalDevice": false,
+  "recording": true
+}
