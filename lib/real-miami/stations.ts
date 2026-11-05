@@ -42,18 +42,22 @@ export const DEFAULT_CRUISE_STATION = CRUISE_STATIONS[0]
 /** Experimental route only. Public listener URLs are not rebroadcast/recording rights. */
 export const MIAMI_CRUISE_STATIONS: readonly CruiseStation[] = [
   ...CRUISE_STATIONS,
-  { id: 'rinse-france', name: 'Rinse France', provider: 'custom', enabled: true,
-    source: 'https://radio10.pro-fhi.net/flux-trmqtiat/stream', playback: 'stream', rightsStatus: 'public-stream',
-    moods: ['leftfield', 'global'], externalUrl: 'https://www.rinse.fm/channels/france' },
+  // WVUM's own player (wvum.org/listen) plays this Voscast mount; :8693 is its TLS port.
+  { id: 'wvum', name: 'WVUM 90.5', provider: 'custom', enabled: true,
+    source: 'https://s7.voscast.com:8693/stream', playback: 'stream', rightsStatus: 'public-stream',
+    moods: ['miami-local', 'leftfield'], externalUrl: 'https://www.wvum.org/listen' },
   { id: 'the-lot-radio', name: 'The Lot Radio', provider: 'custom', enabled: true,
     source: 'https://livepeercdn.studio/hls/85c28sa2o8wppm58/index.m3u8', playback: 'hls', rightsStatus: 'public-stream',
     moods: ['leftfield', 'global'], externalUrl: 'https://www.thelotradio.com/' },
-  { id: 'kiosk-radio', name: 'Kiosk Radio', provider: 'custom', enabled: true,
-    source: 'https://play.streamnerd.nl/kioskradio/kioskradio/playlist.m3u8', playback: 'hls', rightsStatus: 'public-stream',
-    moods: ['leftfield', 'global'], externalUrl: 'https://www.kioskradio.com/' },
+  { id: 'kiosk-radio', name: 'Kiosk Radio', provider: 'custom', enabled: false,
+    source: null, playback: 'external', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://www.kioskradio.com/', unavailableReason: 'Official stream unavailable' },
   { id: 'dublab', name: 'dublab', provider: 'custom', enabled: true,
     source: 'https://dublab.out.airtime.pro/dublab_a', playback: 'stream', rightsStatus: 'public-stream',
     moods: ['ambient', 'leftfield'], externalUrl: 'https://www.dublab.com/' },
+  { id: 'hkcr', name: 'HKCR', provider: 'custom', enabled: true,
+    source: 'https://stream-test.hkcr.live/hls/main.m3u8', playback: 'hls', rightsStatus: 'public-stream',
+    moods: ['leftfield', 'global'], externalUrl: 'https://hkcr.live/livestream' },
 ]
 
 export const CRUISE_RADIO_MOODS: readonly { id: CruiseRadioMood; name: string }[] = [

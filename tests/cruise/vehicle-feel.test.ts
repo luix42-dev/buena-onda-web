@@ -37,7 +37,8 @@ test('steady acceleration raises the nose, braking lowers it; turning leans outw
   // With a -Z forward model, positive X rotation raises its nose.
   assert.ok(accelerating.pitch > .003)
   assert.ok(braking.pitch < -.003)
-  near(accelerating.pitch, -braking.pitch, 1e-8, 'symmetric longitudinal response')
+  // Like a real car (and GTA IV), it dives harder under braking than it squats on throttle.
+  assert.ok(-braking.pitch > accelerating.pitch * 1.2, `dive ${-braking.pitch} exceeds squat ${accelerating.pitch}`)
   const left = run(3, 60, () => input({curvature: .02}))
   const right = run(3, 60, () => input({curvature: -.02}))
   assert.ok(left.roll < 0 && right.roll > 0, 'body leans toward the outside of each bend')
@@ -69,9 +70,11 @@ test('long rough-road traversal and intermittent large frame gaps stay finite an
     const dt = i % 113 === 0 ? .5 : 1 / 60
     stepVehicleFeel(state, input({distance: i * .65, speed: 39, acceleration: i % 180 < 90 ? 8 : -8, curvature: .07 * Math.sin(i / 100)}), dt)
     assert.ok(Object.values(state).every(Number.isFinite))
-    assert.ok(Math.abs(state.heave) < .012, 'heave under 12 mm')
-    assert.ok(Math.abs(state.pitch) < .03, 'pitch under 1.72 degrees')
-    assert.ok(Math.abs(state.roll) < .025, 'roll under 1.44 degrees')
+    // GTA-scale body motion: dive/squat to 4.3 deg, roll to 6.9 deg, tail-out to 8 deg at the 0.8 g limits.
+    assert.ok(Math.abs(state.heave) <= .0151, 'heave under 15 mm (bump stop)')
+    assert.ok(Math.abs(state.pitch) <= .0939, 'pitch under 5.4 degrees (bump stop)')
+    assert.ok(Math.abs(state.roll) <= .1501, 'roll under 8.6 degrees (bump stop)')
+    assert.ok(Math.abs(state.yaw) <= .1751, 'tail-out under 10 degrees (bump stop)')
     assert.ok(Math.abs(state.frontSteer) <= .481 && Math.abs(state.steering) <= 2.601)
   }
 })
@@ -80,7 +83,7 @@ test('parking damps existing motion instead of freezing a displaced body', () =>
   const state = run(2, 60, t => input({distance: t * 12, curvature: .02, acceleration: 3}))
   assert.ok(Math.abs(state.pitch) + Math.abs(state.roll) > .005)
   for (let i = 0; i < 240; i++) stepVehicleFeel(state, input({paused: true, distance: 24}), 1 / 60)
-  for (const key of ['heave', 'pitch', 'roll', 'hv', 'pv', 'rv'] as const) near(state[key], 0, .00001, `parked ${key}`)
+  for (const key of ['heave', 'pitch', 'roll', 'yaw', 'hv', 'pv', 'rv', 'yv'] as const) near(state[key], 0, .00001, `parked ${key}`)
   near(state.frontRoad, 0, 1e-12, 'parked front road motion')
   near(state.rearRoad, 0, 1e-12, 'parked rear road motion')
 })
@@ -89,9 +92,31 @@ for (const suppression of ['reduced', 'focused'] as const) {
   test(`${suppression} settles body motion while preserving route steering`, () => {
     const state = run(2, 60, t => input({distance: t * 12, acceleration: 3, curvature: -.02}))
     for (let i = 0; i < 240; i++) stepVehicleFeel(state, input({[suppression]: true, curvature: .02, distance: 24 + i / 5}), 1 / 60)
-    for (const key of ['heave', 'pitch', 'roll'] as const) near(state[key], 0, .00001, `${suppression} ${key}`)
+    for (const key of ['heave', 'pitch', 'roll', 'yaw'] as const) near(state[key], 0, .00001, `${suppression} ${key}`)
     assert.ok(state.frontSteer > .02 && state.steering > .2, 'steering follows the new left bend')
     near(state.frontRoad, 0, 1e-12, `${suppression} front road motion`)
     near(state.rearRoad, 0, 1e-12, `${suppression} rear road motion`)
   })
 }
+
+test('GTA IV character: braking dives ~2.5 deg at 0.5 g, overshoots, then rocks to rest within ~1.5 s', () => {
+  const state = createVehicleFeel()
+  let peak = 0
+  for (let i = 0; i < 180; i++) { stepVehicleFeel(state, input({speed: 20, acceleration: -4.9}), 1 / 60); peak = Math.min(peak, state.pitch) }
+  const steady = state.pitch
+  near(steady, -.0436, .004, 'steady dive at 0.5 g')
+  assert.ok(peak < steady * 1.15, `underdamped: peak ${peak} overshoots steady ${steady}`)
+  for (let i = 0; i < 90; i++) stepVehicleFeel(state, input({speed: 20, acceleration: 0}), 1 / 60)
+  assert.ok(Math.abs(state.pitch) < .006, `settled 1.5 s after release: ${state.pitch}`)
+})
+
+test('GTA IV character: the tail steps out in a fast bend and the front wheels counter-steer', () => {
+  // 0.5 g left bend at 20 m/s.
+  const bend = run(3, 60, () => input({speed: 20, curvature: 4.9 / 400}))
+  near(bend.yaw, .0588, .006, 'tail-out of ~3.4 deg into a left bend')
+  assert.ok(bend.roll < -.05, 'body rolls hard to the outside')
+  const geometric = Math.atan(4.9 / 400 * 2.46)
+  assert.ok(bend.frontSteer > 0 && bend.frontSteer < geometric, 'front wheels hold less lock than the path needs (counter-steer)')
+  const slow = run(3, 60, () => input({speed: 3, curvature: 4.9 / 400}))
+  assert.ok(Math.abs(slow.yaw) < .002, 'no tail-out at parking speed')
+})

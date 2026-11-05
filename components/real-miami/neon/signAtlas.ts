@@ -1,13 +1,13 @@
 import * as T from 'three'
 
 /** One 2048² canvas holding every neon sign in Neon Run: 32 vertical blades (128×512) on the
- * top half, 32 horizontal shop signs (512×128) on the bottom half. Original designs, real words
- * (English, Spanish, Japanese) plus Buena Onda campaign names. Drawn once at load, no assets. */
+ * top half, 32 horizontal shop signs (512×128) on the bottom half. Only the Buena Onda world lives in
+ * Cruise: Buena Onda venues, its projects and catalog objects (English, Spanish, Japanese katakana). Drawn once at load, no assets. */
 export type SignDesign = { rect: [number, number, number, number]; tint: T.Color; vertical: boolean }
 
 const PALETTE = ['#ff3fa4', '#3fe6ff', '#ffd23f', '#ff5a3c', '#b56bff', '#5aff9c', '#ff7ad9', '#ffffff']
-const VERTICAL = ['ラーメン', 'カラオケ', 'ホテル', 'バー', '寿司', '喫茶', '占い', '電脳', '未来', '夜', 'ONDA', 'VESPER', 'NATSU', 'BAR', 'HOTEL', 'SYNTH', 'NOODLE', 'ARCADE', 'CLINIC', 'TATTOO', 'MOTEL', 'RADIO', '24H', 'VICE', '酒', '薬局', 'DINER', 'CYBER', 'NEON', 'TIDEWAY', 'LIQUOR', 'OPEN']
-const HORIZONTAL = ['BUENA ONDA', 'VICE NIGHTS', 'ONDA TROPICAL', 'NATSU SERVICE', 'KARAOKE 24H', 'NOODLE BAR', 'HOTEL VESPER', 'CYBERWARE', 'ラーメン 屋', 'カラオケ館', 'PAWN & REPAIR', 'ARCADE', 'SYNTH SHOP', 'TIDEWAY MOTEL', 'BRANCHES', 'DINER', 'LIQUOR', 'TATTOO', 'CLINIC 24', 'LOVE HOTEL', 'BAR NOCHE', 'RADIO LIBRE', 'MERCADO', 'FARMACIA', 'CAFÉ', 'NEON', 'DATA', 'OPEN LATE', '電脳 MARKET', 'PACHINKO', 'SAKE', 'GARAGE']
+const VERTICAL = ['ブエナ', 'オンダ', 'BUENA', 'ONDA', 'NOVA', 'NATSU', 'VICE', 'BUENA', 'ONDA', 'ノヴァ', 'ナツ', 'TROPICAL', 'オンダ', 'ブエナ', 'NOVA', 'DECKS', 'BUENA', 'オンダ', 'ブエナ', 'ONDA', 'NATSU', 'NOVA', 'オンダ', 'VICE', 'ONDA', 'BUENA', 'ノヴァ', 'CASSETTE', 'ブエナ', 'ONDA', 'VINYL', 'ONDA']
+const HORIZONTAL = ['BUENA ONDA', 'VICE NIGHTS', 'ONDA TROPICAL', 'NATSU SERVICE', 'OPEN DECKS', 'BUENA ONDA NOODLE', 'BUENA ONDA HOTEL', 'BUENA ONDA RADIO', 'ブエナオンダ', 'ブエナオンダ ラーメン', 'MIAMI SOUNDSCAPES', 'BUENA ONDA ARCADE', 'BUENA ONDA SYNTH', 'BUENA ONDA MOTEL', 'BUENA ONDA VINTAGE', 'BUENA ONDA DINER', 'BUENA ONDA BAR', 'ANALOG OBJECTS', 'BUENA ONDA 24H', 'SOUND COLLECTION', 'BAR BUENA ONDA', 'RADIO BUENA ONDA', 'MERCADO BUENA ONDA', 'BUENA ONDA FM', 'CAFÉ BUENA ONDA', 'CURATED VINTAGE', 'BUENA ONDA OBJECTS', 'BUENA ONDA OPEN LATE', 'ブエナオンダ MARKET', 'NATSU 24H', 'BUENA ONDA MIAMI', 'BUENA ONDA GARAGE']
 const FONT = '"Yu Gothic UI","Meiryo","Hiragino Sans","Noto Sans JP",Outfit,Arial,sans-serif'
 
 function panel(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string, style: number) {
@@ -17,9 +17,10 @@ function panel(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: 
   g.restore()
 }
 function glowText(g: CanvasRenderingContext2D, text: string, x: number, y: number, size: number, color: string, ink: boolean, maxWidth: number) {
-  g.font = `800 ${size}px ${FONT}`; g.textAlign = 'center'; g.textBaseline = 'middle'
+  while (size > 30) { g.font = `800 ${size}px ${FONT}`; if (g.measureText(text).width <= maxWidth) break; size -= 2 }
+  g.textAlign = 'center'; g.textBaseline = 'middle'
   if (ink) { g.fillStyle = '#120a14'; g.fillText(text, x, y, maxWidth); return }
-  g.shadowColor = color; g.shadowBlur = 22; g.fillStyle = color; g.fillText(text, x, y, maxWidth); g.shadowBlur = 6; g.fillStyle = '#ffffff'; g.globalAlpha = .55; g.fillText(text, x, y, maxWidth); g.globalAlpha = 1; g.shadowBlur = 0
+  g.shadowColor = color; g.shadowBlur = 10; g.fillStyle = '#fff9ec'; g.fillText(text, x, y, maxWidth); g.shadowBlur = 0
 }
 
 export function createSignAtlas() {
@@ -64,12 +65,12 @@ export function signMaterial(map: T.Texture, time: { value: number }) {
       float h(float n){ return fract(sin(n) * 43758.5453); }
       void main(){
         vec2 u = vec2(gl_FrontFacing ? vUv.x : 1. - vUv.x, vUv.y);
-        vec4 t = texture2D(map, vRect.xy + u * vRect.zw);
+        vec4 t = texture2D(map, vRect.xy + clamp(u, vec2(.012), vec2(.988)) * vRect.zw);
         if (t.a < .35) discard;
-        // A few signs are failing: they stutter off for a beat now and then.
-        float broken = step(.9, h(vSeed * 91.7));
-        float flick = mix(1., step(.3, h(floor(uTime * 9. + vSeed * 13.) + vSeed)), broken);
-        gl_FragColor = vec4(t.rgb * vGain * (.25 + .75 * flick), 1.);
+        // A rare, gentle flicker keeps the neon alive without losing legibility.
+        float broken = step(.975, h(vSeed * 91.7));
+        float flick = mix(1., .78 + .22 * step(.1, h(floor(uTime * 9. + vSeed * 13.) + vSeed)), broken);
+        gl_FragColor = vec4(t.rgb * vGain * flick, 1.);
         #include <fog_fragment>
       }`,
     fog: true, side: T.DoubleSide, toneMapped: false,

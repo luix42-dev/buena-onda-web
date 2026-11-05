@@ -30,6 +30,8 @@ void main(){
   vec3 world = vec3(p.x, ground + .07, p.y);
   vUv = position.xy + .5; vTint = tint * size.y; vWorld = p;
   vFade = smoothstep(320.0, 110.0, dist) * smoothstep(.6, 2.5, dist);
+  // Look v2 wheel-level cameras: below ~1 m every mirror point lands just ahead of the lens and the additive streaks clip white.
+  vFade *= mix(.22, 1.0, smoothstep(.35, 1.15, c));
   vec4 mvPosition = viewMatrix * vec4(world, 1.0);
   gl_Position = projectionMatrix * mvPosition;
   #include <fog_vertex>
@@ -46,7 +48,8 @@ void main(){
   // Puddle breakup is fixed in world space, so the texture passes under the car with the road.
   float ripple = .35 + .65 * noise(vWorld * 1.3) * (.6 + .4 * noise(vWorld * 4.1 + 7.0));
   // Direct-to-screen (phone tier) has no HDR headroom; overlapping additive streaks clip to white without this.
-  float a = across * along * ripple * vFade * strength * mix(.45, 1.0, post);
+  // .6: wet asphalt mirrors lights as soft smears, not light-sabres (realism pass).
+  float a = across * along * ripple * vFade * strength * mix(.45, 1.0, post) * .6;
   gl_FragColor = vec4(vTint * a, 1.0);
   #include <fog_fragment>
   #include <tonemapping_fragment>

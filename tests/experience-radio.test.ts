@@ -7,7 +7,7 @@ import { parseHumanRadioMetadata } from '../lib/human-radio/metadata-validation'
 import { stationShareUrl } from '../lib/human-radio/explore'
 
 test('station search is literal, combines editorial category and keeps catalog order', () => {
-  assert.deepEqual(searchStations(HUMAN_RADIO_STATIONS, STATION_DETAILS, '  nTs   ').map(item => item.id), ['nts-radio', 'nts-radio-2'])
+  assert.deepEqual(searchStations(HUMAN_RADIO_STATIONS, STATION_DETAILS, '  nTs   ').map(item => item.id), ['nts-radio', 'nts-radio-2', 'hkcr'])
   assert.ok(searchStations(HUMAN_RADIO_STATIONS, STATION_DETAILS, 'Miami').some(item => item.id === 'jolt-radio'))
   assert.ok(searchStations(HUMAN_RADIO_STATIONS, STATION_DETAILS, 'jazz').length > 0)
   assert.deepEqual(searchStations(HUMAN_RADIO_STATIONS, STATION_DETAILS, 'NTS', 'Miami'), [])

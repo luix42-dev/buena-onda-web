@@ -22,3 +22,11 @@ test('duplicate query parameters use only the first known value', () => {
   assert.equal(resolveCruiseCampaign(['onda-tropical', 'vice-nights']).campaign.id, 'onda-tropical')
   assert.equal(resolveCruiseCampaign(['invalid', 'vice-nights']).valid, false)
 })
+
+test('only the Buena Onda world: every campaign creative is Buena Onda-endorsed', () => {
+  for (const campaign of CRUISE_CAMPAIGNS) {
+    for (const format of Object.values(campaign.creatives)) {
+      assert.match(`${format.eyebrow} ${format.headline} ${format.footer}`, /BUENA ONDA/, campaign.id)
+    }
+  }
+})

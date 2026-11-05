@@ -27,7 +27,7 @@ const RADIO_PRESETS = MIAMI_CRUISE_STATIONS.filter(canPlayCruiseStation)
 
 const businesses = {
   buena: { name: 'Buena Onda Record Store', line: 'Records · Miami', description: 'Vinyl discoveries, independent music and coastal listening sessions.', station: 95, thumb: '/cruise/places/records.svg', url: '/objects' },
-  branches: { name: 'Branches Vintage', line: 'Vintage clothing · Miami', description: 'Vintage clothing and carefully collected pieces from another era.', station: 155, thumb: '/cruise/places/branches.svg', url: 'https://branchesvintage.com' },
+  branches: { name: 'Buena Onda Vintage', line: 'Vintage clothing · Miami', description: 'Vintage clothing and carefully collected pieces from another era.', station: 155, thumb: '/cruise/places/branches.svg', url: '/themes' },
 }
 type Business = keyof typeof businesses
 const CAMERAS: StreetCamera[] = ['chase', 'driver', 'side', 'aerial', 'low', 'hood']

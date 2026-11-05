@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { HumanRadioMetadata } from '@/lib/human-radio/metadata'
+import { veridianPlaylistMetadata, type HumanRadioMetadata } from '@/lib/human-radio/metadata'
 import { parseHumanRadioMetadata } from '@/lib/human-radio/metadata-validation'
 
-export function useHumanMetadata(stationId: string, enabled: boolean) {
+export function useHumanMetadata(stationId: string, enabled: boolean, currentTrack: { src: string; title: string; artist: string; sourcePage?: string } | null = null) {
   const [value, setValue] = useState<HumanRadioMetadata | null>(null)
   useEffect(() => {
     setValue(null)
-    if (!enabled) return
+    if (!enabled || stationId === 'veridian-club') return
     let disposed = false, revision = 0
     let timer: ReturnType<typeof setTimeout>
     let controller: AbortController | undefined
@@ -37,5 +37,6 @@ export function useHumanMetadata(stationId: string, enabled: boolean) {
   // An old title must disappear even if the next request is slow or suspended.
   const [clock, setClock] = useState(Date.now())
   useEffect(() => { if (!enabled) return; const timer = setInterval(() => setClock(Date.now()), 1000); return () => clearInterval(timer) }, [enabled])
+  if (stationId === 'veridian-club') return enabled ? veridianPlaylistMetadata(currentTrack, Math.max(clock, Date.now())) : null
   return enabled && value?.stationId === stationId && Date.parse(value.expiresAt) > Math.max(clock, Date.now()) ? value : null
 }

@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 import type { useCruiseAudio } from '../audio/useCruiseAudio'
 import type { CruiseVehicleId, CruiseStation } from '@/lib/cruise/types'
 import { canPlayCruiseStation, CRUISE_STATIONS } from '@/lib/cruise/stations'
+import { useCockpit as useDrivingCockpit } from '@/components/real-miami/vehicle/CockpitContext'
 
 type Action = 'tuning' | 'volume' | 'preset' | 'lights'
 export type RadioAction = 'power' | 'preset' | 'seek' | 'volume' | 'mute'
@@ -18,7 +19,10 @@ type Controls = {
   operateRadio: (action: RadioAction, value?: string | number) => void
 }
 const Context = createContext<Controls | null>(null)
-export const useCockpit = () => useContext(Context)
+export const useCockpit = () => {
+  const own = useContext(Context), driving = useDrivingCockpit()
+  return own || driving
+}
 
 export function CockpitProvider({ audio, vehicleId, autoLights, children, stations = CRUISE_STATIONS, instant = false, radioFocused = false, focusRadio, onRadioAction }: { audio: ReturnType<typeof useCruiseAudio>; vehicleId: CruiseVehicleId; autoLights: boolean; children: ReactNode; stations?: readonly CruiseStation[]; instant?: boolean; radioFocused?: boolean; focusRadio?: () => void; onRadioAction?: (action: RadioAction) => void }) {
   const presets = useMemo(() => stations.filter(canPlayCruiseStation), [stations])

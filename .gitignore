@@ -71,3 +71,7 @@ refs/
 .cruise-os-build.log
 .next-cruise-prototype-*/
 .next-cruise-look*/
+.next-cruise-controller-dev/
+/.tmp/ocean-drive-source/
+/.tmp/ocean-drive-rea-evidence.json
+/.tmp/ocean-drive-tree.json

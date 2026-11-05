@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useRef, type MutableRefObject } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, useFBO } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import * as T from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import CockpitRadio from './CockpitRadio'
 import { pulse } from './pulse'
 import { mat, mergeParts, type Part } from './cockpit/merge'
-import { badgeTex, beamTex, canvasTex, gaugeAtlas, GAUGE_CELL, glowTex, leatherTex, palmTex, woodTex } from './cockpit/textures'
+import { badgeTex, beamTex, gaugeAtlas, GAUGE_CELL, glowTex, leatherTex, palmTex, woodTex } from './cockpit/textures'
 import Hands from './cockpit/Hands'
 import { useReducedMotion } from './cockpit/motion'
 
@@ -17,8 +17,8 @@ import { useReducedMotion } from './cockpit/motion'
  * Exterior: existing CC BY 3.0 RX-7 by IvOfficial (see docs/cruise/ASSETS.md),
  * adapted to an open-top silhouette above y = BELT while retaining its sculpted bodywork.
  * Interior: authored here — tuck-and-roll leather, walnut fascia, chrome-ringed gauges,
- * wood-rim wheel with optional gloved hands, the CockpitRadio head unit, a live rear-view
- * mirror (Desktop) and a palm air freshener. Static interior parts are merged per material
+ * wood-rim wheel with optional gloved hands, the CockpitRadio head unit and a palm air freshener.
+ * Static interior parts are merged per material
  * class (one draw call each); only moving parts stay separate.
  * Night: instrument backlight, under-dash neon spill and a headlight pool on the road
  * (additive decal on Mobile, plus two shadowless SpotLights on Desktop). No postprocessing.
@@ -43,7 +43,6 @@ const GAUGE_Z = -.518
 const SCREEN = { cowlY: 1.06, cowlZ: -.98, topY: 1.66, topZ: -.72, x: .79 }
 const RAKE = Math.atan2(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
 const SCREEN_LEN = Math.hypot(SCREEN.topZ - SCREEN.cowlZ, SCREEN.topY - SCREEN.cowlY)
-const MIRROR_AT: [number, number, number] = [.02, SCREEN.topY - .095, SCREEN.topZ + .03]
 
 /** Drop only triangles fully inside the cabin; a long hood triangle can cross its boundary. */
 function withoutCabinProxy(source: T.BufferGeometry, matrix: T.Matrix4) {
@@ -106,10 +105,6 @@ function buildInterior() {
   }
   // Steering column (static part of the wheel assembly)
   chrome.push({ g: new T.CylinderGeometry(.024, .032, .32, 14), m: mat([0, 0, -.16], [Math.PI / 2, 0, 0], 1, WHEEL_BASE) })
-  // Rear-view mirror housing + stalk (the reflective surface stays live/separate)
-  const rm = mat(MIRROR_AT)
-  matte.push({ g: new T.BoxGeometry(.012, .1, .012), m: mat([0, .07, -.01], [0, 0, 0], 1, rm), c: '#1e1e1e' })
-  matte.push({ g: new RoundedBoxGeometry(.27, .08, .03, 2, .012), m: mat([0, 0, -.012], [0, 0, 0], 1, rm), c: '#1c1c1c' })
   return { leather: mergeParts(leather), chrome: mergeParts(chrome), matte: mergeParts(matte), gaugeFaces: mergeParts(gaugeFaces), gaugeGlass: mergeParts(gaugeGlass), needlesStatic: mergeParts(needles) }
 }
 
@@ -126,7 +121,7 @@ function buildWheel() {
   return { rim: new T.TorusGeometry(RIM, RIM_TUBE, 14, 72), chrome: mergeParts(spokes), badge: new T.CircleGeometry(.04, 32), needle: mergeParts(needle) }
 }
 
-export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, onReady, hands = true }: { camera: 'chase' | 'driver' | string; drive: Drive; timeOfDay: 'day' | 'sunset' | 'night'; high: boolean; onReady?: () => void; hands?: boolean }) {
+export default function ConvertibleCar({ drive, timeOfDay, high, onReady, hands = true }: { camera: 'chase' | 'driver' | string; drive: Drive; timeOfDay: 'day' | 'sunset' | 'night'; high: boolean; onReady?: () => void; hands?: boolean }) {
   const night = timeOfDay === 'night', sunset = timeOfDay === 'sunset'
   const { gl } = useThree()
   const reduced = useReducedMotion()
@@ -278,8 +273,7 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
     {/* Windshield glass between the chrome frame */}
     <mesh position={[0, (SCREEN.cowlY + SCREEN.topY) / 2, (SCREEN.cowlZ + SCREEN.topZ) / 2]} rotation-x={RAKE} material={mats.windshield} renderOrder={1}><planeGeometry args={[SCREEN.x * 2, SCREEN_LEN]} /></mesh>
 
-    <RearViewMirror active={view === 'driver' && high && !night} night={night} />
-    <group ref={freshener} position={[.05, MIRROR_AT[1] - .03, MIRROR_AT[2] + .025]}>
+    <group ref={freshener} position={[.05, SCREEN.topY - .03, SCREEN.topZ + .055]}>
       <mesh position={[0, -.1125, 0]} material={mats.freshener}><planeGeometry args={[.075, .225]} /></mesh>
     </group>
 
@@ -288,30 +282,6 @@ export default function ConvertibleCar({ camera: view, drive, timeOfDay, high, o
       <planeGeometry args={[12.5, beamLength]} />
     </mesh>
     <Headlights front={body.front} level={night ? 1 : sunset ? .35 : 0} realLights={high} />
-  </group>
-}
-
-/** Day/sunset Desktop reflection every third frame; night uses a dark static fallback. */
-function RearViewMirror({ active, night }: { active: boolean; night: boolean }) {
-  const fbo = useFBO(active ? 384 : 1, active ? 112 : 1, { samples: 0 })
-  const cam = useMemo(() => new T.PerspectiveCamera(38, 384 / 112, .1, 260), [])
-  const root = useRef<T.Group>(null), surface = useRef<T.Mesh>(null), frame = useRef(0)
-  const flip = useMemo(() => new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), Math.PI), [])
-  const fallback = useMemo(() => canvasTex(256, 64, c => { const g = c.createLinearGradient(0, 0, 0, 64); g.addColorStop(0, night ? '#11172a' : '#d0548f'); g.addColorStop(.6, night ? '#293448' : '#ff8f52'); g.addColorStop(1, night ? '#080c15' : '#2a2430'); c.fillStyle = g; c.fillRect(0, 0, 256, 64) }), [night])
-  useEffect(() => { fbo.texture.wrapS = T.RepeatWrapping; fbo.texture.repeat.x = -1; fbo.texture.offset.x = 1 }, [fbo])
-  useEffect(() => () => fallback.dispose(), [fallback])
-  useFrame(({ gl, scene }) => {
-    if (!active || !root.current || !surface.current || ++frame.current % 3) return
-    root.current.updateWorldMatrix(true, false)
-    root.current.matrixWorld.decompose(cam.position, cam.quaternion, cam.scale)
-    cam.quaternion.multiply(flip); cam.scale.set(1, 1, 1)
-    cam.rotateX(-.06); cam.updateMatrixWorld()
-    surface.current.visible = false
-    const previous = gl.getRenderTarget(); gl.setRenderTarget(fbo); gl.render(scene, cam); gl.setRenderTarget(previous)
-    surface.current.visible = true
-  })
-  return <group ref={root} position={MIRROR_AT}>
-    <mesh ref={surface} position-z={.004}><planeGeometry args={[.25, .065]} /><meshBasicMaterial map={active ? fbo.texture : fallback} /></mesh>
   </group>
 }
 

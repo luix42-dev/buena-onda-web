@@ -16,7 +16,7 @@ function facadeTexture(place: CruisePlace) {
   c.fillStyle=art.background;c.fillRect(0,0,1536,512)
   c.fillStyle=art.foreground;c.fillRect(0,0,1536,120)
   c.fillStyle=art.background;c.textAlign='center';c.font='bold 60px Georgia'
-  c.fillText(place.id==='records'?'BUENA ONDA RECORDS':place.id==='branches'?'BRANCHES VINTAGE HOUSE':campaign.name.toUpperCase(),768,78,1440)
+  c.fillText(place.id==='records'?'BUENA ONDA RECORDS':place.id==='branches'?'BUENA ONDA VINTAGE':campaign.name.toUpperCase(),768,78,1440)
   // Windows have warm interiors, mullions and deliberately composed merchandise.
   for(let i=0;i<5;i++){
     const x=24+i*302;const grad=c.createLinearGradient(0,150,0,485);grad.addColorStop(0,'#a9845d');grad.addColorStop(.25,'#392f29');grad.addColorStop(1,'#121f22')

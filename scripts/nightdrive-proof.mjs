@@ -64,7 +64,7 @@ try{
   for(const cam of ['side','aerial','low','hood']){await camera(cam);await page.waitForTimeout(1000);await snapshot('controls-'+cam);check('Fixed camera '+cam+' retains radio',(await state()).camera===cam&&(await state()).playing)}
   await camera('la')
   await page.evaluate(()=>{window.__controlCanvas=document.querySelector('canvas');window.__controlDistance=window.__nightdrive().distance})
-  for(const station of ['rinse-france','jolt-radio']){
+  for(const station of ['nts-radio','jolt-radio']){
    await page.getByRole('button',{name:'Radio stations',exact:true}).click();await page.getByLabel('Station',{exact:true}).selectOption(station);await page.getByRole('button',{name:'Close panel',exact:true}).click();await page.waitForTimeout(1500)
    await page.waitForFunction(id=>{const s=window.__nightdrive();return s.station===id&&s.playing},station,{timeout:45000})
    check('Station plays '+station,(await state()).station===station&&(await state()).playing)

@@ -9,6 +9,7 @@ import PhysicalRadio from '../vehicle/PhysicalRadio'
 import {RollingWheels,rigRollingWheels} from '../vehicle/rollingWheels'
 import {useCockpit} from '../vehicle/CockpitContext'
 import {pulse} from '../master/pulse'
+import {hideRearviewMirror} from '../vehicle/hideRearviewMirror'
 
 export const CLASSIC_ATTRIBUTION={
  name:'1959 Cadillac El Dorado Biarritz',creator:'DisneyCars',
@@ -39,7 +40,7 @@ function ClassicSpectrum(){
  * No roof cutting or procedural replacement cabin is used.
  */
 export default function ClassicConvertible({state,cockpit,onReady}:{state:MutableRefObject<NightState>;cockpit:boolean;onReady:()=>void}){
- const asset=useGLTF('/real-miami/vehicle/cadillac-1959/cadillac.glb'),controls=useCockpit()
+ const asset=useGLTF('/real-miami/vehicle/cadillac-1959/cadillac-web.glb'),controls=useCockpit()
  const vehicle=useMemo(()=>{
   const scene=asset.scene.clone(true),owned=new Set<T.Material>(),glazing:T.Mesh[]=[]
   scene.updateMatrixWorld(true)
@@ -48,6 +49,10 @@ export default function ClassicConvertible({state,cockpit,onReady}:{state:Mutabl
   // Its windshield/front hood already face -Z. Normalize to 5.715m length.
   const scale=5.715/(bounds.max.z-bounds.min.z)
   scene.scale.multiplyScalar(scale);scene.position.set(-center.x*scale,-bounds.min.y*scale+.015,-center.z*scale)
+  const rearviewGeometries=[
+   new T.Box3(new T.Vector3(-.16,1.04,-.84),new T.Vector3(.16,1.29,-.58)),
+   new T.Box3(new T.Vector3(-.08,.90,-1.14),new T.Vector3(.08,1.02,-.95)),
+  ].map(area=>hideRearviewMirror(scene,'Object_3',area))
   scene.traverse(o=>{if(o instanceof T.Mesh){
    const sources=Array.isArray(o.material)?o.material:[o.material]
    if(sources.some(m=>m.name==='Meshescadillackit00roofa0011Mtl'||m.name==='Meshescadillackit00frontwindowa0061Mtl'))glazing.push(o)
@@ -55,12 +60,12 @@ export default function ClassicConvertible({state,cockpit,onReady}:{state:Mutabl
    o.material=Array.isArray(o.material)?o.material.map(clone):clone(o.material)
   }})
   const wheels=rigRollingWheels(scene,/^Tire1Mtl$/)
-  return{scene,owned,wheels,glazing}
+  return{scene,owned,wheels,glazing,rearviewGeometries}
  },[asset.scene])
  const target=useMemo(()=>{const object=new T.Object3D();object.position.set(0,.25,-32);return object},[])
  useEffect(()=>{vehicle.glazing.forEach(mesh=>{mesh.visible=!cockpit})},[vehicle,cockpit])
  useEffect(()=>{onReady()},[onReady])
- useEffect(()=>()=>vehicle.owned.forEach(material=>material.dispose()),[vehicle])
+ useEffect(()=>()=>{vehicle.owned.forEach(material=>material.dispose());vehicle.rearviewGeometries.forEach(geometry=>geometry?.dispose())},[vehicle])
  return <group name="Cadillac1959ConvertibleRide" userData={{speed:state.current.speed}}>
   <primitive object={vehicle.scene} dispose={null}/><RollingWheels rig={vehicle.wheels} state={state}/>
   <group name="CadillacNativeRadioAdapter" visible={cockpit}>

@@ -38,7 +38,9 @@ function holoMaterial(uniforms: { uTime: { value: number }; uFade: { value: numb
   return material
 }
 
-export default function HoloHost({ state, enabled, onEvent }: { state: MutableRefObject<NightState>; enabled: boolean; onEvent: (event: HostEvent) => void }) {
+/** `giantEvery`: every Nth appearance is skyline-scale (Neon Run: 3; Look v2 Retrowave: 2, alternating
+ * between straddling the avenue and towering beside it, turning to watch the car pass). */
+export default function HoloHost({ state, enabled, onEvent, giantEvery = 3, order }: { state: MutableRefObject<NightState>; enabled: boolean; onEvent: (event: HostEvent) => void; giantEvery?: number; order?: readonly number[] }) {
   const figure = useGLTF('/real-miami/people/npc_woman_dress.glb'), anims = useGLTF('/real-miami/people/npc_anims_female.glb')
   const uniforms = useMemo(() => ({ uTime: { value: 0 }, uFade: { value: 0 } }), [])
   const host = useMemo(() => {
@@ -64,8 +66,11 @@ export default function HoloHost({ state, enabled, onEvent }: { state: MutableRe
     if (!host.holder.visible && now >= sh.next) {
       // Every third appearance she straddles the avenue ahead, forty metres tall, and the car drives
       // through her. Otherwise she forms on the sidewalk on the car's side, rides along just ahead while she speaks, then stays put and the car passes her.
-      sh.giant = (sh.line % 3) === 2; sh.at = s.distance + (sh.giant ? 170 : RIDE_LEAD); sh.lateral = sh.giant ? 0 : (s.lateral >= 0 ? 1 : -1) * 7.6
-      sh.scale = sh.giant ? 22 : 1.15; sh.start = now; sh.until = now + HOST_TIMING.stay + (sh.giant ? 3 : 0); sh.spoke = false
+      sh.giant = (sh.line % giantEvery) === giantEvery - 1; sh.at = s.distance + (sh.giant ? (giantEvery === 2 ? 270 : 170) : RIDE_LEAD)
+      const beside = sh.giant && giantEvery === 2 && Math.floor(sh.line / 2) % 2 === 1
+      sh.lateral = beside ? (sh.line % 4 < 2 ? 1 : -1) * 10 : sh.giant ? 0 : (s.lateral >= 0 ? 1 : -1) * 7.6
+      // Retrowave giants are ~73 m: taller than the avenue's towers, towering over the curb when she stands beside the avenue.
+      sh.scale = sh.giant ? (giantEvery === 2 ? 40 : 22) : 1.15; sh.start = now; sh.until = now + HOST_TIMING.stay + (sh.giant ? (giantEvery === 2 ? 9 : 3) : 0); sh.spoke = false
       host.holder.visible = true; uniforms.uFade.value = 0
     }
     if (!host.holder.visible) return
@@ -79,9 +84,10 @@ export default function HoloHost({ state, enabled, onEvent }: { state: MutableRe
     uniforms.uFade.value = T.MathUtils.clamp(Math.min(age / .9, remaining / 1.1), 0, 1)
     ;(host.pool.material as T.MeshBasicMaterial).opacity = uniforms.uFade.value * .35
     host.mixer.update(Math.min(delta, .05))
-    if (!sh.spoke && age > .8) { sh.spoke = true; onEvent({ phase: 'speak', line: HOST_LINES[sh.line % HOST_LINES.length], giant: sh.giant }) }
+    if (!sh.spoke && age > .8) { sh.spoke = true; onEvent({ phase: 'speak', line: HOST_LINES[order ? order[sh.line % order.length] : sh.line % HOST_LINES.length], giant: sh.giant }) }
     // Passed her, or time is up: dissolve and schedule the next one.
-    if (s.distance > sh.at + 4 && remaining > .7) sh.until = now + .7
+    // A giant beside the road keeps watching as the car passes; only one the car drives through dissolves on contact.
+    if (s.distance > sh.at + (Math.abs(sh.lateral) > 9 ? 60 : 4) && remaining > .7) sh.until = now + .7
     if (remaining <= 0) {
       host.holder.visible = false; onEvent({ phase: 'gone' }); sh.line++
       sh.next = now + HOST_TIMING.every + (Math.sin(sh.line * 12.9898) * .5 + .5) * HOST_TIMING.jitter

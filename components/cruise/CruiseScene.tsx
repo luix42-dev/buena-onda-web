@@ -12,6 +12,7 @@ import { CruiseTraffic } from './traffic'
 import CruiseWorld from './world/CruiseWorld'
 import WorldBackdrop from './world/WorldBackdrop'
 import HeroCar from './vehicle/HeroCar'
+import LegacyDriveFeel from './vehicle/LegacyDriveFeel'
 import GarageStage from './garage/GarageStage'
 import { LAUNCH } from '@/lib/cruise/launch'
 import PlaceLandmarks from './places/PlaceLandmarks'
@@ -112,7 +113,7 @@ export default function CruiseScene({ camera, cinematic, tv, reducedMotion, qual
       </group>}
       <VehicleBoundary key={vehicleId} onFailure={onVehicleFailure}>
         <Suspense fallback={null}>
-          <HeroCar vehicleId={vehicleId} onReady={onVehicleReady} runtime={runtime} quality={quality} camera={radioFocused?'driver':shot} timeOfDay={timeOfDay} weather={weather} paint={paint} />
+          <LegacyDriveFeel runtime={runtime} reducedMotion={reducedMotion}><HeroCar vehicleId={vehicleId} onReady={onVehicleReady} runtime={runtime} quality={quality} camera={radioFocused?'driver':shot} timeOfDay={timeOfDay} weather={weather} paint={paint} /></LegacyDriveFeel>
         </Suspense>
       </VehicleBoundary>
       <Runtime runtime={runtime} camera={camera} shot={shot} cinematic={cinematic} campaign={campaign.id} quality={quality}

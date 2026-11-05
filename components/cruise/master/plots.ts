@@ -59,10 +59,10 @@ const house = (owner: PlotOwner, cents: number) => ({ status: 'house' as const, 
 export const SEED_PLOTS: Plot[] = [
   { number: 1, kind: 'billboard', s: 56, side: -1, status: 'open', valueCents: 0, visits: 0, clicks: 0 },
   { number: 2, kind: 'storefront', s: 95, side: 1, ...house({ name: 'Buena Onda Record Store', tagline: 'Vinyl · tapes · good vibes', url: '/objects', color: '#2aa79f' }, 0), visits: 0, clicks: 0 },
-  { number: 3, kind: 'storefront', s: 155, side: 1, ...house({ name: 'Branches Vintage', tagline: 'Good clothes · brighter days', url: 'https://branchesvintage.com', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
+  { number: 3, kind: 'storefront', s: 155, side: 1, ...house({ name: 'Buena Onda Vintage', tagline: 'Good clothes · brighter days', url: '/themes', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
   { number: 4, kind: 'banner', s: 62, side: 1, ...house({ name: 'Vice Nights', tagline: 'Friday · music by the ocean', url: '/events', color: '#ff4f9a' }, 0), visits: 0, clicks: 0 },
   { number: 5, kind: 'sign', s: 84, side: 1, ...house({ name: 'Buena Onda Record Store', tagline: '0.3 mi ahead', url: '/objects', color: '#2aa79f' }, 0), visits: 0, clicks: 0 },
-  { number: 6, kind: 'sign', s: 144, side: 1, ...house({ name: 'Branches Vintage', tagline: 'On your right', url: 'https://branchesvintage.com', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
+  { number: 6, kind: 'sign', s: 144, side: 1, ...house({ name: 'Buena Onda Vintage', tagline: 'On your right', url: '/themes', color: '#f7b2bb' }, 0), visits: 0, clicks: 0 },
   ...LAMP_STATIONS.flatMap((s, i) => [1, -1].map((side, j): Plot => (
     { number: 7 + i * 2 + j, kind: 'lamp', s, side: side as -1 | 1, status: 'open', valueCents: 0, visits: 0, clicks: 0 }
   ))).filter(p => !RETIRED_PLOTS.has(p.number)),

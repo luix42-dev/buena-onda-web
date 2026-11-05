@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import type { RideVehicleId } from '@/lib/real-miami/ride-vehicles'
 import './ride-picker.css'
+import {LAUNCH_CARS} from '@/lib/cruise/launch'
 
 const rides: { id: RideVehicleId; name: string; year: string; mood: string; description: string }[] = [
   { id: 'countach', name: 'Countach', year: '5000QV', mood: '01 / ITALIAN ICON', description: 'Lamborghini lines, an analog cabin and your favorite station. Take the long way along the coast.' },
@@ -10,6 +11,7 @@ const rides: { id: RideVehicleId; name: string; year: string; mood: string; desc
   { id: 'delorean', name: 'DeLorean', year: 'DMC-12', mood: '04 / STAINLESS FUTURE', description: 'Brushed steel, gull-wing doors and a synth station. The future the eighties promised.' },
   { id: 'cadillac', name: 'Eldorado Biarritz', year: '1959', mood: '03 / CLASSIC CONVERTIBLE', description: 'Cadillac curves, an open roof and room to slow down. Let the city roll past.' },
 ]
+const launchRides = LAUNCH_CARS.map(car=>({id:car.id,name:car.name,year:'',mood:car.tag,description:car.description}))
 
 export type RidePickerProps = {
   cruiseOS?: boolean
@@ -25,10 +27,14 @@ export type RidePickerProps = {
   ready: boolean
   routeReady: boolean
   castControl?: ReactNode
+  routeControls?: ReactNode
+  startLabel?: string
+  /** Rendered under the start button, e.g. Cruise's "Just the radio". */
+  secondaryAction?: ReactNode
 }
 
-export default function RidePicker({ cruiseOS = false, humanRadio = false, driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl }: RidePickerProps) {
-  const lineup = humanRadio ? [...rides, { id: 'wrangler' as const, name: 'Wrangler', year: '2012', mood: '05 / AFTER HOURS', description: 'The original open-air cabin, its physical radio, and a little more room for the night.' }] : rides
+export default function RidePicker({ cruiseOS = false, humanRadio = false, driveLabel = 'Miami Beach / Real streets', only, vehicle, onSelect, night, onNightChange, onStart, ready, routeReady, castControl, routeControls, startLabel, secondaryAction }: RidePickerProps) {
+  const lineup = (only?.includes('coastal-coupe') ? [...launchRides,rides[0],rides[2]] : humanRadio ? [...rides, { id: 'wrangler' as const, name: 'Wrangler', year: '2012', mood: '05 / AFTER HOURS', description: 'The original open-air cabin, its physical radio, and a little more room for the night.' }] : rides).filter(ride => !only || only.includes(ride.id))
   const index = Math.max(0, lineup.findIndex(ride => ride.id === vehicle))
   const selected = lineup[index]
   const selectNext = (step: number) => onSelect(lineup[(index + step + lineup.length) % lineup.length].id)
@@ -52,8 +58,8 @@ export default function RidePicker({ cruiseOS = false, humanRadio = false, drive
       <div className="rp-header-tools">{castControl}</div>
     </header>
     <div className="rp-heading">
-      <p className="rp-eyebrow">{humanRadio ? 'TAKE THE LONG WAY TO GOOD MUSIC.' : 'CHOOSE YOUR RIDE'}</p>
-      <h1>{humanRadio ? 'No Algorithms. Just Frequencies.' : 'Your ride. Your rhythm.'}</h1>
+      <p className="rp-eyebrow">{startLabel ? 'BETA — STILL FINDING OUR GROOVE.' : humanRadio ? 'TAKE THE LONG WAY TO GOOD MUSIC.' : 'CHOOSE YOUR RIDE'}</p>
+      <h1>{startLabel ? 'Your ride. Your rhythm.' : humanRadio ? 'No Algorithms. Just Frequencies.' : 'Your ride. Your rhythm.'}</h1>
       <a className="rp-support" href="https://www.buenaondalifestyle.com/themes" target="_blank" rel="noopener noreferrer">Support Buena Onda <span aria-hidden="true">↗</span><span className="rp-sr"> (opens a new tab)</span></a>
     </div>
     <div className="rp-showcase" aria-label={`${selected.year} ${selected.name} 3D showcase`}>
@@ -68,17 +74,18 @@ export default function RidePicker({ cruiseOS = false, humanRadio = false, drive
         <p className="rp-description">{selected.description}</p>
       </div>
       <div className="rp-departure">
-        <div className="rp-route"><span>Your drive</span><strong>{driveLabel}</strong></div>
+        {routeControls || <div className="rp-route"><span>Your drive</span><strong>{driveLabel}</strong></div>}
         <div className="rp-times" role="group" aria-label="Choose lighting">
-          <button type="button" aria-pressed={!night} onClick={() => onNightChange(false)}><span aria-hidden="true">☀</span> Sunset drive</button>
+          <button type="button" aria-pressed={!night} onClick={() => onNightChange(false)}><span aria-hidden="true">☀</span> Day drive</button>
           <button type="button" aria-pressed={night} onClick={() => onNightChange(true)}><span aria-hidden="true">☾</span> Night drive</button>
         </div>
-        <button type="button" className="rp-start" aria-label="Start the drive" onClick={onStart} disabled={!ready || !routeReady}>LET’S CRUISE <span aria-hidden="true">→</span></button>
+        <button type="button" className="rp-start" aria-label={startLabel || 'Start the drive'} onClick={onStart} disabled={!ready || !routeReady}>{startLabel || 'LET’S CRUISE'} <span aria-hidden="true">→</span></button>
+        {secondaryAction}
         <small className="rp-footnote">Automatic cruising · Radio starts with your drive</small>
       </div>
       <div className="rp-lineup" role="group" aria-label="Available rides">
         {lineup.filter(ride => !only || only.includes(ride.id)).map(ride => <button type="button" key={ride.id} onClick={() => onSelect(ride.id)} aria-pressed={ride.id === vehicle} aria-label={`Choose ${ride.year} ${ride.name}`}>
-          {ride.id !== 'wrangler' && <img src={`/real-miami/vehicle/garage/${ride.id}.png`} alt="" width={92} height={48} />}
+          <img src={launchRides.some(car=>car.id===ride.id)?`/cruise/vehicle/${ride.id}-thumb.svg`:`/real-miami/vehicle/garage/${ride.id}.png`} alt="" width={92} height={48} />
           <span>{ride.name}<small>{ride.year}</small></span>
         </button>)}
       </div>

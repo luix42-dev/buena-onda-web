@@ -30,6 +30,39 @@ export function roadSample(s: number, seed: number) {
   }
 }
 
+const RETRO_CYCLE = 3200
+const smoothstep = (t: number) => { const x = Math.max(0, Math.min(1, t)); return x * x * (3 - 2 * x) }
+
+/** Retrowave alone leaves the city for a 65 m high, sweeping skyway, then rejoins it.
+ * Each 3.2 km chapter begins and ends at the original road with zero added slope. */
+export function retrowaveSkywayMix(s: number): number {
+  const phase = ((s % RETRO_CYCLE) + RETRO_CYCLE) % RETRO_CYCLE
+  return smoothstep((phase - 850) / 180) * (1 - smoothstep((phase - 2460) / 180))
+}
+
+/** The bridge briefly descends toward the tropical island without changing its road heading. */
+export function retrowaveIslandMix(s: number): number {
+  const phase = ((s % RETRO_CYCLE) + RETRO_CYCLE) % RETRO_CYCLE
+  return smoothstep((phase - 1200) / 450) * (1 - smoothstep((phase - 2050) / 450))
+}
+
+function retroPosition(s: number, seed: number) {
+  const base = roadSample(s, seed)
+  const phase = ((s % RETRO_CYCLE) + RETRO_CYCLE) % RETRO_CYCLE
+  const rise = smoothstep((phase - 480) / 520)
+  const fall = 1 - smoothstep((phase - 2400) / 520)
+  const open = retrowaveSkywayMix(s)
+  const island = retrowaveIslandMix(s)
+  return { x: base.x + open * (55 * Math.sin(s / 160) + 18 * Math.sin(s / 75)), y: base.y + 65 * rise * fall - 56 * island }
+}
+
+export function retrowaveRoadSample(s: number, seed: number) {
+  const center = retroPosition(s, seed), before = retroPosition(s - .5, seed), after = retroPosition(s + .5, seed)
+  const dx = after.x - before.x, dy = after.y - before.y
+  const ddx = after.x - 2 * center.x + before.x
+  return { ...center, z: -s, dx, dy, metric: Math.sqrt(1 + dx * dx + dy * dy), yaw: -Math.atan(dx), curvature: ddx / Math.pow(1 + dx * dx, 1.5) }
+}
+
 /** Seeded coast/city lengths, both >=700m; continuous 192m entrances. */
 export function districtAt(s: number, seed: number): { district: District; mix: number } {
   const pairLength = 1700

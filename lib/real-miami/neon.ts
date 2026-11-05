@@ -23,8 +23,15 @@ export const HOST_LINES: readonly { campaignId: string; text: string; cta: strin
   { campaignId: 'onda-tropical', text: 'Somewhere it is still summer. Onda Tropical.', cta: 'Onda Tropical', destination: '/radio' },
   { campaignId: 'natsu-service', text: 'Late service. Warm sound. Natsu is open all night.', cta: 'Natsu Service', destination: '/radio' },
   { campaignId: 'buena-onda', text: 'Good taste takes detours. Take this one.', cta: 'Buena Onda Themes', destination: '/themes' },
-  { campaignId: 'tideway-house', text: 'Tideway. Take the long way home.', cta: 'Tideway Motel', destination: '/cruise?place=tideway' },
+  { campaignId: 'buena-onda-motel', text: 'Buena Onda Motel. Take the long way home.', cta: 'Buena Onda Motel', destination: '/cruise?place=tideway' },
+  // Look v2 Retrowave: original lines asking you to stay. Written for VESPER; no film dialogue or taglines.
+  { campaignId: 'buena-onda', text: "Don't go yet. The night hasn't finished playing.", cta: 'Stay on Buena Onda Radio', destination: '/radio' },
+  { campaignId: 'buena-onda', text: 'Stay a little longer. I saved you the next song.', cta: 'Stay for one song', destination: '/radio' },
+  { campaignId: 'vice-nights', text: 'Everyone else went home. You and I have the whole city. Vice Nights.', cta: 'Vice Nights', destination: '/events' },
+  { campaignId: 'buena-onda', text: 'One more mile. The skyline looks better with you in it.', cta: 'Keep driving', destination: '/radio' },
 ]
+/** Retrowave order: alternate a reason to stay with a house ad, so she never reads as a sales loop. */
+export const RETRO_LINE_ORDER = [6, 0, 7, 1, 8, 3, 9, 2, 4, 5] as const
 
 /** Seconds between appearances, and how long one lasts. */
 export const HOST_TIMING = { firstAfter: 14, every: 38, jitter: 14, stay: 7.5 }

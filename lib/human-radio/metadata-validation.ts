@@ -5,6 +5,7 @@ export const HUMAN_RADIO_METADATA_SOURCES: Readonly<Record<string, string>> = {
   'nts-radio': 'https://www.nts.live/api/v2/live',
   'nts-radio-2': 'https://www.nts.live/api/v2/live',
   dublab: 'https://dublab.airtime.pro/api/live-info',
+  'veridian-club': 'https://veridian.club/',
 }
 const object = (value: unknown): Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {}
 const text = (value: unknown): string | null => typeof value === 'string' && value.length <= 240

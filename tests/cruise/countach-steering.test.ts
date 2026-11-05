@@ -8,7 +8,7 @@ test('actual Countach steering is isolated without deleting triangles or changin
  const cached=loadCountachGeometry() as T.Group,scene=cached.clone(true)
  const indices:T.BufferAttribute[]=[]
  cached.traverse(o=>{if(o instanceof T.Mesh&&o.geometry.index)indices.push(o.geometry.index)})
- const signature=()=>indices.map(i=>[i.count,i.array.reduce((a:number,b:number)=>a+b,0)])
+ const signature=()=>indices.map(i=>[i.count,Array.from(i.array).reduce((a,b)=>a+b,0)])
  const before=JSON.stringify(signature())
  const count=(object:T.Object3D)=>{let total=0;object.traverse(o=>{if(o instanceof T.Mesh)total+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3});return total}
  const total=count(scene),rig=rigCountachSteering(scene)

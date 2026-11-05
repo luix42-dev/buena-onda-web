@@ -4,6 +4,7 @@ import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import { CanvasTexture, Group, SRGBColorSpace, Vector3 } from 'three'
 import { RADIO_PRESETS, useCockpit } from './CockpitContext'
+import { stationWebsite } from '@/lib/human-radio/station-site'
 
 /** One period head unit; all operations go to the existing audio owner. Front is +Z. */
 export default function PhysicalRadio({ position = [0,0,0], rotation = [0,0,0], scale = 1, night = false }: { position?: [number,number,number]; rotation?: [number,number,number]; scale?: number; night?: boolean }) {
@@ -13,37 +14,44 @@ export default function PhysicalRadio({ position = [0,0,0], rotation = [0,0,0], 
   const projected = useMemo(() => new Vector3(), [])
   const lastProjection = useRef(0)
   const art = useMemo(() => {
-    const canvas = document.createElement('canvas'); canvas.width=1536; canvas.height=512
-    const texture = new CanvasTexture(canvas); texture.colorSpace=SRGBColorSpace; texture.anisotropy=8
+    // Look v2: 2048 px wide (drawn in the original 1536 layout) so station, track and presets stay legible at phone size.
+    const canvas = document.createElement('canvas'); canvas.width=2048; canvas.height=683
+    const texture = new CanvasTexture(canvas); texture.colorSpace=SRGBColorSpace; texture.anisotropy=16
     return {canvas,texture}
   }, [])
   const audio = controls?.audio
+  const website = stationWebsite(audio?.station)
   const presets = (controls?.presets || RADIO_PRESETS).slice(0, 4)
   useEffect(() => {
     const c = art.canvas.getContext('2d')!
+    c.setTransform(2048/1536,0,0,683/512,0,0)
     c.fillStyle='#212522'; c.fillRect(0,0,1536,512)
     c.fillStyle='#bebeb0'; c.font='600 46px monospace'; c.textAlign='center'; c.fillText('BUENA ONDA RADIO',768,62)
     c.fillStyle='#090f0d'; c.fillRect(287,88,962,212); c.strokeStyle='#717366';c.lineWidth=4;c.strokeRect(287,88,962,212)
-    c.fillStyle=audio?.error?'#f39871':'#dfc57e'; c.font='bold 62px monospace'
+    c.fillStyle=audio?.error?'#f39871':'#f2d58a'; c.font='bold 70px monospace'
     c.fillText((audio?.station.name || 'BUENA ONDA').toUpperCase(),768,161,885)
-    c.font='32px monospace'; c.fillStyle='#b7ba89'
-    c.fillText(audio?.playing ? audio.trackTitle || 'TRACK INFORMATION UNAVAILABLE' : 'YOUR NIGHT / YOUR RADIO',768,218,900)
-    c.font='24px monospace'
-    c.fillText(audio?.error?'UNAVAILABLE - RETRY':audio?.loading?'TUNING':audio?.playing?(audio.muted?'MUTED':controls?.nowPlaying?.kind==='show'?'ON AIR / LIVE SHOW':'STEREO / INTERNET RADIO'):'POWER OFF',768,269)
+    c.font='bold 42px monospace'; c.fillStyle='#d9dca8'
+    c.fillText(audio?.playing ? audio.trackTitle || 'TRACK INFORMATION UNAVAILABLE' : 'YOUR NIGHT / YOUR RADIO',768,226,920)
+    c.font='30px monospace'
+    c.fillText(audio?.error?'UNAVAILABLE - RETRY':audio?.loading?'TUNING':audio?.playing?(audio.muted?'MUTED':controls?.nowPlaying?.kind==='show'?'ON AIR / LIVE SHOW':'STEREO / INTERNET RADIO'):'POWER OFF',768,278)
     c.fillStyle='#ccc9b7';c.font='31px monospace'; c.fillText('POWER / VOL',146,411);c.fillText('SEEK',1390,411)
-    c.font='29px monospace'; ['1 ONDA','2 JOLT','3 NTS 1','4 NTS 2'].forEach((label,i)=>c.fillText(label,408+i*236,442))
+    c.font='bold 34px monospace'; ['1 ONDA','2 JOLT','3 NTS 1','4 NTS 2'].forEach((label,i)=>c.fillText(label,408+i*236,442))
     c.fillStyle='#6d7368';c.font='23px monospace';c.fillText('AUTO REVERSE  /  STEREO',768,494)
     art.texture.needsUpdate=true
   },[art,audio?.station.name,audio?.trackTitle,audio?.error,audio?.loading,audio?.playing,audio?.muted,controls?.nowPlaying?.kind])
   useEffect(()=>()=>art.texture.dispose(),[art])
-  useFrame(({clock})=>{
+  useFrame(()=>{
     if(volume.current)volume.current.rotation.z=2.35-(audio?.volume||0)*4.7
     if(seek.current)seek.current.rotation.z=controls?.command?.action==='tuning' ? -.4 : 0
     if(buttons.current)buttons.current.position.z=controls?.command?.action==='preset' ? -.004 : 0
-    if(root.current && controls?.focusRadio && clock.elapsedTime-lastProjection.current>.1){
-      lastProjection.current=clock.elapsedTime
+    const projectionTime=performance.now()
+    if(root.current && controls?.focusRadio && projectionTime-lastProjection.current>100){
+      lastProjection.current=projectionTime
       const point=(x:number,y:number,z:number)=>{projected.set(x,y,z);root.current!.localToWorld(projected);projected.project(camera);return {x:(projected.x+1)*size.width/2,y:(1-projected.y)*size.height/2}}
       document.documentElement.dataset.physicalRadioHit=JSON.stringify(point(0,0,.04))
+      document.documentElement.dataset.physicalRadioStationHit=JSON.stringify(point(0,.022,.045))
+      const corners=[point(-.18,.065,.07),point(.18,.065,.07),point(-.18,-.065,.07),point(.18,-.065,.07)]
+      document.documentElement.dataset.physicalRadioBounds=JSON.stringify({at:performance.now(),left:Math.min(...corners.map(p=>p.x)),right:Math.max(...corners.map(p=>p.x)),top:Math.min(...corners.map(p=>p.y)),bottom:Math.max(...corners.map(p=>p.y))})
       document.documentElement.dataset.physicalRadioControls=JSON.stringify({volume:point(-.139,.006,.063),seek:point(.139,.006,.063),presets:presets.map((_,i)=>point(-.081+i*.0525,-.026,.052))})
     }
   })
@@ -52,7 +60,8 @@ export default function PhysicalRadio({ position = [0,0,0], rotation = [0,0,0], 
   function activate(e:ThreeEvent<MouseEvent>, operation:()=>void){e.stopPropagation();if(!controls?.radioFocused)controls?.focusRadio?.();else operation()}
   return <group ref={root} name="BuenaOndaPhysicalRadio" position={position} rotation={rotation} scale={scale}>
     <RoundedBox args={[.35,.126,.075]} radius={.007} smoothness={2}><meshStandardMaterial color="#242924" metalness={.22} roughness={.68}/></RoundedBox>
-    <mesh position={[0,0,.038]} onClick={e=>activate(e,()=>{})} onPointerOver={()=>hover(true)} onPointerOut={()=>hover(false)}><planeGeometry args={[.342,.12]}/><meshStandardMaterial map={art.texture} emissiveMap={art.texture} emissive="#ffffff" emissiveIntensity={night?.85:.35} roughness={.73}/></mesh>
+    <mesh position={[0,0,.038]} onClick={e=>activate(e,()=>{})} onPointerOver={()=>hover(true)} onPointerOut={()=>hover(false)}><planeGeometry args={[.342,.12]}/>{/* Unlit and outside tone mapping: the face is its own light, so text keeps its contrast. */}<meshBasicMaterial map={art.texture} color={night?'#e6e6e6':'#bdbdbd'} toneMapped={false}/></mesh>
+    {website&&<mesh name="PhysicalStationWebsite" position={[0,.022,.041]} onClick={e=>activate(e,()=>window.open(website,'_blank','noopener,noreferrer'))} onPointerOver={()=>hover(true)} onPointerOut={()=>hover(false)}><planeGeometry args={[.20,.025]}/><meshBasicMaterial transparent opacity={0} colorWrite={false} depthWrite={false}/></mesh>}
     {[-.139,.139].map((x,i)=><group key={x} position={[x,.006,.047]}>
       <mesh rotation-x={Math.PI/2}><cylinderGeometry args={[.022,.024,.015,32]}/><meshStandardMaterial color="#0c100f" roughness={.83}/></mesh>
       <group ref={i===0?volume:seek}>

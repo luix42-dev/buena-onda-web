@@ -56,5 +56,16 @@ export function useDiscoveries({ metadata, stationName, playing, loading }: { me
     setPresets(next); persist(FAVORITES_KEY, next)
   }, [persist, setPresets])
   const exportFinds = useCallback(() => serializeFinds(savedRef.current, stationIds), [])
-  return { saved, canSave: !!current, isSaved, toggleSave, remove, exportFinds, storageError, favorites, toggleFavorite, moveFavorite }
+  const importFinds = useCallback((raw: string) => {
+    try {
+      if (raw.length > 500_000) throw new Error('File too large')
+      const value: unknown = JSON.parse(raw)
+      if (!value || typeof value !== 'object' || (value as {format?: unknown}).format !== 'buena-onda-discoveries' || (value as {version?: unknown}).version !== 1 || !Array.isArray((value as {discoveries?: unknown}).discoveries)) throw new Error('Unsupported format')
+      const incoming = parseFinds(JSON.stringify((value as {discoveries: unknown[]}).discoveries), stationIds)
+      const next = parseFinds(JSON.stringify([...savedRef.current, ...incoming]), stationIds)
+      setFinds(next); persist(FINDS_KEY, next)
+      return true
+    } catch { setStorageError('This My Finds file could not be restored. Existing finds were kept.'); return false }
+  }, [persist, setFinds])
+  return { saved, canSave: !!current, isSaved, toggleSave, remove, exportFinds, importFinds, storageError, favorites, toggleFavorite, moveFavorite }
 }

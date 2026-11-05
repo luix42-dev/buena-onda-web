@@ -39,7 +39,7 @@ function NativeSpectrum(){
  * is fitted over the source stereo; the vehicle does not create audio owners.
  */
 export default function EightiesCar({state,cockpit,onReady}:{state:MutableRefObject<NightState>;cockpit:boolean;onReady:()=>void}){
- const asset=useGLTF('/real-miami/vehicle/fiero-1987/fiero.glb'),controls=useCockpit()
+ const asset=useGLTF('/real-miami/vehicle/fiero-1987/fiero-web.glb'),controls=useCockpit()
  const vehicle=useMemo(()=>{
   const scene=asset.scene.clone(true),owned=new Set<T.Material>(),windows:T.Mesh[]=[]
   scene.updateMatrixWorld(true)

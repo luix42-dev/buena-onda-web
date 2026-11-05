@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as T from 'three'
 import { pulse } from './pulse'
 import { LOOK } from '@/lib/cruise-os/look'
+import './heightFog'
 
 export type SkyTime = 'day' | 'sunset' | 'night'
 

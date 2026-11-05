@@ -20,7 +20,7 @@ try{
  check('Cast does not request a separate presentation',await page.evaluate(()=>window.__presentationStarts===0),await page.locator('section[aria-label="Cast to TV"]').innerText())
  await page.screenshot({path:out+'/mirror-instructions.png'})
  await page.getByRole('button',{name:'Back to the Cruise',exact:true}).click()
- for(const name of ['Jolt Radio','NTS 1','NTS 2','Rinse France','The Lot Radio','Kiosk Radio','dublab']){
+ for(const name of ['Jolt Radio','NTS 1','NTS 2','The Lot Radio','Kiosk Radio','dublab']){
   await page.getByRole('button',{name:'Radio stations',exact:true}).click()
   const station=page.getByRole('button',{name:new RegExp(name,'i')})
   if(!await station.count()){check(name+' available in radio',false);await page.getByRole('button',{name:'Close radio',exact:true}).click();continue}
@@ -28,7 +28,7 @@ try{
   await page.waitForTimeout(1500)
   if(!await page.evaluate(()=>window.__cruise().requested)){const play=page.getByRole('button',{name:'Play radio',exact:true});if(await play.count())await play.click()}
   await page.waitForFunction(()=>window.__cruise().playing&&window.__cruise().source==='live',undefined,{timeout:30000}).catch(()=>{})
-  const state=await page.evaluate(()=>window.__cruise());report.stations.push({name,...state});check(name+' plays with live analysis',state.playing&&state.source==='live'&&state.station===({'Jolt Radio':'jolt-radio','NTS 1':'nts-radio','NTS 2':'nts-radio-2','Rinse France':'rinse-france','The Lot Radio':'the-lot-radio','Kiosk Radio':'kiosk-radio','dublab':'dublab'})[name],state)
+  const state=await page.evaluate(()=>window.__cruise());report.stations.push({name,...state});check(name+' plays with live analysis',state.playing&&state.source==='live'&&state.station===({'Jolt Radio':'jolt-radio','NTS 1':'nts-radio','NTS 2':'nts-radio-2','The Lot Radio':'the-lot-radio','Kiosk Radio':'kiosk-radio','dublab':'dublab'})[name],state)
  }
  await page.getByRole('button',{name:'Cast to TV',exact:true}).click();const during=await page.evaluate(()=>window.__cruise());check('Opening mirror instructions preserves radio playback',during.playing,during);await page.getByRole('button',{name:'Back to the Cruise',exact:true}).click()
  // Controlled test positions, not a claim of a full-lap soak.

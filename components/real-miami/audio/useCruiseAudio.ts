@@ -4,15 +4,18 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { canPlayCruiseStation, CRUISE_STATIONS, DEFAULT_CRUISE_STATION } from '@/lib/real-miami/stations'
 import type Hls from 'hls.js'
 import type { CruiseStation } from '@/lib/real-miami/types'
+import {parseRadioVolume,RADIO_VOLUME_KEY,radioStatus,type RadioStatus} from '@/lib/cruise/radio-controller'
 import type { MusicAudio } from '@/lib/real-miami/music-audio'
 
 type RadioTrack = {
   src: string
   title: string
   artist: string
+  sourcePage?: string
 }
 
 type CruiseAudio = {
+  stations: readonly CruiseStation[]
   start: () => void
   toggle: () => void
   pause: () => void
@@ -25,6 +28,7 @@ type CruiseAudio = {
   muted: boolean
   setMuted: (muted: boolean) => void
   trackTitle: string
+  currentTrack: RadioTrack | null
   available: boolean
   stationId: string
   station: CruiseStation
@@ -33,6 +37,7 @@ type CruiseAudio = {
   previousTrack: () => void
   canSkip: boolean
   tuning: boolean
+  status: RadioStatus
 }
 
 type TuningVoice = { source: AudioBufferSourceNode; highpass: BiquadFilterNode; lowpass: BiquadFilterNode; envelope: GainNode; output: GainNode }
@@ -135,6 +140,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   const [volume, setVolumeState] = useState(DEFAULT_VOLUME)
   const [muted, setMutedState] = useState(false)
   const [trackTitle, setTrackTitle] = useState('')
+  const [currentTrack, setCurrentTrack] = useState<RadioTrack | null>(null)
   const [available, setAvailable] = useState(false)
   const [station, setStation] = useState<CruiseStation>(DEFAULT_CRUISE_STATION)
   const [canSkip, setCanSkip] = useState(false)
@@ -170,6 +176,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     const track = tracks[normalizedIndex]
     trackIndexRef.current = normalizedIndex
     setTrackTitle(labelFor(track))
+    setCurrentTrack(track)
 
     if (force || audio.src !== track.src) {
       music?.detach()
@@ -318,6 +325,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       setAvailable(false)
       setCanSkip(false)
       setTrackTitle('')
+      setCurrentTrack(null)
       setLoading(false)
       setPlaybackIntent(false)
       setError('Radio unavailable. Loading timed out. Tap play to retry.')
@@ -346,12 +354,12 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
       clearLoadingTimeout()
       tracksRef.current = tracks
-      trackIndexRef.current = 0
+      trackIndexRef.current = selectedStation.id === 'veridian-club' ? Math.floor(Math.random() * tracks.length) : 0
       failedTracksRef.current = 0
       setAvailable(true)
       setCanSkip(selectedStation.playback === 'playlist' && tracks.length > 1)
       setError(null)
-      prepareTrack(0, true)
+      prepareTrack(trackIndexRef.current, true)
 
       if (wantsPlaybackRef.current) {
         attemptPlay()
@@ -364,6 +372,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       setAvailable(false)
       setCanSkip(false)
       setTrackTitle('')
+      setCurrentTrack(null)
       setLoading(false)
       setPlaybackIntent(false)
       const detail = reason instanceof Error ? ` ${reason.message}` : ''
@@ -439,6 +448,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     setCanSkip(false)
     setPlaying(false)
     setTrackTitle('')
+    setCurrentTrack(null)
     if (wantsPlaybackRef.current) unlockMedia()
     void loadPlaylist()
     return true
@@ -465,6 +475,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     const context = tuningContextRef.current, voice = tuningVoiceRef.current
     if (context && voice) voice.output.gain.setValueAtTime(mutedRef.current ? 0 : normalized, context.currentTime)
     if (audioRef.current) audioRef.current.volume = normalized
+    try { localStorage.setItem(RADIO_VOLUME_KEY,String(normalized)) } catch { /* The current session still has volume control. */ }
   }, [])
 
   const setMuted = useCallback((nextMuted: boolean) => {
@@ -477,10 +488,11 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
   useEffect(() => {
     mountedRef.current = true
+    try { const restored=parseRadioVolume(localStorage.getItem(RADIO_VOLUME_KEY));volumeRef.current=restored;setVolumeState(restored) } catch { /* Storage is optional. */ }
     const audio = new Audio()
     if (music) audio.crossOrigin = 'anonymous'
     audio.preload = 'metadata'
-    audio.volume = DEFAULT_VOLUME
+    audio.volume = volumeRef.current
     audio.src = AUDIO_UNLOCK_SRC
     audio.load()
     audioRef.current = audio
@@ -632,6 +644,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [armPlaybackLoadingTimeout, attemptPlay, clearLoadingTimeout, loadPlaylist, prepareTrack, music, stopTuningNoise])
 
   return {
+    stations,
     start,
     toggle,
     pause,
@@ -644,6 +657,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     muted,
     setMuted,
     trackTitle,
+    currentTrack,
     available,
     stationId: station.id,
     station,
@@ -652,5 +666,6 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     previousTrack,
     canSkip,
     tuning,
+    status:radioStatus({requested,playing,loading,available,error}),
   }
 }

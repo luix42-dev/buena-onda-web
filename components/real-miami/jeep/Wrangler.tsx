@@ -23,7 +23,7 @@ function Spectrum(){const bars=useRef<(T.Mesh|null)[]>([]);useFrame(()=>{bars.cu
 </group>}
 
 export default function Wrangler({state,cockpit,onReady}:{state:MutableRefObject<NightState>;cockpit:boolean;onReady:()=>void}){
- const model=useGLTF('/real-miami/vehicle/wrangler/wrangler.glb'),maps=useMemo(jeepTextures,[])
+ const model=useGLTF('/real-miami/vehicle/wrangler/wrangler-web.glb'),maps=useMemo(jeepTextures,[])
  const exterior=useMemo(()=>{const scene=model.scene.clone(true);scene.traverse(o=>{if(o instanceof T.Mesh){const repair=(source:T.Material)=>{const m=source.clone();if(m instanceof T.MeshStandardMaterial && m.name!=='Repaired window glass'){m.transparent=false;m.opacity=1;m.depthWrite=true;m.roughness=.72;m.metalness=.12;m.normalScale.set(.3,.3);m.needsUpdate=true}return m};o.material=Array.isArray(o.material)?o.material.map(repair):repair(o.material)}});return scene},[model.scene])
  const speed=useRef<T.Group>(null),rpm=useRef<T.Group>(null),wheel=useRef<T.Group>(null),target=useMemo(()=>{const t=new T.Object3D();t.position.set(0,.1,-28);return t},[])
  const controls=useCockpit()
@@ -52,7 +52,6 @@ export default function Wrangler({state,cockpit,onReady}:{state:MutableRefObject
    </group>)}
    <Block size={[1.82,.05,.06]} at={[0,2.12,-.68]} color="#424e4f"/>
    <Block size={[1.72,.025,1.20]} at={[0,1.24,-1.49]} color="#434c4c" radius={.01}/>
-   <Block size={[.31,.072,.035]} at={[0,1.94,-.47]} color="#19262a"/>
    <Block size={[.55,.38,.62]} at={[.43,.70,.32]} color="#151c1f" radius={.05}/>
    <pointLight position={[0,1.6,.15]} color="#d2deeb" intensity={1.3} distance={2.3} decay={2}/>
    <pointLight position={[.3,1.15,-.20]} color="#ffc87d" intensity={.18} distance={1.3}/>

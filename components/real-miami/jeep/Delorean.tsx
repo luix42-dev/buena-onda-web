@@ -18,7 +18,7 @@ const SCALE=.94,LIFT=.72*SCALE+.015
 export const DELOREAN_CAMERA_PROFILE:RideCameraProfile={
  label:'DeLorean DMC-12',driver:[-.39,1.0,.26],driverPortrait:[-.33,1.01,.32],
  target:[-.39,.84,-3.2],targetPortrait:[-.33,.82,-3.2],
- radioPosition:[0,.98,.12],radioTarget:[0,.63,-.44],radioFov:36,radioPortraitFov:56,
+ radioPosition:[0,1.02,.40],radioTarget:[.08,.82,-.20],radioFov:36,radioPortraitFov:56,
  chase:[-1.0,2.0,7.0],chasePortrait:[-.5,2.3,8.0],chaseTarget:[0,.55,0],
 }
 /** The licensed model is an exterior with doors and a steering wheel but no cabin. A plain
@@ -59,7 +59,7 @@ export default function Delorean({state,cockpit,onReady}:{state:MutableRefObject
  useEffect(()=>()=>vehicle.owned.forEach(material=>material.dispose()),[vehicle])
  const target=useMemo(()=>{const object=new T.Object3D();object.position.set(0,.2,-30);return object},[])
  return <group name="DeloreanDMC12" userData={{speed:state.current.speed}}><primitive object={vehicle.scene} dispose={null}/><RollingWheels rig={vehicle.wheels} state={state}/>
-  <group visible={cockpit} name="DeloreanCabinRadioAdapter"><Cabin/><PhysicalRadio position={[0,.63,-.44]} scale={.6} night/><pointLight position={[-.1,.95,0]} color="#cfd8e6" intensity={.6} distance={1.6} decay={2}/></group>
+  <group visible={cockpit} name="DeloreanCabinRadioAdapter"><Cabin/><PhysicalRadio position={[.08,.82,-.20]} scale={.6} night/><pointLight position={[-.1,.95,0]} color="#cfd8e6" intensity={.6} distance={1.6} decay={2}/></group>
   <pointLight visible={!cockpit} position={[0,2.1,1.5]} color="#c2cbde" intensity={5} distance={6} decay={1.5}/>
   <primitive object={target}/><spotLight position={[0,.45,-2.05]} target={target} color="#ffe1b4" intensity={controls?.lights?22:0} distance={55} angle={.55} penumbra={.65} decay={1.3}/>
  </group>

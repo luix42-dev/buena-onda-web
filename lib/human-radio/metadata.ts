@@ -33,6 +33,18 @@ export function unavailableMetadata(stationId: string, now = Date.now()): HumanR
   return { stationId, kind: 'unavailable', title: null, artist: null, show: null, dj: null, available: false, confidence: 'none', source: Object.prototype.hasOwnProperty.call(SOURCES, stationId) ? SOURCES[stationId] : null, provenance: null, observedAt: new Date(now).toISOString(), expiresAt: new Date(now + TTL).toISOString(), message: 'Track information unavailable' }
 }
 
+/** The selected file and title come from Veridian's official player catalog. */
+export function veridianPlaylistMetadata(track: { src: string; title: string; artist: string; sourcePage?: string } | null, now = Date.now()): HumanRadioMetadata | null {
+  if (!track || !/^https:\/\/veridian\.club\/player\/(?:\d+\/)?tracks\/\d+\.mp3(?:\?|$)/.test(track.src)) return null
+  const title = clean(track.title), artist = clean(track.artist)
+  if (!title || !artist) return null
+  const source = SOURCES['veridian-club']
+  const observedAt = new Date(now).toISOString()
+  return { stationId: 'veridian-club', kind: 'track', title, artist, show: null, dj: null, available: true,
+    confidence: 'provider', source, provenance: { type: 'official-metadata', url: source, verifiedAt: observedAt },
+    observedAt, expiresAt: new Date(now + TTL).toISOString(), message: '' }
+}
+
 export function isFreshHumanRadioTrack(value: HumanRadioMetadata | null | undefined, now = Date.now()): value is HumanRadioMetadata & { title: string; artist: string } {
   if (!value) return false
   const observed = Date.parse(value.observedAt), expires = Date.parse(value.expiresAt)

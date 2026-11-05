@@ -1,8 +1,9 @@
-export type RideVehicleId = 'countach' | 'wrangler' | 'eighties' | 'cadillac' | 'delorean'
+export type RideVehicleId = 'countach' | 'wrangler' | 'eighties' | 'cadillac' | 'delorean' | 'coastal-coupe' | 'classic-coupe' | 'island-trail'
 export type RidePoint = [number, number, number]
 export type RideCameraProfile = {
   label: string
   driver: RidePoint
+  driverFov?: number
   driverPortrait?: RidePoint
   target: RidePoint
   targetPortrait?: RidePoint

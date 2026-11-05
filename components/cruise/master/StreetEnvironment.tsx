@@ -113,7 +113,7 @@ const ART = {
   branchesSign: () => canvasTexture(1600, 760, (c, w, h) => {
     c.fillStyle = '#f7b2bb'; c.fillRect(0, 0, w, h); frame(c, w, h, '#fff4ea')
     palm(c, 230, h - 40, 520, '#e4576c', .2)
-    label(c, 'BRANCHES', 960, 250, 200, 1080, '#d9405b', { stroke: '#fff4ea' })
+    label(c, 'BUENA ONDA', 960, 250, 200, 1080, '#d9405b', { stroke: '#fff4ea' })
     label(c, 'VINTAGE', 960, 440, 170, 1000, '#d9405b', { stroke: '#fff4ea' })
     label(c, 'GOOD CLOTHES · BRIGHTER DAYS', 960, 590, 52, 1000, '#7a2638', { weight: 700, spacing: 4 })
     label(c, 'ON YOUR RIGHT · OCEAN DRIVE', 960, 680, 34, 900, '#9a3a4c', { weight: 700, spacing: 6 })
@@ -125,7 +125,7 @@ const ART = {
   }),
   branchesParapet: () => canvasTexture(2048, 360, (c, w, h) => {
     c.fillStyle = '#fbe8de'; c.fillRect(0, 0, w, h)
-    label(c, 'BRANCHES VINTAGE', w / 2, h * .5, 220, w * .92, '#d63f5c', { stroke: '#8f2238' })
+    label(c, 'BUENA ONDA VINTAGE', w / 2, h * .5, 220, w * .92, '#d63f5c', { stroke: '#8f2238' })
   }),
   blade: (lines: string[], bg: string, fg: string, icon: 'palm' | 'vinyl') => canvasTexture(320, 1280, (c, w, h) => {
     c.fillStyle = bg; c.fillRect(0, 0, w, h); c.strokeStyle = '#fff4ea'; c.lineWidth = 10; c.strokeRect(14, 14, w - 28, h - 28)
@@ -775,7 +775,7 @@ export default function StreetEnvironment({ timeOfDay, onAdClick, onPlotClick: p
   const billboard = claimedBillboard, buena = useArt(ART.buenaSign), branches = useArt(ART.branchesSign)
   const buenaParapet = useArt(ART.buenaParapet), branchesParapet = useArt(ART.branchesParapet)
   const buenaBlade = useArt(() => ART.blade(['RECORDS'], '#2aa79f', '#fff4dc', 'vinyl'))
-  const branchesBlade = useArt(() => ART.blade(['BRANCHES'], '#f7b2bb', '#d9405b', 'palm'))
+  const branchesBlade = useArt(() => ART.blade(['BUENA', 'ONDA'], '#f7b2bb', '#d9405b', 'palm'))
   const oceanPalms = useArt(() => ART.board('OCEAN PALMS', 'HOTEL · MIAMI BEACH', '#5a7f9c'))
   const cafeSol = useArt(() => ART.board('CAFE SOL', 'COFFEE · BREAKFAST · SUNSHINE', '#c9764a'))
   const s3 = SITES[BUENA], s5 = SITES[BRANCHES]

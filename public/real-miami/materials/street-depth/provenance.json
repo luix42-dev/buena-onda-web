@@ -68,5 +68,9 @@
       "sha256": "7575ec4a061094c14bf94fa22a75637858b52b00c301caec8f5143cb329acbe4",
       "license": "CC0-1.0"
     }
-  ]
+  ],
+  "derivatives": {
+    "date": "2026-10-30",
+    "note": "WebP re-encodes of the masters above for runtime (sharp; color/roughness q80, normal q90). <name>.webp = 1024 px for Medium/High, <name>-512.webp = 512 px for the Low tier. Same CC0 sources; the .jpg files remain the masters."
+  }
 }

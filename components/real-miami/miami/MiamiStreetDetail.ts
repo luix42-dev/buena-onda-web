@@ -13,7 +13,8 @@ const rand = (n: number) => { const v = Math.sin(n * 12.9898 + 78.233) * 43758.5
 function atlas(signs = false) {
   const canvas = document.createElement('canvas'); canvas.width = 1024; canvas.height = signs ? 128 : 512
   const ctx = canvas.getContext('2d')!
-  const labels = ['OCEAN CAFE', 'LOBBY / WELCOME', 'COASTAL DINING', 'ESPRESSO / GELATO']
+  // Only the Buena Onda world lives in Cruise: Buena Onda venues and its own projects.
+  const labels = ['BUENA ONDA / CAFE', 'NATSU / SERVICE', 'ONDA TROPICAL', 'BUENA ONDA / RECORDS']
   for (let i = 0; i < 4; i++) {
     const x = i * 256
     if (signs) {
@@ -60,7 +61,7 @@ function nearest(p: MiamiPoint, segments: { a: MiamiPoint; b: MiamiPoint; width:
   return best
 }
 
-export function createMiamiStreetDetail(data: MiamiData) {
+export function createMiamiStreetDetail(data: MiamiData, coveredEdges: ReadonlySet<string> = new Set()) {
   const group = new T.Group(); group.name = 'Miami original street detail'
   const cells = new Map<string, Cell>(), box = new T.BoxGeometry(1, 1, 1)
   const cylinder = new T.CylinderGeometry(1, 1, 1, 8), bush = new T.IcosahedronGeometry(1, 0)
@@ -105,6 +106,7 @@ export function createMiamiStreetDetail(data: MiamiData) {
     const pts = building.points, area = pts.reduce((a, p, i) => { const q = pts[(i + 1) % pts.length]; return a + p[0] * q[1] - q[0] * p[1] }, 0)
     const seed = Number(building.id) || 1
     for (let e = 0; e < pts.length; e++) {
+      if (coveredEdges.has(`${building.id}:${e}`)) continue
       const a = pts[e], b = pts[(e + 1) % pts.length], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz)
       if (len < 7) continue
       const cx = (a[0] + b[0]) * .5, cz = (a[1] + b[1]) * .5, road = nearest([cx, cz], ocean)

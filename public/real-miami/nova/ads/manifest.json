@@ -1,0 +1,65 @@
+{
+  "engine": "kokoro-onnx",
+  "version": "0.6.1",
+  "model": "Kokoro v1.0",
+  "voice": "af_heart",
+  "speed": 0.94,
+  "language": "en-us",
+  "device": "CPU",
+  "selectedBy": "Luis: Heart",
+  "createdUtc": "20261022T143425Z",
+  "loadSec": 9.0434,
+  "format": "Ogg Vorbis, 24 kHz mono",
+  "conditioning": "stock voice preset; no reference recording",
+  "source": "https://github.com/thewh1teagle/kokoro-onnx",
+  "modelProvenance": {
+    "runtimeLicense": "MIT",
+    "voicesSource": "https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md",
+    "engine": "kokoro-onnx 0.6.1",
+    "files": [
+      {
+        "source": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/kokoro-v1.0.onnx",
+        "file": "kokoro-v1.0.onnx",
+        "bytes": 325505369,
+        "sha256": "BEB0D1848DEE9A49DA392CC3DF26958D46CFA35D321EDF434F52949153F0DF3A"
+      },
+      {
+        "source": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/voices-v1.0.bin",
+        "file": "voices-v1.0.bin",
+        "bytes": 28214398,
+        "sha256": "BCA610B8308E8D99F32E6FE4197E7EC01679264EFED0CAC9140FE9C29F1FBF7D"
+      }
+    ],
+    "modelLicense": "Apache-2.0"
+  },
+  "entries": [
+    {
+      "id": "ad_longway",
+      "text": "Take the long way home. Buena Onda Cruise.",
+      "wav": "ad_longway.wav",
+      "ogg": "ad_longway.ogg",
+      "sampleRate": 24000,
+      "durationSec": 3.0926,
+      "genSec": 1.3545,
+      "peak": 0.3471391797065735,
+      "decodedOggPeak": 0.34130531549453735,
+      "clippedSamples": 0,
+      "oggBytes": 21994,
+      "oggSha256": "aac1f552bf2698896da4ac9e9839eacf3f9dc03f40d5c8ecdcfd186f11dc6216"
+    },
+    {
+      "id": "ad_station",
+      "text": "Find your station. Find your city. Buena Onda.",
+      "wav": "ad_station.wav",
+      "ogg": "ad_station.ogg",
+      "sampleRate": 24000,
+      "durationSec": 3.3773,
+      "genSec": 1.3476,
+      "peak": 0.5020397305488586,
+      "decodedOggPeak": 0.5105720162391663,
+      "clippedSamples": 0,
+      "oggBytes": 24785,
+      "oggSha256": "4f3cd6eb19a6acbce8d2355f58fbad76ad534d35aca96f63eda0de421003b772"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+/* Cruise as a curated radio: the radio-only view's controls, and the ways in from the opening and the loader. */
+.rf-scene{align-content:start;padding-top:max(96px,14vh)}
+.rf-scene h1{margin:14px 0 10px}
+.rf-now{display:grid;gap:4px;margin:22px 0 14px;color:#f5ecdc}
+.rf-now small{font:11px/1.4 monospace;letter-spacing:.2em;text-transform:uppercase;color:#f1ac79}
+.rf-now strong{font:600 clamp(26px,4vw,40px)/1.1 Outfit,system-ui,sans-serif}
+.rf-now span{font-size:14px;color:#c4cfbb;max-width:520px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf-controls{display:flex;gap:10px;align-items:center}
+.rf-controls button{pointer-events:auto;min-width:56px;min-height:56px;border-radius:28px;border:1px solid #f5ecdc40;background:#0e221d;color:#f5ecdc;font:600 20px Outfit,system-ui,sans-serif;cursor:pointer}
+.rf-controls .rf-play{min-width:120px;background:#e7b98a;border-color:#e7b98a;color:#10241f;font-size:17px}
+.rf-presets{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px;max-width:620px}
+.rf-presets button{pointer-events:auto;min-height:44px;padding:10px 16px;border-radius:22px;border:1px solid #f5ecdc33;background:#f5ecdc0d;color:#f5ecdc;font:15px Outfit,system-ui,sans-serif;cursor:pointer}
+.rf-presets button[aria-pressed="true"]{background:#f5ecdc;color:#10241f;border-color:#f5ecdc}
+.rf-drive{pointer-events:auto;justify-self:start;min-height:48px;padding:12px 22px;border-radius:10px;border:1px solid #f1ac79;background:transparent;color:#f1ac79;font:600 15px Outfit,system-ui,sans-serif;letter-spacing:.04em;cursor:pointer}
+.rf-scene button:focus-visible,.rp-listen:focus-visible,.bl-skip:focus-visible{outline:3px solid #f1ac79;outline-offset:3px}
+@media(max-width:640px){.rf-scene{padding:max(84px,10vh) 6% 220px}.rf-scene h1{font-size:clamp(34px,10vw,48px)}.rf-scene p{font-size:14px}}
+@media(max-height:500px){.rf-scene{padding-top:64px}.rf-scene h1{display:none}}
+
+/* Opening: under LET'S CRUISE. Never disabled: the radio needs no 3D. */
+.rp-listen{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:10px;border-radius:6px;border:1px solid #f5ecdc55;background:transparent;color:#f5ecdc;font:600 15px Outfit,system-ui,sans-serif;letter-spacing:.06em;cursor:pointer}
+
+/* Loader: skip the drive, keep the music. */
+.drive-loading .bl-skip{grid-column:1/-1;justify-self:start;min-height:44px;margin-top:6px;padding:10px 18px;border-radius:6px;border:1px solid #f5ecdc40;background:transparent;color:#f5ecdc;font:14px Arial,sans-serif;cursor:pointer}

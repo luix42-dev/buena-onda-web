@@ -336,9 +336,6 @@ export default function RetroJeep({ runtime, quality, camera, timeOfDay, weather
       <Part a={a} size={[.99,.035,.33]} at={[0,1.017,1.24]} material="cloth" radius={.02} />
       <Part a={a} size={[.99,.26,.022]} at={[0,1.18,1.495]} material="cloth" radius={.017} />
       <Dashboard a={a} night={night} steering={steering} speedNeedle={speedNeedle} rpmNeedle={rpmNeedle} />
-      <Rod a={a} from={[0,2.00,-.409]} to={[0,1.898,-.350]} radius={.008} material="steel" />
-      <Part a={a} size={[.265,.080,.025]} at={[0,1.899,-.339]} material="black" radius={.013} />
-      <Part a={a} size={[.246,.060,.003]} at={[0,1.899,-.324]} material="mirror" radius={.009} />
       {[-.40,.38].map(x => <group key={x}>
         <Rod a={a} from={[x+.15,1.399,-.675]} to={[x-.065,1.427,-.655]} radius={.005} material="steel" />
         <Rod a={a} from={[x-.245,1.433,-.65]} to={[x+.15,1.447,-.646]} radius={.006} material="rubber" />

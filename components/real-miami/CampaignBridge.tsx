@@ -7,8 +7,8 @@ import DiscreetAdCue from './miami/DiscreetAdCue'
 import {createDemoBusinessRecorder,type DemoBusinessEvent} from '../experience/prototype-business'
 
 type AdStore={candidate:{sample:MiamiAdSample;recentlySeen:boolean}|null;lastSeenAt:number;listeners:Set<()=>void>;samples:Map<string,MiamiAdSample>}
-type AdsContext={demo:boolean;store:AdStore;reportSamples:(samples:MiamiAdSample[])=>void;activate:(placement:MiamiAdPlacement,open?:boolean)=>void}
-export type LocalBusinessDemo={onInspect:(placement:MiamiAdPlacement)=>void;onEvent:(event:DemoBusinessEvent)=>void;obscured?:()=>boolean}
+type AdsContext={demo:boolean;clickThrough:boolean;store:AdStore;reportSamples:(samples:MiamiAdSample[])=>void;activate:(placement:MiamiAdPlacement,open?:boolean)=>void}
+export type LocalBusinessDemo={onInspect:(placement:MiamiAdPlacement)=>void;onEvent:(event:DemoBusinessEvent)=>void;obscured?:()=>boolean;allowLinks?:boolean}
 const CampaignContext=createContext<CruiseCampaign|null>(null)
 const AdContext=createContext<AdsContext|null>(null)
 export const useRealMiamiCampaign=()=>useContext(CampaignContext)
@@ -19,7 +19,7 @@ export function MiamiAdCue(){
  const ads=useRealMiamiAds()
  const sample=useSyncExternalStore(ads?listener=>{ads.store.listeners.add(listener);return()=>{ads.store.listeners.delete(listener)}}:emptySubscribe,ads?()=>ads.store.candidate:emptySnapshot,emptySnapshot)
  const cue=<DiscreetAdCue sample={sample?.sample||null} recentlySeen={sample?.recentlySeen||false} onActivate={placement=>ads?.activate(placement,false)}/>
- return ads?.demo?<div onClickCapture={event=>{if((event.target as Element).closest('a'))event.preventDefault()}}>{cue}</div>:cue
+ return ads?.demo&&!ads.clickThrough?<div onClickCapture={event=>{if((event.target as Element).closest('a'))event.preventDefault()}}>{cue}</div>:cue
 }
 export default function CampaignBridge({campaign,campaignValid,children,localDemo}:{campaign:CruiseCampaign;campaignValid:boolean;children:ReactNode;localDemo?:LocalBusinessDemo}){
  const[snapshot,setSnapshot]=useState<ReturnType<NonNullable<Window['__jeepNight']>>|null>(null)
@@ -30,10 +30,10 @@ export default function CampaignBridge({campaign,campaignValid,children,localDem
  const localDemoEnabled=!!localDemo
  const recorder=useRef<ReturnType<typeof createDemoBusinessRecorder>|null>(null)
  if(!recorder.current)recorder.current=createDemoBusinessRecorder(event=>demo.current?.onEvent(event))
- const analytics=useCruiseAnalytics({active:!localDemo&&!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera==='director'||snapshot?.camera==='low'?'chase':snapshot?.camera??'driver',cinematic:snapshot?.camera==='director',radioPlaying:snapshot?.playing??false,stationId:localDemo?'':snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
+ const analytics=useCruiseAnalytics({active:!localDemo&&!!snapshot?.ready&&!snapshot.garage,camera:snapshot?.camera==='director'||snapshot?.camera==='low'?'chase':snapshot?.camera==='wheel'||snapshot?.camera==='wheelClose'?'side':snapshot?.camera??'driver',cinematic:snapshot?.camera==='director',radioPlaying:snapshot?.playing??false,stationId:localDemo?'':snapshot?.station??'',timeMode:snapshot?.timeMode??'night',timeOfDay:snapshot?.timeMode??'night',weather:'clear',campaign})
  const latest=useRef(analytics);latest.current=analytics
- const context=useMemo<AdsContext>(()=>({demo:localDemoEnabled,store:store.current,reportSamples(samples){
-  const current=window.__jeepNight?.(),enabled=!!current?.ready&&!current.garage&&!current.radioFocused&&!document.hidden&&(!demo.current||(current.camera!=='director'&&!demo.current.obscured?.()))
+ const context=useMemo<AdsContext>(()=>({demo:localDemoEnabled,clickThrough:!!localDemo?.allowLinks,store:store.current,reportSamples(samples){
+  const current=window.__jeepNight?.(),enabled=!!current?.ready&&!current.garage&&!current.radioFocused&&!document.hidden&&(!demo.current||((demo.current.allowLinks||current.camera!=='director')&&!demo.current.obscured?.()))
   if(!enabled)recorder.current?.resetOpportunities()
   store.current.samples.clear()
   for(const sample of samples){
@@ -62,10 +62,10 @@ export default function CampaignBridge({campaign,campaignValid,children,localDem
   if(document.hidden||!current?.ready||current.garage||current.radioFocused||!placement.campaign.destination)return
   if(open&&(!sample?.viewable||sample.occlusion>.2))return
   if(!open&&(store.current.candidate?.sample.placement.id!==placement.id||performance.now()-store.current.lastSeenAt>6000))return
-  if(demo.current){if(current.camera==='director'||demo.current.obscured?.())return;if(recorder.current?.activate(placement.campaign.id,placement.id,'world',performance.now()))demo.current.onInspect(placement);return}
+  if(demo.current){if((!demo.current.allowLinks&&current.camera==='director')||demo.current.obscured?.())return;recorder.current?.activate(placement.campaign.id,placement.id,'world',performance.now());if(!demo.current.allowLinks){demo.current.onInspect(placement);return}if(open)window.open(placement.campaign.destination,'_blank','noopener,noreferrer');return}
   latest.current.trackAdCta({placementId:placement.id,format:open?placement.format:'hud',campaignId:placement.campaign.id,destination:placement.campaign.destination})
   if(open)window.open(placement.campaign.destination,'_blank','noopener,noreferrer')
- }}),[localDemoEnabled])
+ }}),[localDemoEnabled,localDemo?.allowLinks])
  useEffect(()=>()=>{store.current.candidate=null;store.current.samples.clear();store.current.listeners.forEach(listener=>listener())},[])
  return <CampaignContext.Provider value={campaign}><AdContext.Provider value={context}><div data-cruise-campaign={campaign.id} data-campaign-valid={campaignValid}>{children}</div></AdContext.Provider></CampaignContext.Provider>
 }

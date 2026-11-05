@@ -5,8 +5,8 @@ import { CRUISE_STATIONS, MIAMI_CRUISE_STATIONS, canPlayCruiseStation, getCruise
 test('experimental stations do not change the original Cruise catalog', () => {
   assert.deepEqual(CRUISE_STATIONS.map(station => station.id), ['buena-onda-radio', 'jolt-radio', 'nts-radio', 'nts-radio-2', 'poolsuite'])
   assert.equal(CRUISE_STATIONS.filter(canPlayCruiseStation).length, 4)
-  assert.equal(MIAMI_CRUISE_STATIONS.filter(canPlayCruiseStation).length, 8)
-  for (const id of ['rinse-france', 'the-lot-radio', 'kiosk-radio', 'dublab']) {
+  assert.equal(MIAMI_CRUISE_STATIONS.filter(canPlayCruiseStation).length, 6)
+  for (const id of ['the-lot-radio', 'dublab']) {
     assert.equal(getCruiseStation(id), undefined)
     const station = MIAMI_CRUISE_STATIONS.find(item => item.id === id)!
     assert.equal(canPlayCruiseStation(station), true)
@@ -14,6 +14,7 @@ test('experimental stations do not change the original Cruise catalog', () => {
     assert.equal(new URL(station.source!).protocol, 'https:')
     assert.equal(new URL(station.externalUrl!).protocol, 'https:')
   }
+  assert.equal(canPlayCruiseStation(MIAMI_CRUISE_STATIONS.find(item => item.id === 'kiosk-radio')!), false)
 })
 
 test('permission-required or external-only stations remain unavailable', () => {

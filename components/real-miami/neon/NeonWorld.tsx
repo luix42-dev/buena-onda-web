@@ -1,14 +1,18 @@
 'use client'
-import { useEffect, useMemo, type MutableRefObject } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useEffect, useMemo, useRef, type MutableRefObject } from 'react'
+import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useGLTF, useTexture } from '@react-three/drei'
 import * as T from 'three'
 import type { NightState } from '../nightdrive/state'
-import { CHUNK_COUNT, CHUNK_LENGTH, CHUNKS_BEHIND, ROAD_STEP, roadRandom, roadSample } from '../nightdrive/road'
+import { CHUNK_COUNT, CHUNK_LENGTH, CHUNKS_BEHIND, ROAD_STEP, roadRandom, roadSample, retrowaveRoadSample, retrowaveSkywayMix } from '../nightdrive/road'
+import RetroSkyway from './RetroSkyway'
+import RetroIsland from './RetroIsland'
 import { pulse } from '../master/pulse'
 import { CRUISE_CAMPAIGNS } from '@/lib/cruise/campaigns'
+import {stationIdForCampaign} from '@/lib/cruise/radio-station-ads'
 import type { CruiseCampaign } from '@/lib/cruise/types'
 import { createSignAtlas, glowTexture, shopfrontTexture, signMaterial, streakTexture, type SignDesign } from './signAtlas'
+import { hideEmpty, ownGeometry, raycastOnly } from './instancing'
 
 /** Neon Run world: a rain-soaked street canyon at night. Mid-rise blocks with lit storefronts,
  * awnings and stacked neon blades line a wet avenue; Syd Mead megastructures, spires, arcology
@@ -16,16 +20,17 @@ import { createSignAtlas, glowTexture, shopfrontTexture, signMaterial, streakTex
  * WebGL stand-in for screen-space reflections: per-sign glow cards in the haze plus streaks on the
  * asphalt. Procedural and origin-relative: chunks fill once in chunk-local space, then only move. */
 const SEGMENTS = CHUNK_LENGTH / ROAD_STEP
+type RoadSampler = typeof roadSample
 const ROAD = 6.2, CURB = .16, FACADE = 10.5
-const m = new T.Object3D(), c = new T.Color()
+const m = new T.Object3D(), c = new T.Color(), supportPart = new T.Object3D()
 m.rotation.order = 'YXZ'
 type Strip = { mesh: T.Mesh; from: number; to: number; lift: number }
 type Sign = { mesh: T.InstancedMesh; rect: T.InstancedBufferAttribute; gain: T.InstancedBufferAttribute; seed: T.InstancedBufferAttribute }
-type Chunk = { group: T.Group; index: number; seed: number; strips: Strip[]; blocks: T.InstancedMesh; fronts: T.InstancedMesh; awnings: T.InstancedMesh; towers: T.InstancedMesh; bands: T.InstancedMesh; spires: T.InstancedMesh; pyramids: T.InstancedMesh; stacks: T.InstancedMesh; flames: T.InstancedMesh; signs: Sign; glows: T.InstancedMesh; streaks: T.InstancedMesh; cables: T.InstancedMesh; poles: T.InstancedMesh; heads: T.InstancedMesh; marks: T.InstancedMesh; screens: T.Mesh[]; flameBase: { x: number; y: number; z: number; s: number }[] }
+type Chunk = { group: T.Group; index: number; seed: number; strips: Strip[]; blocks: T.InstancedMesh; fronts: T.InstancedMesh; awnings: T.InstancedMesh; towers: T.InstancedMesh; bands: T.InstancedMesh; spires: T.InstancedMesh; pyramids: T.InstancedMesh; stacks: T.InstancedMesh; flames: T.InstancedMesh; signs: Sign; glows: T.InstancedMesh; streaks: T.InstancedMesh; cables: T.InstancedMesh; poles: T.InstancedMesh; heads: T.InstancedMesh; marks: T.InstancedMesh; screens: T.Mesh[]; supports: T.InstancedMesh; flameBase: { x: number; y: number; z: number; s: number }[] }
 
 // instanceColor must exist before the first compile, or the program is built without
 // per-instance colour and everything renders white.
-function inst(geometry: T.BufferGeometry, material: T.Material, count: number) { const mesh = new T.InstancedMesh(geometry, material, count); mesh.instanceMatrix.setUsage(T.DynamicDrawUsage); mesh.instanceColor = new T.InstancedBufferAttribute(new Float32Array(count * 3).fill(1), 3); mesh.count = 0; return mesh }
+function inst(geometry: T.BufferGeometry, material: T.Material, count: number) { const mesh = new T.InstancedMesh(ownGeometry(geometry), material, count); mesh.instanceMatrix.setUsage(T.DynamicDrawUsage); mesh.instanceColor = new T.InstancedBufferAttribute(new Float32Array(count * 3).fill(1), 3); mesh.count = 0; return mesh }
 function put(mesh: T.InstancedMesh, i: number, x: number, y: number, z: number, sx: number, sy: number, sz: number, yaw = 0, tilt = 0) { m.position.set(x, y, z); m.rotation.set(tilt, yaw, 0); m.scale.set(sx, sy, sz); m.updateMatrix(); mesh.setMatrixAt(i, m.matrix) }
 function strip(material: T.Material, from: number, to: number, lift = 0): Strip {
   const geometry = new T.BufferGeometry()
@@ -85,26 +90,63 @@ diffuseColor.rgb *= mix(1., .45, puddle);`)
 
 function holoTexture(campaign: CruiseCampaign, i: number) {
   const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 1024
-  const g = canvas.getContext('2d')!, cr = campaign.creatives.wall, accent = i % 2 ? '#56e3ff' : '#ff4fd1'
-  const grad = g.createLinearGradient(0, 0, 0, 1024); grad.addColorStop(0, '#1a0a2bcc'); grad.addColorStop(1, '#05030dcc'); g.fillStyle = grad; g.fillRect(0, 0, 512, 1024)
-  g.strokeStyle = accent; g.lineWidth = 6; g.strokeRect(18, 18, 476, 988)
-  g.font = '600 30px Outfit, Arial, sans-serif'; g.fillStyle = accent; g.fillText(cr.eyebrow, 46, 86)
-  g.shadowColor = accent; g.shadowBlur = 30; g.fillStyle = '#ffffff'
-  g.font = '700 108px Outfit, Arial, sans-serif'; cr.headline.split(/\s+/).forEach((word, k) => g.fillText(word, 40, 300 + k * 118, 432))
-  g.shadowBlur = 0; g.font = '500 28px Outfit, Arial, sans-serif'; g.fillStyle = cr.foreground; g.fillText(cr.footer, 46, 930, 420)
-  for (let k = 0; k < 26; k++) { g.fillStyle = `${accent}${k % 3 ? '55' : 'aa'}`; g.fillRect(452, 120 + k * 30, 18 - (k * 7) % 12, 14) }
-  const texture = new T.CanvasTexture(canvas); texture.colorSpace = T.SRGBColorSpace; return texture
+  const g = canvas.getContext('2d')!, cr = campaign.creatives.wall, accent = stationIdForCampaign(campaign) ? cr.accent : i % 2 ? '#56e3ff' : '#ff4fd1'
+  const headline = (top: number, bottom: number, maxSize: number) => {
+    const words = cr.headline.trim().split(/\s+/), width = 414
+    let lines: string[] = [], size = maxSize
+    for (; size >= 48; size -= 2) {
+      g.font = `700 ${size}px Outfit, Arial, sans-serif`
+      lines = []
+      for (const word of words) {
+        const current = lines[lines.length - 1]
+        if (current && g.measureText(`${current} ${word}`).width <= width) lines[lines.length - 1] = `${current} ${word}`
+        else lines.push(word)
+      }
+      if (lines.length <= 3 && lines.every(line => g.measureText(line).width <= width) && lines.length * size * 1.13 <= bottom - top) break
+    }
+    const step = size * 1.13, first = top + (bottom - top - lines.length * step) / 2 + size
+    g.textAlign = 'center'; g.fillStyle = cr.foreground; g.shadowColor = accent; g.shadowBlur = 12
+    lines.forEach((line, index) => g.fillText(line, 256, first + index * step, width))
+    g.shadowBlur = 0; g.textAlign = 'start'
+  }
+  const base = () => {
+    const grad = g.createLinearGradient(0, 0, 0, 1024); grad.addColorStop(0,stationIdForCampaign(campaign)?cr.background:'#20152c'); grad.addColorStop(1, '#080b18')
+    g.fillStyle = grad; g.fillRect(0, 0, 512, 1024)
+    g.strokeStyle = accent; g.lineWidth = 8; g.strokeRect(16, 16, 480, 992)
+    g.fillStyle = accent; g.fillRect(34, 34, 444, 6)
+    g.font = '700 30px Outfit, Arial, sans-serif'; g.fillStyle = accent; g.fillText(cr.eyebrow, 46, 92, 420)
+    g.font = '600 28px Outfit, Arial, sans-serif'; g.fillStyle = cr.foreground; g.fillText(cr.footer, 46, 966, 420)
+  }
+  base(); headline(230, 690, 94)
+  const texture = new T.CanvasTexture(canvas); texture.colorSpace = T.SRGBColorSpace
+  // Catalog products show their photo above a shorter headline once it loads.
+  const photo = campaign.billboardImage
+  if (photo) {
+    const image = new Image()
+    image.onload = () => {
+      base()
+      const box = 420, r = Math.max(box / image.naturalWidth, box / image.naturalHeight)
+      g.save(); g.beginPath(); g.rect(46, 126, box, box); g.clip(); g.drawImage(image, 46 + (box - image.naturalWidth * r) / 2, 126 + (box - image.naturalHeight * r) / 2, image.naturalWidth * r, image.naturalHeight * r); g.restore()
+      g.strokeStyle = accent; g.lineWidth = 3; g.strokeRect(45, 125, box + 2, box + 2)
+      headline(600, 850, 70)
+      texture.needsUpdate = true
+    }
+    image.src = photo
+  }
+  return texture
 }
 
-function createWorld(asphaltSource: T.Texture) {
+function createWorld(asphaltSource: T.Texture,radioCampaigns?:readonly CruiseCampaign[]) {
   const group = new T.Group(), box = new T.BoxGeometry(1, 1, 1), pyramid = new T.ConeGeometry(.5, 1, 4, 1), plane = new T.PlaneGeometry(1, 1)
   pyramid.rotateY(Math.PI / 4)
   const asphalt = asphaltSource.clone(); asphalt.wrapS = asphalt.wrapT = T.RepeatWrapping; asphalt.colorSpace = T.SRGBColorSpace; asphalt.needsUpdate = true
   const lit = { value: 1.3 }, time = { value: 0 }, atlas = createSignAtlas(), glowMap = glowTexture(), streakMap = streakTexture(), shopMap = shopfrontTexture()
-  const campaigns = (CRUISE_CAMPAIGNS as readonly CruiseCampaign[]).filter(x => x.enabled !== false)
-  const holo = campaigns.map((x, i) => new T.MeshBasicMaterial({ map: holoTexture(x, i), transparent: true, opacity: .9, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, side: T.DoubleSide }))
+  const campaigns = radioCampaigns??(CRUISE_CAMPAIGNS as readonly CruiseCampaign[]).filter(x => x.enabled !== false)
+  const holo = campaigns.map((x, i) => {const poster=x.id==='gta-vi-official';const map=poster?new T.TextureLoader().load('/cruise/ads/gta-vi-official-cover.jpg'):holoTexture(x,i);if(poster){map.colorSpace=T.SRGBColorSpace;map.anisotropy=8}const material=new T.MeshBasicMaterial({ map, transparent: false, depthWrite: true, toneMapped: false, side: T.DoubleSide });material.userData.destination=x.destination;material.userData.label=x.name;if(poster)material.userData.poster=true;return material})
+  if(!radioCampaigns){const gtaPoster = new T.TextureLoader().load('/cruise/ads/gta-vi-official-cover.jpg');gtaPoster.colorSpace = T.SRGBColorSpace;gtaPoster.anisotropy = 8;const material=new T.MeshBasicMaterial({ map: gtaPoster, transparent: false, depthWrite: true, toneMapped: false, side: T.DoubleSide });material.userData.poster=true;material.userData.destination='https://www.rockstargames.com/VI/editions';material.userData.label='Grand Theft Auto VI';holo.push(material)}
   const materials = {
     road: wetRoad(asphalt),
+    skyroad: new T.MeshStandardMaterial({ color: '#171227', roughness: .26, metalness: .62, emissive: '#15072f', emissiveIntensity: .2 }),
     sidewalk: new T.MeshStandardMaterial({ color: '#2b2a31', roughness: .35, metalness: .3, envMapIntensity: .6 }),
     curb: new T.MeshStandardMaterial({ color: '#4a4850', roughness: .5 }),
     lines: new T.MeshBasicMaterial({ color: '#d9a82a', toneMapped: false }),
@@ -115,8 +157,8 @@ function createWorld(asphaltSource: T.Texture) {
     dark: new T.MeshStandardMaterial({ color: '#0d0d10', roughness: .6, metalness: .5 }),
     stacks: new T.MeshStandardMaterial({ color: '#241a1c', metalness: .4, roughness: .7, emissive: '#ff4a10', emissiveIntensity: .08 }),
     flames: new T.MeshBasicMaterial({ color: '#ff8a2a', transparent: true, opacity: .9, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, side: T.DoubleSide, fog: false }),
-    glows: new T.MeshBasicMaterial({ map: glowMap, transparent: true, opacity: .32, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, side: T.DoubleSide }),
-    streaks: new T.MeshBasicMaterial({ map: streakMap, transparent: true, opacity: .55, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2 }),
+    glows: new T.MeshBasicMaterial({ map: glowMap, transparent: true, opacity: .18, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, side: T.DoubleSide }),
+    streaks: new T.MeshBasicMaterial({ map: streakMap, transparent: true, opacity: .34, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2 }),
     signs: signMaterial(atlas.texture, time),
   }
   // Each chunk's sign mesh owns a plane clone, so its per-instance attributes are its own.
@@ -133,17 +175,22 @@ function createWorld(asphaltSource: T.Texture) {
       blocks: inst(box, materials.blocks, 16), fronts: inst(plane, materials.fronts, 16), awnings: inst(box, materials.awnings, 16), towers: inst(box, materials.towers, 28), bands: inst(box, materials.lit, 28),
       spires: inst(box, materials.lit, 10), pyramids: inst(pyramid, materials.towers, 1), stacks: inst(box, materials.stacks, 3), flames: inst(plane, materials.flames, 6),
       signs, glows: inst(plane, materials.glows, 64), streaks: inst(plane, materials.streaks, 64), cables: inst(box, materials.dark, 12), poles: inst(box, materials.dark, 8), heads: inst(box, materials.lit, 8), marks: inst(box, materials.lit, 24),
-      screens: [], flameBase: [] }
-    for (let k = 0; k < 2; k++) { const screen = new T.Mesh(plane, holo[0]); screen.visible = false; chunk.screens.push(screen) }
-    chunk.group.add(...chunk.strips.map(s => s.mesh), chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.flames, signs.mesh, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, ...chunk.screens)
+      screens: [], supports: inst(box, materials.dark, 9), flameBase: [] }
+    // Each screen's frame and two posts live in the chunk's one `supports` instanced draw (was 3 meshes per screen).
+    for (let k = 0; k < 3; k++) { const screen = new T.Mesh(plane, holo[0]); screen.visible = false; chunk.screens.push(screen) }
+    chunk.group.add(...chunk.strips.map(s => s.mesh), chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.flames, signs.mesh, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, ...chunk.screens, chunk.supports)
     group.add(chunk.group); return chunk
   })
+  // Linked billboards are the only clickable surfaces; nothing else needs pointer rays.
+  raycastOnly(group, object => chunks.some(chunk => chunk.screens.includes(object as T.Mesh)))
   return { group, chunks, materials, holo, lit, time, atlas, ownedTextures: [asphalt, glowMap, streakMap, shopMap, atlas.texture, ...holo.map(x => x.map!)], geometries: [box, pyramid, plane] }
 }
 
-function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[], atlas: { vertical: SignDesign[]; horizontal: SignDesign[] }) {
-  const start = index * CHUNK_LENGTH, anchor = roadSample(start, seed)
-  const local = (s: number, lateral = 0) => { const p = roadSample(s, seed); return { x: p.x - anchor.x + Math.cos(p.yaw) * lateral, y: p.y - anchor.y, z: p.z - anchor.z - Math.sin(p.yaw) * lateral, yaw: p.yaw } }
+function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[], atlas: { vertical: SignDesign[]; horizontal: SignDesign[] }, sample: RoadSampler, future: boolean, skyroad: T.Material, cityroad: T.Material) {
+  const start = index * CHUNK_LENGTH, anchor = sample(start, seed), sky = future && retrowaveSkywayMix(start + CHUNK_LENGTH / 2) > .5
+  const local = (s: number, lateral = 0) => { const p = sample(s, seed); return { x: p.x - anchor.x + Math.cos(p.yaw) * lateral, y: p.y - anchor.y, z: p.z - anchor.z - Math.sin(p.yaw) * lateral, yaw: p.yaw } }
+  chunk.strips[0].mesh.material = sky ? skyroad : cityroad
+  chunk.strips.forEach((item, i) => { item.mesh.visible = !sky || i === 0 || i >= 5 })
   for (const item of chunk.strips) {
     const position = item.mesh.geometry.getAttribute('position') as T.BufferAttribute, uv = item.mesh.geometry.getAttribute('uv') as T.BufferAttribute
     for (let i = 0; i <= SEGMENTS; i++) for (let edge = 0; edge < 2; edge++) { const p = local(start + i * ROAD_STEP, edge ? item.to : item.from); position.setXYZ(i * 2 + edge, p.x, p.y + item.lift, p.z); uv.setY(i * 2 + edge, ((start % 4) + i * ROAD_STEP) / 4) }
@@ -154,14 +201,14 @@ function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[]
   const sign = (design: SignDesign, x: number, y: number, z: number, w: number, h: number, yaw: number, lateral: number, along: number, k: number) => {
     if (signs >= 64) return
     put(chunk.signs.mesh, signs, x, y, z, w, h, 1, yaw)
-    chunk.signs.rect.setXYZW(signs, ...design.rect); const gain = 1.4 + r(k) * 1.4; chunk.signs.gain.setXYZ(signs, gain, gain, gain); chunk.signs.seed.setX(signs, index * 7.31 + k)
+    chunk.signs.rect.setXYZW(signs, ...design.rect); const gain = future ? 1.1 + r(k) * .55 : 1.4 + r(k) * 1.4; chunk.signs.gain.setXYZ(signs, gain, gain, gain); chunk.signs.seed.setX(signs, index * 7.31 + k)
     signs++
     // Halo in the rain haze, and the sign's smear on the wet road below.
-    if (glows < 64) { put(chunk.glows, glows, x, y, z, w * 1.9 + 1, h * 1.45 + 1, 1, yaw); chunk.glows.setColorAt(glows++, c.copy(design.tint).multiplyScalar(.9)) }
-    if (streaks < 64) { const p = local(along, lateral * .55); put(chunk.streaks, streaks, p.x, p.y + .03, p.z, Math.min(2.2, w * 1.3 + .4), 5 + y * .9, 1, p.yaw, -Math.PI / 2); chunk.streaks.setColorAt(streaks++, c.copy(design.tint).multiplyScalar(.55 + r(k + 50) * .35)) }
+    if (glows < 64) { put(chunk.glows, glows, x, y, z, w * 1.9 + 1, h * 1.45 + 1, 1, yaw); chunk.glows.setColorAt(glows++, c.copy(design.tint).multiplyScalar(future ? .48 : .9)) }
+    if (streaks < 64) { const p = local(along, lateral * .55); put(chunk.streaks, streaks, p.x, p.y + .03, p.z, Math.min(2.2, w * 1.3 + .4), 5 + y * .9, 1, p.yaw, -Math.PI / 2); chunk.streaks.setColorAt(streaks++, c.copy(design.tint).multiplyScalar(future ? .3 : .55 + r(k + 50) * .35)) }
   }
   // Street wall: back-to-back mid-rise blocks on both sides, each with a lit storefront, awning and neon.
-  for (const side of [-1, 1]) {
+  if (!sky) for (const side of [-1, 1]) {
     let along = start + r(side > 0 ? 1 : 2) * 4
     while (along < start + CHUNK_LENGTH - 6 && blocks < 16) {
       const k = Math.round(along * 3.1) + (side > 0 ? 0 : 5000), width = 11 + r(k) * 11, depth = 14 + r(k + 1) * 8, height = 16 + Math.pow(r(k + 2), 1.4) * 40
@@ -178,17 +225,17 @@ function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[]
       blocks++
       const facing = yaw - side * Math.PI / 2
       // Shop sign over the awning, facing the street.
-      const shop = atlas.horizontal[Math.floor(r(k + 6) * atlas.horizontal.length)], sw = Math.min(width * .7, 7), sp = local(mid, side * (FACADE - .1))
+      const shop = atlas.horizontal[Math.floor(r(k + 6) * atlas.horizontal.length)], sw = Math.min(width * .78, 9), sp = local(mid, side * (FACADE - .1))
       sign(shop, sp.x, sp.y + 4.9, sp.z, sw, sw / 4, facing, side * FACADE, mid, k + 6)
       // Vertical blades sticking out over the sidewalk, readable to the approaching driver.
-      const blades = r(k + 7) > .25 ? (r(k + 8) > .55 ? 2 : 1) : 0
+      const blades = future ? (r(k + 7) > .38 ? 1 : 0) : r(k + 7) > .25 ? (r(k + 8) > .55 ? 2 : 1) : 0
       for (let b = 0; b < blades; b++) {
-        const design = atlas.vertical[Math.floor(r(k + 9 + b) * atlas.vertical.length)], at = along + width * (b ? .78 : .22), bh = 3 + r(k + 11 + b) * 3.5, by = 6 + r(k + 13 + b) * Math.max(1, height - bh - 9)
+        const design = atlas.vertical[Math.floor(r(k + 9 + b) * atlas.vertical.length)], at = along + width * (b ? .78 : .22), bh = 3 + r(k + 11 + b) * 3.5, by = 6 + r(k + 13 + b) * (future ? Math.min(8, Math.max(1, height - bh - 9)) : Math.max(1, height - bh - 9))
         const bp = local(at, side * (FACADE - .75))
         sign(design, bp.x, bp.y + by + bh / 2, bp.z, 1.05, bh, bp.yaw, side * (FACADE - .75), at, k + 9 + b)
       }
       // Some blocks carry a big rooftop-level sign on the facade.
-      if (height > 30 && r(k + 15) > .55) { const big = atlas.horizontal[Math.floor(r(k + 16) * atlas.horizontal.length)], bw = Math.min(width * .85, 12), bp = local(mid, side * (FACADE - .1)); sign(big, bp.x, bp.y + height - 3.5, bp.z, bw, bw / 4, facing, side * FACADE, mid, k + 16) }
+      if (height > 30 && r(k + 15) > .55) { const big = atlas.horizontal[Math.floor(r(k + 16) * atlas.horizontal.length)], bw = future ? Math.min(width * .7, 8) : Math.min(width * .85, 12), bp = local(mid, side * (FACADE - .1)); sign(big, bp.x, bp.y + (future ? Math.min(18, height - 3.5) : height - 3.5), bp.z, bw, bw / 4, facing, side * FACADE, mid, k + 16) }
       along += width
     }
   }
@@ -196,10 +243,10 @@ function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[]
   chunk.signs.mesh.count = signs; chunk.glows.count = glows; chunk.streaks.count = streaks
   // Overhead cables across the street, street lamps on the curb, centre dashes.
   let cables = 0
-  for (let k = 0; k < 4; k++) { const p = local(start + 12 + k * 24 + r(200 + k) * 8); for (let q = 0; q < 3; q++) put(chunk.cables, cables++, p.x, p.y + 8 + k % 2 * 1.4 + q * .5, p.z, FACADE * 2, .035, .035, p.yaw) }
+  if (!sky) for (let k = 0; k < 4; k++) { const p = local(start + 12 + k * 24 + r(200 + k) * 8); for (let q = 0; q < 3; q++) put(chunk.cables, cables++, p.x, p.y + 8 + k % 2 * 1.4 + q * .5, p.z, FACADE * 2, .035, .035, p.yaw) }
   chunk.cables.count = cables
   let lamps = 0
-  for (let k = 0; k < 4; k++) for (const side of [-1, 1]) {
+  if (!sky) for (let k = 0; k < 4; k++) for (const side of [-1, 1]) {
     if (lamps >= 8) break
     const at = start + 8 + k * 24 + (side > 0 ? 12 : 0), pole = local(at, side * (ROAD + .8)), head = local(at, side * (ROAD - .6))
     put(chunk.poles, lamps, pole.x, pole.y + 3.6, pole.z, .14, 7.2, .14, pole.yaw)
@@ -211,11 +258,11 @@ function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[]
   chunk.marks.count = 24
   // Megastructures behind the street wall.
   let towers = 0, bands = 0, spires = 0
-  for (let k = 0; k < 6; k++) for (const side of [-1, 1]) {
+  for (let k = 0; k < (sky ? 3 : 6); k++) for (const side of [-1, 1]) {
     if (towers > 24) break
     const h = r(k * 7 + (side > 0 ? 3 : 0)), along = start + 8 + k * 16 + r(k * 5 + side) * 6, width = 20 + r(k * 11 + side) * 30, depth = 20 + r(k * 13 + side) * 24
-    const lateral = side * (FACADE + 26 + depth / 2 + h * 140), p = local(along, lateral)
-    let height = 70 + Math.pow(r(k * 17 + side), 1.5) * 230, base = 0, scale = 1
+    const lateral = side * (sky ? 220 + h * 160 : FACADE + 26 + depth / 2 + h * 140), p = local(along, lateral)
+    let height = sky ? 55 + Math.pow(r(k * 17 + side), 1.5) * 110 : 70 + Math.pow(r(k * 17 + side), 1.5) * 230, base = 0, scale = 1
     const tiers = 1 + Math.floor(r(k * 19 + side) * 3), chrome = r(k * 23 + side) > .8
     for (let t = 0; t < tiers && towers < 28; t++) {
       const top = base + height * (t === tiers - 1 ? 1 : .55 - t * .1)
@@ -228,23 +275,42 @@ function fillChunk(chunk: Chunk, index: number, seed: number, holo: T.Material[]
     if (base > 150 && spires < 10) { put(chunk.spires, spires, p.x, p.y + base + 12, p.z, .6, 24, .6, p.yaw); chunk.spires.setColorAt(spires++, c.set('#ff2a3a').multiplyScalar(2)) }
   }
   chunk.towers.count = towers; chunk.bands.count = bands; chunk.spires.count = spires
-  // Hologram ad screens hung high on the street wall, angled toward oncoming traffic.
+  // Ground-mounted panels stay below the shortest street-wall roofs. Their posts
+  // travel with the same chunk transform as the face, so no unsupported cards float by.
+  let supports = 0
   chunk.screens.forEach((screen, k) => {
-    const show = r(300 + k) > .4; screen.visible = show; if (!show) return
-    const side = k ? 1 : -1, along = start + 20 + k * 44, p = local(along, side * (FACADE - .4)), scale = 6 + r(320 + k) * 5
-    screen.position.set(p.x, p.y + 14 + r(330 + k) * 10, p.z); screen.rotation.set(0, p.yaw - side * Math.PI / 2 + side * .55, 0)
-    screen.scale.set(scale, scale * 2, 1); screen.material = holo[Math.floor(r(340 + k) * holo.length)]
+    // More ads (Luis 2026-10-22): three screens per chunk, most of them lit.
+    const posterAvailable=!!holo[holo.length-1]?.userData.poster
+    const gtaPoster = posterAvailable&&k === 0 && index % 8 === 0
+    const show = !sky && (gtaPoster || r(300 + k) > .2); screen.visible = show; if (!show) return
+    const side = k % 2 ? 1 : -1, along = start + (gtaPoster ? 52 : 14 + k * 30), p = local(along, side * (FACADE - 1.4))
+    const height=9,width=gtaPoster?7.2:4.5,center=8.5
+    screen.position.set(p.x, p.y + center, p.z); screen.rotation.set(0, p.yaw - side * Math.PI / 2 + side * .25, 0)
+    screen.scale.set(width,height,1)
+    // Frame and posts in the screen's unit space (as when they were its children), then into chunk space.
+    const ground=center/height;screen.updateMatrix()
+    for (const [x, y, z, sx, sy, sz] of [[0, 0, -.035, 1.04, 1.06, .07], [-.32, -(ground + .5) / 2, -.08, .035, ground - .5, .08], [.32, -(ground + .5) / 2, -.08, .035, ground - .5, .08]]) {
+      supportPart.position.set(x, y, z); supportPart.rotation.set(0, 0, 0); supportPart.scale.set(sx, sy, sz); supportPart.updateMatrix()
+      chunk.supports.setMatrixAt(supports++, supportPart.matrix.premultiply(screen.matrix))
+    }
+    screen.material = gtaPoster ? holo[holo.length - 1] : holo[Math.floor(r(340 + k) * (holo.length - (posterAvailable?1:0)))]
+    screen.userData.destination=(screen.material as T.Material).userData.destination
+    screen.userData.label=(screen.material as T.Material).userData.label
+    screen.userData.routeMeters=along
+    screen.name = gtaPoster ? 'GtaViBillboard' : screen.userData.destination?'RetrowaveLinkedAd':'RetrowaveBillboard'
   })
+  chunk.supports.count = supports
   chunk.pyramids.count = 0
-  if (index % 7 === 3) { const side = r(400) > .5 ? 1 : -1, p = local(start + 40, side * (320 + r(401) * 60)), s = 260 + r(402) * 90; put(chunk.pyramids, 0, p.x, p.y + s * .42, p.z, s, s * .9, s, p.yaw); chunk.pyramids.setColorAt(0, c.set('#2a2433')); chunk.pyramids.count = 1 }
+  if (!sky && index % 7 === 3) { const side = r(400) > .5 ? 1 : -1, p = local(start + 40, side * (320 + r(401) * 60)), s = 260 + r(402) * 90; put(chunk.pyramids, 0, p.x, p.y + s * .42, p.z, s, s * .9, s, p.yaw); chunk.pyramids.setColorAt(0, c.set('#2a2433')); chunk.pyramids.count = 1 }
   chunk.stacks.count = 0; chunk.flameBase.length = 0
-  if (index % 3 === 1) for (let k = 0; k < 3; k++) {
+  if (!sky && index % 3 === 1) for (let k = 0; k < 3; k++) {
     const side = (k + index) % 2 ? 1 : -1, p = local(start + 10 + k * 30, side * (200 + r(410 + k) * 160)), hgt = 120 + r(420 + k) * 70
     put(chunk.stacks, k, p.x, p.y + hgt / 2, p.z, 6, hgt, 6); chunk.flameBase.push({ x: p.x, y: p.y + hgt, z: p.z, s: 12 + r(430 + k) * 8 }); chunk.stacks.count = k + 1
   }
   chunk.flames.count = chunk.flameBase.length * 2
-  for (const mesh of [chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, chunk.signs.mesh]) { mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true; mesh.computeBoundingSphere() }
+  for (const mesh of [chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, chunk.signs.mesh, chunk.supports]) { mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true; mesh.computeBoundingSphere() }
   chunk.signs.rect.needsUpdate = chunk.signs.gain.needsUpdate = chunk.signs.seed.needsUpdate = true
+  hideEmpty(chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.flames, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, chunk.signs.mesh, chunk.supports)
   chunk.index = index; chunk.seed = seed
 }
 
@@ -287,23 +353,27 @@ function createRain(count: number) {
   geometry.setIndex(box.index); geometry.setAttribute('position', box.getAttribute('position'))
   const seeds = new Float32Array(count * 3); for (let i = 0; i < count; i++) seeds.set([(roadRandom(i, 3) - .5) * 36, roadRandom(i, 5) * 24, (roadRandom(i, 7) - .5) * 80 - 15], i * 3)
   geometry.setAttribute('aDrop', new T.InstancedBufferAttribute(seeds, 3)); geometry.instanceCount = count
-  const uniforms = { uTime: { value: 0 }, uLean: { value: 0 }, uCar: { value: 2 } }
+  const uniforms = { uTime: { value: 0 }, uLean: { value: 0 }, uCar: { value: 2 }, uFade: { value: 1 } }
   const material = new T.ShaderMaterial({ uniforms, transparent: true, depthWrite: false,
-    vertexShader: /* glsl */`attribute vec3 aDrop; uniform float uTime, uLean, uCar; varying float vA;
+    vertexShader: /* glsl */`attribute vec3 aDrop; uniform float uTime, uLean, uCar, uFade; varying float vA;
       void main(){ float y = mod(aDrop.y - uTime * 30., 24.) - .5; float z = mod(aDrop.z + 15. + uTime * 30. * uLean * 1.6 + 40., 80.) - 55.;
         vec3 at = vec3(aDrop.x, y, z); bool cabin = abs(at.x - uCar) < 1.2 && abs(at.z) < 2.6 && at.y < 1.6;
         vec3 p = position; p.z += p.y * uLean; p.y *= 1. + uLean * .4;
-        vA = cabin ? 0. : .35; gl_Position = projectionMatrix * modelViewMatrix * vec4(at + p * (cabin ? 0. : 1.), 1.); }`,
+        vA = cabin ? 0. : .35 * uFade; gl_Position = projectionMatrix * modelViewMatrix * vec4(at + p * (cabin ? 0. : 1.), 1.); }`,
     fragmentShader: /* glsl */`varying float vA; void main(){ if (vA < .01) discard; gl_FragColor = vec4(.85,.78,1., vA); }` })
   const mesh = new T.Mesh(geometry, material); mesh.frustumCulled = false
   return { mesh, uniforms }
 }
 
-export default function NeonWorld({ state, tier = 'high' }: { state: MutableRefObject<NightState>; tier?: 'high' | 'medium' | 'low' }) {
+export default function NeonWorld({ state, tier = 'high', future = false, radioCampaigns }: { state: MutableRefObject<NightState>; tier?: 'high' | 'medium' | 'low'; future?: boolean;radioCampaigns?:readonly CruiseCampaign[] }) {
   // Existing repository CC0 asphalt (Poly Haven, see clean-asphalt/provenance.json), made wet.
   const asphaltSource = useTexture('/real-miami/materials/clean-asphalt/color.webp')
   const trafficAsset = useGLTF('/real-miami/traffic/classic-traffic.glb', false, true)
-  const world = useMemo(() => createWorld(asphaltSource), [asphaltSource])
+  const world = useMemo(() => createWorld(asphaltSource,radioCampaigns), [asphaltSource,radioCampaigns])
+  const cue=useRef<{id:string;label:string;destination:string;until:number}|null>(null),lastCue=useRef(0)
+  useEffect(()=>()=>{window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:null}))},[])
+  useEffect(()=>{if(!new URLSearchParams(location.search).has('diagnostics'))return;const target=window as Window&{__retroAds?:()=>unknown};target.__retroAds=()=>({destinations:world.holo.map(material=>typeof material.userData.destination==='string'?material.userData.destination:null),visibleScreens:world.chunks.reduce((count,chunk)=>count+chunk.screens.filter(screen=>screen.visible).length,0),screens:world.chunks.flatMap(chunk=>chunk.screens.filter(screen=>screen.visible).map(screen=>({meters:screen.userData.routeMeters,destination:screen.userData.destination,supports:chunk.supports.count?2:0,height:screen.scale.y,center:screen.position.y})))});return()=>{delete target.__retroAds}},[world])
+  const sample = future ? retrowaveRoadSample : roadSample
   const traffic = useMemo(() => createTraffic(trafficAsset.scene, 5), [trafficAsset.scene])
   const flyers = useMemo(() => createFlyers(40), [])
   // Quality tiers thin the expensive atmosphere: rain density, splash rings, glow halos, flying traffic.
@@ -323,34 +393,35 @@ export default function NeonWorld({ state, tier = 'high' }: { state: MutableRefO
     while (s.traffic.length < 5) { const id = s.traffic.length; s.traffic.push({ id, distance: s.distance + 120 + id * 140, lateral: id % 2 ? -2 : 2, speed: 18 }) }
   }, [state])
   useEffect(() => () => {
-    for (const chunk of world.chunks) { for (const s of chunk.strips) s.mesh.geometry.dispose(); chunk.signs.mesh.geometry.dispose(); for (const mesh of [chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.flames, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks]) mesh.dispose() }
+    for (const chunk of world.chunks) { for (const s of chunk.strips) s.mesh.geometry.dispose(); chunk.signs.mesh.geometry.dispose(); for (const mesh of [chunk.blocks, chunk.fronts, chunk.awnings, chunk.towers, chunk.bands, chunk.spires, chunk.pyramids, chunk.stacks, chunk.flames, chunk.glows, chunk.streaks, chunk.cables, chunk.poles, chunk.heads, chunk.marks, chunk.supports]) { mesh.geometry.dispose(); mesh.dispose() } }
     world.geometries.forEach(g => g.dispose()); Object.values(world.materials).forEach(x => x.dispose()); world.holo.forEach(x => x.dispose()); world.ownedTextures.forEach(t => t.dispose())
     traffic.owned.forEach(x => x.dispose()); traffic.geometries.forEach(g => g.dispose())
     for (const mesh of [flyers.body, flyers.lamp, rain.mesh, rain.splash]) { mesh.geometry.dispose(); (mesh.material as T.Material).dispose() }
   }, [world, traffic, flyers, rain])
   useEffect(() => {
     const off = { glow: fxOff('noglow') || tier === 'low', streak: fxOff('nostreak'), signs: fxOff('nosigns') }
-    for (const chunk of world.chunks) { chunk.glows.visible = !off.glow; chunk.streaks.visible = !off.streak; chunk.signs.mesh.visible = !off.signs }
-    rain.mesh.visible = !fxOff('norain'); rain.splash.visible = !fxOff('norain') && tier !== 'low'; spill.a.visible = !fxOff('nofill')
+    for (const chunk of world.chunks) { chunk.glows.userData.enabled = !off.glow; chunk.streaks.userData.enabled = !off.streak; chunk.signs.mesh.userData.enabled = !off.signs; for (const mesh of [chunk.glows, chunk.streaks, chunk.signs.mesh]) mesh.visible = mesh.userData.enabled && mesh.count > 0 }
+    rain.mesh.visible = !future && !fxOff('norain'); rain.splash.visible = !future && !fxOff('norain') && tier !== 'low'; spill.a.visible = !fxOff('nofill')
     flyers.lamp.count = tier === 'low' ? 30 : flyers.lamp.instanceMatrix.count; flyers.body.count = tier === 'low' ? 15 : flyers.lanes.length
-  }, [world, rain, spill, flyers, tier])
+  }, [world, rain, spill, flyers, tier, future])
   useFrame(({ clock }, delta) => {
-    const s = state.current, origin = roadSample(s.distance, s.seed), time = clock.elapsedTime, first = Math.floor(s.distance / CHUNK_LENGTH) - CHUNKS_BEHIND
+    const s = state.current, origin = sample(s.distance, s.seed), time = clock.elapsedTime, first = Math.floor(s.distance / CHUNK_LENGTH) - CHUNKS_BEHIND
     world.time.value = time
     for (let index = first; index < first + CHUNK_COUNT; index++) {
       const chunk = world.chunks[((index % CHUNK_COUNT) + CHUNK_COUNT) % CHUNK_COUNT]
-      if (chunk.index !== index || chunk.seed !== s.seed) { const t0 = performance.now(); fillChunk(chunk, index, s.seed, world.holo, world.atlas); s.generationMs = performance.now() - t0; s.maxGenerationMs = Math.max(s.maxGenerationMs, s.generationMs); s.chunksGenerated++ }
-      const anchor = roadSample(index * CHUNK_LENGTH, s.seed); chunk.group.position.set(anchor.x - origin.x, anchor.y - origin.y, anchor.z - origin.z)
+      if (chunk.index !== index || chunk.seed !== s.seed) { const t0 = performance.now(); fillChunk(chunk, index, s.seed, world.holo, world.atlas, sample, future, world.materials.skyroad, world.materials.road); s.generationMs = performance.now() - t0; s.maxGenerationMs = Math.max(s.maxGenerationMs, s.generationMs); s.chunksGenerated++ }
+      const anchor = sample(index * CHUNK_LENGTH, s.seed); chunk.group.position.set(anchor.x - origin.x, anchor.y - origin.y, anchor.z - origin.z)
       chunk.flameBase.forEach((f, k) => { const flick = .75 + .25 * Math.sin(time * 9 + k * 3.1) * Math.sin(time * 3.7 + k), hgt = f.s * (1.4 + .6 * flick); for (let q = 0; q < 2; q++) put(chunk.flames, k * 2 + q, f.x, f.y + hgt / 2, f.z, f.s * .55 * flick, hgt, 1, q * Math.PI / 2) })
       if (chunk.flameBase.length) chunk.flames.instanceMatrix.needsUpdate = true
     }
+    if(future&&time-lastCue.current>.4){lastCue.current=time;if(!cue.current||time>=cue.current.until){const upcoming=world.chunks.flatMap(chunk=>chunk.screens).filter(screen=>screen.visible&&typeof screen.userData.destination==='string'&&screen.userData.routeMeters>s.distance+12&&screen.userData.routeMeters<s.distance+135).sort((a,b)=>a.userData.routeMeters-b.userData.routeMeters)[0];const next=upcoming?{id:`${upcoming.userData.routeMeters}-${upcoming.userData.destination}`,label:upcoming.userData.label as string,destination:upcoming.userData.destination as string,until:time+9}:null;if(next?.id!==cue.current?.id)window.dispatchEvent(new CustomEvent('cruise:retro-ad',{detail:next?{label:next.label,destination:next.destination}:null}));cue.current=next}}
     world.lit.value = 1.2 + (pulse.source === 'live' ? pulse.energy * .3 : 0)
     world.materials.flames.opacity = .75 + .2 * Math.sin(time * 11)
     world.holo.forEach((x, i) => { x.opacity = .74 + .14 * Math.sin(time * (2.3 + i)) * (Math.sin(time * 17 + i) > .97 ? .2 : 1) })
     { const t = .5 + .5 * Math.sin(s.distance * .045 + time * .4); spill.a.color.copy(spill.magenta).lerp(spill.cyan, t); spill.a.position.x = t > .5 ? 5 : -5; spill.a.intensity = 16 + 10 * Math.sin(time * 1.3 + s.distance * .05) ** 2 }
-    s.traffic.forEach((car, i) => { const view = traffic.cars[i]; if (!view) return; const p = roadSample(car.distance, s.seed); view.position.set(p.x - origin.x + Math.cos(p.yaw) * car.lateral, p.y - origin.y, p.z - origin.z - Math.sin(p.yaw) * car.lateral); view.rotation.y = p.yaw })
+    s.traffic.forEach((car, i) => { const view = traffic.cars[i]; if (!view) return; const p = sample(car.distance, s.seed); view.position.set(p.x - origin.x + Math.cos(p.yaw) * car.lateral, p.y - origin.y, p.z - origin.z - Math.sin(p.yaw) * car.lateral); view.rotation.y = p.yaw })
     flyers.lanes.forEach((lane, i) => {
-      const d = s.distance + ((lane.offset + lane.speed * time) % 1100 + 1100) % 1100 - 300, p = roadSample(d, s.seed)
+      const d = s.distance + ((lane.offset + lane.speed * time) % 1100 + 1100) % 1100 - 300, p = sample(d, s.seed)
       const x = p.x - origin.x + Math.cos(p.yaw) * lane.lateral, y = p.y - origin.y + lane.height, z = p.z - origin.z - Math.sin(p.yaw) * lane.lateral, yaw = p.yaw + (lane.speed > 0 ? 0 : Math.PI)
       put(flyers.body, i, x, y, z, 1, 1, 1, yaw); put(flyers.lamp, i * 2, x - Math.sin(yaw) * 2.35, y, z - Math.cos(yaw) * 2.35, 1, 1, 1, yaw); put(flyers.lamp, i * 2 + 1, x + Math.sin(yaw) * 2.35, y, z + Math.cos(yaw) * 2.35, 1, 1, 1, yaw)
     })
@@ -358,16 +429,20 @@ export default function NeonWorld({ state, tier = 'high' }: { state: MutableRefO
     // Heavy rain around the car, slanted by speed, with splash rings on the asphalt.
     const dt = Math.min(delta, .05)
     rain.uniforms.uTime.value = time; rain.uniforms.uLean.value += (Math.min(.7, s.speed / 50) - rain.uniforms.uLean.value) * .05; rain.uniforms.uCar.value = s.lateral
+    rain.uniforms.uFade.value = future ? 0 : 1
+    rain.splash.visible = !future && !fxOff('norain') && tier !== 'low'
     if (!rain.splash.visible) return
     rain.rings.forEach((ring, i) => {
       ring.age += dt
-      if (ring.age > .42) { ring.age = 0; const along = s.distance - 10 + roadRandom(i + Math.floor(time * 7) * 160, 11) * 40, lat = (roadRandom(i + Math.floor(time * 7) * 160, 13) - .5) * ROAD * 2, p = roadSample(along, s.seed); ring.x = p.x - origin.x + Math.cos(p.yaw) * lat; ring.z = p.z - origin.z - Math.sin(p.yaw) * lat }
+      if (ring.age > .42) { ring.age = 0; const along = s.distance - 10 + roadRandom(i + Math.floor(time * 7) * 160, 11) * 40, lat = (roadRandom(i + Math.floor(time * 7) * 160, 13) - .5) * ROAD * 2, p = sample(along, s.seed); ring.x = p.x - origin.x + Math.cos(p.yaw) * lat; ring.z = p.z - origin.z - Math.sin(p.yaw) * lat }
       const t = ring.age / .42; put(rain.splash, i, ring.x, .04, ring.z, .02 + t * .11, 1, .02 + t * .11); rain.splash.setColorAt(i, c.setScalar((1 - t) * .22))
     })
     rain.splash.instanceMatrix.needsUpdate = true; rain.splash.instanceColor!.needsUpdate = true
   })
   return <>
-    <primitive object={world.group} dispose={null} />
+    <primitive object={world.group} dispose={null} onClick={(event:ThreeEvent<MouseEvent>)=>{let target:T.Object3D|null=event.object;while(target&&!target.userData.destination)target=target.parent;const destination=target?.userData.destination;if(typeof destination==='string'){event.stopPropagation();window.open(destination,'_blank','noopener,noreferrer')}}} onPointerOver={(event:ThreeEvent<PointerEvent>)=>{let target:T.Object3D|null=event.object;while(target&&!target.userData.destination)target=target.parent;if(target)document.body.style.cursor='pointer'}} onPointerOut={()=>{document.body.style.cursor=''}}/>
+    {future&&<RetroSkyway state={state} tier={tier}/>}
+    {future&&<RetroIsland state={state} tier={tier}/>}
     {traffic.cars.map((car, i) => <primitive key={i} object={car} dispose={null} />)}
     <primitive object={flyers.body} dispose={null} /><primitive object={flyers.lamp} dispose={null} />
     <primitive object={rain.mesh} dispose={null} /><primitive object={rain.splash} dispose={null} />
