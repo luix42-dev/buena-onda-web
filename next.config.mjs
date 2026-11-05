@@ -14,7 +14,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/objects', destination: '/themes', permanent: false },
-      ...(CRUISE_LIVE ? [{ source: '/radio', destination: '/cruise', permanent: false }] : []),
+      ...(CRUISE_LIVE ? [{ source: '/radio', missing: [{ type: 'query', key: 'fallback' }], destination: '/cruise', permanent: false }] : []),
     ]
   },
   images: {
