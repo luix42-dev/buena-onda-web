@@ -239,6 +239,7 @@ export default function RadioClient({ initialEpisodes }: Props) {
       await new Promise<void>((resolve, reject) => {
         const xhr = new XMLHttpRequest()
         xhr.open('PUT', uploadData.uploadUrl!)
+        xhr.setRequestHeader('Content-Type', file.type || 'audio/mpeg')
         xhr.upload.onprogress = event => {
           if (!event.lengthComputable) return
           setEditUploadProgress(Math.round((event.loaded / event.total) * 100))

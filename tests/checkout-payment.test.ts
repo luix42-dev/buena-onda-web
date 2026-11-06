@@ -1,11 +1,12 @@
-import { test, before, after } from 'node:test'
+import { test, before, after, mock } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { PGlite } from '@electric-sql/pglite'
 import { NextRequest } from 'next/server'
+import nextCache from 'next/cache'
 import { getStripe } from '../lib/stripe'
 import { POST as checkout } from '../app/api/checkout/route'
-import { GET as intent } from '../app/api/checkout/intent/route'
+import { POST as intent } from '../app/api/checkout/intent/route'
 import { POST as webhook } from '../app/api/webhooks/stripe/route'
 
 // No network or live payment credentials are permitted in this fixture suite.
@@ -35,6 +36,9 @@ const originals = {
 function response(data: unknown, status = 200) { return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json' } }) }
 
 before(async () => {
+  // Routes run outside Next's request AsyncLocalStorage; only cache invalidation
+  // is stubbed, while payment transport, database policy and fulfillment stay exercised.
+  mock.method(nextCache, 'revalidatePath', () => undefined)
   await db.exec(`
     create role anon; create role authenticated; create role service_role;
     create type order_status as enum ('pending','paid','failed','canceled');
@@ -150,10 +154,24 @@ test('reserved and sold pieces return structured unavailable responses without o
 
 test('embedded intent creation preserves availability and uses canonical product description/SKU', async () => {
   await reset()
-  assert.equal((await intent(new NextRequest(`https://store.invalid/api/checkout/intent?itemId=${itemId}`))).status, 200)
+  assert.equal((await intent(new NextRequest('https://store.invalid/api/checkout/intent', { method: 'POST', body: JSON.stringify({ itemId }) }))).status, 200)
   assert.equal(intentParams.amount, 12345); assert.equal(intentParams.metadata.sku, 'BO-101')
   assert.match(intentParams.description, /Canonical chair/)
   assert.equal((await db.query<any>('select availability from items')).rows[0].availability, 'available')
+})
+
+test('checkout endpoints do not disclose draft titles or create orders for private items', async () => {
+  await reset()
+  await db.exec("update items set status='draft', title='Private unreleased object'")
+  for (const handler of [checkout, intent]) {
+    const result = await handler(new NextRequest('https://store.invalid/api/checkout', {
+      method: 'POST', body: JSON.stringify({ itemId }),
+      headers: { 'x-forwarded-for': '192.0.2.200' },
+    }))
+    assert.ok([404, 409].includes(result.status))
+    assert.doesNotMatch(await result.text(), /Private unreleased object/)
+  }
+  assert.equal((await db.query('select * from orders')).rows.length, 0)
 })
 
 test('signed completion persists shipping, sells once, and concurrent replays notify once', async () => {
@@ -227,7 +245,7 @@ test('mismatched metadata/amount or absent shipping fail closed before inventory
 
 test('Elements successful intent persists actual processor shipping and replays safely', async () => {
   await reset()
-  await intent(new NextRequest(`https://store.invalid/api/checkout/intent?itemId=${itemId}`))
+  await intent(new NextRequest('https://store.invalid/api/checkout/intent', { method: 'POST', body: JSON.stringify({ itemId }) }))
   const order = (await db.query<any>('select * from orders')).rows[0]
   const event = { id: 'evt_elements', livemode: false, type: 'payment_intent.succeeded', data: { object: {
     id: order.stripe_payment_intent_id, status: 'succeeded', amount: 12345, currency: 'usd',

@@ -18,7 +18,9 @@ export async function middleware(request: NextRequest) {
   if (protectedApi) return unauthorizedStudioResponse()
   const url = request.nextUrl.clone()
   url.pathname = '/studio/login'; url.search = ''; url.searchParams.set('from', pathname)
-  return NextResponse.redirect(url)
+  const response = NextResponse.redirect(url)
+  response.headers.set('Cache-Control', 'private, no-store, max-age=0')
+  return response
 }
 
 export const config = { matcher: ['/studio/:path*', '/api/studio/:path*', '/api/admin/:path*', '/((?!_next/static|_next/image|favicon.ico).*)'] }

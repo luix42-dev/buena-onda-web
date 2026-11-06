@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { clientIp, createRateLimiter, driveByClientHash } from '@/lib/cruise/rate-limit'
 import { MAX_PLOT, isSeedPlot } from '@/components/cruise/master/plots'
+import { readLimitedText, requestErrorResponse } from '@/lib/api/request-security'
 
 export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
   if (!limiter.take(ip)) return new NextResponse(null, { status: 429, headers: { 'retry-after': '60' } })
 
   let raw = ''
-  try { raw = await request.text() } catch { return new NextResponse(null, { status: 400 }) }
+  try { raw = await readLimitedText(request, MAX_DRIVE_BY_BODY_BYTES) } catch (error) { return requestErrorResponse(error) }
   if (raw.length > MAX_DRIVE_BY_BODY_BYTES) return new NextResponse(null, { status: 413 })
   let list: unknown
   try { list = (JSON.parse(raw) as { plots?: unknown })?.plots } catch { return new NextResponse(null, { status: 400 }) }

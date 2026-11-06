@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { STUDIO_COOKIE, hasCruiseStudioAccess, isSameOrigin } from '@/lib/cruise/studio-auth'
 import { MAX_PLOT } from '@/components/cruise/master/plots'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
   if (!(await hasCruiseStudioAccess(request.cookies.get(STUDIO_COOKIE)?.value))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!isSameOrigin(request.headers, request.url)) return NextResponse.json({ error: 'Cross-origin request refused' }, { status: 403 })
   let parsed
-  try { parsed = Body.safeParse(await request.json()) } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  try { parsed = Body.safeParse(await readLimitedJson(request, 4096)) } catch (error) { return requestErrorResponse(error) }
   if (!parsed.success) return NextResponse.json({ error: 'Invalid moderation request' }, { status: 400 })
   const input = parsed.data
   // The studio uses one shared password, so the actor is an operator-entered label, not a verified identity.

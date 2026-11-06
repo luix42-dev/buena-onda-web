@@ -8,7 +8,7 @@ import type { TimelineItem } from '@/lib/timeline'
 import ContactSheet from '@/components/ui/ContactSheet'
 import ScanReveal from '@/components/ui/ScanReveal'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
 export const dynamic = 'force-dynamic'
 

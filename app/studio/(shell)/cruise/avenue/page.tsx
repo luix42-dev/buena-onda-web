@@ -41,7 +41,7 @@ async function load() {
 
 export default async function AvenueModerationPage() {
   // Fails closed even if STUDIO_PASSWORD is unset (middleware.ts would let the request through).
-  if (!(await hasCruiseStudioAccess(cookies().get(STUDIO_COOKIE)?.value))) notFound()
+  if (!(await hasCruiseStudioAccess((await cookies()).get(STUDIO_COOKIE)?.value))) notFound()
   let data: Awaited<ReturnType<typeof load>>
   try { data = await load() } catch (error) {
     return (

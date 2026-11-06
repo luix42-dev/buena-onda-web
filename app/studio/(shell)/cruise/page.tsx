@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import Link from 'next/link'
 import { createServiceClient } from '@/lib/supabase/server'
 import CruiseClient from './CruiseClient'
@@ -51,6 +52,7 @@ async function loadCruiseData() {
 }
 
 export default async function CruisePage() {
+  await requireStudioPage()
   const { scenes, channels, error } = await loadCruiseData()
   if (error) return <CruiseError message={error} />
 

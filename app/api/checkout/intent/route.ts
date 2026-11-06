@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard(10, 5)
 
 export const runtime = 'edge'
 
@@ -17,10 +20,16 @@ function isDirectPurchaseModel(value: string | null | undefined) {
   return value === 'direct' || value === 'direct_purchase'
 }
 
-export async function GET(request: NextRequest) {
-  const parsed = QuerySchema.safeParse({
-    itemId: request.nextUrl.searchParams.get('itemId'),
-  })
+export async function GET() {
+  return NextResponse.json({ error: 'Use POST to start checkout' }, { status: 405, headers: { Allow: 'POST', 'Cache-Control': 'no-store' } })
+}
+
+export async function POST(request: NextRequest) {
+  const denied = guard(request)
+  if (denied) return denied
+  let body: unknown
+  try { body = await readLimitedJson(request, 4096) } catch (error) { return requestErrorResponse(error) }
+  const parsed = QuerySchema.safeParse(body)
 
   if (!parsed.success) {
     return formatUnavailable()
@@ -46,7 +55,7 @@ export async function GET(request: NextRequest) {
     !Number.isFinite(amount) ||
     amount <= 0
   ) {
-    return formatUnavailable(item ?? undefined)
+    return formatUnavailable(item?.status === 'published' ? item : undefined)
   }
 
   const paymentIntent = await stripe.paymentIntents.create({
@@ -99,5 +108,5 @@ export async function GET(request: NextRequest) {
     itemTitle: item.title,
     itemPrice: amount / 100,
     orderId: order.id,
-  })
+  }, { headers: { 'Cache-Control': 'no-store' } })
 }

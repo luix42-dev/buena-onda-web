@@ -1,4 +1,6 @@
 import { createHash } from 'crypto'
+import { timingSafeEqualString } from '@/lib/studio-auth'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
 import { NextResponse, type NextRequest } from 'next/server'
 import { logAudit } from '@/lib/audit'
 import {
@@ -288,11 +290,18 @@ async function handleText(message: TelegramMessage, session: ConversationSession
 }
 
 export async function POST(request: NextRequest) {
+  const secret = process.env.TELEGRAM_WEBHOOK_SECRET?.trim()
+  const supplied = request.headers.get('x-telegram-bot-api-secret-token') || ''
+  if (!secret || !/^[A-Za-z0-9_-]{32,256}$/.test(secret) || supplied.length > 256 || !timingSafeEqualString(supplied, secret)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   let update: TelegramUpdate
   try {
-    update = await request.json()
-  } catch {
-    return NextResponse.json({ ok: true })
+    const body = await readLimitedJson(request, 65_536)
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return NextResponse.json({ error: 'Invalid update' }, { status: 400 })
+    update = body as TelegramUpdate
+  } catch (error) {
+    return requestErrorResponse(error)
   }
 
   if (update.callback_query) {
@@ -324,6 +333,6 @@ export async function POST(request: NextRequest) {
     const reason = error instanceof Error ? error.message : 'Telegram webhook failed'
     console.error('[telegram/webhook]', reason)
     await sendTelegramMessage(chatId, `Intake failed: ${reason}`).catch(() => null)
-    return NextResponse.json({ ok: true, error: reason })
+    return NextResponse.json({ ok: true, error: 'Intake failed' })
   }
 }

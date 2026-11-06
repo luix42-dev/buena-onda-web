@@ -433,6 +433,7 @@ export default function PlayerClient() {
       try {
         uploadRes = await fetch(uploadData.uploadUrl, {
           method: 'PUT',
+          headers: { 'Content-Type': file.type || 'audio/mpeg' },
           body: file,
         })
       } catch {

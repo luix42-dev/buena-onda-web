@@ -1,6 +1,7 @@
 'use client'
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Camera, Maximize, Moon, Pause, Play, Radio, Sun, Volume2, VolumeX, X } from 'lucide-react'
 import { LAUNCH_CARS } from '@/lib/cruise/launch'
 import { initialQuality } from '@/lib/cruise/quality'
@@ -109,7 +110,7 @@ export default function LaunchExperience({campaign,campaignValid}:{campaign:Crui
       {!garage&&<><RadioConsole focused={radioFocused} step={tutorial} onClose={closeRadio} onSkip={finishTutorial} onReplay={replayTutorial} hidden={placeOpen||credits}/>{!radioFocused&&<span className="district-now">{DISTRICT_LABELS[district]} / MIAMI DRIVE</span>}</>}
       <PlaceDiscovery garage={garage} ready={vehicleReady&&!failed} initialPlaceId={deepLinkPlace} nearbyPlaceId={nearbyPlaceId} onStart={start} onOpenChange={setPlaceOpen}/>
       <header className="launch-header cruise-hud" aria-hidden={!visible} ref={e=>{if(e)e.inert=!visible}}>
-        <a href="/" className="launch-brand">Buena Onda<span>CRUISE / MIAMI · BETA</span></a>
+        <Link href="/" className="launch-brand">Buena Onda<span>CRUISE / MIAMI · BETA</span></Link>
         {garage?<button onClick={()=>setCredits(!credits)} className="launch-small">Credits</button>:<button onClick={returnGarage} className="launch-pill"><ArrowLeft size={16}/> Garage</button>}
       </header>
       {garage&&<div className="launch-garage">

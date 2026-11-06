@@ -2,6 +2,9 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { VOICE_V2_PROMPT } from '@/lib/voice-prompt'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+import { z } from 'zod'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'edge'
@@ -10,11 +13,13 @@ type Destination = 'catalog' | 'transmission' | 'radio'
 
 const VALID_DESTINATIONS = new Set<Destination>(['catalog', 'transmission', 'radio'])
 const VALID_THEME_SLUGS = ['curated-vintage', 'analog-objects', 'sound-collection', 'buena-onda-original']
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST,OPTIONS',
-  'Access-Control-Allow-Headers': 'content-type',
-}
+const CORS_HEADERS = { 'Cache-Control': 'no-store' }
+const IntakeSchema = z.object({
+  destination: z.enum(['catalog', 'transmission', 'radio']).default('catalog'),
+  note: z.string().max(10_000).optional(),
+  url: z.string().max(2048).refine(value => !value || /^https?:\/\//i.test(value), 'Use an HTTP or HTTPS URL').optional(),
+  image: z.string().max(4_000_000).optional(),
+})
 
 function slugify(value: string) {
   return value
@@ -43,10 +48,17 @@ function bytesToBlobPart(bytes: Uint8Array) {
 function parseImageDataUrl(image: unknown) {
   if (typeof image !== 'string' || !image.trim()) return null
   const match = image.match(/^data:([^;]+);base64,(.+)$/)
-  if (!match) throw new Error('Image must be a data URL.')
+  if (!match || !['image/jpeg', 'image/png', 'image/webp'].includes(match[1])) throw new Error('Use a JPEG, PNG or WebP image.')
+  const buffer = base64ToBytes(match[2])
+  const matchesType = match[1] === 'image/jpeg'
+    ? buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff
+    : match[1] === 'image/png'
+      ? [137, 80, 78, 71, 13, 10, 26, 10].every((byte, index) => buffer[index] === byte)
+      : new TextDecoder().decode(buffer.slice(0, 4)) === 'RIFF' && new TextDecoder().decode(buffer.slice(8, 12)) === 'WEBP'
+  if (!matchesType) throw new Error('Image content does not match its type.')
   return {
     contentType: match[1],
-    buffer: base64ToBytes(match[2]),
+    buffer,
   }
 }
 
@@ -179,11 +191,14 @@ Write original catalog copy. Return only JSON:
 }
 
 export async function POST(request: NextRequest) {
-  let body: Record<string, unknown>
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
+  let body: z.infer<typeof IntakeSchema>
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid JSON body' }, { status: 400, headers: CORS_HEADERS })
+    const parsed = IntakeSchema.safeParse(await readLimitedJson(request, 4_100_000))
+    if (!parsed.success) return NextResponse.json({ ok: false, error: 'Invalid intake data' }, { status: 400 })
+    body = parsed.data
+  } catch (error) {
+    return requestErrorResponse(error)
   }
 
   const destination = String(body.destination ?? 'catalog').toLowerCase() as Destination
@@ -193,7 +208,9 @@ export async function POST(request: NextRequest) {
 
   const note = typeof body.note === 'string' ? body.note.trim() : ''
   const sourceUrl = typeof body.url === 'string' ? body.url.trim() : ''
-  const image = parseImageDataUrl(body.image)
+  let image: ReturnType<typeof parseImageDataUrl>
+  try { image = parseImageDataUrl(body.image) }
+  catch { return NextResponse.json({ ok: false, error: 'Invalid image. Use JPEG, PNG or WebP.' }, { status: 400 }) }
   const supabase = createServiceRoleClient()
 
   if (destination === 'catalog') {

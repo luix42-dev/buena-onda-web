@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import SectionHead from '@/components/studio/SectionHead'
 import { createServiceClient } from '@/lib/supabase/server'
 import HomepageClient from './HomepageClient'
@@ -27,6 +28,7 @@ async function loadHomepageData() {
 }
 
 export default async function HomepageEditorPage() {
+  await requireStudioPage()
   const siteSettings = await loadHomepageData()
 
   const byKey = new Map(siteSettings.map(setting => [setting.key, setting.value]))

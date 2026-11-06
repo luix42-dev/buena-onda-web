@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { createServiceClient } from '@/lib/supabase/server'
 import TransmissionClient from './TransmissionClient'
 
@@ -70,6 +71,7 @@ async function loadTransmissionData() {
 }
 
 export default async function TransmissionPage() {
+  await requireStudioPage()
   const { issues, subscribers, newsletterSetting, error } = await loadTransmissionData()
   if (error) return <TransmissionError message={error} />
 

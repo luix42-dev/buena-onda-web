@@ -2,6 +2,8 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { NextResponse, type NextRequest } from 'next/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+import { mediaContentType } from '../upload/validation'
 
 type UploadBody = {
   filename?: unknown
@@ -32,10 +34,9 @@ export async function POST(request: NextRequest) {
 
   let body: UploadBody
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
-  }
+    body = await readLimitedJson(request, 4096) as UploadBody
+    if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Invalid upload')
+  } catch (error) { return requestErrorResponse(error) }
 
   const rawFilename = typeof body.filename === 'string'
     ? body.filename
@@ -53,7 +54,12 @@ export async function POST(request: NextRequest) {
 
   const allowedPrefixes = new Set(['audio', 'events/audio', 'episodes', 'cruise/video', 'cruise/audio'])
   const rawPrefix = typeof body.prefix === 'string' ? body.prefix.replace(/\/$/, '') : 'audio'
-  const prefix = allowedPrefixes.has(rawPrefix) ? rawPrefix : 'audio'
+  if (!allowedPrefixes.has(rawPrefix)) return NextResponse.json({ error: 'Invalid upload prefix' }, { status: 400 })
+  const prefix = rawPrefix
+  const contentType = typeof body.contentType === 'string' ? body.contentType.toLowerCase() : ''
+  if (!mediaContentType(rawFilename, contentType, prefix === 'cruise/video' ? 'video' : 'audio')) {
+    return NextResponse.json({ error: 'Unsupported file type' }, { status: 400 })
+  }
   const isEpisodes = prefix === 'episodes'
 
   const episodesBucketName = env('R2_EPISODES_BUCKET_NAME', 'CF_R2_EPISODES_BUCKET_NAME')
@@ -103,7 +109,10 @@ export async function POST(request: NextRequest) {
 
   const cruiseKeyRe = /^cruise\/(video|audio)\/[a-z0-9\-/]+\.(mp4|mp3)$/
   const rawKey = typeof body.key === 'string' ? body.key.trim() : ''
-  const key = rawKey && cruiseKeyRe.test(rawKey) && !rawKey.includes('..')
+  if (rawKey && (!cruiseKeyRe.test(rawKey) || rawKey.includes('..') || !rawKey.startsWith(`${prefix}/`) || !mediaContentType(rawKey, contentType, prefix === 'cruise/video' ? 'video' : 'audio'))) {
+    return NextResponse.json({ error: 'Invalid upload key' }, { status: 400 })
+  }
+  const key = rawKey
     ? rawKey
     : `${prefix}/${Date.now()}-${cleanFilename(rawFilename)}`
   const client = new S3Client({
@@ -118,14 +127,15 @@ export async function POST(request: NextRequest) {
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: key,
+      ContentType: contentType,
     })
     const url = await getSignedUrl(client as any, command as any, {
-      expiresIn: 3600,
-      signableHeaders: new Set(['host']),
+      expiresIn: 900,
+      signableHeaders: new Set(['host', 'content-type']),
       unhoistableHeaders: new Set(),
     } as any)
     const signedHeaders = new URL(url).searchParams.get('X-Amz-SignedHeaders')
-    if (signedHeaders !== 'host') {
+    if (signedHeaders !== 'content-type;host') {
       throw new Error(`Unexpected signed headers: ${signedHeaders ?? 'none'}`)
     }
     const publicUrl = `${publicUrlBase}/${key}`

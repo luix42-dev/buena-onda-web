@@ -5,6 +5,7 @@ import {
   reorderTracks,
 } from '@/lib/radio-metadata'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { readLimitedJson, RequestBodyError, requestErrorResponse } from '@/lib/api/request-security'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,10 +17,9 @@ export async function GET() {
       headers: { 'Cache-Control': 'no-store' },
     })
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Failed to load tracks'
     console.error('Radio tracks error:', err)
     return NextResponse.json(
-      { error: message },
+      { error: 'Failed to load tracks' },
       { status: 500, headers: { 'Cache-Control': 'no-store' } },
     )
   }
@@ -31,9 +31,9 @@ export async function PATCH(request: NextRequest) {
   }
 
   try {
-    const body = await request.json()
+    const body = await readLimitedJson(request, 262_144) as { orderedKeys?: unknown }
     const orderedKeys = Array.isArray(body?.orderedKeys)
-      ? body.orderedKeys.filter((value: unknown): value is string => typeof value === 'string' && value.trim().length > 0)
+      ? body.orderedKeys.filter((value: unknown): value is string => typeof value === 'string' && value.trim().length > 0 && value.length <= 1024)
       : []
 
     if (orderedKeys.length === 0) {
@@ -43,7 +43,7 @@ export async function PATCH(request: NextRequest) {
     await reorderTracks(orderedKeys)
     return NextResponse.json({ ok: true })
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Could not save track order.'
-    return NextResponse.json({ error: message }, { status: 500 })
+    if (err instanceof RequestBodyError) return requestErrorResponse(err)
+    return NextResponse.json({ error: 'Could not save track order.' }, { status: 500 })
   }
 }

@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { notFound } from 'next/navigation'
 import { createServiceClient } from '@/lib/supabase/server'
 import EventEditor from './EventEditor'
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default async function EventEditPage({ params }: Props) {
+  await requireStudioPage()
   const { id } = await params
 
   if (id === 'new') {

@@ -5,14 +5,17 @@ import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 import { stripeSessionExpiresAt } from '@/lib/checkout-holds'
 import { shippingCountries } from '@/lib/shipping'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard(20, 10)
 
 export const runtime = 'edge'
 
 const CheckoutSchema = z.object({
   itemId: z.string().uuid().optional(),
-  itemSlug: z.string().trim().min(1).optional(),
-  customerEmail: z.string().email().optional(),
-  customerName: z.string().trim().min(1).optional(),
+  itemSlug: z.string().trim().min(1).max(200).optional(),
+  customerEmail: z.string().email().max(254).optional(),
+  customerName: z.string().trim().min(1).max(100).optional(),
 })
 
 function resolveSiteUrl(request: NextRequest) {
@@ -28,11 +31,13 @@ function isDirectPurchaseModel(value: string | null | undefined) {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = guard(request)
+  if (denied) return denied
   let body: unknown
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+    body = await readLimitedJson(request, 4096)
+  } catch (error) {
+    return requestErrorResponse(error)
   }
 
   const parsed = CheckoutSchema.safeParse(body)
@@ -58,7 +63,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   const { data: item, error: itemError } = await itemQuery
-  if (itemError || !item) {
+  if (itemError || !item || item.status !== 'published') {
     return NextResponse.json({ error: 'Item not found' }, { status: 404 })
   }
 
@@ -144,7 +149,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (checkoutSession) await stripe.checkout.sessions.expire(checkoutSession.id).catch(() => null)
 
-    const message = error instanceof Error ? error.message : 'Checkout failed'
-    return NextResponse.json({ error: message }, { status: 500 })
+    console.error('[checkout] Could not create checkout', error)
+    return NextResponse.json({ error: 'Could not start checkout' }, { status: 500 })
   }
 }

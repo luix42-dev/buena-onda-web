@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import { readLimitedText, requestErrorResponse } from '@/lib/api/request-security'
 import { revalidatePath } from 'next/cache'
 import { fulfillCheckoutSession, fulfillElementsPaymentIntent, type FulfillOrderResult } from '@/lib/order-fulfillment'
 import { getStripe } from '@/lib/stripe'
@@ -25,15 +26,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing Stripe signature' }, { status: 400 })
   }
 
-  const rawBody = await request.text()
+  let rawBody: string
+  try { rawBody = await readLimitedText(request, 1_048_576) } catch (error) { return requestErrorResponse(error) }
   const stripe = getStripe()
 
   let event: Stripe.Event
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, secret)
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Invalid Stripe signature'
-    return NextResponse.json({ error: message }, { status: 400 })
+    return NextResponse.json({ error: 'Invalid Stripe signature' }, { status: 400 })
   }
 
   if (event.livemode !== (process.env.STRIPE_SECRET_KEY ?? '').includes('_live_')) {

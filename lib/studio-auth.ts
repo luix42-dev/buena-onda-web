@@ -28,11 +28,16 @@ export async function createStudioSession(now = Date.now()) {
 }
 
 export function isStudioAuthorized(request: NextRequest) {
+  // SameSite cookies also accompany requests from sibling subdomains. Check the
+  // actual origin at the handler boundary, even when middleware is bypassed.
+  if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method) && !isStudioSameOrigin(request)) {
+    return Promise.resolve(false)
+  }
   return hasStudioAccess(request.cookies.get(STUDIO_COOKIE)?.value)
 }
 
 export function unauthorizedStudioResponse() {
-  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers: { 'Cache-Control': 'no-store' } })
 }
 
 /** Fails closed in every environment; raw password cookies are intentionally invalid. */

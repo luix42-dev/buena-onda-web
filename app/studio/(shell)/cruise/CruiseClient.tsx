@@ -77,10 +77,12 @@ async function xhrUpload(
   url: string,
   file: File,
   onProgress: (pct: number) => void,
+  contentType: string,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
     xhr.open('PUT', url)
+    xhr.setRequestHeader('Content-Type', contentType)
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100))
     }
@@ -281,7 +283,7 @@ export default function CruiseClient({ initialScenes, initialChannels }: Props) 
       const { uploadUrl, key } = signedBody as { uploadUrl?: string; key?: string }
       if (!uploadUrl || !key) throw new Error('Signed upload response is incomplete.')
 
-      await xhrUpload(uploadUrl, file, setVideoProgress)
+      await xhrUpload(uploadUrl, file, setVideoProgress, 'video/mp4')
 
       setScVideoKey(key)
       setVideoProgress(100)
@@ -336,7 +338,7 @@ export default function CruiseClient({ initialScenes, initialChannels }: Props) 
         const { uploadUrl, key } = signedBody as { uploadUrl?: string; key?: string }
         if (!uploadUrl || !key) throw new Error('Signed upload response is incomplete.')
 
-        await xhrUpload(uploadUrl, file, () => {})
+        await xhrUpload(uploadUrl, file, () => {}, 'audio/mpeg')
 
         newKeys.push(key)
         setTrackProgress(`${i + 1} / ${files.length}`)
