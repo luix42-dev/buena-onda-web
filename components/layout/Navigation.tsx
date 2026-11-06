@@ -7,9 +7,14 @@ import { headerLinks as links } from '@/lib/nav'
 
 export default function Navigation() {
   const pathname   = usePathname()
+  const [hydrated, setHydrated]   = useState(false)
   const [open, setOpen]           = useState(false)
   const [scrolled, setScrolled]   = useState(false)
   const navRef = useRef<HTMLElement>(null)
+
+  // Cached server markup can have a different pathname context from the browser.
+  // Keep the initial navigation identical; select the active link after hydration.
+  useEffect(() => { setHydrated(true) }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -29,7 +34,7 @@ export default function Navigation() {
   }, [open])
 
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+    hydrated && (href === '/' ? pathname === '/' : pathname.startsWith(href))
 
   return (
     <>
