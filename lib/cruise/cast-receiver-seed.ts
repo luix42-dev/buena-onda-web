@@ -1,10 +1,12 @@
 import type { CastCommand } from './google-cast'
+import { CAST_CAMERA_VIEWS } from './cast-camera'
 
 const choices: Record<string, readonly string[]> = {
   drive: ['city', 'highway', 'retrowave'],
   car: ['coastal-coupe', 'classic-coupe', 'island-trail', 'countach', 'delorean', 'eighties', 'cadillac', 'wrangler'],
   time: ['night', 'sunset'],
   mood: ['cruise', 'night-drive', 'midnight-run'],
+  camera: CAST_CAMERA_VIEWS,
 }
 
 /** Seed one frame from the first complete sync, never from a probe or later update. */
@@ -19,7 +21,7 @@ export function createReceiverFrameSeed(stations: readonly string[], diagnostics
       const value = command.scene?.[key]
       if (value === undefined) continue
       if (!allowed.includes(value)) return null
-      params.set(key === 'mood' ? 'pace' : key, value)
+      params.set(key === 'mood' ? 'pace' : key === 'camera' ? 'cam' : key, value)
     }
     if (diagnostics) params.set('diagnostics', '1')
     // Playback is deliberately absent: the muted receiver controller applies

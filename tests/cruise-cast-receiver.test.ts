@@ -5,6 +5,7 @@ import type { CastCommand } from '../lib/cruise/google-cast'
 
 function harness() {
   const calls: string[] = []
+  const scenes: Record<string, string>[] = []
   const audio: ReceiverValue['audio'] = {
     stationId: 'jolt', playing: false, requested: false, loading: false,
     volume: .8, muted: false, error: null,
@@ -17,12 +18,12 @@ function harness() {
   const value: ReceiverValue = {
     audio, ready: false, sceneState: { drive: 'highway', car: 'countach', time: 'night', mood: 'night-drive' },
     start() { calls.push('drive') },
-    scene(scene) { calls.push(`scene:${scene.drive ?? ''}`) },
+    scene(scene) { calls.push(`scene:${scene.drive ?? ''}`); scenes.push(scene) },
   }
   const controller = createCastReceiverController(() => value, ['jolt', 'nightride'])
   let sequence = 0
   const receive = (command: Omit<CastCommand, 'version' | 'sequence'>) => controller.receive({ ...command, version: 1, sequence: ++sequence })
-  return { audio, value, calls, controller, receive }
+  return { audio, value, calls, scenes, controller, receive }
 }
 
 test('receiver begins muted and retains launch sync through status/volume probes during warmup', () => {
@@ -116,4 +117,43 @@ test('unvalidated stations and invalid scene choices never reach playback', () =
   h.receive({ type: 'sync', station: 'jolt', playing: false, muted: true, requestId: 'valid' })
   h.controller.tick()
   assert.equal(h.controller.tick().ackRequestId, 'valid')
+})
+
+test('camera commands wait for the rendered view without touching radio playback', () => {
+  const h = harness()
+  h.value.ready = true
+  h.audio.playing = true
+  h.audio.requested = true
+  for (const camera of ['low', 'driver', 'director', 'chase']) {
+    h.receive({ type: 'sync', scene: { camera }, requestId: camera })
+    const applying = h.controller.tick()
+    assert.notEqual(applying.ackRequestId, camera)
+    assert.deepEqual(h.scenes.at(-1), { camera })
+    assert.notEqual(h.controller.tick().ackRequestId, camera, 'old rendered camera cannot acknowledge')
+    h.value.sceneState = { ...h.value.sceneState, camera }
+    assert.equal(h.controller.tick().ackRequestId, camera)
+  }
+  assert.equal(h.audio.playing, true)
+  assert.equal(h.audio.requested, true)
+  assert.equal(h.audio.volume, .8)
+  assert.equal(h.audio.muted, true)
+  assert.equal(h.calls.some(call => call === 'play' || call === 'pause' || call.startsWith('station:')), false)
+})
+
+test('rapid camera changes acknowledge the latest view and reject unknown cameras', () => {
+  const h = harness()
+  h.value.ready = true
+  h.receive({ type: 'sync', scene: { camera: 'low' }, requestId: 'first' })
+  h.receive({ type: 'sync', scene: { camera: 'driver' }, requestId: 'second' })
+  h.receive({ type: 'sync', scene: { camera: 'director' }, requestId: 'latest' })
+  h.controller.tick()
+  h.value.sceneState = { ...h.value.sceneState, camera: 'driver' }
+  assert.equal(h.controller.tick().ackRequestId, undefined)
+  h.value.sceneState = { ...h.value.sceneState, camera: 'director' }
+  assert.equal(h.controller.tick().ackRequestId, 'latest')
+  h.receive({ type: 'sync', scene: { camera: 'unavailable' }, requestId: 'invalid' })
+  const rejected = h.controller.tick()
+  assert.match(rejected.error!, /scene is not available/)
+  assert.equal(rejected.errorRequestId, 'invalid')
+  assert.equal(h.scenes.length, 3)
 })
