@@ -4,7 +4,7 @@ import type { CastCommand, CastStatus, CastConnectionState } from '../lib/cruise
 
 test('Cast sender ownership and session lifecycle', async t => {
   process.env.NEXT_PUBLIC_CRUISE_CAST_APP_ID = 'test-only-app'
-  process.env.NEXT_PUBLIC_CRUISE_CAST_STATIONS = 'jolt-radio,nightride'
+  delete process.env.NEXT_PUBLIC_CRUISE_CAST_STATIONS
   let cancelled = false
   let current: typeof receiver | null = null
   let changed: (event?: { sessionState?: string }) => void = () => {}
@@ -67,6 +67,13 @@ test('Cast sender ownership and session lifecycle', async t => {
   }
 
   try {
+    await t.test('unknown station IDs cannot open the device picker', async () => {
+      const before = pickerRequests
+      await assert.rejects(cast.requestCast({ type: 'sync', station: 'https://other.test/radio' }), /unavailable on TV/)
+      assert.equal(pickerRequests, before)
+      assert.equal(cast.castIsRemote(), false)
+    })
+
     await t.test('native picker cancellation leaves local playback and station untouched', async () => {
       cancelled = true
       assert.equal(await cast.requestCast({ type: 'sync', station: 'jolt-radio' }), false)
@@ -114,7 +121,45 @@ test('Cast sender ownership and session lifecycle', async t => {
       assert.equal(reported.at(-1)?.station, 'jolt-radio')
       emit({ station: 'nightride', ackRequestId: older.requestId, appliedSequence: older.sequence, muted: false })
       assert.equal(reported.at(-1)?.station, 'jolt-radio')
-      assert.equal(cast.sendCast({ type: 'station', station: 'not-validated' }), false)
+      assert.equal(cast.sendCast({ type: 'station', station: 'unknown-station' }), false)
+    })
+
+    await t.test('every selectable station switches on the receiver without falling back to local playback', () => {
+      assert.equal(cast.castStations.length, 14)
+      for (const station of cast.castStations) {
+        const before = sent.length
+        assert.equal(cast.sendCast({ type: 'station', station }), true, station)
+        const command = sent.at(-1)!
+        assert.equal(sent.length, before + 1)
+        assert.equal(command.station, station)
+        assert.equal(command.playing, undefined, 'selection must preserve receiver play/pause intent')
+        assert.equal(command.volume, undefined, 'selection must preserve receiver volume')
+        assert.equal(command.muted, undefined, 'selection must preserve receiver mute')
+        emit({ station, ackRequestId: command.requestId, muted: false })
+        assert.equal(reported.at(-1)?.station, station)
+        assert.equal(cast.castIsRemote(), true)
+      }
+      assert.equal(cast.sendCast({ type: 'station', station: 'poolsuite' }), false)
+      assert.equal(cast.sendCast({ type: 'station', station: 'https://other.test/radio' }), false)
+    })
+
+    await t.test('a new station failure is reported despite an older success ack and a late failure cannot replace recovery', () => {
+      const previousAck = sent.at(-1)!.requestId
+      assert.equal(cast.sendCast({ type: 'station', station: 'nts-radio' }), true)
+      const failed = sent.at(-1)!
+      emit({ station: 'nts-radio', ackRequestId: previousAck, errorRequestId: failed.requestId,
+        error: 'Radio signal unavailable. Try again.', playing: false, requested: false })
+      assert.equal(reported.at(-1)?.error, 'Radio signal unavailable. Try again.')
+      assert.equal(cast.castIsRemote(), true, 'station errors must not start local audio')
+      assert.equal(cast.sendCast({ type: 'station', station: 'jolt-radio' }), true)
+      const recovered = sent.at(-1)!
+      emit({ station: 'jolt-radio', ackRequestId: recovered.requestId, muted: false })
+      assert.equal(reported.at(-1)?.error, undefined)
+      const before = reported.length
+      emit({ station: 'nts-radio', ackRequestId: previousAck, errorRequestId: failed.requestId,
+        error: 'Radio signal unavailable. Try again.', playing: false })
+      assert.equal(reported.length, before)
+      assert.equal(reported.at(-1)?.station, 'jolt-radio')
     })
 
     await t.test('asynchronous disconnect clears UI once and resumes local only after TV session ends', () => {
@@ -165,6 +210,36 @@ test('Cast sender ownership and session lifecycle', async t => {
       assert.equal(cast.castIsRemote(), true)
       assert.equal(reported.at(-1)?.playing, false)
       assert.equal(sent.at(-1)?.type, 'volume')
+      cast.disconnectCast()
+      end()
+    })
+
+    await t.test('playlist handoff captures position after choosing a TV and waits for the same recording', async () => {
+      let position = 21
+      pickerHook = async () => { position = 48 }
+      await cast.requestCast({ type: 'sync', station: 'buena-onda-radio', playing: true, volume: .6, muted: false },
+        () => ({ trackId: 'catalog-track', position }))
+      pickerHook = null
+      const sync = latestSync()
+      assert.deepEqual(sync.playlist, { trackId: 'catalog-track', position: 48 })
+      emit({ station: 'buena-onda-radio', ackRequestId: sync.requestId, playlist: { trackId: 'different-track', position: 48 } })
+      assert.equal(cast.castIsRemote(), false, 'a different recording must not silence the phone')
+      emit({ station: 'buena-onda-radio', ackRequestId: sync.requestId, playlist: { trackId: 'catalog-track', position: 48.5 } })
+      assert.equal(cast.castIsRemote(), true)
+      assert.equal(reported.at(-1)?.playlist?.trackId, 'catalog-track')
+      cast.disconnectCast()
+      end()
+    })
+
+    await t.test('an already-running legacy receiver without playlist status can complete a correlated station handoff', async () => {
+      await cast.requestCast({ type: 'sync', station: 'buena-onda-radio', playing: true,
+        volume: .6, muted: false, playlist: { trackId: 'catalog-track', position: 17 } })
+      const sync = latestSync()
+      emit({ station: 'buena-onda-radio', ackRequestId: 'stale-legacy-ack' })
+      assert.equal(cast.castIsRemote(), false)
+      emit({ station: 'buena-onda-radio', ackRequestId: sync.requestId })
+      assert.equal(cast.castIsRemote(), true, 'missing legacy metadata must not leave the connection waiting forever')
+      assert.equal(reported.at(-1)?.playlist, undefined, 'legacy handoff makes no claim about the recording position')
       cast.disconnectCast()
       end()
     })

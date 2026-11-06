@@ -7,6 +7,7 @@ import type Hls from 'hls.js'
 import type { CruiseStation } from '@/lib/real-miami/types'
 import {parseRadioVolume,RADIO_VOLUME_KEY,radioStatus,type RadioStatus} from '@/lib/cruise/radio-controller'
 import type { MusicAudio } from '@/lib/real-miami/music-audio'
+import { parsePlaylistPosition, parsePlaylistTrack, playlistTrackId, resolvePlaylistPosition, type CastPlaylistPosition } from '@/lib/cruise/cast-playlist'
 
 type RadioTrack = {
   src: string
@@ -39,6 +40,9 @@ type CruiseAudio = {
   nextTrack: () => void
   previousTrack: () => void
   canSkip: boolean
+  getPlaylistPosition: () => CastPlaylistPosition | undefined
+  restorePlaylistPosition: (position: CastPlaylistPosition) => boolean
+  getMediaState: () => { currentTime: number; readyState: number; paused: boolean }
   tuning: boolean
   status: RadioStatus
 }
@@ -81,6 +85,8 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   const hlsLoadingRef = useRef(false)
   const tracksRef = useRef<RadioTrack[]>([])
   const trackIndexRef = useRef(0)
+  const pendingPlaylistRef = useRef<{ stationId: string; cursor: CastPlaylistPosition } | null>(null)
+  const remotePlaylistRef = useRef<CastPlaylistPosition | undefined>()
   const wantsPlaybackRef = useRef(false)
   const failedTracksRef = useRef(0)
   const corsRetryRef = useRef('')
@@ -165,7 +171,8 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     clearLoadingTimeout()
     loadingTimeoutRef.current = setTimeout(() => {
       loadingTimeoutRef.current = null
-      if (!mountedRef.current || !wantsPlaybackRef.current || revision !== sourceRevisionRef.current) return
+      if (!mountedRef.current || (!wantsPlaybackRef.current && !pendingPlaylistRef.current) || revision !== sourceRevisionRef.current) return
+      pendingPlaylistRef.current = null
       setPlaybackIntent(false)
       audio.pause()
       setPlaying(false)
@@ -173,6 +180,21 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       setError('Radio signal timed out. Tap play to retry.')
     }, RADIO_LOADING_TIMEOUT_MS)
   }, [clearLoadingTimeout])
+
+  const applyPlaylistSeek = useCallback(() => {
+    const pending = pendingPlaylistRef.current, audio = audioRef.current
+    if (!pending) return true
+    const track = tracksRef.current[trackIndexRef.current]
+    if (!audio || audio.readyState < 1 || pending.stationId !== stationRef.current.id
+      || !track || playlistTrackId(track.src) !== pending.cursor.trackId) return false
+    try {
+      const position = Number.isFinite(audio.duration)
+        ? Math.min(pending.cursor.position, Math.max(0, audio.duration - .05)) : pending.cursor.position
+      audio.currentTime = position
+      pendingPlaylistRef.current = null
+      return true
+    } catch { return false }
+  }, [])
 
   const prepareTrack = useCallback((index: number, force = false) => {
     const audio = audioRef.current
@@ -243,6 +265,11 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
     if (!audio.src && !hlsLoadingRef.current) prepareTrack(trackIndexRef.current)
     const revision = sourceRevisionRef.current
+    if (pendingPlaylistRef.current && !applyPlaylistSeek()) {
+      setLoading(true)
+      armPlaybackLoadingTimeout(revision)
+      return
+    }
     // play() on an already-playing element need not emit another playing event.
     // Do not arm a timeout that would later stop a healthy current station.
     const expected = tracksRef.current[trackIndexRef.current]?.src
@@ -285,7 +312,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         setError('Radio signal unavailable. Try again.')
       }
     })
-  }, [armPlaybackLoadingTimeout, prepareTrack, clearLoadingTimeout])
+  }, [armPlaybackLoadingTimeout, prepareTrack, clearLoadingTimeout, applyPlaylistSeek])
 
   const unlockMedia = useCallback(() => {
     const audio = audioRef.current
@@ -361,20 +388,26 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
       clearLoadingTimeout()
       tracksRef.current = tracks
-      trackIndexRef.current = selectedStation.id === 'veridian-club' ? Math.floor(Math.random() * tracks.length) : 0
+      const pending = pendingPlaylistRef.current
+      const restored = pending?.stationId === selectedStation.id ? resolvePlaylistPosition(tracks, pending.cursor) : null
+      if (pending?.stationId === selectedStation.id && !restored) throw new Error('The selected track is no longer in this station. Choose the station again.')
+      trackIndexRef.current = restored?.index ?? (selectedStation.id === 'veridian-club' ? Math.floor(Math.random() * tracks.length) : 0)
       failedTracksRef.current = 0
       setAvailable(true)
       setCanSkip(selectedStation.playback === 'playlist' && tracks.length > 1)
       setError(null)
       prepareTrack(trackIndexRef.current, true)
+      applyPlaylistSeek()
+      if (pendingPlaylistRef.current) armPlaybackLoadingTimeout(sourceRevisionRef.current)
 
       if (wantsPlaybackRef.current) {
         attemptPlay()
       } else {
-        setLoading(false)
+        setLoading(!!pendingPlaylistRef.current)
       }
     } catch (reason) {
       if (!mountedRef.current || controller.signal.aborted) return
+      pendingPlaylistRef.current = null
       tracksRef.current = []
       setAvailable(false)
       setCanSkip(false)
@@ -389,10 +422,37 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         fetchControllerRef.current = null
         fetchingRef.current = false
         // A successful load may have armed playback's timer; do not cancel it.
-        if (!wantsPlaybackRef.current || controller.signal.aborted) clearLoadingTimeout()
+        if ((!wantsPlaybackRef.current && !pendingPlaylistRef.current) || controller.signal.aborted) clearLoadingTimeout()
       }
     }
-  }, [attemptPlay, clearLoadingTimeout, prepareTrack])
+  }, [attemptPlay, clearLoadingTimeout, prepareTrack, applyPlaylistSeek, armPlaybackLoadingTimeout])
+
+  const getPlaylistPosition = useCallback((): CastPlaylistPosition | undefined => {
+    if (castIsRemote()) return remotePlaylistRef.current
+    if (stationRef.current.playback !== 'playlist' || pendingPlaylistRef.current) return undefined
+    const audio = audioRef.current, track = tracksRef.current[trackIndexRef.current]
+    if (!audio || !track || audio.readyState < 1 || !Number.isFinite(audio.currentTime)) return undefined
+    return { trackId: playlistTrackId(track.src), position: Math.min(86400, Math.max(0, audio.currentTime)) }
+  }, [])
+
+  const restorePlaylistPosition = useCallback((value: CastPlaylistPosition) => {
+    const cursor = parsePlaylistPosition(value)
+    if (!cursor || stationRef.current.playback !== 'playlist') return false
+    pendingPlaylistRef.current = { stationId: stationRef.current.id, cursor }
+    if (tracksRef.current.length) {
+      const restored = resolvePlaylistPosition(tracksRef.current, cursor)
+      if (!restored) { pendingPlaylistRef.current = null; setError('The selected track is no longer in this station.'); return false }
+      prepareTrack(restored.index, true)
+      applyPlaylistSeek()
+    }
+    return true
+  }, [prepareTrack, applyPlaylistSeek])
+
+  const getMediaState = useCallback(() => {
+    const audio = audioRef.current
+    return { currentTime: audio && Number.isFinite(audio.currentTime) ? audio.currentTime : 0,
+      readyState: audio?.readyState ?? 0, paused: audio?.paused ?? true }
+  }, [])
 
   const start = useCallback(() => {
     if(sendCast({type:"play"}))return
@@ -421,12 +481,21 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     if (!audio) return
     setPlaybackIntent(false)
     audio.pause()
+    // A paused handoff still needs its catalog and metadata to resolve the
+    // requested track/offset. Keep that fetch alive without playing audio.
+    if (pendingPlaylistRef.current) {
+      if (tracksRef.current.length) {
+        if (applyPlaylistSeek()) { clearLoadingTimeout(); setLoading(false) }
+        else { setLoading(true); armPlaybackLoadingTimeout(sourceRevisionRef.current) }
+      } else if (!fetchingRef.current) void loadPlaylist()
+      return
+    }
     fetchControllerRef.current?.abort()
     fetchControllerRef.current = null
     fetchingRef.current = false
     clearLoadingTimeout()
     setLoading(false)
-  }, [clearLoadingTimeout])
+  }, [clearLoadingTimeout, applyPlaylistSeek, armPlaybackLoadingTimeout, loadPlaylist])
 
   const toggle = useCallback(() => {
     if (wantsPlaybackRef.current) pause()
@@ -443,11 +512,14 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       }
       if (!sendCast({ type: 'station', station: id })) return false
       stationRef.current = nextStation
+      remotePlaylistRef.current = undefined
       setStation(nextStation)
       setError(null)
       return true
     }
     if (stationRef.current.id === id) return true
+
+    pendingPlaylistRef.current = null
 
     playTuningNoise()
 
@@ -490,6 +562,8 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [stations, selectStation])
 
   const skipTrack = useCallback((direction: number) => {
+    // Station controls remain remote; legacy playlist skip must never restart the phone.
+    if (castIsRemote()) return
     if (stationRef.current.playback !== 'playlist' || tracksRef.current.length < 2) return
     failedTracksRef.current = 0
     setError(null)
@@ -559,7 +633,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     }
     const onPause = () => setPlaying(false)
     const onWaiting = () => {
-      if (wantsPlaybackRef.current) {
+      if (wantsPlaybackRef.current || pendingPlaylistRef.current) {
         setLoading(true)
         if (audio.src !== AUDIO_UNLOCK_SRC && tracksRef.current.length > 0) {
           armPlaybackLoadingTimeout(sourceRevisionRef.current)
@@ -568,7 +642,11 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     }
     const onReady = () => {
       if (audio.src === AUDIO_UNLOCK_SRC) return
-      if (!wantsPlaybackRef.current) setLoading(false)
+      if (pendingPlaylistRef.current && applyPlaylistSeek()) {
+        clearLoadingTimeout()
+        if (wantsPlaybackRef.current) attemptPlay()
+      }
+      if (!wantsPlaybackRef.current) setLoading(!!pendingPlaylistRef.current)
     }
     const onEnded = () => {
       if (!wantsPlaybackRef.current) return
@@ -621,6 +699,14 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         if (wantsPlaybackRef.current) attemptPlay()
         return
       }
+      if (pendingPlaylistRef.current) {
+        pendingPlaylistRef.current = null
+        setPlaybackIntent(false)
+        setLoading(false)
+        setPlaying(false)
+        setError('The selected track could not load. Tap play to retry.')
+        return
+      }
       if (!wantsPlaybackRef.current) return
       const tracks = tracksRef.current
       if (tracks.length > 1 && failedTracksRef.current < tracks.length - 1) {
@@ -641,6 +727,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     audio.addEventListener('waiting', onWaiting)
     audio.addEventListener('loadstart', onWaiting)
     audio.addEventListener('canplay', onReady)
+    audio.addEventListener('loadedmetadata', onReady)
     audio.addEventListener('ended', onEnded)
     audio.addEventListener('error', onError)
 
@@ -672,13 +759,14 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       audio.removeEventListener('waiting', onWaiting)
       audio.removeEventListener('loadstart', onWaiting)
       audio.removeEventListener('canplay', onReady)
+      audio.removeEventListener('loadedmetadata', onReady)
       audio.removeEventListener('ended', onEnded)
       audio.removeEventListener('error', onError)
       audio.removeAttribute('src')
       audio.load()
       audioRef.current = null
     }
-  }, [armPlaybackLoadingTimeout, attemptPlay, clearLoadingTimeout, loadPlaylist, prepareTrack, music, stopTuningNoise])
+  }, [armPlaybackLoadingTimeout, attemptPlay, clearLoadingTimeout, loadPlaylist, prepareTrack, music, stopTuningNoise, applyPlaylistSeek])
 
   useEffect(() => {
     const state = (event: Event) => {
@@ -712,10 +800,18 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       }
       const next = stations.find(item => item.id === s.station)
       if (next) { stationRef.current = next; setStation(next) }
+      remotePlaylistRef.current = next?.playback === 'playlist' ? parsePlaylistPosition(s.playlist) : undefined
+      const receiverTrack = parsePlaylistTrack(s.track, remotePlaylistRef.current)
+      setCurrentTrack(receiverTrack)
+      setTrackTitle(labelFor(receiverTrack ?? undefined))
+      setCanSkip(false)
     }
     const end = () => {
       setCasting(false)
       const requested = wantsPlaybackRef.current
+      pendingPlaylistRef.current = remotePlaylistRef.current
+        ? { stationId: stationRef.current.id, cursor: remotePlaylistRef.current } : null
+      remotePlaylistRef.current = undefined
       tracksRef.current = []
       fetchingRef.current = false
       setPlaybackIntent(requested)
@@ -752,6 +848,9 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     nextTrack,
     previousTrack,
     canSkip,
+    getPlaylistPosition,
+    restorePlaylistPosition,
+    getMediaState,
     tuning,
     status:radioStatus({requested,playing,loading,available,error}),
   }

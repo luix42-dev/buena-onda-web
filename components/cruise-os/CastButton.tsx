@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Cast } from 'lucide-react'
 import {
   attachCast, castSupported, castDeviceName, castStations, disconnectCast,
@@ -17,6 +17,8 @@ export default function CastButton({ params, audio }: Props) {
   const [available, setAvailable] = useState(false)
   const [connection, setConnection] = useState<CastConnectionState>('disconnected')
   const [error, setError] = useState('')
+  const currentAudio = useRef(audio)
+  currentAudio.current = audio
 
   useEffect(() => {
     if (!castSupported()) return
@@ -28,7 +30,7 @@ export default function CastButton({ params, audio }: Props) {
       if (!alive) return
       setAvailable(true)
       cleanup = attachCast(
-        state => { if (state.error) setError(state.error) },
+        state => setError(state.error || ''),
         () => {},
         state => { setConnection(state); if (state === 'connected') setError('') },
       )
@@ -54,15 +56,16 @@ export default function CastButton({ params, audio }: Props) {
   if (!available) return null
   const connect = async () => {
     if (!castStations.includes(audio.stationId)) {
-      setError('This station is not available on TV yet.')
+      setError('This station is unavailable on TV. Choose another station.')
       return
     }
     setError('')
     try {
+      const stationId = audio.stationId
       await requestCast({
         type: 'sync', station: audio.stationId, playing: audio.requested,
         volume: audio.volume, muted: audio.muted, scene: params(),
-      })
+      }, () => currentAudio.current.stationId === stationId ? currentAudio.current.getPlaylistPosition() : undefined)
     } catch {
       setError('Could not connect. Check the TV and try again.')
       disconnectCast()

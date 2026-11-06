@@ -108,7 +108,7 @@ test('unvalidated stations and invalid scene choices never reach playback', () =
   const h = harness()
   h.value.ready = true
   h.receive({ type: 'sync', station: 'unknown', playing: true, requestId: 'invalid' })
-  assert.match(h.controller.tick().error!, /Station not validated/)
+  assert.match(h.controller.tick().error!, /Unknown station/)
   assert.equal(h.calls.includes('play'), false)
   h.receive({ type: 'sync', scene: { drive: 'unknown' }, playing: true, requestId: 'invalid-scene' })
   assert.match(h.controller.tick().error!, /scene is not available/)

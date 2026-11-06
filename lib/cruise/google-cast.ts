@@ -1,5 +1,9 @@
 ﻿'use client'
 
+import { resolveCastStations } from './cast-stations'
+import type { CastPlaylistPosition, CastPlaylistTrack } from './cast-playlist'
+export { receiverCastStations } from './cast-stations'
+
 export const CAST_NAMESPACE = 'urn:x-cast:com.buenaonda.cruise.v1'
 export type CastCommand = {
   version: 1
@@ -11,6 +15,7 @@ export type CastCommand = {
   volume?: number
   muted?: boolean
   scene?: Record<string, string>
+  playlist?: CastPlaylistPosition
 }
 export type CastStatus = {
   version: 1
@@ -23,8 +28,12 @@ export type CastStatus = {
   requested?: boolean
   loading?: boolean
   ackRequestId?: string
+  errorRequestId?: string
   appliedSequence?: number
   scene?: Record<string, string>
+  playlist?: CastPlaylistPosition
+  track?: CastPlaylistTrack | null
+  media?: { currentTime: number; readyState: number; paused: boolean }
   error?: string
 }
 export type CastConnectionState = 'disconnected' | 'connecting' | 'connected' | 'disconnecting'
@@ -41,9 +50,9 @@ type Observer = {
   end: () => void
   connection?: (state: CastConnectionState) => void
 }
-type Handoff = { requestId: string; station?: string; playing: boolean; volume: number; muted: boolean }
+type Handoff = { requestId: string; station?: string; playing: boolean; volume: number; muted: boolean; playlist?: CastPlaylistPosition }
 
-export const castStations = (process.env.NEXT_PUBLIC_CRUISE_CAST_STATIONS || '').split(',').map(id => id.trim()).filter(Boolean)
+export const castStations = resolveCastStations(process.env.NEXT_PUBLIC_CRUISE_CAST_STATIONS)
 const appId = process.env.NEXT_PUBLIC_CRUISE_CAST_APP_ID || ''
 const observers = new Set<Observer>()
 let sdk: Promise<void> | null = null
@@ -132,8 +141,11 @@ function receive(current: CastSession, raw: string) {
   if (!validStatus(state)) return
   // Sequence numbers belong to individual senders. A rejoined sender can start
   // at one while the receiver still reports another sender's larger sequence.
-  if (state.ackRequestId && localRequests.has(state.ackRequestId)
-    && state.ackRequestId !== latestLocalRequest) return
+  // A failed new request can still carry the last successful acknowledgement.
+  // Correlate its error independently, while continuing to discard late failures.
+  const responseRequestId = state.error ? state.errorRequestId ?? state.ackRequestId : state.ackRequestId
+  if (responseRequestId && localRequests.has(responseRequestId)
+    && responseRequestId !== latestLocalRequest) return
   if (pendingStation && state.station !== pendingStation.station && !state.error) return
   if (state.error) {
     if (remote) window.dispatchEvent(new CustomEvent('cruise:cast-state', { detail: state }))
@@ -149,7 +161,10 @@ function receive(current: CastSession, raw: string) {
       ? state.playing && state.requested !== false && !state.loading
       : !state.playing && state.requested !== true
     if (!state.ready || state.ackRequestId !== pending.requestId || !playbackConfirmed
-      || (pending.station && state.station !== pending.station) || !state.muted) {
+      || (pending.station && state.station !== pending.station)
+      // A receiver already running during a rollout may predate playlist state.
+      // Its correlated acknowledgement still supports the legacy station handoff.
+      || (pending.playlist && state.playlist && state.playlist.trackId !== pending.playlist.trackId) || !state.muted) {
       notifyState(state)
       return
     }
@@ -290,7 +305,10 @@ export function attachCast(
   }
 }
 
-export async function requestCast(initial: Command) {
+export async function requestCast(initial: Command, getPlaylistPosition?: () => CastPlaylistPosition | undefined) {
+  if (initial.station && !castStations.includes(initial.station)) {
+    throw new Error('This station is unavailable on TV. Choose another station.')
+  }
   const context = api().cast.framework.CastContext.getInstance()
   const attempt = ++requestAttempt
   picking = true
@@ -312,16 +330,19 @@ export async function requestCast(initial: Command) {
   const current = context.getCurrentSession() as CastSession | null
   if (!current) { picking = false; finishSession(); throw new Error('Cast session unavailable') }
   attachSession(current)
+  // The listener may spend several seconds choosing a TV. Capture the actual
+  // playlist position immediately before sending the handoff, not at the tap.
+  const playlist = getPlaylistPosition ? getPlaylistPosition() : initial.playlist
   const pending: Handoff = {
     requestId: requestId(), station: initial.station, playing: initial.playing !== false,
-    volume: initial.volume ?? .82, muted: initial.muted ?? false,
+    volume: initial.volume ?? .82, muted: initial.muted ?? false, playlist,
   }
   handoff = pending
   rememberRequest(pending.requestId)
   pendingStation = null
   picking = false
   try {
-    await send(current, { ...initial, requestId: pending.requestId, playing: pending.playing, muted: true, type: 'sync' })
+    await send(current, { ...initial, playlist, requestId: pending.requestId, playing: pending.playing, muted: true, type: 'sync' })
   } catch (error) {
     if (session === current) handoff = null
     throw error

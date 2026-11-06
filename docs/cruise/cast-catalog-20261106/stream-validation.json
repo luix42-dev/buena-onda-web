@@ -1,0 +1,568 @@
+{
+  "recordedAtUtc": "2026-11-06T05:04:50.010Z",
+  "productionUrl": "https://www.buenaondalifestyle.com/cruise",
+  "baselineCommit": "664dd31a9037c09a93c841ea4348b650496ac89a",
+  "selectableCount": 14,
+  "displayedOrder": [
+    "Buena Onda Radio",
+    "Jolt Radio",
+    "NTS 1",
+    "NTS 2",
+    "WVUM 90.5",
+    "The Lot Radio",
+    "dublab",
+    "HKCR",
+    "Veridian Club",
+    "Nightride FM",
+    "Darksynth",
+    "Chillsynth",
+    "Datawave",
+    "Spacesynth"
+  ],
+  "http": {
+    "startedAtUtc": "2026-11-06T04:57:11.098Z",
+    "completedAtUtc": "2026-11-06T04:57:42.129Z",
+    "followupCompletedAtUtc": "2026-11-06T04:59:11.873Z",
+    "origin": "https://www.buenaondalifestyle.com",
+    "liveStreamLimitSeconds": 3,
+    "recordedTrackRange": "bytes=0-4095",
+    "audioBodiesSaved": false,
+    "recordedTracksProbed": 91
+  },
+  "browser": {
+    "startedAtUtc": "2026-11-06T05:02:09.181Z",
+    "completedAtUtc": "2026-11-06T05:03:56.385Z",
+    "version": "156.0.8078.80",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "mode": "Fresh headless Chrome at 390x844; browser audio output muted by launch flag, media playback state measured",
+    "newIndependentContext": true,
+    "passed": 14,
+    "failed": 0,
+    "pageErrors": 0,
+    "physicalPhone": false,
+    "physicalTv": false,
+    "audibleOutputTested": false,
+    "nativePickerInvoked": false,
+    "stableObservationSecondsPerStation": 5
+  },
+  "stations": [
+    {
+      "id": "buena-onda-radio",
+      "name": "Buena Onda Radio",
+      "playback": "playlist",
+      "source": "https://www.buenaondalifestyle.com/api/radio/tracks",
+      "http": {
+        "status": 200,
+        "contentType": "application/json",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": null,
+        "redirectCorsMissing": false,
+        "receivedBytes": 2660
+      },
+      "playlist": {
+        "trackCount": 6,
+        "probedTracks": 6,
+        "statuses": [
+          206
+        ],
+        "contentTypes": [
+          "audio/mpeg"
+        ],
+        "cors": [
+          "https://www.buenaondalifestyle.com"
+        ],
+        "allHttps": true,
+        "allTlsVerified": true,
+        "requestedBytesPerTrack": 4096,
+        "missingCorsOnInitialTrackRedirect": false
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.013,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "jolt-radio",
+      "name": "Jolt Radio",
+      "playback": "stream",
+      "source": "https://streamer.radio.co/sd8ab6b5aa/listen",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "https://www.buenaondalifestyle.com",
+        "redirectCorsMissing": false,
+        "receivedBytes": 89026
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.009,
+        "stationLabelMatches": true,
+        "readyState": 3,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "nts-radio",
+      "name": "NTS 1",
+      "playback": "stream",
+      "source": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 2,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "https://www.buenaondalifestyle.com",
+        "redirectCorsMissing": true,
+        "receivedBytes": 123267
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.012,
+        "stationLabelMatches": true,
+        "readyState": 3,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": null,
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 2,
+        "castSession": false
+      }
+    },
+    {
+      "id": "nts-radio-2",
+      "name": "NTS 2",
+      "playback": "stream",
+      "source": "https://stream-relay-geo.ntslive.net/stream2?client=direct",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 2,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "https://www.buenaondalifestyle.com",
+        "redirectCorsMissing": true,
+        "receivedBytes": 149492
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.006,
+        "stationLabelMatches": true,
+        "readyState": 3,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": null,
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 2,
+        "castSession": false
+      }
+    },
+    {
+      "id": "wvum",
+      "name": "WVUM 90.5",
+      "playback": "stream",
+      "source": "https://s7.voscast.com:8693/stream",
+      "http": {
+        "status": 200,
+        "contentType": "audio/aacp",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 295400
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.018,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "the-lot-radio",
+      "name": "The Lot Radio",
+      "playback": "hls",
+      "source": "https://livepeercdn.studio/hls/85c28sa2o8wppm58/index.m3u8",
+      "http": {
+        "status": 200,
+        "contentType": "application/vnd.apple.mpegurl",
+        "redirects": 2,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 730
+      },
+      "hls": {
+        "variantPlaylistsTested": 5,
+        "segmentsTested": 5,
+        "allSuccessful": true,
+        "lowestVariant": {
+          "width": 426,
+          "height": 240,
+          "bandwidth": 425360,
+          "codecs": [
+            "avc1.640015",
+            "mp4a.40.2"
+          ]
+        },
+        "audioOnlyVariantPresent": false
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 4.977,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "dublab",
+      "name": "dublab",
+      "playback": "stream",
+      "source": "https://dublab.out.airtime.pro/dublab_a",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "https://www.buenaondalifestyle.com",
+        "redirectCorsMissing": false,
+        "receivedBytes": 77740
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.005,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "hkcr",
+      "name": "HKCR",
+      "playback": "hls",
+      "source": "https://stream-test.hkcr.live/hls/main.m3u8",
+      "http": {
+        "status": 200,
+        "contentType": "application/vnd.apple.mpegurl",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 398
+      },
+      "hls": {
+        "mediaPlaylistsTested": 1,
+        "segmentsTested": 1,
+        "allSuccessful": true,
+        "codecNotAdvertisedInManifest": true
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 4.969,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "veridian-club",
+      "name": "Veridian Club",
+      "playback": "playlist",
+      "source": "https://www.buenaondalifestyle.com/cruise/radio/veridian-tracks.json",
+      "http": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 16660
+      },
+      "playlist": {
+        "trackCount": 85,
+        "probedTracks": 85,
+        "statuses": [
+          206
+        ],
+        "contentTypes": [
+          "audio/mpeg"
+        ],
+        "cors": [
+          "*"
+        ],
+        "allHttps": true,
+        "allTlsVerified": true,
+        "requestedBytesPerTrack": 4096,
+        "missingCorsOnInitialTrackRedirect": true
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.013,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": null,
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 2,
+        "castSession": false
+      }
+    },
+    {
+      "id": "nightride",
+      "name": "Nightride FM",
+      "playback": "stream",
+      "source": "https://stream.nightride.fm/nightride.mp3",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 622962
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.007,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "darksynth",
+      "name": "Darksynth",
+      "playback": "stream",
+      "source": "https://stream.nightride.fm/darksynth.mp3",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 624361
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.009,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "chillsynth",
+      "name": "Chillsynth",
+      "playback": "stream",
+      "source": "https://stream.nightride.fm/chillsynth.mp3",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 620161
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.004,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "datawave",
+      "name": "Datawave",
+      "playback": "stream",
+      "source": "https://stream.nightride.fm/datawave.mp3",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 624361
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 5.008,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    },
+    {
+      "id": "spacesynth",
+      "name": "Spacesynth",
+      "playback": "stream",
+      "source": "https://stream.nightride.fm/spacesynth.mp3",
+      "http": {
+        "status": 200,
+        "contentType": "audio/mpeg",
+        "redirects": 0,
+        "httpsOnly": true,
+        "tlsVerified": true,
+        "cors": "*",
+        "redirectCorsMissing": false,
+        "receivedBytes": 568317
+      },
+      "browser": {
+        "passed": true,
+        "mediaSourceMatchesSelection": true,
+        "secondsAdvanced": 4.998,
+        "stationLabelMatches": true,
+        "readyState": 4,
+        "paused": false,
+        "playingElements": 1,
+        "observedAudioElements": 1,
+        "crossOrigin": "anonymous",
+        "steadyMediaError": null,
+        "pageErrorCount": 0,
+        "recoveredCorsConsoleErrors": 0,
+        "castSession": false
+      }
+    }
+  ],
+  "nonSelectableIds": [
+    "poolsuite",
+    "kiosk-radio",
+    "wdna",
+    "depa-radio",
+    "sucker-free-radio",
+    "radio-fg",
+    "kexp",
+    "radio-alhara",
+    "radio-nopal",
+    "kchung",
+    "kpiss",
+    "wfmu"
+  ],
+  "limits": [
+    "Headless Chrome emulation, not physical TV or phone",
+    "No audible-output certification",
+    "Only one track played from each recorded station; all91 current track URLs received bounded HTTP probes",
+    "No full-track completion or automatic next-track transition tested",
+    "No sustained HLS/GPU/load benchmark",
+    "NTS and Veridian recover through existing no-CORS media fallback; optional analyser capture is unavailable for those sources"
+  ],
+  "officialReferences": [
+    "https://developers.google.com/cast/docs/media",
+    "https://developers.google.com/cast/docs/web_receiver/core_features"
+  ]
+}
