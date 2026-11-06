@@ -7,6 +7,8 @@ The final online npm audit reports **zero production dependency findings**. The 
 | Dependency | Final version / treatment |
 | --- | --- |
 | Next.js, eslint-config-next, @next/third-parties | 15.5.29, aligned |
+| React / React DOM and their types | 19.3.1 / 19.3.1; types 19.3.0 |
+| React Three Fiber / Drei | 9.8.2 / 10.7.9, compatible with the App Router's React 19 runtime |
 | @anthropic-ai/sdk | 0.91.1 |
 | Resend | 6.37.0 |
 | @react-email/render | 2.2.0; its declared peers support React 18 and 19 |
@@ -40,7 +42,9 @@ Production deployment remains Next.js on Vercel. The obsolete `@cloudflare/next-
 
 - Final `npm audit --omit=dev --offline=false`: **0 findings**.
 - Final `npm audit --offline=false`: **2 high findings**, only IMG.LY and its nested Zod dependency described above.
-- `node scripts/security-dependency-check.mjs`: passed. It verifies 3×2 image encoding/decoding with sharp, IMG.LY's compatible configuration-validation path, notifier UUID generation/import, a mocked Anthropic messages request, Next-resolved PostCSS, and React 18 email rendering. It prohibits external network calls and does not download inference models or send notifications.
+- `node scripts/security-dependency-check.mjs`: passed again after the React 19 update. It verifies 3×2 image encoding/decoding with sharp, IMG.LY's compatible configuration-validation path, notifier UUID generation/import, a mocked Anthropic messages request, Next-resolved PostCSS, and React 19 email rendering. It prohibits external network calls and does not download inference models or send notifications.
 - The focused API/form/payment/Avenue suites passed **37/37** after the Zod, SDK and image dependency upgrades. The final renderer/PostCSS adjustments were additionally checked by the dependency smoke. Full final application suite, typecheck and production-build outcomes are tracked in [the main review](./review-20261106.md).
 
 Primary compatibility references: [Zod migration guide](https://zod.dev/v4/changelog), [sharp 0.35.5 release notes](https://sharp.pixelplumbing.com/changelog/v0.35.5/), and [UUID release notes](https://github.com/uuidjs/uuid/releases). Package versions, peer requirements and final audit results were checked against the npm registry during this review.
+
+The hosted browser check caught a renderer mismatch that typechecking alone did not detect: Next 15's App Router uses React 19, while Fiber 8 expected React 18. React, Fiber and Drei were aligned, and the required ref/JSX type annotations were updated. The repaired hosted preview renders Cruise's 3D canvas and loads the homepage and Studio login without page errors or failed scripts. See the [Next 15 React compatibility notes](https://nextjs.org/blog/next-15) and [Fiber 9 migration guide](https://r3f.docs.pmnd.rs/tutorials/v9-migration-guide).
