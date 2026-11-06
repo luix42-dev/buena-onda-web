@@ -1,5 +1,6 @@
 import type { CastCommand, CastStatus } from './google-cast'
 import { parsePlaylistPosition, type CastPlaylistPosition, type CastPlaylistTrack } from './cast-playlist'
+import { CAST_CAMERA_VIEWS } from './cast-camera'
 
 type ReceiverAudio = {
   stationId: string
@@ -33,6 +34,7 @@ const sceneChoices: Record<string, readonly string[]> = {
   car: ['coastal-coupe', 'classic-coupe', 'island-trail', 'countach', 'delorean', 'eighties', 'cadillac', 'wrangler'],
   time: ['night', 'sunset'],
   mood: ['cruise', 'night-drive', 'midnight-run'],
+  camera: CAST_CAMERA_VIEWS,
 }
 
 /** Commands survive scene warmup; acknowledgements describe observed playback, not intent. */

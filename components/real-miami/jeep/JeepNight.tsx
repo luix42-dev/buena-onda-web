@@ -2,6 +2,7 @@
 import {useAdDismissed,useCruisePreference,useMobileCruise} from '@/lib/cruise/preferences'
 import {useCastReceiver} from '@/components/cruise-os/useCastReceiver'
 import {castIsRemote} from '@/lib/cruise/google-cast'
+import {readCastCamera,type CastCameraView} from '@/lib/cruise/cast-camera'
 import Promotion from '@/components/cruise-os/Promotion'
 
 import {createVehicleFeel,stepVehicleFeel} from '@/lib/cruise-os/vehicle-feel'
@@ -272,6 +273,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  const [host,setHost]=useState<HostEvent>({phase:'gone'}),[hostOff]=useState(()=>new URLSearchParams(location.search).get('host')==='off')
  const [geo,setGeo]=useState<MiamiGeoData|null>(null),[geoError,setGeoError]=useState(''),[baseline,setBaseline]=useState(false),[duskNight,setDuskNight]=useState(false),blend=useRef(1),cycleStart=useRef(0)
  const shared=useRef<SharedDrive|null>(null);if(shared.current===null&&typeof window!=='undefined')shared.current=readShared(location.search)
+ const [castReceiver]=useState(()=>new URLSearchParams(location.search).get('receiver')==='1')
  const route=useMemo(()=>geo?createMiamiRoute(geo):null,[geo])
  const cityExit=useMemo(()=>route?cityInterchangeMeters(route):0,[route])
  // Look v2 drive modes: City (OSM Miami Beach) or Highway (authored I-95). Each keeps its own odometer.
@@ -321,6 +323,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  if(sourceCity&&started)sourceVisited.current=true
  const current=useRef({audio,view,ready,radio,vehicle,started});current.current={audio,view,ready,radio,vehicle,started}
  const [radioPanel,setRadioPanel]=useState(false),[openingElapsed,setOpeningElapsed]=useState(0),manualCamera=useRef(false),openingStart=useRef(0)
+ const castCamera=useRef<CastCameraView|null>(castReceiver?readCastCamera(shared.current?.cam):null),localCastCamera=useRef<CastCameraView|null>(null)
  const metrics=useExperienceMetrics({active:experienceFirst,started:started||audio.requested,playing:audio.playing&&!audio.loading,muted:audio.muted,volume:audio.volume,elapsed:openingElapsed})
  const lastPlaybackError=useRef<string|null>(null)
  useEffect(()=>{if(experienceFirst&&audio.error&&audio.error!==lastPlaybackError.current)metrics.record('playback_failure');lastPlaybackError.current=audio.error},[experienceFirst,audio.error,metrics.record])
@@ -391,6 +394,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
   audio.selectStation(id&&RADIO_PRESETS.some(s=>s.id===id)?id:neon?RADIO_PRESETS[0].id:'jolt-radio')
  },[])
  useEffect(()=>{if(shared.current?.time)setNight(shared.current.time==='night')},[]) // eslint-disable-line react-hooks/exhaustive-deps
+ useEffect(()=>{if(castReceiver&&castCamera.current){manualCamera.current=true;setView(castCamera.current)}},[castReceiver])
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)'),changed=()=>{state.current.reduced=media.matches};changed();media.addEventListener('change',changed);return()=>media.removeEventListener('change',changed)},[])
  useEffect(()=>{const q=new URLSearchParams(location.search),pace=q.get('pace');if(pace==='cruise'||pace==='night-drive'||pace==='midnight-run')setTone(pace);if(q.get('speedfx')==='on')speedFx.current=true},[])
  useEffect(()=>{state.current.mood=tone},[tone])
@@ -408,12 +412,12 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  useEffect(()=>{if(audio.playing)document.querySelectorAll('audio').forEach(element=>{if(!element.paused)element.pause()})},[audio.playing])
  useEffect(()=>{if(warmedDrive.current===drive)return;warmedDrive.current=drive;if(started){renderHold.active=true;setWarming(true)}},[drive,started])
  useEffect(()=>{state.current.paused=!started||paused||!visible||warming||(experienceFirst&&(!ready||!route))||(humanRadio&&listeningOnly)},[started,paused,visible,warming,humanRadio,listeningOnly,experienceFirst,ready,route])
- useEffect(()=>{if(started){manualCamera.current=false;setView('director')}},[drive,started])
+ useEffect(()=>{if(started){const camera=castReceiver||castIsRemote()?castCamera.current:null;manualCamera.current=!!camera;setView(camera??'director')}},[drive,started,castReceiver])
  useEffect(()=>{const timer=setInterval(()=>{if(experienceFirst)setOpeningElapsed(Math.max(0,state.current.elapsed-openingStart.current));setSpeed(Math.round(state.current.speed*3.6));setDuskNight(blend.current>=.5);setDistrict(sourceCity?'Ocean Drive':driveRef.current==='highway'&&highwayRouteRef.current?highwayRouteRef.current.sample(state.current.distance).streetName:driveRef.current==='causeway'&&causewayRouteRef.current?causewayRouteRef.current.sample(state.current.distance).streetName:driveRef.current==='retrowave'?NEON_WORLD.district:route?route.sample(state.current.distance).streetName:neon?NEON_WORLD.district:(state.current.district==='coast'?'Coastal boulevard':'Neon quarter'))},200);if(new URLSearchParams(location.search).get('diagnostics')==='1')(window as Window&{__cruiseSlowLeader?:(gap?:number,speed?:number)=>void}).__cruiseSlowLeader=(gap=45,speed=4)=>{const s=state.current,car=s.traffic.find(t=>t.lateral>0);if(car){car.distance=s.distance+gap;car.speed=speed}};window.__jeepNight=()=>{const s=state.current,c=current.current;return{speed:s.speed*3.6,acceleration:s.acceleration,brake:s.brake||0,rpm:sourceCity?(sourceTelemetry.current?.rpm||0):s.paused?0:800+s.speed*75,distance:s.odometer,paused:s.paused,camera:c.view,radioFocused:c.radio,district:s.district,fps:report.current.fps,station:c.audio.stationId,playing:c.audio.playing,muted:c.audio.muted,volume:c.audio.volume,analysis:music.status,spectrum:Array.from(pulse.spectrum).reduce((a,b)=>a+b,0),drawCalls:report.current.drawCalls,renderDpr:report.current.dpr,ready:c.ready,vehicle:c.vehicle,garage:!c.started,timeMode:blend.current>=.5?'night':'sunset'}};return()=>{clearInterval(timer);delete window.__jeepNight}},[music,route,sourceCity])
  useEffect(()=>{if(cruiseOS)return;const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){closeLandmark();setRadio(false);return}if(!started)return;if((e.target as HTMLElement).matches('input,select,button')||(humanRadio&&(e.target as HTMLElement).closest('.hr-radio')))return;if(e.key.toLowerCase()==='v'){manualCamera.current=true;closeLandmark();setView(v=>v==='driver'?'chase':'driver')}if(e.key.toLowerCase()==='d'){manualCamera.current=true;closeLandmark();setRadio(false);setView(v=>v==='director'?'driver':'director')}if(e.key.toLowerCase()==='r'){closeLandmark();setRadioPanel(false);setRadio(v=>!v)}if(e.key==='Escape'){closeLandmark();setRadio(false)}if(e.key===' '){e.preventDefault();if(landmarkRef.current){closeLandmark();setPaused(false)}else setPaused(v=>!v)}};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[closeLandmark,started,cruiseOS])
  const selectVehicle=(next:RideVehicleId)=>{if(next===vehicle||(look&&next==='delorean'&&drive!=='retrowave'))return;closeLandmark();setRadio(false);setRadioPanel(false);setReady(false);setVehicle(next)}
  const returnToGarage=()=>{closeLandmark();setRadio(false);setRadioPanel(false);setStarted(false);setPaused(true);state.current.paused=true}
- const start=(startRadio=true)=>{const remote=castIsRemote();renderHold.active=true;setWarming(true);closeLandmark();setRadio(false);manualCamera.current=false;setView('director');openingStart.current=state.current.elapsed;if(startRadio&&!remote)audio.start();setPaused(remote);state.current.paused=remote;cycleStart.current=state.current.elapsed;setStarted(true);if(shared.current?.cam)shared.current.cam=undefined}
+ const start=(startRadio=true)=>{const remote=castIsRemote(),camera=castReceiver||remote?castCamera.current:null;renderHold.active=true;setWarming(true);closeLandmark();setRadio(false);manualCamera.current=!!camera;setView(camera??'director');openingStart.current=state.current.elapsed;if(startRadio&&!remote)audio.start();setPaused(remote);state.current.paused=remote;cycleStart.current=state.current.elapsed;setStarted(true);if(shared.current?.cam)shared.current.cam=undefined}
  const startRef=useRef(start);startRef.current=start
  const [shareNote,setShareNote]=useState('')
  const [retroCue,setRetroCue]=useState<{campaignId?:string;label:string;destination:string}|null>(null)
@@ -440,7 +444,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
   })()
   return islandExport.current.then(bytes=>bytes.slice(0))
  },[])
- const chooseCamera=(next:View)=>{manualCamera.current=true;closeLandmark();setRadio(false);setView(next)}
+ const chooseCamera=(next:View)=>{if(castIsRemote()){castCamera.current=readCastCamera(next);localCastCamera.current=castCamera.current}manualCamera.current=true;closeLandmark();setRadio(false);setView(next)}
  const isCarSurface=(object:T.Object3D|undefined)=>{for(let node:T.Object3D|null|undefined=object;node&&node!==car.current;node=node.parent)if(node.name==='VehicleReflectiveFinish')return true;return false}
  const enterCarRadio=(event:ThreeEvent<MouseEvent>)=>{if(!started||radio||osOverlay||event.delta>6||!isCarSurface(event.intersections[0]?.object))return;event.stopPropagation();document.body.style.cursor='';manualCamera.current=true;setView('driver');openRadio()}
  useEffect(()=>{if(new URLSearchParams(location.search).get('diagnostics')!=='1')return;const w=window as Window&{__cruiseView?:(next:View)=>void};w.__cruiseView=next=>{manualCamera.current=true;closeLandmark();setRadio(false);setView(next)};(w as Window&{__cruiseDrive?:(next:'city'|'highway'|'retrowave')=>void}).__cruiseDrive=next=>{closeLandmark();setDrive(next)};return()=>{delete w.__cruiseView;delete (w as Window&{__cruiseDrive?:unknown}).__cruiseDrive}},[closeLandmark,setDrive])
@@ -452,9 +456,11 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
   if(scene.car&&scene.car!==vehicle&&['coastal-coupe','classic-coupe','island-trail','countach','delorean','eighties','cadillac','wrangler'].includes(scene.car)&&(scene.car!=='delorean'||nextDrive==='retrowave')){closeLandmark();setRadio(false);setRadioPanel(false);setReady(false);setVehicle(scene.car as RideVehicleId)}
   if(scene.time)setNight(scene.time==='night')
   if(scene.mood&&['cruise','night-drive','midnight-run'].includes(scene.mood))setTone(scene.mood as typeof tone)
+  const camera=readCastCamera(scene.camera)
+  if(camera){castCamera.current=camera;manualCamera.current=true;closeLandmark();setRadio(false);setView(camera)}
  }
  const castScene=useRef<Record<string,string>|null>(null),applyCastSceneRef=useRef(applyCastScene);applyCastSceneRef.current=applyCastScene
- useCastReceiver({audio,ready:ready&&!!route&&!warming,start:()=>{if(!started)start(false)},scene:applyCastScene,sceneState:{drive:drive==='causeway'?'highway':drive,car:vehicle,time:night?'night':'sunset',mood:tone}})
+ useCastReceiver({audio,ready:ready&&!!route&&!warming,start:()=>{if(!started)start(false)},scene:applyCastScene,sceneState:{drive:drive==='causeway'?'highway':drive,car:vehicle,time:night?'night':'sunset',mood:tone,camera:view}})
  // TV cast: the TV session drives itself and takes play/next from the phone; the phone parks while it remotes.
  const castRemote=useRef({audio,seek});castRemote.current={audio,seek}
  // Each ride's own synthesized engine, under the radio, on every drive.
@@ -471,8 +477,18 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  useEffect(()=>{
   // Radio ownership is transferred by the audio hook. Calling audio.pause here
   // would send PAUSE to the TV; only park and silence this device's engine.
-  const remoteState=(e:Event)=>{const scene=(e as CustomEvent<{scene?:Record<string,string>}>).detail.scene;if(scene)castScene.current=scene}
-  const casting=(e:Event)=>{const active=(e as CustomEvent<boolean>).detail;setCastingRemote(active);if(active){if(castPark.current===null){castPark.current=pausedRef.current;if(castScene.current)applyCastSceneRef.current(castScene.current)}if(!current.current.started)startRef.current(false);setPaused(true);state.current.paused=true}else if(castPark.current!==null){setPaused(castPark.current);castPark.current=null}}
+  const remoteState=(e:Event)=>{
+   const scene=(e as CustomEvent<{scene?:Record<string,string>}>).detail.scene
+   if(!scene)return
+   castScene.current=scene
+   const camera=readCastCamera(scene.camera)
+   // Adopt the TV's camera on rejoin. Once this phone chooses a view, it owns that
+   // choice until disconnect: repeated camera cycles cannot match stale heartbeats.
+   if(camera&&castIsRemote()&&!localCastCamera.current){
+    if(castCamera.current!==camera||current.current.view!==camera)applyCastSceneRef.current({camera})
+   }
+  }
+  const casting=(e:Event)=>{const active=(e as CustomEvent<boolean>).detail;setCastingRemote(active);if(active){if(castPark.current===null){castPark.current=pausedRef.current;if(castScene.current)applyCastSceneRef.current(castScene.current)}if(!current.current.started)startRef.current(false);setPaused(true);state.current.paused=true}else{castCamera.current=null;localCastCamera.current=null;if(castPark.current!==null){setPaused(castPark.current);castPark.current=null}}}
   addEventListener('cruise:cast-state',remoteState);addEventListener('cruise:casting',casting);return()=>{removeEventListener('cruise:cast-state',remoteState);removeEventListener('cruise:casting',casting)}
  },[])
  return <main className={`jn ${humanRadio?`human-radio ${listeningOnly?'hr-listening':''}`:''} ${experienceFirst?'experience-first':''} ${cruiseOS?'cruise-os':''} ${!started?'jn-garage':''} ${started&&view==='director'&&!radio&&!landmark?'jn-directing':''}`} data-ready={ready} data-started={started} data-view={view} data-vehicle={vehicle} data-source-city={sourceCity&&started}>
