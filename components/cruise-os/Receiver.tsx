@@ -1,6 +1,6 @@
 'use client'
 import { createElement, useEffect, useRef, useState } from 'react'
-import { CAST_NAMESPACE, castStations, type CastCommand, type CastStatus } from '@/lib/cruise/google-cast'
+import { CAST_NAMESPACE, receiverCastStations, type CastCommand, type CastStatus } from '@/lib/cruise/google-cast'
 import { createReceiverFrameSeed } from '@/lib/cruise/cast-receiver-seed'
 
 /** The TV owns its Cruise scene/audio. No mirrored phone pixels. */
@@ -13,7 +13,7 @@ export default function Receiver() {
     const pending: CastCommand[] = [], sequences = new Map<string, number>()
     const diagnostics = process.env.NODE_ENV === 'development'
       || new URLSearchParams(location.search).get('diagnostics') === '1'
-    const seedFrame = createReceiverFrameSeed(castStations, diagnostics)
+    const seedFrame = createReceiverFrameSeed(receiverCastStations, diagnostics)
     const errors: Array<{ at: string; source: string; message: string }> = []
     let lastFrameStateAt = 0, heartbeat = 0
     let lastCommand: Partial<CastCommand> | null = null
@@ -105,10 +105,11 @@ export default function Receiver() {
             || command.sequence <= (sequences.get(event.senderId) ?? -1)) return
           sequences.set(event.senderId, command.sequence)
           if (diagnostics) lastCommand = { type: command.type, sequence: command.sequence, requestId: command.requestId, station: command.station, playing: command.playing, scene: command.scene }
-          if (command.station && !castStations.includes(command.station)) {
+          if (command.station && !receiverCastStations.includes(command.station)) {
             broadcast({
               ...(latestState ?? { version: 1, type: 'state', station: '', playing: false, volume: 0, muted: true }),
-              ready: false, error: 'Station not validated for this receiver',
+              ready: false, error: 'This station is not in the Cruise catalog. Choose another station.',
+              errorRequestId: command.requestId,
             })
             return
           }
