@@ -98,7 +98,7 @@ function DiscoveryConsoleBody({ audio, metadata, listeningOnly, onListeningOnly,
     } catch { setNote('This collection file could not be restored.') }
   }
   const surprise = () => { const allowed=new Set(results.map(station=>station.id));const id = randomStation(eligibleIds.filter(value=>allowed.has(value)), audio.stationId); if (id) tune(id); else setNote('No playable station matches this search or filter.') }
-  const seek = (direction: number) => { if (!eligible.length) return; const index = eligible.findIndex(station => station.id === audio.stationId); const next = index < 0 ? (direction < 0 ? eligible.length - 1 : 0) : (index + direction + eligible.length) % eligible.length; tune(eligible[next].id) }
+  const seek = (direction: number) => audio.stepStation(direction)
   const latest = useRef({ audio, seek }); latest.current = { audio, seek }
   useEffect(() => {
     if (!('mediaSession' in navigator)) return

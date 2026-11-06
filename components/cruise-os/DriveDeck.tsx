@@ -7,12 +7,15 @@ import type {Chattiness} from '@/lib/cruise/nova/persona'
 import {canPlayCruiseStation} from '@/lib/real-miami/stations'
 import CastButton from './CastButton'
 import './drive-deck.css'
+import MobilePlayer from './MobilePlayer'
+import {useMobileCruise} from '@/lib/cruise/preferences'
 export type DriveMode='city'|'highway'|'retrowave'
-type Props={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;castParams:()=>Record<string,string>;onCasting:(active:boolean)=>void;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
+export type DriveDeckProps={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;castParams:()=>Record<string,string>;onCasting:(active:boolean)=>void;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
 const cameras:[CameraView,string][]=[['low','Chase'],['driver','Cockpit'],['director','Cinematic']]
 const names={city:'City',highway:'Highway',retrowave:'Retrowave'}
 /** Live LaunchExperience interactions, connected to the existing game/audio owners. */
-export default function DriveDeck(p:Props){
+export default function DriveDeck(p:DriveDeckProps){
+ const mobile=useMobileCruise()
  const [panel,setPanel]=useState<'drive'|'radio'|null>(null),root=useRef<HTMLDivElement>(null),opener=useRef<HTMLButtonElement|null>(null)
  const [saveNote,setSaveNote]=useState('')
  const a=p.audio,index=Math.max(0,cameras.findIndex(([id])=>id===p.view)),next=cameras[(index+1)%cameras.length]
@@ -20,6 +23,7 @@ export default function DriveDeck(p:Props){
  useEffect(()=>setSaveNote(''),[a.stationId])
  useEffect(()=>{if(!panel)return;const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){setPanel(null);opener.current?.focus()}};const outside=(e:PointerEvent)=>{if(!root.current?.contains(e.target as Node))setPanel(null)};addEventListener('keydown',key);document.addEventListener('pointerdown',outside,true);return()=>{removeEventListener('keydown',key);document.removeEventListener('pointerdown',outside,true)}},[panel])
  const toggle=(which:'drive'|'radio',button:HTMLButtonElement)=>{opener.current=button;setPanel(value=>value===which?null:which)}
+ if(mobile)return <MobilePlayer {...p}/>
  return <div className="dd dd-launch" ref={root} data-sheet={!!panel}>
   {panel==='drive'&&<section className="dd-sheet dd-drive-picker" role="dialog" aria-label="Choose your drive">
    <header><div><small>BUENA ONDA / CRUISE</small><strong>Take the long way.</strong></div><button className="dd-close" aria-label="Close drive selector" onClick={()=>setPanel(null)}><X size={18}/></button></header>
@@ -48,7 +52,7 @@ export default function DriveDeck(p:Props){
     <button className="dd-chip" aria-label={`Camera: ${cameras[index][1]}. Switch to ${next[1]}`} title={`Switch to ${next[1]}`} onClick={()=>{setPanel(null);p.onView(next[0])}}><Camera size={18}/><span>{cameras[index][1]}</span><small className="dd-cycle" aria-hidden="true">↻</small></button>
     <button className="dd-chip" aria-label={`Light: ${p.night?'Night':'Day'}. Switch to ${p.night?'Day':'Night'}`} title={`Switch to ${p.night?'Day':'Night'}`} onClick={()=>{setPanel(null);p.onNight()}}>{p.night?<Moon size={18}/>:<Sun size={18}/>}<span>{p.night?'Night':'Day'}</span></button>
     <button className="dd-chip" aria-label={`Drive: ${names[p.drive]}`} aria-expanded={panel==='drive'} aria-haspopup="dialog" onClick={e=>toggle('drive',e.currentTarget)}><span>{names[p.drive]}</span><ChevronDown size={15}/></button>
-    <CastButton params={p.castParams} onCasting={p.onCasting}/>
+    <CastButton audio={p.audio} params={p.castParams} onCasting={p.onCasting}/>
     <button className="dd-icon" aria-label="Fullscreen" onClick={()=>{if(document.fullscreenElement)void document.exitFullscreen();else void document.documentElement.requestFullscreen?.().catch(()=>{})}}><Maximize size={18}/></button>
    </div>
   </div>

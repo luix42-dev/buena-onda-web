@@ -26,7 +26,7 @@ yarn-error.log*
 Thumbs.db
 
 # Vercel
-.vercel
+.vercel/
 
 # TypeScript
 *.tsbuildinfo
@@ -75,3 +75,5 @@ refs/
 /.tmp/ocean-drive-source/
 /.tmp/ocean-drive-rea-evidence.json
 /.tmp/ocean-drive-tree.json
+
+.vercel

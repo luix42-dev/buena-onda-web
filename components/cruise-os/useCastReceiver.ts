@@ -1,0 +1,8 @@
+'use client'
+import {useEffect,useRef} from 'react'
+import {CAST_NAMESPACE,castStations,type CastCommand} from '@/lib/cruise/google-cast'
+import type {useCruiseAudio} from '@/components/real-miami/audio/useCruiseAudio'
+export function useCastReceiver(value:{audio:ReturnType<typeof useCruiseAudio>;ready:boolean;start:()=>void;scene:(scene:Record<string,string>)=>void}){
+ const current=useRef(value);current.current=value
+ useEffect(()=>{if(new URLSearchParams(location.search).get('receiver')!=='1'||parent===window)return;let pending:CastCommand|null=null;const apply=(m:CastCommand)=>{const v=current.current,a=v.audio;if(m.scene)v.scene(m.scene);if(m.station){if(!castStations.includes(m.station))return;a.selectStation(m.station)}if(m.volume!==undefined&&Number.isFinite(m.volume))a.setVolume(m.volume);if(m.muted!==undefined)a.setMuted(m.muted);if(m.type==='sync'&&m.playing!==undefined){v.start();m.playing?a.start():a.pause()}else if(m.type==='play')a.start();else if(m.type==='pause')a.pause()};const message=(e:MessageEvent)=>{if(e.source!==parent||e.origin!==location.origin||e.data?.channel!==CAST_NAMESPACE)return;const m=e.data.command as CastCommand;if(m?.version!==1)return;if(!current.current.ready){pending=m;return}apply(m)};addEventListener('message',message);const timer=setInterval(()=>{const v=current.current,a=v.audio;if(v.ready&&pending){apply(pending);pending=null}parent.postMessage({channel:CAST_NAMESPACE,state:{version:1,type:'state',station:a.stationId,playing:a.playing,volume:a.volume,muted:a.muted,ready:v.ready,error:a.error||undefined}},location.origin)},500);return()=>{removeEventListener('message',message);clearInterval(timer)}},[])
+}

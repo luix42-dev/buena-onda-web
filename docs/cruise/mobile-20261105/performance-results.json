@@ -1,0 +1,88 @@
+{
+  "browser": "156.0.8078.80",
+  "host": "Windows; desktop Chrome with mobile viewport/touch emulation",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "deviceScaleFactor": 1,
+  "conditions": "Fresh context; no network/CPU throttling; no physical phone; 15 samples at 1 second intervals after loader clears",
+  "loadMs": 9543,
+  "samples": [
+    {
+      "fps": 60.027553630998945,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.021647151607716,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.02164715160769,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.01574183357175,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 59.03768572289281,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.03346127384889,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.03346127384889,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.01574183357174,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.0216471516077,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.021647151607716,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.02164715072767,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.0216471516077,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.009837678307946,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.0216471516077,
+      "renderDpr": 1,
+      "quality": "low"
+    },
+    {
+      "fps": 60.01574183357174,
+      "renderDpr": 1,
+      "quality": "low"
+    }
+  ]
+}

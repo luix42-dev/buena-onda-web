@@ -1,46 +1,16 @@
 'use client'
-import {useEffect,useRef,useState} from 'react'
-import {Cast,Pause,Play,SkipForward,X} from 'lucide-react'
-import {canPickTv,castToTv,tvSessionUrl,type TvCommand,type TvState} from '@/lib/cruise/tv-cast'
-
-type Session={send:(command:TvCommand)=>void;stop:()=>void}
-type Props={params:()=>Record<string,string>;onCasting:(active:boolean)=>void}
-
-const mirrorTip=()=>/iPhone|iPad|iPod/i.test(navigator.userAgent)||/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1
- ?'Swipe down to Control Center, tap Screen Mirroring, pick your TV.'
- :/Android/i.test(navigator.userAgent)?'Swipe down to Quick Settings, tap Cast or Screen cast, pick your TV.'
- :'No TV found. Put the TV on the same Wi-Fi and try again.'
-
-/** One tap: the browser's TV picker, then this device is the remote. */
-export default function CastButton({params,onCasting}:Props){
- const [session,setSession]=useState<Session|null>(null),[tv,setTv]=useState<TvState|null>(null),[tip,setTip]=useState('')
- const timer=useRef<ReturnType<typeof setTimeout>>(),live=useRef<Session|null>(null)
- useEffect(()=>()=>{clearTimeout(timer.current);live.current?.stop()},[])
- const say=(text:string)=>{setTip(text);clearTimeout(timer.current);timer.current=setTimeout(()=>setTip(''),8000)}
- const end=()=>{live.current=null;setSession(null);setTv(null);onCasting(false)}
- const cast=async()=>{
-  setTip('')
-  if(!canPickTv()){
-   // No web route to a TV here: present full screen and let the OS mirror it.
-   dispatchEvent(new Event('cruise:tv-on'))
-   if(!document.fullscreenElement)void document.documentElement.requestFullscreen?.().catch(()=>{})
-   say(mirrorTip());return
-  }
-  try{
-   const next=await castToTv(tvSessionUrl(params()),setTv,end)
-   if(!next)return
-   live.current=next;setSession(next);onCasting(true)
-  }catch{say(mirrorTip())}
- }
- if(session)return <div className="dd-casting" role="group" aria-label="Casting to TV">
-  <Cast size={17} aria-hidden="true"/>
-  <span><small>On your TV</small><strong>{tv?.station||'Connecting…'}</strong></span>
-  <button className="dd-icon" aria-label={tv?.playing?'Pause TV radio':'Play TV radio'} onClick={()=>session.send({type:'toggle'})}>{tv?.playing?<Pause size={17}/>:<Play size={17}/>}</button>
-  <button className="dd-icon" aria-label="Next station on TV" onClick={()=>session.send({type:'seek',step:1})}><SkipForward size={16}/></button>
-  <button className="dd-icon" aria-label="Stop casting" onClick={()=>{session.stop();end()}}><X size={17}/></button>
- </div>
- return <>
-  <button className="dd-icon dd-cast" aria-label="Cast to TV" title="Cast to TV" onClick={()=>void cast()}><Cast size={18}/></button>
-  {tip&&<p className="dd-cast-tip" role="status">{tip}<button aria-label="Dismiss" onClick={()=>setTip('')}><X size={14}/></button></p>}
- </>
+import {useEffect,useState} from 'react'
+import {Cast} from 'lucide-react'
+import {attachCast,castSupported,castDeviceName,castStations,disconnectCast,loadCastSdk,requestCast,sendCast,type CastStatus} from '@/lib/cruise/google-cast'
+import type {useCruiseAudio} from '@/components/real-miami/audio/useCruiseAudio'
+type Props={params:()=>Record<string,string>;onCasting:(active:boolean)=>void;audio:ReturnType<typeof useCruiseAudio>}
+export default function CastButton({params,onCasting,audio}:Props){
+ const [available,setAvailable]=useState(false),[status,setStatus]=useState<CastStatus|null>(null),[connecting,setConnecting]=useState(false),[error,setError]=useState('')
+ useEffect(()=>{if(!castSupported())return;let cleanup:(()=>void)|undefined,alive=true;void loadCastSdk().then(()=>{if(!alive)return;setAvailable(true);cleanup=attachCast(s=>{setStatus(s);setConnecting(false);if(s.error)setError(s.error)},()=>{setStatus(null);setConnecting(false);onCasting(false)})}).catch(()=>{});return()=>{alive=false;cleanup?.()}},[])
+ const scene=JSON.stringify(params());useEffect(()=>{sendCast({type:'sync',scene:JSON.parse(scene)})},[scene])
+ useEffect(()=>{const report=(event:Event)=>setError((event as CustomEvent<string>).detail);addEventListener('cruise:cast-error',report);return()=>removeEventListener('cruise:cast-error',report)},[])
+ useEffect(()=>{if(!connecting)return;const t=setTimeout(()=>{setConnecting(false);setError('TV did not confirm playback. Retry or disconnect.')},15000);return()=>clearTimeout(t)},[connecting])
+ if(!available)return null
+ const connect=async()=>{if(!castStations.includes(audio.stationId)){setError('This station is not available on TV yet.');return}setError('');setConnecting(true);try{if(!await requestCast({type:'sync',station:audio.stationId,playing:audio.requested,volume:audio.volume,muted:audio.muted,scene:params()}))setConnecting(false)}catch{setConnecting(false);setError('Could not connect. Check the TV and try again.')}}
+ return <><button className="dd-icon" aria-label={status?'Disconnect from '+castDeviceName():connecting?'Connecting to TV':'Cast to TV'} disabled={connecting} onClick={()=>status?disconnectCast():void connect()}><Cast size={20}/></button>{status&&<span role="status">{castDeviceName()}</span>}{error&&<button className="dd-cast-error" onClick={()=>{disconnectCast();setStatus(null);setError('')}}>{error} ×</button>}</>
 }

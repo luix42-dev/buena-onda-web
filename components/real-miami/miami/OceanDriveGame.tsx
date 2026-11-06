@@ -4,13 +4,13 @@ import type {RideVehicleId} from '@/lib/real-miami/ride-vehicles'
 import './ocean-drive-game.css'
 
 export type OceanDriveState={ready:boolean;vehicle:string;speed:number;acceleration:number;rpm:number;brake:number;elapsed:number;fps:number;calls:number;dpr:number;wheels:number;triangles:number;autopilot:boolean;riding:boolean;position:{x:number;z:number;yaw:number}|null}
-export default function OceanDriveGame({vehicle,view,night,paused,covered,radio,muted,quality,active,onState,onRadio,onPark,exportIsland,captureRef}:{
- vehicle:RideVehicleId;view:string;night:boolean;paused:boolean;covered:boolean;radio:boolean;muted:boolean;active:boolean;quality:'low'|'medium'|'high'
+export default function OceanDriveGame({showAds=true,vehicle,view,night,paused,covered,radio,muted,quality,active,onState,onRadio,onPark,exportIsland,captureRef}:{
+ showAds?:boolean;vehicle:RideVehicleId;view:string;night:boolean;paused:boolean;covered:boolean;radio:boolean;muted:boolean;active:boolean;quality:'low'|'medium'|'high'
  onState:(s:OceanDriveState)=>void;onRadio:()=>void;onPark:()=>void;exportIsland:()=>Promise<ArrayBuffer>
  captureRef:MutableRefObject<(()=>Promise<Blob>)|null>
 }){
- const frame=useRef<HTMLIFrameElement>(null),latest=useRef({onState,onRadio,onPark,exportIsland}),settings=useRef({view,night,paused,hidden:covered,radio,muted})
- latest.current={onState,onRadio,onPark,exportIsland};settings.current={view,night,paused,hidden:covered,radio,muted}
+ const frame=useRef<HTMLIFrameElement>(null),latest=useRef({onState,onRadio,onPark,exportIsland}),settings=useRef({view,night,paused,hidden:covered,radio,muted,showAds})
+ latest.current={onState,onRadio,onPark,exportIsland};settings.current={view,night,paused,hidden:covered,radio,muted,showAds}
  const [boot,setBoot]=useState(0),[ready,setReady]=useState(false),[error,setError]=useState(''),[autopilot,setAutopilot]=useState(true)
  const tier=quality
  const send=useCallback((type:string,extra:Record<string,unknown>={},transfer:Transferable[]=[])=>frame.current?.contentWindow?.postMessage({channel:'buena-onda-ocean-drive',type,...extra},location.origin,transfer),[])
@@ -86,7 +86,7 @@ export default function OceanDriveGame({vehicle,view,night,paused,covered,radio,
   }
   void configure();return()=>{cancelled=true}
  },[boot,vehicle,send])
- useEffect(()=>{if(boot)send('configure',{settings:settings.current})},[boot,view,night,paused,covered,radio,muted,send])
+ useEffect(()=>{if(boot)send('configure',{settings:settings.current})},[boot,view,night,paused,covered,radio,muted,showAds,send])
  return <section className={`ocean-drive-game${covered?' ocean-drive-covered':''}${!active?' ocean-drive-inactive':''}`} aria-label="Ocean Drive city" aria-hidden={!active}>
   <iframe ref={frame} title="Buena Onda Ocean Drive" src={`/real-miami/ocean-drive/game/index.html?autostart=1&nofs=1&quality=${tier}`} allow="autoplay; fullscreen" tabIndex={0}/>
   {error&&<div className="ocean-drive-error" role="alert"><p>{error}</p><button onClick={()=>{setError('');setReady(false);if(frame.current)frame.current.src=frame.current.src}}>Reload City</button><a href="?drive=city&city=legacy">Open previous City</a></div>}
