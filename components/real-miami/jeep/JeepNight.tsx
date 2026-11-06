@@ -414,12 +414,14 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  const returnToGarage=()=>{closeLandmark();setRadio(false);setRadioPanel(false);setStarted(false);setPaused(true);state.current.paused=true}
  const start=()=>{renderHold.active=true;setWarming(true);closeLandmark();setRadio(false);manualCamera.current=false;setView('director');openingStart.current=state.current.elapsed;audio.start();setPaused(false);state.current.paused=false;cycleStart.current=state.current.elapsed;setStarted(true);if(shared.current?.cam)shared.current.cam=undefined}
  const [shareNote,setShareNote]=useState('')
- const [retroCue,setRetroCue]=useState<{label:string;destination:string}|null>(null)
- useEffect(()=>{const update=(event:Event)=>setRetroCue((event as CustomEvent<{label:string;destination:string}|null>).detail);window.addEventListener('cruise:retro-ad',update);return()=>window.removeEventListener('cruise:retro-ad',update)},[])
+ const [retroCue,setRetroCue]=useState<{campaignId?:string;label:string;destination:string}|null>(null)
+ useEffect(()=>{const update=(event:Event)=>setRetroCue((event as CustomEvent<{campaignId?:string;label:string;destination:string}|null>).detail);window.addEventListener('cruise:retro-ad',update);return()=>window.removeEventListener('cruise:retro-ad',update)},[])
  const share=async()=>{const url=shareUrl(location.origin,{station:audio.stationId,at:nearbyLandmark?.kind||String(Math.round(state.current.distance%(route?.length||1))),time:night?'night':'sunset',cam:view}).replace('/cruise?',prototype?'/cruise/prototype?':cruiseOS?'/cruise/os?':experienceFirst?'/cruise/experience?':humanRadio?'/cruise/human-radio?':'/cruise?');const title='Buena Onda Cruise',text=`Cruising Ocean Drive${nearbyLandmark?` past ${nearbyLandmark.name}`:''} with ${audio.station.name} on.`;try{if(navigator.share){await navigator.share({title,text,url});return}await navigator.clipboard.writeText(url);setShareNote('Link copied')}catch(e){if((e as Error)?.name!=='AbortError')setShareNote(url)}setTimeout(()=>setShareNote(''),2600)}
  const syncSource=useCallback((d:OceanDriveState)=>{
   if(driveRef.current!=='city')return
   sourceTelemetry.current=d;report.current={fps:d.fps||0,drawCalls:d.calls||0,dpr:d.dpr||1}
+  // The native City owns its renderer; the parked R3F scene cannot finish its frame-based warm-up.
+  if(d.ready){renderHold.active=false;setWarmProgress(1);setWarming(false)}
   if(!current.current.radio){const s=state.current;s.elapsed=d.elapsed;s.speed=d.speed;s.acceleration=d.acceleration;s.odometer+=d.speed*.2}
   blend.current=night?1:0
  },[night])
@@ -481,7 +483,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
     {/* Outside the Suspense: switching drives suspends the scene, never the warm-up. */}<SceneWarmUp active={warming} sceneReady={ready&&!!route} onDone={()=>setWarming(false)} onProgress={fraction=>setWarmProgress(value=>Math.max(value,fraction))}/>
    </Canvas>}
   </CockpitProvider></Guard>
-  {retro&&started&&!radio&&!landmark&&!osOverlay&&retroCue&&<Promotion id={adRoster.find(c=>c.destination===retroCue.destination)?.id||retroCue.destination}><span>ROADSIDE AD</span><a href={retroCue.destination} target="_blank" rel="noopener noreferrer">Visit {retroCue.label} ↗</a></Promotion>}
+  {retro&&started&&!radio&&!landmark&&!osOverlay&&retroCue&&<Promotion id={retroCue.campaignId||retroCue.destination}><span>ROADSIDE AD</span><a href={retroCue.destination} target="_blank" rel="noopener noreferrer">Visit {retroCue.label} ↗</a></Promotion>}
   {look&&started&&!sourceCity&&(drive==='city'||drive==='highway')&&!radio&&!landmark&&!osOverlay&&!listeningOnly&&route&&<DriveInterchange drive={drive} meters={state.current.distance} length={drive==='highway'?HIGHWAY.length:route.length} exit={drive==='highway'?HIGHWAY_CITY_EXIT_METERS:cityExit} onSwitch={()=>{queuedCauseway.current=drive==='city'?'outbound':'inbound'}}/>}
   {sourceCity&&started&&view==='driver'&&!radio&&<MobileRadioHit onClick={openRadio}/>}
   {look&&!sourceCity&&!listeningOnly&&(started||(experienceFirst&&!cruiseOS))&&!(enhanced&&quality.tier!=='low')&&<><div className={`jn-look-lift${started&&!landmark&&(radio||view==='driver')?' jn-look-cabin':''}`} aria-hidden="true"/><div className={`jn-look-film${started&&!landmark&&(radio||view==='driver')?' jn-look-cabin':''}`} aria-hidden="true"/></>}

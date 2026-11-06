@@ -1,6 +1,6 @@
 'use client'
 
-import {dismissAd,useAdDismissed,useCruisePreference} from '@/lib/cruise/preferences'
+import {adDismissed,dismissAd,useAdDismissed,useCruisePreference} from '@/lib/cruise/preferences'
 import {setPromotionDetail} from '@/components/cruise-os/Promotion'
 import {useCallback,useEffect,useRef,useState,type ReactNode} from 'react'
 import CampaignBridge from '@/components/real-miami/CampaignBridge'
@@ -39,7 +39,7 @@ export default function PrototypeBusinessBridge({children}:{children:ReactNode})
   const close=()=>{if(selected)dismissAd(selected.id);setOpen(false);requestAnimationFrame(()=>{if(!document.querySelector('dialog[open]'))trigger.current?.focus()})}
   const inspect=(campaign:CruiseCampaign)=>{setSelected(campaign);directoryRecorder.current?.activate(campaign.id,'directory','directory',performance.now())}
   const obscured=useCallback(()=>opened.current||!!document.querySelector('dialog[open]'),[])
-  return <CampaignBridge campaign={DEFAULT_CRUISE_CAMPAIGN} campaignValid localDemo={{onInspect:placement=>{if(!directory||!showAds)return;setSelected(placement.campaign);setOpen(true)},onEvent:record,obscured,allowLinks:!directory}}>
+  return <CampaignBridge campaign={DEFAULT_CRUISE_CAMPAIGN} campaignValid localDemo={{onInspect:placement=>{if(!directory||!showAds||adDismissed(placement.campaign.id))return;setSelected(placement.campaign);setOpen(true)},onEvent:record,obscured,allowLinks:!directory}}>
     {children}
     <div className="prototype-business">
       <button hidden={!showAds||!directory||!available||open} ref={trigger} className="pb-trigger" aria-haspopup="dialog" onClick={()=>{setSelected(null);setOpen(true)}}>Along the drive <small>FEATURED SITES</small></button>
