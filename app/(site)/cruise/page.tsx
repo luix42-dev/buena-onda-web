@@ -77,7 +77,8 @@ async function loadCruise(): Promise<{ scenes: PlayerScene[]; channels: PlayerCh
   }
 }
 
-export default async function CruisePage({ searchParams }: { searchParams: { mode?: string; campaign?: string | string[] } }) {
+export default async function CruisePage({ searchParams: pendingParams }: { searchParams: Promise<{ mode?: string; campaign?: string | string[] }> }) {
+  const searchParams = await pendingParams
   if (searchParams.mode === 'minimax-test') return <MiniMaxExperiment />
   // The Oct 30 Cruise (garage, drive, radio-first) is the default experience.
   // The previous launch build stays reachable for campaign links and ?mode=classic.

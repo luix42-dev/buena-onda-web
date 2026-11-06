@@ -2,21 +2,26 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard(30, 30)
 
 export const runtime = 'edge'
 
 const CompleteSchema = z.object({
   orderId: z.string().uuid(),
-  paymentIntentId: z.string().min(1),
-  email: z.string().email().optional(),
+  paymentIntentId: z.string().regex(/^pi_[a-zA-Z0-9]+$/).max(255),
+  email: z.string().email().max(254).optional(),
 })
 
 export async function POST(request: NextRequest) {
+  const denied = guard(request)
+  if (denied) return denied
   let body: unknown
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+    body = await readLimitedJson(request, 4096)
+  } catch (error) {
+    return requestErrorResponse(error)
   }
 
   const parsed = CompleteSchema.safeParse(body)

@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { createServiceClient } from '@/lib/supabase/server'
 import CultureClient from './CultureClient'
 
@@ -36,6 +37,7 @@ async function loadCultureData() {
 }
 
 export default async function CulturePage() {
+  await requireStudioPage()
   const { data: posts, error } = await loadCultureData()
   if (error) return <CultureError message={error} />
 

@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { requestErrorResponse } from '@/lib/api/request-security'
+import { readUploadForm, validateFile } from '../../../upload/validation'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -51,14 +53,14 @@ export async function POST(request: NextRequest, { params }: Params) {
   }
 
   const { id } = await params
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return NextResponse.json({ error: 'Invalid item id' }, { status: 400 })
+  let file: File, contentType: string
+  try {
+    const formData = await readUploadForm(request)
+    const validated = await validateFile(formData.get('file'), 'image')
+    file = validated.file; contentType = validated.contentType
+  } catch (error) { return requestErrorResponse(error) }
   const supabase = await createServiceClient()
-
-  const formData = await request.formData()
-  const file = formData.get('file') as File | null
-
-  if (!file) {
-    return NextResponse.json({ error: 'No file provided' }, { status: 400 })
-  }
 
   const ext      = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
   const ts       = Date.now()
@@ -68,7 +70,7 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   const { error: uploadError } = await supabase.storage
     .from('catalog')
-    .upload(path, buffer, { contentType: file.type, upsert: false })
+    .upload(path, buffer, { contentType, upsert: false })
 
   if (uploadError) {
     return NextResponse.json({ error: uploadError.message }, { status: 500 })

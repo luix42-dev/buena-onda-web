@@ -196,7 +196,10 @@ export default function TerminalCheckoutClient({ itemId }: { itemId: string }) {
       }
 
       try {
-        const res = await fetch(`/api/checkout/intent?itemId=${encodeURIComponent(itemId)}`, {
+        const res = await fetch('/api/checkout/intent', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ itemId }),
           cache: 'no-store',
         })
         const payload = await res.json().catch(() => null)

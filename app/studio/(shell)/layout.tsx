@@ -1,8 +1,10 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import type { ReactNode } from 'react'
 import Sidebar from '@/components/studio/Sidebar'
 import { ToastProvider } from '@/components/studio/Toast'
 
-export default function StudioShellLayout({ children }: { children: ReactNode }) {
+export default async function StudioShellLayout({ children }: { children: ReactNode }) {
+  await requireStudioPage()
   return (
     <ToastProvider>
       <div className="studio-shell">

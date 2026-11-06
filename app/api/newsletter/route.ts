@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServiceClient } from '@/lib/supabase/server'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard()
 
 const NewsletterSchema = z.object({
-  email: z.string().email(),
-  source: z.string().optional(),
+  email: z.string().email().max(254),
+  source: z.string().max(200).optional(),
 })
 
 function isDuplicateError(error: { code?: string; message?: string } | null) {
@@ -14,7 +17,10 @@ function isDuplicateError(error: { code?: string; message?: string } | null) {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json().catch(() => null)
+  const denied = guard(request)
+  if (denied) return denied
+  let body: unknown
+  try { body = await readLimitedJson(request, 4096) } catch (error) { return requestErrorResponse(error) }
   const parsed = NewsletterSchema.safeParse(body)
 
   if (!parsed.success) {
@@ -31,7 +37,7 @@ export async function POST(request: NextRequest) {
     .insert({ email, confirmed: true, source })
 
   if (isDuplicateError(error)) {
-    return NextResponse.json({ ok: true, existing: true })
+    return NextResponse.json({ ok: true })
   }
 
   if (error) {

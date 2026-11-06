@@ -4,27 +4,36 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServiceClient } from '@/lib/supabase/server'
 import { escapeHtml } from '@/lib/utils'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard()
 
 const ReserveSchema = z.object({
   itemId: z.string().uuid(),
-  itemTitle: z.string(),
+  itemTitle: z.string().max(200).optional(),
   name: z.string().max(100).optional(),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  message: z.string().optional(),
+  email: z.string().trim().email().max(254).transform(email => email.toLowerCase()),
+  phone: z.string().max(40).optional(),
+  message: z.string().max(2000).optional(),
 })
 
 export async function POST(request: NextRequest) {
-  const body = await request.json()
+  const denied = guard(request)
+  if (denied) return denied
+  let body: unknown
+  try { body = await readLimitedJson(request) } catch (error) { return requestErrorResponse(error) }
   const parsed = ReserveSchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })
   }
 
-  const { itemId, itemTitle, name, email, phone, message } = parsed.data
+  const { itemId, name, email, phone, message } = parsed.data
 
   const supabase = await createServiceClient()
+  const { data: item } = await supabase.from('items').select('id,title').eq('id', itemId).eq('status', 'published').maybeSingle()
+  if (!item) return NextResponse.json({ error: 'Item not found' }, { status: 404 })
+  const itemTitle: string = item.title
 
   const { data: existing } = await supabase
     .from('item_notify_requests')
@@ -34,10 +43,12 @@ export async function POST(request: NextRequest) {
     .maybeSingle()
 
   if (existing) {
-    return NextResponse.json({ error: 'already_reserved' }, { status: 409 })
+    return NextResponse.json({ ok: true })
   }
 
-  await supabase.from('item_notify_requests').insert({ item_id: itemId, email })
+  const { error: insertError } = await supabase.from('item_notify_requests').insert({ item_id: itemId, email })
+  if (insertError?.code === '23505') return NextResponse.json({ ok: true })
+  if (insertError) return NextResponse.json({ error: 'Could not save request' }, { status: 500 })
 
   if (process.env.RESEND_API_KEY) {
     const { Resend } = await import('resend')

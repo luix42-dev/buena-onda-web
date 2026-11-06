@@ -35,11 +35,12 @@ function botToken() {
 }
 
 export function allowedChatId() {
-  return String(process.env.TELEGRAM_CHAT_ID ?? '685672295')
+  return process.env.TELEGRAM_CHAT_ID?.trim() || null
 }
 
 export function isAllowedChat(chatId: string | number | null | undefined) {
-  return chatId != null && String(chatId) === allowedChatId()
+  const allowed = allowedChatId()
+  return allowed !== null && chatId != null && String(chatId) === allowed
 }
 
 export async function telegramApi(method: string, payload: Record<string, unknown>) {

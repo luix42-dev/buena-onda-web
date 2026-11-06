@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { createServiceClient } from '@/lib/supabase/server'
 import RadioClient from './RadioClient'
 
@@ -36,6 +37,7 @@ async function loadRadioData() {
 }
 
 export default async function RadioPage() {
+  await requireStudioPage()
   const { data: episodes, error } = await loadRadioData()
   if (error) return <RadioError message={error} />
 

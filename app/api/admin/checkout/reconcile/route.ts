@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { reconcileCheckouts } from '@/lib/checkout-reconcile'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
-import { hasStudioAccess, studioCookieName, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -10,7 +10,7 @@ export const maxDuration = 60
 
 // Studio "Reconcile now": same verified, conditional recovery as the daily cron.
 export async function POST(request: NextRequest) {
-  if (!(await hasStudioAccess(request.cookies.get(studioCookieName())?.value))) {
+  if (!(await isStudioAuthorized(request))) {
     return unauthorizedStudioResponse()
   }
 

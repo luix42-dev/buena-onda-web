@@ -2,6 +2,8 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { requestErrorResponse, RequestBodyError } from '@/lib/api/request-security'
+import { readUploadForm, safeStoragePath, validateFile } from './validation'
 
 function env(name: string, fallback?: string) {
   return process.env[name] ?? (fallback ? process.env[fallback] : undefined)
@@ -37,18 +39,23 @@ export async function POST(request: NextRequest) {
     return unauthorizedStudioResponse()
   }
 
-  const formData = await request.formData()
-  const file     = formData.get('file') as File | null
-  const folder   = (formData.get('folder') as string) || 'catalog'
-
-  if (!file) {
-    return NextResponse.json({ error: 'No file provided' }, { status: 400 })
-  }
-
-  const ext           = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
-  const ts            = Date.now()
-  const customPath    = (formData.get('storagePath') as string | null)?.trim()
-  const path          = customPath || `${folder}/${ts}.${ext}`
+  let file: File, contentType: string, folder: string, path: string
+  try {
+    const formData = await readUploadForm(request)
+    const rawFolder = formData.get('folder')
+    folder = typeof rawFolder === 'string' && rawFolder ? rawFolder : 'catalog'
+    if (!new Set(['catalog', 'audio', 'timeline', 'events', 'events/gallery', 'events/audio', 'events/partners', 'events/archive']).has(folder)) {
+      throw new RequestBodyError('Invalid upload folder', 400)
+    }
+    const validated = await validateFile(formData.get('file'), folder.endsWith('audio') ? 'audio' : folder === 'events/archive' ? 'archive' : 'image')
+    file = validated.file; contentType = validated.contentType
+    const ext = file.name.split('.').pop()!.toLowerCase()
+    const customPath = formData.get('storagePath')
+    path = typeof customPath === 'string' && customPath.trim() ? customPath.trim() : `${folder}/${crypto.randomUUID()}.${ext}`
+    if (!safeStoragePath(path) || !path.endsWith(`.${ext}`) || !(path.startsWith(`${folder}/`) || (folder === 'catalog' && path.startsWith('posts/culture/')))) {
+      throw new RequestBodyError('Invalid storage path', 400)
+    }
+  } catch (error) { return requestErrorResponse(error) }
   const arrayBuf = await file.arrayBuffer()
   const buffer   = Buffer.from(arrayBuf)
 
@@ -77,7 +84,7 @@ export async function POST(request: NextRequest) {
         Bucket: bucketName,
         Key: path,
         Body: buffer,
-        ContentType: file.type,
+        ContentType: contentType,
       }))
     } catch (err) {
       const message = err instanceof Error ? err.message : 'R2 upload failed'
@@ -103,7 +110,7 @@ export async function POST(request: NextRequest) {
   const { error: uploadError } = await supabase.storage
     .from('catalog')
     .upload(path, buffer, {
-      contentType: file.type,
+      contentType,
       upsert:      false,
     })
 

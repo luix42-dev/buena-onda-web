@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { createServiceClient } from '@/lib/supabase/server'
 import { timelineItems as fallback } from '@/lib/timeline'
 import TimelineClient, { type TimelineEra } from './TimelineClient'
@@ -78,6 +79,7 @@ async function loadTimelineData(): Promise<{ data?: TimelineEra[], error?: strin
 }
 
 export default async function TimelinePage() {
+  await requireStudioPage()
   const { data: initialEras, error } = await loadTimelineData()
   if (error) return <TimelineError message={error} />
 

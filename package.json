@@ -2,23 +2,26 @@
   "name": "buena-onda-web",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "pages:build": "npx @cloudflare/next-on-pages",
     "intake:worker": "tsx worker/intake-worker.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.79.0",
+    "@anthropic-ai/sdk": "0.91.1",
     "@aws-sdk/client-s3": "^3.1014.0",
     "@aws-sdk/s3-request-presigner": "^3.1059.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
-    "@next/third-parties": "^16.2.9",
+    "@next/third-parties": "15.5.29",
+    "@react-email/render": "2.2.0",
     "@react-three/drei": "9.122.0",
     "@react-three/fiber": "8.18.0",
     "@stripe/react-stripe-js": "^6.6.0",
@@ -32,21 +35,20 @@
     "framer-motion": "^11.5.0",
     "hls.js": "1.7.3",
     "lucide-react": "^1.21.0",
-    "next": "14.2.15",
+    "next": "15.5.29",
     "qrcode-generator": "^2.0.4",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.53.0",
-    "resend": "^4.0.0",
+    "resend": "6.37.0",
     "slugify": "^1.6.6",
     "stripe": "^17.7.0",
     "three": "0.170.0",
     "three-mesh-bvh": "0.8.3",
     "yet-another-react-lightbox": "^3.32.0",
-    "zod": "^3.23.8"
+    "zod": "4.6.6"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@electric-sql/pglite": "^0.5.8",
     "@imgly/background-removal-node": "^1.4.5",
     "@types/node": "^20.16.0",
@@ -56,14 +58,29 @@
     "autoprefixer": "^10.4.20",
     "dotenv": "^17.3.1",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.15",
-    "postcss": "^8.4.47",
-    "sharp": "^0.34.5",
+    "eslint-config-next": "15.5.29",
+    "postcss": "8.5.32",
+    "sharp": "0.35.5",
     "tailwindcss": "^3.4.12",
     "tsx": "^4.20.6",
     "typescript": "^5.5.4"
   },
   "optionalDependencies": {
     "node-notifier": "^10.0.1"
+  },
+  "overrides": {
+    "postcss": "$postcss",
+    "sharp": "$sharp",
+    "@imgly/background-removal-node": {
+      "zod": "3.25.76",
+      "lodash": "4.18.1"
+    },
+    "node-notifier": {
+      "uuid": "11.1.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.5"
+    },
+    "brace-expansion@<2": "1.1.21"
   }
 }

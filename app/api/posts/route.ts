@@ -1,6 +1,9 @@
 export const runtime = 'edge'
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
+import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import { isStudioAuthorized, unauthorizedStudioResponse } from '@/lib/studio-auth'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
 import { z } from 'zod'
 import { slugify } from '@/lib/utils'
 
@@ -17,11 +20,11 @@ const PostSchema = z.object({
 })
 
 export async function GET(request: NextRequest) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { searchParams } = new URL(request.url)
 
-  const page    = parseInt(searchParams.get('page')  ?? '1')
-  const limit   = parseInt(searchParams.get('limit') ?? '20')
+  const page    = Math.min(1000, Math.max(1, parseInt(searchParams.get('page') ?? '1') || 1))
+  const limit   = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') ?? '20') || 20))
   const tag     = searchParams.get('tag')
   const offset  = (page - 1) * limit
 
@@ -31,11 +34,8 @@ export async function GET(request: NextRequest) {
     .order('published_at', { ascending: false })
     .range(offset, offset + limit - 1)
 
-  // Public route: only return published posts unless admin
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) {
-    query = query.eq('published', true)
-  }
+  // Public reads never trust a browser-supplied Supabase session as an admin role.
+  query = query.eq('published', true)
 
   if (tag) {
     query = query.contains('tags', [tag])
@@ -44,21 +44,17 @@ export async function GET(request: NextRequest) {
   const { data, error, count } = await query
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Could not load posts' }, { status: 500 })
   }
 
   return NextResponse.json({ posts: data, total: count, page, limit })
 }
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient()
-
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  const body   = await request.json()
+  if (!(await isStudioAuthorized(request))) return unauthorizedStudioResponse()
+  const supabase = createServiceRoleClient()
+  let body: unknown
+  try { body = await readLimitedJson(request, 262_144) } catch (error) { return requestErrorResponse(error) }
   const parsed = PostSchema.safeParse(body)
 
   if (!parsed.success) {

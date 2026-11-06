@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { Suspense } from 'react'
 import { createServiceClient } from '@/lib/supabase/server'
 import CatalogClient from './CatalogClient'
@@ -79,7 +80,8 @@ async function CatalogData() {
   return <CatalogClient initialItems={itemsWithPrimary} themes={themes ?? []} />
 }
 
-export default function CatalogPage() {
+export default async function CatalogPage() {
+  await requireStudioPage()
   return (
     <Suspense fallback={<div className="sec-head"><div className="ttl">The Catalog</div></div>}>
       <CatalogData />

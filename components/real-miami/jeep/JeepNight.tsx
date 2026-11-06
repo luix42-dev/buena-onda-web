@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import {useAdDismissed,useCruisePreference,useMobileCruise} from '@/lib/cruise/preferences'
 import {useCastReceiver} from '@/components/cruise-os/useCastReceiver'
 import {castIsRemote} from '@/lib/cruise/google-cast'
@@ -519,7 +520,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
   {sourceCity&&started&&view==='driver'&&!radio&&<MobileRadioHit onClick={openRadio}/>}
   {look&&!sourceCity&&!listeningOnly&&(started||(experienceFirst&&!cruiseOS))&&!(enhanced&&quality.tier!=='low')&&<><div className={`jn-look-lift${started&&!landmark&&(radio||view==='driver')?' jn-look-cabin':''}`} aria-hidden="true"/><div className={`jn-look-film${started&&!landmark&&(radio||view==='driver')?' jn-look-cabin':''}`} aria-hidden="true"/></>}
   {started&&view==='director'&&!radio&&!landmark&&<DirectorOverlay station={audio.station.name} letterbox={letterbox} onLetterbox={setLetterbox}/>}
-  {started&&!cruiseOS&&<header className="jn-brand"><a href="/" aria-label="Buena Onda">BUENA ONDA<span>{humanRadio?'NO ALGORITHMS. JUST FREQUENCIES.':neon?`${NEON_WORLD.label} / ${NEON_WORLD.subtitle}`:'MIAMI / GEOGRAPHIC EXPERIMENT'}</span></a><p>{district}<span className="jn-dot"/> {profile.label.toUpperCase()}</p><LiveCruisers enabled={!experienceFirst&&started&&visible&&(!humanRadio||presence)&&!listeningOnly} className="jn-live"/></header>}
+  {started&&!cruiseOS&&<header className="jn-brand"><Link href="/" aria-label="Buena Onda">BUENA ONDA<span>{humanRadio?'NO ALGORITHMS. JUST FREQUENCIES.':neon?`${NEON_WORLD.label} / ${NEON_WORLD.subtitle}`:'MIAMI / GEOGRAPHIC EXPERIMENT'}</span></Link><p>{district}<span className="jn-dot"/> {profile.label.toUpperCase()}</p><LiveCruisers enabled={!experienceFirst&&started&&visible&&(!humanRadio||presence)&&!listeningOnly} className="jn-live"/></header>}
   {!started&&!experienceFirst&&<><RidePicker humanRadio={humanRadio} driveLabel={neon?'Neon Run / Rain-soaked avenue':undefined} only={neon?['delorean']:undefined} vehicle={vehicle} onSelect={selectVehicle} night={night} onNightChange={setNight} onStart={start} ready={ready} routeReady={!!route||baseline} castControl={<CastControl/>}/>{geoError&&<p className="rp-error" role="alert">{geoError}</p>}</>}
   {started&&!cruiseOS&&<>
    {!radio&&!landmark&&!neon&&(!experienceFirst||openingElapsed>=60)&&<MiamiAdCue/>}

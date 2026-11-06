@@ -1,3 +1,4 @@
+import { requireStudioPage } from '@/lib/supabase/studio'
 import { Suspense } from 'react'
 import { createServiceClient } from '@/lib/supabase/server'
 import EventsClient from './EventsClient'
@@ -18,7 +19,8 @@ async function EventsData() {
   return <EventsClient initialEvents={events ?? []} />
 }
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  await requireStudioPage()
   return (
     <Suspense fallback={<div className="sec-head"><div className="ttl">Live Events</div></div>}>
       <EventsData />

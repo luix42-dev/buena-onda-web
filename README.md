@@ -1,7 +1,7 @@
 # Buena Onda — An Analog Culture House
 
 Production website for **Buena Onda**, an analog culture house rooted in Miami.
-Built with **Next.js 14** · **Supabase** · **Tailwind CSS** · deployed on **Vercel**.
+Built with **Next.js 15** · **Supabase** · **Tailwind CSS** · deployed on **Vercel**.
 
 ---
 
@@ -9,7 +9,7 @@ Built with **Next.js 14** · **Supabase** · **Tailwind CSS** · deployed on **V
 
 | Concern        | Choice                          | Rationale |
 |----------------|---------------------------------|-----------|
-| Framework      | Next.js 14 (App Router)         | RSC for fast static pages, API routes for backend |
+| Framework      | Next.js 15 (App Router)         | RSC for fast static pages, API routes for backend |
 | Database       | Supabase (Postgres + Storage)   | Instant REST + realtime, Row Level Security built-in |
 | Styling        | Tailwind CSS + custom CSS       | Brand tokens in tailwind.config; analog micro-interactions in globals.css |
 | Animations     | CSS + IntersectionObserver      | Zero JS bundle cost for scan-reveal; framer-motion available for complex motion |

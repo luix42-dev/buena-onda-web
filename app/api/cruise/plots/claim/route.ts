@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { getStripe } from '@/lib/stripe'
 import { clientIp, createRateLimiter } from '@/lib/cruise/rate-limit'
+import { readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
 import { CLAIM_CHECKOUT_TTL_SECONDS, PLOT_CURRENCY } from '@/lib/cruise/plot-fulfillment'
 import { MAX_PLOT, cleanOwner, isHousePlot, isSeedPlot, mergePlots, priceCents, KIND_LABEL, type PlotRow } from '@/components/cruise/master/plots'
 
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
   if (!limiter.take(clientIp(request.headers))) return NextResponse.json({ error: 'Too many attempts. Try again in a minute.' }, { status: 429, headers: { 'retry-after': '60' } })
   if (Number(request.headers.get('content-length') ?? 0) > 4_096) return NextResponse.json({ error: 'Request too large' }, { status: 413 })
   let parsed
-  try { parsed = Body.safeParse(await request.json()) } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  try { parsed = Body.safeParse(await readLimitedJson(request, 4096)) } catch (error) { return requestErrorResponse(error) }
   if (!parsed.success) return NextResponse.json({ error: 'Invalid claim' }, { status: 400 })
   const { plot: number, expectedCents, email } = parsed.data
   if (!isSeedPlot(number) || isHousePlot(number)) return NextResponse.json({ error: 'This plot is not for sale' }, { status: 409 })

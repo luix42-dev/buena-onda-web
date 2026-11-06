@@ -11,8 +11,6 @@ const DESTINATION_OPTIONS: { value: Destination; label: string }[] = [
   { value: 'radio', label: 'Radio' },
 ]
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, '') ?? ''
-
 function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -39,7 +37,7 @@ export default function IntakeClient() {
 
     try {
       const imageBase64 = image ? await fileToBase64(image) : undefined
-      const response = await fetch(`${API_BASE_URL}/api/intake`, {
+      const response = await fetch('/api/intake', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

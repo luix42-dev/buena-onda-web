@@ -3,16 +3,22 @@ export const runtime = 'edge'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { escapeHtml } from '@/lib/utils'
+import { publicWriteGuard, readLimitedJson, requestErrorResponse } from '@/lib/api/request-security'
+
+const guard = publicWriteGuard()
 
 const ContactSchema = z.object({
   name: z.string().min(1).max(100),
-  email: z.string().email(),
-  subject: z.string().min(1),
+  email: z.string().email().max(254),
+  subject: z.string().min(1).max(200),
   message: z.string().min(20).max(2000),
 })
 
 export async function POST(request: NextRequest) {
-  const body = await request.json()
+  const denied = guard(request)
+  if (denied) return denied
+  let body: unknown
+  try { body = await readLimitedJson(request) } catch (error) { return requestErrorResponse(error) }
   const parsed = ContactSchema.safeParse(body)
 
   if (!parsed.success) {
