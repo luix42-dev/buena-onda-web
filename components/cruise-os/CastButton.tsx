@@ -30,7 +30,7 @@ export default function CastButton({ params, audio }: Props) {
       cleanup = attachCast(
         state => { if (state.error) setError(state.error) },
         () => {},
-        state => { setConnection(state); if (state === 'connected') { setError(''); callback.current(true) } },
+        state => { setConnection(state); if (state === 'connected') setError('') },
       )
     }).catch(() => {})
     return () => {
