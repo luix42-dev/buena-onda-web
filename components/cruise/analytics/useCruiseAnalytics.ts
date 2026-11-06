@@ -80,7 +80,7 @@ export function useCruiseAnalytics(state: CruiseAnalyticsState) {
   const latest = useRef(state)
   const session = useRef<Session | null>(null)
   const tracked = useRef<TrackedState | null>(null)
-  const pendingUnmount = useRef<ReturnType<typeof setTimeout>>()
+  const pendingUnmount = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   latest.current = state
 
   const flushExposures = useCallback((reason: string) => {

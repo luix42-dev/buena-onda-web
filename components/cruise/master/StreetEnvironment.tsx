@@ -624,7 +624,7 @@ function plotArt(plot: Plot, w: number, h: number, vertical: boolean, phase: Ave
 }
 const plotKey = (p: Plot) => `${p.number}:${p.status}:${p.owner?.name}:${p.owner?.color}:${p.owner?.tagline}:${p.valueCents}`
 
-function PlotTexture({ plot, w, h, vertical, phase, children }: { plot: Plot; w: number; h: number; vertical: boolean; phase: AvenuePhase; children: (t: T.Texture) => JSX.Element }) {
+function PlotTexture({ plot, w, h, vertical, phase, children }: { plot: Plot; w: number; h: number; vertical: boolean; phase: AvenuePhase; children: (t: T.Texture) => React.JSX.Element }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const t = useMemo(() => plotArt(plot, w, h, vertical, phase), [plotKey(plot), w, h, vertical, phase])
   useEffect(() => () => t.dispose(), [t]); return children(t)

@@ -3,7 +3,7 @@ import {useEffect,useRef,useState} from 'react'
 
 export default function CastControl(){
  const [hint,setHint]=useState('')
- const timer=useRef<ReturnType<typeof setTimeout>>()
+ const timer=useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
  useEffect(()=>()=>clearTimeout(timer.current),[])
  const start=()=>{
   dispatchEvent(new Event('cruise:tv-on'))

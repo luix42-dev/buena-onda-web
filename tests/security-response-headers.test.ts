@@ -4,6 +4,7 @@ import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 
 async function configuredHeaders(path: string) {
   const { default: config } = await import('../next.config.mjs')
+  assert.ok(config.headers, 'Security headers must be configured')
   const result = new Headers()
   for (const rule of await config.headers()) {
     if (getPathMatch(rule.source)(path)) {

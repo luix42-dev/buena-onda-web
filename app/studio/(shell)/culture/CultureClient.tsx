@@ -239,7 +239,7 @@ export default function CultureClient({ initialPosts }: Props) {
   }: {
     slot: ImageSlot
     label: string
-    inputRef: React.RefObject<HTMLInputElement>
+    inputRef: React.RefObject<HTMLInputElement | null>
     value: string
   }) {
     const isUploading = uploading === slot

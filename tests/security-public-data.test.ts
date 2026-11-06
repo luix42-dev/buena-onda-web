@@ -9,7 +9,7 @@ test('public event reads use the public database identity and preserve ISR cachi
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://public-data.example.test'
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'public-test-key'
   process.env.SUPABASE_SERVICE_ROLE_KEY = 'private-test-key'
-  let requestInit: (RequestInit & { next?: { revalidate?: number } }) | undefined
+  let requestInit: (RequestInit & { next?: { revalidate?: number | false } }) | undefined
   globalThis.fetch = async (_input, init) => {
     requestInit = init
     return new Response('[]', { status: 200, headers: { 'content-type': 'application/json' } })

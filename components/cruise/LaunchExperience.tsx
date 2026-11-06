@@ -56,7 +56,7 @@ export default function LaunchExperience({campaign,campaignValid}:{campaign:Crui
   const hasStarted=useRef(false)
   const [notice,setNotice]=useState(campaignValid?'':'Campaign unavailable. Showing Buena Onda.')
   const [hud,setHud]=useState(true)
-  const hideTimer=useRef<ReturnType<typeof setTimeout>>()
+  const hideTimer=useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const audio=useCruiseAudio()
   const car=LAUNCH_CARS.find(car=>car.id===vehicle)!
   const {recordAdViewability}=useCruiseAnalytics({active:!garage && sceneReady && !failed,camera,cinematic:false,radioPlaying:audio.playing,stationId:audio.stationId,timeMode:mood,timeOfDay:mood,weather:'clear',campaign})

@@ -126,7 +126,7 @@ function Seat({ a, x }: { a: Assets; x: number }) {
   </group>
 }
 
-function Gauge({ a, at, radius, dial, pointer = .8, dynamic }: { a: Assets; at: V3; radius: number; dial: 'speed' | 'rpm' | 'fuel' | 'temp' | 'oil' | 'volts'; pointer?: number; dynamic?: React.RefObject<Group> }) {
+function Gauge({ a, at, radius, dial, pointer = .8, dynamic }: { a: Assets; at: V3; radius: number; dial: 'speed' | 'rpm' | 'fuel' | 'temp' | 'oil' | 'volts'; pointer?: number; dynamic?: React.RefObject<Group | null> }) {
   return <group position={at}>
     <mesh dispose={null} geometry={a.cylinder} material={a.mats.black} rotation={[Math.PI / 2, 0, 0]} scale={[radius + .011,.025,radius + .011]} />
     <mesh dispose={null} geometry={a.ring(radius + .003,.006)} material={a.mats.steel} position-z={.017} />
@@ -138,7 +138,7 @@ function Gauge({ a, at, radius, dial, pointer = .8, dynamic }: { a: Assets; at: 
   </group>
 }
 
-function Dashboard({ a, night, steering, speedNeedle, rpmNeedle }: { a: Assets; night: boolean; steering: React.RefObject<Group>; speedNeedle: React.RefObject<Group>; rpmNeedle: React.RefObject<Group> }) {
+function Dashboard({ a, night, steering, speedNeedle, rpmNeedle }: { a: Assets; night: boolean; steering: React.RefObject<Group | null>; speedNeedle: React.RefObject<Group | null>; rpmNeedle: React.RefObject<Group | null> }) {
   const cockpit = useCockpit()
   return <group name="IslandTrailCockpit">
     {/* Narrow, upright painted cowl and padded dash, specific to the open vehicle. */}
