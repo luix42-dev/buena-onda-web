@@ -1,6 +1,6 @@
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('assert/strict');
-(async()=>{const base=process.argv[2],tag=process.argv[3],b=await chromium.launch({channel:'chrome'}),c=await b.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
-if(base.includes('vercel.app'))await c.route(base+'/**',r=>r.continue({headers:{...r.request().headers(),'x-vercel-protection-bypass':process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''}}));
+const{validateTestOrigin,createTestContext}=require('./preview-access.cjs');
+(async()=>{const base=validateTestOrigin(process.argv[2]).origin,tag=process.argv[3],b=await chromium.launch({channel:'chrome'}),c=await createTestContext(b,base,{viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 const p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
 await p.goto(base+'/cruise?drive=highway&station=jolt-radio&diagnostics=1');await p.getByRole('group',{name:'Available rides'}).waitFor({timeout:90000});
 const cars=p.getByRole('group',{name:'Available rides'}).getByRole('button');await cars.nth(1).click();await p.waitForFunction(()=>document.querySelector('.jn')?.getAttribute('data-ready')==='true',{},{timeout:90000});const selected=await p.locator('.jn').getAttribute('data-vehicle');
