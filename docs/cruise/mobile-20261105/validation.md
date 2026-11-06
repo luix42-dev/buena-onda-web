@@ -43,6 +43,10 @@ Raw results: [browser matrix](browser-results.json), [HTTP](http-results.json), 
 
 Reproduction scripts: `mobile-test.cjs`, `mobile-regression.cjs`, `http-check.cjs`. Run with Playwright 1.51.1 available to Node and Chrome installed, passing base URL and artifact prefix. Protected Vercel previews additionally need `VERCEL_AUTOMATION_BYPASS_SECRET` in the process environment; no secret is stored in this evidence directory.
 
+Preview authentication now goes through `preview-access.cjs`. It accepts only the reviewed deployment hostnames listed there, HTTPS on the default port, and a plain origin without credentials, paths, queries or fragments. Before adding a new preview hostname, use the authenticated Vercel deployment API or dashboard to verify that the exact hostname belongs to Buena Onda project `prj_dilGb9csckSnNGMn5EdOg0yNvyaj`, then add that exact hostname to the allowlist. A `vercel.app` suffix or a similar project name is insufficient. Canonical production and loopback development origins never receive the preview secret.
+
+Browser checks send the bypass header once in a request that cannot follow redirects, require secure, HttpOnly cookies scoped to the exact host, and verify cookie-only access before opening pages. They do not install browser-wide bypass headers or header overrides that survive redirects. HTTP checks send HEAD requests only to the validated origin and keep redirects manual. Authentication errors are reported without Playwright request logs, which may contain credentials. Mocked security regressions are in `tests/preview-automation.test.ts`; they make no network requests.
+
 ## Deployment checks and rollback
 
 Production domains `buenaondalifestyle.com` and `www.buenaondalifestyle.com` are verified on the existing Vercel project; the apex redirects to www. Production Cruise was already enabled. Production environment variables are unchanged by this release.
