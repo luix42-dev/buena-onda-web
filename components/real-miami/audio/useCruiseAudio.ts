@@ -86,7 +86,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   const tracksRef = useRef<RadioTrack[]>([])
   const trackIndexRef = useRef(0)
   const pendingPlaylistRef = useRef<{ stationId: string; cursor: CastPlaylistPosition } | null>(null)
-  const remotePlaylistRef = useRef<CastPlaylistPosition | undefined>()
+  const remotePlaylistRef = useRef<CastPlaylistPosition | undefined>(undefined)
   const wantsPlaybackRef = useRef(false)
   const failedTracksRef = useRef(0)
   const corsRetryRef = useRef('')

@@ -57,7 +57,7 @@ export default function CruiseExperience({ campaign, campaignValid, visualTestLa
   const [music] = useState(() => musicProof ? new MusicAudio() : undefined)
   const [worldMode, setWorldMode] = useState<'miami' | 'retrowave'>('miami')
   const root = useRef<HTMLDivElement>(null)
-  const timer = useRef<ReturnType<typeof setTimeout>>()
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [started, setStarted] = useState(false)
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)

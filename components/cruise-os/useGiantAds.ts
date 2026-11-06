@@ -15,7 +15,7 @@ export function useGiantAds({ audio, active, companionBusy, preview = false }: {
   const inputs = useRef({ active, companionBusy }); inputs.current = { active, companionBusy }
   const onAir = useRef<GiantAd | null>(null); onAir.current = ad
   const clock = useRef(0), lastTick = useRef(0), next = useRef(preview?6:GIANT_AD_TIMING.firstAfterSec), count = useRef(0)
-  const voice = useRef<HTMLAudioElement | null>(null), duck = useRef<{ from: number; to: number } | null>(null), hide = useRef<ReturnType<typeof setTimeout>>()
+  const voice = useRef<HTMLAudioElement | null>(null), duck = useRef<{ from: number; to: number } | null>(null), hide = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   const restore = () => { const d = duck.current, a = live.current; duck.current = null; if (d && Math.abs(a.volume - d.to) < .02) a.setVolume(d.from) }
   const stop = () => { if (hide.current) clearTimeout(hide.current); voice.current?.pause(); voice.current = null; restore(); setSpeaking(false); setAd(null) }

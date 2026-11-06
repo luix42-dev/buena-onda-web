@@ -16,7 +16,7 @@ export function useNovaCompanion({ audio, active, night, held = false, preview =
   const inputs = useRef({ active, night, held }); inputs.current = { active, night, held }
   const onAir = useRef<Line | null>(null); onAir.current = current
   const state = useRef<NovaState>(createNovaState('occasional')), clock = useRef(0), lastTick = useRef(0)
-  const voice = useRef<HTMLAudioElement | null>(null), duck = useRef<{ from: number; to: number } | null>(null), hide = useRef<ReturnType<typeof setTimeout>>()
+  const voice = useRef<HTMLAudioElement | null>(null), duck = useRef<{ from: number; to: number } | null>(null), hide = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const discovery = useRef<{ station: string; at: number } | null>(null), station = useRef(audio.stationId), visited = useRef(false)
   useEffect(() => { const m = readMode(); setModeState(m); state.current = { ...state.current, mode: m }; try { visited.current = !!localStorage.getItem(VISITED_KEY) } catch { /* ignore */ } }, [])
   const setMode = useCallback((m: Chattiness) => { setModeState(m); state.current = { ...state.current, mode: m }; try { localStorage.setItem(MODE_KEY, m) } catch { /* ignore */ } if (m === 'off') stop() }, []) // eslint-disable-line react-hooks/exhaustive-deps -- stop is stable through refs

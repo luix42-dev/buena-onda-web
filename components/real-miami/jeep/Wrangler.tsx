@@ -10,7 +10,7 @@ import {useCockpit} from '../vehicle/CockpitContext'
 import {pulse} from '../master/pulse'
 
 function Block({size,at,color='#191e20',radius=.018}:{size:[number,number,number];at:[number,number,number];color?:string;radius?:number}){return <RoundedBox args={size} position={at} radius={radius} smoothness={2}><meshStandardMaterial color={color} roughness={.82}/></RoundedBox>}
-function Dial({texture,at,radius,needle}:{texture:T.Texture;at:[number,number,number];radius:number;needle?:React.RefObject<T.Group>}){return <group position={at}>
+function Dial({texture,at,radius,needle}:{texture:T.Texture;at:[number,number,number];radius:number;needle?:React.RefObject<T.Group | null>}){return <group position={at}>
   <mesh rotation-x={Math.PI/2}><cylinderGeometry args={[radius+.012,radius+.012,.035,40]}/><meshStandardMaterial color="#090e10" roughness={.8}/></mesh>
   <mesh position-z={.02}><torusGeometry args={[radius+.002,.005,8,48]}/><meshStandardMaterial color="#686b64" metalness={.7} roughness={.3}/></mesh>
   <mesh position-z={.024}><circleGeometry args={[radius,48]}/><meshStandardMaterial map={texture} emissiveMap={texture} emissive="#ffe8ae" emissiveIntensity={.95} toneMapped={false}/></mesh>

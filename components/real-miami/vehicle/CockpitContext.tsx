@@ -32,7 +32,7 @@ export function CockpitProvider({ audio, vehicleId, autoLights, children, statio
   const previousAutoLights = useRef(false)
   const selected = useRef(audio.stationId)
   selected.current = audio.stationId
-  const feedbackTimer = useRef<ReturnType<typeof setTimeout>>()
+  const feedbackTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   useEffect(() => () => clearTimeout(feedbackTimer.current), [])
   function operateRadio(action: RadioAction, value?: string | number) {
     if (action === 'power') audio.toggle()

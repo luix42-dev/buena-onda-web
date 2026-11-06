@@ -58,7 +58,7 @@ export default function WorldExperience({campaign,campaignValid}:{campaign:Cruis
   const hasStarted=useRef(false)
   const [notice,setNotice]=useState(campaignValid?'':'Campaign unavailable. Showing Buena Onda.')
   const [hud,setHud]=useState(true)
-  const hideTimer=useRef<ReturnType<typeof setTimeout>>()
+  const hideTimer=useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const audio=useCruiseAudio()
   const car=LAUNCH_CARS.find(car=>car.id===vehicle)!
   const recordAdViewability=(_sample:unknown)=>{} // Local world experiments never count sponsorship outcomes.
