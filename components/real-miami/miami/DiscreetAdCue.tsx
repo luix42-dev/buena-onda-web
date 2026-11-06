@@ -12,8 +12,7 @@ export default function DiscreetAdCue({sample,recentlySeen=false,onActivate}:Pro
  if(!destination)return null
  const cta=placement.cta.startsWith('/')||placement.cta.startsWith('https://')?'Explore':placement.cta
  const content=<>
-  <span className={styles.meta}><span>{placement.kind.toUpperCase()}</span> {placement.campaign.name}</span>
-  {recentlySeen&&<span className={styles.passed}>Just passed</span>}
+  <span className={styles.meta}>{placement.campaign.name}</span>
   <strong>{placement.headline}</strong>
   <span className={styles.cta}>{cta}<span aria-hidden="true">↗</span><span className={styles.sr}> (opens a new tab)</span></span>
  </>

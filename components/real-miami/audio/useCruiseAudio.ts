@@ -1,7 +1,7 @@
 'use client'
 
 import {castIsRemote,castStations,sendCast,type CastStatus} from '@/lib/cruise/google-cast'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { canPlayCruiseStation, CRUISE_STATIONS, DEFAULT_CRUISE_STATION } from '@/lib/real-miami/stations'
 import type Hls from 'hls.js'
 import type { CruiseStation } from '@/lib/real-miami/types'
@@ -17,6 +17,7 @@ type RadioTrack = {
 
 type CruiseAudio = {
   stations: readonly CruiseStation[]
+  casting: boolean
   start: () => void
   toggle: () => void
   pause: () => void
@@ -71,6 +72,10 @@ function isBlockedPlayback(error: unknown) {
 }
 
 export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStation[] = CRUISE_STATIONS): CruiseAudio {
+  const [casting, setCasting] = useState(castIsRemote)
+  const selectableStations = useMemo(() => casting
+    ? stations.filter(station => canPlayCruiseStation(station) && castStations.includes(station.id))
+    : stations, [casting, stations])
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const hlsRef = useRef<Hls | null>(null)
   const hlsLoadingRef = useRef(false)
@@ -429,9 +434,19 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [pause, start])
 
   const selectStation = useCallback((id: string) => {
-    if(castIsRemote()){if(!castStations.includes(id)){setError("This station is not available on TV yet.");return false}sendCast({type:"station",station:id});const next=stations.find(s=>s.id===id);if(next){stationRef.current=next;setStation(next)}return !!next}
     const nextStation = stations.find(item => item.id === id)
     if (!nextStation || !canPlayCruiseStation(nextStation)) return false
+    if (castIsRemote()) {
+      if (!castStations.includes(id)) {
+        setError('This station is not available on TV yet.')
+        return false
+      }
+      if (!sendCast({ type: 'station', station: id })) return false
+      stationRef.current = nextStation
+      setStation(nextStation)
+      setError(null)
+      return true
+    }
     if (stationRef.current.id === id) return true
 
     playTuningNoise()
@@ -460,7 +475,12 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
   }, [clearLoadingTimeout, loadPlaylist, unlockMedia, stations, music, playTuningNoise])
 
   const stepStation = useCallback((direction: number) => {
-    const eligible = stations.filter(canPlayCruiseStation)
+    // Use the same source order as the picker, restricted to stations that the
+    // current output can play. Read ownership now so rapid taps do not rely on
+    // a React render catching up with the Cast handoff.
+    const remote = castIsRemote()
+    const eligible = stations.filter(station => canPlayCruiseStation(station)
+      && (!remote || castStations.includes(station.id)))
     if (!eligible.length) return
     // Read the synchronous selection ref so rapid taps cannot reuse a stale render.
     const index = eligible.findIndex(s => s.id === stationRef.current.id)
@@ -660,9 +680,57 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     }
   }, [armPlaybackLoadingTimeout, attemptPlay, clearLoadingTimeout, loadPlaylist, prepareTrack, music, stopTuningNoise])
 
-  useEffect(()=>{const state=(event:Event)=>{const s=(event as CustomEvent<CastStatus>).detail;audioRef.current?.pause();fetchControllerRef.current?.abort();sourceRevisionRef.current++;hlsRef.current?.destroy();hlsRef.current=null;stopTuningNoise();wantsPlaybackRef.current=s.playing;setRequested(s.playing);setPlaying(s.playing);setLoading(false);setVolumeState(s.volume);setMutedState(s.muted);volumeRef.current=s.volume;mutedRef.current=s.muted;if(audioRef.current){audioRef.current.volume=s.volume;audioRef.current.muted=s.muted;}const next=stations.find(x=>x.id===s.station);if(next){stationRef.current=next;setStation(next)}};const end=()=>{const playing=wantsPlaybackRef.current;tracksRef.current=[];fetchingRef.current=false;void loadPlaylist();if(playing)setPlaybackIntent(true)};addEventListener('cruise:cast-state',state);addEventListener('cruise:cast-ended',end);return()=>{removeEventListener('cruise:cast-state',state);removeEventListener('cruise:cast-ended',end)}},[stations,loadPlaylist,stopTuningNoise,setPlaybackIntent])
+  useEffect(() => {
+    const state = (event: Event) => {
+      const s = (event as CustomEvent<CastStatus>).detail
+      setCasting(true)
+      // This listener is synchronous: local audio stops before the sender
+      // releases the receiver's temporary handoff mute.
+      audioRef.current?.pause()
+      fetchControllerRef.current?.abort()
+      fetchControllerRef.current = null
+      fetchingRef.current = false
+      sourceRevisionRef.current++
+      hlsRef.current?.destroy()
+      hlsRef.current = null
+      hlsLoadingRef.current = false
+      clearLoadingTimeout()
+      stopTuningNoise()
+      const requested = s.requested ?? s.playing
+      wantsPlaybackRef.current = requested
+      setRequested(requested)
+      setPlaying(s.playing)
+      setLoading(!!s.loading)
+      setError(s.error || null)
+      setVolumeState(s.volume)
+      setMutedState(s.muted)
+      volumeRef.current = s.volume
+      mutedRef.current = s.muted
+      if (audioRef.current) {
+        audioRef.current.volume = s.volume
+        audioRef.current.muted = s.muted
+      }
+      const next = stations.find(item => item.id === s.station)
+      if (next) { stationRef.current = next; setStation(next) }
+    }
+    const end = () => {
+      setCasting(false)
+      const requested = wantsPlaybackRef.current
+      tracksRef.current = []
+      fetchingRef.current = false
+      setPlaybackIntent(requested)
+      void loadPlaylist()
+    }
+    addEventListener('cruise:cast-state', state)
+    addEventListener('cruise:cast-ended', end)
+    return () => {
+      removeEventListener('cruise:cast-state', state)
+      removeEventListener('cruise:cast-ended', end)
+    }
+  }, [stations, loadPlaylist, stopTuningNoise, setPlaybackIntent, clearLoadingTimeout])
   return {
-    stations,
+    stations: selectableStations,
+    casting,
     start,
     toggle,
     pause,

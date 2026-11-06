@@ -10,7 +10,7 @@ import './drive-deck.css'
 import MobilePlayer from './MobilePlayer'
 import {useMobileCruise} from '@/lib/cruise/preferences'
 export type DriveMode='city'|'highway'|'retrowave'
-export type DriveDeckProps={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;castParams:()=>Record<string,string>;onCasting:(active:boolean)=>void;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
+export type DriveDeckProps={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;castParams:()=>Record<string,string>;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
 const cameras:[CameraView,string][]=[['low','Chase'],['driver','Cockpit'],['director','Cinematic']]
 const names={city:'City',highway:'Highway',retrowave:'Retrowave'}
 /** Live LaunchExperience interactions, connected to the existing game/audio owners. */
@@ -35,6 +35,7 @@ export default function DriveDeck(p:DriveDeckProps){
   </section>}
   {panel==='radio'&&<section className="dd-sheet dd-radio-picker" role="dialog" aria-label="Radio stations">
    <header><strong>Buena Onda Radio</strong><button className="dd-close" aria-label="Close radio stations" onClick={()=>setPanel(null)}><X size={18}/></button></header>
+   {a.casting&&<p role="status">Showing stations available on TV.</p>}
    <div className="dd-radio-saves"><div><small>ON AIR / {a.station.name}</small><p>{p.canSaveSong&&p.track?p.track:'Track information unavailable.'}</p></div><div className="dd-save-actions"><button aria-label={p.stationSaved?'Remove saved station':'Save station'} aria-pressed={p.stationSaved} onClick={p.onSaveStation}>{p.stationSaved?'Station saved':'Save station'}</button>{p.canSaveSong&&<button aria-label={p.songKind==='show'?'Bookmark current broadcast':'Save current song'} aria-pressed={p.songSaved} onClick={()=>{if(p.onSaveSong())setSaveNote(p.songKind==='show'?'Broadcast saved':'Song saved')}}>{p.songSaved?p.songKind==='show'?'Broadcast saved':'Song saved':p.songKind==='show'?'Save broadcast':'Save song'}</button>}</div>{saveNote&&<p role="status" className="dd-save-note">{saveNote}</p>}</div>
    <div className="dd-station-list" aria-label="Six quick presets">{presets.map((station,slot)=><button key={station.id} aria-pressed={a.stationId===station.id} onClick={()=>{a.selectStation(station.id);a.start()}}><span><small>0{slot+1} / {p.favorites.includes(station.id)?'Saved preset':'Quick preset'}</small>{station.name}</span>{a.stationId===station.id&&<Check size={16}/>}</button>)}</div>
    <footer><button onClick={()=>{setPanel(null);p.onStations()}}>Browse all stations</button><button onClick={()=>{setPanel(null);p.onSavedStations()}}>Saved stations</button><button onClick={()=>{setPanel(null);p.onSavedMusic()}}>Saved songs</button></footer>
@@ -52,7 +53,7 @@ export default function DriveDeck(p:DriveDeckProps){
     <button className="dd-chip" aria-label={`Camera: ${cameras[index][1]}. Switch to ${next[1]}`} title={`Switch to ${next[1]}`} onClick={()=>{setPanel(null);p.onView(next[0])}}><Camera size={18}/><span>{cameras[index][1]}</span><small className="dd-cycle" aria-hidden="true">↻</small></button>
     <button className="dd-chip" aria-label={`Light: ${p.night?'Night':'Day'}. Switch to ${p.night?'Day':'Night'}`} title={`Switch to ${p.night?'Day':'Night'}`} onClick={()=>{setPanel(null);p.onNight()}}>{p.night?<Moon size={18}/>:<Sun size={18}/>}<span>{p.night?'Night':'Day'}</span></button>
     <button className="dd-chip" aria-label={`Drive: ${names[p.drive]}`} aria-expanded={panel==='drive'} aria-haspopup="dialog" onClick={e=>toggle('drive',e.currentTarget)}><span>{names[p.drive]}</span><ChevronDown size={15}/></button>
-    <CastButton audio={p.audio} params={p.castParams} onCasting={p.onCasting}/>
+    <CastButton audio={p.audio} params={p.castParams}/>
     <button className="dd-icon" aria-label="Fullscreen" onClick={()=>{if(document.fullscreenElement)void document.exitFullscreen();else void document.documentElement.requestFullscreen?.().catch(()=>{})}}><Maximize size={18}/></button>
    </div>
   </div>

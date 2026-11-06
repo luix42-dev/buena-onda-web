@@ -1,0 +1,51 @@
+{
+  "updatedAtUtc": "2026-11-06T04:10:00Z",
+  "focusedRegression": {
+    "scope": "sender, receiver and scene seed",
+    "passed": 17,
+    "failed": 0
+  },
+  "typecheck": {
+    "exitCode": 0
+  },
+  "productionBuild": {
+    "exitCode": 0,
+    "completedAtUtcApproximate": "2026-11-06T04:02:00Z",
+    "configuration": "Real application ID and candidate nightride/jolt-radio list in isolated build only",
+    "productionDeployment": false
+  },
+  "browserMatrix": {
+    "passed": 5,
+    "pageErrors": 0,
+    "viewports": [
+      [
+        360,
+        844
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "mode": "headless browser emulation",
+    "physicalPhone": false
+  },
+  "fullSuite": {
+    "newResultRecorded": false,
+    "priorMobileReleaseKnownFailures": 4,
+    "priorFailureArea": "Stripe checkout revalidatePath outside Next static-generation store"
+  },
+  "productionCastingEnabled": false
+}

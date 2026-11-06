@@ -1,0 +1,52 @@
+{
+  "recordedAtUtc": "2026-11-06T03:56:05Z",
+  "receiverObservedAtUtc": "2026-11-06T03:55:24.951Z",
+  "applicationId": "4B58AA3F",
+  "receiverHardware": "Google TV Streamer (4K)",
+  "source": "Actual Cast receiver messages captured by the isolated desktop Chrome sender",
+  "sessionState": "SESSION_STARTED",
+  "receiver": {
+    "station": "nightride",
+    "ready": true,
+    "playing": true,
+    "requested": true,
+    "loading": false,
+    "volume": 0.82,
+    "muted": false,
+    "scene": {
+      "drive": "retrowave",
+      "car": "countach",
+      "time": "night",
+      "mood": "night-drive"
+    },
+    "acknowledgementReceived": true
+  },
+  "sender": {
+    "drivePaused": true,
+    "engineVoiceRpm": null,
+    "audio": [
+      {
+        "src": "https://stream.nightride.fm/nightride.mp3",
+        "paused": true,
+        "muted": false,
+        "volume": 0.82,
+        "readyState": 4,
+        "currentTime": 87.807436
+      }
+    ],
+    "pageErrors": []
+  },
+  "userConfirmedSceneVisible": true,
+  "userConfirmedAudibleAudio": true,
+  "subsequentAudibleConfirmation": {
+    "source": "User confirmation after the initial telemetry snapshot",
+    "nightride": "it's working sound on",
+    "jolt-radio": "Yes, I hear Jolt"
+  },
+  "productionCastingEnabled": false,
+  "limitations": [
+    "A receiver playing flag alone is not audible-output confirmation; the user subsequently confirmed Nightride and Jolt sound on the TV.",
+    "Sender FPS is not receiver FPS and is intentionally omitted.",
+    "This snapshot does not establish all remote-control, reconnect, disconnect, station, world or car cases."
+  ]
+}
