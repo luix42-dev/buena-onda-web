@@ -1,0 +1,42 @@
+[
+  {
+    "width": 360,
+    "height": 844,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  },
+  {
+    "width": 430,
+    "height": 844,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  }
+]

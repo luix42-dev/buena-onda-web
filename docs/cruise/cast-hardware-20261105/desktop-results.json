@@ -1,0 +1,10 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "passed": true,
+    "castConfigured": true,
+    "testMode": "headless browser emulation",
+    "physicalCastTest": false
+  }
+]

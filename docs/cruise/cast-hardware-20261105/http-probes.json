@@ -1,0 +1,42 @@
+{
+  "checkedAtUtc": "2026-11-06T03:23:16Z",
+  "method": "GET with redirects allowed; TLS verification enabled; two-second connection timeout; three-second total limit; response bodies discarded",
+  "receiverOrigins": [
+    "isolated LAN HTTP receiver",
+    "https://www.buenaondalifestyle.com"
+  ],
+  "results": [
+    {
+      "station": "nightride",
+      "url": "https://stream.nightride.fm/nightride.mp3",
+      "httpStatus": 200,
+      "contentType": "audio/mpeg",
+      "redirects": 0,
+      "tlsVerifyResult": 0,
+      "accessControlAllowOrigin": "*",
+      "advertisedAudio": {
+        "bitrateKbps": 320,
+        "sampleRateHz": 44100,
+        "channels": 2
+      },
+      "bytesReceivedPerProbe": 589363
+    },
+    {
+      "station": "jolt-radio",
+      "url": "https://streamer.radio.co/sd8ab6b5aa/listen",
+      "httpStatus": 200,
+      "contentType": "audio/mpeg",
+      "redirects": 0,
+      "tlsVerifyResult": 0,
+      "accessControlAllowOrigin": "Matched each supplied receiver origin",
+      "accessControlAllowCredentials": true,
+      "advertisedAudio": {
+        "bitrateKbps": 128,
+        "sampleRateHz": 44100,
+        "channels": 2
+      },
+      "bytesReceivedPerProbe": 82756
+    }
+  ],
+  "limitation": "The deliberate three-second limit ended continuous streams with curl error 28. HTTP headers and received bytes do not certify receiver decoding or audible output."
+}
