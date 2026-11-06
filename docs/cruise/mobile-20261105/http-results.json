@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "location": null,
+    "server": "Vercel"
+  },
+  {
+    "path": "/cruise",
+    "status": 200,
+    "location": null,
+    "server": "Vercel"
+  },
+  {
+    "path": "/radio",
+    "status": 307,
+    "location": "/cruise",
+    "server": "Vercel"
+  },
+  {
+    "path": "/radio?fallback=1",
+    "status": 200,
+    "location": null,
+    "server": "Vercel"
+  },
+  {
+    "path": "/cruise?mode=classic",
+    "status": 200,
+    "location": null,
+    "server": "Vercel"
+  }
+]
