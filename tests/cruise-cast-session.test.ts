@@ -278,6 +278,21 @@ test('Cast sender ownership and session lifecycle', async t => {
       cast.disconnectCast()
       end()
     })
+    await t.test('closing every sender observer leaves TV playback running and allows rejoin', async () => {
+      await connect()
+      const stops = endRequests
+      cleanup()
+      assert.equal(endRequests, stops, 'closing the sender must not issue STOP to the TV')
+      assert.equal(current, receiver, 'TV session remains alive without sender observers')
+      const rejoined: CastStatus[] = []
+      const detach = cast.attachCast(state => rejoined.push(state), () => {})
+      emit({ playing: true, requested: true, muted: false, media: { currentTime: 120, readyState: 4, paused: false } })
+      assert.equal(rejoined.at(-1)?.media?.currentTime, 120)
+      assert.equal(endRequests, stops)
+      cast.disconnectCast()
+      end()
+      detach()
+    })
     assert(endRequests > 0)
     assert(sent.every((message, index) => index === 0 || message.sequence > sent[index - 1].sequence))
   } finally {

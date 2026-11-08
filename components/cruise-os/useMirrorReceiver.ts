@@ -196,6 +196,7 @@ export function useMirrorReceiver(options: Options) {
   useEffect(() => { if (session.current) play(session.current) }, [state, play])
 
   return { videoRef, state, error, receive, disconnect,
+    stop: () => { if (session.current) dispose(session.current); setState('ended'); setError('') },
     onVideoPlaying: () => {
       const item = session.current
       if (item) play(item)

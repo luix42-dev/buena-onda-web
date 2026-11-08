@@ -6,7 +6,7 @@ import { createCastSignalQueue } from '@/lib/cruise/cast-signal-queue'
 import { MIRROR_NAMESPACE, type MirrorMessage } from '@/lib/cruise/mirror-protocol'
 import { useMirrorReceiver } from './useMirrorReceiver'
 
-/** New senders stream their live drive. Legacy senders retain their existing receiver. */
+/** The TV owns its scene and audio. Older mirroring clients remain compatible. */
 export default function Receiver() {
   const frame = useRef<HTMLIFrameElement>(null)
   const [frameUrl, setFrameUrl] = useState<string | null>(null)
@@ -31,7 +31,7 @@ export default function Receiver() {
     const pending: CastCommand[] = [], sequences = new Map<string, number>()
     const diagnostics = process.env.NODE_ENV === 'development'
       || new URLSearchParams(location.search).get('diagnostics') === '1'
-    const seedFrame = createReceiverFrameSeed(receiverCastStations, diagnostics)
+    let seedFrame = createReceiverFrameSeed(receiverCastStations, diagnostics)
     const errors: Array<{ at: string; source: string; message: string }> = []
     let lastFrameStateAt = 0, heartbeat = 0
     let lastCommand: Partial<CastCommand> | null = null
@@ -39,6 +39,7 @@ export default function Receiver() {
     let removeFrameDiagnostics: (() => void) | null = null
     resetLegacy.current = () => {
       pending.length = 0; latestState = null; frameReady = false
+      seedFrame = createReceiverFrameSeed(receiverCastStations, diagnostics)
       removeFrameDiagnostics?.(); removeFrameDiagnostics = null; observedDocument = null
     }
     const recordError = (source: string, reason: unknown) => {
@@ -139,11 +140,19 @@ export default function Receiver() {
           void mirrorController.current.receive(event.senderId, event.data)
         })
         context.addCustomMessageListener(CAST_NAMESPACE, (event: any) => {
-          if (mirroring.current) return
           const command = event.data as CastCommand
           if (command?.version !== 1 || !Number.isSafeInteger(command.sequence)
             || command.sequence <= (sequences.get(event.senderId) ?? -1)) return
           sequences.set(event.senderId, command.sequence)
+          if (mirroring.current) {
+            // A new sender may rejoin the receiver left open by the previous version.
+            // Only a complete, valid handoff replaces that live stream.
+            const url = createReceiverFrameSeed(receiverCastStations, diagnostics)(command)
+            if (!url) return
+            mirrorController.current.stop()
+            mirroring.current = false
+            setMirrorMode(false)
+          }
           if (diagnostics) lastCommand = { type: command.type, sequence: command.sequence, requestId: command.requestId, station: command.station, playing: command.playing, scene: command.scene }
           if (command.station && !receiverCastStations.includes(command.station)) {
             broadcast({
