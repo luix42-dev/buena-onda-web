@@ -10,6 +10,7 @@ import type { MusicAudio } from '@/lib/real-miami/music-audio'
 import { parsePlaylistPosition, parsePlaylistTrack, playlistTrackId, resolvePlaylistPosition, type CastPlaylistPosition } from '@/lib/cruise/cast-playlist'
 import { createMirrorAudioTap, type MirrorAudio } from '@/lib/cruise/mirror-audio'
 import { fillDialNoise } from '@/lib/cruise/dial-noise'
+import { cruiseAudioSource } from '@/lib/cruise/audio-source'
 
 type RadioTrack = {
   src: string
@@ -228,7 +229,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     setTrackTitle(labelFor(track))
     setCurrentTrack(track)
 
-    if (force || audio.src !== track.src) {
+    if (force || audio.src !== new URL(cruiseAudioSource(track.src), window.location.href).href) {
       music?.detach()
       hlsRef.current?.destroy(); hlsRef.current = null; hlsLoadingRef.current = false
       if (music) audio.crossOrigin = 'anonymous'
@@ -244,7 +245,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
             // Native HLS remains the fallback on browsers without usable MSE.
             // Prefer hls.js elsewhere so the lowest rendition is deterministic.
             hlsLoadingRef.current = false
-            audio.src = track.src; audio.load()
+            audio.src = cruiseAudioSource(track.src); audio.load()
             if (wantsPlaybackRef.current) void audio.play().catch(() => { if (revision === sourceRevisionRef.current) { setLoading(false); setError('Tap play to start the radio.') } })
             return
           }
@@ -274,7 +275,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         })
         return revision
       }
-      audio.src = track.src
+      audio.src = cruiseAudioSource(track.src)
       audio.load()
     }
     return sourceRevisionRef.current
@@ -294,7 +295,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     // play() on an already-playing element need not emit another playing event.
     // Do not arm a timeout that would later stop a healthy current station.
     const expected = tracksRef.current[trackIndexRef.current]?.src
-    if (!hlsLoadingRef.current && !audio.paused && !audio.ended && !audio.error && audio.readyState >= 3 && expected && (hlsRef.current || audio.currentSrc === new URL(expected, window.location.href).href)) {
+    if (!hlsLoadingRef.current && !audio.paused && !audio.ended && !audio.error && audio.readyState >= 3 && expected && (hlsRef.current || audio.currentSrc === new URL(cruiseAudioSource(expected), window.location.href).href)) {
       clearLoadingTimeout()
       setError(null)
       setLoading(false)
@@ -672,7 +673,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         return
       }
       const expected = tracksRef.current[trackIndexRef.current]?.src
-      if (!expected || (!hlsRef.current && audio.currentSrc !== new URL(expected, window.location.href).href) || audio.paused) return
+      if (!expected || (!hlsRef.current && audio.currentSrc !== new URL(cruiseAudioSource(expected), window.location.href).href) || audio.paused) return
       clearLoadingTimeout()
       if (!wantsPlaybackRef.current) {
         audio.pause()
@@ -739,18 +740,18 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         // cancel the new station's playback intent while HLS is attaching.
         if (hlsRef.current || hlsLoadingRef.current) return
         // Native HLS errors must belong to the currently selected URL.
-        if (!audio.error || !expected || audio.currentSrc !== new URL(expected, window.location.href).href) return
+        if (!audio.error || !expected || audio.currentSrc !== new URL(cruiseAudioSource(expected), window.location.href).href) return
         clearLoadingTimeout(); setPlaybackIntent(false); setPlaying(false); setLoading(false)
         setError('Radio signal unavailable. Tap play to retry.')
         return
       }
-      if (!audio.error || !expected || audio.currentSrc !== new URL(expected, window.location.href).href) return
+      if (!audio.error || !expected || audio.currentSrc !== new URL(cruiseAudioSource(expected), window.location.href).href) return
       clearLoadingTimeout()
       // A media error cannot tell CORS from a transient failure (the r2.dev host answers 503 under load).
       // Retry the same file once with CORS kept, so one bad response does not cost live analysis for the visit.
       if (music && audio.crossOrigin === 'anonymous' && corsRetryRef.current !== expected) {
         corsRetryRef.current = expected
-        window.setTimeout(() => { if (audio.currentSrc === new URL(expected, window.location.href).href) { audio.load(); if (wantsPlaybackRef.current) attemptPlay() } }, 700)
+        window.setTimeout(() => { if (audio.currentSrc === new URL(cruiseAudioSource(expected), window.location.href).href) { audio.load(); if (wantsPlaybackRef.current) attemptPlay() } }, 700)
         return
       }
       // Capture is optional. A CORS failure retries ordinary radio on the same element.

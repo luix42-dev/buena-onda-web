@@ -6,7 +6,7 @@ type CapturableMedia = HTMLMediaElement & {
 type Lease = { stream: MediaStream; clones: Map<MediaStreamTrack, MediaStreamTrack> }
 type Entry = {
   raw: MediaStream | null; leases: Set<Lease>; sync: () => void
-  reset: () => void; refresh: () => void; watched: Set<MediaStreamTrack>
+  reset: () => void; refresh: () => void; playing: () => void; watched: Set<MediaStreamTrack>
   fault: unknown; disposed: boolean
 }
 const captures = new WeakMap<HTMLMediaElement, Entry>()
@@ -18,7 +18,7 @@ export function acquireMediaElementAudio(audio: CapturableMedia): { stream: Medi
   if (!entry) {
     const capture = audio.captureStream || audio.mozCaptureStream
     if (!capture) throw new Error('Audio capture is unavailable in this browser.')
-    const created: Entry = { raw: null, leases: new Set(), watched: new Set(), sync: () => {}, reset: () => {}, refresh: () => {}, fault: null, disposed: false }
+    const created: Entry = { raw: null, leases: new Set(), watched: new Set(), sync: () => {}, reset: () => {}, refresh: () => {}, playing: () => {}, fault: null, disposed: false }
     created.sync = () => {
       const tracks = new Set(created.raw?.getAudioTracks().filter(track => track.readyState === 'live') ?? [])
       for (const track of created.watched) if (!tracks.has(track)) {
@@ -68,12 +68,18 @@ export function acquireMediaElementAudio(audio: CapturableMedia): { stream: Medi
         created.sync()
       } catch (error) { created.fault = error }
     }
+    created.playing = () => {
+      // canplay/readyState can precede the new decoder's actual output. Reopen
+      // the one shared capture when playback really starts, refreshing all leases.
+      if (created.raw) created.reset()
+      created.refresh()
+    }
     // Reusing the element preserves playback controls; Chrome's capture provider
     // must be reopened for a replacement decoder, even if old tracks look live.
     audio.addEventListener('emptied', created.reset)
     audio.addEventListener('loadstart', created.reset)
     audio.addEventListener('loadedmetadata', created.refresh)
-    audio.addEventListener('playing', created.refresh)
+    audio.addEventListener('playing', created.playing)
     captures.set(audio, created)
     entry = created
   }
@@ -92,7 +98,7 @@ export function acquireMediaElementAudio(audio: CapturableMedia): { stream: Medi
     audio.removeEventListener('emptied', current.reset)
     audio.removeEventListener('loadstart', current.reset)
     audio.removeEventListener('loadedmetadata', current.refresh)
-    audio.removeEventListener('playing', current.refresh)
+    audio.removeEventListener('playing', current.playing)
     current.reset()
     if (captures.get(audio) === current) captures.delete(audio)
   }
