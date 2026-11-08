@@ -2,6 +2,7 @@
 import { createElement, useCallback, useEffect, useRef, useState } from 'react'
 import { CAST_NAMESPACE, receiverCastStations, type CastCommand, type CastStatus } from '@/lib/cruise/google-cast'
 import { createReceiverFrameSeed } from '@/lib/cruise/cast-receiver-seed'
+import { createCastSignalQueue } from '@/lib/cruise/cast-signal-queue'
 import { MIRROR_NAMESPACE, type MirrorMessage } from '@/lib/cruise/mirror-protocol'
 import { useMirrorReceiver } from './useMirrorReceiver'
 
@@ -105,9 +106,13 @@ export default function Receiver() {
       if (mirroring.current) return
       frame.current?.contentWindow?.postMessage({ channel: CAST_NAMESPACE, command }, location.origin)
     }
-    mirrorSend.current = (senderId, message) => {
-      if (!disposed && systemReady && context?.isSystemReady()) context.sendCustomMessage(MIRROR_NAMESPACE, senderId, message)
-    }
+    const mirrorSignals = createCastSignalQueue({
+      ready: senderId => !disposed && systemReady && !!context?.isSystemReady()
+        && context.getSenders().some((sender: { id: string }) => sender.id === senderId),
+      send: (senderId, message) => context.sendCustomMessage(MIRROR_NAMESPACE, senderId, message),
+      onFailure: reportError,
+    })
+    mirrorSend.current = mirrorSignals.send
     const script = document.createElement('script')
     script.src = 'https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js'
     script.onerror = () => reportError('Google Cast receiver SDK failed to load')
@@ -118,14 +123,17 @@ export default function Receiver() {
         context = framework.CastReceiverContext.getInstance()
         context.addEventListener(framework.system.EventType.READY, () => {
           systemReady = true
+          mirrorSignals.flush()
           if (diagnostics) console.info('[Cruise Cast receiver] CAF ready')
           if (latestState) broadcast(latestState)
         })
         context.addEventListener(framework.system.EventType.SENDER_CONNECTED, () => {
+          mirrorSignals.flush()
           if (latestState) broadcast(latestState)
         })
         context.addEventListener(framework.system.EventType.SENDER_DISCONNECTED, (event: { senderId: string }) => {
           mirrorController.current.disconnect(event.senderId)
+          mirrorSignals.disconnect(event.senderId)
         })
         context.addCustomMessageListener(MIRROR_NAMESPACE, (event: { senderId: string; data: unknown }) => {
           void mirrorController.current.receive(event.senderId, event.data)
@@ -186,6 +194,7 @@ export default function Receiver() {
     }, 1000) : null
     return () => {
       disposed = true
+      mirrorSignals.dispose()
       mirrorSend.current = () => {}; resetLegacy.current = () => {}
       removeEventListener('message', state)
       script.remove()

@@ -2,6 +2,7 @@
 
 import { loadCastSdk, castSupported } from './google-cast'
 import { MIRROR_NAMESPACE, parseMirrorMessage } from './mirror-protocol'
+import { collectCastDiagnostic, uploadCastDiagnostic, type CastDiagnosticReason } from './cast-diagnostics'
 
 export type LiveCastSource = { stream: MediaStream; setLocalSilent: (silent: boolean) => void; dispose: () => void }
 export type LiveCastState = { phase: 'idle' | 'connecting' | 'playing' | 'error'; device: string; error: string }
@@ -193,13 +194,29 @@ export async function startLiveCast() {
     const source = result.value, session = attempt.session
     const peer = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] })
     attempt.peer = peer
+    let sentCandidates = 0, receivedCandidates = 0, reported = false, connectedReported = false
+    const startedAt = Date.now()
+    const diagnose = async (reason: CastDiagnosticReason) => {
+      if (reported) return
+      reported = true
+      try {
+        uploadCastDiagnostic(await collectCastDiagnostic(peer, { id: attempt.id, side: 'sender', reason,
+          counters: { sentCandidates, receivedCandidates, elapsedMs: Date.now() - startedAt } }))
+      } catch { /* Diagnostics never affect the cast. */ }
+    }
+    const fail = (reason: CastDiagnosticReason, message: string) => {
+      if (!isCurrent(attempt)) return
+      // collectCastDiagnostic reads states and starts getStats synchronously, before finish() closes the peer.
+      void diagnose(reason)
+      finish(attempt, message)
+    }
     const queuedRemote: Array<RTCIceCandidateInit | null> = [], queuedLocal: Array<RTCIceCandidateInit | null> = []
     let offerSent = false, signalWork = Promise.resolve(), messageWork = Promise.resolve()
     const send = (message: object) => session.sendMessage(MIRROR_NAMESPACE, { version: 1, id: attempt.id, ...message })
     const sendCandidate = (candidate: RTCIceCandidateInit | null) => {
       signalWork = signalWork.then(async () => {
-        if (isCurrent(attempt)) await send({ type: 'ice', candidate })
-      }).catch(() => { if (isCurrent(attempt)) finish(attempt, 'The live connection could not be established. Try casting again.') })
+        if (isCurrent(attempt)) { await send({ type: 'ice', candidate }); if (candidate) sentCandidates++ }
+      }).catch(() => fail('signal-failed', 'The live connection could not be established. Try casting again.'))
     }
     const listener = (_namespace: string, data: unknown) => {
       messageWork = messageWork.then(async () => {
@@ -215,6 +232,7 @@ export async function startLiveCast() {
             await peer.addIceCandidate(candidate ?? undefined)
           }
         } else if (message.type === 'ice') {
+          if (message.candidate) receivedCandidates++
           if (peer.remoteDescription) await peer.addIceCandidate(message.candidate ?? undefined)
           else if (queuedRemote.length < 256) queuedRemote.push(message.candidate)
           else finish(attempt, 'The TV sent too many connection candidates. Try casting again.')
@@ -222,12 +240,12 @@ export async function startLiveCast() {
           if (!peer.remoteDescription) return
           clearTimeout(attempt.timeout); source.setLocalSilent(true)
           if (isCurrent(attempt)) { report({ phase: 'playing', device: session.getCastDevice().friendlyName || 'TV', error: '' }); keepScreenAwake(attempt) }
-        } else if (message.type === 'state' && message.state === 'error') finish(attempt, message.error || 'The TV could not play the live drive.')
+        } else if (message.type === 'state' && message.state === 'error') fail('transport-failed', message.error || 'The TV could not play the live drive.')
         else if (message.type === 'state' && message.state === 'ended') finish(attempt)
       }).catch(() => { if (isCurrent(attempt)) finish(attempt, 'The live TV connection was interrupted. Try casting again.') })
     }
     attempt.listener = listener
-    attempt.timeout = setTimeout(() => finish(attempt, 'The TV did not start the live drive. Try casting again.'), 30000)
+    attempt.timeout = setTimeout(() => fail('startup-timeout', 'The TV did not start the live drive. Try casting again.'), 30000)
     session.addMessageListener(MIRROR_NAMESPACE, listener)
     peer.onicecandidate = event => {
       if (!isCurrent(attempt)) return
@@ -239,10 +257,16 @@ export async function startLiveCast() {
     }
     peer.onconnectionstatechange = () => {
       if (!isCurrent(attempt)) return
-      if (peer.connectionState === 'connected') { clearTimeout(attempt.disconnected); attempt.disconnected = undefined }
-      else if (peer.connectionState === 'disconnected' && attempt.disconnected === undefined) {
-        attempt.disconnected = setTimeout(() => finish(attempt, 'The TV connection dropped. Your drive is still here.'), 10000)
-      } else if (peer.connectionState === 'failed' || peer.connectionState === 'closed') finish(attempt, 'The TV connection dropped. Your drive is still here.')
+      if (peer.connectionState === 'connected') {
+        clearTimeout(attempt.disconnected); attempt.disconnected = undefined
+        if (!connectedReported) {
+          connectedReported = true
+          void collectCastDiagnostic(peer, { id: attempt.id, side: 'sender', reason: 'connected',
+            counters: { sentCandidates, receivedCandidates, elapsedMs: Date.now() - startedAt } }).then(uploadCastDiagnostic, () => {})
+        }
+      } else if (peer.connectionState === 'disconnected' && attempt.disconnected === undefined) {
+        attempt.disconnected = setTimeout(() => fail('disconnected', 'The TV connection dropped. Your drive is still here.'), 10000)
+      } else if (peer.connectionState === 'failed' || peer.connectionState === 'closed') fail('transport-failed', 'The TV connection dropped. Your drive is still here.')
     }
     for (const track of source.stream.getTracks()) {
       const sender = peer.addTrack(track, source.stream)

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { parseMirrorMessage, type MirrorMessage, type MirrorState, type MirrorStats } from '@/lib/cruise/mirror-protocol'
+import { collectCastDiagnostic, uploadCastDiagnostic } from '@/lib/cruise/cast-diagnostics'
 
 type Options = {
   send: (senderId: string, message: MirrorMessage) => void
@@ -155,7 +156,11 @@ export function useMirrorReceiver(options: Options) {
     pc.onconnectionstatechange = () => {
       if (!current(item)) return
       if (pc.connectionState === 'connected') { clearTimeout(item.disconnected); item.disconnected = undefined; play(item) }
-      if (pc.connectionState === 'failed') finish(item, 'error', 'The live connection was lost. Reconnect to continue.')
+      if (pc.connectionState === 'failed') {
+        // TV-side view of the same failure (candidate types only, no addresses).
+        void collectCastDiagnostic(pc, { id: item.id, side: 'receiver', reason: 'transport-failed' }).then(uploadCastDiagnostic, () => {})
+        finish(item, 'error', 'The live connection could not be established. Reconnect to try again.')
+      }
       if (pc.connectionState === 'disconnected' && item.disconnected === undefined) {
         item.disconnected = setTimeout(() => finish(item, 'error', 'The phone disconnected from the TV.'), 10000)
       }
