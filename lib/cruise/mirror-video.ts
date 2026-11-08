@@ -5,6 +5,11 @@ type Layer = {
   stream: MediaStream; video: HTMLVideoElement; createdAt: number; closed: boolean
 }
 
+export function televisionViewport(phoneWidth: number, phoneHeight: number) {
+  const width = Math.max(phoneWidth, phoneHeight * 16 / 9), height = width * 9 / 16
+  return { width, height, left: (phoneWidth - width) / 2, top: (phoneHeight - height) / 2 }
+}
+
 export function mirrorVideoSize(viewWidth: number, viewHeight: number, pixelRatio = 1) {
   const portrait = viewHeight > viewWidth
   const scale = Math.min(Math.max(1, Math.min(2, pixelRatio)), (portrait ? 720 : 1280) / Math.max(1, viewWidth), (portrait ? 1280 : 720) / Math.max(1, viewHeight))
@@ -26,8 +31,7 @@ export function createMirrorVideo(listeningCard: () => { station: string; track:
   const output = document.createElement('canvas')
   const context = output.getContext('2d', { alpha: false })
   if (!context || typeof output.captureStream !== 'function') throw new Error('Live casting is not supported by this browser.')
-  const initial = mirrorVideoSize(innerWidth, innerHeight, devicePixelRatio)
-  output.width = initial.width; output.height = initial.height
+  output.width = 1280; output.height = 720
   const stream = output.captureStream(30)
   if (!stream.getVideoTracks().length) throw new Error('This browser could not share the Cruise picture.')
   const layers = new Map<HTMLCanvasElement, Layer>()
@@ -102,8 +106,8 @@ export function createMirrorVideo(listeningCard: () => { station: string; track:
     lastFrame += Math.max(1, Math.floor((elapsed + .1) / interval)) * interval
     try {
       if (now - lastScan > 250) { lastScan = now; scan() }
-      const { scale, width, height } = mirrorVideoSize(innerWidth, innerHeight, devicePixelRatio)
-      if (output.width !== width || output.height !== height) { output.width = width; output.height = height }
+      const capture = televisionViewport(innerWidth, innerHeight)
+      const width = 1280, height = 720, scale = width / capture.width
       context.fillStyle = '#10191c'; context.fillRect(0, 0, width, height)
       const listening = listeningCard()
       if (listening) {
@@ -130,9 +134,9 @@ export function createMirrorVideo(listeningCard: () => { station: string; track:
         const sx = parent ? parent.width / (layer.frame?.contentWindow?.innerWidth || parent.width) : 1
         const sy = parent ? parent.height / (layer.frame?.contentWindow?.innerHeight || parent.height) : 1
         context.save()
-        if (parent) { context.beginPath(); context.rect(parent.left * scale, parent.top * scale, parent.width * scale, parent.height * scale); context.clip() }
-        context.drawImage(layer.video, ((parent?.left || 0) + box.left * sx) * scale,
-          ((parent?.top || 0) + box.top * sy) * scale, box.width * sx * scale, box.height * sy * scale)
+        if (parent) { context.beginPath(); context.rect((parent.left - capture.left) * scale, (parent.top - capture.top) * scale, parent.width * scale, parent.height * scale); context.clip() }
+        context.drawImage(layer.video, ((parent?.left || 0) + box.left * sx - capture.left) * scale,
+          ((parent?.top || 0) + box.top * sy - capture.top) * scale, box.width * sx * scale, box.height * sy * scale)
         context.restore()
         drawn++
         if (layer.frame) cityDrawn = true
