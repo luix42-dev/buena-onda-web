@@ -97,6 +97,18 @@ test('mirror audio preserves its output track and local intent through station c
     assert.equal(audio.nextTracks[0].stops, 1, 'raw capture stops only after its last consumer releases')
     audio.captures = []; audio.nextTracks = [new Track()]
 
+    const earlyMusic = acquireMediaElementAudio(audio as unknown as HTMLAudioElement)
+    const earlyTv = acquireMediaElementAudio(audio as unknown as HTMLAudioElement)
+    const earlyTrack = earlyTv.stream.getAudioTracks()[0]
+    audio.nextTracks = [new Track()]
+    audio.dispatchEvent(new Event('playing'))
+    assert.equal(audio.captures.length, 2, 'playing replaces an early capture with the active decoder')
+    assert.equal(earlyTrack.readyState, 'ended')
+    assert.equal(earlyMusic.stream.getAudioTracks()[0].readyState, 'live')
+    assert.equal(earlyTv.stream.getAudioTracks()[0].readyState, 'live')
+    earlyMusic.release(); earlyTv.release()
+    audio.captures = []; audio.nextTracks = [new Track()]
+
     const tap = make()
     try {
       await tap.ready()
