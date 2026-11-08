@@ -19,6 +19,7 @@ export function createMirrorAudioTap(
   getState: () => RadioState,
   onLocalSilent: (silent: boolean) => void,
   onFailure: (message: string) => void,
+  onWarning?: (message: string) => void,
 ): MirrorAudio & { ready: () => Promise<void>; update: () => void; addStream: (stream: MediaStream) => () => void } {
   const capture = audio.captureStream || audio.mozCaptureStream
   if (!capture) throw new Error('This browser cannot share the radio audio. Open Cruise in Chrome to cast.')
@@ -31,6 +32,7 @@ export function createMirrorAudioTap(
   let source: MediaStreamAudioSourceNode | null = null
   let track: MediaStreamTrack | null = null
   let localSilent = false, disposed = false, fault: Error | null = null
+  let ready = false, warning = ''
   let missingSince = 0
   let resolveStopped!: () => void
   const stopped = new Promise<void>(resolve => { resolveStopped = resolve })
@@ -61,6 +63,7 @@ export function createMirrorAudioTap(
       source = context.createMediaStreamSource(new MediaStream([next]))
       source.connect(gain)
       track = next
+      if (warning) { warning = ''; onWarning?.('') }
     } catch {
       fail('This station cannot share its audio with the TV. Try Nightride FM or another station.')
     }
@@ -134,6 +137,14 @@ export function createMirrorAudioTap(
   }
   function fail(message: string) {
     if (disposed) return
+    if (ready && onWarning) {
+      releaseCapture()
+      if (warning !== message) {
+        warning = message
+        onWarning('Audio from this station is unavailable on TV. Choose another station; the TV stays connected.')
+      }
+      return
+    }
     fault = new Error(message)
     dispose()
     onFailure(message)
@@ -154,7 +165,7 @@ export function createMirrorAudioTap(
       } finally { clearTimeout(timeout) }
       if (fault) throw fault
       if (disposed) throw new Error('Audio sharing was cancelled.')
-      if (audio.paused || !getState().sourceReady) return
+      if (audio.paused || !getState().sourceReady) { ready = true; return }
       const started = Date.now()
       while (!disposed && !audio.paused && getState().sourceReady && (!track || track.readyState !== 'live' || track.muted)) {
         if (Date.now() - started > 6500) {
@@ -165,6 +176,7 @@ export function createMirrorAudioTap(
       }
       if (fault) throw fault
       if (disposed) throw new Error('Audio sharing was cancelled.')
+      ready = true
     },
     setLocalSilent(silent) {
       if (disposed) return

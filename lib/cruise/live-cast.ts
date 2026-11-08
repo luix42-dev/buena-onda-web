@@ -2,7 +2,7 @@
 
 import { loadCastSdk, castSupported } from './google-cast'
 import { MIRROR_NAMESPACE, parseMirrorMessage } from './mirror-protocol'
-import { fetchCastIceServers } from './cast-ice'
+import { fetchCastIceServers, castPeerConfiguration } from './cast-ice'
 import { collectCastDiagnostic, uploadCastDiagnostic, type CastDiagnosticReason } from './cast-diagnostics'
 
 export type LiveCastSource = { stream: MediaStream; setLocalSilent: (silent: boolean) => void; dispose: () => void }
@@ -196,7 +196,7 @@ export async function startLiveCast() {
     const source = result.value, session = attempt.session
     const servers = await Promise.race([iceServers, stopped])
     if (servers === cancelled || !isCurrent(attempt)) return
-    const peer = new RTCPeerConnection({ iceServers: servers })
+    const peer = new RTCPeerConnection(castPeerConfiguration(servers))
     attempt.peer = peer
     let sentCandidates = 0, receivedCandidates = 0, reported = false, connectedReported = false
     const startedAt = Date.now()

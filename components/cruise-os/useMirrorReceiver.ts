@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { parseMirrorMessage, type MirrorMessage, type MirrorState, type MirrorStats } from '@/lib/cruise/mirror-protocol'
 import { collectCastDiagnostic, uploadCastDiagnostic } from '@/lib/cruise/cast-diagnostics'
-import { fetchCastIceServers } from '@/lib/cruise/cast-ice'
+import { fetchCastIceServers, castPeerConfiguration } from '@/lib/cruise/cast-ice'
 
 type Options = {
   send: (senderId: string, message: MirrorMessage) => void
@@ -170,7 +170,7 @@ export function useMirrorReceiver(options: Options) {
     try {
       const iceServers = await fetchCastIceServers()
       if (!current(item)) return
-      pc.setConfiguration({ iceServers })
+      pc.setConfiguration(castPeerConfiguration(iceServers))
       await pc.setRemoteDescription({ type: 'offer', sdp: message.sdp })
       if (!current(item)) return
       item.remoteReady = true

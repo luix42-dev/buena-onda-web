@@ -14,6 +14,11 @@ export default function CastButton() {
   const [error, setError] = useState('')
   useEffect(() => observeLiveCast(setState), [])
   useEffect(() => {
+    const warning = (event: Event) => setError((event as CustomEvent<{ message: string }>).detail.message)
+    window.addEventListener('cruise:mirror-audio-warning', warning)
+    return () => window.removeEventListener('cruise:mirror-audio-warning', warning)
+  }, [])
+  useEffect(() => {
     let mounted = true
     if (liveCastSupported()) void prepareLiveCast().then(value => { if (mounted) setReady(value) })
       .catch(() => { if (mounted) setError('Could not connect to Google Cast. Refresh and try again.') })

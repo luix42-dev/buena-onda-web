@@ -491,6 +491,9 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     }, message => {
       if (mirrorCaptureTokenRef.current !== token) return
       window.dispatchEvent(new CustomEvent('cruise:mirror-audio-error', { detail: { message } }))
+    }, message => {
+      if (mirrorCaptureTokenRef.current !== token) return
+      window.dispatchEvent(new CustomEvent('cruise:mirror-audio-warning', { detail: { message } }))
     })
     mirrorAudioRef.current = capture
     const voice = tuningVoiceRef.current
