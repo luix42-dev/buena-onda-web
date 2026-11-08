@@ -38,22 +38,23 @@ export function useLiveCastSource(radio: Radio, engine: Engine, receiver: boolea
         current.current.radio.createMirrorAudio(), current.current.engine.createMirrorAudio(),
       ])
       const [radioResult, engineResult] = captures
-      if (radioResult.status === 'rejected' || engineResult.status === 'rejected') {
+      if (radioResult.status === 'rejected') {
         video.dispose(); restoreViewport()
         for (const result of captures) if (result.status === 'fulfilled') result.value.dispose()
-        throw radioResult.status === 'rejected' ? radioResult.reason : (engineResult as PromiseRejectedResult).reason
+        throw radioResult.reason
       }
-      const radioAudio = radioResult.value, engineAudio = engineResult.value
+      // Optional engine audio must never cancel the TV's main picture/radio stream.
+      const radioAudio = radioResult.value, engineAudio = engineResult.status === 'fulfilled' ? engineResult.value : null
       let removeEngine: (() => void) | undefined, disposed = false
-      try { removeEngine = radioAudio.addStream(engineAudio.stream) }
-      catch (error) { video.dispose(); restoreViewport(); radioAudio.dispose(); engineAudio.dispose(); throw error }
+      try { if (engineAudio) removeEngine = radioAudio.addStream(engineAudio.stream) }
+      catch (error) { video.dispose(); restoreViewport(); radioAudio.dispose(); engineAudio?.dispose(); throw error }
       return {
         stream: new MediaStream([...video.stream.getVideoTracks(), ...radioAudio.stream.getAudioTracks()]),
-        setLocalSilent(silent: boolean) { radioAudio.setLocalSilent(silent); engineAudio.setLocalSilent(silent) },
+        setLocalSilent(silent: boolean) { radioAudio.setLocalSilent(silent); engineAudio?.setLocalSilent(silent) },
         dispose() {
           if (disposed) return
           disposed = true
-          removeEngine?.(); video.dispose(); restoreViewport(); radioAudio.dispose(); engineAudio.dispose()
+          removeEngine?.(); video.dispose(); restoreViewport(); radioAudio.dispose(); engineAudio?.dispose()
         },
       }
     })
