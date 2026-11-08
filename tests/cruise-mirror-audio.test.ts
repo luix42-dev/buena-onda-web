@@ -160,7 +160,7 @@ test('mirror audio preserves its output track and local intent through station c
     const warnings: string[] = []
     audio.paused = false; audio.readyState = 4; state.sourceReady = true
     audio.nextTracks = [new Track()]
-    const recoverable = createMirrorAudioTap(audio as unknown as HTMLAudioElement, () => state, () => {}, message => errors.push(message), message => warnings.push(message))
+    const recoverable = createMirrorAudioTap(audio as unknown as HTMLAudioElement, () => state, () => {}, message => (errors as string[]).push(message), message => warnings.push(message))
     try {
       await recoverable.ready()
       recoverable.setLocalSilent(true)
