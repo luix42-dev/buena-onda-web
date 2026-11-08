@@ -10,7 +10,7 @@ import './drive-deck.css'
 import MobilePlayer from './MobilePlayer'
 import {useMobileCruise} from '@/lib/cruise/preferences'
 export type DriveMode='city'|'highway'|'retrowave'
-export type DriveDeckProps={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;castParams:()=>Record<string,string>;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
+export type DriveDeckProps={audio:ReturnType<typeof useCruiseAudio>;track:string|null;onSeek:(direction:number)=>void;onStations:()=>void;onSavedStations:()=>void;onSavedMusic:()=>void;favorites:readonly string[];stationSaved:boolean;onSaveStation:()=>void;songSaved:boolean;canSaveSong:boolean;songKind:'track'|'show';onSaveSong:()=>boolean;view:CameraView;onView:(view:CameraView)=>void;drive:DriveMode;onDrive:(drive:DriveMode)=>void;night:boolean;onNight:()=>void;sunlightLabel?:string;onMenu:()=>void;companion?:{mode:Chattiness;onMode:(mode:Chattiness)=>void};engine?:{on:boolean;toggle:()=>void;label:string};onListen?:()=>void}
 const cameras:[CameraView,string][]=[['low','Chase'],['driver','Cockpit'],['director','Cinematic']]
 const names={city:'City',highway:'Highway',retrowave:'Retrowave'}
 /** Live LaunchExperience interactions, connected to the existing game/audio owners. */
