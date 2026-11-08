@@ -9,6 +9,7 @@ import {parseRadioVolume,RADIO_VOLUME_KEY,radioStatus,type RadioStatus} from '@/
 import type { MusicAudio } from '@/lib/real-miami/music-audio'
 import { parsePlaylistPosition, parsePlaylistTrack, playlistTrackId, resolvePlaylistPosition, type CastPlaylistPosition } from '@/lib/cruise/cast-playlist'
 import { createMirrorAudioTap, type MirrorAudio } from '@/lib/cruise/mirror-audio'
+import { fillDialNoise } from '@/lib/cruise/dial-noise'
 
 type RadioTrack = {
   src: string
@@ -49,7 +50,7 @@ type CruiseAudio = {
   status: RadioStatus
 }
 
-type TuningVoice = { source: AudioBufferSourceNode; highpass: BiquadFilterNode; lowpass: BiquadFilterNode; envelope: GainNode; output: GainNode }
+type TuningVoice = { source: AudioBufferSourceNode; highpass: BiquadFilterNode; lowpass: BiquadFilterNode; envelope: GainNode; output: GainNode; local: GainNode; relay: MediaStreamAudioDestinationNode; removeRelay?: () => void; startedAt: number }
 
 const DEFAULT_VOLUME = 0.82
 const RADIO_LOADING_TIMEOUT_MS = 12_000
@@ -118,6 +119,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       try { voice.source.stop() } catch { /* Already ended or not started. */ }
       voice.source.disconnect(); voice.highpass.disconnect(); voice.lowpass.disconnect()
       voice.envelope.disconnect(); voice.output.disconnect()
+      voice.local.disconnect(); voice.removeRelay?.(); voice.relay.stream.getTracks().forEach(track => track.stop())
     }
     if (mountedRef.current) setTuning(false)
   }, [])
@@ -127,25 +129,39 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     if (!wantsPlaybackRef.current || mutedRef.current || volumeRef.current === 0) return
     try {
       const context = tuningContextRef.current ??= new AudioContext()
-      // Generated locally; a brief between-station effect, never a fake station or analyser signal.
-      const buffer = tuningBufferRef.current ??= context.createBuffer(1, Math.ceil(context.sampleRate * .38), context.sampleRate)
+      // Generated locally; changing bandwidth and carrier catches suggest a physical dial.
+      const buffer = tuningBufferRef.current ??= context.createBuffer(1, Math.ceil(context.sampleRate * 1.45), context.sampleRate)
       const samples = buffer.getChannelData(0)
-      for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1
+      fillDialNoise(samples, context.sampleRate)
       const source = context.createBufferSource(), highpass = context.createBiquadFilter(), lowpass = context.createBiquadFilter()
       const envelope = context.createGain(), output = context.createGain()
-      source.buffer = buffer; highpass.type = 'highpass'; highpass.frequency.value = 650
-      lowpass.type = 'lowpass'; lowpass.frequency.value = 4200
+      source.buffer = buffer; highpass.type = 'highpass'; highpass.Q.value = .6
+      lowpass.type = 'lowpass'; lowpass.Q.value = .8
       output.gain.value = volumeRef.current
       const now = context.currentTime
+      highpass.frequency.setValueAtTime(180, now)
+      highpass.frequency.exponentialRampToValueAtTime(950, now + .38)
+      highpass.frequency.exponentialRampToValueAtTime(110, now + .83)
+      highpass.frequency.exponentialRampToValueAtTime(460, now + 1.4)
+      lowpass.frequency.setValueAtTime(1800, now)
+      lowpass.frequency.exponentialRampToValueAtTime(6800, now + .48)
+      lowpass.frequency.exponentialRampToValueAtTime(2400, now + .96)
+      lowpass.frequency.exponentialRampToValueAtTime(5100, now + 1.35)
       envelope.gain.setValueAtTime(0, now)
-      envelope.gain.linearRampToValueAtTime(.14, now + .012)
-      envelope.gain.linearRampToValueAtTime(.09, now + .10)
-      envelope.gain.linearRampToValueAtTime(0, now + .35)
-      source.connect(highpass); highpass.connect(lowpass); lowpass.connect(envelope); envelope.connect(output); output.connect(context.destination)
-      const voice = { source, highpass, lowpass, envelope, output }
+      envelope.gain.linearRampToValueAtTime(.18, now + .045)
+      envelope.gain.linearRampToValueAtTime(.13, now + .35)
+      envelope.gain.linearRampToValueAtTime(.17, now + .92)
+      envelope.gain.linearRampToValueAtTime(.10, now + 1.24)
+      envelope.gain.linearRampToValueAtTime(0, now + 1.43)
+      const local = context.createGain(), relay = context.createMediaStreamDestination()
+      local.gain.value = mirrorLocalSilentRef.current ? 0 : 1
+      source.connect(highpass); highpass.connect(lowpass); lowpass.connect(envelope); envelope.connect(output)
+      output.connect(local).connect(context.destination); output.connect(relay)
+      const voice: TuningVoice = { source, highpass, lowpass, envelope, output, local, relay, startedAt: now,
+        removeRelay: mirrorAudioRef.current?.addStream(relay.stream) }
       tuningVoiceRef.current = voice
       source.onended = () => { if (tuningVoiceRef.current === voice) stopTuningNoise() }
-      setTuning(true); source.start(now); source.stop(now + .38)
+      setTuning(true); source.start(now); source.stop(now + 1.45)
       void context.resume().catch(() => { if (tuningVoiceRef.current === voice) stopTuningNoise() })
     } catch { stopTuningNoise() } // Optional texture must never prevent actual radio playback.
   }, [stopTuningNoise])
@@ -468,11 +484,17 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       volume: volumeRef.current,
       muted: mutedRef.current,
       sourceReady: tracksRef.current.length > 0 && audio.src !== AUDIO_UNLOCK_SRC,
-    }), silent => { mirrorLocalSilentRef.current = silent }, message => {
+    }), silent => {
+      mirrorLocalSilentRef.current = silent
+      const voice = tuningVoiceRef.current
+      if (voice) voice.local.gain.value = silent ? 0 : 1
+    }, message => {
       if (mirrorCaptureTokenRef.current !== token) return
       window.dispatchEvent(new CustomEvent('cruise:mirror-audio-error', { detail: { message } }))
     })
     mirrorAudioRef.current = capture
+    const voice = tuningVoiceRef.current
+    if (voice) { voice.removeRelay?.(); voice.removeRelay = capture.addStream(voice.relay.stream) }
     try { await capture.ready(); return capture }
     catch (error) {
       capture.dispose()
@@ -654,7 +676,14 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
         return
       }
       failedTracksRef.current = 0
-      stopTuningNoise()
+      const tuningVoice = tuningVoiceRef.current, tuningContext = tuningContextRef.current
+      if (tuningVoice && tuningContext) {
+        const now = tuningContext.currentTime, settle = Math.max(now, tuningVoice.startedAt + .75)
+        tuningVoice.envelope.gain.cancelAndHoldAtTime(now)
+        tuningVoice.envelope.gain.linearRampToValueAtTime(.08, settle)
+        tuningVoice.envelope.gain.linearRampToValueAtTime(0, settle + .18)
+        tuningVoice.source.stop(settle + .19)
+      }
       setPlaying(true)
       setLoading(false)
       setError(null)

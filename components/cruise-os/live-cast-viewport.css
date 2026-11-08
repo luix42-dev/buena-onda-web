@@ -1,0 +1,11 @@
+/* One wide render shared by the phone's central crop and the TV's full frame. */
+html[data-cruise-tv="true"] .jn-world,
+html[data-cruise-tv="true"] .ocean-drive-game iframe {
+  width: max(100vw, 177.777778dvh) !important;
+  height: max(56.25vw, 100dvh) !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%);
+}
