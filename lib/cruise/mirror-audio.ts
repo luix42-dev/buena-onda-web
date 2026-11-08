@@ -32,7 +32,7 @@ export function createMirrorAudioTap(
   let source: MediaStreamAudioSourceNode | null = null
   let track: MediaStreamTrack | null = null
   let localSilent = false, disposed = false, fault: Error | null = null
-  let ready = false, warning = ''
+  let warning = ''
   let missingSince = 0
   let resolveStopped!: () => void
   const stopped = new Promise<void>(resolve => { resolveStopped = resolve })
@@ -65,7 +65,7 @@ export function createMirrorAudioTap(
       track = next
       if (warning) { warning = ''; onWarning?.('') }
     } catch {
-      fail('This station cannot share its audio with the TV. Try Nightride FM or another station.')
+      fail('This station cannot share its audio with the TV. Try Nightride FM or another station.', true)
     }
   }
   const releaseCapture = () => {
@@ -85,7 +85,7 @@ export function createMirrorAudioTap(
   const attach = () => {
     if (disposed || !getState().sourceReady || audio.readyState < 1) return
     if (!readableSource()) {
-      fail('This station does not allow audio sharing. Choose Nightride FM or another station to cast.')
+      fail('This station does not allow audio sharing. Choose Nightride FM or another station to cast.', true)
       return
     }
     if (!captured) {
@@ -95,7 +95,7 @@ export function createMirrorAudioTap(
         captured.addEventListener('addtrack', wireTrack)
         captured.addEventListener('removetrack', wireTrack)
       } catch {
-        fail('This station cannot share its audio with the TV. Try another station.')
+        fail('This station cannot share its audio with the TV. Try another station.', true)
         return
       }
     }
@@ -114,7 +114,7 @@ export function createMirrorAudioTap(
     if (!getState().sourceReady || audio.paused || audio.readyState < 3) { missingSince = 0; return }
     if (track?.readyState === 'live' && !track.muted) { missingSince = 0; return }
     missingSince ||= Date.now()
-    if (Date.now() - missingSince > 6000) fail('The station audio could not be shared. Try another station and cast again.')
+    if (Date.now() - missingSince > 6000) fail('The station audio could not be shared. Try another station and cast again.', true)
   }, 200)
   function dispose() {
     if (disposed) return
@@ -135,9 +135,9 @@ export function createMirrorAudioTap(
     delete audio.dataset.cruiseLocalSilent
     audio.muted = getState().muted
   }
-  function fail(message: string) {
+  function fail(message: string, stationFailure = false) {
     if (disposed) return
-    if (ready && onWarning) {
+    if (stationFailure && onWarning) {
       releaseCapture()
       if (warning !== message) {
         warning = message
@@ -165,18 +165,8 @@ export function createMirrorAudioTap(
       } finally { clearTimeout(timeout) }
       if (fault) throw fault
       if (disposed) throw new Error('Audio sharing was cancelled.')
-      if (audio.paused || !getState().sourceReady) { ready = true; return }
-      const started = Date.now()
-      while (!disposed && !audio.paused && getState().sourceReady && (!track || track.readyState !== 'live' || track.muted)) {
-        if (Date.now() - started > 6500) {
-          fail('The station audio could not be shared. Try another station and cast again.')
-          break
-        }
-        await new Promise(resolve => setTimeout(resolve, 50))
-      }
-      if (fault) throw fault
-      if (disposed) throw new Error('Audio sharing was cancelled.')
-      ready = true
+      // The outgoing mixer track is already live. Station input can attach later;
+      // waiting for its decoder here can cancel the TV launch while choosing a device.
     },
     setLocalSilent(silent) {
       if (disposed) return

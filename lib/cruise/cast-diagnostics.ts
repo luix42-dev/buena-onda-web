@@ -1,5 +1,5 @@
-export type CastDiagnosticReason = 'connected' | 'transport-failed' | 'startup-timeout' | 'disconnected' | 'signal-failed'
-const reasons = ['connected', 'transport-failed', 'startup-timeout', 'disconnected', 'signal-failed'] as const
+export type CastDiagnosticReason = 'connected' | 'transport-failed' | 'startup-timeout' | 'disconnected' | 'signal-failed' | 'capture-failed' | 'picker-failed'
+const reasons = ['connected', 'transport-failed', 'startup-timeout', 'disconnected', 'signal-failed', 'capture-failed', 'picker-failed'] as const
 const states = ['new', 'connecting', 'connected', 'disconnected', 'failed', 'closed', 'checking', 'completed', 'gathering', 'complete', 'stable', 'have-local-offer', 'have-remote-offer', 'have-local-pranswer', 'have-remote-pranswer', 'unknown']
 const counterKeys = ['localHost', 'localSrflx', 'localRelay', 'remoteHost', 'remoteSrflx', 'remoteRelay', 'localMdns', 'remoteMdns', 'localIpv6', 'remoteIpv6', 'udp', 'tcp', 'pairs', 'succeeded', 'failed', 'requests', 'responses', 'sentCandidates', 'receivedCandidates', 'elapsedMs'] as const
 export type CastDiagnostic = {
@@ -39,16 +39,17 @@ export function parseCastDiagnostic(input: unknown): CastDiagnostic | null {
   return output
 }
 
-export async function collectCastDiagnostic(pc: RTCPeerConnection, values: Pick<CastDiagnostic, 'id' | 'side' | 'reason'> & { counters?: CastDiagnostic['counters'] }): Promise<CastDiagnostic> {
+export async function collectCastDiagnostic(pc: RTCPeerConnection | null, values: Pick<CastDiagnostic, 'id' | 'side' | 'reason'> & { counters?: CastDiagnostic['counters'] }): Promise<CastDiagnostic> {
   const ua = typeof navigator === 'undefined' ? '' : navigator.userAgent
   const result: CastDiagnostic = {
     version: 1, ...values, counters: { ...values.counters },
-    connection: pc.connectionState, ice: pc.iceConnectionState, gathering: pc.iceGatheringState,
-    signaling: pc.signalingState, dtls: 'unknown', localDescription: !!pc.localDescription,
-    remoteDescription: !!pc.remoteDescription, hidden: typeof document !== 'undefined' && document.hidden,
+    connection: pc?.connectionState || 'new', ice: pc?.iceConnectionState || 'new', gathering: pc?.iceGatheringState || 'new',
+    signaling: pc?.signalingState || 'stable', dtls: 'unknown', localDescription: !!pc?.localDescription,
+    remoteDescription: !!pc?.remoteDescription, hidden: typeof document !== 'undefined' && document.hidden,
     platform: /Android/i.test(ua) ? 'android' : /iPhone|iPad/i.test(ua) ? 'ios' : ua ? 'desktop' : 'unknown',
     chromeMajor: Number(/(?:Chrome|Chromium)\/(\d+)/.exec(ua)?.[1] || 0),
   }
+  if (!pc) return result
   let timer: ReturnType<typeof setTimeout> | undefined
   try {
     const stats = await Promise.race([pc.getStats(), new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), 300) })])

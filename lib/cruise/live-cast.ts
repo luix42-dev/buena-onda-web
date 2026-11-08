@@ -148,6 +148,7 @@ export async function startLiveCast() {
   const onSourceError = (event: Event) => {
     if (!isCurrent(attempt)) return
     const detail = (event as CustomEvent<{ message?: string }>).detail
+    void collectCastDiagnostic(attempt.peer, { id: attempt.id, side: 'sender', reason: 'capture-failed' }).then(uploadCastDiagnostic, () => {})
     finish(attempt, typeof detail?.message === 'string' ? detail.message : 'The phone could not keep sending the live drive. Try casting again.')
   }
   window.addEventListener('cruise:mirror-audio-error', onSourceError)
@@ -179,7 +180,10 @@ export async function startLiveCast() {
       if (result.value) {
         if (isCurrent(attempt)) attempt.source = result.value
         else if (active?.source !== result.value) release(result.value)
-      } else if (isCurrent(attempt)) finish(attempt, errorMessage(result.error))
+      } else if (isCurrent(attempt)) {
+        void collectCastDiagnostic(null, { id: attempt.id, side: 'sender', reason: 'capture-failed' }).then(uploadCastDiagnostic, () => {})
+        finish(attempt, errorMessage(result.error))
+      }
       return result
     })
   } catch (error) { finish(attempt, errorMessage(error)); return }
@@ -187,7 +191,10 @@ export async function startLiveCast() {
   try {
     const selected = await Promise.race([selection, stopped])
     if (selected === cancelled || !isCurrent(attempt)) return
-    if (selected.error) { finish(attempt, pickerCancelled(selected.error) ? '' : errorMessage(selected.error)); return }
+    if (selected.error) {
+      if (!pickerCancelled(selected.error)) void collectCastDiagnostic(null, { id: attempt.id, side: 'sender', reason: 'picker-failed' }).then(uploadCastDiagnostic, () => {})
+      finish(attempt, pickerCancelled(selected.error) ? '' : errorMessage(selected.error)); return
+    }
     attempt.session = selected.value
     if (!attempt.session) throw new Error('The TV did not connect.')
     const result = await Promise.race([captured, stopped])

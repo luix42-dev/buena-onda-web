@@ -168,13 +168,16 @@ test('mirror audio preserves its output track and local intent through station c
     assert.equal(blocked.stream.getAudioTracks()[0].readyState, 'ended')
     assert.equal(errors.length, 1)
 
-    audio.crossOrigin = 'anonymous'
     const warnings: string[] = []
     audio.paused = false; audio.readyState = 4; state.sourceReady = true
     audio.nextTracks = [new Track()]
     const recoverable = createMirrorAudioTap(audio as unknown as HTMLAudioElement, () => state, () => {}, message => (errors as string[]).push(message), message => warnings.push(message))
     try {
       await recoverable.ready()
+      assert.equal(recoverable.stream.getAudioTracks()[0].readyState, 'live', 'initial blocked station must still allow TV startup')
+      assert.match(warnings.at(-1)!, /unavailable on TV/)
+      audio.crossOrigin = 'anonymous'; audio.dispatchEvent(new Event('playing'))
+      assert.equal(warnings.at(-1), '')
       recoverable.setLocalSilent(true)
       const output = recoverable.stream.getAudioTracks()[0]
       audio.crossOrigin = null
