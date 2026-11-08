@@ -77,7 +77,7 @@ export default function MobilePlayer(p: DriveDeckProps) {
         <button aria-label="Previous station" onClick={() => a.stepStation(-1)}><SkipBack /></button>
         <button aria-label={a.requested ? 'Pause radio' : 'Play radio'} onClick={a.toggle}>{a.requested ? <Pause /> : <Play />}</button>
         <button aria-label="Next station" onClick={() => a.stepStation(1)}><SkipForward /></button>
-        <CastButton audio={a} params={p.castParams} />
+        <CastButton />
       </div>
       {a.error && <button className="mobile-error" onClick={a.start}>Radio unavailable. Retry</button>}
     </div>

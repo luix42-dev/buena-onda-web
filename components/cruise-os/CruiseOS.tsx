@@ -13,7 +13,7 @@ import RidePicker from '@/components/real-miami/jeep/RidePicker'
 import Glovebox, { type GloveboxPage } from './Glovebox'
 import PostcardStudio from './PostcardStudio'
 import { useCruiseGamepad } from './useCruiseGamepad'
-import { useCastSenderConnection } from './useCastSenderConnection'
+import CastButton from './CastButton'
 import './cruise-os.css'
 import PrototypeOpening from '@/components/experience/PrototypeOpening'
 import DriveDeck, { type DriveMode } from './DriveDeck'
@@ -56,7 +56,6 @@ const radioPanels = ['stations','presets','finds']
 
 /** Presentation/navigation only. Audio and scene lifetimes remain owned by JeepNight. */
 export default function CruiseOS(props: Props) {
-  useCastSenderConnection()
   const mobile=useMobileCruise(),[novaEnabled]=useCruisePreference('nova',false)
   const [panel, setPanel] = useState<Panel>(null)
   const radioLibrary = props.radioLibrary
@@ -110,6 +109,7 @@ export default function CruiseOS(props: Props) {
       <header className="os-header">
         <a className="os-brand" href="https://www.buenaondalifestyle.com/">Buena Onda<span>CRUISE / MIAMI</span></a>
         <div className="os-world-tools">
+          {!deck && <CastButton />}
           {props.started && !deck && <><label className="os-camera"><span className="os-sr-only">Camera</span><select aria-label="Camera view" value={props.view} onChange={event => props.onView(event.target.value as Props['view'])}>{views.filter(([id]) => !lookOnly.includes(id) || look).map(([id,name]) => <option key={id} value={id}>{name}</option>)}</select></label></>}
           {props.quickStart&&props.started&&props.onGarage?<button type="button" onClick={()=>{setPanel(null);props.onGarage!()}}>← Garage</button>:<button ref={gloveboxTrigger} type="button" aria-haspopup="dialog" aria-expanded={panel !== null && !radioPanels.includes(panel)} onClick={() => setPanel('home')}>Menu</button>}
         </div>

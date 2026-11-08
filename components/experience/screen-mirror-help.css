@@ -1,0 +1,26 @@
+.screen-mirror-help{box-sizing:border-box;width:min(560px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);margin:auto;padding:24px;border:1px solid #617369;border-radius:14px;background:#112423;color:#f2e9d8;font:15px/1.55 system-ui,sans-serif;overflow:auto;overscroll-behavior:contain;box-shadow:0 24px 90px #0009;color-scheme:dark}
+.screen-mirror-help::backdrop{background:#050d11c9;backdrop-filter:blur(6px)}
+.screen-mirror-help .screen-mirror-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0}
+.screen-mirror-help .screen-mirror-brand{margin:0 0 8px;color:#dba16b;font-size:10px;font-weight:600;letter-spacing:.13em}
+.screen-mirror-help h2{font:30px/1.12 Georgia,serif;letter-spacing:-.02em;margin:0;color:#f2e9d8;max-width:360px}
+.screen-mirror-help button,.screen-mirror-help select{font:inherit;min-height:44px;box-sizing:border-box}
+.screen-mirror-help .screen-mirror-close{flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid #63746d;border-radius:50%;background:transparent;color:#f2e9d8;font-size:25px;line-height:1;cursor:pointer}
+.screen-mirror-help .screen-mirror-intro{margin:16px 0;color:#d5dccc}
+.screen-mirror-help .screen-mirror-platform{display:grid;gap:6px;font-size:12px;font-weight:600;color:#dba16b}
+.screen-mirror-help .screen-mirror-platform select{width:100%;min-width:0;padding:10px 12px;border:1px solid #63746d;border-radius:6px;background:#1b3330;color:#f2e9d8;font-size:15px;font-weight:400}
+.screen-mirror-help .screen-mirror-network{margin:14px 0;font-size:13px;color:#bbc9bf}
+.screen-mirror-help ol{padding-left:25px;margin:16px 0}
+.screen-mirror-help li{padding-left:5px;margin:0 0 14px}
+.screen-mirror-help li::marker{color:#dba16b;font-weight:600}
+.screen-mirror-help strong{font-weight:600;color:#fff3de}
+.screen-mirror-help details{border-top:1px solid #40554a;border-bottom:1px solid #40554a;padding:2px 0;margin:16px 0}
+.screen-mirror-help summary{min-height:44px;box-sizing:border-box;padding:11px 0;cursor:pointer;color:#f2e9d8}
+.screen-mirror-help details p{margin:2px 0 12px}
+.screen-mirror-help a{display:inline-flex;align-items:center;min-height:44px;color:#efba88;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.screen-mirror-help .screen-mirror-stop{font-size:13px;color:#bbc9bf;margin:12px 0 0}
+.screen-mirror-help .screen-mirror-system{border-top:1px solid #40554a;margin:16px 0;padding-top:16px;font-size:13px;line-height:1.5;color:#bbc9bf}
+.screen-mirror-help .screen-mirror-return{display:block;width:100%;padding:11px 16px;border:1px solid #e8bd8e;border-radius:6px;background:#efb27c;color:#172925;font-weight:600;cursor:pointer}
+.screen-mirror-help .screen-mirror-open{display:flex;justify-content:center;width:100%;box-sizing:border-box;margin:16px 0 8px;padding:11px 16px;border:1px solid #e8bd8e;border-radius:6px;background:#efb27c;color:#172925;font-weight:600;text-decoration:none}
+.screen-mirror-help :is(button,select,a,summary):focus-visible{outline:3px solid #efb27c;outline-offset:3px}
+@media(max-width:420px){.screen-mirror-help{padding:18px;font-size:14px}.screen-mirror-help h2{font-size:27px}.screen-mirror-help li{margin-bottom:12px}}
+@media(max-height:500px){.screen-mirror-help{max-height:calc(100dvh - 12px);padding:16px 20px}.screen-mirror-help h2{font-size:25px}.screen-mirror-help .screen-mirror-intro{margin:10px 0}}
