@@ -109,7 +109,7 @@ export default function CruiseOS(props: Props) {
       <header className="os-header">
         <a className="os-brand" href="https://www.buenaondalifestyle.com/">Buena Onda<span>CRUISE / MIAMI</span></a>
         <div className="os-world-tools">
-          {!deck && <CastButton />}
+          {!deck && (!props.quickStart || props.started || props.listeningOnly) && <CastButton />}
           {props.started && !deck && <><label className="os-camera"><span className="os-sr-only">Camera</span><select aria-label="Camera view" value={props.view} onChange={event => props.onView(event.target.value as Props['view'])}>{views.filter(([id]) => !lookOnly.includes(id) || look).map(([id,name]) => <option key={id} value={id}>{name}</option>)}</select></label></>}
           {props.quickStart&&props.started&&props.onGarage?<button type="button" onClick={()=>{setPanel(null);props.onGarage!()}}>← Garage</button>:<button ref={gloveboxTrigger} type="button" aria-haspopup="dialog" aria-expanded={panel !== null && !radioPanels.includes(panel)} onClick={() => setPanel('home')}>Menu</button>}
         </div>
