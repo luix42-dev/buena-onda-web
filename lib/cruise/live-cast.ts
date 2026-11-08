@@ -2,6 +2,7 @@
 
 import { loadCastSdk, castSupported } from './google-cast'
 import { MIRROR_NAMESPACE, parseMirrorMessage } from './mirror-protocol'
+import { fetchCastIceServers } from './cast-ice'
 import { collectCastDiagnostic, uploadCastDiagnostic, type CastDiagnosticReason } from './cast-diagnostics'
 
 export type LiveCastSource = { stream: MediaStream; setLocalSilent: (silent: boolean) => void; dispose: () => void }
@@ -182,6 +183,7 @@ export async function startLiveCast() {
       return result
     })
   } catch (error) { finish(attempt, errorMessage(error)); return }
+  const iceServers = fetchCastIceServers()
   try {
     const selected = await Promise.race([selection, stopped])
     if (selected === cancelled || !isCurrent(attempt)) return
@@ -192,7 +194,9 @@ export async function startLiveCast() {
     if (result === cancelled || !isCurrent(attempt)) return
     if (result.error || !result.value) throw result.error || new Error('Could not capture the drive.')
     const source = result.value, session = attempt.session
-    const peer = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] })
+    const servers = await Promise.race([iceServers, stopped])
+    if (servers === cancelled || !isCurrent(attempt)) return
+    const peer = new RTCPeerConnection({ iceServers: servers })
     attempt.peer = peer
     let sentCandidates = 0, receivedCandidates = 0, reported = false, connectedReported = false
     const startedAt = Date.now()
