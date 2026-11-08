@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {useAdDismissed,useCruisePreference,useMobileCruise} from '@/lib/cruise/preferences'
 import {useCastReceiver} from '@/components/cruise-os/useCastReceiver'
 import {castIsRemote} from '@/lib/cruise/google-cast'
+import {useLiveCastSource} from '@/components/cruise-os/useLiveCastSource'
 import {readCastCamera,type CastCameraView} from '@/lib/cruise/cast-camera'
 import Promotion from '@/components/cruise-os/Promotion'
 
@@ -467,6 +468,7 @@ export default function JeepNight({humanRadio=false,experienceFirst=false,cruise
  // Each ride's own synthesized engine, under the radio, on every drive.
  const [castingRemote,setCastingRemote]=useState(false),castPark=useRef<boolean|null>(null),pausedRef=useRef(paused);pausedRef.current=paused
  const engine=useEngineSound({state,vehicle,active:started&&!listeningOnly&&!castingRemote,cockpit:view==='driver'})
+ useLiveCastSource(audio,engine,castReceiver,listeningOnly)
  const [tvSession]=useState(()=>cruiseOS&&isTvSession())
  useEffect(()=>{if(tvSession&&new URLSearchParams(location.search).get('receiver')!=='1'&&ready&&!!route&&!started)start()},[tvSession,ready,route,started]) // eslint-disable-line react-hooks/exhaustive-deps -- Cast receivers wait for the sender's muted sync before starting.
  useEffect(()=>{

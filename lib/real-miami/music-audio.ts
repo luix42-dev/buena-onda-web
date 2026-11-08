@@ -1,5 +1,6 @@
 import { MusicDirector } from './music'
 import { MiamiChoreography } from './miami-choreography'
+import { acquireMediaElementAudio } from '../cruise/media-element-capture'
 
 type CapturableAudio = HTMLAudioElement & { captureStream?: () => MediaStream; mozCaptureStream?: () => MediaStream }
 /** A capture tap never reroutes the audible element. Unsupported/CORS sources keep ordinary playback. */
@@ -14,6 +15,8 @@ export class MusicAudio {
   private source: MediaStreamAudioSourceNode | null = null
   private analyser: AnalyserNode | null = null
   private stream: MediaStream | null = null
+  private captureLease: ReturnType<typeof acquireMediaElementAudio> | null = null
+  private bindCapture: (() => void) | null = null
   /** Latest frequency bins (0-255). Read-only for visualizers; refreshed ~30 Hz while analysis is active. */
   readonly bins = new Uint8Array(1024)
   private waveform = new Uint8Array(2048)
@@ -32,15 +35,26 @@ export class MusicAudio {
     const capture = audio.captureStream || audio.mozCaptureStream
     if (!capture) { this.status = 'Audio capture unavailable in this browser'; return }
     try {
-      this.stream = capture.call(audio)
-      if (!this.stream.getAudioTracks().length) { this.status = 'No capturable audio track'; return }
-      this.source = this.context.createMediaStreamSource(this.stream)
+      this.captureLease = acquireMediaElementAudio(audio)
+      this.stream = this.captureLease.stream
       this.analyser = this.context.createAnalyser(); this.analyser.fftSize = 2048; this.analyser.smoothingTimeConstant = 0.35
-      this.source.connect(this.analyser) // No destination connection: the original radio is the only audible output.
+      let boundTrack: MediaStreamTrack | undefined
+      this.bindCapture = () => {
+        const track = this.stream?.getAudioTracks().find(item => item.readyState === 'live')
+        if (track === boundTrack) return
+        boundTrack = track
+        this.source?.disconnect(); this.source = null
+        if (!track || !this.context || !this.analyser) return
+        this.source = this.context.createMediaStreamSource(new MediaStream([track]))
+        this.source.connect(this.analyser) // The original radio remains the only audible local output.
+      }
+      this.stream.addEventListener('addtrack', this.bindCapture)
+      this.stream.addEventListener('removetrack', this.bindCapture)
+      this.bindCapture()
       this.previous = performance.now(); this.silence = 0
       this.timer = window.setInterval(() => {
         const now = performance.now(); const dt = (now - this.previous) / 1000; this.previous = now
-        const active = !audio.paused && !audio.muted && !document.hidden && audio.readyState >= 3 && this.context?.state === 'running'
+        const active = !!this.source && !audio.paused && (!audio.muted || audio.dataset.cruiseLocalSilent === 'true') && !document.hidden && audio.readyState >= 3 && this.context?.state === 'running'
         this.analysisActive = active
         if (active) { this.analyser!.getByteFrequencyData(this.bins); this.analyser!.getByteTimeDomainData(this.waveform) }
         this.sampledAt = now
@@ -56,7 +70,12 @@ export class MusicAudio {
     this.analysisActive = false; this.miami.clear()
     window.clearInterval(this.timer); this.timer = 0
     this.source?.disconnect(); this.analyser?.disconnect()
-    this.stream?.getTracks().forEach(track => track.stop())
+    if (this.bindCapture) {
+      this.stream?.removeEventListener('addtrack', this.bindCapture)
+      this.stream?.removeEventListener('removetrack', this.bindCapture)
+      this.bindCapture = null
+    }
+    this.captureLease?.release(); this.captureLease = null
     this.source = null; this.analyser = null; this.stream = null; this.director.reset()
   }
   dispose() { this.detach(); void this.context?.close(); this.context = null }

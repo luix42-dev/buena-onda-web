@@ -8,6 +8,7 @@ import type { CruiseStation } from '@/lib/real-miami/types'
 import {parseRadioVolume,RADIO_VOLUME_KEY,radioStatus,type RadioStatus} from '@/lib/cruise/radio-controller'
 import type { MusicAudio } from '@/lib/real-miami/music-audio'
 import { parsePlaylistPosition, parsePlaylistTrack, playlistTrackId, resolvePlaylistPosition, type CastPlaylistPosition } from '@/lib/cruise/cast-playlist'
+import { createMirrorAudioTap, type MirrorAudio } from '@/lib/cruise/mirror-audio'
 
 type RadioTrack = {
   src: string
@@ -43,6 +44,7 @@ type CruiseAudio = {
   getPlaylistPosition: () => CastPlaylistPosition | undefined
   restorePlaylistPosition: (position: CastPlaylistPosition) => boolean
   getMediaState: () => { currentTime: number; readyState: number; paused: boolean }
+  createMirrorAudio: () => Promise<MirrorAudio & { addStream: (stream: MediaStream) => () => void }>
   tuning: boolean
   status: RadioStatus
 }
@@ -81,6 +83,9 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     ? stations.filter(station => canPlayCruiseStation(station) && castStations.includes(station.id))
     : stations, [casting, stations])
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const mirrorAudioRef = useRef<ReturnType<typeof createMirrorAudioTap> | null>(null)
+  const mirrorCaptureTokenRef = useRef<object | null>(null)
+  const mirrorLocalSilentRef = useRef(false)
   const hlsRef = useRef<Hls | null>(null)
   const hlsLoadingRef = useRef(false)
   const tracksRef = useRef<RadioTrack[]>([])
@@ -454,6 +459,28 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       readyState: audio?.readyState ?? 0, paused: audio?.paused ?? true }
   }, [])
 
+  const createMirrorAudio = useCallback(async () => {
+    const audio = audioRef.current
+    if (!audio) throw new Error('Radio is still loading. Try casting again in a moment.')
+    mirrorAudioRef.current?.dispose()
+    const token = {}; mirrorCaptureTokenRef.current = token
+    const capture = createMirrorAudioTap(audio, () => ({
+      volume: volumeRef.current,
+      muted: mutedRef.current,
+      sourceReady: tracksRef.current.length > 0 && audio.src !== AUDIO_UNLOCK_SRC,
+    }), silent => { mirrorLocalSilentRef.current = silent }, message => {
+      if (mirrorCaptureTokenRef.current !== token) return
+      window.dispatchEvent(new CustomEvent('cruise:mirror-audio-error', { detail: { message } }))
+    })
+    mirrorAudioRef.current = capture
+    try { await capture.ready(); return capture }
+    catch (error) {
+      capture.dispose()
+      if (mirrorAudioRef.current === capture) mirrorAudioRef.current = null
+      throw error
+    }
+  }, [])
+
   const start = useCallback(() => {
     if(sendCast({type:"play"}))return
     music?.unlock()
@@ -585,6 +612,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     const context = tuningContextRef.current, voice = tuningVoiceRef.current
     if (context && voice) voice.output.gain.setValueAtTime(mutedRef.current ? 0 : normalized, context.currentTime)
     if (audioRef.current) audioRef.current.volume = normalized
+    mirrorAudioRef.current?.update()
     try { localStorage.setItem(RADIO_VOLUME_KEY,String(normalized)) } catch { /* The current session still has volume control. */ }
   }, [])
 
@@ -594,7 +622,8 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     mutedRef.current = nextMuted
     const context = tuningContextRef.current, voice = tuningVoiceRef.current
     if (context && voice) voice.output.gain.setValueAtTime(nextMuted ? 0 : volumeRef.current, context.currentTime)
-    if (audioRef.current) audioRef.current.muted = nextMuted
+    if (audioRef.current) audioRef.current.muted = nextMuted || mirrorLocalSilentRef.current
+    mirrorAudioRef.current?.update()
   }, [])
 
   useEffect(() => {
@@ -735,6 +764,8 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
 
     return () => {
       mountedRef.current = false
+      mirrorAudioRef.current?.dispose()
+      mirrorAudioRef.current = null
       clearLoadingTimeout()
       fetchControllerRef.current?.abort()
       fetchControllerRef.current = null
@@ -796,7 +827,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
       mutedRef.current = s.muted
       if (audioRef.current) {
         audioRef.current.volume = s.volume
-        audioRef.current.muted = s.muted
+        audioRef.current.muted = s.muted || mirrorLocalSilentRef.current
       }
       const next = stations.find(item => item.id === s.station)
       if (next) { stationRef.current = next; setStation(next) }
@@ -851,6 +882,7 @@ export function useCruiseAudio(music?: MusicAudio, stations: readonly CruiseStat
     getPlaylistPosition,
     restorePlaylistPosition,
     getMediaState,
+    createMirrorAudio,
     tuning,
     status:radioStatus({requested,playing,loading,available,error}),
   }

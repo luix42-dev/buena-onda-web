@@ -1,8 +1,9 @@
 'use client'
-import { useEffect, useRef, useState, type MutableRefObject } from 'react'
+import { useCallback, useEffect, useRef, useState, type MutableRefObject } from 'react'
 import { createEngineVoice, ENGINE_PROFILES, type EngineVoice } from '@/lib/cruise/engine-audio'
 import type { RideVehicleId } from '@/lib/real-miami/ride-vehicles'
 import type { NightState } from '../nightdrive/state'
+import type { MirrorAudio } from '@/lib/cruise/mirror-audio'
 
 const ENGINE_KEY = 'buena-onda:cruise:engine:v1', LEVEL = .3
 
@@ -11,30 +12,73 @@ const ENGINE_KEY = 'buena-onda:cruise:engine:v1', LEVEL = .3
 export function useEngineSound({ state, vehicle, active, cockpit }: { state: MutableRefObject<NightState>; vehicle: RideVehicleId; active: boolean; cockpit: boolean }) {
   const [on, setOn] = useState(() => { try { return typeof localStorage === 'undefined' || localStorage.getItem(ENGINE_KEY) !== 'off' } catch { return true } })
   const audio = useRef<{ context: AudioContext; master: GainNode; cabin: BiquadFilterNode } | null>(null), voice = useRef<EngineVoice | null>(null)
+  const mirror = useRef<MirrorAudio | null>(null)
   const live = useRef({ active, cockpit, on }); live.current = { active, cockpit, on }
   const toggle = () => setOn(value => { const next = !value; try { localStorage.setItem(ENGINE_KEY, next ? 'on' : 'off') } catch { /* private mode */ } return next })
+
+  const ensureAudio = useCallback(() => {
+    if (!audio.current) {
+      const Context = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!Context) throw new Error('Engine audio sharing is unavailable in this browser.')
+      const context = new Context(), cabin = context.createBiquadFilter(), master = context.createGain()
+      cabin.type = 'lowpass'; cabin.frequency.value = 9000; master.gain.value = 0
+      cabin.connect(master).connect(context.destination); audio.current = { context, master, cabin }
+    }
+    return audio.current
+  }, [])
+
+  const createMirrorAudio = useCallback(async (): Promise<MirrorAudio> => {
+    mirror.current?.dispose()
+    const { context, master } = ensureAudio()
+    const output = context.createMediaStreamDestination()
+    master.connect(output)
+    let localSilent = false, disposed = false
+    let resolveStopped!: () => void
+    const stopped = new Promise<void>(resolve => { resolveStopped = resolve })
+    const capture: MirrorAudio = {
+      stream: output.stream,
+      setLocalSilent(silent) {
+        if (disposed || silent === localSilent) return
+        if (silent) master.disconnect(context.destination)
+        else master.connect(context.destination)
+        localSilent = silent
+      },
+      dispose() {
+        if (disposed) return
+        if (localSilent && context.state !== 'closed') master.connect(context.destination)
+        disposed = true
+        resolveStopped()
+        master.disconnect(output)
+        output.stream.getTracks().forEach(track => track.stop())
+        if (mirror.current === capture) mirror.current = null
+      },
+    }
+    mirror.current = capture
+    let timeout: ReturnType<typeof setTimeout> | undefined
+    try {
+      await Promise.race([context.resume(), stopped, new Promise<void>((_, reject) => {
+        timeout = setTimeout(() => reject(new Error('Tap Cast again to enable engine audio sharing.')), 5000)
+      })])
+      if (disposed) throw new Error('Engine audio sharing was cancelled.')
+      return capture
+    } catch (error) { capture.dispose(); throw error }
+    finally { clearTimeout(timeout) }
+  }, [ensureAudio])
 
   // One context for the page; created and resumed only from a user gesture once the drive is running.
   useEffect(() => {
     if (!active || !on || typeof window === 'undefined' || new URLSearchParams(location.search).get('engine') === 'off') return
     const wake = () => {
-      if (!audio.current) {
-        const Context = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-        if (!Context) return
-        const context = new Context(), cabin = context.createBiquadFilter(), master = context.createGain()
-        cabin.type = 'lowpass'; cabin.frequency.value = 9000; master.gain.value = 0
-        cabin.connect(master).connect(context.destination); audio.current = { context, master, cabin }
-      }
-      if (audio.current.context.state === 'suspended') void audio.current.context.resume().catch(() => {})
+      try { const { context } = ensureAudio(); if (context.state === 'suspended') void context.resume().catch(() => {}) } catch { /* Audio is optional. */ }
     }
     wake()
     addEventListener('pointerdown', wake, true); addEventListener('keydown', wake, true)
     return () => { removeEventListener('pointerdown', wake, true); removeEventListener('keydown', wake, true) }
-  }, [active, on])
+  }, [active, on, ensureAudio])
 
   // A voice per car: switching rides swaps the engine.
   useEffect(() => {
-    if (!active || !on) return
+    if (!active || !on || new URLSearchParams(location.search).get('engine') === 'off') return
     let disposed = false
     const build = () => {
       const a = audio.current
@@ -74,6 +118,6 @@ export function useEngineSound({ state, vehicle, active, cockpit }: { state: Mut
     return () => { delete w.__engine; delete w.__engineDemo }
   }, [vehicle])
 
-  useEffect(() => () => { voice.current?.dispose(); void audio.current?.context.close().catch(() => {}); audio.current = null }, [])
-  return { on, toggle, label: ENGINE_PROFILES[vehicle]?.label ?? '' }
+  useEffect(() => () => { mirror.current?.dispose(); voice.current?.dispose(); void audio.current?.context.close().catch(() => {}); audio.current = null }, [])
+  return { on, toggle, label: ENGINE_PROFILES[vehicle]?.label ?? '', createMirrorAudio }
 }
