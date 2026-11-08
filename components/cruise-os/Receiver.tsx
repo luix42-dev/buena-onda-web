@@ -1,12 +1,29 @@
 'use client'
-import { createElement, useEffect, useRef, useState } from 'react'
+import { createElement, useCallback, useEffect, useRef, useState } from 'react'
 import { CAST_NAMESPACE, receiverCastStations, type CastCommand, type CastStatus } from '@/lib/cruise/google-cast'
 import { createReceiverFrameSeed } from '@/lib/cruise/cast-receiver-seed'
+import { MIRROR_NAMESPACE, type MirrorMessage } from '@/lib/cruise/mirror-protocol'
+import { useMirrorReceiver } from './useMirrorReceiver'
 
-/** The TV owns its Cruise scene/audio. No mirrored phone pixels. */
+/** New senders stream their live drive. Legacy senders retain their existing receiver. */
 export default function Receiver() {
   const frame = useRef<HTMLIFrameElement>(null)
   const [frameUrl, setFrameUrl] = useState<string | null>(null)
+  const [mirrorMode, setMirrorMode] = useState(false)
+  const mirroring = useRef(false)
+  const mirrorSend = useRef<(senderId: string, message: MirrorMessage) => void>(() => {})
+  const resetLegacy = useRef<() => void>(() => {})
+  const activateMirror = useCallback(() => {
+    // Remove the old rendering/audio owner before allowing the incoming stream to play.
+    mirroring.current = true
+    resetLegacy.current()
+    if (frame.current) frame.current.src = 'about:blank'
+    setFrameUrl(null)
+    setMirrorMode(true)
+  }, [])
+  const sendMirror = useCallback((sender: string, message: MirrorMessage) => mirrorSend.current(sender, message), [])
+  const mirror = useMirrorReceiver({ send: sendMirror, onActivate: activateMirror })
+  const mirrorController = useRef(mirror); mirrorController.current = mirror
   useEffect(() => {
     let context: any, systemReady = false, frameReady = false, disposed = false
     let latestState: CastStatus | null = null
@@ -19,6 +36,10 @@ export default function Receiver() {
     let lastCommand: Partial<CastCommand> | null = null
     let observedDocument: Document | null = null
     let removeFrameDiagnostics: (() => void) | null = null
+    resetLegacy.current = () => {
+      pending.length = 0; latestState = null; frameReady = false
+      removeFrameDiagnostics?.(); removeFrameDiagnostics = null; observedDocument = null
+    }
     const recordError = (source: string, reason: unknown) => {
       if (!diagnostics) return
       const message = reason instanceof Error ? `${reason.name}: ${reason.message}\n${reason.stack || ''}` : String(reason)
@@ -77,11 +98,15 @@ export default function Receiver() {
     }
     const removeParentDiagnostics = diagnostics ? watchErrors(window, 'receiver') : null
     const broadcast = (state: CastStatus) => {
-      if (!systemReady || !context?.isSystemReady() || !context.getSenders().length) return
+      if (mirroring.current || !systemReady || !context?.isSystemReady() || !context.getSenders().length) return
       try { context.sendCustomMessage(CAST_NAMESPACE, undefined, state) } catch (error) { reportError(error) }
     }
     const forward = (command: CastCommand) => {
+      if (mirroring.current) return
       frame.current?.contentWindow?.postMessage({ channel: CAST_NAMESPACE, command }, location.origin)
+    }
+    mirrorSend.current = (senderId, message) => {
+      if (!disposed && systemReady && context?.isSystemReady()) context.sendCustomMessage(MIRROR_NAMESPACE, senderId, message)
     }
     const script = document.createElement('script')
     script.src = 'https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js'
@@ -99,7 +124,14 @@ export default function Receiver() {
         context.addEventListener(framework.system.EventType.SENDER_CONNECTED, () => {
           if (latestState) broadcast(latestState)
         })
+        context.addEventListener(framework.system.EventType.SENDER_DISCONNECTED, (event: { senderId: string }) => {
+          mirrorController.current.disconnect(event.senderId)
+        })
+        context.addCustomMessageListener(MIRROR_NAMESPACE, (event: { senderId: string; data: unknown }) => {
+          void mirrorController.current.receive(event.senderId, event.data)
+        })
         context.addCustomMessageListener(CAST_NAMESPACE, (event: any) => {
+          if (mirroring.current) return
           const command = event.data as CastCommand
           if (command?.version !== 1 || !Number.isSafeInteger(command.sequence)
             || command.sequence <= (sequences.get(event.senderId) ?? -1)) return
@@ -121,11 +153,12 @@ export default function Receiver() {
         })
         context.start({
           disableIdleTimeout: true,
-          customNamespaces: { [CAST_NAMESPACE]: framework.system.MessageType.JSON },
+          customNamespaces: { [CAST_NAMESPACE]: framework.system.MessageType.JSON, [MIRROR_NAMESPACE]: framework.system.MessageType.JSON },
         })
       } catch (error) { reportError(error) }
     }
     const state = (event: MessageEvent) => {
+      if (mirroring.current) return
       if (event.origin !== location.origin || event.source !== frame.current?.contentWindow
         || event.data?.channel !== CAST_NAMESPACE || event.data.state?.version !== 1
         || event.data.state?.type !== 'state') return
@@ -138,6 +171,7 @@ export default function Receiver() {
     addEventListener('message', state)
     document.head.appendChild(script)
     const diagnosticTimer = diagnostics ? setInterval(() => {
+      if (mirroring.current) return
       const snapshot = {
         heartbeat: ++heartbeat, at: new Date().toISOString(), systemReady, frameReady,
         receiverDocumentState: document.readyState, receiverHidden: document.hidden,
@@ -152,6 +186,7 @@ export default function Receiver() {
     }, 1000) : null
     return () => {
       disposed = true
+      mirrorSend.current = () => {}; resetLegacy.current = () => {}
       removeEventListener('message', state)
       script.remove()
       if (diagnosticTimer) clearInterval(diagnosticTimer)
@@ -162,7 +197,17 @@ export default function Receiver() {
   }, [])
   return <>
     {createElement('cast-media-player', { style: { display: 'none' } })}
-    {frameUrl && <iframe ref={frame} title="Buena Onda Cruise TV" src={frameUrl}
+    {!mirrorMode && frameUrl && <iframe ref={frame} title="Buena Onda Cruise TV" src={frameUrl}
       allow="autoplay; fullscreen" style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', border: 0 }} />}
+    {mirrorMode && <>
+      <video ref={mirror.videoRef} autoPlay playsInline aria-label="Live Cruise from your phone"
+        onPlaying={mirror.onVideoPlaying} onTimeUpdate={mirror.onVideoTimeUpdate} onError={mirror.onVideoError}
+        style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
+      {mirror.state !== 'playing' && <div role="status" style={{ position: 'fixed', inset: 0, display: 'grid', placeItems: 'center', padding: '8vw', background: '#101d20', color: '#eee5d3', font: '28px/1.5 Georgia, serif', textAlign: 'center' }}>
+        <div><p style={{ fontSize: 18, color: '#dba16b' }}>BUENA ONDA CRUISE</p>
+          <p>{mirror.state === 'connecting' ? 'Connecting to your live drive…' : mirror.state === 'error' ? mirror.error : 'Your live drive has ended.'}</p>
+        </div>
+      </div>}
+    </>}
   </>
 }
