@@ -101,6 +101,10 @@ export function createMirrorAudioTap(
     }
     wireTrack()
   }
+  const resumeVisible = () => {
+    if (!disposed && !document.hidden && context.state === 'suspended') void context.resume().catch(() => {})
+  }
+  if (typeof document !== 'undefined') document.addEventListener('visibilitychange', resumeVisible)
   const sourceChanged = () => { releaseCapture(); attach() }
   const events = ['playing', 'loadedmetadata', 'canplay'] as const
   events.forEach(event => audio.addEventListener(event, attach))
@@ -119,6 +123,7 @@ export function createMirrorAudioTap(
   function dispose() {
     if (disposed) return
     disposed = true
+    if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', resumeVisible)
     resolveStopped()
     clearInterval(timer)
     events.forEach(event => audio.removeEventListener(event, attach))
@@ -150,13 +155,20 @@ export function createMirrorAudioTap(
     onFailure(message)
   }
   // resume() is invoked immediately in the Cast button's user gesture.
-  const resumed = context.resume().catch(() => { if (!disposed) fail('Tap Cast again to enable audio sharing.') })
+  const resumed = context.resume().catch(() => { if (!disposed) fail('Tap play to enable TV audio.', true) })
   update()
   attach()
   return {
     stream: output.stream,
     update,
     async ready() {
+      if (onWarning) {
+        // Android's native TV picker can temporarily suspend audio focus. The
+        // mixer track stays live and begins supplying sound when focus returns.
+        if (fault) throw fault
+        if (disposed) throw new Error('Audio sharing was cancelled.')
+        return
+      }
       let timeout: ReturnType<typeof setTimeout> | undefined
       try {
         await Promise.race([resumed, stopped, new Promise<void>(resolve => {
