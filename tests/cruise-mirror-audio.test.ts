@@ -193,6 +193,10 @@ test('mirror audio preserves its output track and local intent through station c
 
     let resume!: () => void
     Context.resumeGate = new Promise(resolve => { resume = resolve })
+    const focusPending = createMirrorAudioTap(audio as unknown as HTMLAudioElement, () => state, () => {}, () => {}, () => {})
+    await focusPending.ready()
+    assert.equal(focusPending.stream.getAudioTracks()[0].readyState, 'live', 'TV startup must not wait for Android audio focus')
+    focusPending.dispose()
     const pending = make(), ready = pending.ready()
     pending.dispose()
     await assert.rejects(ready, /cancelled/)
