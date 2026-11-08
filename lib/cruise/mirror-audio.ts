@@ -165,17 +165,8 @@ export function createMirrorAudioTap(
       } finally { clearTimeout(timeout) }
       if (fault) throw fault
       if (disposed) throw new Error('Audio sharing was cancelled.')
-      if (audio.paused || !getState().sourceReady || warning) return
-      const started = Date.now()
-      while (!disposed && !warning && !audio.paused && getState().sourceReady && (!track || track.readyState !== 'live' || track.muted)) {
-        if (Date.now() - started > 6500) {
-          fail('The station audio could not be shared. Try another station and cast again.', true)
-          break
-        }
-        await new Promise(resolve => setTimeout(resolve, 50))
-      }
-      if (fault) throw fault
-      if (disposed) throw new Error('Audio sharing was cancelled.')
+      // The outgoing mixer track is already live. Station input can attach later;
+      // waiting for its decoder here can cancel the TV launch while choosing a device.
     },
     setLocalSilent(silent) {
       if (disposed) return
