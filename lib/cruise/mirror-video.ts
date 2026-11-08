@@ -106,7 +106,11 @@ export function createMirrorVideo(listeningCard: () => { station: string; track:
     lastFrame += Math.max(1, Math.floor((elapsed + .1) / interval)) * interval
     try {
       if (now - lastScan > 250) { lastScan = now; scan() }
-      const capture = televisionViewport(innerWidth, innerHeight)
+      // Mobile layout/visual viewport dimensions can differ during rotation or
+      // embedded City resize. Map the actual wide surface, not the phone viewport.
+      const primary = ordered.find(layer => layer.frame)?.frame || ordered[0]?.canvas
+      const bounds = primary?.getBoundingClientRect()
+      const capture = bounds && bounds.width > 1 && bounds.height > 1 ? bounds : televisionViewport(innerWidth, innerHeight)
       const width = 1280, height = 720, scale = width / capture.width
       context.fillStyle = '#10191c'; context.fillRect(0, 0, width, height)
       const listening = listeningCard()
