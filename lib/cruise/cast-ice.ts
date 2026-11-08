@@ -1,5 +1,12 @@
 export const STUN_ONLY: RTCIceServer[] = [{ urls: 'stun:stun.l.google.com:19302' }]
 
+export function castPeerConfiguration(iceServers: RTCIceServer[]): RTCConfiguration {
+  const relays = iceServers.filter(server => (Array.isArray(server.urls) ? server.urls : [server.urls]).some(url => /^turns?:/i.test(url)))
+  // Once provisioned, use the relay instead of selecting a briefly reachable LAN
+  // candidate which can fail after the initial handshake on Android networks.
+  return { iceServers, iceTransportPolicy: relays.length ? 'relay' : 'all' }
+}
+
 /** Keep only well-formed STUN/TURN entries from the relay provider. */
 export function sanitizeIceServers(input: unknown): RTCIceServer[] | null {
   if (!Array.isArray(input) || !input.length || input.length > 8) return null

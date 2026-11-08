@@ -157,6 +157,25 @@ test('mirror audio preserves its output track and local intent through station c
     assert.equal(errors.length, 1)
 
     audio.crossOrigin = 'anonymous'
+    const warnings: string[] = []
+    audio.paused = false; audio.readyState = 4; state.sourceReady = true
+    audio.nextTracks = [new Track()]
+    const recoverable = createMirrorAudioTap(audio as unknown as HTMLAudioElement, () => state, () => {}, message => (errors as string[]).push(message), message => warnings.push(message))
+    try {
+      await recoverable.ready()
+      recoverable.setLocalSilent(true)
+      const output = recoverable.stream.getAudioTracks()[0]
+      audio.crossOrigin = null
+      audio.dispatchEvent(new Event('loadstart'))
+      assert.equal(output.readyState, 'live', 'a blocked station must not terminate the TV audio track')
+      assert.match(warnings.at(-1)!, /unavailable on TV/)
+      assert.equal(errors.length, 1, 'a station warning must not become a cast failure')
+      audio.crossOrigin = 'anonymous'; audio.nextTracks = [new Track()]
+      audio.dispatchEvent(new Event('playing'))
+      assert.equal(recoverable.stream.getAudioTracks()[0], output)
+      assert.equal(warnings.at(-1), '', 'a playable station clears the warning')
+    } finally { recoverable.dispose() }
+
     let resume!: () => void
     Context.resumeGate = new Promise(resolve => { resume = resolve })
     const pending = make(), ready = pending.ready()
