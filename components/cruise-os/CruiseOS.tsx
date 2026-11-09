@@ -14,6 +14,7 @@ import Glovebox, { type GloveboxPage } from './Glovebox'
 import PostcardStudio from './PostcardStudio'
 import { useCruiseGamepad } from './useCruiseGamepad'
 import CastButton from './CastButton'
+import OnlineCount from './OnlineCount'
 import './cruise-os.css'
 import PrototypeOpening from '@/components/experience/PrototypeOpening'
 import DriveDeck, { type DriveMode } from './DriveDeck'
@@ -105,6 +106,7 @@ export default function CruiseOS(props: Props) {
     <button aria-pressed={props.audio.muted} onClick={() => props.audio.setMuted(!props.audio.muted)}>{props.audio.muted ? 'Unmute' : 'Mute'}</button>
   </div>
   return <>
+    <OnlineCount garage={!props.started && !props.listeningOnly} />
     <div className="os-world-ui" aria-label="Cruise world controls">
       <header className="os-header">
         <a className="os-brand" href="https://www.buenaondalifestyle.com/">Buena Onda<span>CRUISE / MIAMI</span></a>

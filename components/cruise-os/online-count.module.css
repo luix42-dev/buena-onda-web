@@ -1,0 +1,6 @@
+.counter{position:absolute;z-index:49;top:max(27px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #f5ecdc26;border-radius:999px;background:#101c23d9;color:#f5ecdc;font:10px/1.2 var(--font-sans),Arial,sans-serif;letter-spacing:.05em;white-space:nowrap;pointer-events:none;backdrop-filter:blur(8px)}
+.counter strong{color:#e9b875;font-variant-numeric:tabular-nums;font-weight:600}
+.dot,.waiting{width:6px;height:6px;border-radius:50%;flex:none;background:#79c5a0}
+.waiting{background:#a9b5ae}
+@media(max-width:700px){.counter{top:max(70px,calc(env(safe-area-inset-top) + 58px));font-size:9px;padding:6px 10px}.now{display:none}.counter[data-garage=true]{top:max(29px,calc(env(safe-area-inset-top) + 9px));left:auto;right:82px;transform:none}}
+@media(max-height:500px) and (orientation:landscape){.counter{top:max(12px,env(safe-area-inset-top));font-size:9px}}
